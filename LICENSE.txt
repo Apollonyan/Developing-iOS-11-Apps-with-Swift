@@ -1,0 +1,1 @@
+本项目（包括字幕，代码等），以及原斯坦福课程均采用 知识共享 署名-非商业性使用-相同方式共享 3.0 美国 许可协议 进行许可。协议详见 https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh。
