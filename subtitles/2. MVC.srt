@@ -1,0 +1,5272 @@
+1
+00:00:00,401 --> 00:00:04,636
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,705 --> 00:00:10,375
+Stanford University. >> Welcome to Stanford CS193P,
+欢迎参加斯坦福 CS193P 课程
+
+3
+00:00:10,444 --> 00:00:15,013
+Developing Applications for iOS. This is Lecture Number 2,
+iOS 应用程序开发。今天是 2017 年秋季学期
+
+4
+00:00:15,081 --> 00:00:19,451
+fall of 2017. So today, I'm gonna spend the first 15 or
+的第二节课。
+
+5
+00:00:19,520 --> 00:00:22,053
+20 minutes talking about Model-View-Controller,
+
+6
+00:00:22,122 --> 00:00:25,790
+this design paradigm that I told you we always have to do
+
+7
+00:00:25,859 --> 00:00:29,595
+when we develop for iOS. >> And then, we're gonna apply
+
+8
+00:00:29,663 --> 00:00:32,964
+Model-View-Controller to our Concentration app, so
+
+9
+00:00:33,033 --> 00:00:35,734
+you're gonna get to see the kinda the concepts first,
+
+10
+00:00:35,802 --> 00:00:38,903
+then we get to see it in action. All right,
+
+11
+00:00:38,972 --> 00:00:42,841
+Model-View-Controller, what is it? It's essentially a way
+
+12
+00:00:42,909 --> 00:00:46,444
+we're gonna divide up all the objects in our system into
+
+13
+00:00:46,513 --> 00:00:52,250
+three camps. one camp, this blue camp, is the Model camp.
+
+14
+00:00:52,319 --> 00:00:56,521
+That's a UI independent set of objects that is
+
+15
+00:00:56,589 --> 00:01:00,959
+the what of your app? So for our Concentration game, it's
+
+16
+00:01:01,027 --> 00:01:03,996
+the part of our app that knows how to play Concentration.
+
+17
+00:01:04,064 --> 00:01:06,164
+It knows how to match cards, take them away,
+
+18
+00:01:06,233 --> 00:01:09,033
+it knows when to flip cards, it knows all that stuff.
+
+19
+00:01:09,102 --> 00:01:11,803
+It's all the kind of knowledge about the Concentration
+
+20
+00:01:11,872 --> 00:01:15,807
+game but nothing about how it appears on screen. That
+
+21
+00:01:15,876 --> 00:01:19,311
+is all part of the Controller camp's responsibility.
+
+22
+00:01:19,379 --> 00:01:21,747
+So the Controller camp is the how
+
+23
+00:01:23,083 --> 00:01:25,984
+your Concentration game appears on screen.
+
+24
+00:01:26,053 --> 00:01:28,587
+So Model is what is your app about, and
+
+25
+00:01:28,655 --> 00:01:31,923
+the Controller is how it shows up on screen.
+
+26
+00:01:31,992 --> 00:01:35,994
+And the View camp is your Controller's minions.
+
+27
+00:01:36,063 --> 00:01:41,333
+These are very generic UI elements, like UI button,
+
+28
+00:01:41,402 --> 00:01:45,104
+the UI view controller even UI label.
+
+29
+00:01:45,172 --> 00:01:48,173
+All those kind of generic things, UI things,
+
+30
+00:01:48,241 --> 00:01:52,644
+that the Controller has to communicate with the Model to
+
+31
+00:01:52,712 --> 00:01:58,149
+get your game, whatever is going on your app onto the UI.
+
+32
+00:01:58,218 --> 00:02:02,086
+So the View is generic minions of the Controller. So
+
+33
+00:02:02,155 --> 00:02:06,524
+those are the three camps. Now, MVC is really all about
+
+34
+00:02:06,593 --> 00:02:09,294
+managing the communication between these camps, right?
+
+35
+00:02:09,363 --> 00:02:10,628
+You put the objects in these camps, and
+
+36
+00:02:10,697 --> 00:02:13,598
+they have to kind of obey certain rules when they talk
+
+37
+00:02:13,667 --> 00:02:16,501
+to each other. So, I've drawn road signs up here.
+
+38
+00:02:16,570 --> 00:02:19,871
+You see the little road signs that are kind of approximating
+
+39
+00:02:19,940 --> 00:02:22,908
+what kind of communication is allowed between the various
+
+40
+00:02:22,977 --> 00:02:25,943
+camps. And let's look at it all in detail. So
+
+41
+00:02:26,012 --> 00:02:28,079
+the Controller, talking to the Model,
+
+42
+00:02:28,148 --> 00:02:31,716
+that's a fully dashed white line going in that direction.
+
+43
+00:02:31,785 --> 00:02:35,254
+You can cross over anytime you want, big green arrow.
+
+44
+00:02:35,322 --> 00:02:38,022
+The Controller can talk to the Model all it wants.
+
+45
+00:02:38,091 --> 00:02:41,393
+It has to be able to because it is the Controller's job to
+
+46
+00:02:41,462 --> 00:02:45,563
+present this what the thing is to the user, so it has to be
+
+47
+00:02:45,632 --> 00:02:48,433
+able to access the Model. So that's a big old green arrow,
+
+48
+00:02:48,502 --> 00:02:51,803
+and this is the Controller talking to the Model.
+
+49
+00:02:51,871 --> 00:02:57,609
+Pretty much unlimited communication to the Model's
+
+50
+00:02:57,678 --> 00:03:00,913
+publicly available functionality. What about this
+
+51
+00:03:00,981 --> 00:03:03,815
+direction? Well, similarly here, its minions,
+
+52
+00:03:03,883 --> 00:03:06,584
+the Controller has to be able to control its minions, so
+
+53
+00:03:06,653 --> 00:03:09,554
+it's a pretty much a wide open green arrow that way as well,
+
+54
+00:03:09,623 --> 00:03:11,689
+and you've already seen a green arrow from
+
+55
+00:03:11,758 --> 00:03:14,225
+the Controller to the View in our Concentration.
+
+56
+00:03:14,294 --> 00:03:17,162
+It was called an outlet. We had an outlet to the flip
+
+57
+00:03:17,230 --> 00:03:19,964
+count label, and of course we can talk to the flip count
+
+58
+00:03:20,033 --> 00:03:23,067
+label and say anything we want to it to get it to say what we
+
+59
+00:03:23,136 --> 00:03:26,037
+want in the UI. That is the Controller's prerogative.
+
+60
+00:03:26,106 --> 00:03:28,673
+So you can see the controller can talk to everybody
+
+61
+00:03:28,742 --> 00:03:31,977
+pretty much all at once. What about some of the other kind
+
+62
+00:03:32,046 --> 00:03:34,612
+of communication? What about the Model talking
+
+63
+00:03:34,681 --> 00:03:39,250
+directly to the View? Okay, that's pretty much impossible.
+
+64
+00:03:39,319 --> 00:03:41,153
+Why is that impossible? Two reasons.
+
+65
+00:03:41,221 --> 00:03:44,989
+One, the Model is UI independent, and the View only
+
+66
+00:03:45,058 --> 00:03:47,793
+has UI things in it, so there's absolutely no way a UI
+
+67
+00:03:47,861 --> 00:03:51,496
+independent thing could talk to such UI dependent things
+
+68
+00:03:51,564 --> 00:03:54,866
+like the View. Another reason is that these View things
+
+69
+00:03:54,935 --> 00:03:58,603
+are generic objects, like a button or a slider. How could
+
+70
+00:03:58,672 --> 00:04:01,939
+a button have any idea what a Concentration game is about?
+
+71
+00:04:02,008 --> 00:04:04,075
+No way. There's just no way it would know that, it's generic.
+
+72
+00:04:04,144 --> 00:04:06,578
+So if there's never any communication between these
+
+73
+00:04:06,646 --> 00:04:09,113
+two, I never wanna see you having any communication
+
+74
+00:04:09,182 --> 00:04:11,516
+between these camps in any of your homeworks or whatever.
+
+75
+00:04:11,585 --> 00:04:13,318
+That's why it's a double yellow line there.
+
+76
+00:04:13,387 --> 00:04:16,755
+No crossing over. All right, that's an easy one. What about
+
+77
+00:04:16,823 --> 00:04:20,158
+the View talking back to the Controller? This is probably
+
+78
+00:04:20,226 --> 00:04:25,029
+the most interesting of the communication pathways here.
+
+79
+00:04:25,098 --> 00:04:28,099
+The View can speak to its Controller, of course it,
+
+80
+00:04:28,168 --> 00:04:31,602
+it kind of has to, like when a button is clicked or whatever,
+
+81
+00:04:31,671 --> 00:04:33,204
+but when it communicates,
+
+82
+00:04:33,273 --> 00:04:36,608
+this communication has to be blind and structured. It
+
+83
+00:04:36,676 --> 00:04:40,145
+has to be blind because these are generic view objects.
+
+84
+00:04:40,213 --> 00:04:43,014
+The UI Button doesn't know anything about a Concentration
+
+85
+00:04:43,082 --> 00:04:46,050
+game controller, so when it's talking to the Controller,
+
+86
+00:04:46,119 --> 00:04:48,252
+it doesn't really know that it's a Concentration game
+
+87
+00:04:48,321 --> 00:04:50,488
+controller and it's structured in that
+
+88
+00:04:50,557 --> 00:04:52,857
+since we're gonna have this communication going on,
+
+89
+00:04:52,926 --> 00:04:56,294
+a generic object has to think a little bit ahead about how
+
+90
+00:04:56,363 --> 00:05:00,232
+it might wanna communicate with this Controller object.
+
+91
+00:05:00,300 --> 00:05:03,067
+So, you already know one structured, blind way for
+
+92
+00:05:03,136 --> 00:05:06,471
+your View to communicate, and that's target action.
+
+93
+00:05:06,540 --> 00:05:09,607
+When we Ctrl dragged and created the method touchCard.
+
+94
+00:05:09,676 --> 00:05:12,344
+That's target action. And all the Controller has to do is
+
+95
+00:05:12,412 --> 00:05:16,081
+kinda hang a target on itself. That's to say, it creates
+
+96
+00:05:16,150 --> 00:05:19,518
+a method like touchCard. And then UI button and
+
+97
+00:05:19,586 --> 00:05:21,453
+other things, they can get this action, and
+
+98
+00:05:21,521 --> 00:05:22,887
+every time the button is pressed,
+
+99
+00:05:22,956 --> 00:05:25,723
+they just call the target. This is a very,
+
+100
+00:05:25,792 --> 00:05:30,162
+very simple kind of blind structure communication. But
+
+101
+00:05:30,230 --> 00:05:33,165
+sometimes you need more complicated communication,
+
+102
+00:05:33,233 --> 00:05:35,867
+like you have a more complicated generic view
+
+103
+00:05:35,936 --> 00:05:39,103
+item like, let's say a scroll view. A scroll view is
+
+104
+00:05:39,172 --> 00:05:42,407
+scrolling around on some image or something like that, and
+
+105
+00:05:42,476 --> 00:05:44,409
+it might need to tell the Controller,
+
+106
+00:05:44,477 --> 00:05:48,513
+I scrolled to the end. Am I allowed to scroll down here?
+
+107
+00:05:48,582 --> 00:05:50,415
+Can I scroll vertically or horizontally?
+
+108
+00:05:50,483 --> 00:05:53,084
+It kinda wants to talk to Controller as it's
+
+109
+00:05:53,152 --> 00:05:57,255
+working to do its job. And we do that with these kind of
+
+110
+00:05:57,324 --> 00:06:00,992
+predefined methods that the scroll view defines as part of
+
+111
+00:06:01,061 --> 00:06:06,130
+what's called its delegate. So its delegate is just a var in
+
+112
+00:06:06,199 --> 00:06:11,036
+scroll view that, and this var will have some object in it.
+
+113
+00:06:11,104 --> 00:06:13,872
+And all we know about this object is that it responds to
+
+114
+00:06:13,941 --> 00:06:16,441
+a certain number of messages. Most of these messages
+
+115
+00:06:16,510 --> 00:06:18,710
+start with the words will, should, or did.
+
+116
+00:06:18,778 --> 00:06:21,979
+Like, I will scroll to here, should I scroll over here? I
+
+117
+00:06:22,048 --> 00:06:26,585
+did scroll down to here. Those are classic delegate methods.
+
+118
+00:06:26,653 --> 00:06:29,687
+And the Controller, using a mechanism called protocols,
+
+119
+00:06:29,756 --> 00:06:31,455
+which we'll talk about next week,
+
+120
+00:06:31,524 --> 00:06:33,458
+is able to tell the scroll view,
+
+121
+00:06:33,527 --> 00:06:36,528
+I'm your delegate, and all the scroll view will know
+
+122
+00:06:36,596 --> 00:06:38,562
+is that it implements these will, should, and did.
+
+123
+00:06:38,631 --> 00:06:40,966
+It doesn't know anything about it. It doesn't know its class,
+
+124
+00:06:41,034 --> 00:06:43,568
+doesn't know that it's has to do with Concentration game
+
+125
+00:06:43,637 --> 00:06:46,170
+obviously, it knows nothing. It just knows that
+
+126
+00:06:46,239 --> 00:06:48,506
+the Controller will implement that. So
+
+127
+00:06:48,575 --> 00:06:52,043
+we'll see delegation in about two weeks when we start using
+
+128
+00:06:52,111 --> 00:06:56,214
+more complicated UI objects. Now, another important thing
+
+129
+00:06:56,283 --> 00:06:58,717
+to remember in the MVC model is that views,
+
+130
+00:06:58,785 --> 00:07:00,085
+these generic things,
+
+131
+00:07:00,153 --> 00:07:03,388
+cannot own the data they're displaying. In other words,
+
+132
+00:07:03,456 --> 00:07:06,157
+they're not going to have the data they're displaying as
+
+133
+00:07:06,225 --> 00:07:09,460
+part of their instance variables. Now why is this?
+
+134
+00:07:09,529 --> 00:07:13,064
+Well, imagine that the View is showing your entire iPod music
+
+135
+00:07:13,133 --> 00:07:17,268
+library. And let's say you have 50,000 songs in there.
+
+136
+00:07:17,337 --> 00:07:20,471
+There's no way, it would make absolutely no sense to have
+
+137
+00:07:20,540 --> 00:07:23,475
+a list view or something, some generic view that lists
+
+138
+00:07:23,543 --> 00:07:27,345
+things, to bring all 50,000 of those things in there. So
+
+139
+00:07:27,413 --> 00:07:30,648
+instead, it uses this same kind of protocol mechanism to
+
+140
+00:07:30,717 --> 00:07:32,984
+have another set of special messages,
+
+141
+00:07:33,052 --> 00:07:36,353
+and they are messages like data, give me the data at, or
+
+142
+00:07:36,422 --> 00:07:39,891
+how many items are there? And the Controller implements that
+
+143
+00:07:39,960 --> 00:07:43,628
+so we can talk to the Model and get the data for the View.
+
+144
+00:07:43,697 --> 00:07:47,832
+So, for example, table view, which is a big scrolling list
+
+145
+00:07:47,901 --> 00:07:51,269
+kind of generic view item, that's in iOS.
+
+146
+00:07:51,338 --> 00:07:53,671
+When it's scrolling around on all your iPad music things,
+
+147
+00:07:53,740 --> 00:07:56,441
+it's just asking for the ones it's currently showing. Right,
+
+148
+00:07:56,510 --> 00:07:58,576
+there's 50,000. It's only scrolling around to
+
+149
+00:07:58,645 --> 00:08:00,978
+showing maybe 10 at a time. And so it's just asking
+
+150
+00:08:01,047 --> 00:08:02,446
+the controller give me the next ten,
+
+151
+00:08:02,515 --> 00:08:03,848
+give me the ten here, and
+
+152
+00:08:03,917 --> 00:08:05,549
+the controller turns around to the model,
+
+153
+00:08:05,618 --> 00:08:08,586
+which is probably a nice fast SQL database or something, and
+
+154
+00:08:08,655 --> 00:08:11,489
+grabbing the data, and handing it off to the view. Okay, and
+
+155
+00:08:11,558 --> 00:08:14,259
+this uses the same mechanism where the table view again
+
+156
+00:08:14,327 --> 00:08:16,894
+doesn't know anything about this as being an iPod
+
+157
+00:08:16,963 --> 00:08:20,364
+music app, it just knows that it's the data provider, and
+
+158
+00:08:20,433 --> 00:08:24,202
+we call this kind of delegate the data source. All right, so
+
+159
+00:08:24,271 --> 00:08:26,637
+you'll see that as well, and both data source and delegate,
+
+160
+00:08:26,706 --> 00:08:29,207
+very similar it's just kind of a different set of methods,
+
+161
+00:08:29,276 --> 00:08:32,076
+and these methods are of course dependent on the kind
+
+162
+00:08:32,145 --> 00:08:36,114
+of UI element, they're not a preset list, depends on what's
+
+163
+00:08:36,182 --> 00:08:39,917
+going on in that UI element. So that's the kind of
+
+164
+00:08:39,986 --> 00:08:42,920
+communication the view can have with the controller,
+
+165
+00:08:42,989 --> 00:08:46,625
+it's structured, it's kind of predefined, things like that.
+
+166
+00:08:46,693 --> 00:08:49,894
+Because of all this communication going on in this
+
+167
+00:08:49,962 --> 00:08:53,164
+direction we say the controller's job in an MVC is
+
+168
+00:08:53,232 --> 00:08:56,500
+to interpret and format the models information for
+
+169
+00:08:56,569 --> 00:08:59,203
+the view. That's its primary purpose.
+
+170
+00:08:59,272 --> 00:09:01,239
+It kind of also goes the other way,
+
+171
+00:09:01,307 --> 00:09:04,742
+It interprets user interaction in the view for the model.
+
+172
+00:09:04,811 --> 00:09:06,344
+It's the interpreter back and forth.
+
+173
+00:09:06,413 --> 00:09:11,382
+It's the center of all communication here.
+
+174
+00:09:11,451 --> 00:09:14,585
+What about the model? Can the model talk to its controller?
+
+175
+00:09:14,654 --> 00:09:19,623
+Obviously not directly. Because the model is UI
+
+176
+00:09:19,692 --> 00:09:23,094
+independent and the controller is fundamentally UI dependant,
+
+177
+00:09:23,162 --> 00:09:25,830
+so it can't do it directly. But there is a mechanism for
+
+178
+00:09:25,899 --> 00:09:29,167
+the model to communicate, for example, if some data changes
+
+179
+00:09:29,235 --> 00:09:32,036
+and it wants any UIs that are interested out there
+
+180
+00:09:32,105 --> 00:09:36,007
+to update. And the way it does that is with a model that I
+
+181
+00:09:36,076 --> 00:09:39,277
+call radio station model, and the model essentially
+
+182
+00:09:39,346 --> 00:09:42,113
+starts broadcasting on a certain known radio station.
+
+183
+00:09:42,182 --> 00:09:46,117
+And the controller up there it's just going to tune in and
+
+184
+00:09:46,185 --> 00:09:49,186
+when it hears oh something's changed on the models radio
+
+185
+00:09:49,255 --> 00:09:51,689
+station then it's gonna use its big green arrow,
+
+186
+00:09:51,758 --> 00:09:54,025
+to go talk to the model and get the date of the change, or
+
+187
+00:09:54,093 --> 00:09:57,161
+whatever. So this is a radio station model. In iOS
+
+188
+00:09:57,230 --> 00:10:01,399
+it's called notifications, or KVO, Key Value Observing, and
+
+189
+00:10:01,468 --> 00:10:05,103
+we'll talk about those in a few weeks as well. So there is
+
+190
+00:10:05,172 --> 00:10:08,405
+a way from the model to kind of broadcast, wow things
+
+191
+00:10:08,474 --> 00:10:13,544
+are changing. Now, some people have asked can a view tune in
+
+192
+00:10:13,613 --> 00:10:16,748
+to a radio station? A View could only really tune into
+
+193
+00:10:16,816 --> 00:10:19,918
+a controller or radio station like another UI thing, cuz
+
+194
+00:10:19,986 --> 00:10:23,187
+a view is fundamental of UI, but even that's pretty rare.
+
+195
+00:10:23,256 --> 00:10:24,722
+Usually the radio stations are pretty much for
+
+196
+00:10:24,791 --> 00:10:27,892
+the model to communicate hey something's happening in your
+
+197
+00:10:27,961 --> 00:10:35,099
+data or whatever. This, MVC, a collection of MVC, is
+
+198
+00:10:35,168 --> 00:10:39,437
+generally only used to control one screen on the iPhone, or
+
+199
+00:10:39,506 --> 00:10:42,941
+on the iPad. Maybe it can control little sub-place,
+
+200
+00:10:43,009 --> 00:10:46,344
+like maybe on an iPad, maybe one MVC controls one space,
+
+201
+00:10:46,413 --> 00:10:49,046
+and another MVC controls another place, and
+
+202
+00:10:49,115 --> 00:10:52,050
+possibly a third MVC controls another space, but
+
+203
+00:10:52,118 --> 00:10:55,453
+you would never have more than one screen, in an iPhone,
+
+204
+00:10:55,521 --> 00:10:59,557
+controlled by a single MVC. So the MVC kind of goes with
+
+205
+00:10:59,625 --> 00:11:03,394
+a grouping of UI. Usually one screen, one iPhone screen
+
+206
+00:11:03,463 --> 00:11:07,731
+size worth of stuff. So most apps have tons of screens.
+
+207
+00:11:07,800 --> 00:11:10,735
+You got your settings, you got all the different features in
+
+208
+00:11:10,804 --> 00:11:13,405
+your app, tons and tons of screens going on. So
+
+209
+00:11:13,473 --> 00:11:16,641
+how do we build an app out of multiple MVCs?
+
+210
+00:11:18,311 --> 00:11:22,913
+Multiple MVC apps look like this. I have a bunch of MVCs
+
+211
+00:11:22,982 --> 00:11:25,082
+upright. All those purple things
+
+212
+00:11:25,151 --> 00:11:29,120
+are all the controllers, and when one MVC wants to interact
+
+213
+00:11:29,189 --> 00:11:33,124
+with another MVC like right here, you see this right here,
+
+214
+00:11:33,192 --> 00:11:36,961
+it always treats those other MVCs as part of its view. So
+
+215
+00:11:37,030 --> 00:11:41,866
+these three MVCs down here are part of the view of this MVC.
+
+216
+00:11:43,402 --> 00:11:46,804
+So it has to talk to them in a blind and structured way.
+
+217
+00:11:46,873 --> 00:11:51,108
+These kind of act like generic, reusable components,
+
+218
+00:11:51,177 --> 00:11:54,278
+and we're gonna see how that works when we
+
+219
+00:11:54,347 --> 00:11:58,950
+start talking about multiple MVC apps, a week from Monday.
+
+220
+00:11:59,018 --> 00:12:02,019
+Now the main thing that we wanna do here is not build our
+
+221
+00:12:02,088 --> 00:12:05,222
+multiple MVC apps like this, where there's just green
+
+222
+00:12:05,291 --> 00:12:08,993
+arrows talking everywhere, and the reason we don't want this,
+
+223
+00:12:09,061 --> 00:12:12,463
+it is impossible to debug and find out what is going on
+
+224
+00:12:12,532 --> 00:12:15,733
+inside our app, because if something changes in the UI,
+
+225
+00:12:15,802 --> 00:12:18,536
+we don't know which controller was doing it, or
+
+226
+00:12:18,604 --> 00:12:22,473
+what model gave the data. We're just totally lost. So by
+
+227
+00:12:22,542 --> 00:12:25,543
+grouping them into these nice MVCs each screen on the phone
+
+228
+00:12:25,612 --> 00:12:29,013
+is very well contained and understandable, debugable,
+
+229
+00:12:29,081 --> 00:12:34,051
+manageable. Everybody got all that? So we're
+
+230
+00:12:34,120 --> 00:12:38,956
+not gonna do things this way. This is do not do it this way.
+
+231
+00:12:39,025 --> 00:12:40,725
+Okay so the demo that I'm gonna do.
+
+232
+00:12:40,794 --> 00:12:42,260
+We're going to do our concentration game.
+
+233
+00:12:42,328 --> 00:12:43,761
+I'm just gonna create the model and
+
+234
+00:12:43,830 --> 00:12:45,396
+we're gonna hook the model up into it.
+
+235
+00:12:45,464 --> 00:12:47,331
+Along the way we're gonna learn all these other things.
+
+236
+00:12:47,400 --> 00:12:50,635
+Again, this is a slide you go look at after the demo to make
+
+237
+00:12:50,704 --> 00:12:52,336
+sure you learn these things.
+
+238
+00:12:52,405 --> 00:12:54,238
+I won't get back to the slides. So once again,
+
+239
+00:12:54,307 --> 00:12:57,909
+what's coming up, don't forget that Friday section at 11:30,
+
+240
+00:12:57,977 --> 00:13:00,911
+on Friday, about Xcode and debugging, and then next week
+
+241
+00:13:00,980 --> 00:13:04,014
+we're gonna talk about Swift and some other iOS things, and
+
+242
+00:13:04,083 --> 00:13:06,750
+we're gonna do it all in with the Concentration app as
+
+243
+00:13:06,819 --> 00:13:08,453
+a little bit like our demo land.
+
+244
+00:13:08,521 --> 00:13:10,454
+I'll show you, talk to you about something, some slides,
+
+245
+00:13:10,523 --> 00:13:11,722
+and then we'll go to Concentration.
+
+246
+00:13:11,791 --> 00:13:16,827
+I'll show you how it actually looks. All right, here we are,
+
+247
+00:13:16,896 --> 00:13:21,265
+back exactly where we were at the end of Monday. We've got
+
+248
+00:13:21,333 --> 00:13:24,301
+our view controller here. We're all ready along the way
+
+249
+00:13:24,370 --> 00:13:29,339
+of MVC. Right here, in this story board, that's our V,
+
+250
+00:13:29,408 --> 00:13:33,644
+our view, and right here, this is our C our controller. Okay,
+
+251
+00:13:33,713 --> 00:13:35,879
+so this is our controller, and this is our view.
+
+252
+00:13:35,948 --> 00:13:40,084
+So we need the M. So let's go make the M right now. So
+
+253
+00:13:40,153 --> 00:13:44,689
+how do we make a new class or whatever in Xcode.
+
+254
+00:13:44,757 --> 00:13:48,893
+We go to file > new > file. That's how you create a new
+
+255
+00:13:48,961 --> 00:13:51,596
+Swift file, or whatever, and when you do that, it's gonna
+
+256
+00:13:51,664 --> 00:13:55,232
+offer you a lot of different kinds of iOS files you want,
+
+257
+00:13:55,301 --> 00:13:57,869
+but really these are the two that are most interesting.
+
+258
+00:13:57,938 --> 00:14:00,405
+This is if you wanna create a subclass of
+
+259
+00:14:00,473 --> 00:14:03,674
+a Coco Touch class, of an iOS class, like a subclass of
+
+260
+00:14:03,743 --> 00:14:06,077
+another view controller or something like that.
+
+261
+00:14:06,145 --> 00:14:09,313
+But here we're talking about the model, non-UI, so
+
+262
+00:14:09,382 --> 00:14:14,051
+we're going to pick a blank, totally blank Swift file.
+
+263
+00:14:14,120 --> 00:14:18,789
+This is asking the name, we always name the files that we
+
+264
+00:14:18,858 --> 00:14:21,959
+are creating in Swift. We name it after the most
+
+265
+00:14:22,028 --> 00:14:25,797
+important class that's gonna be in that file. Now I'm gonna
+
+266
+00:14:25,865 --> 00:14:28,866
+call my model, my main model class, Concentration,
+
+267
+00:14:28,935 --> 00:14:31,536
+because it is the thing that implements the game
+
+268
+00:14:31,604 --> 00:14:34,939
+Concentration, so it deserves the name Concentration, so
+
+269
+00:14:35,007 --> 00:14:38,275
+that's what I'm gonna call it. By the way, I'm not gonna
+
+270
+00:14:38,344 --> 00:14:41,512
+put it, you see this group, this is the top level project,
+
+271
+00:14:41,581 --> 00:14:44,382
+you really wanna put it in the folder one level down.
+
+272
+00:14:44,451 --> 00:14:46,717
+It's the same folder where your view controller it's
+
+273
+00:14:46,786 --> 00:14:48,653
+a better place to put it than at the top level.
+
+274
+00:14:48,722 --> 00:14:50,254
+It'll work if you put it in the top level, but
+
+275
+00:14:50,323 --> 00:14:53,324
+it just looks nicer to put it down here. All right so
+
+276
+00:14:53,392 --> 00:14:56,393
+I'm gonna create this Swift file, it creates it for us.
+
+277
+00:14:56,462 --> 00:14:59,229
+To make it full screen here. Notice that all it says is
+
+278
+00:14:59,298 --> 00:15:04,001
+import Foundation. Not import UI kit. This is not a UI file.
+
+279
+00:15:04,070 --> 00:15:06,503
+This is a model totally UI independent.
+
+280
+00:15:06,572 --> 00:15:07,871
+So I'm gonna make my class here.
+
+281
+00:15:07,940 --> 00:15:17,014
+I'm gonna call it Concentration. Concentration.
+
+282
+00:15:17,083 --> 00:15:21,052
+Okay, is my class, and when ever I build a new class,
+
+283
+00:15:21,120 --> 00:15:24,855
+I always wanna think about what its public API is.
+
+284
+00:15:24,924 --> 00:15:28,126
+How many people know what the phrase API mean?
+
+285
+00:15:28,194 --> 00:15:30,895
+Well, almost nobody, okay. So, API stands for
+
+286
+00:15:30,964 --> 00:15:34,098
+Application Programing Interface. It's just a list of
+
+287
+00:15:34,166 --> 00:15:37,668
+all the methods and instance variables in that class and
+
+288
+00:15:37,736 --> 00:15:41,239
+the public API is all the instance variables and methods
+
+289
+00:15:41,307 --> 00:15:44,975
+that you're going to allow other classes to call. So it's
+
+290
+00:15:45,044 --> 00:15:47,912
+basically how you use this class, and next week we'll
+
+291
+00:15:47,981 --> 00:15:50,648
+talk about how you actually make things private and
+
+292
+00:15:50,717 --> 00:15:53,918
+public, but today we're not going to worry about that, but
+
+293
+00:15:53,986 --> 00:15:56,420
+I'm going to basically design my public API.
+
+294
+00:15:56,489 --> 00:16:01,159
+Now why, when I kind of design my vars and funcs right off
+
+295
+00:16:01,227 --> 00:16:04,461
+the bat here, And the reason is because to do that I have
+
+296
+00:16:04,530 --> 00:16:07,965
+to get the essentials of what is it that this thing does and
+
+297
+00:16:08,034 --> 00:16:09,633
+how are people gonna use it. And
+
+298
+00:16:09,702 --> 00:16:12,703
+that makes me think clearly as I go in to my design here. So
+
+299
+00:16:12,772 --> 00:16:13,738
+I recommend doing this for
+
+300
+00:16:13,806 --> 00:16:17,741
+any class that you design. So a concentration game.
+
+301
+00:16:17,810 --> 00:16:20,845
+Remember, we had it up here? What are the essentials of it?
+
+302
+00:16:20,914 --> 00:16:25,049
+Well, one essential is it has some cards. That card,
+
+303
+00:16:25,117 --> 00:16:28,986
+those cards are arrays of cards or something,
+
+304
+00:16:29,055 --> 00:16:34,024
+not quite sure what, some kind of arrays of card. So,
+
+305
+00:16:34,093 --> 00:16:36,093
+that's a fundamental part of the Concentration game for
+
+306
+00:16:36,162 --> 00:16:40,564
+sure. What about, what can you do in the Concentration game?
+
+307
+00:16:40,633 --> 00:16:43,834
+The only thing that you're allowed to do as a user is
+
+308
+00:16:43,902 --> 00:16:46,337
+flip the cards over, right, choose cards. That's all you
+
+309
+00:16:46,405 --> 00:16:48,706
+can really choose cards. All the matching and
+
+310
+00:16:48,775 --> 00:16:51,041
+all that stuff is kind of internal implementation of
+
+311
+00:16:51,110 --> 00:16:54,178
+the Concentration game. From user's perspective,
+
+312
+00:16:54,246 --> 00:16:56,780
+you're just touching on it. So I'm gonna need some func
+
+313
+00:16:56,849 --> 00:17:00,050
+that let's me choose a card. Okay, and
+
+314
+00:17:00,119 --> 00:17:03,421
+the argument to this could be either a card, one of whatever
+
+315
+00:17:03,489 --> 00:17:06,557
+this thing is which we're gonna define in a second, but
+
+316
+00:17:06,626 --> 00:17:09,627
+I'm actually gonna make it be a little more flexible,
+
+317
+00:17:09,696 --> 00:17:13,231
+I'm gonna make it be the index into this array. So when you
+
+318
+00:17:13,299 --> 00:17:15,766
+choose a card, I'm gonna let you choose it by index
+
+319
+00:17:15,834 --> 00:17:18,336
+and that's just to be a little more flexible to different
+
+320
+00:17:18,405 --> 00:17:20,437
+kinds of UI's that might want to do this.
+
+321
+00:17:20,506 --> 00:17:23,240
+They might be index based. It's really not that big of
+
+322
+00:17:23,309 --> 00:17:25,809
+a deal cuz you could always just look up the index in this
+
+323
+00:17:25,878 --> 00:17:26,711
+array all the time.
+
+324
+00:17:26,779 --> 00:17:30,648
+But it's a little easier to subscript an array and
+
+325
+00:17:30,717 --> 00:17:32,183
+find something than to go the other way around,
+
+326
+00:17:32,251 --> 00:17:36,787
+do index of like we did last time. So that's it actually.
+
+327
+00:17:36,855 --> 00:17:40,157
+This is all, this is the entirety of the public API
+
+328
+00:17:40,226 --> 00:17:42,659
+of my Concentration game. Could not be simpler.
+
+329
+00:17:42,728 --> 00:17:45,763
+Now the only thing here is we gotta define Mr.Card. So
+
+330
+00:17:45,832 --> 00:17:51,302
+we're gonna go file>new>file and create another Swift file.
+
+331
+00:17:51,371 --> 00:17:54,205
+This one I'm gonna call card. Okay,
+
+332
+00:17:54,273 --> 00:17:56,340
+put it in the same place as everything else there.
+
+333
+00:17:58,111 --> 00:18:00,577
+All right, again, this is not a UI thing.
+
+334
+00:18:00,646 --> 00:18:03,181
+This is part of my model. So I have two things in my model.
+
+335
+00:18:03,249 --> 00:18:05,749
+The Concentration game in this card. What's really
+
+336
+00:18:05,818 --> 00:18:10,154
+interesting here is I'm going to make card to be a struct.
+
+337
+00:18:11,824 --> 00:18:16,894
+Not a class. Now what's the difference
+
+338
+00:18:16,963 --> 00:18:20,564
+between a struct and a class? Let's go ahead and
+
+339
+00:18:20,633 --> 00:18:22,999
+get the concentration up here in the same time.
+
+340
+00:18:23,068 --> 00:18:28,872
+Can use my manual thing here. We've got card on the left and
+
+341
+00:18:28,941 --> 00:18:32,543
+structure on the right. One's a class, one's a struct. Now
+
+342
+00:18:32,612 --> 00:18:35,379
+in a lot of other languages like C, a struct is just kinda
+
+343
+00:18:35,447 --> 00:18:39,016
+this little thing that holds a little bit of data.
+
+344
+00:18:39,084 --> 00:18:41,552
+It's nothing really that big a deal, but in Swift,
+
+345
+00:18:41,621 --> 00:18:44,322
+structs and classes are almost exactly the same.
+
+346
+00:18:44,390 --> 00:18:48,291
+They have methods, they have bars, very very similar. So
+
+347
+00:18:48,360 --> 00:18:49,860
+what is the difference between the two?
+
+348
+00:18:49,929 --> 00:18:52,529
+There's two major differences. There's some minor
+
+349
+00:18:52,598 --> 00:18:54,231
+differences we'll run across as we go here, but
+
+350
+00:18:54,300 --> 00:18:56,400
+there's two major differences between a struct and a class.
+
+351
+00:18:56,469 --> 00:18:59,770
+This is very important to understand this.
+
+352
+00:18:59,839 --> 00:19:02,606
+Number one, struct, no inheritance.
+
+353
+00:19:02,675 --> 00:19:05,042
+So you have no inheritance in struct that makes structs
+
+354
+00:19:05,111 --> 00:19:07,211
+a little simpler. Because if you have inheritance, you have
+
+355
+00:19:07,280 --> 00:19:09,212
+to kind of worry about all the things you're inheriting and
+
+356
+00:19:09,281 --> 00:19:11,848
+what that might mean for you. The struct has no inheritance
+
+357
+00:19:11,917 --> 00:19:15,453
+so it's a little simpler than a class. Number two, and
+
+358
+00:19:15,521 --> 00:19:19,956
+the most important difference, is that structs are value
+
+359
+00:19:20,025 --> 00:19:24,061
+types and classes are reference types.
+
+360
+00:19:24,129 --> 00:19:27,097
+What does that mean? A value type,
+
+361
+00:19:27,166 --> 00:19:30,267
+when you pass it as an argument, put it in an array,
+
+362
+00:19:30,336 --> 00:19:33,938
+even assign it to another variable, it gets copied.
+
+363
+00:19:35,441 --> 00:19:38,042
+This is very important to understand. It gets copied.
+
+364
+00:19:38,111 --> 00:19:40,210
+And why is it so important that you understand this?
+
+365
+00:19:40,279 --> 00:19:42,179
+Why don't you just avoid structs?
+
+366
+00:19:42,248 --> 00:19:44,114
+Because you can't avoid structs in iOS.
+
+367
+00:19:44,183 --> 00:19:48,218
+Arrays are structs, ints are structs, strings are structs,
+
+368
+00:19:48,287 --> 00:19:50,921
+dictionaries are structs, these are all structs.
+
+369
+00:19:50,990 --> 00:19:52,490
+When you pass them around in your code,
+
+370
+00:19:52,558 --> 00:19:54,625
+they're getting constantly copied.
+
+371
+00:19:54,694 --> 00:19:56,560
+Now you might be kinda like, whoa wait a second,
+
+372
+00:19:56,629 --> 00:20:00,097
+that is gonna be incredibly inefficient. No, because Swift
+
+373
+00:20:00,165 --> 00:20:03,133
+is super smart about when it passes these things around.
+
+374
+00:20:03,202 --> 00:20:05,735
+It doesn't copy all the bits of all the things of
+
+375
+00:20:05,804 --> 00:20:08,872
+the array when you pass it. It passes it in a way so that it
+
+376
+00:20:08,941 --> 00:20:11,609
+only has to make copies, actual copies, when someone
+
+377
+00:20:11,677 --> 00:20:15,413
+modifies it. That's called a copy-on-write semantics, and
+
+378
+00:20:15,481 --> 00:20:17,982
+that's the way Swift implements these value types.
+
+379
+00:20:18,050 --> 00:20:21,685
+So structs are value types. Classes are reference types.
+
+380
+00:20:21,754 --> 00:20:22,886
+What's a reference type?
+
+381
+00:20:22,955 --> 00:20:25,156
+That's what you're used to in other languages.
+
+382
+00:20:25,224 --> 00:20:28,325
+The thing lives in the heap. You got pointers to it. When
+
+383
+00:20:28,393 --> 00:20:31,028
+you pass it around, you're not passing the thing around.
+
+384
+00:20:31,097 --> 00:20:32,329
+You're just passing pointers to it.
+
+385
+00:20:32,398 --> 00:20:35,299
+And so you might have a whole bunch of code that
+
+386
+00:20:35,368 --> 00:20:38,001
+has pointers to the same object. So
+
+387
+00:20:38,070 --> 00:20:39,503
+you see the difference there?
+
+388
+00:20:39,572 --> 00:20:42,373
+So, structs are gonna take some getting used to because
+
+389
+00:20:42,442 --> 00:20:43,908
+you're not used to when you pass things,
+
+390
+00:20:43,977 --> 00:20:46,377
+it makes a copy. But you're going to see
+
+391
+00:20:46,445 --> 00:20:49,613
+it provides an awesome semantic that you can really
+
+392
+00:20:49,682 --> 00:20:52,249
+use to your advantage. We're even gonna see that here
+
+393
+00:20:52,318 --> 00:20:55,586
+in a small way in our example, but you'll definitely start
+
+394
+00:20:55,655 --> 00:20:57,721
+seeing it when you start using arrays and dictionaries and,
+
+395
+00:20:57,790 --> 00:21:02,226
+such, stuff like that. Okay, structs, card here,
+
+396
+00:21:02,294 --> 00:21:03,894
+what does a card need?
+
+397
+00:21:03,962 --> 00:21:06,530
+Well same thing, let's think about its essentials.
+
+398
+00:21:06,599 --> 00:21:10,100
+Certainly, a card can either be face up or not, so and
+
+399
+00:21:10,169 --> 00:21:12,669
+it probably always starts face down, let's say.
+
+400
+00:21:12,738 --> 00:21:17,808
+A card can be matched or not, probably starts out definitely
+
+401
+00:21:17,876 --> 00:21:21,545
+unmatched. You know a card also needs a unique identity.
+
+402
+00:21:21,614 --> 00:21:23,581
+Because we're playing a matching game and if we can't
+
+403
+00:21:23,649 --> 00:21:26,083
+tell the identity of the card, we can't match it against
+
+404
+00:21:26,151 --> 00:21:29,286
+another card. So we need some kind of identifier or
+
+405
+00:21:29,355 --> 00:21:31,321
+something, which really could be any type.
+
+406
+00:21:31,390 --> 00:21:32,990
+It could be a string or whatever. I'm gonna make
+
+407
+00:21:33,059 --> 00:21:36,993
+an Int because it's really easy to make a unique Int.
+
+408
+00:21:37,062 --> 00:21:38,662
+So, we definitely need that. Now,
+
+409
+00:21:38,731 --> 00:21:40,097
+some of you might thinking, oh,
+
+410
+00:21:40,166 --> 00:21:44,134
+okay a card also needs the emoji that's on it.
+
+411
+00:21:44,203 --> 00:21:47,838
+Like the pumpkin or the ghost. And very importantly,
+
+412
+00:21:47,907 --> 00:21:53,343
+no it doesn't. This card is UI independent.
+
+413
+00:21:53,412 --> 00:21:56,714
+So there's no way it can have emojis or jpeg images or
+
+414
+00:21:56,782 --> 00:21:59,617
+anything like that, that's all how you display the cards.
+
+415
+00:21:59,685 --> 00:22:02,886
+This is just how the cards behave, how the game works. So
+
+416
+00:22:02,955 --> 00:22:05,722
+you would never have an emoji in here, in this model. We're
+
+417
+00:22:05,791 --> 00:22:09,226
+in the model here not the UI. Very important to understand.
+
+418
+00:22:10,862 --> 00:22:15,966
+All right, so now we've got basically all of our API and
+
+419
+00:22:16,035 --> 00:22:18,636
+our model here. Let's get rid of some these errors. You see
+
+420
+00:22:18,704 --> 00:22:21,371
+that we still have this error class concentration has no
+
+421
+00:22:21,440 --> 00:22:23,740
+initializers, a very common error that we're used to.
+
+422
+00:22:23,809 --> 00:22:27,144
+That's because this var is never initialized, so
+
+423
+00:22:27,213 --> 00:22:30,514
+how do we create an array of cards, okay?
+
+424
+00:22:30,582 --> 00:22:33,483
+So this is now you're learning how to create an instance
+
+425
+00:22:33,552 --> 00:22:35,919
+of a struct or of a class. It's exactly the same.
+
+426
+00:22:35,988 --> 00:22:39,456
+And the way we do that is I'm just gonna say equals
+
+427
+00:22:39,525 --> 00:22:41,759
+open parentheses, close parentheses.
+
+428
+00:22:41,827 --> 00:22:45,229
+So this is just a type. It could be int or string.
+
+429
+00:22:45,297 --> 00:22:47,865
+It happens to be an array of cards. And I'm just putting
+
+430
+00:22:47,933 --> 00:22:50,133
+open parentheses, close parentheses after it. And
+
+431
+00:22:50,202 --> 00:22:53,904
+I could actually be putting various arguments in here. And
+
+432
+00:22:53,973 --> 00:22:56,674
+these correspond to those in ints I was telling you
+
+433
+00:22:56,742 --> 00:22:59,410
+about. Remember last time, I said class could have
+
+434
+00:22:59,478 --> 00:23:01,578
+an initializer, it's a special method called in it,
+
+435
+00:23:01,647 --> 00:23:03,446
+it can have whatever arguments you want.
+
+436
+00:23:03,515 --> 00:23:08,084
+You could have multiple in its. Array has an in it with
+
+437
+00:23:08,153 --> 00:23:11,855
+no arguments and what it does is it creates an empty array.
+
+438
+00:23:11,924 --> 00:23:14,324
+So the array exists, but there's no cards in it.
+
+439
+00:23:14,393 --> 00:23:17,427
+There's nothing in it. There are other, and you can go look
+
+440
+00:23:17,496 --> 00:23:19,863
+in the documentation, for other inlets that array has.
+
+441
+00:23:19,931 --> 00:23:23,434
+It has an it, for example, let's you reserve capacity for
+
+442
+00:23:23,502 --> 00:23:25,435
+a certain amount for performance reasons if you're
+
+443
+00:23:25,504 --> 00:23:27,871
+pretty sure you know how big there's going to be array.
+
+444
+00:23:27,940 --> 00:23:30,173
+You can create an array from another array and
+
+445
+00:23:30,242 --> 00:23:32,409
+it'll copy over the items from that other array,
+
+446
+00:23:32,478 --> 00:23:35,645
+so there are other in its, but the most common array in it
+
+447
+00:23:35,714 --> 00:23:38,382
+is this one where you just do nothing.
+
+448
+00:23:38,450 --> 00:23:42,719
+Now by the way, we're using this kind of easier to
+
+449
+00:23:42,788 --> 00:23:46,456
+understand syntax, but we would almost certainly use
+
+450
+00:23:46,525 --> 00:23:51,861
+this syntax. Array of Card. So I showed you last time.
+
+451
+00:23:51,930 --> 00:23:55,032
+So I've got an empty array of cards to work with right here.
+
+452
+00:23:55,101 --> 00:23:58,001
+I've got no warnings. So now, it's time to go
+
+453
+00:23:58,070 --> 00:24:02,406
+back to our controller and try to start using this model. So
+
+454
+00:24:02,474 --> 00:24:04,474
+were doing NBC were going back to our control. So
+
+455
+00:24:04,543 --> 00:24:08,345
+I'm gonna back over here. I'm gonna go to my ViewController.
+
+456
+00:24:08,413 --> 00:24:10,280
+let's have the Concentration on at the same time here. So
+
+457
+00:24:10,281 --> 00:24:12,148
+Actually, let's go,
+
+458
+00:24:12,218 --> 00:24:13,250
+we've got Concentration,
+
+459
+00:24:13,318 --> 00:24:16,220
+I'll make it small, there it is, and our ViewController,
+
+460
+00:24:16,288 --> 00:24:20,557
+so how am I gonna use my model in this controller? Well,
+
+461
+00:24:20,625 --> 00:24:23,927
+the first thing I wanna do is make that big green arrow,
+
+462
+00:24:23,996 --> 00:24:26,697
+the green arrow that points from my controller to my
+
+463
+00:24:26,766 --> 00:24:29,700
+model. And I'm gonna do that by creating a var
+
+464
+00:24:29,768 --> 00:24:32,969
+in my controller, and call it game. And it's gonna be of
+
+465
+00:24:33,038 --> 00:24:37,841
+type Concentration. There's my big green arrow. I can send
+
+466
+00:24:37,910 --> 00:24:41,779
+any messages I want to game, like, I can get at its cards.
+
+467
+00:24:41,847 --> 00:24:45,182
+I can choose a card, whatever. and I'm ready to go.
+
+468
+00:24:45,250 --> 00:24:48,051
+Now, look at the error I get, our favorite error,
+
+469
+00:24:48,120 --> 00:24:50,553
+Class ViewController has no initializers, because this
+
+470
+00:24:50,622 --> 00:24:54,158
+is not initialized. How are we gonna initialize this?
+
+471
+00:24:54,226 --> 00:24:56,893
+Let's see, we wanna do something similar to what we
+
+472
+00:24:56,962 --> 00:24:59,563
+did with this array over here. Let's try that, let's do
+
+473
+00:24:59,632 --> 00:25:04,200
+Concentration,this is probably not gonna work, right?
+
+474
+00:25:04,269 --> 00:25:06,703
+Because we didn't create an init with no arguments for
+
+475
+00:25:06,772 --> 00:25:09,906
+Concentration. But it did work!
+
+476
+00:25:09,975 --> 00:25:14,878
+How could this possibly work? The answer here is classes,
+
+477
+00:25:14,947 --> 00:25:19,683
+and Concentration is a class, get a free init with no
+
+478
+00:25:19,751 --> 00:25:23,253
+arguments as long as all of their vars are initialized.
+
+479
+00:25:23,322 --> 00:25:26,122
+And this only has one var, it's initialized, so
+
+480
+00:25:26,191 --> 00:25:30,694
+Concentration got a free init. We're initialized.
+
+481
+00:25:30,763 --> 00:25:33,797
+We don't actually need this type. Remember why?
+
+482
+00:25:33,865 --> 00:25:36,600
+Type inference, obviously Swift can figure out from that
+
+483
+00:25:36,668 --> 00:25:39,202
+line of code the game is of type Concentration, we don't
+
+484
+00:25:39,271 --> 00:25:42,739
+need to put that in there. But this was fun and nice that we
+
+485
+00:25:42,808 --> 00:25:46,142
+got this free initializer, but actually, it's no good.
+
+486
+00:25:46,211 --> 00:25:49,245
+It's not good enough. Because when we create a Concentration
+
+487
+00:25:49,314 --> 00:25:52,182
+game, we gotta think how many cards there are. Because
+
+488
+00:25:52,251 --> 00:25:54,685
+the Concentration game has to kinda load up this array over
+
+489
+00:25:54,753 --> 00:25:56,820
+here with all the cards that it's gonna use,
+
+490
+00:25:56,888 --> 00:25:59,556
+and we can't assume that a Concentration game only has 12
+
+491
+00:25:59,625 --> 00:26:02,559
+cards like we had on the board. Or only has four cards,
+
+492
+00:26:02,628 --> 00:26:07,231
+like our current UI here has. We actually need to create our
+
+493
+00:26:07,299 --> 00:26:11,034
+own init. So let's go, again, make some more space over
+
+494
+00:26:11,103 --> 00:26:15,238
+here. And add an init to our Concentration class.
+
+495
+00:26:15,307 --> 00:26:18,374
+Init. Now again, we get to have any arguments we want.
+
+496
+00:26:18,443 --> 00:26:20,944
+And what we need to create our game is we need to know
+
+497
+00:26:21,013 --> 00:26:25,182
+the number of pairs of cards. And that's gonna be an Int.
+
+498
+00:26:27,186 --> 00:26:29,119
+So this is the initializer that people are gonna
+
+499
+00:26:29,187 --> 00:26:31,321
+have to use to create a Concentration game.
+
+500
+00:26:31,390 --> 00:26:35,792
+Cuz we need this. So how are we gonna implement this init?
+
+501
+00:26:35,861 --> 00:26:39,996
+We need to create this many pairs of cards and
+
+502
+00:26:40,065 --> 00:26:44,901
+put them in here. Let's try and create one card.
+
+503
+00:26:44,970 --> 00:26:48,538
+Let card =, maybe we'll get lucky and
+
+504
+00:26:48,607 --> 00:26:51,675
+we can just say card. We got, that worked for
+
+505
+00:26:51,743 --> 00:26:56,212
+Concentration. Didn't work. Why didn't that work?
+
+506
+00:26:56,281 --> 00:27:00,083
+Because if you look over here to our card.
+
+507
+00:27:00,152 --> 00:27:04,888
+Let's bring up Mr. Card here. The card,
+
+508
+00:27:04,956 --> 00:27:10,227
+it has something that has to be initialized there.
+
+509
+00:27:10,296 --> 00:27:15,198
+Card is a struct. Now, structs get a free initializer
+
+510
+00:27:15,267 --> 00:27:17,367
+as well, but it's different than a class.
+
+511
+00:27:17,436 --> 00:27:19,803
+So this is another difference between structs and classes.
+
+512
+00:27:19,871 --> 00:27:23,807
+Struct, the free initializer they get, initializes all of
+
+513
+00:27:23,876 --> 00:27:26,376
+their vars, even if they're already pre-initialized,
+
+514
+00:27:26,445 --> 00:27:28,712
+like isFaceUp and isMatched. Watch this, okay,
+
+515
+00:27:28,780 --> 00:27:31,548
+I'm gonna just type card. Open parenthesis,
+
+516
+00:27:31,617 --> 00:27:34,884
+I'm gonna let Xcode show me the initializer, and
+
+517
+00:27:34,953 --> 00:27:38,955
+you can see that it just initializes every single one.
+
+518
+00:27:39,024 --> 00:27:42,192
+So I could do isFaceUp false, isMatched false,
+
+519
+00:27:42,261 --> 00:27:45,796
+the identifier, I guess I'm gonna have to make up some
+
+520
+00:27:45,864 --> 00:27:48,165
+identifier for this thing to do it.
+
+521
+00:27:48,233 --> 00:27:51,034
+So I could initialize a card like that, cuz I get a free
+
+522
+00:27:51,103 --> 00:27:54,504
+initializer. Classes never get this kind of free initializer.
+
+523
+00:27:54,573 --> 00:27:56,173
+They don't get the free initializer where they,
+
+524
+00:27:56,241 --> 00:27:58,508
+you can initialize all their vars.
+
+525
+00:27:58,576 --> 00:28:02,279
+That's purely a struct thing. But this is bogus, because
+
+526
+00:28:02,348 --> 00:28:05,181
+these are, start out false, so why, when I'm initializing,
+
+527
+00:28:05,250 --> 00:28:08,018
+do I have to say again they're false? If I want to get rid of
+
+528
+00:28:08,087 --> 00:28:10,587
+those, and to get rid of those, I have to add
+
+529
+00:28:10,656 --> 00:28:13,523
+an initializer here. So I'm gonna have an initializer that
+
+530
+00:28:13,592 --> 00:28:17,995
+just takes the identifier, which is an Int.
+
+531
+00:28:18,063 --> 00:28:22,366
+And then I wanna set this identifier right here equal to
+
+532
+00:28:22,434 --> 00:28:28,071
+this identifier right here. We've
+
+533
+00:28:28,140 --> 00:28:31,208
+got a couple of problems with that, with trying to do that.
+
+534
+00:28:31,276 --> 00:28:34,177
+One is this certainly can't be right. Identifier equals
+
+535
+00:28:34,246 --> 00:28:38,548
+identifier? That, that's just weird. One thing also notice
+
+536
+00:28:38,617 --> 00:28:42,319
+that in both of my inits, I didn't do an external name and
+
+537
+00:28:42,387 --> 00:28:44,020
+an internal name. You notice that?
+
+538
+00:28:44,089 --> 00:28:46,389
+I only did one, which means both the external name and
+
+539
+00:28:46,458 --> 00:28:49,226
+the internal name is the same. So one thing I could do to fix
+
+540
+00:28:49,295 --> 00:28:52,529
+that is make the internal name be different, like i.
+
+541
+00:28:52,598 --> 00:28:54,865
+And then I could say identifier = i.
+
+542
+00:28:54,933 --> 00:28:57,534
+You see? This is the external name,
+
+543
+00:28:57,603 --> 00:29:00,103
+I'm using it here when I call this init.
+
+544
+00:29:00,172 --> 00:29:03,407
+And this is the internal name, which I'm using inside here.
+
+545
+00:29:03,475 --> 00:29:06,543
+And now it knows that this identifier means that one. But
+
+546
+00:29:06,612 --> 00:29:08,545
+you know what? This is kinda gross. First of all,
+
+547
+00:29:08,613 --> 00:29:12,916
+I hate variable names like i. i is a bad variable name.
+
+548
+00:29:12,984 --> 00:29:15,518
+I just don't wanna have it here. But I can't really think
+
+549
+00:29:15,587 --> 00:29:19,089
+of another one here that's any better than identifier.
+
+550
+00:29:19,157 --> 00:29:20,957
+That's, identifier is a good name there. So
+
+551
+00:29:21,026 --> 00:29:23,560
+I actually want it to be same internal name and
+
+552
+00:29:23,628 --> 00:29:28,431
+external name. Now, inits are the one method that
+
+553
+00:29:28,500 --> 00:29:33,336
+usually has the same internal name and external name. Most
+
+554
+00:29:33,405 --> 00:29:36,873
+functions don't, but inits tend to. They don't have to,
+
+555
+00:29:36,942 --> 00:29:41,144
+but they tend to. So, now I'm back to saying this, but
+
+556
+00:29:41,213 --> 00:29:43,613
+it's not, I can't really distinguish between these two,
+
+557
+00:29:43,682 --> 00:29:46,183
+so how can I distinguish between two, these two?
+
+558
+00:29:46,251 --> 00:29:51,220
+This is the parameter. This is my identifier on myself.
+
+559
+00:29:51,289 --> 00:29:58,028
+Well, I can say, self. So, self., means my identifier.
+
+560
+00:29:58,096 --> 00:30:01,965
+This card's identifier. So now it knows we want this one,
+
+561
+00:30:02,034 --> 00:30:06,169
+and so this one is this one. That's kinda cool.
+
+562
+00:30:06,237 --> 00:30:11,040
+We got out of having that going on. All right, so
+
+563
+00:30:11,109 --> 00:30:12,709
+let's go back over here again.
+
+564
+00:30:12,777 --> 00:30:15,979
+We're able to create one card, great, worked good.
+
+565
+00:30:16,048 --> 00:30:19,316
+But we have to specify the identifier for the card. So
+
+566
+00:30:19,384 --> 00:30:21,551
+this really doesn't matter what the identifier is,
+
+567
+00:30:21,620 --> 00:30:24,621
+as long as it's unique. So I'm gonna create a for loop. So
+
+568
+00:30:24,690 --> 00:30:26,723
+pay attention, here's how you create a for loop in Swift.
+
+569
+00:30:26,792 --> 00:30:30,159
+It's a little different than other languages. It starts out
+
+570
+00:30:30,228 --> 00:30:34,197
+the same. For identifier, this is just for some variable. But
+
+571
+00:30:34,266 --> 00:30:38,902
+you don't say equals zero, less than 20, i plus plus,
+
+572
+00:30:38,971 --> 00:30:42,506
+we don't do any of that. Instead we use the word, in,
+
+573
+00:30:42,574 --> 00:30:46,576
+and then this right here can be anything in Swift that is
+
+574
+00:30:46,645 --> 00:30:50,880
+a sequence. And a sequence in Swift means anything where you
+
+575
+00:30:50,949 --> 00:30:53,249
+can start somewhere and go to the next one, go to next one,
+
+576
+00:30:53,318 --> 00:30:55,151
+go to the next one, and that's what a for loop does.
+
+577
+00:30:55,220 --> 00:30:56,686
+It starts somewhere, and it goes to the next one, and
+
+578
+00:30:56,755 --> 00:30:58,288
+goes to the next one, goes to the next one. So
+
+579
+00:30:58,356 --> 00:31:01,558
+what are some examples of sequences in Swift?
+
+580
+00:31:01,627 --> 00:31:04,995
+Arrays? Okay, obviously array, you could start at the first
+
+581
+00:31:05,064 --> 00:31:06,596
+element, and go to the next one, go to the next one,
+
+582
+00:31:06,665 --> 00:31:07,764
+till you get to the end.
+
+583
+00:31:07,833 --> 00:31:11,801
+String, a string is a sequence. First character,
+
+584
+00:31:11,870 --> 00:31:13,302
+go to the next character, go to the next character,
+
+585
+00:31:13,371 --> 00:31:17,440
+next character. The one I'm gonna use here is a really
+
+586
+00:31:17,509 --> 00:31:20,276
+cool sequence called a countable range. So
+
+587
+00:31:20,345 --> 00:31:22,812
+a countable range is a range, in other words, it has a start
+
+588
+00:31:22,881 --> 00:31:25,115
+and an end, and it's countable. In other words,
+
+589
+00:31:25,184 --> 00:31:28,118
+it knows how to count through it and go to the next space.
+
+590
+00:31:28,186 --> 00:31:31,054
+And there's special syntax in Swift because it's so
+
+591
+00:31:31,123 --> 00:31:33,089
+common to wanna make a countable range. And
+
+592
+00:31:33,158 --> 00:31:38,294
+it goes like this. The start of the countable range,
+
+593
+00:31:38,363 --> 00:31:41,998
+..<, which means from 0 up to and
+
+594
+00:31:42,067 --> 00:31:46,236
+not including the number of pairs of cards.
+
+595
+00:31:48,673 --> 00:31:52,609
+So this is a for loop that is going to go through,
+
+596
+00:31:52,677 --> 00:31:55,511
+why is that not cutting? I didn't select it,
+
+597
+00:31:55,580 --> 00:31:59,215
+I guess? Cut, there we go, paste. It's gonna go through
+
+598
+00:31:59,284 --> 00:32:02,552
+the number of pairs of cards. Now, there's another kind of
+
+599
+00:32:02,621 --> 00:32:07,324
+countable range creator here, which is .. Dot,
+
+600
+00:32:07,392 --> 00:32:11,594
+that means zero to here, including this one.
+
+601
+00:32:11,663 --> 00:32:14,197
+So, here, if I wanted to use that one, I would say one dot,
+
+602
+00:32:14,265 --> 00:32:18,100
+dot, dot cuz I only want this many cards. So, that makes
+
+603
+00:32:18,169 --> 00:32:22,305
+a countable range. In fact, if you look at this thing's type,
+
+604
+00:32:22,373 --> 00:32:26,476
+it'll be countable range. Okay, so now I'm going through
+
+605
+00:32:26,544 --> 00:32:29,479
+and creating a card here, but I need another card.
+
+606
+00:32:29,548 --> 00:32:33,983
+So I could say matchingCard = the same thing, right?
+
+607
+00:32:34,052 --> 00:32:37,754
+Create another card with the same identifier. Makes sense,
+
+608
+00:32:37,822 --> 00:32:40,323
+right? Now I have two cards that match that I can add to
+
+609
+00:32:40,392 --> 00:32:41,691
+my bunch of cards up here.
+
+610
+00:32:41,760 --> 00:32:42,992
+I always need two cards that match,
+
+611
+00:32:43,061 --> 00:32:46,196
+but you know what's amazing is I actually don't even need to
+
+612
+00:32:46,265 --> 00:32:50,934
+do this right here. I can just do this,
+
+613
+00:32:53,071 --> 00:32:56,906
+because when you assign a struct, which card is
+
+614
+00:32:56,975 --> 00:33:02,111
+a struct, to another variable, it copies it. So
+
+615
+00:33:02,180 --> 00:33:05,748
+matchingCard is a copy of card. Just by assigning it,
+
+616
+00:33:05,817 --> 00:33:10,353
+it makes it a copy. Now I have a card and a copy of it. So
+
+617
+00:33:10,422 --> 00:33:12,455
+I can say cards.append,
+
+618
+00:33:12,524 --> 00:33:17,293
+that's how you add something to an array, append the card,
+
+619
+00:33:17,362 --> 00:33:22,265
+and then cards.append the matching card, matchingCard.
+
+620
+00:33:22,333 --> 00:33:25,168
+So now I've added these two matching cards to my array.
+
+621
+00:33:25,237 --> 00:33:27,837
+And I'm going to do that number of pairs of cards
+
+622
+00:33:27,906 --> 00:33:30,073
+times. I've got my cards,
+
+623
+00:33:30,141 --> 00:33:33,977
+however I don't even need this matching card.
+
+624
+00:33:34,045 --> 00:33:37,747
+I can get rid of that, and instead just say append(card).
+
+625
+00:33:37,816 --> 00:33:41,851
+Because putting things in an array or taking them out also
+
+626
+00:33:41,919 --> 00:33:46,590
+copies the card. There are actually three cards involved
+
+627
+00:33:46,658 --> 00:33:49,625
+here. This one I create, the copy that gets put in here,
+
+628
+00:33:49,694 --> 00:33:53,363
+and another different copy that gets put here. So
+
+629
+00:33:53,431 --> 00:33:56,132
+understand that when you pass these structs around,
+
+630
+00:33:56,200 --> 00:33:57,901
+you are copying them.
+
+631
+00:33:57,969 --> 00:34:01,338
+Now later when we turn one of these cards face up,
+
+632
+00:34:01,407 --> 00:34:03,373
+the copy will actually be a real copy and
+
+633
+00:34:03,442 --> 00:34:06,542
+only one of them so it's not a pointer to the same card and
+
+634
+00:34:06,611 --> 00:34:09,779
+memory, it's actually two different cards. By the way,
+
+635
+00:34:09,847 --> 00:34:12,748
+another cool way we can do this different syntax is I can
+
+636
+00:34:12,817 --> 00:34:16,886
+say cards, which is an array of cards,
+
+637
+00:34:16,955 --> 00:34:21,591
++= another array of cards, with those two cards.
+
+638
+00:34:23,562 --> 00:34:26,763
+Plus equals works with arrays. You can add arrays together
+
+639
+00:34:26,831 --> 00:34:29,499
+and this, putting this card in this array and
+
+640
+00:34:29,567 --> 00:34:33,069
+this card in this array copies it. And then we put it in
+
+641
+00:34:33,138 --> 00:34:36,305
+there, and in effect this array also gets copied
+
+642
+00:34:36,374 --> 00:34:41,310
+cuz array is a struct. All right, so we got that,
+
+643
+00:34:41,379 --> 00:34:44,681
+this is all going quite well. The only thing I don't really
+
+644
+00:34:44,750 --> 00:34:47,717
+like about this is it doesn't really seem right to me that
+
+645
+00:34:47,786 --> 00:34:50,654
+the concentration game has to pick the identifiers for
+
+646
+00:34:50,722 --> 00:34:53,456
+the cards, because the concentration game does not
+
+647
+00:34:53,525 --> 00:34:55,191
+care what the identifiers are.
+
+648
+00:34:55,260 --> 00:34:58,761
+All it cares is that they're unique. So really,
+
+649
+00:34:58,830 --> 00:35:01,998
+I don't wanna do this. I want to get this out of here, and
+
+650
+00:35:02,067 --> 00:35:06,636
+have the card figure out its own unique identifier. There's
+
+651
+00:35:06,704 --> 00:35:09,739
+no reason the card could just like pick 1 billion and 7.
+
+652
+00:35:09,807 --> 00:35:12,141
+And that's its, as long as that's unique and
+
+653
+00:35:12,210 --> 00:35:14,978
+it never gives out another card with 1 billion and 7,
+
+654
+00:35:15,046 --> 00:35:17,380
+then it should be unique. That's what I do.
+
+655
+00:35:17,448 --> 00:35:21,150
+I want this init to not have to take this identifier. But
+
+656
+00:35:21,219 --> 00:35:24,721
+if this init over here doesn't take the identifier, then we
+
+657
+00:35:24,790 --> 00:35:28,691
+gotta figure out how to create a unique identifier here. So
+
+658
+00:35:28,760 --> 00:35:31,227
+how are we gonna do that? Well, I'm going to teach you
+
+659
+00:35:31,296 --> 00:35:34,163
+another cool Swift thing, which is I'm going to create
+
+660
+00:35:34,232 --> 00:35:39,436
+a special kind of method. It's a static method.
+
+661
+00:35:39,504 --> 00:35:43,907
+It's a same syntax func but it has static before it, and
+
+662
+00:35:43,975 --> 00:35:48,745
+it's going to get a unique identifier. It's gonna return
+
+663
+00:35:48,813 --> 00:35:52,015
+an int that's gonna be unique. And every time I call it,
+
+664
+00:35:52,084 --> 00:35:54,517
+it's gonna return me another unique identifier.
+
+665
+00:35:54,586 --> 00:35:56,853
+It's just gonna return some unique identifier.
+
+666
+00:35:56,921 --> 00:35:59,989
+We're gonna have to make it work. Now, what is a static
+
+667
+00:36:00,058 --> 00:36:03,526
+function all about? A static function is a function,
+
+668
+00:36:03,595 --> 00:36:06,329
+even though it's in the card class, you can't send it
+
+669
+00:36:06,397 --> 00:36:11,000
+to a card. A card does not understand this message.
+
+670
+00:36:11,069 --> 00:36:14,938
+What understands this message is the type card.
+
+671
+00:36:16,174 --> 00:36:18,908
+You send it to the type itself.
+
+672
+00:36:18,977 --> 00:36:21,811
+So you can think of it kind of like a global function,
+
+673
+00:36:21,880 --> 00:36:24,747
+a utility function or something that's just tied to
+
+674
+00:36:24,816 --> 00:36:28,952
+the type. Does it make sense? You don't send it to a card.
+
+675
+00:36:29,020 --> 00:36:31,154
+You can't ask a card for a unique identifier.
+
+676
+00:36:31,222 --> 00:36:34,891
+You ask the card type. So, and that's what static means.
+
+677
+00:36:34,960 --> 00:36:38,361
+So here when I want to call this function,
+
+678
+00:36:38,430 --> 00:36:43,066
+I send it to the type card.getUniqueIdentifier.
+
+679
+00:36:43,134 --> 00:36:46,802
+That's getting it from the card type. Now how am I gonna
+
+680
+00:36:46,871 --> 00:36:49,272
+implement this get unique identifier? Well,
+
+681
+00:36:49,340 --> 00:36:53,310
+I'm gonna have a static var, cuz you can have those too.
+
+682
+00:36:53,378 --> 00:36:56,179
+So that's a variable that's stored with the type,
+
+683
+00:36:56,248 --> 00:36:59,549
+not with each individual card. These are scored with
+
+684
+00:36:59,618 --> 00:37:01,517
+each individual card, this is stored with the type.
+
+685
+00:37:01,586 --> 00:37:05,088
+And I'm gonna call this my identifierFactory,
+
+686
+00:37:05,157 --> 00:37:09,158
+I'm just gonna start out with = 0. And then in here,
+
+687
+00:37:09,227 --> 00:37:13,730
+what I'm going to say is Card.identifierFactory += 1 to
+
+688
+00:37:13,798 --> 00:37:17,266
+make it a new unique identifier. And then I'm gonna
+
+689
+00:37:17,335 --> 00:37:21,337
+return Card.identifierFactory. So now I'm returning a unique,
+
+690
+00:37:21,406 --> 00:37:23,740
+every time you call this, it makes a unique int,
+
+691
+00:37:23,808 --> 00:37:25,975
+cuz it starts at zero and makes a unique int each time.
+
+692
+00:37:26,044 --> 00:37:30,746
+Now, what's interesting is I don't really seen to say Card
+
+693
+00:37:30,815 --> 00:37:34,917
+dot because I'm in a static method, so I can access my
+
+694
+00:37:34,986 --> 00:37:41,524
+static vars without the Card. So that's kinda cool.
+
+695
+00:37:41,593 --> 00:37:45,295
+So I just want to take this little detour to show you how
+
+696
+00:37:45,363 --> 00:37:48,865
+you can do these nice utility methods or whatever,
+
+697
+00:37:48,934 --> 00:37:51,601
+utility vars on a type. So now let's go back over to
+
+698
+00:37:51,670 --> 00:37:54,437
+our concentration, over here cuz it's got a warning, let's
+
+699
+00:37:54,506 --> 00:37:57,040
+see what this warning is all about. It says immutable value
+
+700
+00:37:57,108 --> 00:38:00,710
+identifier, this, was never used.
+
+701
+00:38:00,778 --> 00:38:04,747
+It says consider replacing with underbar or removing it.
+
+702
+00:38:04,816 --> 00:38:07,583
+Well, we can't remove it because it's the control
+
+703
+00:38:07,652 --> 00:38:11,287
+variable of our for loop. But we can replace it with
+
+704
+00:38:11,355 --> 00:38:15,424
+underbar. Underbar in Swift means kind of ignore this or
+
+705
+00:38:15,493 --> 00:38:17,827
+I don't really care what this is cuz I'm not gonna use it.
+
+706
+00:38:17,896 --> 00:38:19,729
+And we've actually used this before, do you remember?
+
+707
+00:38:19,798 --> 00:38:22,866
+Back over here in our ViewController, touchCard,
+
+708
+00:38:22,934 --> 00:38:26,135
+it's external name was underbar. Which means don't
+
+709
+00:38:26,203 --> 00:38:28,738
+give an external name when you call this because remember
+
+710
+00:38:28,807 --> 00:38:30,873
+touchCard's kind of an Objective-C thing.
+
+711
+00:38:30,942 --> 00:38:33,376
+This target action, and so it didn't have external name and
+
+712
+00:38:33,444 --> 00:38:34,310
+so we just said, hey,
+
+713
+00:38:34,379 --> 00:38:37,179
+I don't want an external name. Similar kind of thing here in
+
+714
+00:38:37,248 --> 00:38:40,015
+Concentration, we're doing a for loop, we still want to do
+
+715
+00:38:40,084 --> 00:38:42,752
+this, this many times. But we don't care what identifier is
+
+716
+00:38:42,821 --> 00:38:47,657
+cuz we don't use it in here anymore. Got that? Okay,
+
+717
+00:38:47,726 --> 00:38:51,193
+the last thing we need to do here when we're initializing,
+
+718
+00:38:51,262 --> 00:38:54,997
+it's kind of left to do, is to shuffle the cards. cuz if we
+
+719
+00:38:55,066 --> 00:38:58,334
+don't shuffle the cards, then they're always going to be in
+
+720
+00:38:58,403 --> 00:39:01,136
+the same order all the time. It would be really easy to
+
+721
+00:39:01,205 --> 00:39:03,473
+play the game. I'm gonna leave that for your homework.
+
+722
+00:39:03,541 --> 00:39:06,676
+Your job is gonna be shuffle the cards there. It's gonna
+
+723
+00:39:06,744 --> 00:39:09,879
+require you to understand, again, this value type arrays,
+
+724
+00:39:09,947 --> 00:39:12,515
+or value types, etc. It's a pretty good exercise to
+
+725
+00:39:12,584 --> 00:39:13,582
+do that, so I'm gonna leave that for
+
+726
+00:39:13,651 --> 00:39:18,687
+you. We've solved the whole initialization problem. So
+
+727
+00:39:18,756 --> 00:39:22,659
+now we can go back over to our view controller over here. And
+
+728
+00:39:22,728 --> 00:39:27,063
+find it. There it is. And Concentration
+
+729
+00:39:27,132 --> 00:39:31,066
+right here needs to specify the number of pairs of cards.
+
+730
+00:39:31,135 --> 00:39:36,739
+numberOfPairsOfCards, and what number do we put here?
+
+731
+00:39:36,807 --> 00:39:38,874
+Right, I guess we could put four.
+
+732
+00:39:38,943 --> 00:39:41,577
+We know we have four cards in our UI.
+
+733
+00:39:41,646 --> 00:39:43,312
+But what if I wanted to add more buttons?
+
+734
+00:39:43,381 --> 00:39:45,715
+Now I gotta come back here and change this four?
+
+735
+00:39:47,419 --> 00:39:50,286
+Why don't we just count the number of card buttons,
+
+736
+00:39:50,354 --> 00:39:53,456
+remember? Card buttons, all those buttons are in there,
+
+737
+00:39:53,524 --> 00:39:57,026
+cardButtons.count. That's how many cards there are, and
+
+738
+00:39:57,095 --> 00:39:58,961
+we'll just divide by two. All right, make sense?
+
+739
+00:39:59,030 --> 00:40:00,730
+Let's so you can see this a little better.
+
+740
+00:40:02,500 --> 00:40:04,701
+I'm just gonna take the card buttons and divide by two. So
+
+741
+00:40:04,769 --> 00:40:08,237
+if I have four card buttons, that's two pairs, obviously.
+
+742
+00:40:08,306 --> 00:40:09,505
+Actually I should be a little careful.
+
+743
+00:40:09,574 --> 00:40:11,707
+If I had an odd number of cards,
+
+744
+00:40:11,776 --> 00:40:15,878
+I probably wanna round up. So if I had three cards I'd need
+
+745
+00:40:15,947 --> 00:40:17,480
+two pairs so I have four total cards.
+
+746
+00:40:17,549 --> 00:40:19,882
+I'll never be able to match that third card but
+
+747
+00:40:19,951 --> 00:40:23,252
+at least the game will have enough. Now, this is the right
+
+748
+00:40:23,321 --> 00:40:27,089
+thing to do but I got a very serious error here. Okay,
+
+749
+00:40:27,158 --> 00:40:29,993
+let's look at it. It says, cannot use Instance member
+
+750
+00:40:30,061 --> 00:40:33,830
+card buttons, right here, within a property initializer.
+
+751
+00:40:33,898 --> 00:40:35,999
+Oh yeah, look, var game that's a property and
+
+752
+00:40:36,067 --> 00:40:38,667
+I'm initializing it, that's a property initializer.
+
+753
+00:40:38,736 --> 00:40:42,805
+It says property initializers run before self is available.
+
+754
+00:40:42,873 --> 00:40:45,275
+Oh, remember I told you that in Swift you have to
+
+755
+00:40:45,343 --> 00:40:48,043
+completely initialize something before you can use
+
+756
+00:40:48,112 --> 00:40:50,880
+anything in it, before you can access any of its bars,
+
+757
+00:40:50,949 --> 00:40:52,949
+call any of its functions, anything.
+
+758
+00:40:53,018 --> 00:40:55,784
+Well that obviously we're not fully initialized yet
+
+759
+00:40:55,853 --> 00:40:59,154
+because we're in the process of initializing game. And
+
+760
+00:40:59,223 --> 00:41:01,023
+game is the one that's initialized so
+
+761
+00:41:01,092 --> 00:41:03,893
+we got a catch-22 here. How the heck are we gonna do this,
+
+762
+00:41:03,962 --> 00:41:06,228
+where one depends on the other? Where one var depends
+
+763
+00:41:06,297 --> 00:41:09,565
+on another. There's a couple of ways to address this.
+
+764
+00:41:09,634 --> 00:41:12,101
+But I'm gonna show you kind
+
+765
+00:41:12,170 --> 00:41:16,705
+of a cool one which is lazy. If you make a var lazy,
+
+766
+00:41:16,774 --> 00:41:21,143
+that means it doesn't actually initialize until someone grabs
+
+767
+00:41:21,212 --> 00:41:24,881
+it. Until someone tries to use it. As soon as someone tries
+
+768
+00:41:24,950 --> 00:41:27,049
+to use game, then it's going to initialize it.
+
+769
+00:41:27,118 --> 00:41:31,087
+Now by definition, because of that very same catch 22, no
+
+770
+00:41:31,155 --> 00:41:34,924
+one can try and use game until this is fully initialized.
+
+771
+00:41:34,993 --> 00:41:39,062
+So we win, it works perfectly. And lazy count as,
+
+772
+00:41:39,130 --> 00:41:43,700
+this var initialized. Counting that game of getting going
+
+773
+00:41:43,768 --> 00:41:46,268
+this way, so it's awesome. There is one restriction
+
+774
+00:41:46,337 --> 00:41:48,437
+about lazy though, that's not so nice.
+
+775
+00:41:48,506 --> 00:41:52,909
+Which is, it can not have a didSet. If you try
+
+776
+00:41:52,977 --> 00:41:55,678
+to add a didSet to it, like we did here with flipCount,
+
+777
+00:41:55,747 --> 00:41:58,847
+remember that? It's, you're gonna get an error here,
+
+778
+00:41:58,916 --> 00:42:02,284
+this is clash declaration blah blah blah, but basically what
+
+779
+00:42:02,353 --> 00:42:05,587
+it's saying here is you can't use property observers with
+
+780
+00:42:05,656 --> 00:42:07,957
+a lazy var. So if you need to use a property observer there,
+
+781
+00:42:08,026 --> 00:42:09,692
+you need to find out every time the game changes,
+
+782
+00:42:09,761 --> 00:42:11,260
+you're going to have to do a different way.
+
+783
+00:42:11,328 --> 00:42:12,829
+What are the other ways you can do it, by the way?
+
+784
+00:42:12,897 --> 00:42:14,062
+Well, you're going to
+
+785
+00:42:14,131 --> 00:42:17,199
+learn next week that there are methods that are called after
+
+786
+00:42:17,268 --> 00:42:20,936
+all these outlets get fired up. The system will call
+
+787
+00:42:21,005 --> 00:42:23,305
+a method and in there you can initialize your game.
+
+788
+00:42:23,374 --> 00:42:25,708
+And maybe in the mean time you make it an optional or
+
+789
+00:42:25,776 --> 00:42:28,978
+maybe even an implicitly unwrapped optional.
+
+790
+00:42:29,046 --> 00:42:30,813
+A little hint to you there. But you won't need that for
+
+791
+00:42:30,882 --> 00:42:32,515
+your homework though. You'll be able to do this for
+
+792
+00:42:32,583 --> 00:42:36,485
+your homework. Okay, so it's good. Now we have the game,
+
+793
+00:42:36,554 --> 00:42:39,355
+the big green arrow. There our controller is talking to our
+
+794
+00:42:39,423 --> 00:42:41,724
+model. What do we need to do next?
+
+795
+00:42:41,793 --> 00:42:44,526
+Let's go back and look at our Concentration API again, see
+
+796
+00:42:44,595 --> 00:42:47,496
+what we need to do. It seems like there is two things,
+
+797
+00:42:47,565 --> 00:42:51,067
+we have used this part of the API. We got these two left, so
+
+798
+00:42:51,135 --> 00:42:53,902
+let's do this one, chooseCard. We got to tell
+
+799
+00:42:53,971 --> 00:42:56,539
+the concentration model when our card is chosen.
+
+800
+00:42:56,607 --> 00:42:59,508
+And we know exactly when that is in our controller.
+
+801
+00:42:59,577 --> 00:43:02,878
+It's right here in touch card. Whenever a button calls touch
+
+802
+00:43:02,947 --> 00:43:04,613
+card, we know a card's being touched.
+
+803
+00:43:04,682 --> 00:43:07,417
+And instead of doing all this flip card with emoji choices
+
+804
+00:43:07,485 --> 00:43:09,985
+thing right here, I'm just gonna tell my game hey,
+
+805
+00:43:10,054 --> 00:43:15,591
+choose this card. Okay?
+
+806
+00:43:15,659 --> 00:43:18,594
+So instead of handling it myself, I'm letting the model
+
+807
+00:43:18,663 --> 00:43:21,230
+handle it. So, it's the one that's figuring it out.
+
+808
+00:43:21,299 --> 00:43:24,199
+But there's something interesting to note here,
+
+809
+00:43:24,268 --> 00:43:26,869
+is that when I tell the model choose this card,
+
+810
+00:43:26,938 --> 00:43:29,905
+it might change the game might change. And in fact, I hope it
+
+811
+00:43:29,974 --> 00:43:31,841
+does change cuz it's supposed to be doing matching and
+
+812
+00:43:31,909 --> 00:43:34,877
+all kinds of stuff. So it's gonna change. So now,
+
+813
+00:43:34,946 --> 00:43:39,415
+we have to update our view from the model, okay?
+
+814
+00:43:39,483 --> 00:43:41,683
+Our view is now a little bit out of sync with the model,
+
+815
+00:43:41,752 --> 00:43:43,085
+because when we chose this card,
+
+816
+00:43:43,154 --> 00:43:45,087
+that could have caused the game to change.
+
+817
+00:43:45,156 --> 00:43:48,057
+So we need a method like updateViewFromModel or
+
+818
+00:43:48,126 --> 00:43:51,594
+something like that. Some kind of func down here,
+
+819
+00:43:51,663 --> 00:43:55,430
+func updateViewFromModel. And what's that gonna do?
+
+820
+00:43:55,499 --> 00:43:58,534
+That's gonna use the other part of this API right here.
+
+821
+00:43:58,603 --> 00:44:00,803
+It's gonna look at all the cards and
+
+822
+00:44:00,871 --> 00:44:03,772
+make sure all our card buttons match, right?
+
+823
+00:44:03,841 --> 00:44:06,208
+Whether they're face up, whether they're matched,
+
+824
+00:44:06,277 --> 00:44:08,010
+all that business. We look in the game,
+
+825
+00:44:08,079 --> 00:44:11,046
+find out, and make sure our card doesn't match. All right,
+
+826
+00:44:11,115 --> 00:44:12,948
+so how to we implement this updateViewFromModel?
+
+827
+00:44:13,017 --> 00:44:15,618
+Well I wanna go through all the card buttons and
+
+828
+00:44:15,687 --> 00:44:19,355
+look at the game and set it up appropriately. So I could do
+
+829
+00:44:19,424 --> 00:44:24,893
+another for loop where I say for button in my cardButtons,
+
+830
+00:44:24,962 --> 00:44:28,330
+okay? And just go through and now each button will be if we
+
+831
+00:44:28,399 --> 00:44:31,834
+look at the type of this it's going to be a UI button. See?
+
+832
+00:44:31,903 --> 00:44:34,603
+Because this is a sequence of buttons. Isn't that cool?
+
+833
+00:44:34,672 --> 00:44:37,306
+All right? But I'm actually not gonna do that.
+
+834
+00:44:37,375 --> 00:44:40,843
+I'm gonna do something else because I need to look up this
+
+835
+00:44:40,911 --> 00:44:45,147
+button's index in this card thing so I'm gonna do my for
+
+836
+00:44:45,215 --> 00:44:50,018
+loop by index. In the card buttons array which I could do
+
+837
+00:44:50,087 --> 00:44:54,757
+with 0 dot dot less than cardButtons.count, okay.
+
+838
+00:44:54,825 --> 00:44:57,860
+Everybody understand this counter range right here, but
+
+839
+00:44:57,929 --> 00:45:00,830
+I'm not gonna do that either I'm gonna show you another
+
+840
+00:45:00,899 --> 00:45:05,501
+way, cardButtons.indicies, okay. cardButton.indicies
+
+841
+00:45:05,570 --> 00:45:09,839
+Indices is a method in array. Okay, that returs
+
+842
+00:45:09,907 --> 00:45:13,509
+you a countable range of all the indexes into the array.
+
+843
+00:45:13,578 --> 00:45:16,946
+In fact, if I option click on Indices, look at it's type,
+
+844
+00:45:17,014 --> 00:45:20,916
+Countable range of int. Okay? So,
+
+845
+00:45:20,985 --> 00:45:23,986
+that's a kind of a cool way to go through all the indices.
+
+846
+00:45:24,055 --> 00:45:26,088
+And now that I have the Indices,
+
+847
+00:45:26,156 --> 00:45:29,858
+I can say let button equal our cardButtons at that index.
+
+848
+00:45:29,927 --> 00:45:34,764
+And let the card equal the game's cards
+
+849
+00:45:34,832 --> 00:45:38,567
+at that index. So this is awesome. I've got the button.
+
+850
+00:45:38,636 --> 00:45:41,270
+I've got the card. I just have to make them match up.
+
+851
+00:45:41,338 --> 00:45:44,039
+So I'm going to say, if the card is faced up,
+
+852
+00:45:44,108 --> 00:45:47,009
+then I'm gonna do my face up UI, which is what,
+
+853
+00:45:47,077 --> 00:45:50,512
+that's this one. With the white background there.
+
+854
+00:45:50,581 --> 00:45:54,450
+So let's do that. Otherwise else, if it's faced down,
+
+855
+00:45:54,519 --> 00:45:57,820
+I want the orange background thing right here, that there.
+
+856
+00:45:57,889 --> 00:45:59,554
+And now I don't even need flip card,
+
+857
+00:45:59,623 --> 00:46:03,525
+let's get rid of flip card. Everybody,
+
+858
+00:46:03,594 --> 00:46:05,661
+see what I did ther? I just made it so
+
+859
+00:46:05,730 --> 00:46:09,164
+that the button matches the card. There's one other thing,
+
+860
+00:46:09,233 --> 00:46:12,634
+by the way, cards can be matched. They have is matched.
+
+861
+00:46:12,703 --> 00:46:16,005
+Remember, when we put that in the card, is matched. So
+
+862
+00:46:16,074 --> 00:46:19,875
+I need to handle that. And the way I'm gonna do that,
+
+863
+00:46:19,944 --> 00:46:25,648
+is I'm gonna make matched, cards, so
+
+864
+00:46:25,716 --> 00:46:28,917
+that I can see them. If the card is matched,
+
+865
+00:46:28,986 --> 00:46:31,988
+I'm just gonna take it out of the UI by making it background
+
+866
+00:46:32,056 --> 00:46:34,690
+be clear instead of orange, when it's matched and
+
+867
+00:46:34,758 --> 00:46:37,259
+face down. If it matches and still faced up, I don't want
+
+868
+00:46:37,327 --> 00:46:39,495
+it to be clear, I want people to see you gotta a match.
+
+869
+00:46:39,564 --> 00:46:42,298
+But once it turns back face down in Match I don't want it
+
+870
+00:46:42,366 --> 00:46:46,602
+to show. So the way I'm gonna do that is by doing this,
+
+871
+00:46:46,671 --> 00:46:51,707
+card.isMatched. Matched. Question mark.
+
+872
+00:46:51,775 --> 00:46:56,412
+Either this thing or this. Does everyone know this
+
+873
+00:46:56,481 --> 00:46:59,614
+question mark colon? We have it in C and other languages as
+
+874
+00:46:59,683 --> 00:47:02,518
+well. So here instead of orange I want it to be clear.
+
+875
+00:47:02,586 --> 00:47:04,553
+How do you get clear? Well if you go to any color
+
+876
+00:47:04,622 --> 00:47:08,023
+chooser, if you look at the bottom it says opacity. That's
+
+877
+00:47:08,092 --> 00:47:11,827
+how transparent the color is. So that's fully opaque, fully
+
+878
+00:47:11,896 --> 00:47:16,898
+transparent. In other words, clear. So if the cards match,
+
+879
+00:47:16,967 --> 00:47:19,902
+I'm gonna make it clear. Now, there's one other error here.
+
+880
+00:47:19,971 --> 00:47:23,339
+It's this, emoji. Now, this emoji used to be something we
+
+881
+00:47:23,407 --> 00:47:26,375
+grabbed out of this emoji choices based on the index and
+
+882
+00:47:26,444 --> 00:47:30,746
+all that. I'm gonna postpone implementing that here by,
+
+883
+00:47:30,814 --> 00:47:34,950
+it's calling a function emoji for card. And
+
+884
+00:47:35,019 --> 00:47:38,387
+this is gonna be a function I'm gonna do down here.
+
+885
+00:47:38,455 --> 00:47:40,589
+Let's scoot this up a little bit so
+
+886
+00:47:40,658 --> 00:47:44,359
+you can see it, func emoji for card which is a type card, is
+
+887
+00:47:44,428 --> 00:47:48,263
+gonna return an emoji and I'm gonna return question mark for
+
+888
+00:47:48,332 --> 00:47:51,167
+now. We just returned question mark,
+
+889
+00:47:51,235 --> 00:47:55,304
+we're gonna deal with taking these emoji choices up here.
+
+890
+00:47:55,373 --> 00:47:58,140
+We're gonna put these emoji choices and eventually,
+
+891
+00:47:58,208 --> 00:48:02,110
+we're going to pick one of these emojis. Randomly,
+
+892
+00:48:02,179 --> 00:48:04,847
+and put it on the card, and actually I have a few more
+
+893
+00:48:04,916 --> 00:48:07,817
+emojis here, little more Halloween emojis.
+
+894
+00:48:07,885 --> 00:48:10,719
+So we're gonna pick one of these many emojis right here,
+
+895
+00:48:10,788 --> 00:48:11,687
+and put it on the card, but for
+
+896
+00:48:11,755 --> 00:48:13,655
+now, I'm just gonna do question marks. Cuz I really
+
+897
+00:48:13,724 --> 00:48:15,924
+wanna get back to my UI and make sure I haven't broken
+
+898
+00:48:15,993 --> 00:48:21,197
+anything with all this MVC machinations. Let's go back
+
+899
+00:48:21,265 --> 00:48:25,835
+to our model and do something when a card is chosen. So
+
+900
+00:48:25,903 --> 00:48:28,437
+all I'm gonna do, eventually we gotta make it match. But
+
+901
+00:48:28,506 --> 00:48:30,906
+all I'm gonna do now is have the model flip the card over.
+
+902
+00:48:30,975 --> 00:48:34,209
+The model's just gonna flip the card over for now, so
+
+903
+00:48:34,278 --> 00:48:37,346
+here we are in chooseCard in our model. And so
+
+904
+00:48:37,415 --> 00:48:43,385
+I'm gonna say, if the card at that index is face up,
+
+905
+00:48:43,454 --> 00:48:48,624
+then I'm going to set the card at that index to
+
+906
+00:48:48,693 --> 00:48:56,065
+be isFaceUp = false, and else, I'm going to make this true.
+
+907
+00:48:59,137 --> 00:49:02,538
+True, so I'm just gonna flip the card over, everyone
+
+908
+00:49:02,607 --> 00:49:06,942
+believe me that that flips the card over? Yes, just gonna,
+
+909
+00:49:07,011 --> 00:49:09,378
+if it's face up, it goes face down, if it's face down,
+
+910
+00:49:09,446 --> 00:49:12,914
+face up, so that's it. So now when we run our app,
+
+911
+00:49:12,983 --> 00:49:15,450
+there's no emoji, everything's gonna be a question mark, but
+
+912
+00:49:15,519 --> 00:49:18,954
+the card should flip over. And this is the entirety of our
+
+913
+00:49:19,023 --> 00:49:23,091
+UI, here's our controller, that's all there is.
+
+914
+00:49:23,160 --> 00:49:26,696
+And here's our model over here, plus we have the card,
+
+915
+00:49:26,764 --> 00:49:28,698
+which is just keeping track of isMatched and
+
+916
+00:49:28,766 --> 00:49:30,632
+doing that identifier. So let's take a look,
+
+917
+00:49:30,701 --> 00:49:33,302
+let's run this, make sure we haven't broken anything.
+
+918
+00:49:33,370 --> 00:49:36,071
+It's always nice when you make MVC and you divide it up,
+
+919
+00:49:36,140 --> 00:49:38,640
+try to make your model to just do something simple.
+
+920
+00:49:38,709 --> 00:49:42,178
+Just so you can make sure that your MVC is actually working.
+
+921
+00:49:42,246 --> 00:49:46,148
+Here we go, sure enough, it appears to be flipping these
+
+922
+00:49:46,216 --> 00:49:50,785
+cards over. Okay, excellent, so all we need,
+
+923
+00:49:50,854 --> 00:49:55,257
+we have two things left to do. One, get emoji on these cards,
+
+924
+00:49:55,326 --> 00:49:59,662
+two, make it actually match, make it be a real game.
+
+925
+00:49:59,730 --> 00:50:02,831
+One thing is a controller thing, the emoji,
+
+926
+00:50:02,900 --> 00:50:06,768
+another thing is the model. So let's go to our controller
+
+927
+00:50:06,837 --> 00:50:10,772
+right here, and do this emoji thing. Now in teaching you and
+
+928
+00:50:10,841 --> 00:50:12,574
+showing you this emoji thing, I'm gonna show you and
+
+929
+00:50:12,643 --> 00:50:15,644
+teach you how to use a dictionary. A dictionary,
+
+930
+00:50:15,713 --> 00:50:17,012
+it's very important to cloud,
+
+931
+00:50:17,081 --> 00:50:19,147
+does everybody know what a dictionary is?
+
+932
+00:50:19,216 --> 00:50:21,883
+Like a hash table, it's just a data structure where you can
+
+933
+00:50:21,952 --> 00:50:25,053
+look something up and get a value for a certain thing.
+
+934
+00:50:25,122 --> 00:50:26,554
+So we're gonna use a dictionary,
+
+935
+00:50:26,623 --> 00:50:30,592
+and our dictionary looks like this, I'm gonna call it emoji,
+
+936
+00:50:30,661 --> 00:50:33,828
+and its type is gonna be a dictionary.
+
+937
+00:50:33,897 --> 00:50:36,965
+Now, dictionary is also a generic type like array, but
+
+938
+00:50:37,034 --> 00:50:40,035
+you specify the type both of the key, which I'm gonna
+
+939
+00:50:40,103 --> 00:50:43,672
+have be a int, cuz it's gonna be a card identifier, and
+
+940
+00:50:43,741 --> 00:50:48,477
+the value, which is a string, an emoji.
+
+941
+00:50:48,545 --> 00:50:51,213
+So this emoji dictionary, I'm going to look up the card
+
+942
+00:50:51,282 --> 00:50:54,883
+identifiers to get the emoji that goes on that card.
+
+943
+00:50:54,951 --> 00:50:57,719
+Everybody got that, gotta understand that before we move
+
+944
+00:50:57,788 --> 00:51:01,823
+on here. So how do I create one of these dictionaries,
+
+945
+00:51:01,892 --> 00:51:04,126
+exactly the same as I did with array.
+
+946
+00:51:04,195 --> 00:51:05,694
+I'm just gonna do open parentheses,
+
+947
+00:51:05,763 --> 00:51:08,063
+close parentheses, which creates an empty dictionary.
+
+948
+00:51:08,132 --> 00:51:12,133
+So this is a dictionary of ints mapped to strings, but
+
+949
+00:51:12,202 --> 00:51:14,937
+it's empty. Now down here in emoji for
+
+950
+00:51:15,006 --> 00:51:19,174
+card I'm just gonna look in this dictionary and
+
+951
+00:51:19,243 --> 00:51:23,612
+get a card. So let's say let chosen emoji equal, and
+
+952
+00:51:23,681 --> 00:51:26,314
+here's how you look something up in a dictionary. You say
+
+953
+00:51:26,383 --> 00:51:28,817
+the name of the dictionary, open square bracket,
+
+954
+00:51:28,886 --> 00:51:32,554
+the thing you wanna look up. And this had better be an int,
+
+955
+00:51:32,623 --> 00:51:34,689
+because this is a dictionary that looks up
+
+956
+00:51:34,758 --> 00:51:37,392
+ints and gives you back strings, and this is gonna be
+
+957
+00:51:37,461 --> 00:51:40,796
+a string. If I alt-click, option-click on this,
+
+958
+00:51:40,865 --> 00:51:44,299
+is that going to be a string, obviously not, or I wouldn't
+
+959
+00:51:44,368 --> 00:51:47,969
+be asking that question. Let's see what this chosen emoji is,
+
+960
+00:51:48,038 --> 00:51:51,773
+you think it would be a string, oh, what is that? What
+
+961
+00:51:51,842 --> 00:51:56,578
+type is that, anyone want to venture, I heard it out there
+
+962
+00:51:56,646 --> 00:52:01,616
+whispered, an optional. It returns an optional, why is it
+
+963
+00:52:01,685 --> 00:52:04,319
+returning an optional instead of returning a string? Well of
+
+964
+00:52:04,388 --> 00:52:07,222
+course, because when we look something up in a dictionary,
+
+965
+00:52:07,291 --> 00:52:09,624
+it might not be in there.
+
+966
+00:52:09,693 --> 00:52:11,493
+The thing we looked up isn't necessarily in there, and
+
+967
+00:52:11,562 --> 00:52:15,030
+if it's not there, we're gonna get back not set,
+
+968
+00:52:15,098 --> 00:52:18,066
+the optional not set. If it is in there, we're gonna get
+
+969
+00:52:18,135 --> 00:52:21,036
+the optional set, and it's going to be a string as its
+
+970
+00:52:21,105 --> 00:52:24,039
+associated value, because of course, a string is what's in
+
+971
+00:52:24,107 --> 00:52:27,643
+the dictionary. Everyone, understand that looking
+
+972
+00:52:27,711 --> 00:52:29,745
+something up in the dictionary returns an optional.
+
+973
+00:52:30,881 --> 00:52:32,747
+By the way, see this kind of thing,
+
+974
+00:52:32,816 --> 00:52:35,317
+you know how we have that special array syntax,
+
+975
+00:52:35,385 --> 00:52:37,952
+open square bracket, type, bits in the array.
+
+976
+00:52:38,021 --> 00:52:39,388
+We have the same thing for dictionary,
+
+977
+00:52:39,457 --> 00:52:40,956
+it looks like this, open square bracket.
+
+978
+00:52:41,025 --> 00:52:45,593
+Open square bracket, the key,
+
+979
+00:52:45,662 --> 00:52:50,499
+colon, the value type. So that's,
+
+980
+00:52:50,568 --> 00:52:52,834
+dictionaries and strings are the most common things we're,
+
+981
+00:52:52,903 --> 00:52:55,571
+data structures we're using. So we have special syntax for
+
+982
+00:52:55,639 --> 00:52:58,440
+both of them, so that's what declaration of a dictionary.
+
+983
+00:52:58,508 --> 00:53:00,742
+That's exactly the same as the thing I just blanked out,
+
+984
+00:53:00,811 --> 00:53:04,546
+dictionary, int, string.
+
+985
+00:53:04,615 --> 00:53:08,116
+So we could, since we know this returns,
+
+986
+00:53:08,185 --> 00:53:11,786
+this thing is an optional, we could do if let here. But
+
+987
+00:53:11,855 --> 00:53:14,022
+I'm gonna show you a different way to deal with optional. So
+
+988
+00:53:14,090 --> 00:53:16,258
+you know how to do exclamation point, which we definitely
+
+989
+00:53:16,327 --> 00:53:18,394
+don't wanna do here. Because, for example,
+
+990
+00:53:18,462 --> 00:53:21,163
+this dictionary starts out empty, so if we do exclamation
+
+991
+00:53:21,232 --> 00:53:24,533
+point here, it's gonna crash every time, so that's no good.
+
+992
+00:53:24,601 --> 00:53:26,968
+And we could do if let, that would be safe, but I'm gonna
+
+993
+00:53:27,037 --> 00:53:29,471
+show you another way that we often deal with something that
+
+994
+00:53:29,540 --> 00:53:32,741
+might be optional. Is that we just check to see,
+
+995
+00:53:32,809 --> 00:53:37,613
+if this thing does not equal nil, then we can exclamation
+
+996
+00:53:37,681 --> 00:53:43,184
+point it. I can return this thing exclamation point, and
+
+997
+00:53:43,253 --> 00:53:48,423
+it's safe because I checked to make sure it's not nil first.
+
+998
+00:53:48,492 --> 00:53:50,559
+So that's another way to deal with optionals, just check and
+
+999
+00:53:50,628 --> 00:53:51,526
+make sure it's not nil, and
+
+1000
+00:53:51,595 --> 00:53:53,829
+then you can exclamation point it. And then the else,
+
+1001
+00:53:53,898 --> 00:53:57,165
+I guess if we can't find the emoji in the dictionary, we'll
+
+1002
+00:53:57,234 --> 00:54:00,568
+just return question mark, so we'll kinda give up and
+
+1003
+00:54:00,637 --> 00:54:04,840
+just show question marks. Now, this code is so common to want
+
+1004
+00:54:04,909 --> 00:54:07,809
+to get something that's an optional, and
+
+1005
+00:54:07,878 --> 00:54:11,813
+if it's not, if it's set, then use it. But if it's not set,
+
+1006
+00:54:11,882 --> 00:54:14,816
+do some other well-defined thing like this, but you can
+
+1007
+00:54:14,885 --> 00:54:17,819
+write this with a special operator, looks like this.
+
+1008
+00:54:17,888 --> 00:54:22,591
+Return, return, this thing right here.
+
+1009
+00:54:26,263 --> 00:54:29,697
+But if it's nil, question mark, question mark,
+
+1010
+00:54:29,766 --> 00:54:34,369
+return a different thing. So this is return this, but
+
+1011
+00:54:34,438 --> 00:54:37,305
+if it's nil return this. Very common,
+
+1012
+00:54:37,374 --> 00:54:41,443
+that's exactly the same code as this, exactly the same. So
+
+1013
+00:54:41,512 --> 00:54:44,879
+we do not need that, everyone got that syntax,
+
+1014
+00:54:44,948 --> 00:54:49,251
+it's very common to do this. So we're awesomely looking
+
+1015
+00:54:49,319 --> 00:54:52,253
+up the card identifier in our emoji dictionary and
+
+1016
+00:54:52,322 --> 00:54:55,490
+returning emoji, hopefully. But we never put anything
+
+1017
+00:54:55,559 --> 00:54:58,060
+in that dictionary, so it's always gonna return a question
+
+1018
+00:54:58,128 --> 00:55:00,462
+mark, so how do we put something in the dictionary?
+
+1019
+00:55:00,531 --> 00:55:03,899
+Well, I'm gonna put them in the dictionary on demand,
+
+1020
+00:55:03,967 --> 00:55:06,435
+as they are used. So every time someone asks me for
+
+1021
+00:55:06,504 --> 00:55:08,036
+the emoji in a card, I'm gonna check and
+
+1022
+00:55:08,104 --> 00:55:13,007
+see. If this emoji for that card is currently nil,
+
+1023
+00:55:13,076 --> 00:55:16,778
+then I'm gonna put an emoji in the dictionary for that card.
+
+1024
+00:55:16,847 --> 00:55:21,049
+So I'm kind of just in time loading up of this dictionary,
+
+1025
+00:55:21,118 --> 00:55:24,285
+now, how am I gonna do that? I'm going to take one of these
+
+1026
+00:55:24,354 --> 00:55:27,956
+at random, and put it in this dictionary, so let's get
+
+1027
+00:55:28,025 --> 00:55:33,195
+a random index. I'm gonna let randomIndex equal something,
+
+1028
+00:55:33,264 --> 00:55:36,865
+I'm gonna use this nice Swift function called
+
+1029
+00:55:36,934 --> 00:55:38,933
+arc4rando_uniform.
+
+1030
+00:55:39,002 --> 00:55:41,603
+So arc4rando_uniform is a pseudo-random number
+
+1031
+00:55:41,672 --> 00:55:44,539
+generator, and it generates a random number between 0 and
+
+1032
+00:55:44,608 --> 00:55:47,075
+this upper bound. Do you see it says_uppe_bound,
+
+1033
+00:55:47,144 --> 00:55:48,977
+which is an unsigned int, 32 bit integer.
+
+1034
+00:55:49,046 --> 00:55:51,613
+It will generate a random number between 0 and that,
+
+1035
+00:55:51,682 --> 00:55:55,350
+not inclusive of that number. Which is exactly what I want,
+
+1036
+00:55:55,419 --> 00:55:58,820
+where the upper bound is, how many things are in this array?
+
+1037
+00:55:58,889 --> 00:56:01,757
+Cause I want an index into this array between zero and
+
+1038
+00:56:01,825 --> 00:56:05,160
+however many things are in the array minus one. So here,
+
+1039
+00:56:05,228 --> 00:56:05,827
+the upper bound,
+
+1040
+00:56:05,896 --> 00:56:10,198
+I'm just gonna say emojiChoices.count.
+
+1041
+00:56:10,266 --> 00:56:14,236
+Now this is great, but it doesn't work. I get an error,
+
+1042
+00:56:14,304 --> 00:56:17,639
+and what does the error say? It says cannot convert value
+
+1043
+00:56:17,707 --> 00:56:22,344
+of type int to unexpected argument type unsigned 32 bit
+
+1044
+00:56:22,413 --> 00:56:27,115
+int. Our for random totally works only with unsigned ints.
+
+1045
+00:56:27,184 --> 00:56:32,354
+Whereas this array's count is an int. Not an unsigned int.
+
+1046
+00:56:32,423 --> 00:56:35,924
+And Swift never does automatic type conversion never.
+
+1047
+00:56:35,993 --> 00:56:38,526
+It does never automatically converts from into an unsigned
+
+1048
+00:56:38,595 --> 00:56:41,696
+enter from into a double. You have to explicitly convert it.
+
+1049
+00:56:41,765 --> 00:56:43,999
+And so how do you convert types in Swift?
+
+1050
+00:56:44,068 --> 00:56:45,267
+This is why I'm showing you this so
+
+1051
+00:56:45,336 --> 00:56:47,402
+that you'll know how to convert types in Swift
+
+1052
+00:56:47,470 --> 00:56:50,072
+you have to create a new thing and
+
+1053
+00:56:50,140 --> 00:56:53,007
+use the initializer of that new thing to create one. So
+
+1054
+00:56:53,076 --> 00:56:58,246
+here, I wanna create A uint32, an unsigned int 32. So I have
+
+1055
+00:56:58,315 --> 00:57:03,485
+to call uint32 initializer to create a uint32. Luckily,
+
+1056
+00:57:03,554 --> 00:57:07,389
+uint32, which is a struct, by the way, just like INT,
+
+1057
+00:57:07,457 --> 00:57:09,957
+just like string, just like array, just like dictionary,
+
+1058
+00:57:10,026 --> 00:57:12,894
+just like card. These are all structs.
+
+1059
+00:57:12,963 --> 00:57:15,630
+It has an initializer that takes an int.
+
+1060
+00:57:15,699 --> 00:57:19,734
+Exactly what I want, okay? So I can create a UInt32 by
+
+1061
+00:57:19,803 --> 00:57:21,636
+passing it an int emojiChoices.
+
+1062
+00:57:21,705 --> 00:57:23,905
+That's why it's suggesting this fix right here.
+
+1063
+00:57:23,974 --> 00:57:27,175
+So I'm gonna do that, fix. You see what it did? UInt32,
+
+1064
+00:57:27,244 --> 00:57:30,345
+open parentheses. The argument to its init is an Int.
+
+1065
+00:57:30,414 --> 00:57:33,015
+It knows how to do that. Now we're not there yet.
+
+1066
+00:57:33,083 --> 00:57:35,517
+Because look at the return value here, randomIndex.
+
+1067
+00:57:35,585 --> 00:57:38,086
+It's also an unsigned integer, and that's no good.
+
+1068
+00:57:38,155 --> 00:57:41,623
+Because I want to use it as an index into this array. And
+
+1069
+00:57:41,692 --> 00:57:43,791
+we know that indexes are not unsigned ints,
+
+1070
+00:57:43,860 --> 00:57:47,495
+although they probably should be. They are ints. Okay,
+
+1071
+00:57:47,564 --> 00:57:50,766
+just for mostly for backwards compatibility issues.
+
+1072
+00:57:50,834 --> 00:57:55,203
+So I need to convert this whole thing to an int, luckily
+
+1073
+00:57:55,272 --> 00:57:59,974
+int Has an initializer that will take an unsigned int and
+
+1074
+00:58:00,043 --> 00:58:04,913
+turn it into an int. Okay, so now I have random index here.
+
+1075
+00:58:04,981 --> 00:58:08,583
+It's an int, it's suitable for indexing into this array.
+
+1076
+00:58:08,652 --> 00:58:12,620
+It's a random index in there. So to get it, I can say emoji
+
+1077
+00:58:12,689 --> 00:58:16,892
+sub card.identifier. Now to put something in A dictionary.
+
+1078
+00:58:16,960 --> 00:58:20,795
+You just say equals and the thing you want. Emoji,
+
+1079
+00:58:20,864 --> 00:58:25,266
+choices, sub, random, index. But I'm not, this is not quite
+
+1080
+00:58:25,335 --> 00:58:27,769
+what I'm gonna do. This would work kind of.
+
+1081
+00:58:27,838 --> 00:58:31,006
+The only problem with this is, I could get two identifiers
+
+1082
+00:58:31,075 --> 00:58:34,576
+that use the same emoji. So instead of just grabbing
+
+1083
+00:58:34,645 --> 00:58:38,580
+something out here, I'm gonna remove it. Okay, when I use
+
+1084
+00:58:38,649 --> 00:58:40,915
+one of these emojis, I'm going to remove it out of here so
+
+1085
+00:58:40,984 --> 00:58:44,586
+I never use it again. So to do that, I'm going to use
+
+1086
+00:58:44,655 --> 00:58:47,288
+a different method in array than subscripting called
+
+1087
+00:58:47,357 --> 00:58:52,460
+remove at. And I'm just gonna remove at the random index.
+
+1088
+00:58:52,529 --> 00:58:55,797
+So remove at returns the thing it removed. And so it's gonna
+
+1089
+00:58:55,865 --> 00:58:58,266
+pick one of these emojis out of here and return it.
+
+1090
+00:58:58,335 --> 00:59:01,370
+And I'm gonna put it in the dictionary. Everybody got
+
+1091
+00:59:01,438 --> 00:59:04,339
+that? Now there's only one other thing here,
+
+1092
+00:59:04,407 --> 00:59:07,442
+which is what if emojiChoices.count is zero.
+
+1093
+00:59:07,511 --> 00:59:10,045
+In other words, what if I've used all the emoji
+
+1094
+00:59:10,113 --> 00:59:12,447
+in emojiChoices, I've pulled them all out of there?
+
+1095
+00:59:12,516 --> 00:59:15,283
+That's going to cause a problem. ran, arc4random can't
+
+1096
+00:59:15,352 --> 00:59:18,687
+take zero because it goes from zero To that number minus 1.
+
+1097
+00:59:18,755 --> 00:59:21,522
+And it's an unsigned int, so it can't be a minus number.
+
+1098
+00:59:21,591 --> 00:59:23,591
+So we're gonna have to protect against that case.
+
+1099
+00:59:23,660 --> 00:59:28,029
+So I'm gonna say if emojichoices.count
+
+1100
+00:59:28,097 --> 00:59:30,732
+is greater than 0, then I can grab
+
+1101
+00:59:30,801 --> 00:59:33,635
+an emoji out of there and use it. But if
+
+1102
+00:59:33,704 --> 00:59:36,971
+it's less than that, if it's equal 0 then I can't do this.
+
+1103
+00:59:37,040 --> 00:59:39,975
+And then I'm stuck with question mark down here. By
+
+1104
+00:59:40,043 --> 00:59:42,477
+the way cool thing in Swift, you see how we have back to
+
+1105
+00:59:42,546 --> 00:59:46,881
+back ifs here. You can put back to back ifs on the same
+
+1106
+00:59:46,950 --> 00:59:51,253
+line by just separating them with comma, okay,
+
+1107
+00:59:51,321 --> 00:59:54,155
+then you don't need the embedded ifs right there.
+
+1108
+00:59:54,224 --> 00:59:56,858
+And it's nice especially when things are related, like look
+
+1109
+00:59:56,927 --> 00:59:59,761
+at how this cut line of code reads. If the emoji for
+
+1110
+00:59:59,829 --> 01:00:02,530
+this card identifier is not set and
+
+1111
+01:00:02,599 --> 01:00:08,736
+if we have emojiChoices, then go get one, All right?
+
+1112
+01:00:08,805 --> 01:00:11,272
+Okay, so let's see if this works. Let's go and run and
+
+1113
+01:00:11,341 --> 01:00:14,675
+see if we're grabbing a random emoji out of there and putting
+
+1114
+01:00:14,744 --> 01:00:18,513
+them in one of our four cards. It's pseudorandom by the way,
+
+1115
+01:00:18,582 --> 01:00:20,548
+so you're gonna see that it's not super random.
+
+1116
+01:00:20,617 --> 01:00:22,183
+But anyway, all right, so let's look.
+
+1117
+01:00:22,252 --> 01:00:26,154
+Oh yeah, look, we got a random emoji. Oh there's another one,
+
+1118
+01:00:26,223 --> 01:00:29,791
+little candy, hopefully these two are the same, yay!. Okay
+
+1119
+01:00:29,860 --> 01:00:33,161
+so it's working. Okay it's looking it up by identifier,
+
+1120
+01:00:33,230 --> 01:00:36,164
+picking emoji and using that emoji for that identifier
+
+1121
+01:00:36,233 --> 01:00:38,466
+on all cards. And hopefully it's random. Let's stop again.
+
+1122
+01:00:38,535 --> 01:00:41,603
+So we've got the devil guy, and the candy here.
+
+1123
+01:00:41,671 --> 01:00:45,440
+Cross your fingers that pseudo random generator does it,
+
+1124
+01:00:45,509 --> 01:00:48,643
+let's see. Uh oh, devil guy, oh we got the cat,
+
+1125
+01:00:48,711 --> 01:00:52,280
+the scared cat or whatever that is, the screaming cat. So
+
+1126
+01:00:52,349 --> 01:00:54,182
+we're getting random, this looks like it's working.
+
+1127
+01:00:54,251 --> 01:00:56,217
+So we've got our UI fully functional here.
+
+1128
+01:00:56,286 --> 01:00:58,687
+So the only thing that's left to do now
+
+1129
+01:00:58,756 --> 01:01:00,354
+is make this thing play Concentration and
+
+1130
+01:01:00,423 --> 01:01:02,457
+that's purely a model thing. So to make
+
+1131
+01:01:02,525 --> 01:01:05,594
+that work I'm going to bring up my model. And
+
+1132
+01:01:05,662 --> 01:01:07,929
+I'm only going to put code here in my model.
+
+1133
+01:01:07,998 --> 01:01:10,699
+Right now it flips cards over. We'll stop that.
+
+1134
+01:01:10,768 --> 01:01:13,869
+Instead we're gonna have it play the game. And
+
+1135
+01:01:13,937 --> 01:01:16,337
+as part of implementing this, I'm gonna use an optional.
+
+1136
+01:01:16,406 --> 01:01:17,872
+Because I know you're all still except for
+
+1137
+01:01:17,941 --> 01:01:20,342
+this guy who asked this great question. You're all still not
+
+1138
+01:01:20,410 --> 01:01:21,877
+quite sure I understand the optional thing.
+
+1139
+01:01:21,945 --> 01:01:24,946
+So here's a chance, case where I'm gonna use an optional
+
+1140
+01:01:25,014 --> 01:01:27,849
+as part of my Fundamental semantic implementation
+
+1141
+01:01:27,918 --> 01:01:30,451
+of this method. So here we go.
+
+1142
+01:01:30,520 --> 01:01:34,155
+The first thing I'm gonna do when a card is chosen is
+
+1143
+01:01:34,224 --> 01:01:37,458
+I'm gonna ignore a card that's already been matched. So
+
+1144
+01:01:37,527 --> 01:01:39,994
+if you choose a card that's on the board that's already been
+
+1145
+01:01:40,063 --> 01:01:42,029
+matched to another card, I'm just gonna ignore it. So
+
+1146
+01:01:42,098 --> 01:01:46,735
+I'm gonna say if the card that you chose, card of the index,
+
+1147
+01:01:46,804 --> 01:01:50,739
+isMatched. Then I'm not gonna do this, so
+
+1148
+01:01:50,808 --> 01:01:53,107
+I'm gonna say if it's not Matched then do it,
+
+1149
+01:01:53,176 --> 01:01:56,811
+if it is Matched then don't do this. This notch,
+
+1150
+01:01:56,880 --> 01:01:59,481
+just like any other language means not, the opposite of
+
+1151
+01:01:59,550 --> 01:02:02,250
+this Bool. I'm gonna ignore all Matched cards.
+
+1152
+01:02:02,319 --> 01:02:05,519
+Now what am I gonna do? There's three cases here
+
+1153
+01:02:05,588 --> 01:02:10,091
+that can happen. One, no cards are face up. If no cards
+
+1154
+01:02:10,159 --> 01:02:12,894
+are face up when I choose a card it just flips it over.
+
+1155
+01:02:12,962 --> 01:02:16,764
+That's all it does. Another option is two cards are face
+
+1156
+01:02:16,833 --> 01:02:19,900
+up, either matching or not matching. If that's true,
+
+1157
+01:02:19,969 --> 01:02:22,704
+when I choose another card it needs to flip those cards face
+
+1158
+01:02:22,773 --> 01:02:27,541
+down cuz I'm starting a new match now. The third option is
+
+1159
+01:02:27,610 --> 01:02:30,978
+there's one card face up and I choose some other card.
+
+1160
+01:02:31,047 --> 01:02:33,882
+Now I need to match. I need to see if they match.
+
+1161
+01:02:33,950 --> 01:02:37,585
+So those are the three options. So I want to
+
+1162
+01:02:37,654 --> 01:02:40,455
+really keep track of the option where there's one card
+
+1163
+01:02:40,524 --> 01:02:42,691
+face up because that's where I really have to do the work.
+
+1164
+01:02:42,760 --> 01:02:44,392
+I have to try and see if they match. So
+
+1165
+01:02:44,461 --> 01:02:47,662
+I'm going to create a var to keep track if there is one and
+
+1166
+01:02:47,730 --> 01:02:49,363
+only one card face up.
+
+1167
+01:02:49,432 --> 01:02:53,067
+I'm going to call it indexOfOneAndOnlyFaceUpCard
+
+1168
+01:02:53,136 --> 01:02:59,541
+and of course its an index so its going to be an int.
+
+1169
+01:02:59,609 --> 01:03:03,978
+Now whats the value of the indexOfOneAndOnlyFaceUpCard if
+
+1170
+01:03:04,047 --> 01:03:10,218
+no cards are face up? What's the value of that if two
+
+1171
+01:03:10,286 --> 01:03:14,155
+cards are face up? Ah, interesting.
+
+1172
+01:03:14,224 --> 01:03:19,393
+I think this wants to be optional. You see why, because
+
+1173
+01:03:19,462 --> 01:03:22,197
+in those cases where there's not one index of a one and
+
+1174
+01:03:22,266 --> 01:03:25,133
+only face card, then this going to be not set,
+
+1175
+01:03:25,201 --> 01:03:28,603
+cause there is not one and only face card. So this
+
+1176
+01:03:28,672 --> 01:03:32,473
+is a great use of optionals right here. So all the time in
+
+1177
+01:03:32,542 --> 01:03:35,076
+my game, when there's one and only one face up card, this
+
+1178
+01:03:35,145 --> 01:03:37,712
+going to tell me the index of it so I can match against it.
+
+1179
+01:03:37,780 --> 01:03:40,114
+And all the other times this is gonna be nill and
+
+1180
+01:03:40,183 --> 01:03:42,550
+I'm gonna know I don't have to do any work. I don't have to
+
+1181
+01:03:42,619 --> 01:03:44,652
+do any matching because there's no card to match
+
+1182
+01:03:44,721 --> 01:03:47,522
+against. So what does the code look like to use this?
+
+1183
+01:03:47,590 --> 01:03:50,591
+I'm going to say if I can let a match index,
+
+1184
+01:03:50,660 --> 01:03:54,295
+which is a local variable, equal this index of one and
+
+1185
+01:03:54,364 --> 01:03:57,665
+only face up card right here, then I have something to
+
+1186
+01:03:57,734 --> 01:04:01,135
+match. By the way, I wanna make sure that that match
+
+1187
+01:04:01,204 --> 01:04:06,207
+index of that thing is not equal to the card you chose.
+
+1188
+01:04:06,276 --> 01:04:08,709
+If there's only, only, if there's one and
+
+1189
+01:04:08,778 --> 01:04:10,979
+only one face of card and you chose that,
+
+1190
+01:04:11,047 --> 01:04:13,748
+it's going to ignore that. You have to choose a different
+
+1191
+01:04:13,817 --> 01:04:19,220
+card. This inside this curly brace right here is, you know,
+
+1192
+01:04:19,289 --> 01:04:24,892
+check if cards match. And then outside right here is what?
+
+1193
+01:04:24,961 --> 01:04:28,129
+Either no cards or
+
+1194
+01:04:28,198 --> 01:04:33,734
+two cards are face up, so I can't match. So
+
+1195
+01:04:33,803 --> 01:04:36,638
+in that case I'm gonna need to turn the cards face down and
+
+1196
+01:04:36,706 --> 01:04:38,673
+have the card you chose be the only face up card.
+
+1197
+01:04:38,741 --> 01:04:41,008
+And then I'm gonna set it to be the index of the one and
+
+1198
+01:04:41,077 --> 01:04:43,311
+only face up card.
+
+1199
+01:04:43,379 --> 01:04:45,714
+Let's do all that. Let's check if the cards match,
+
+1200
+01:04:45,782 --> 01:04:52,786
+really easy if the cards match index its identifier
+
+1201
+01:04:52,855 --> 01:04:57,592
+equals the cards of the index you chose. This is choose card
+
+1202
+01:04:57,661 --> 01:05:01,596
+at index. If they match, then I'm gonna mark them matched.
+
+1203
+01:05:01,664 --> 01:05:06,501
+Cards of match index is matched and
+
+1204
+01:05:06,570 --> 01:05:11,772
+the cards that you chose is matched.
+
+1205
+01:05:11,841 --> 01:05:18,412
+So I matched them, excellent. Now, even if they don't match,
+
+1206
+01:05:18,481 --> 01:05:21,549
+what happens when I chose that second card right there? Two
+
+1207
+01:05:21,617 --> 01:05:26,621
+things happen, one, I gotta flip up the card you chose.
+
+1208
+01:05:26,689 --> 01:05:29,023
+Cuz you chose a card that was face down, right there so
+
+1209
+01:05:29,092 --> 01:05:32,193
+I'm gonna say cards sub index is...
+
+1210
+01:05:33,697 --> 01:05:37,198
+Is face up is true, cuz you chose a card,
+
+1211
+01:05:37,267 --> 01:05:39,400
+I'm flipping it up of course. And number two and
+
+1212
+01:05:39,469 --> 01:05:43,337
+most importantly the index of the one and only face up card
+
+1213
+01:05:43,406 --> 01:05:48,542
+equals nil. Because now there are two matched cards,
+
+1214
+01:05:48,611 --> 01:05:51,979
+two, matched or unmatched, two face up cards. So
+
+1215
+01:05:52,048 --> 01:05:55,549
+there is not a one and only face up card. So it's nil, so
+
+1216
+01:05:55,618 --> 01:05:58,653
+it's perfectly legal to to set an optional to nil. So that's
+
+1217
+01:05:58,721 --> 01:06:00,755
+what we do if the cards match, that's all we have to do.
+
+1218
+01:06:00,823 --> 01:06:03,024
+Now here we either have no cards or
+
+1219
+01:06:03,093 --> 01:06:04,792
+two cards are face up. In this case,
+
+1220
+01:06:04,861 --> 01:06:07,795
+I'm gonna turn all cards face down. Now they might already
+
+1221
+01:06:07,864 --> 01:06:10,798
+all be face down but so it's a little of wasted work.
+
+1222
+01:06:10,867 --> 01:06:15,636
+I'm just gonna go for flip down index in, what?
+
+1223
+01:06:15,705 --> 01:06:21,943
+In my cards' indices. Cards.indices,
+
+1224
+01:06:22,012 --> 01:06:24,679
+that's all, that's a countable range. Remember,
+
+1225
+01:06:24,747 --> 01:06:29,884
+this is a countable range right here, of all the indexes
+
+1226
+01:06:29,952 --> 01:06:33,321
+of the flip, in my cards. So for each one of the cards,
+
+1227
+01:06:33,389 --> 01:06:39,527
+I'm gonna say card at the flipDownIndex.isFaceup= false.
+
+1228
+01:06:39,596 --> 01:06:43,131
+I just turned every single card on the board face down.
+
+1229
+01:06:43,199 --> 01:06:45,766
+But now you've chose a card, so I'm gonna turn that card
+
+1230
+01:06:45,835 --> 01:06:53,541
+that you just chose back to face up. .isFaceUp = true and
+
+1231
+01:06:53,610 --> 01:06:56,944
+of course since I just turned all the cards face down and
+
+1232
+01:06:57,013 --> 01:07:00,414
+turned one card faced up, what is the index of the one and
+
+1233
+01:07:00,483 --> 01:07:04,752
+only face up card? It's this index. I just turned it
+
+1234
+01:07:04,821 --> 01:07:08,256
+faced up so, by definition it's the only card.
+
+1235
+01:07:08,325 --> 01:07:10,858
+And this ladies and gentlemen what do we got here? Oh this
+
+1236
+01:07:10,926 --> 01:07:15,229
+is cardsindex.identifier got to compare the identifiers.
+
+1237
+01:07:15,298 --> 01:07:18,532
+This is the entirety of the concentration game logic,
+
+1238
+01:07:18,601 --> 01:07:21,502
+that's it, that's all that's necessary.
+
+1239
+01:07:21,571 --> 01:07:23,437
+And can you see how having this optional
+
+1240
+01:07:23,506 --> 01:07:26,407
+right here kinda made it very simple and straightforward?
+
+1241
+01:07:26,475 --> 01:07:29,810
+Because it's easy for me to track the card I want it to
+
+1242
+01:07:29,879 --> 01:07:32,379
+match against all the time. And it was easy for
+
+1243
+01:07:32,448 --> 01:07:35,183
+me to tell whether there was one to match it against or
+
+1244
+01:07:35,251 --> 01:07:37,518
+not, all contained in one little variable that had a lot
+
+1245
+01:07:37,587 --> 01:07:41,856
+of information it it. That's it, let's go see if our
+
+1246
+01:07:41,924 --> 01:07:44,325
+app is working. It should just work, I mean once you make
+
+1247
+01:07:44,393 --> 01:07:47,561
+the model, do what its suppose to do the UI doesn't care.
+
+1248
+01:07:47,630 --> 01:07:49,630
+It's just presenting what the model has, so
+
+1249
+01:07:49,699 --> 01:07:52,200
+it should just work. So let's try it here. All right,
+
+1250
+01:07:52,268 --> 01:07:56,837
+we've got this, the cat, oh, there's the screaming face.
+
+1251
+01:07:56,906 --> 01:07:58,873
+Now what should happen when I click another card?
+
+1252
+01:07:58,941 --> 01:08:00,741
+It should flip them all face down.
+
+1253
+01:08:00,810 --> 01:08:02,276
+It didn't match, this didn't match, so
+
+1254
+01:08:02,345 --> 01:08:05,213
+it should flip these all face down. Turn the new one face
+
+1255
+01:08:05,281 --> 01:08:07,615
+up, and now that optional's gonna be set. So
+
+1256
+01:08:07,684 --> 01:08:10,418
+let's try it. Sure enough it turned them all face down and
+
+1257
+01:08:10,486 --> 01:08:14,589
+turned this one up. Now what happens if I choose a match?
+
+1258
+01:08:14,657 --> 01:08:17,458
+Now they've both been marked matched. Now the next time I
+
+1259
+01:08:17,527 --> 01:08:19,760
+click on a card, it's gonna turn them face down.
+
+1260
+01:08:19,829 --> 01:08:24,365
+They're gonna be both face down and matched, so
+
+1261
+01:08:24,434 --> 01:08:28,303
+they're gonna get a clear background and
+
+1262
+01:08:28,371 --> 01:08:32,973
+we're not gonna be able to see them, watch.
+
+1263
+01:08:33,042 --> 01:08:38,312
+Now that the game is done. Now in your homework you're gonna
+
+1264
+01:08:38,381 --> 01:08:40,882
+add a new game button which is what you would press at this
+
+1265
+01:08:40,950 --> 01:08:46,354
+point. I won't play another game. Last thing
+
+1266
+01:08:46,423 --> 01:08:51,492
+to do here and we have time luckily is to add more cards.
+
+1267
+01:08:51,561 --> 01:08:54,262
+Because four cards is kind of a boring game so
+
+1268
+01:08:54,331 --> 01:08:59,400
+let's go here to our UI. We've got our UI. I made my
+
+1269
+01:09:01,771 --> 01:09:05,673
+buttons here be 80 points wide which I kinda recommend you do
+
+1270
+01:09:05,742 --> 01:09:08,776
+for your homework. Because 80 points wide,
+
+1271
+01:09:08,845 --> 01:09:12,747
+they fit really nice four across okay? Let's put them
+
+1272
+01:09:12,816 --> 01:09:15,816
+up,now I'm gonna use the little blue lines to help me
+
+1273
+01:09:15,885 --> 01:09:21,389
+place them here. If you use the blue lines look,
+
+1274
+01:09:21,458 --> 01:09:24,559
+four of them at 80 points each fit right across. And
+
+1275
+01:09:24,627 --> 01:09:26,126
+then I'm gonna make some more. I'm gonna select them and
+
+1276
+01:09:26,195 --> 01:09:29,496
+copy paste. Use the blinds, the blue lines paste some
+
+1277
+01:09:29,565 --> 01:09:31,466
+more, let's have 12 of them here.
+
+1278
+01:09:33,202 --> 01:09:36,136
+And I need to make sure that everything is connected so
+
+1279
+01:09:36,205 --> 01:09:38,839
+let's look at like touch card. Hey, they're all sending touch
+
+1280
+01:09:38,908 --> 01:09:43,411
+card, great. How about card buttons? When we copy and
+
+1281
+01:09:43,479 --> 01:09:47,682
+paste it doesn't put them into that card buttons outlet
+
+1282
+01:09:47,751 --> 01:09:49,584
+array of buttons, so we need to do that.
+
+1283
+01:09:49,652 --> 01:09:51,351
+So I'm just going to do ctrl+drag.
+
+1284
+01:09:51,420 --> 01:09:56,557
+Now if you really had 12 cards or more than 12 cards, in real
+
+1285
+01:09:56,626 --> 01:09:59,527
+life you'd probably wouldn't use an outlet collection.
+
+1286
+01:09:59,595 --> 01:10:03,064
+You would probably go in your code and go find all these
+
+1287
+01:10:03,133 --> 01:10:04,698
+things, you could probably do it all in one or
+
+1288
+01:10:04,767 --> 01:10:07,301
+two lines of code actually. But you really haven't learned
+
+1289
+01:10:07,370 --> 01:10:10,537
+enough from me about how the view hierarchy works and
+
+1290
+01:10:10,606 --> 01:10:13,007
+all these things to do that. So for your homework
+
+1291
+01:10:13,075 --> 01:10:15,443
+you're just gonna have to be doing some control dragging
+
+1292
+01:10:15,512 --> 01:10:19,380
+like I am to hook them all up. They're all hooked up,
+
+1293
+01:10:19,448 --> 01:10:22,183
+they're all hooked up. Our flip count label's hooked up.
+
+1294
+01:10:22,252 --> 01:10:25,286
+Our UI looks all set. I haven't changed anything but
+
+1295
+01:10:25,354 --> 01:10:30,324
+that. I didn't go change any code anywhere. Okay, I just
+
+1296
+01:10:30,392 --> 01:10:32,827
+put more buttons in my UI. And because I built this nice,
+
+1297
+01:10:32,895 --> 01:10:37,799
+flexible UI that can really handle any number of cards,
+
+1298
+01:10:37,867 --> 01:10:46,374
+this should just work. Here we go,
+
+1299
+01:10:46,443 --> 01:10:49,977
+let's try. We got candy, apple,
+
+1300
+01:10:50,046 --> 01:10:54,882
+no match. I have bat, no match.
+
+1301
+01:10:54,951 --> 01:11:01,021
+How about pumpkin? Oh candy I think I remember candy,
+
+1302
+01:11:01,090 --> 01:11:04,725
+was it maybe right here? Yes,
+
+1303
+01:11:04,794 --> 01:11:07,795
+woo ho we found the candy it was right next to each other.
+
+1304
+01:11:07,863 --> 01:11:11,365
+Let's try something else. Okay how about this one, apple,
+
+1305
+01:11:11,433 --> 01:11:16,604
+no.,no match. Oh, apple oh, this is a pretty easy game.
+
+1306
+01:11:16,673 --> 01:11:18,505
+I don't know why everyone thinks Concentration's so
+
+1307
+01:11:18,574 --> 01:11:20,174
+hard, look at that. Okay,
+
+1308
+01:11:20,242 --> 01:11:24,312
+all done. Okay so why is this game so easy?
+
+1309
+01:11:24,380 --> 01:11:27,882
+Well, because you guys have not done your homework yet,
+
+1310
+01:11:27,951 --> 01:11:31,719
+which if you remember back here Concentration we have
+
+1311
+01:11:31,788 --> 01:11:37,124
+this little to do. To do by the way is a special comment.
+
+1312
+01:11:37,193 --> 01:11:40,194
+If you look at the top line of your thing right here, which
+
+1313
+01:11:40,262 --> 01:11:42,797
+shows you which file you're choosing. It also shows you
+
+1314
+01:11:42,865 --> 01:11:46,533
+within that file with all your methods and properties and
+
+1315
+01:11:46,602 --> 01:11:51,906
+if you put //to do, it shows up. See shuffle the cards.
+
+1316
+01:11:51,975 --> 01:11:55,242
+All right, see you on Monday. >> For
+
+1317
+01:11:55,311 --> 01:12:04,718
+more, please visit us at Stanford.edu.
+>> 更多课程详见 stanford.edu

@@ -1,0 +1,6516 @@
+1
+00:00:00,401 --> 00:00:03,568
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:03,637 --> 00:00:07,239
+Stanford University. >> Okay,
+斯坦福大学
+
+3
+00:00:07,307 --> 00:00:12,311
+well welcome to lecture number three of Stanford CS193P,
+欢迎参加斯坦福 CS193P 课程
+
+4
+00:00:12,379 --> 00:00:16,447
+fall of 2017 and 18 academic year.
+2017 至 18 学年的第三节课
+
+5
+00:00:16,516 --> 00:00:19,885
+Today mostly, we're gonna talk about some Swift stuff.
+
+6
+00:00:19,953 --> 00:00:23,321
+Now, you've hopefully done your homework for the reading,
+
+7
+00:00:23,390 --> 00:00:25,891
+so some of the stuff will be kinda summary, but
+
+8
+00:00:25,959 --> 00:00:28,560
+some of this is really not covered in the reading.
+
+9
+00:00:28,629 --> 00:00:32,197
+So I'm trying to give you the full picture of stuff,
+
+10
+00:00:32,266 --> 00:00:36,201
+that reading is really great but it is great concise.
+
+11
+00:00:36,270 --> 00:00:37,201
+I know you probably feel like well,
+
+12
+00:00:37,270 --> 00:00:39,171
+that was a lot of reading for something that's concise, but
+
+13
+00:00:39,240 --> 00:00:41,473
+it is quite concise. So I'm gonna try and
+
+14
+00:00:41,541 --> 00:00:43,909
+cover some of the other stuff. But before I do all that,
+
+15
+00:00:43,977 --> 00:00:46,912
+I'm gonna do a little, what I call a teaser demo of
+
+16
+00:00:46,981 --> 00:00:50,115
+auto-layout where I'm gonna show you how we can make
+
+17
+00:00:50,184 --> 00:00:53,919
+our UI in concentration look good when we rotate the phone,
+
+18
+00:00:53,987 --> 00:00:57,355
+or when we a run on little bit different sized iPhone, or
+
+19
+00:00:57,424 --> 00:01:01,226
+whatever. I call it a teaser because I don't intend to
+
+20
+00:01:01,295 --> 00:01:04,295
+teach you auto layout which is the feature that allows
+
+21
+00:01:04,364 --> 00:01:06,765
+us to do that. It's just to show you what's possible.
+
+22
+00:01:06,833 --> 00:01:09,034
+We'll actually have a whole lecture on auto
+
+23
+00:01:09,103 --> 00:01:13,204
+layout in about three weeks I think. But then,
+
+24
+00:01:13,273 --> 00:01:15,907
+after I do that little demo, I'll be back. I'm first gonna
+
+25
+00:01:15,976 --> 00:01:18,577
+take just one minute to review what you should have
+
+26
+00:01:18,645 --> 00:01:21,513
+learned by what we did last week and I'm literally just
+
+27
+00:01:21,582 --> 00:01:24,482
+gonna read it off a list with quick examples. And you can
+
+28
+00:01:24,551 --> 00:01:26,818
+kind of say in your head, oh yeah, yeah I got that,
+
+29
+00:01:26,887 --> 00:01:29,454
+I got that or oh wait, I did not really understand that and
+
+30
+00:01:29,523 --> 00:01:31,390
+that's a prompt to go back and look at it.
+
+31
+00:01:31,458 --> 00:01:34,626
+Then we'll dive into this long list that you see up here,
+
+32
+00:01:34,694 --> 00:01:38,163
+of various Swift things. So let's start with this demo I
+
+33
+00:01:38,232 --> 00:01:41,232
+was talking about, this auto-layout demo.
+
+34
+00:01:41,301 --> 00:01:45,770
+What we're gonna do here, and I apologize for any technical
+
+35
+00:01:45,839 --> 00:01:48,873
+problems we have here because, actually, my computer died,
+
+36
+00:01:48,942 --> 00:01:51,008
+and I had to put it. This is all brand new computer, so
+
+37
+00:01:51,077 --> 00:01:54,512
+I hope everything's installed properly. But here's the code,
+
+38
+00:01:54,581 --> 00:01:58,016
+I think, that we had at the end of the last lecture.
+
+39
+00:01:58,085 --> 00:02:01,986
+And the UI looks pretty good. We laid it out.
+
+40
+00:02:02,055 --> 00:02:04,156
+But I just did this by dragging these things and
+
+41
+00:02:04,224 --> 00:02:06,624
+using the little dash blue lines to put them
+
+42
+00:02:06,693 --> 00:02:11,763
+in position. And when we run this thing, it looks okay but
+
+43
+00:02:11,832 --> 00:02:13,464
+only on an iPhone X and
+
+44
+00:02:13,533 --> 00:02:16,534
+only in portrait mode like this. If I were to for
+
+45
+00:02:16,603 --> 00:02:20,772
+example, rotate this iPhone to the side which I can do
+
+46
+00:02:20,841 --> 00:02:23,742
+in a simulator by going, Hardware, rotate left or
+
+47
+00:02:23,811 --> 00:02:28,579
+right, you can see that my UI looks like this. My buttons
+
+48
+00:02:28,648 --> 00:02:31,983
+are kind of all jammed in the corner here. I've lost flips,
+
+49
+00:02:32,052 --> 00:02:34,285
+it's down here somewhere. I can't even see it.
+
+50
+00:02:34,354 --> 00:02:37,756
+Still works, but it's kind of off in the middle of nowhere.
+
+51
+00:02:37,824 --> 00:02:40,826
+What we really want is for this UI to spread itself
+
+52
+00:02:40,894 --> 00:02:44,762
+out and fill the whole space that's involved. By the way,
+
+53
+00:02:44,831 --> 00:02:47,766
+you can also rotate your device with Command and
+
+54
+00:02:47,835 --> 00:02:51,102
+the arrows. Kind of a cool way to flip back and
+
+55
+00:02:51,171 --> 00:02:54,305
+forth. All right, so how are we gonna do that?
+
+56
+00:02:54,374 --> 00:02:57,209
+How are we gonna make our UI expand? Let's go ahead and
+
+57
+00:02:57,277 --> 00:02:59,444
+open up here, give ourselves some more space.
+
+58
+00:02:59,513 --> 00:03:00,846
+And also I'm gonna zoom in a little so
+
+59
+00:03:00,914 --> 00:03:03,949
+you can see. Another thing I'm gonna do is we're gonna be
+
+60
+00:03:04,018 --> 00:03:06,150
+using these blue lines, the dashed blue
+
+61
+00:03:06,219 --> 00:03:09,488
+line that appears as you move things around as part of this.
+
+62
+00:03:09,556 --> 00:03:12,256
+So I'm gonna change my background from black
+
+63
+00:03:12,325 --> 00:03:15,494
+to back to white temporarily, just so
+
+64
+00:03:15,563 --> 00:03:18,296
+that we can see that those blue lines and
+
+65
+00:03:18,364 --> 00:03:20,331
+stuff a little bit better. So I'm just gonna go to white.
+
+66
+00:03:20,400 --> 00:03:22,400
+When we come to run, I'll turn it back to black.
+
+67
+00:03:22,469 --> 00:03:27,104
+So this is purely for dealing development issues here. So
+
+68
+00:03:27,173 --> 00:03:31,009
+it's really kinda two things I need to do to make this work.
+
+69
+00:03:31,077 --> 00:03:35,246
+One is, I need to kinda take all those buttons and
+
+70
+00:03:35,315 --> 00:03:37,249
+make them stick to the edges, right?
+
+71
+00:03:37,318 --> 00:03:38,483
+So that when they rotate and
+
+72
+00:03:38,552 --> 00:03:42,287
+the edges get longer and skinnier, they stick.
+
+73
+00:03:42,355 --> 00:03:45,390
+Right now, everything's stuck to the upper left corner.
+
+74
+00:03:45,458 --> 00:03:47,258
+The upper left corner, you're gonna find out next week,
+
+75
+00:03:47,327 --> 00:03:50,829
+is the origin of drawing. In IOS where everything is kinda
+
+76
+00:03:50,897 --> 00:03:52,998
+stuck up to the upper left and then just, so
+
+77
+00:03:53,066 --> 00:03:55,600
+when we rotate it all, it just goes off the bottom,
+
+78
+00:03:55,668 --> 00:03:58,536
+we can't see it. So that's really what we need to do, but
+
+79
+00:03:58,605 --> 00:03:59,904
+to stick them to the edges,
+
+80
+00:03:59,973 --> 00:04:02,807
+we also kind of need to group them together. Because when
+
+81
+00:04:02,876 --> 00:04:05,544
+the edges pull this group of 12 buttons apart,
+
+82
+00:04:05,613 --> 00:04:07,812
+they all need to kinda share that space.
+
+83
+00:04:07,881 --> 00:04:09,581
+So there's two things we have to do.
+
+84
+00:04:09,650 --> 00:04:12,584
+One is group them together, one is pin them to the edges.
+
+85
+00:04:12,653 --> 00:04:17,756
+So we're gonna do that with two different features in IOS.
+
+86
+00:04:17,824 --> 00:04:19,257
+One, the grouping things together,
+
+87
+00:04:19,326 --> 00:04:22,227
+we're gonna do with stack view. Okay, so UI stack view
+
+88
+00:04:22,296 --> 00:04:26,231
+is just another class in IOS like UI Button is a class and
+
+89
+00:04:26,300 --> 00:04:29,734
+UI label is just another view in fact. And
+
+90
+00:04:29,803 --> 00:04:32,770
+what it does is it will take other views, like let's
+
+91
+00:04:32,839 --> 00:04:36,508
+say these four buttons and it will stack them together.
+
+92
+00:04:36,577 --> 00:04:39,244
+Now, it only knows how to stack horizontally or
+
+93
+00:04:39,313 --> 00:04:42,981
+vertically. It can't stack 12 of these things in two
+
+94
+00:04:43,050 --> 00:04:45,950
+dimensions like this. So I'm gonna have to make three
+
+95
+00:04:46,019 --> 00:04:50,155
+horizontal stacks out of this group, out of this group, and
+
+96
+00:04:50,223 --> 00:04:53,024
+out of this group. But then I'll take those three stacks
+
+97
+00:04:53,092 --> 00:04:55,794
+and stack them vertically. Cuz it's perfectly fine to put
+
+98
+00:04:55,863 --> 00:04:59,230
+stacks inside stacks, all right? And once I do that,
+
+99
+00:04:59,299 --> 00:05:02,667
+I'll have all 12 of these kinda stocked together. And
+
+100
+00:05:02,736 --> 00:05:05,803
+then I can pin it to the edges and they'll stretch out. So
+
+101
+00:05:05,872 --> 00:05:07,405
+how do we make this stack use?
+
+102
+00:05:07,473 --> 00:05:10,074
+Super simple, you just select it here. Let me zoom in so
+
+103
+00:05:10,143 --> 00:05:12,977
+we can really see what's going on here. We only need the top
+
+104
+00:05:13,046 --> 00:05:15,347
+part for now. So I deselected these four things.
+
+105
+00:05:15,416 --> 00:05:17,215
+I'm going down to this button right here.
+
+106
+00:05:17,284 --> 00:05:19,751
+You see this button, embed and stack?
+
+107
+00:05:19,820 --> 00:05:22,020
+Well, that's what it does. It embeds in stack.
+
+108
+00:05:22,089 --> 00:05:24,188
+And it embedded it. Now, couple of things.
+
+109
+00:05:24,257 --> 00:05:27,392
+One is, it made the buttons as small as it could when you put
+
+110
+00:05:27,460 --> 00:05:30,028
+in the stack. It has 50 point font, remember, for
+
+111
+00:05:30,097 --> 00:05:32,730
+those emojis. So that's just as small as they'll go.
+
+112
+00:05:32,799 --> 00:05:36,434
+It also has no spacing between. But I can put spacing
+
+113
+00:05:36,503 --> 00:05:40,638
+in-between by just selecting it. It was left selected after
+
+114
+00:05:40,707 --> 00:05:43,809
+I stacked. And going over here to the inspector because this
+
+115
+00:05:43,877 --> 00:05:47,145
+stack view, just like a button, can be inspected,
+
+116
+00:05:47,213 --> 00:05:49,881
+right? And you can see it made it horizontal,
+
+117
+00:05:49,950 --> 00:05:52,617
+it kinda noticed my buttons were mostly horizontal. So
+
+118
+00:05:52,686 --> 00:05:57,522
+it picked horizontal. And so here's how I set the spacing.
+
+119
+00:05:57,590 --> 00:06:00,492
+I go down here. I'm gonna use a standard spacing.
+
+120
+00:06:00,560 --> 00:06:03,027
+There's a lot of places when you're doing UI design where
+
+121
+00:06:03,096 --> 00:06:05,463
+you can pick an UI standard value and
+
+122
+00:06:05,532 --> 00:06:07,498
+it'll pick a standard spacing.
+
+123
+00:06:07,567 --> 00:06:09,167
+This is a standard spacing between buttons.
+
+124
+00:06:09,235 --> 00:06:11,336
+And you wanna use that pretty much as much as possible.
+
+125
+00:06:11,404 --> 00:06:14,005
+That way, your UI will be spaced like other UI and
+
+126
+00:06:14,074 --> 00:06:17,609
+you will feel like rolling on the same page as
+
+127
+00:06:17,678 --> 00:06:21,746
+UI designers across all these apps. Also I wanna make sure
+
+128
+00:06:21,814 --> 00:06:26,317
+that these four buttons get equal amount of space. Okay,
+
+129
+00:06:26,386 --> 00:06:29,421
+whatever space I am given here gets equally distributed and
+
+130
+00:06:29,489 --> 00:06:31,322
+I do that with this distribution thing here,
+
+131
+00:06:31,391 --> 00:06:36,228
+I say fill equally. Alignment just means I fill the whole
+
+132
+00:06:36,296 --> 00:06:38,563
+space, I could have these things being centered or
+
+133
+00:06:38,632 --> 00:06:40,431
+kinda pushed up to the top of the stack but
+
+134
+00:06:40,500 --> 00:06:42,801
+I'm gonna have it fill the whole space. So that's it.
+
+135
+00:06:42,869 --> 00:06:45,503
+So I'm just gonna do the same thing with these two rows.
+
+136
+00:06:45,572 --> 00:06:48,373
+So this one go down here, embed in stack,
+
+137
+00:06:48,441 --> 00:06:52,210
+this group right here embed in stack. Oops,
+
+138
+00:06:52,279 --> 00:06:56,080
+I did it twice there. Now I'm gonna select both of these.
+
+139
+00:06:56,149 --> 00:07:00,851
+Make them fill equally and standard value spacing. So
+
+140
+00:07:00,920 --> 00:07:04,756
+now I've got three horizontal stacks. I'm gonna stack these
+
+141
+00:07:04,824 --> 00:07:06,991
+together, I'm gonna select them. By the way,
+
+142
+00:07:07,060 --> 00:07:09,694
+dragging to select is really an awesome way to select.
+
+143
+00:07:09,763 --> 00:07:12,163
+I highly recommend you do that rather than trying to click on
+
+144
+00:07:12,231 --> 00:07:15,433
+things. Because by the way, let's say I try to click on
+
+145
+00:07:15,502 --> 00:07:19,370
+here to select this row. Oops, I selected the button inside.
+
+146
+00:07:19,439 --> 00:07:21,940
+I didn't want that, I wanted the whole row. But
+
+147
+00:07:22,008 --> 00:07:25,610
+if I just drag, not control drag but regular drag here,
+
+148
+00:07:25,679 --> 00:07:30,048
+it selects the thing that I intercepted with my drag.
+
+149
+00:07:30,117 --> 00:07:32,650
+Anyway, so I'm gonna select all three of these with drag.
+
+150
+00:07:32,719 --> 00:07:35,086
+And I'm gonna go embed in stack. You put them in
+
+151
+00:07:35,155 --> 00:07:37,622
+a vertical stack. You notice this time it's vertical,
+
+152
+00:07:37,691 --> 00:07:39,623
+cuz it noticed those three things are vertical.
+
+153
+00:07:39,692 --> 00:07:40,925
+If your things are random,
+
+154
+00:07:40,994 --> 00:07:43,461
+it'll pick the one that it thinks is the most likely.
+
+155
+00:07:43,530 --> 00:07:44,863
+You can always change it by going here and
+
+156
+00:07:44,931 --> 00:07:47,932
+changing it to the other one. So we have vertical,
+
+157
+00:07:48,001 --> 00:07:51,135
+we also wanna fill equally, top to bottom here, and
+
+158
+00:07:51,204 --> 00:07:53,271
+we also want standard spacing. So
+
+159
+00:07:53,340 --> 00:07:56,607
+it's great. We got our buttons in this nice grid.
+
+160
+00:07:56,676 --> 00:08:02,046
+They're all Perfectly laid out in this rectangle. Now,
+
+161
+00:08:02,115 --> 00:08:05,483
+we want to pin this rectangle to the edges. Okay, so
+
+162
+00:08:05,552 --> 00:08:08,820
+that when the device rotates, or if the device was bigger,
+
+163
+00:08:08,888 --> 00:08:10,388
+like if it was an iPhone 8 Plus, or
+
+164
+00:08:10,457 --> 00:08:12,223
+something like that and it was wider, so
+
+165
+00:08:12,292 --> 00:08:15,026
+that it would all just stretch out. So, the way we do
+
+166
+00:08:15,095 --> 00:08:17,529
+that is first I'm going to use those dash blue lines.
+
+167
+00:08:17,598 --> 00:08:21,065
+I picked up this thing. Again, picking it up,
+
+168
+00:08:21,134 --> 00:08:23,601
+you wanna select it first, then pick it up.
+
+169
+00:08:23,669 --> 00:08:26,538
+If you don't select it first and try to pick it up, oops,
+
+170
+00:08:26,606 --> 00:08:28,706
+you might try and pull one of these things out of there.
+
+171
+00:08:28,775 --> 00:08:30,742
+Okay? So, be careful about that. All right.
+
+172
+00:08:30,810 --> 00:08:32,176
+So, I'm gonna use the blue lines. I'm gonna
+
+173
+00:08:32,245 --> 00:08:35,013
+put this where it kinda suggests for
+
+174
+00:08:35,082 --> 00:08:36,147
+the upper left hand corner.
+
+175
+00:08:36,216 --> 00:08:39,484
+You see that? That's pretty much where the blue line,
+
+176
+00:08:39,552 --> 00:08:41,953
+that would be the standard spacing from the edges.
+
+177
+00:08:42,022 --> 00:08:43,387
+That's what the blue lines are telling you.
+
+178
+00:08:43,456 --> 00:08:45,857
+This is a standard place to put this. Now,
+
+179
+00:08:45,926 --> 00:08:49,227
+I need to pin it and the way we make relationships between
+
+180
+00:08:49,296 --> 00:08:52,764
+views and the UI like pinning them to each other and
+
+181
+00:08:52,832 --> 00:08:56,200
+stuff is with control drag. Exact same way that we made
+
+182
+00:08:56,269 --> 00:08:58,202
+a relationship between our UI and our code,
+
+183
+00:08:58,271 --> 00:09:01,239
+by dragging the code, we do the same thing between views.
+
+184
+00:09:01,308 --> 00:09:04,675
+So, I'm gonna control drag from this already selected
+
+185
+00:09:04,744 --> 00:09:09,047
+box here to the top. Okay, so I'm just dragging up towards
+
+186
+00:09:09,115 --> 00:09:11,750
+the top, and when I let go it's going to say, okay,
+
+187
+00:09:11,818 --> 00:09:14,619
+what relationship do you want between that view and
+
+188
+00:09:14,687 --> 00:09:17,588
+the top. And there's various relationships you can have,
+
+189
+00:09:17,657 --> 00:09:19,090
+like I said, in three weeks we're going to have
+
+190
+00:09:19,159 --> 00:09:21,159
+a whole lecture on these relationships, but
+
+191
+00:09:21,227 --> 00:09:24,962
+at the very top is the one Top Space to Safe Area.
+
+192
+00:09:25,031 --> 00:09:28,132
+You see that Top Space to Space Area? The safe area
+
+193
+00:09:28,201 --> 00:09:31,336
+is a safe edge around the screen where you can
+
+194
+00:09:31,405 --> 00:09:34,639
+safely draw without overlapping some other UI.
+
+195
+00:09:34,707 --> 00:09:37,241
+So, here it's putting it right under the place where all
+
+196
+00:09:37,310 --> 00:09:40,578
+the cameras and face recognition stuff is all in
+
+197
+00:09:40,647 --> 00:09:44,883
+here. So, it's to keeping it below that. Now, if I had
+
+198
+00:09:44,951 --> 00:09:47,752
+other UI on this, like tab bars, or title bars, or
+
+199
+00:09:47,820 --> 00:09:51,455
+whatever, then the safety area would be inside those. So,
+
+200
+00:09:51,524 --> 00:09:54,325
+we wouldn't overlap our titles and stuff. It's really cool.
+
+201
+00:09:54,394 --> 00:10:00,264
+So, I'm gonna put this top space little pin, so
+
+202
+00:10:00,333 --> 00:10:03,501
+I'm kinda connected it and you can see this blue line appears
+
+203
+00:10:03,570 --> 00:10:07,371
+right here. Okay? This blue line here, long blue line.
+
+204
+00:10:07,440 --> 00:10:11,375
+It represents that pinning and I can even click on it. Okay,
+
+205
+00:10:11,444 --> 00:10:14,045
+and when I click on it, look, it's inspectable in the top
+
+206
+00:10:14,113 --> 00:10:17,248
+half here. Okay? And it's just telling me that un-pinned
+
+207
+00:10:17,317 --> 00:10:20,284
+from the safe area top to the top of that stack view. And
+
+208
+00:10:20,353 --> 00:10:23,321
+we're zero points away from it.
+
+209
+00:10:23,389 --> 00:10:25,824
+We wanna be right up against that safe edge.
+
+210
+00:10:25,892 --> 00:10:28,058
+That's where the blue dashed lines told me to put it, so
+
+211
+00:10:28,127 --> 00:10:30,661
+that's where I'm gonna put it. Now, we can do the same thing
+
+212
+00:10:30,730 --> 00:10:34,032
+to the left edge over here, so I'm gonna control drag over.
+
+213
+00:10:34,101 --> 00:10:37,001
+This time it says, Leading Space to Safe Area.
+
+214
+00:10:37,069 --> 00:10:40,872
+Now, why do you think that says leading instead of left?
+
+215
+00:10:40,941 --> 00:10:45,743
+Anyone wanna guess? It says leading instead of left,
+
+216
+00:10:45,812 --> 00:10:50,081
+because some languages Hebrew, Arabic, they go right to
+
+217
+00:10:50,150 --> 00:10:53,117
+left. The letters come from the right, and they flow
+
+218
+00:10:53,186 --> 00:10:55,820
+out towards the left. In those cases, you want pretty much
+
+219
+00:10:55,889 --> 00:10:58,656
+your whole UI flipped over. So, you would want these
+
+220
+00:10:58,725 --> 00:11:01,259
+buttons pinned to the other side, because the text on
+
+221
+00:11:01,328 --> 00:11:03,761
+the buttons is gonna be coming from the right. Okay?
+
+222
+00:11:03,830 --> 00:11:05,830
+Now, it doesn't matter with our emojis, but
+
+223
+00:11:05,898 --> 00:11:08,332
+that's why we do leading and trailing instead of left and
+
+224
+00:11:08,401 --> 00:11:11,435
+right. Okay? So, I'm gonna click this Leading Space to
+
+225
+00:11:11,504 --> 00:11:14,405
+Save Area right here. Connect it, I get another little blue
+
+226
+00:11:14,474 --> 00:11:17,141
+thing right here. You see this one? If I click on it,
+
+227
+00:11:17,210 --> 00:11:19,143
+it looks like a little eyebeam,
+
+228
+00:11:19,212 --> 00:11:22,947
+it's pinning these 2 and it's pinned it with 16 points.
+
+229
+00:11:23,016 --> 00:11:25,950
+You see 16 points, evidently the blue lines think from
+
+230
+00:11:26,019 --> 00:11:28,986
+the left edge, or the leading edge you want 16 points.
+
+231
+00:11:29,055 --> 00:11:31,489
+Okay, I'll take that. And then, of course,
+
+232
+00:11:31,557 --> 00:11:36,026
+I could pin to the other side. Ctrl+drag over here.
+
+233
+00:11:36,095 --> 00:11:39,397
+And now, here I didn't use the blue line for that edge.
+
+234
+00:11:39,466 --> 00:11:42,634
+So, here if I say trailing space to safe area.
+
+235
+00:11:42,702 --> 00:11:44,635
+I get an eyebeam, this huge, okay.
+
+236
+00:11:44,704 --> 00:11:46,537
+So, it goes all the way across like that.
+
+237
+00:11:46,606 --> 00:11:50,241
+And I don't want that, I want it to be the same as the other
+
+238
+00:11:50,310 --> 00:11:53,444
+side, 16 points. So, in my inspector right here,
+
+239
+00:11:53,513 --> 00:11:56,681
+this distance is this constant right here, 215 points.
+
+240
+00:11:56,749 --> 00:11:58,882
+So, I'm gonna change that to be 16,
+
+241
+00:11:58,951 --> 00:12:02,219
+so it matches the other side. Oh, and look what happened, it
+
+242
+00:12:02,288 --> 00:12:06,223
+pinned the edge of my buttons and they spread out, equally,
+
+243
+00:12:06,292 --> 00:12:09,727
+filling equally, because we told we want to fill equally.
+
+244
+00:12:09,796 --> 00:12:13,664
+Okay, so that's pretty cool, now we have the bottom.
+
+245
+00:12:13,733 --> 00:12:16,467
+So, the bottom is a little trickier, because we've got
+
+246
+00:12:16,536 --> 00:12:20,771
+flips down here. So, we want flips to be on the bottom, and
+
+247
+00:12:20,840 --> 00:12:23,874
+we want this thing to be above flips. So,
+
+248
+00:12:23,943 --> 00:12:26,310
+let's work on flips first, let's just get it, so
+
+249
+00:12:26,379 --> 00:12:28,947
+that flips is on the bottom and we're gonna do exact same
+
+250
+00:12:29,015 --> 00:12:31,549
+thing. So, I'm gonna grab flips and use the blue lines,
+
+251
+00:12:31,618 --> 00:12:33,517
+okay, put it in the center on the bottom.
+
+252
+00:12:33,586 --> 00:12:36,520
+And then a controlled drag to the bottom,
+
+253
+00:12:36,589 --> 00:12:40,658
+and say that I want the bottom space to be pinned to the safe
+
+254
+00:12:40,726 --> 00:12:44,962
+area. So, that's good. Now, when I did that,
+
+255
+00:12:45,031 --> 00:12:47,632
+look I got this yellow and red lines and
+
+256
+00:12:47,701 --> 00:12:50,434
+I got a warning up here. See a warning this warning,
+
+257
+00:12:50,503 --> 00:12:53,037
+this means there is a warning and it can be red if you have
+
+258
+00:12:53,106 --> 00:12:56,140
+an error. And if you click on it it will tell you what all
+
+259
+00:12:56,209 --> 00:12:59,210
+your warnings are kind of a quick summary there, and
+
+260
+00:12:59,278 --> 00:13:02,179
+here it says horizontal position is ambiguous for
+
+261
+00:13:02,248 --> 00:13:06,183
+your flip count label. In fact, it is ambiguous.
+
+262
+00:13:06,252 --> 00:13:08,052
+I never told it where it horizontally,
+
+263
+00:13:08,121 --> 00:13:09,587
+I pinned it to the bottom, but
+
+264
+00:13:09,656 --> 00:13:11,322
+I didn't say it was in the middle, or left, or
+
+265
+00:13:11,390 --> 00:13:14,625
+right now I dragged it there with a blue lines, but
+
+266
+00:13:14,694 --> 00:13:18,362
+starting with blue lines, it doesn't pin it there. So
+
+267
+00:13:18,431 --> 00:13:19,897
+really what I want with flips is,
+
+268
+00:13:19,966 --> 00:13:22,599
+I want it to be in the center. Okay, I want it to be in
+
+269
+00:13:22,668 --> 00:13:24,134
+center. Just to show you something a little different.
+
+270
+00:13:24,203 --> 00:13:27,738
+And to do that, again, I Control+drag from flips right
+
+271
+00:13:27,807 --> 00:13:30,808
+here, to the thing I wanted to be in the center of,
+
+272
+00:13:30,876 --> 00:13:33,144
+which is this background here. So,
+
+273
+00:13:33,212 --> 00:13:35,112
+I'm just gonna Control+drag to the background. And
+
+274
+00:13:35,181 --> 00:13:39,750
+another option is center this horizontally in the safe area.
+
+275
+00:13:39,819 --> 00:13:44,621
+So, I'm gonna do that. Now, it, it puts it in the middle.
+
+276
+00:13:44,690 --> 00:13:47,758
+It's still yellow here. So, what does this yellow say?
+
+277
+00:13:47,827 --> 00:13:50,727
+It says the frame for the Flip Count Label will be different
+
+278
+00:13:50,796 --> 00:13:55,332
+at run time. That's, because I have not constrained the size
+
+279
+00:13:55,401 --> 00:13:58,168
+of this Flip Count Label. I've let it be any size it wants.
+
+280
+00:13:58,237 --> 00:13:59,536
+And since it can be any size it wants,
+
+281
+00:13:59,605 --> 00:14:02,206
+it's gonna want to be its natural size,
+
+282
+00:14:02,274 --> 00:14:03,841
+whatever size fits it.
+
+283
+00:14:03,910 --> 00:14:07,211
+Now, I can fix this warning down here in this button right
+
+284
+00:14:07,280 --> 00:14:09,813
+here. This is where all your constraints.
+
+285
+00:14:09,882 --> 00:14:12,984
+All this pinning things to edges is called constraints
+
+286
+00:14:13,052 --> 00:14:15,686
+we're constraining these views to be in a certain place,
+
+287
+00:14:15,755 --> 00:14:18,522
+that we can just, um, actually we don't fix it there,
+
+288
+00:14:18,591 --> 00:14:20,458
+but we're gonna fix that over here.
+
+289
+00:14:20,526 --> 00:14:23,627
+So, remember, our document outline that we had over here
+
+290
+00:14:23,696 --> 00:14:26,464
+this little thing we hide. If you unhide that and
+
+291
+00:14:26,533 --> 00:14:29,500
+look in the upper right, if there are any of these little
+
+292
+00:14:29,569 --> 00:14:32,436
+warnings you have this little button, if you click on it,
+
+293
+00:14:32,505 --> 00:14:34,338
+it will tell you all the problems. So,
+
+294
+00:14:34,407 --> 00:14:39,310
+this one is a misplaced view, cuz this flip is too big. For
+
+295
+00:14:39,379 --> 00:14:41,345
+what it should be. So, again, if you click on this little
+
+296
+00:14:41,414 --> 00:14:44,715
+triangle, it'll offer, hey, you wanna fix this? And
+
+297
+00:14:44,784 --> 00:14:47,051
+you can fix it by updating the frames, which we want,
+
+298
+00:14:47,120 --> 00:14:49,653
+cuz we don't care what the frame this is, the rectangle
+
+299
+00:14:49,722 --> 00:14:51,389
+that encloses it. It could be anything as long as it's
+
+300
+00:14:51,457 --> 00:14:54,058
+pinned to the bottom and in the center. And we can
+
+301
+00:14:54,126 --> 00:14:56,160
+do other things too, we'll talk about a couple of weeks.
+
+302
+00:14:56,229 --> 00:14:58,129
+So, I am just gonna update frame drive here fix
+
+303
+00:14:58,198 --> 00:15:01,032
+missplacement. Look at moved flips down,
+
+304
+00:15:01,100 --> 00:15:04,168
+it made the frame around it just barely contain it.
+
+305
+00:15:04,237 --> 00:15:07,171
+Okay, and now they frame around that flip zero is it's
+
+306
+00:15:07,240 --> 00:15:10,407
+natural size. If I run this and do a hundred flips, so
+
+307
+00:15:10,476 --> 00:15:12,810
+that it has to be bigger it will naturally get bigger.
+
+308
+00:15:12,879 --> 00:15:15,079
+Because it's size is not constrained.
+
+309
+00:15:15,147 --> 00:15:17,482
+It's not pinned to anything, only its location. So,
+
+310
+00:15:17,550 --> 00:15:20,818
+its size will get as big, or small it needs to to contain
+
+311
+00:15:20,887 --> 00:15:23,521
+its stuff. And now, we see we have no auto layout issues.
+
+312
+00:15:23,590 --> 00:15:27,591
+We have no warning up here, all is well. One last thing we
+
+313
+00:15:27,660 --> 00:15:30,661
+need to do is the relationship between the top of the flips,
+
+314
+00:15:30,730 --> 00:15:34,632
+and the bottom of this. Now, I could just take this thing up
+
+315
+00:15:34,701 --> 00:15:38,336
+here and control drag between that and the flips, right?,
+
+316
+00:15:38,405 --> 00:15:40,837
+that's a good idea. And we could, for example,
+
+317
+00:15:40,906 --> 00:15:43,875
+constrain the vertical spacing between the two, so I'm gonna
+
+318
+00:15:43,943 --> 00:15:48,679
+click Vertical Spacing, there it is. It's this huge bar.
+
+319
+00:15:48,748 --> 00:15:52,917
+I could go over here and change it from 454 to 0, and
+
+320
+00:15:52,985 --> 00:15:55,986
+use all the space here. But that didn't look very good.
+
+321
+00:15:56,055 --> 00:15:58,722
+I don't really like tall thin buttons like that.
+
+322
+00:15:58,791 --> 00:16:01,492
+So I'm gonna leave this constraint in here. But I'm
+
+323
+00:16:01,561 --> 00:16:04,962
+gonna change it from equal, where it has to be equal,
+
+324
+00:16:05,031 --> 00:16:08,899
+to 0 with the flips. Also I probably don't want 0, I want
+
+325
+00:16:08,968 --> 00:16:11,936
+a standard value here so I'm gonna change to standard value
+
+326
+00:16:12,004 --> 00:16:14,605
+difference, okay, this, this, this distance.
+
+327
+00:16:14,674 --> 00:16:17,007
+And I don't it to be equal, I want it to be greater than or
+
+328
+00:16:17,076 --> 00:16:19,677
+equal. So I just wanna make sure that these things on
+
+329
+00:16:19,746 --> 00:16:23,113
+the top are always above the flips, greater than or equal.
+
+330
+00:16:23,182 --> 00:16:25,716
+But it doesn't have to be right above it like that. So
+
+331
+00:16:25,785 --> 00:16:28,318
+you don't have to always have these constraints be equal.
+
+332
+00:16:28,387 --> 00:16:31,388
+They can be greater than or equal, less than or
+
+333
+00:16:31,457 --> 00:16:35,526
+equal kind of relative constraints. You see all this?
+
+334
+00:16:35,594 --> 00:16:37,795
+Now, we can run the app and this should all work.
+
+335
+00:16:37,864 --> 00:16:40,097
+Everything is kind of constrained to each other.
+
+336
+00:16:40,165 --> 00:16:43,834
+We can actually kinda take a look at it here in interface
+
+337
+00:16:43,903 --> 00:16:46,470
+builder. Right, remember this button down here that showed
+
+338
+00:16:46,538 --> 00:16:49,373
+us all these phones? We can say, okay, what's this thing
+
+339
+00:16:49,442 --> 00:16:52,810
+gonna look like on an iPhone 8? Here's iPhone 8,
+
+340
+00:16:52,879 --> 00:16:55,346
+we click on it, and sometimes when it does it,
+
+341
+00:16:55,415 --> 00:16:58,015
+you can kind of zoom in and out to get it to redraw.
+
+342
+00:16:58,084 --> 00:17:00,284
+So this is what it's gonna look like on iPhone 8.
+
+343
+00:17:00,353 --> 00:17:03,988
+We can look at, back on iPhone X, but rotate it.
+
+344
+00:17:04,056 --> 00:17:06,557
+So here's what it's gonna look like rotated on iPhone X,
+
+345
+00:17:06,626 --> 00:17:08,960
+that looks like that's gonna look okay. So
+
+346
+00:17:09,028 --> 00:17:11,963
+we can kind of preview a little bit what's going on
+
+347
+00:17:12,031 --> 00:17:13,997
+here in interface builder, but there's no substitute for
+
+348
+00:17:14,066 --> 00:17:16,667
+running it. So let's just run it on our simulator and
+
+349
+00:17:16,736 --> 00:17:19,537
+see if it looks like what we expect.
+
+350
+00:17:21,040 --> 00:17:23,340
+Right here it is, app seems to be working. Oh,
+
+351
+00:17:23,409 --> 00:17:27,678
+let's go make our background black again. So go back here,
+
+352
+00:17:27,746 --> 00:17:32,183
+background black, keep our Halloween theme intact.
+
+353
+00:17:35,488 --> 00:17:38,655
+Right now here, okay, so this thing is working we can still
+
+354
+00:17:38,724 --> 00:17:41,458
+match things, etc. But now when we rotate,
+
+355
+00:17:41,527 --> 00:17:45,496
+remember Command+Arrow, look, it re-lays out the entire UI
+
+356
+00:17:45,565 --> 00:17:48,766
+to fit the space. And it's doing this, it's relaying
+
+357
+00:17:48,835 --> 00:17:50,868
+it out because of those constraints we put it.
+
+358
+00:17:50,936 --> 00:17:53,337
+We constrained this edge to be stuck to here,
+
+359
+00:17:53,405 --> 00:17:55,573
+we constrained this edge to be stuck up here.
+
+360
+00:17:55,641 --> 00:17:57,541
+We constrained this distance to be
+
+361
+00:17:57,610 --> 00:17:59,610
+greater than or equal to a standard distance.
+
+362
+00:17:59,679 --> 00:18:02,980
+We constrained the bottom of this to be a distance down
+
+363
+00:18:03,049 --> 00:18:05,783
+here. We constrained the x position of this to be in
+
+364
+00:18:05,852 --> 00:18:08,319
+the center. We put those constraints on here, and so
+
+365
+00:18:08,388 --> 00:18:12,756
+that when we flip this thing around, it's living with those
+
+366
+00:18:12,825 --> 00:18:18,095
+constraints. Got it? So like I said, this is just a teaser
+
+367
+00:18:18,163 --> 00:18:21,031
+of this constraint stuff. It's a very powerful system for
+
+368
+00:18:21,100 --> 00:18:23,768
+doing these constraints and we'll talk all about that,
+
+369
+00:18:23,837 --> 00:18:27,738
+like I said, in about three weeks. Okay,
+
+370
+00:18:27,806 --> 00:18:30,441
+back to the slides. All right, so
+
+371
+00:18:30,510 --> 00:18:32,876
+here's your brief review of week 1, okay,
+
+372
+00:18:32,945 --> 00:18:35,846
+hyperspeed review. Of course you know about target action,
+
+373
+00:18:35,914 --> 00:18:38,015
+outlet out to out collection, outlet collections.
+
+374
+00:18:38,083 --> 00:18:40,651
+The card buttons, your flip count label. The touch card,
+
+375
+00:18:40,720 --> 00:18:43,454
+you know about that. You learned all about methods and
+
+376
+00:18:43,523 --> 00:18:46,056
+properties, what their syntax was for all of those things.
+
+377
+00:18:46,125 --> 00:18:49,794
+Properties like flip count and tons of methods all the ones
+
+378
+00:18:49,862 --> 00:18:53,397
+in concentration in card and view controller. You learned
+
+379
+00:18:53,466 --> 00:18:56,367
+about property observing right when the flip count changed,
+
+380
+00:18:56,435 --> 00:18:58,902
+we have that didSet that would cause the UI to change as
+
+381
+00:18:58,971 --> 00:19:01,138
+well. You obviously learned about arrays,
+
+382
+00:19:01,207 --> 00:19:04,041
+how to put things in arrays, how to declare an array.
+
+383
+00:19:04,110 --> 00:19:06,477
+You'll learned a ton about model view controller.
+
+384
+00:19:06,545 --> 00:19:09,646
+We went and made the Concentration game have
+
+385
+00:19:09,715 --> 00:19:12,816
+a model like concentration on the card.
+
+386
+00:19:12,885 --> 00:19:15,986
+You learned about value types versus reference types, right?
+
+387
+00:19:16,055 --> 00:19:18,655
+The card, which is a struct, a value type that gets copied
+
+388
+00:19:18,724 --> 00:19:21,525
+when you throw it around. So when we put them in the array
+
+389
+00:19:21,594 --> 00:19:23,961
+there, we made the copy by just putting it in twice.
+
+390
+00:19:24,029 --> 00:19:25,729
+And they copied it each time you put it in there,
+
+391
+00:19:25,798 --> 00:19:28,265
+remember that? You learned about initializers,
+
+392
+00:19:28,334 --> 00:19:31,001
+we had initializers both for
+
+393
+00:19:31,069 --> 00:19:32,469
+for concentration, they each did different things to get
+
+394
+00:19:32,470 --> 00:19:33,870
+card and
+
+395
+00:19:33,940 --> 00:19:36,741
+themselves an initializer. We didn't initializer for
+
+396
+00:19:36,809 --> 00:19:40,278
+our UI view controller and we probably never will.
+
+397
+00:19:40,346 --> 00:19:44,548
+UI view controllers initialization is messy. Okay,
+
+398
+00:19:44,617 --> 00:19:47,585
+so we try at all possible not to use init for our view
+
+399
+00:19:47,653 --> 00:19:50,154
+controller. And I explained that in your homework
+
+400
+00:19:50,223 --> 00:19:53,557
+that's going out today, you can read about it. You learned
+
+401
+00:19:53,625 --> 00:19:56,327
+about static methods like get unique identifier, static
+
+402
+00:19:56,395 --> 00:19:58,829
+vars like the identifier factory that we've created
+
+403
+00:19:58,898 --> 00:20:01,698
+there. You learned about lazy properties like game, which
+
+404
+00:20:01,767 --> 00:20:05,736
+depended on another property, and so it couldn't initialize.
+
+405
+00:20:05,804 --> 00:20:07,838
+We just made it lazy so that it wouldn't actually
+
+406
+00:20:07,907 --> 00:20:09,606
+initialize until someone asked for it,
+
+407
+00:20:09,675 --> 00:20:12,776
+which would of course be after the thing is all initialized.
+
+408
+00:20:12,845 --> 00:20:15,946
+You learned about for in loops, which in Swift only
+
+409
+00:20:16,015 --> 00:20:19,183
+work by iterating over what's called a sequence.
+
+410
+00:20:19,252 --> 00:20:21,852
+And we learned that countable range is a sequence, right?
+
+411
+00:20:21,921 --> 00:20:24,421
+0..< than whatever is a countable range,
+
+412
+00:20:24,490 --> 00:20:26,923
+that's a sequence. But also array is a sequence,
+
+413
+00:20:26,992 --> 00:20:28,893
+and string is a sequence of characters.
+
+414
+00:20:28,961 --> 00:20:31,862
+A lot of things are sequences, you can for in over them.
+
+415
+00:20:31,931 --> 00:20:34,464
+We're gonna talk about what it means to be a sequence
+
+416
+00:20:34,533 --> 00:20:37,734
+little later, probably on Wednesday. You learned about
+
+417
+00:20:37,803 --> 00:20:40,637
+dictionary. Of course our emoji were in a dictionary.
+
+418
+00:20:40,706 --> 00:20:41,839
+We learned about type conversion.
+
+419
+00:20:41,908 --> 00:20:45,342
+We convert types by creating a new thing. And using an init
+
+420
+00:20:45,411 --> 00:20:49,480
+with the old thing like uint 32 of an int makes a uint,
+
+421
+00:20:49,548 --> 00:20:53,016
+convert into a uint 32. And of course, you learned a lot
+
+422
+00:20:53,085 --> 00:20:55,852
+about optionals which I'm sure are all still new to you and
+
+423
+00:20:55,921 --> 00:20:58,522
+I'm gonna talk a lot today about optionals and how they
+
+424
+00:20:58,591 --> 00:21:01,058
+really work. And what's really going on with optionals, okay?
+
+425
+00:21:01,126 --> 00:21:02,759
+So that's your review of week one.
+
+426
+00:21:02,828 --> 00:21:04,995
+If for some of these, if you don't feel like you understand
+
+427
+00:21:05,063 --> 00:21:08,799
+these, probably haven't done your homework yet, then you
+
+428
+00:21:08,868 --> 00:21:11,402
+won't understand this, very important. Okay, the first two
+
+429
+00:21:11,470 --> 00:21:13,804
+things I'm gonna talk about here are just a little quick
+
+430
+00:21:13,873 --> 00:21:17,741
+minor things, asides. I mentioned doing a for
+
+431
+00:21:17,810 --> 00:21:22,279
+loop over floats. So this for i = 0.5, i < 15.25 whatever,
+
+432
+00:21:22,348 --> 00:21:26,083
+that's something you might see in C. You can't do that
+
+433
+00:21:26,151 --> 00:21:28,919
+in Swift, okay? Swift doesn't have, it only has for in,
+
+434
+00:21:28,988 --> 00:21:32,589
+that's all it has. But how do we create a countable range or
+
+435
+00:21:32,658 --> 00:21:36,026
+some kind of sequence of those floats because 0.5...15.25,
+
+436
+00:21:36,094 --> 00:21:40,163
+that's actually legal to say, but
+
+437
+00:21:40,232 --> 00:21:44,134
+that's only a range in Swift not a countable range. And
+
+438
+00:21:44,203 --> 00:21:47,071
+that's because we don't know what to count by there,
+
+439
+00:21:47,140 --> 00:21:49,739
+so it can't create a countable range. So
+
+440
+00:21:49,808 --> 00:21:52,977
+the way we do that is using a global function called stride.
+
+441
+00:21:54,547 --> 00:21:58,114
+Stride has form, through or from and
+
+442
+00:21:58,183 --> 00:22:00,784
+to depending on whether you are gonna include the last
+
+443
+00:22:00,852 --> 00:22:04,588
+thing, and a by tells you what it strides by. Stride is
+
+444
+00:22:04,656 --> 00:22:08,492
+function that creates a countable range. Countable
+
+445
+00:22:08,561 --> 00:22:11,461
+range is a generic type like array is a generic type.
+
+446
+00:22:11,530 --> 00:22:13,296
+It can count over not just ints,
+
+447
+00:22:13,365 --> 00:22:15,932
+it could count over floats, it could even count over indexes
+
+448
+00:22:16,001 --> 00:22:18,535
+into a string, all kinds of things it can count over.
+
+449
+00:22:18,604 --> 00:22:22,172
+And this stride knows how to create a countable range,
+
+450
+00:22:22,241 --> 00:22:25,476
+in this case a closed countable range because I did
+
+451
+00:22:25,545 --> 00:22:28,345
+through 15.25, not to 15.25.
+
+452
+00:22:28,414 --> 00:22:31,581
+It creates one that goes over floats and knows to step by
+
+453
+00:22:31,650 --> 00:22:34,951
+three, 0.3 there. So that's how you do floating point.
+
+454
+00:22:35,020 --> 00:22:37,020
+And you don't have to do that for your homework or anything,
+
+455
+00:22:37,089 --> 00:22:38,555
+but I just wanted to be complete about how we do
+
+456
+00:22:38,624 --> 00:22:41,892
+a countable range for floats. All right, tuples.
+
+457
+00:22:41,961 --> 00:22:45,262
+I try to fit everything into Concentration that I can,
+
+458
+00:22:45,331 --> 00:22:48,332
+an example of everything. But I couldn't figure out
+
+459
+00:22:48,400 --> 00:22:51,101
+how to fit a tuple in even though tuple is a very simple
+
+460
+00:22:51,170 --> 00:22:55,572
+little data structure. And all that tuple is, essentially,,
+
+461
+00:22:55,641 --> 00:22:59,943
+like a mini struct that has no methods or vars or anything.
+
+462
+00:23:00,012 --> 00:23:04,114
+Just has values in it. So it's kind of like struct in other
+
+463
+00:23:04,183 --> 00:23:06,784
+languages, like C structs. They don't have methods or
+
+464
+00:23:06,852 --> 00:23:08,719
+vars or anything, or they kind of have vars,
+
+465
+00:23:08,788 --> 00:23:10,554
+they have the data stores and that's it.
+
+466
+00:23:10,623 --> 00:23:12,956
+So but the tuple is super lightweight and
+
+467
+00:23:13,025 --> 00:23:15,392
+you kinda define everything in line.
+
+468
+00:23:15,461 --> 00:23:19,296
+So here's what a tuple looks like. Here's a tuple x. x,
+
+469
+00:23:19,365 --> 00:23:23,734
+is up here, is of type tuple. And this tuple has three
+
+470
+00:23:23,802 --> 00:23:26,437
+things in it. A string, an int, and a double. And
+
+471
+00:23:26,505 --> 00:23:29,839
+I set its value by just saying equals parentheses,
+
+472
+00:23:29,908 --> 00:23:33,544
+the three things, okay, the three values. Now, what's
+
+473
+00:23:33,612 --> 00:23:37,214
+kinda cool about a tuple, as a lightweight struct kinda
+
+474
+00:23:37,283 --> 00:23:41,451
+thing, is that the names of the elements is very flexible.
+
+475
+00:23:41,520 --> 00:23:44,855
+You can define the names when you get the values, like this,
+
+476
+00:23:44,924 --> 00:23:49,092
+let parentheses word number value equal x. And
+
+477
+00:23:49,161 --> 00:23:52,062
+that actually assigns each of the values of x to the three
+
+478
+00:23:52,131 --> 00:23:55,833
+variables word, number and value. Okay? So I'm kind of
+
+479
+00:23:55,901 --> 00:23:59,603
+giving these struct elements names as I grab them out, or
+
+480
+00:23:59,672 --> 00:24:02,506
+we can do the other way around. When I define x,
+
+481
+00:24:02,574 --> 00:24:05,042
+I can say x is a tuple that has a string and
+
+482
+00:24:05,110 --> 00:24:09,045
+Internet double called winv. Then,
+
+483
+00:24:09,114 --> 00:24:13,484
+when I have x in my hands, I can get w,
+
+484
+00:24:13,552 --> 00:24:16,186
+i and v with using, using this dot notation,
+
+485
+00:24:16,255 --> 00:24:20,057
+kind of like it's a var almost in a struct, x.w, x.i, x.v.
+
+486
+00:24:20,125 --> 00:24:23,026
+See, so now I'm declaring the names when I declare
+
+487
+00:24:23,095 --> 00:24:27,131
+the thing. But, and even if you do this, you can still
+
+488
+00:24:27,199 --> 00:24:29,766
+redeclare the names to be something else by saying, let
+
+489
+00:24:29,835 --> 00:24:33,904
+word num val = x, it'll crate those three local variables so
+
+490
+00:24:33,972 --> 00:24:37,273
+super flexible on the naming of those three things.
+
+491
+00:24:37,342 --> 00:24:39,943
+Usually when we crate a tuple we want to use the second way
+
+492
+00:24:40,012 --> 00:24:43,146
+the x : i : v way although we probably would not use x,
+
+493
+00:24:43,215 --> 00:24:45,615
+i and v those are terrible names that is just my
+
+494
+00:24:45,684 --> 00:24:47,350
+slide only has so much space.
+
+495
+00:24:47,419 --> 00:24:49,386
+Horizontally, probably word, number or
+
+496
+00:24:49,455 --> 00:24:51,789
+value would have been better names. Usually we do that, and
+
+497
+00:24:51,858 --> 00:24:53,457
+that's mostly because of documentation,
+
+498
+00:24:53,526 --> 00:24:56,226
+we want people to know what those three things are. If we
+
+499
+00:24:56,295 --> 00:24:59,163
+just declare it like x at the very top there, string, int,
+
+500
+00:24:59,231 --> 00:25:01,865
+double, people are like, hm, what are those three things?
+
+501
+00:25:01,933 --> 00:25:03,266
+So, what's a tuple good for? Well,
+
+502
+00:25:03,335 --> 00:25:06,336
+it's good any time you wanna group some stuff together
+
+503
+00:25:06,404 --> 00:25:08,205
+that's really lightweight, it doesn't have any methods or
+
+504
+00:25:08,274 --> 00:25:10,974
+anything associated with it. It's also very good for
+
+505
+00:25:11,042 --> 00:25:14,945
+returning multiple values from a function. A function of
+
+506
+00:25:15,014 --> 00:25:17,781
+Swift can only return a single thing, but
+
+507
+00:25:17,850 --> 00:25:21,251
+that thing could be a tuple, and now you can return as many
+
+508
+00:25:21,319 --> 00:25:24,821
+things as you want, okay? So if I had a function getSize,
+
+509
+00:25:24,890 --> 00:25:28,158
+get's a person's size, their height and their weight.
+
+510
+00:25:28,227 --> 00:25:32,229
+Let's say I can return a tuple with weight and height, and
+
+511
+00:25:32,298 --> 00:25:34,898
+so when I got it back I just x.weight or
+
+512
+00:25:34,966 --> 00:25:38,902
+even just getSize.weight or getSize.height, access
+
+513
+00:25:38,970 --> 00:25:42,773
+it directly. So that's what tuples, is I didn't make you
+
+514
+00:25:42,841 --> 00:25:45,109
+read about it tuple in your first reading assignment but
+
+515
+00:25:45,177 --> 00:25:46,376
+you'll be reading about it in your next one.
+
+516
+00:25:46,445 --> 00:25:48,178
+it's very simple, it's exactly what it seems,
+
+517
+00:25:48,247 --> 00:25:50,981
+there;s nothing magical here, there's no hidden things, it's
+
+518
+00:25:51,049 --> 00:25:56,120
+just a simple little struct, yeah? Sorry? Do they support
+
+519
+00:25:57,523 --> 00:25:59,589
+indexing? Do tuples support indexing, you mean like,
+
+520
+00:25:59,658 --> 00:26:04,194
+get thing number 1, or get thing number 2? Not really,
+
+521
+00:26:04,262 --> 00:26:06,730
+and we wouldn't really wanna do it that way. If we really
+
+522
+00:26:06,798 --> 00:26:09,299
+had something we'd index, we'd wanna use an array there,
+
+523
+00:26:09,368 --> 00:26:12,369
+because, you know what I'm saying? It would obfuscate
+
+524
+00:26:12,438 --> 00:26:14,204
+what's going on. The whole great thing about tuples,
+
+525
+00:26:14,273 --> 00:26:16,740
+you can name each one and let people know what they are, so.
+
+526
+00:26:18,477 --> 00:26:21,111
+All right, now, okay, that was it for
+
+527
+00:26:21,180 --> 00:26:23,813
+little things, now we're back to something very important.
+
+528
+00:26:23,882 --> 00:26:27,651
+This is a big thing. This is computed properties.
+
+529
+00:26:27,720 --> 00:26:30,888
+So all the properties that you saw in Concentration,
+
+530
+00:26:30,956 --> 00:26:34,057
+were stored properties. They were just normal vars
+
+531
+00:26:34,126 --> 00:26:36,126
+like you're used to in another languages, right?
+
+532
+00:26:36,195 --> 00:26:39,429
+Like this var foo: Double, that's a double precision
+
+533
+00:26:39,498 --> 00:26:42,332
+floating point number, and it's just stored in memory.
+
+534
+00:26:42,400 --> 00:26:45,536
+It's stored with whatever struct or class it's part of.
+
+535
+00:26:45,604 --> 00:26:48,405
+But it is possible to declare foo like this,
+
+536
+00:26:48,474 --> 00:26:53,410
+foo Double open curly brace, get with the curly brace, set,
+
+537
+00:26:53,478 --> 00:26:55,445
+with some curly brace.
+
+538
+00:26:55,514 --> 00:26:59,316
+In that case, foo is never stored anywhere, instead,
+
+539
+00:26:59,385 --> 00:27:00,751
+every time someone asks for
+
+540
+00:27:00,820 --> 00:27:05,255
+foo, it gets calculated with the code inside get. And
+
+541
+00:27:05,324 --> 00:27:07,624
+every time someone sets the value of foo,
+
+542
+00:27:07,692 --> 00:27:13,196
+this code that's in here inside set gets executed.
+
+543
+00:27:13,265 --> 00:27:14,531
+Okay, so I got a little pointer here. So
+
+544
+00:27:14,600 --> 00:27:17,801
+this code gets executed when you set, this code up here
+
+545
+00:27:17,870 --> 00:27:21,070
+gets executed when you get. Instead of it being stored
+
+546
+00:27:21,139 --> 00:27:25,942
+somewhere. Now, the set by the way, that set(newValue) part,
+
+547
+00:27:26,011 --> 00:27:28,478
+that's optional. So you can have computed properties
+
+548
+00:27:28,547 --> 00:27:32,215
+that are only get, call those read only computed properties.
+
+549
+00:27:32,284 --> 00:27:34,618
+You can't have ones that are only set,
+
+550
+00:27:34,687 --> 00:27:36,920
+you can have get only but not set only.
+
+551
+00:27:36,988 --> 00:27:40,523
+If you have set only make a function set whatever.
+
+552
+00:27:40,592 --> 00:27:44,894
+You wouldn't use a var like that. Okay, so why a computed
+
+553
+00:27:44,963 --> 00:27:49,065
+properties important? What do you use them for?
+
+554
+00:27:49,134 --> 00:27:51,835
+Well, a lot of times you have something that is perceived as
+
+555
+00:27:51,904 --> 00:27:56,940
+a property of your struct or class that actually is derived
+
+556
+00:27:57,008 --> 00:28:00,510
+from other state inside of your struct. And when you have
+
+557
+00:28:00,578 --> 00:28:03,313
+that situation, you do not want to have a stored property
+
+558
+00:28:03,382 --> 00:28:04,881
+because you don't want to have the same
+
+559
+00:28:04,950 --> 00:28:09,886
+information in two different vars. Because they can get
+
+560
+00:28:09,955 --> 00:28:11,755
+out of sync, all kinds of problems happens, so
+
+561
+00:28:11,824 --> 00:28:14,257
+you one way or the other wants to derive itself
+
+562
+00:28:14,326 --> 00:28:17,761
+from the other one. Here's an incredibly good example
+
+563
+00:28:17,829 --> 00:28:21,765
+indexOfOneAndOnlyFaceUpCard in concentration.
+
+564
+00:28:21,833 --> 00:28:26,736
+That is easily derived by looking at the cards. So
+
+565
+00:28:26,805 --> 00:28:30,373
+you really, we'll really kind of bad to have made that
+
+566
+00:28:30,442 --> 00:28:33,143
+a stored property, becauase we have to keep that thing
+
+567
+00:28:33,211 --> 00:28:37,146
+exactly in sync with the face up state of all the cards.
+
+568
+00:28:37,215 --> 00:28:41,184
+That's really error prone way to design. So, we could
+
+569
+00:28:41,253 --> 00:28:44,654
+imagine doing, implementing indexOfOneAndOnlyFaceUpCard as
+
+570
+00:28:44,723 --> 00:28:45,822
+computed property
+
+571
+00:28:45,891 --> 00:28:48,591
+with the get just looks at all the cards. And if you'll
+
+572
+00:28:48,660 --> 00:28:51,862
+only find one FaceUpCard it returns that index, otherwise
+
+573
+00:28:51,930 --> 00:28:56,332
+it it returns nil. And the set just looked to that index,
+
+574
+00:28:56,401 --> 00:28:59,035
+make sure that card face up and all the rest will face
+
+575
+00:28:59,104 --> 00:29:03,940
+down, you see? So, we're just using this computed property
+
+576
+00:29:04,009 --> 00:29:07,678
+to essentially provide this conceptual property,
+
+577
+00:29:07,747 --> 00:29:09,546
+which is the indexOfOneAndOnlyFaceUpCard,
+
+578
+00:29:09,615 --> 00:29:11,982
+that is the property of our game, but
+
+579
+00:29:12,050 --> 00:29:14,885
+it's computed from the other one. Everyone get what
+
+580
+00:29:14,953 --> 00:29:18,354
+I'm saying there? Okay, so let's go to Concentration and
+
+581
+00:29:18,423 --> 00:29:20,290
+make this change, see what this would look like
+
+582
+00:29:20,358 --> 00:29:22,426
+if you used a computed property here like we
+
+583
+00:29:22,495 --> 00:29:25,228
+should've in the first place, all right?
+
+584
+00:29:25,297 --> 00:29:30,700
+So let's go back here to X code,
+
+585
+00:29:30,769 --> 00:29:33,971
+here we go spring our code back up, get rid of that.
+
+586
+00:29:34,039 --> 00:29:38,208
+Let's go, oops, let's go to concentration, that's where
+
+587
+00:29:38,277 --> 00:29:41,811
+this is all right? So everyone recognize this code, right?
+
+588
+00:29:41,880 --> 00:29:43,680
+This is our entire concentration,
+
+589
+00:29:43,748 --> 00:29:45,882
+pretty efficient code as is but it's actually gonna look
+
+590
+00:29:45,951 --> 00:29:49,586
+even better once we do this as you'll see. So we're here,
+
+591
+00:29:49,655 --> 00:29:51,354
+we have index and one only FaceUpCard. So
+
+592
+00:29:51,423 --> 00:29:54,557
+I'm gonna make it computed by putting these curly braces in,
+
+593
+00:29:54,626 --> 00:29:57,827
+as soon as I do that, now it's a computed property. Actually,
+
+594
+00:29:57,896 --> 00:30:00,330
+before we do that, let me show you even simpler case of this
+
+595
+00:30:00,399 --> 00:30:04,401
+just to kinda get you warmed up on computed property.
+
+596
+00:30:04,469 --> 00:30:07,804
+Sometimes, you have just a simple calculation like this.
+
+597
+00:30:07,873 --> 00:30:11,040
+The number of pairs of cards which are calculated from
+
+598
+00:30:11,109 --> 00:30:14,444
+the card buttons, all right? There might be other times
+
+599
+00:30:14,513 --> 00:30:17,013
+inside our view controller, we wanna know this number,
+
+600
+00:30:17,082 --> 00:30:19,949
+how many pairs of cards do we have. So
+
+601
+00:30:20,018 --> 00:30:23,787
+that's kind of a property and is derived from this data. So
+
+602
+00:30:23,856 --> 00:30:25,789
+I'm gonna take this out of here and
+
+603
+00:30:25,857 --> 00:30:30,127
+have number of pairs of cards be a property.
+
+604
+00:30:30,195 --> 00:30:35,766
+It's gonna be a new var numberOfPairsOfCards, and
+
+605
+00:30:35,834 --> 00:30:39,870
+it's gonna be of type Int, and it's gonna be computed, so
+
+606
+00:30:39,938 --> 00:30:43,339
+I'm gonna have a get. It's gonna be read only, so
+
+607
+00:30:43,408 --> 00:30:45,976
+I'm gonna return this. It's not gonna have a set,
+
+608
+00:30:46,044 --> 00:30:49,112
+there's no, there's not gonna be any set right here. And
+
+609
+00:30:49,181 --> 00:30:52,950
+voila I've created a simple computed property that's read
+
+610
+00:30:53,018 --> 00:30:56,119
+only. By the way if you have a read only property,
+
+611
+00:30:56,187 --> 00:31:00,456
+you do not actually have to have the word get there. So
+
+612
+00:31:00,525 --> 00:31:01,190
+a read only property
+
+613
+00:31:01,259 --> 00:31:04,094
+can look like that. Only if you only have a get,
+
+614
+00:31:04,162 --> 00:31:07,663
+if you have a set can't do that. So this is a super
+
+615
+00:31:07,732 --> 00:31:10,567
+simple little one. So now let's go back over here and
+
+616
+00:31:10,635 --> 00:31:12,436
+do the little more complicated one over here.
+
+617
+00:31:12,504 --> 00:31:16,840
+This one does have a get and it also has a set. And
+
+618
+00:31:16,909 --> 00:31:20,577
+set right here, I put in the slide that has newValue.
+
+619
+00:31:20,646 --> 00:31:23,146
+This is just gonna be the local variable inside here
+
+620
+00:31:23,215 --> 00:31:25,482
+that contains the new value that someone set,
+
+621
+00:31:25,551 --> 00:31:29,018
+indexOfTheOneAndOnlyFaceUpCard two. A lot of times we don't
+
+622
+00:31:29,087 --> 00:31:31,421
+put anything there, if you do that,
+
+623
+00:31:31,490 --> 00:31:34,858
+it defaults to newValue. That's the name of the locals,
+
+624
+00:31:34,926 --> 00:31:36,960
+there's a special variable in here called newValue.
+
+625
+00:31:37,028 --> 00:31:39,562
+But if you wanted to call it something like index,
+
+626
+00:31:39,631 --> 00:31:42,632
+you could do that, it's totally up to you,
+
+627
+00:31:42,701 --> 00:31:46,936
+a lot of times we just say use newValue though. Okay,
+
+628
+00:31:47,005 --> 00:31:50,173
+so getting the index what do we have to do
+
+629
+00:31:50,241 --> 00:31:53,110
+to calculate the index of code. So I'm just gonna
+
+630
+00:31:53,178 --> 00:31:56,346
+write the little code and have a little look of variable,
+
+631
+00:31:56,415 --> 00:32:00,417
+say foundIndex which is gonna be an optional Int. So
+
+632
+00:32:00,485 --> 00:32:03,453
+I'm gonna look through all the face cards and
+
+633
+00:32:03,522 --> 00:32:05,622
+see if I can find one that's gonna be the one I found.
+
+634
+00:32:05,691 --> 00:32:07,490
+So I'm gonna use a for loop here and
+
+635
+00:32:07,559 --> 00:32:10,227
+go through all the cards.indicises, all right?
+
+636
+00:32:10,295 --> 00:32:15,398
+I'm gonna look at each card, and if that card is FaceUp.
+
+637
+00:32:15,467 --> 00:32:17,667
+So I found the FaceUp card, whoo-hoo.
+
+638
+00:32:17,735 --> 00:32:20,870
+I'm gonna say, if foundOne is nil, in other words,
+
+639
+00:32:20,939 --> 00:32:24,041
+I haven't found the card yet and this is my first one.
+
+640
+00:32:24,109 --> 00:32:28,211
+Then I'm gonna set not foundOne, what is it called,
+
+641
+00:32:28,280 --> 00:32:32,849
+foundIndex = index, all right? So here I'm just saying if I
+
+642
+00:32:32,918 --> 00:32:35,985
+just found my first one let's remember it.
+
+643
+00:32:36,054 --> 00:32:39,522
+Otherwise, if foundIndex is not nil that means this is
+
+644
+00:32:39,591 --> 00:32:41,958
+the second FaceUpCard that I found.
+
+645
+00:32:42,027 --> 00:32:44,494
+Cuz I already found one and I found another one, so
+
+646
+00:32:44,563 --> 00:32:47,431
+here I am just gonna to return nil. Because if there's two
+
+647
+00:32:47,499 --> 00:32:49,900
+FaceUpCards then obviously the index of the one and
+
+648
+00:32:49,968 --> 00:32:53,270
+only FaceUpCard is nil, there's no such thing. And
+
+649
+00:32:53,339 --> 00:32:55,371
+if I make it all the way through this for
+
+650
+00:32:55,440 --> 00:32:58,708
+loop I'm just gonna return the foundIndex, which is either
+
+651
+00:32:58,776 --> 00:33:01,211
+going to have been set to the one card I found or
+
+652
+00:33:01,280 --> 00:33:03,680
+it'll still be nil from this declaration.
+
+653
+00:33:03,748 --> 00:33:05,682
+Remember that optionals always get
+
+654
+00:33:05,750 --> 00:33:09,051
+this free equals nil when they're declared, right? So it
+
+655
+00:33:09,120 --> 00:33:12,222
+starts out nil and if I never found one, it'll still be nil,
+
+656
+00:33:12,291 --> 00:33:15,692
+which is right cuz that means there'll be no FaceUpCards.
+
+657
+00:33:15,761 --> 00:33:18,395
+We're gonna understand this simple code right here,
+
+658
+00:33:18,464 --> 00:33:20,730
+how about the set case? On the set case,
+
+659
+00:33:20,799 --> 00:33:22,198
+I'm just gonna loop through all the cards and
+
+660
+00:33:22,267 --> 00:33:26,236
+turn all face down except for this one that they just set it
+
+661
+00:33:26,304 --> 00:33:29,338
+to, which is gonna be new value, all right? So I'm just
+
+662
+00:33:29,407 --> 00:33:33,243
+gonna go through my cards for index in cards.indices.
+
+663
+00:33:33,312 --> 00:33:36,412
+Great way to go iterate through this countable
+
+664
+00:33:36,481 --> 00:33:39,348
+range of all the indexes in my array. I'm gonna say,
+
+665
+00:33:39,417 --> 00:33:45,756
+cards.index.isFaceUp = false,
+
+666
+00:33:45,824 --> 00:33:50,327
+for most cards. But in case the index here,
+
+667
+00:33:50,395 --> 00:33:54,264
+this index equals the new value of this, then I'm gonna
+
+668
+00:33:54,332 --> 00:33:59,369
+set it to true. Okay, so here this is an expression
+
+669
+00:33:59,438 --> 00:34:03,874
+that's true if someone said indexOfTheOneAndOnlyFaceUpCard
+
+670
+00:34:03,942 --> 00:34:07,210
+equals whatever. If this is the whatever they said,
+
+671
+00:34:07,279 --> 00:34:10,547
+then we're gonna have this be true if the card's face up,
+
+672
+00:34:10,615 --> 00:34:13,549
+o therwise this will always be false. Everybody got this
+
+673
+00:34:13,618 --> 00:34:17,553
+little code right there? Come through with that? All right,
+
+674
+00:34:17,622 --> 00:34:21,391
+that's it. Okay, now the indexOfTheOneAndOnlyFaceUpCard
+
+675
+00:34:21,459 --> 00:34:22,859
+is computed like this,
+
+676
+00:34:22,927 --> 00:34:26,329
+from the card, we do not need to take responsibility for
+
+677
+00:34:26,398 --> 00:34:30,233
+doing things like setting it to nil here. This is the case
+
+678
+00:34:30,302 --> 00:34:33,136
+where we found two cards, we got two cards that we're
+
+679
+00:34:33,204 --> 00:34:36,273
+trying to match, well, obviously there's two cards.
+
+680
+00:34:36,341 --> 00:34:38,474
+So we had to set the indexOfTheOneAndOnlyFaceUpCard
+
+681
+00:34:38,543 --> 00:34:40,744
+to nil cuz there were two. But we don't have to do that
+
+682
+00:34:40,812 --> 00:34:42,912
+anymore, because it's always computing that,
+
+683
+00:34:42,981 --> 00:34:45,749
+every time we ask, it goes and looks at the card. And
+
+684
+00:34:45,817 --> 00:34:49,418
+even better than that is this case down here. Okay,
+
+685
+00:34:49,487 --> 00:34:51,520
+this case down here, we are setting the
+
+686
+00:34:51,589 --> 00:34:53,523
+indexOfTheOneAndOnlyFaceupCard to
+
+687
+00:34:53,592 --> 00:34:56,259
+be the index. That's because this was the case where there
+
+688
+00:34:56,328 --> 00:34:57,894
+were already two or there were none,
+
+689
+00:34:57,963 --> 00:35:01,364
+and now we turn those faceDown and do this new one.
+
+690
+00:35:01,433 --> 00:35:04,734
+So we're already setting this and it does all of this.
+
+691
+00:35:04,802 --> 00:35:07,470
+Setting this thing to something already turns all
+
+692
+00:35:07,539 --> 00:35:11,641
+the other cards faceDown. And already sets that card faceUp,
+
+693
+00:35:11,709 --> 00:35:16,178
+so we don't need any of that code. So you see how making
+
+694
+00:35:16,247 --> 00:35:20,083
+the computed property makes this code much simpler and
+
+695
+00:35:20,152 --> 00:35:23,819
+straightforward. Cuz it really gets at the heart of what's
+
+696
+00:35:23,888 --> 00:35:26,656
+going on. I'm just setting the indexOfTheOneAndOnlyFaceUpCard
+
+697
+00:35:26,725 --> 00:35:27,223
+to this index
+
+698
+00:35:27,292 --> 00:35:28,191
+that I just clicked on or
+
+699
+00:35:28,260 --> 00:35:30,727
+I'm just turning this card faceUp. And the next time
+
+700
+00:35:30,795 --> 00:35:34,063
+someone asks for the indexOfTheOneAndOnlyFaceUpCard
+
+701
+00:35:34,132 --> 00:35:36,466
+it's gonna do the right thing, right?
+
+702
+00:35:36,535 --> 00:35:39,302
+So let's go and run, make sure we didn't break
+
+703
+00:35:39,371 --> 00:35:43,306
+anything making this into a computed property. Here we go,
+
+704
+00:35:43,374 --> 00:35:46,009
+hopefully we can still match, yeap, that matches,
+
+705
+00:35:46,077 --> 00:35:48,645
+and the matching is working, and the mismatching is also
+
+706
+00:35:48,714 --> 00:35:52,982
+working. Really cool computed properties,
+
+707
+00:35:53,050 --> 00:35:55,718
+you're gonna see computed properties everywhere in iOS,
+
+708
+00:35:55,787 --> 00:36:01,223
+they get very common, yeah. >> [INAUDIBLE]
+
+709
+00:36:01,292 --> 00:36:02,258
+>> Okay great question, so
+
+710
+00:36:02,326 --> 00:36:04,995
+when would I reuse this var versus
+
+711
+00:36:05,063 --> 00:36:07,664
+having two methods, one which get's the index and
+
+712
+00:36:07,732 --> 00:36:09,833
+one really [INAUDIBLE] and one that sets it.
+
+713
+00:36:09,901 --> 00:36:14,003
+Okay, it's all about whether it's perceived as property.
+
+714
+00:36:14,072 --> 00:36:17,807
+This index in effect is perceived by us as programmers
+
+715
+00:36:17,875 --> 00:36:20,710
+it's a property right? It's, it's a property of the game
+
+716
+00:36:20,779 --> 00:36:22,379
+is the index on the face of the card, so
+
+717
+00:36:22,447 --> 00:36:27,049
+that's what you would do here. If another way of kind of
+
+718
+00:36:27,118 --> 00:36:32,021
+deciding is if the set or the get really does a lot of work.
+
+719
+00:36:32,090 --> 00:36:35,158
+Like it's really crunching on something,
+
+720
+00:36:35,227 --> 00:36:36,826
+you might wanna make that a function.
+
+721
+00:36:36,895 --> 00:36:38,628
+Just so the people don't think, oh it's a lightweight
+
+722
+00:36:38,696 --> 00:36:41,731
+little property that I can get. Now, this might seem like
+
+723
+00:36:41,800 --> 00:36:43,966
+a lot of work but it's actually very very simple.
+
+724
+00:36:44,035 --> 00:36:46,703
+And then later in the lecture, probably on Wednesday,
+
+725
+00:36:46,771 --> 00:36:50,073
+I'm gonna show you an even much simpler version of this.
+
+726
+00:36:50,141 --> 00:36:51,775
+When we learn a little bit more about Swift.
+
+727
+00:36:51,843 --> 00:36:53,676
+But it really is not that much work it's just looking at
+
+728
+00:36:53,745 --> 00:36:56,412
+another data structure. But if you were doing a lot of work
+
+729
+00:36:56,481 --> 00:36:58,114
+then you probably want to do set and
+
+730
+00:36:58,182 --> 00:37:01,651
+get to make it clear. But otherwise if it is
+
+731
+00:37:01,720 --> 00:37:06,322
+a var if it seems like a var make it a var. Good question.
+
+732
+00:37:06,391 --> 00:37:09,892
+Alright where is my, here it is, keynote,
+
+733
+00:37:09,961 --> 00:37:13,897
+lets go back here, back to our slides. All right,
+
+734
+00:37:13,965 --> 00:37:17,199
+so the next thing we're gonna talk about is here,
+
+735
+00:37:17,268 --> 00:37:20,303
+is another topic something we knew, access control. Okay, so
+
+736
+00:37:20,372 --> 00:37:23,372
+what is access control? So, how many people have worked on
+
+737
+00:37:23,441 --> 00:37:27,243
+a project, an object oriented program project of more
+
+738
+00:37:27,312 --> 00:37:31,147
+than a dozen classes? Okay, like two or
+
+739
+00:37:31,216 --> 00:37:35,284
+three of you, four maybe, so, not very many of you. Okay,
+
+740
+00:37:35,353 --> 00:37:37,853
+well when you're working on a very small project like that,
+
+741
+00:37:37,922 --> 00:37:40,056
+you can call any method in any class, whatever,
+
+742
+00:37:40,124 --> 00:37:42,224
+you're probably the only programmer working on it.
+
+743
+00:37:42,293 --> 00:37:44,627
+Or maybe you're working out with a buddy, and so
+
+744
+00:37:44,695 --> 00:37:47,229
+you can talk to each other. Okay, but now imagine
+
+745
+00:37:47,298 --> 00:37:50,967
+that you're working for Google. Or Facebook, or Apple,
+
+746
+00:37:51,035 --> 00:37:54,471
+or something like that, and this is kind of ridiculous.
+
+747
+00:37:54,539 --> 00:37:57,273
+But let's say you're working on concentration there. And
+
+748
+00:37:57,342 --> 00:37:59,942
+there's a whole another group in another building that does
+
+749
+00:38:00,011 --> 00:38:03,546
+game design and they write the model. And
+
+750
+00:38:03,615 --> 00:38:05,848
+you are just the UI team for IOS,
+
+751
+00:38:05,917 --> 00:38:08,050
+until you're only writing the view controller.
+
+752
+00:38:08,119 --> 00:38:11,054
+Okay, well now, you don't wanna be calling each others
+
+753
+00:38:11,122 --> 00:38:13,656
+code just willy-nilly. Calling any old method like
+
+754
+00:38:13,724 --> 00:38:16,225
+you wouldn't want your view controller cal someone like
+
+755
+00:38:16,294 --> 00:38:17,761
+indexOfOneAndOnlyFaceUpCard.
+
+756
+00:38:17,829 --> 00:38:20,363
+If those guys are like they got rid of that method
+
+757
+00:38:20,431 --> 00:38:23,566
+into the next month, and now your code broke. Now,
+
+758
+00:38:23,634 --> 00:38:26,236
+there are some methods that you have to be able to call
+
+759
+00:38:26,304 --> 00:38:29,172
+over there and their code, and we're gonna make it clear
+
+760
+00:38:29,241 --> 00:38:31,541
+which ones of those are using access control.
+
+761
+00:38:31,610 --> 00:38:35,244
+So access control about having keyword that we're gonna put
+
+762
+00:38:35,313 --> 00:38:37,981
+into our API, put it on the methods and bars,
+
+763
+00:38:38,049 --> 00:38:41,684
+it says to other groups that we're programming with, yes,
+
+764
+00:38:41,753 --> 00:38:45,088
+you are allowed to call this, I promise not to break this
+
+765
+00:38:45,156 --> 00:38:48,892
+on you. It also tells them how to use your thing because
+
+766
+00:38:48,960 --> 00:38:51,794
+the ones they're allowed to call or the ones they should
+
+767
+00:38:51,863 --> 00:38:54,997
+be using to use your concentration game or
+
+768
+00:38:55,066 --> 00:38:57,300
+whatever. So what are these keywords?
+
+769
+00:38:57,368 --> 00:39:01,237
+Well the first one is called internal. These are keywords
+
+770
+00:39:01,306 --> 00:39:04,541
+you put in front of vars and funcs. Or even classes and
+
+771
+00:39:04,609 --> 00:39:07,176
+structs, you can make entire classes and structs,
+
+772
+00:39:07,245 --> 00:39:10,813
+have their access controlled. So the default internal,
+
+773
+00:39:10,881 --> 00:39:12,682
+this one we never actually type in
+
+774
+00:39:12,751 --> 00:39:15,485
+because it's the default. So all of the methods and
+
+775
+00:39:15,554 --> 00:39:17,653
+vars that we've done so far in Concentration are all
+
+776
+00:39:17,722 --> 00:39:20,656
+internal. Now what does internal Access Control mean?
+
+777
+00:39:20,725 --> 00:39:26,061
+It means anyone in your app, any object, any code anywhere
+
+778
+00:39:26,130 --> 00:39:29,665
+can call that method or access that bar. So it's pretty much
+
+779
+00:39:29,734 --> 00:39:33,335
+unlimited control inside your app. Now as we start talking
+
+780
+00:39:33,404 --> 00:39:35,772
+about access control, we have to realise there's always two
+
+781
+00:39:35,841 --> 00:39:39,442
+kinds of programming, there's writing an app,
+
+782
+00:39:39,510 --> 00:39:42,445
+then there's writing a framework. Like Apple does,
+
+783
+00:39:42,514 --> 00:39:46,582
+UI kit, okay? That's framework. A lot more access
+
+784
+00:39:46,651 --> 00:39:49,285
+control issues if you're writing a framework. So
+
+785
+00:39:49,354 --> 00:39:51,120
+I'm gonna tell you what the things are for
+
+786
+00:39:51,188 --> 00:39:53,789
+writing a framework but, We're not gonna really pay much
+
+787
+00:39:53,858 --> 00:39:55,625
+attention to them because we are only going to learn to
+
+788
+00:39:55,694 --> 00:39:59,228
+write apps in this course. So internal means everything in
+
+789
+00:39:59,296 --> 00:40:02,699
+your app, or in your framework is, can access this code.
+
+790
+00:40:02,767 --> 00:40:05,000
+So it's pretty much almost unlimited inside
+
+791
+00:40:05,069 --> 00:40:08,671
+your Apple framework. Then there's the three privates.
+
+792
+00:40:08,740 --> 00:40:10,473
+These are very important, these are the ones you're
+
+793
+00:40:10,542 --> 00:40:14,143
+gonna be using all the time. One is just private,
+
+794
+00:40:14,212 --> 00:40:17,313
+that means its internal implementation to this object,
+
+795
+00:40:17,381 --> 00:40:22,384
+no other objects can call it. This is a good one to set,
+
+796
+00:40:22,453 --> 00:40:25,722
+it keeps someone in the other group at Google and the other
+
+797
+00:40:25,790 --> 00:40:28,858
+building from accessing that code. Because you're
+
+798
+00:40:28,927 --> 00:40:31,527
+keeping it private, it's your private implementation.
+
+799
+00:40:31,596 --> 00:40:35,164
+Private set is almost exactly the same, it's only for vars,
+
+800
+00:40:35,232 --> 00:40:39,201
+it means that setting this var is private, but getting it
+
+801
+00:40:39,270 --> 00:40:43,639
+is not private. So you allow people to get the var, access
+
+802
+00:40:43,708 --> 00:40:46,676
+it, but they can not set it. That's you point of view,
+
+803
+00:40:46,744 --> 00:40:48,611
+that's your internal implementation sets it.
+
+804
+00:40:48,679 --> 00:40:51,514
+We'll see a good example of that in concentration.
+
+805
+00:40:51,583 --> 00:40:54,850
+And then there's fileprivate. Fileprivate in a Swift file,
+
+806
+00:40:54,919 --> 00:40:56,852
+you can have multiple classes and structs in there,
+
+807
+00:40:56,921 --> 00:40:58,955
+you don't have to be just one class which is what we've done
+
+808
+00:40:59,024 --> 00:41:02,158
+so far and fileprivate means anything in that in that
+
+809
+00:41:02,227 --> 00:41:06,162
+file can access each other, right. So classes,
+
+810
+00:41:06,230 --> 00:41:09,665
+four classes in there, it can each others methods, okay,
+
+811
+00:41:09,734 --> 00:41:12,501
+that's what file private means. Okay, the other ones
+
+812
+00:41:12,570 --> 00:41:15,204
+are public and open, those are for framework writers.
+
+813
+00:41:15,273 --> 00:41:18,007
+Public means that people outside the framework
+
+814
+00:41:18,076 --> 00:41:21,444
+can call it. Doesn't make sense for outside your app,
+
+815
+00:41:21,512 --> 00:41:23,746
+that would never happen, so outside your framework.
+
+816
+00:41:23,815 --> 00:41:26,416
+And open means not only can people outside your framework
+
+817
+00:41:26,484 --> 00:41:29,585
+call it but they could sub class that class,
+
+818
+00:41:29,654 --> 00:41:31,320
+override your methods all that stuff,
+
+819
+00:41:31,388 --> 00:41:35,124
+so open is like wide open, okay. We don't care about that
+
+820
+00:41:35,193 --> 00:41:38,361
+cuz we're only, we're not doing frameworks, right. So
+
+821
+00:41:38,430 --> 00:41:41,030
+we're gonna focus on private of the various privates.
+
+822
+00:41:41,099 --> 00:41:43,999
+A good strategy to use these is pretty much put private on
+
+823
+00:41:44,068 --> 00:41:46,969
+anything until you're sure, yeah I want someone else to be
+
+824
+00:41:47,038 --> 00:41:48,904
+able to call this method somewhere.
+
+825
+00:41:48,973 --> 00:41:53,509
+Right that's by default you should make things private. So
+
+826
+00:41:53,578 --> 00:41:56,312
+let's look a concentration, what it would look like to
+
+827
+00:41:56,381 --> 00:41:58,114
+put access control and concentration and
+
+828
+00:41:58,182 --> 00:42:00,883
+pay attention here because I'm gonna require in all your
+
+829
+00:42:00,952 --> 00:42:04,153
+homeworks going forward that you mark things properly.
+
+830
+00:42:04,222 --> 00:42:05,922
+I want you to mark things private if they should be
+
+831
+00:42:05,990 --> 00:42:08,224
+private. Okay, cuz I wanna just make sure that you
+
+832
+00:42:08,292 --> 00:42:11,895
+understand what this is all about. So let's go back here
+
+833
+00:42:13,565 --> 00:42:16,665
+to Xcode. Let's start with our ViewController.
+
+834
+00:42:16,734 --> 00:42:19,134
+Okay, we have three classes, or three data structures,
+
+835
+00:42:19,203 --> 00:42:21,304
+our ViewController, Card, and Concentration. So let's start
+
+836
+00:42:21,372 --> 00:42:27,210
+with ViewController. So this right here is our model. So
+
+837
+00:42:27,278 --> 00:42:31,514
+would we want our model to be public, to be not private?
+
+838
+00:42:31,583 --> 00:42:33,582
+Well that depends, actually.
+
+839
+00:42:33,651 --> 00:42:36,319
+It depends of what your model is and how it works. Often,
+
+840
+00:42:36,387 --> 00:42:40,256
+ViewControllers models are public by public I mean
+
+841
+00:42:40,325 --> 00:42:43,492
+non-private. We're inside an app so forget about public and
+
+842
+00:42:43,561 --> 00:42:47,096
+open keywords. I mean, when I say public I mean non-private.
+
+843
+00:42:47,165 --> 00:42:49,932
+So a lot of times you do because you give a model to
+
+844
+00:42:50,001 --> 00:42:51,433
+a view controller and it displays it,
+
+845
+00:42:51,502 --> 00:42:54,870
+that's what it does. But that is not the case here. This one
+
+846
+00:42:54,939 --> 00:42:58,240
+wants to be private. And the reason it wants to be private
+
+847
+00:42:58,309 --> 00:43:01,477
+is because the number of pairs of cards in the game is
+
+848
+00:43:01,545 --> 00:43:04,480
+intimately tied to the UI, okay the number of
+
+849
+00:43:04,549 --> 00:43:07,083
+cards we have in the UI. So if we wanted to make
+
+850
+00:43:07,151 --> 00:43:09,585
+this public then we'd also have to make something public
+
+851
+00:43:09,653 --> 00:43:13,356
+to specify the number of card buttons that we allow and
+
+852
+00:43:13,425 --> 00:43:15,391
+we don't do that currently,
+
+853
+00:43:15,460 --> 00:43:18,127
+that's something that is in our little scene and
+
+854
+00:43:18,195 --> 00:43:21,430
+interface builder, so we don't do it. So we keep this, we
+
+855
+00:43:21,499 --> 00:43:25,067
+keep this private. How about number of pairs of cards?
+
+856
+00:43:25,136 --> 00:43:28,271
+Well, this is one where I don't mind if someone asks
+
+857
+00:43:28,340 --> 00:43:30,706
+what the number of pairs of cards is but
+
+858
+00:43:30,775 --> 00:43:36,612
+setting the number of pairs of cards would be bad. But
+
+859
+00:43:36,680 --> 00:43:40,816
+the thing about this is it's already a get-only property.
+
+860
+00:43:40,885 --> 00:43:43,419
+You can't set it anyway, it derives it from other data.
+
+861
+00:43:43,488 --> 00:43:47,022
+So we're just gonna make this private, sorry, not private.
+
+862
+00:43:47,091 --> 00:43:49,358
+And we're gonna allow people to call this,
+
+863
+00:43:49,427 --> 00:43:51,493
+people who are using my ViewController, they can say,
+
+864
+00:43:51,562 --> 00:43:53,496
+how many pairs of cards are there? But they can't set it,
+
+865
+00:43:53,565 --> 00:43:55,998
+cuz this is not settable anyway. Okay, so
+
+866
+00:43:56,067 --> 00:43:57,366
+that's okay to make that in public.
+
+867
+00:43:57,435 --> 00:43:59,902
+Same thing flipCount, I think flipCount,
+
+868
+00:43:59,970 --> 00:44:03,272
+it's okay for people to get it, but definitely, we don't
+
+869
+00:44:03,341 --> 00:44:06,508
+want people setting flipCount. That's something we do
+
+870
+00:44:06,577 --> 00:44:08,978
+internally when the cards are flip, we implement flipCount.
+
+871
+00:44:09,046 --> 00:44:12,148
+So that's private for the setter, but will allow people
+
+872
+00:44:12,216 --> 00:44:14,684
+to get the flipCount who are using our thing.
+
+873
+00:44:14,752 --> 00:44:19,021
+Our outlets, almost always we have private outlets.
+
+874
+00:44:19,090 --> 00:44:19,989
+Cuz our private outlets,
+
+875
+00:44:20,057 --> 00:44:23,159
+these things, and even our actions these are all kind of
+
+876
+00:44:23,227 --> 00:44:26,295
+internal implementation of how we implement our UI.
+
+877
+00:44:26,364 --> 00:44:29,365
+That's what a ViewController does it controls our UI.
+
+878
+00:44:29,433 --> 00:44:32,702
+Definitely something like update model from UI would be
+
+879
+00:44:32,771 --> 00:44:35,271
+private, that's internal implementation.
+
+880
+00:44:35,339 --> 00:44:38,808
+All this emoji business that's all private. Although you
+
+881
+00:44:38,876 --> 00:44:42,845
+could imagine trying to expose some public API eventually
+
+882
+00:44:42,914 --> 00:44:45,848
+in this ViewController that let's someone who's using
+
+883
+00:44:45,917 --> 00:44:49,051
+our ViewController specify the emojis they want.
+
+884
+00:44:49,120 --> 00:44:53,756
+Like, you know, this theme required task that you have,
+
+885
+00:44:53,824 --> 00:44:57,460
+you could imagine that there was a way to specify I want
+
+886
+00:44:57,528 --> 00:44:59,995
+you mister view controller to play this game,
+
+887
+00:45:00,064 --> 00:45:02,998
+but I want you to use this emoji as your theme.
+
+888
+00:45:03,067 --> 00:45:05,534
+See, so you could imagine that something being public.
+
+889
+00:45:05,603 --> 00:45:08,471
+I don't think it would be exactly this API,
+
+890
+00:45:08,539 --> 00:45:10,439
+it would be some other kind of API,
+
+891
+00:45:10,508 --> 00:45:13,942
+I'm not sure what they would let you set the emoji to
+
+892
+00:45:14,011 --> 00:45:16,946
+use. We can't really make this public cuz we actually consume
+
+893
+00:45:17,014 --> 00:45:20,883
+this. This is a var and we consume it. We have obviously
+
+894
+00:45:20,952 --> 00:45:23,119
+had to deal with that in your homework I'm sure. And
+
+895
+00:45:23,187 --> 00:45:24,954
+you know, this dictionary we're building on a fly,
+
+896
+00:45:25,022 --> 00:45:26,755
+we wouldn't want anyone messing with it, so
+
+897
+00:45:26,824 --> 00:45:27,857
+I'm gonna keep all this private.
+
+898
+00:45:27,925 --> 00:45:30,259
+This is an example of making it private first and
+
+899
+00:45:30,328 --> 00:45:33,296
+then I'm gonna think about what I want to be public.
+
+900
+00:45:33,364 --> 00:45:34,997
+You see, the design approach there?
+
+901
+00:45:35,066 --> 00:45:39,802
+All right, let's go look at card, so
+
+902
+00:45:39,871 --> 00:45:42,304
+here's Card. Card definitely, this has to be public.
+
+903
+00:45:42,373 --> 00:45:43,839
+We need to know whether the cards are face up,
+
+904
+00:45:43,908 --> 00:45:45,908
+we, this has to be public. Unfortunately,
+
+905
+00:45:45,977 --> 00:45:48,110
+this has to be public. Cuz otherwise,
+
+906
+00:45:48,179 --> 00:45:50,846
+we can't tell if two cards are the same without that,
+
+907
+00:45:50,915 --> 00:45:54,516
+but these two guys definitely don't need to be public.
+
+908
+00:45:54,585 --> 00:45:58,620
+This whole idea of I, making identierFactory that's purely
+
+909
+00:45:58,689 --> 00:46:02,458
+internal implementation, okay, so no reason for that to be
+
+910
+00:46:04,295 --> 00:46:06,995
+public. And this really, I'd love this to be private as
+
+911
+00:46:07,064 --> 00:46:09,965
+well, because a card it's either face up it's matched
+
+912
+00:46:10,034 --> 00:46:12,134
+whether it's the same as another card,
+
+913
+00:46:12,203 --> 00:46:14,971
+I shouldn't have to look an identifier to find that.
+
+914
+00:46:15,039 --> 00:46:18,007
+I should be able to say the this card == the other card,
+
+915
+00:46:18,076 --> 00:46:20,308
+wouldn't that be cool? And yeah it is cool and
+
+916
+00:46:20,377 --> 00:46:23,646
+we're gonna be doing that, in, later in this lecture or next
+
+917
+00:46:23,714 --> 00:46:26,582
+lecture. Um, this is really kind of gross but for now we
+
+918
+00:46:26,650 --> 00:46:28,350
+have to leave that public because otherwise we do,
+
+919
+00:46:28,419 --> 00:46:31,687
+we can't tell what two cards are the same. Okay,
+
+920
+00:46:31,756 --> 00:46:35,090
+here's the Concentration game, this is a really interesting
+
+921
+00:46:35,159 --> 00:46:38,660
+case of private and public because, here is an object,
+
+922
+00:46:38,729 --> 00:46:41,697
+a model that is intended to be used by some UI somewhere,
+
+923
+00:46:41,765 --> 00:46:44,500
+okay. It's very intentional use kind of thing, and
+
+924
+00:46:44,569 --> 00:46:46,535
+there's some things we know are private,
+
+925
+00:46:46,604 --> 00:46:49,271
+like this guy for sure, indexOfTheOneAndOnlyFaceUpC-
+
+926
+00:46:49,340 --> 00:46:51,640
+ard, we don't need someone using us to know that,
+
+927
+00:46:51,709 --> 00:46:53,142
+they don't need to know that.
+
+928
+00:46:53,211 --> 00:46:55,944
+And in fact, if we left that public, someone using us would
+
+929
+00:46:56,013 --> 00:46:58,613
+be like when am I supposed to set that, I wonder?
+
+930
+00:46:58,682 --> 00:47:01,483
+Okay, but it has nothing to do with it, it's internal to our
+
+931
+00:47:01,552 --> 00:47:06,488
+implementation. Cards has to be public
+
+932
+00:47:06,557 --> 00:47:09,625
+because otherwise the UI can't display the cards.
+
+933
+00:47:09,694 --> 00:47:12,961
+However, cards being flipped up and down or
+
+934
+00:47:13,030 --> 00:47:18,200
+matching that's my job. So I am gonna make this one private
+
+935
+00:47:18,269 --> 00:47:22,405
+set, okay, so this is gonna be yeah you can look at my cards
+
+936
+00:47:22,473 --> 00:47:25,608
+if you wanna use counting game but I am responsible for
+
+937
+00:47:25,676 --> 00:47:29,077
+setting face up and is matched. So
+
+938
+00:47:29,146 --> 00:47:32,114
+you can see this one's clearly private set,
+
+939
+00:47:32,183 --> 00:47:35,784
+everyone see that? Yeah. >> So for that you can access
+
+940
+00:47:35,853 --> 00:47:38,487
+the cards but you can't access the methods or
+
+941
+00:47:38,556 --> 00:47:40,956
+properties associated with it? >> Yeah, so
+
+942
+00:47:41,025 --> 00:47:43,759
+the question is when it's like this does that mean I
+
+943
+00:47:43,827 --> 00:47:46,962
+can access the cards but I can't access the methods that
+
+944
+00:47:47,031 --> 00:47:50,366
+are on the cards you mean? No the methods on the cards,
+
+945
+00:47:50,435 --> 00:47:53,436
+that's over, here those are public, okay,
+
+946
+00:47:53,504 --> 00:47:56,905
+those are not internal so I can access those. From here,
+
+947
+00:47:56,974 --> 00:48:00,542
+okay? But you remember that this is a value type, so
+
+948
+00:48:00,611 --> 00:48:03,745
+I can't set is Space up and stuff, I can only set that
+
+949
+00:48:03,814 --> 00:48:07,950
+directly in the array. Like I'm doing right here. You see,
+
+950
+00:48:08,018 --> 00:48:10,252
+here I'm modifying the thing in place in the array.
+
+951
+00:48:10,321 --> 00:48:13,121
+That's the only way to do it. Well, I can't do this if this
+
+952
+00:48:13,190 --> 00:48:17,559
+is private set. Okay? Cuz this is a value type.
+
+953
+00:48:17,628 --> 00:48:20,796
+So this makes it so this, this it's kind of like it's a let.
+
+954
+00:48:20,865 --> 00:48:22,731
+This almost makes it like a let for
+
+955
+00:48:22,800 --> 00:48:25,101
+other people, people other than me. And then, and so
+
+956
+00:48:25,169 --> 00:48:28,571
+you can't touch anything in an array when it's a let. So
+
+957
+00:48:28,639 --> 00:48:31,573
+that's a really cool feature of value types.
+
+958
+00:48:31,642 --> 00:48:33,875
+And remember that array's a value type and
+
+959
+00:48:33,944 --> 00:48:37,646
+card is a value type. So that whole thing is frozen for
+
+960
+00:48:37,715 --> 00:48:41,616
+people who, you can't be modified for outside people.
+
+961
+00:48:41,685 --> 00:48:44,152
+But for us, it's private set so
+
+962
+00:48:44,221 --> 00:48:46,789
+we can do anything we want in there which we have been
+
+963
+00:48:46,857 --> 00:48:50,259
+doing. All right. And then of course, choose card.
+
+964
+00:48:50,328 --> 00:48:53,929
+That's our fundamental public API. So we got to leave that
+
+965
+00:48:53,998 --> 00:48:56,298
+not private, okay. That's how people do it. And
+
+966
+00:48:56,367 --> 00:48:59,869
+initializing, initializers can be made private as well. But
+
+967
+00:48:59,937 --> 00:49:02,971
+this one obviously can't be private because otherwise no
+
+968
+00:49:03,040 --> 00:49:06,976
+one could create a game, all right. So that's it. I really
+
+969
+00:49:07,044 --> 00:49:10,045
+got that. Now, while I'm here, I'm gonna show you another
+
+970
+00:49:10,114 --> 00:49:12,982
+API protection thing that's different from access control.
+
+971
+00:49:13,050 --> 00:49:16,618
+That's still good, which is using assertions, okay.
+
+972
+00:49:16,687 --> 00:49:18,654
+Do anyone know what an assertion is from other
+
+973
+00:49:18,722 --> 00:49:21,957
+languages? An assertion is just a function that you call
+
+974
+00:49:22,026 --> 00:49:25,027
+where you assert something to be true. And if it's not,
+
+975
+00:49:25,095 --> 00:49:28,063
+your program crashes and print out an error.
+
+976
+00:49:28,131 --> 00:49:31,533
+And you put it in your code, the asserts are ignored when
+
+977
+00:49:31,602 --> 00:49:33,936
+you ship to the App Store. But when you're in development,
+
+978
+00:49:34,005 --> 00:49:35,504
+it'll be crashing your program, which is good,
+
+979
+00:49:35,572 --> 00:49:38,807
+cuz it takes the debugger right to the assertion failed.
+
+980
+00:49:38,876 --> 00:49:42,477
+And asserts are a great way to protect your API. For example,
+
+981
+00:49:42,546 --> 00:49:43,979
+look at this API, chooseCard.
+
+982
+00:49:44,047 --> 00:49:46,448
+What if someone says at index -1?
+
+983
+00:49:46,517 --> 00:49:51,620
+Or at index 100 and they're only 12 cards.
+
+984
+00:49:51,689 --> 00:49:54,657
+Okay, that's gonna crash somewhere deep inside here,
+
+985
+00:49:54,726 --> 00:49:56,425
+probably like maybe here or
+
+986
+00:49:56,494 --> 00:49:59,694
+something like that. And if I'm the Google guys again, and
+
+987
+00:49:59,763 --> 00:50:01,363
+these guys are in another building and
+
+988
+00:50:01,431 --> 00:50:05,900
+I accidentally pass -1 here and I don't know what's. And
+
+989
+00:50:05,969 --> 00:50:09,438
+the crash happens in here, I'm gonna need to have this code,
+
+990
+00:50:09,507 --> 00:50:11,807
+and look in there, and I'm debugging it.
+
+991
+00:50:11,876 --> 00:50:13,842
+That code belongs to someone in another building,
+
+992
+00:50:13,910 --> 00:50:16,712
+why would I ever wanna be in here debugging it? Instead,
+
+993
+00:50:16,780 --> 00:50:20,382
+the guys in the other building should put an assert here.
+
+994
+00:50:20,450 --> 00:50:28,290
+That asserts that the cards indices contain that index.
+
+995
+00:50:28,359 --> 00:50:31,360
+Okay, if the card's indices don't contain this index,
+
+996
+00:50:31,429 --> 00:50:34,563
+then we're going to crash, if we're in development and so,
+
+997
+00:50:34,632 --> 00:50:37,266
+then we want to put some kind of crash message here.
+
+998
+00:50:37,334 --> 00:50:40,736
+I like to put the name of the struct or class and
+
+999
+00:50:40,805 --> 00:50:44,739
+the function which chooseCard. I even like to include
+
+1000
+00:50:44,808 --> 00:50:47,876
+the actual arguments that you passed so you can see what you
+
+1001
+00:50:47,944 --> 00:50:51,914
+passed there and then, I give the message. In this case,
+
+1002
+00:50:51,983 --> 00:50:57,186
+something like chosen index not in the cards.
+
+1003
+00:50:59,523 --> 00:51:02,091
+So that, so now if someone calls to choose
+
+1004
+00:51:02,159 --> 00:51:04,860
+card at minus one, it's gonna crash right away and
+
+1005
+00:51:04,928 --> 00:51:06,695
+put that on the console. And they're gonna be like,
+
+1006
+00:51:06,763 --> 00:51:08,564
+oh, shows the index not on the card, oh, and
+
+1007
+00:51:08,632 --> 00:51:11,667
+I passed minus one. You see, they're gonna one stop shop.
+
+1008
+00:51:11,735 --> 00:51:14,803
+Know what they did. And with the similar thing thing down
+
+1009
+00:51:14,872 --> 00:51:18,239
+here for number of pairs of cards because it's illegal to
+
+1010
+00:51:18,308 --> 00:51:22,678
+have 0 or less pairs of cards. You have to have at least one
+
+1011
+00:51:22,747 --> 00:51:25,514
+pair of card. So here I'm just gonna have the assertion be
+
+1012
+00:51:25,583 --> 00:51:29,184
+that the number of Pairs Of Cards is greater than 0.
+
+1013
+00:51:29,253 --> 00:51:30,986
+And if there is an error then I'm gonna say yes,
+
+1014
+00:51:31,054 --> 00:51:34,890
+I'm in the concentrations Init and
+
+1015
+00:51:34,959 --> 00:51:40,629
+you passed me this number of pairs of cards right here and
+
+1016
+00:51:40,698 --> 00:51:45,100
+the problem here is that you must have at least
+
+1017
+00:51:45,169 --> 00:51:49,604
+one pair of cards. Okay? So, you see how I'm, I'm using
+
+1018
+00:51:49,673 --> 00:51:53,476
+a search here to kinda protect my API against improper use.
+
+1019
+00:51:53,544 --> 00:52:00,282
+Question back there? Yeah? >> Sorry when you,
+
+1020
+00:52:00,351 --> 00:52:01,616
+Sorry when you- >> When would you set init
+
+1021
+00:52:01,685 --> 00:52:02,250
+as private? >> Oh, so
+
+1022
+00:52:02,319 --> 00:52:07,122
+the question is when would I set my init as private, okay.
+
+1023
+00:52:07,191 --> 00:52:10,826
+Well, you might have a complicated object that
+
+1024
+00:52:10,895 --> 00:52:14,062
+only creates instances of itself. For example,
+
+1025
+00:52:14,131 --> 00:52:16,030
+with static methods or something like that.
+
+1026
+00:52:16,099 --> 00:52:18,600
+Or you might have multiple in it. Some of which you'll allow
+
+1027
+00:52:18,669 --> 00:52:21,537
+other people to call. But some of which you call internally
+
+1028
+00:52:21,605 --> 00:52:24,906
+to create, okay. You might even have public ones that is
+
+1029
+00:52:24,975 --> 00:52:27,409
+part of their implementation called the private ones. Okay,
+
+1030
+00:52:27,477 --> 00:52:30,312
+cuz inits can call each other which we'll talk about on
+
+1031
+00:52:30,381 --> 00:52:34,149
+Wednesday. So that's why you might have some private. Okay,
+
+1032
+00:52:34,218 --> 00:52:36,451
+everybody cool with access control and
+
+1033
+00:52:36,520 --> 00:52:40,922
+assertions? All right, back to the slides.
+
+1034
+00:52:40,991 --> 00:52:45,127
+Where are we? Here, okay. Cool one, all right extensions. So
+
+1035
+00:52:45,195 --> 00:52:49,732
+extensions are super powerful. They're kind of like
+
+1036
+00:52:49,800 --> 00:52:52,367
+a weapon you'll want to be careful when you're wielding,
+
+1037
+00:52:52,436 --> 00:52:56,004
+because you can go crazy with them. And what an extension
+
+1038
+00:52:56,073 --> 00:53:01,176
+allows you to do is add vars and functions to other classes
+
+1039
+00:53:01,245 --> 00:53:03,378
+even if you don't have the code to those classes.
+
+1040
+00:53:03,447 --> 00:53:06,681
+Even if there in another frame work like UI Kits or something
+
+1041
+00:53:06,750 --> 00:53:10,753
+like that. So you can add bars and methods to it. You can add
+
+1042
+00:53:10,821 --> 00:53:14,389
+it to UI Button. You can add it UI View Controller.
+
+1043
+00:53:14,458 --> 00:53:17,459
+Anything you want. Okay? So this is a very, very, very
+
+1044
+00:53:17,528 --> 00:53:21,296
+powerful feature. And really I'm sure what's swimming about
+
+1045
+00:53:21,364 --> 00:53:23,865
+the cap, possibilities is nothing compared to the actual
+
+1046
+00:53:23,934 --> 00:53:26,702
+possibilities because there are other data structures that
+
+1047
+00:53:26,770 --> 00:53:30,105
+we haven't even talked about that adding an extension to
+
+1048
+00:53:30,173 --> 00:53:33,141
+really is powerful and we'll get to that by end of
+
+1049
+00:53:33,210 --> 00:53:38,213
+Wednesday as well. The basic line of it is, is very simple.
+
+1050
+00:53:38,281 --> 00:53:40,949
+You just use the keyword extension and the name of
+
+1051
+00:53:41,018 --> 00:53:44,319
+the structor class you wanna add a var property to and
+
+1052
+00:53:44,388 --> 00:53:46,554
+then just put the thing you want in there.
+
+1053
+00:53:46,623 --> 00:53:51,560
+Now, it has one very some serious restriction which is
+
+1054
+00:53:51,629 --> 00:53:56,331
+that it can have no storage. This extension, this code that
+
+1055
+00:53:56,400 --> 00:53:59,300
+you're extending this other thing, it can have no vars
+
+1056
+00:53:59,369 --> 00:54:01,270
+that are storage. It could have vars that are computed.
+
+1057
+00:54:01,338 --> 00:54:04,373
+But it can't have any vars with storage. So
+
+1058
+00:54:04,441 --> 00:54:07,676
+that does restrict the kind of thing that you can
+
+1059
+00:54:07,745 --> 00:54:11,013
+add to a function. Okay, but you kinda turn out that
+
+1060
+00:54:11,081 --> 00:54:14,149
+restriction is actually a good restriction. It's not like
+
+1061
+00:54:14,217 --> 00:54:16,952
+the too bad they could invent it with storage. You
+
+1062
+00:54:17,020 --> 00:54:19,354
+actually don't want storage, and you will see as we
+
+1063
+00:54:19,423 --> 00:54:22,690
+go along why that is. So, this feature as you might imagine
+
+1064
+00:54:22,759 --> 00:54:26,728
+is easily abused and the number one ways to get abuse,
+
+1065
+00:54:26,797 --> 00:54:29,598
+and I encourage you not to abuse at this way is you do
+
+1066
+00:54:29,667 --> 00:54:33,835
+not want to add a bar or a func to class that doesn't
+
+1067
+00:54:33,904 --> 00:54:38,840
+make sense for that class. It's a real temptation for
+
+1068
+00:54:38,909 --> 00:54:43,578
+example for an init or string to add a function that has to
+
+1069
+00:54:43,647 --> 00:54:47,916
+do with concentration. Some concentration specific method
+
+1070
+00:54:47,984 --> 00:54:50,719
+you're adding to string cuz it'll clean up your code or
+
+1071
+00:54:50,788 --> 00:54:53,689
+look nice or whatever But you really don't wanna do that.
+
+1072
+00:54:53,757 --> 00:54:56,658
+The only method and functions you wanna add to string or
+
+1073
+00:54:56,727 --> 00:54:59,962
+methods that make string about a class. They make it a better
+
+1074
+00:55:00,030 --> 00:55:03,398
+string not they make it knows about concentration. Now,
+
+1075
+00:55:03,467 --> 00:55:06,134
+it's probably possible to add string masses to make it
+
+1076
+00:55:06,203 --> 00:55:08,503
+know about concentrations that nothing really wrong with it.
+
+1077
+00:55:08,572 --> 00:55:10,405
+It's just kind of bad design. Okay so
+
+1078
+00:55:10,474 --> 00:55:14,209
+this extension's feature like I said is very powerful,
+
+1079
+00:55:14,277 --> 00:55:17,979
+since you're just beginning here, you can think of it at
+
+1080
+00:55:18,048 --> 00:55:21,783
+the beginning as just a way to add utility, functions and
+
+1081
+00:55:21,852 --> 00:55:24,419
+things like that to clean up your code.
+
+1082
+00:55:24,488 --> 00:55:27,622
+Okay, that the first level of learning about extensions so
+
+1083
+00:55:27,691 --> 00:55:29,925
+I am going to show you how we could do that for
+
+1084
+00:55:29,994 --> 00:55:33,862
+example in Concentration. So let's go to concentration and
+
+1085
+00:55:33,930 --> 00:55:37,298
+use an extension to add something interesting and
+
+1086
+00:55:37,367 --> 00:55:41,202
+what interesting thing we are going to do is we are going to
+
+1087
+00:55:41,271 --> 00:55:43,805
+go to our view controller over here and
+
+1088
+00:55:43,874 --> 00:55:47,876
+look at this code right here which is kind of messy.
+
+1089
+00:55:47,945 --> 00:55:50,245
+Right here. Okay? What is messy about this code?
+
+1090
+00:55:50,314 --> 00:55:55,150
+Well. Okay. All I really wanna do is remove a random emoji.
+
+1091
+00:55:55,219 --> 00:55:57,051
+And you have to have a whole other line of code.
+
+1092
+00:55:57,120 --> 00:56:02,457
+And that line of code has this horrendous amount of. Changing
+
+1093
+00:56:02,526 --> 00:56:06,328
+from unsigned ints to regular ints and all that stuff.
+
+1094
+00:56:06,396 --> 00:56:08,930
+So it just really looks bad, and it's hard to read,
+
+1095
+00:56:08,999 --> 00:56:10,865
+it's hard to understand what is going in here.
+
+1096
+00:56:10,934 --> 00:56:13,502
+I'm having to do so many type conversions, stuff like that.
+
+1097
+00:56:13,570 --> 00:56:18,006
+It's awful, okay? Really what I'd like to do is generate
+
+1098
+00:56:18,075 --> 00:56:24,146
+a random number and put it right here. So what if int,
+
+1099
+00:56:24,215 --> 00:56:27,916
+the type int, had a var which gave me a random
+
+1100
+00:56:27,984 --> 00:56:31,319
+integer? Okay, that's a very int thing, nothing to
+
+1101
+00:56:31,388 --> 00:56:33,822
+do with concentration, it's just int thing.
+
+1102
+00:56:33,891 --> 00:56:38,126
+It gives me a random integer. So we're going to extend int
+
+1103
+00:56:38,195 --> 00:56:42,263
+to give back a random integer. Specifically, we're gonna make
+
+1104
+00:56:42,332 --> 00:56:44,799
+it so that when you ask an int please give me a random
+
+1105
+00:56:44,868 --> 00:56:47,436
+integer it gives a random integer between 0 and that
+
+1106
+00:56:47,504 --> 00:56:51,840
+int. Okay, so if I say five, I can even say, I'm gonna be
+
+1107
+00:56:51,909 --> 00:56:55,143
+able to say here let x equal five dot random integer.
+
+1108
+00:56:55,212 --> 00:56:58,580
+And I'm gonna call this thing arc4random, this var.
+
+1109
+00:56:58,649 --> 00:57:01,349
+Because I'm gonna use arc4random to generate it and
+
+1110
+00:57:01,418 --> 00:57:03,919
+people know the semantics of arc4random which is
+
+1111
+00:57:03,988 --> 00:57:04,786
+a random a number
+
+1112
+00:57:04,854 --> 00:57:08,523
+between 0 and another number. So this is, I'm gonna make
+
+1113
+00:57:08,592 --> 00:57:13,428
+it so this will work and that will give me 0, 1, 2, 3, or 4.
+
+1114
+00:57:13,496 --> 00:57:18,634
+So how do I do that? Extension int and then in here
+
+1115
+00:57:18,702 --> 00:57:24,306
+I put this var arc4random. I have to say what type it is,
+
+1116
+00:57:24,374 --> 00:57:27,175
+it's also gonna be an int. It could could be a string or
+
+1117
+00:57:27,244 --> 00:57:29,411
+whatever but it's also gonna be an int. And
+
+1118
+00:57:29,479 --> 00:57:33,014
+I'm essentially gonna return all this mess right here. So
+
+1119
+00:57:33,083 --> 00:57:37,819
+I'm just gonna cut that out of there. I'm gonna return this.
+
+1120
+00:57:37,888 --> 00:57:40,622
+But it's not a random number between 0 and
+
+1121
+00:57:40,691 --> 00:57:44,526
+emojiChoices.count, it's a random order between 0 and
+
+1122
+00:57:44,595 --> 00:57:50,665
+what? Yes, whoa, I wish I could give extra credit or
+
+1123
+00:57:50,734 --> 00:57:53,201
+like Mehran, throwing some candy out there or
+
+1124
+00:57:53,270 --> 00:57:56,337
+something because yes absolutely, it's between 0 and
+
+1125
+00:57:56,406 --> 00:58:01,443
+self. Because this is a var in int. And so self is the int
+
+1126
+00:58:01,512 --> 00:58:06,514
+you sent it to. Which is really kind of cool. So now,
+
+1127
+00:58:06,583 --> 00:58:09,784
+since int can do this, all we need to do right here is we
+
+1128
+00:58:09,853 --> 00:58:13,789
+don't need any of this junk up here. Instead of randomIndex,
+
+1129
+00:58:13,857 --> 00:58:17,993
+we're just gonna say emojiChoices.count.arc4random.
+
+1130
+00:58:18,062 --> 00:58:22,664
+Okay, so, that cleaned up our code a lot. Now,
+
+1131
+00:58:22,733 --> 00:58:25,467
+if we were to do something like this, and we wanted to
+
+1132
+00:58:25,536 --> 00:58:28,803
+be really good programmers, we'd look at this and say, hm,
+
+1133
+00:58:28,872 --> 00:58:30,905
+what if self is 0? Eh, this is not gonna work,
+
+1134
+00:58:30,974 --> 00:58:32,674
+cuz arc4rando_uniform doesn't work, but
+
+1135
+00:58:32,743 --> 00:58:35,744
+what if self is negative? Actually, if self were
+
+1136
+00:58:35,812 --> 00:58:38,513
+negative, maybe I could do a random number between 0 and
+
+1137
+00:58:38,582 --> 00:58:42,684
+that negative number. So, I might decide, I'm gonna say if
+
+1138
+00:58:42,753 --> 00:58:46,955
+self is greater than 0, then I'll do this.
+
+1139
+00:58:47,024 --> 00:58:52,026
+Else if self is less than 0, then I'm gonna almost do this.
+
+1140
+00:58:52,095 --> 00:58:56,865
+What I'm gonna do, is I'm gonna say return minus this,
+
+1141
+00:58:56,934 --> 00:59:00,202
+the absolute value of myself. Okay,
+
+1142
+00:59:00,270 --> 00:59:04,339
+abs is just a global function. But I could also just say
+
+1143
+00:59:04,408 --> 00:59:06,675
+minus self cuz I checked to see if it's negative.
+
+1144
+00:59:06,743 --> 00:59:10,345
+Or else if self is 0, which would be the else case here,
+
+1145
+00:59:10,414 --> 00:59:12,580
+then maybe I'll just return 0. So if you say, 0,
+
+1146
+00:59:12,649 --> 00:59:15,950
+give me a random number, it gives you a 0. So here I've
+
+1147
+00:59:16,019 --> 00:59:19,887
+made it that this never crashes. This doesn't have to
+
+1148
+00:59:19,956 --> 00:59:23,825
+be an optional int and it gives a reasonable response.
+
+1149
+00:59:23,894 --> 00:59:26,995
+See, and that's pretty good when you add bars and
+
+1150
+00:59:27,063 --> 00:59:30,632
+functions to any class. Now you can just via extensions,
+
+1151
+00:59:30,700 --> 00:59:34,302
+you want them to have good semantics, sensible semantics.
+
+1152
+00:59:34,371 --> 00:59:36,905
+And you don't generally don't want them to crash which is
+
+1153
+00:59:36,974 --> 00:59:38,607
+what this would have done otherwise.
+
+1154
+00:59:38,675 --> 00:59:40,942
+If you sent it to -3.
+
+1155
+00:59:41,011 --> 00:59:45,346
+Everyone see how this makes our code a lot more readable.
+
+1156
+00:59:45,415 --> 00:59:48,083
+And how we added something that was sensible for int.
+
+1157
+00:59:49,953 --> 00:59:53,755
+All right, that's it, let's get back to our slides again.
+
+1158
+00:59:55,659 --> 00:59:58,960
+Here is our for enum. Okay, optionals,
+
+1159
+00:59:59,029 --> 01:00:03,832
+the dreaded word optionals. So I told you last
+
+1160
+01:00:03,901 --> 01:00:06,701
+week that an optional is just a regular old type in Swift.
+
+1161
+01:00:06,770 --> 01:00:07,969
+In fact it's a enum,
+
+1162
+01:00:08,037 --> 01:00:11,539
+an enumeration. So let's learn about enum because enum is
+
+1163
+01:00:11,608 --> 01:00:13,909
+another thing I wasn't able to work it into concentration,
+
+1164
+01:00:13,977 --> 01:00:17,045
+although I am gonna work it into next week's demo. Okay,
+
+1165
+01:00:17,114 --> 01:00:19,981
+our drawing demo. But I want to explain what it is so
+
+1166
+01:00:20,050 --> 01:00:22,751
+that I can explain what optionals are a little better.
+
+1167
+01:00:22,820 --> 01:00:25,753
+So an enum is just like an enum in other languages.
+
+1168
+01:00:25,822 --> 01:00:28,156
+It's a data type, just like struct is a type or
+
+1169
+01:00:28,225 --> 01:00:29,824
+class is a type, enum is a type.
+
+1170
+01:00:29,893 --> 01:00:32,828
+Exactly the same, you can use it in exactly the same places.
+
+1171
+01:00:32,896 --> 01:00:37,899
+It's just that it has only discrete values. Here's
+
+1172
+01:00:37,968 --> 01:00:40,701
+a FastFoodMenuItem enum, it can only be hamburger, fries,
+
+1173
+01:00:40,770 --> 01:00:43,471
+drink, or cookie. That's it, it can't be anything else
+
+1174
+01:00:43,540 --> 01:00:45,172
+besides one of those four things, so
+
+1175
+01:00:45,241 --> 01:00:50,645
+that's what an enum is. Enums are value types, like structs,
+
+1176
+01:00:50,714 --> 01:00:55,783
+they get copied as you pass them around. Now enums in
+
+1177
+01:00:55,852 --> 01:01:00,488
+Swift little bit more powerful then your typical enum because
+
+1178
+01:01:00,556 --> 01:01:05,026
+each case can also have what's called associated data, or
+
+1179
+01:01:05,094 --> 01:01:08,296
+an associated value. So in my fast food item one my
+
+1180
+01:01:08,365 --> 01:01:10,565
+hamburgers have the number of patties,
+
+1181
+01:01:10,634 --> 01:01:12,400
+is it a double burger or a triple or
+
+1182
+01:01:12,469 --> 01:01:15,303
+a single? The fries has the size of the fries,
+
+1183
+01:01:15,371 --> 01:01:18,773
+a large fry, or a small. And I've even used another enum,
+
+1184
+01:01:18,842 --> 01:01:20,842
+you see down here at the bottom.
+
+1185
+01:01:20,911 --> 01:01:24,245
+I have another, oops, my thing work here. There it is.
+
+1186
+01:01:24,314 --> 01:01:29,250
+This is not very good. Okay, we got it. There it is. So
+
+1187
+01:01:29,319 --> 01:01:32,153
+I can use another enum there to do the size of it and
+
+1188
+01:01:32,222 --> 01:01:37,058
+then drink. It has two pieces of associated data.
+
+1189
+01:01:37,127 --> 01:01:39,160
+Okay, let's see if we can get this working for that.
+
+1190
+01:01:39,229 --> 01:01:41,062
+And if you look at its two pieces of associated data,
+
+1191
+01:01:41,130 --> 01:01:42,097
+look at the first one.
+
+1192
+01:01:42,165 --> 01:01:45,499
+That string, it has no name. These other ones have names,
+
+1193
+01:01:45,568 --> 01:01:47,969
+like number of patties, size, this one has no name for
+
+1194
+01:01:48,038 --> 01:01:50,705
+the first one, it does have a name for the second one.
+
+1195
+01:01:50,774 --> 01:01:53,374
+First the strings and then an int. Now the names here don't
+
+1196
+01:01:53,443 --> 01:01:56,544
+matter that much because when we extract this information,
+
+1197
+01:01:56,613 --> 01:01:59,246
+we're gonna be able to give it our own name anyway,
+
+1198
+01:01:59,315 --> 01:02:02,350
+kind of like tuples. In fact, these look a lot like tuples,
+
+1199
+01:02:02,419 --> 01:02:04,552
+don't they? These little associated datas,
+
+1200
+01:02:04,620 --> 01:02:07,055
+they're kind of like tuples because you can have as many
+
+1201
+01:02:07,124 --> 01:02:08,990
+of them as you want, you specify the type,
+
+1202
+01:02:09,059 --> 01:02:11,093
+they have names, they're super simple, and
+
+1203
+01:02:11,161 --> 01:02:14,095
+they look very much like tuples. So, anyway,
+
+1204
+01:02:14,164 --> 01:02:16,697
+so this is what it looks like to declare an enum with
+
+1205
+01:02:16,766 --> 01:02:20,334
+associated data. Now, how do you assign an enum?
+
+1206
+01:02:20,403 --> 01:02:23,071
+So here is two variables, one called menu item,
+
+1207
+01:02:23,140 --> 01:02:25,840
+one called other item. They are of type FastFoodMenuItem,
+
+1208
+01:02:25,909 --> 01:02:28,876
+that's their type. And so I set them just by saying
+
+1209
+01:02:28,945 --> 01:02:31,779
+FastFoodMenuItem dot the case I want.
+
+1210
+01:02:31,848 --> 01:02:37,118
+And if it has associated data, I have to provide it.
+
+1211
+01:02:37,187 --> 01:02:42,057
+So the only time you can set the associated data of an enum
+
+1212
+01:02:42,125 --> 01:02:45,226
+is when you assign it. That's the only time. Okay,
+
+1213
+01:02:45,294 --> 01:02:48,062
+you can't go back later and change this to be a triple,
+
+1214
+01:02:48,131 --> 01:02:51,032
+because this is fundamentally a double burger.
+
+1215
+01:02:51,101 --> 01:02:53,634
+That's what it is. And it's never, if it changed, it would
+
+1216
+01:02:53,703 --> 01:02:56,871
+change into a completely different thing. All right, so
+
+1217
+01:02:56,940 --> 01:03:01,008
+you don't change the patties, got that? All right, so, when
+
+1218
+01:03:01,077 --> 01:03:04,980
+you're setting these values by the way of course you can use
+
+1219
+01:03:05,048 --> 01:03:08,683
+type inference, but only on one side of that equals. So
+
+1220
+01:03:08,752 --> 01:03:12,354
+you could say menuItem equals FastFoodMenuItem.hamburger.
+
+1221
+01:03:12,422 --> 01:03:15,089
+Which was what was on the previous slide, or
+
+1222
+01:03:15,158 --> 01:03:18,626
+you could say otherItem of type FastFoodMenuItem equals
+
+1223
+01:03:18,695 --> 01:03:19,727
+.cookie. You see,
+
+1224
+01:03:19,796 --> 01:03:21,996
+I've just basically moved the type to the other side. But
+
+1225
+01:03:22,065 --> 01:03:25,966
+you can't say yet another item equals .cookie. Swift doesn't
+
+1226
+01:03:26,035 --> 01:03:29,337
+know enough there to infer the type on the other side. There
+
+1227
+01:03:29,406 --> 01:03:31,505
+could be other enums with .cookie in it, for example,
+
+1228
+01:03:31,574 --> 01:03:33,775
+that you might add later. And then all of a sudden your code
+
+1229
+01:03:33,844 --> 01:03:35,309
+won't compile because it doesn't know. So
+
+1230
+01:03:35,378 --> 01:03:38,680
+it just says from the start, I don't know what that is.
+
+1231
+01:03:39,783 --> 01:03:42,350
+Now how do you check what an enum is?
+
+1232
+01:03:42,419 --> 01:03:44,953
+You do not use equals. So you don't say,
+
+1233
+01:03:45,021 --> 01:03:49,523
+if this menu item equals a hamburger then whatever, okay,
+
+1234
+01:03:49,592 --> 01:03:53,328
+you do not use equals, you use switch. Again, other languages
+
+1235
+01:03:53,397 --> 01:03:56,097
+have switch. Switch is more powerful in Swift.
+
+1236
+01:03:56,166 --> 01:03:58,900
+This is the basic use of switch right here, where I'm
+
+1237
+01:03:58,968 --> 01:04:02,137
+just looking at every possible case that it could be, and
+
+1238
+01:04:02,205 --> 01:04:03,938
+if it's that case, I do a little bit of code.
+
+1239
+01:04:04,007 --> 01:04:07,041
+So here I'm just printing out what the various cases are so
+
+1240
+01:04:07,110 --> 01:04:09,043
+if it's hamburgers, for example,
+
+1241
+01:04:09,112 --> 01:04:11,379
+you can see that I'm printing burger.
+
+1242
+01:04:11,448 --> 01:04:14,249
+Notice that I'm ignoring the associated data here which is
+
+1243
+01:04:14,317 --> 01:04:15,249
+perfectly fine.
+
+1244
+01:04:15,318 --> 01:04:17,886
+You're allowed to completely ignore the associated data
+
+1245
+01:04:17,955 --> 01:04:21,555
+when you're checking the state with switch. Now
+
+1246
+01:04:21,624 --> 01:04:25,326
+switch requires you to address every single case. You are not
+
+1247
+01:04:25,395 --> 01:04:28,463
+allowed to look at only two of the cases. But, of course,
+
+1248
+01:04:28,531 --> 01:04:34,068
+it's got something that can help you with that. Oh yes,
+
+1249
+01:04:34,137 --> 01:04:37,605
+by the way, you see I've taken away the FastFoodMenuItem.,
+
+1250
+01:04:37,674 --> 01:04:40,775
+in front of hamburger, fries, drink, and coke. Becuase swift
+
+1251
+01:04:40,843 --> 01:04:43,077
+can infer that, you're switching on a menu item, so
+
+1252
+01:04:43,146 --> 01:04:45,280
+it knows this is a FastFoodMenuItem, so
+
+1253
+01:04:45,348 --> 01:04:49,317
+you can take those away. All right, so if you have one of
+
+1254
+01:04:49,385 --> 01:04:52,287
+the cases, and you don't wanna do anything, you can just
+
+1255
+01:04:52,356 --> 01:04:55,890
+break. Break means break out of this switch. So
+
+1256
+01:04:55,958 --> 01:04:58,626
+that's a way to do nothing in this case. So, right here,
+
+1257
+01:04:58,694 --> 01:05:01,062
+this code, we print nothing because the hamburger case,
+
+1258
+01:05:01,130 --> 01:05:03,698
+the menu item is a hamburger with two patties, and
+
+1259
+01:05:03,767 --> 01:05:04,999
+that hamburger case does nothing, so
+
+1260
+01:05:05,068 --> 01:05:08,636
+we'll just break out and do nothing. Similarly,
+
+1261
+01:05:08,705 --> 01:05:12,306
+if you want to do something for all the rest of the cases,
+
+1262
+01:05:12,375 --> 01:05:13,841
+like here I only want to do something for
+
+1263
+01:05:13,910 --> 01:05:16,977
+hamburger and fries. Actually I do nothing for hamburger and
+
+1264
+01:05:17,046 --> 01:05:18,079
+I do something for fries.
+
+1265
+01:05:18,147 --> 01:05:20,949
+In all other cases, I just want to print other, then you
+
+1266
+01:05:21,017 --> 01:05:24,919
+can use default instead of case whatever. Now in switch,
+
+1267
+01:05:24,987 --> 01:05:29,424
+you can switch any type, you can even switch on a string.
+
+1268
+01:05:29,492 --> 01:05:32,426
+But if you switch on a string, you'd have to have case A,
+
+1269
+01:05:32,495 --> 01:05:35,029
+case B, case C, case AA, case AB, you see what I mean?
+
+1270
+01:05:35,098 --> 01:05:37,165
+You'd have to have every case in the world.
+
+1271
+01:05:37,234 --> 01:05:40,502
+So of course you're going to use default ion a string case
+
+1272
+01:05:40,570 --> 01:05:41,836
+switch case the couple
+
+1273
+01:05:41,904 --> 01:05:45,306
+ones you wanna case, then you would default the rest. So
+
+1274
+01:05:45,375 --> 01:05:50,778
+default is a must even for enums we use it quite a bit,
+
+1275
+01:05:50,847 --> 01:05:53,948
+all right? So that's break an enum. So
+
+1276
+01:05:54,017 --> 01:05:58,753
+if this were a cookie then it would print other. All right,
+
+1277
+01:05:58,822 --> 01:06:01,455
+multiple lines, I just wanted to make clear that, multiple
+
+1278
+01:06:01,524 --> 01:06:03,724
+lines of code are allowed, it doesn't have to be one line.
+
+1279
+01:06:03,793 --> 01:06:05,025
+That was just cuz I'm on slides here,
+
+1280
+01:06:05,094 --> 01:06:06,661
+I'm trying to make everything fit, and
+
+1281
+01:06:06,730 --> 01:06:10,265
+there's no fall through. So in this case, I've got fries,
+
+1282
+01:06:10,333 --> 01:06:12,166
+you see up there at the top, fries,
+
+1283
+01:06:12,234 --> 01:06:13,701
+large fries there. And
+
+1284
+01:06:13,770 --> 01:06:18,039
+so this code would print out yummy fires and that's it. So
+
+1285
+01:06:18,107 --> 01:06:20,007
+I have multiple lines of code in there under fries,
+
+1286
+01:06:20,076 --> 01:06:22,977
+two lines of code, and it does not fall through and do drink,
+
+1287
+01:06:23,046 --> 01:06:26,080
+like in other languages. In C, things fall through, in switch
+
+1288
+01:06:26,149 --> 01:06:28,116
+but they don't fall through here. There is a keyword
+
+1289
+01:06:28,184 --> 01:06:30,585
+called fallthrough that would let you fall through, but
+
+1290
+01:06:30,653 --> 01:06:36,591
+by default it doesn't. By the way that it inferred
+
+1291
+01:06:36,660 --> 01:06:40,561
+the type all along in here, it can for that type as well.
+
+1292
+01:06:40,630 --> 01:06:45,066
+I don't have to say size,fries size enum.large,
+
+1293
+01:06:45,135 --> 01:06:47,902
+I can just say, .large because it knows that the associated
+
+1294
+01:06:47,971 --> 01:06:53,274
+data of fries is s fries size enum. Okay,
+
+1295
+01:06:53,342 --> 01:06:57,778
+now, what if I want to get the associated data. So I do,
+
+1296
+01:06:57,847 --> 01:07:00,815
+I am interested in it. We do that with switch as well,
+
+1297
+01:07:00,883 --> 01:07:05,319
+we just do this little let business. See the little lets.
+
+1298
+01:07:05,388 --> 01:07:07,789
+In all the cases that you want this associated data,
+
+1299
+01:07:07,858 --> 01:07:09,190
+you don't have to do it in all cases, but
+
+1300
+01:07:09,258 --> 01:07:11,326
+in the ones you want it? You just say, open parentheses,
+
+1301
+01:07:11,394 --> 01:07:15,229
+let and a name of a little local variable for
+
+1302
+01:07:15,298 --> 01:07:18,265
+each of the associated pieces of data. Now,
+
+1303
+01:07:18,334 --> 01:07:21,702
+that little name that you use, so if this were a coke see it
+
+1304
+01:07:21,771 --> 01:07:25,306
+would print whatever ounces coke right there, cuz just
+
+1305
+01:07:25,374 --> 01:07:28,409
+getting the Coke into brand. It's getting the ounces into
+
+1306
+01:07:28,477 --> 01:07:31,145
+something called ounces, and then it's doing that print.
+
+1307
+01:07:31,214 --> 01:07:35,716
+This naming does not have to be the same names
+
+1308
+01:07:35,785 --> 01:07:38,419
+as you declared the enum from. In fact,
+
+1309
+01:07:38,487 --> 01:07:42,723
+if we look at this Coke one right here, this let brand,
+
+1310
+01:07:42,792 --> 01:07:45,827
+remember in the original enum that didn't even have a name,
+
+1311
+01:07:45,896 --> 01:07:48,929
+it was just a string, right? And it had ounces,
+
+1312
+01:07:48,998 --> 01:07:52,399
+colon ounces, and up here with hamburger, pattyCount,
+
+1313
+01:07:52,468 --> 01:07:56,837
+that was called patties in the original declaration. So
+
+1314
+01:07:56,906 --> 01:08:00,641
+again, does this not look familiar to tuples, right?
+
+1315
+01:08:00,710 --> 01:08:03,878
+You can rename them when you're getting the information
+
+1316
+01:08:03,946 --> 01:08:07,549
+out of them. So this is how you extract data
+
+1317
+01:08:07,617 --> 01:08:11,953
+out of the associated types. Very simple, and
+
+1318
+01:08:12,022 --> 01:08:14,756
+again it's optional you don't have to have it there.
+
+1319
+01:08:15,992 --> 01:08:19,126
+Also enums, they're like structs and classes.
+
+1320
+01:08:19,195 --> 01:08:23,431
+They can have methods and they can have vars, but no storage.
+
+1321
+01:08:23,500 --> 01:08:26,600
+All the stories of an enum is in which case it is and
+
+1322
+01:08:26,669 --> 01:08:28,035
+that case is associated data.
+
+1323
+01:08:28,104 --> 01:08:30,872
+That's it, you can't have many other vars or anything else.
+
+1324
+01:08:30,940 --> 01:08:34,275
+So the only vars you could have are computed vars.
+
+1325
+01:08:34,344 --> 01:08:37,245
+So see the example I have here where it's calories,
+
+1326
+01:08:37,313 --> 01:08:40,148
+where you'd compute the calories of that menu item
+
+1327
+01:08:40,216 --> 01:08:43,618
+that would have to be a computed type. Can't store
+
+1328
+01:08:43,686 --> 01:08:47,422
+anything in an enum except for the associated data right
+
+1329
+01:08:47,490 --> 01:08:50,291
+there. Now if you're writing a func like this one,
+
+1330
+01:08:50,360 --> 01:08:53,495
+isIncludedInSpecialOrder number one or number two or
+
+1331
+01:08:53,563 --> 01:08:56,164
+whatever. If you're doing that, then you can
+
+1332
+01:08:56,232 --> 01:09:01,336
+get your own associated data using switch on self.
+
+1333
+01:09:01,404 --> 01:09:03,972
+Cuz I'm inside the enum to permutation here, right?
+
+1334
+01:09:04,040 --> 01:09:05,573
+So I can switch on self, and then,
+
+1335
+01:09:05,642 --> 01:09:07,241
+I could get my associated data out so
+
+1336
+01:09:07,310 --> 01:09:08,743
+I can calculate my calories. Or
+
+1337
+01:09:08,811 --> 01:09:11,445
+in this case, I'm calculating whether the hamburger with
+
+1338
+01:09:11,514 --> 01:09:14,015
+two patties is included in special order number two.
+
+1339
+01:09:14,084 --> 01:09:17,285
+And my code here says yes because pretty much,
+
+1340
+01:09:17,353 --> 01:09:19,120
+special order number one is a single burger,
+
+1341
+01:09:19,189 --> 01:09:21,789
+and/or number two is a double. Now there's some other
+
+1342
+01:09:21,858 --> 01:09:24,358
+interesting things to look at in this code. Notice that
+
+1343
+01:09:24,427 --> 01:09:27,629
+fries and cookie right there. Right in the middle, fries and
+
+1344
+01:09:27,697 --> 01:09:31,565
+cookie. Those I combine them into one case,
+
+1345
+01:09:31,634 --> 01:09:34,468
+which that's allowed with commas you can have multiple
+
+1346
+01:09:34,537 --> 01:09:38,206
+going on there. Also noticing drink, okay, I'm
+
+1347
+01:09:38,274 --> 01:09:41,042
+getting the number of ounces in a drink but evidently in
+
+1348
+01:09:41,110 --> 01:09:44,145
+a special order you can have any drink that's 16 ounces.
+
+1349
+01:09:44,214 --> 01:09:47,314
+So I don't care what kind of drink it is, I don't care for
+
+1350
+01:09:47,383 --> 01:09:51,152
+that brand. So I use the universal i don't care symbol
+
+1351
+01:09:51,221 --> 01:09:54,722
+in Swift which is under bar, right? Remember, we used
+
+1352
+01:09:54,791 --> 01:09:58,359
+underbar when we didn't care what the external name and
+
+1353
+01:09:58,427 --> 01:10:01,662
+touch card was. We used it in a four loop when we didn't
+
+1354
+01:10:01,731 --> 01:10:04,065
+care what the identifier was anymore in concentration,
+
+1355
+01:10:04,134 --> 01:10:07,535
+so we can use it here as well, all right?
+
+1356
+01:10:09,239 --> 01:10:14,074
+You can modify self in an enum as long as it's in a var. If
+
+1357
+01:10:14,143 --> 01:10:17,845
+it's modifiable, you just say self equals some other case.
+
+1358
+01:10:17,914 --> 01:10:19,847
+And if that other case requires associated data,
+
+1359
+01:10:19,915 --> 01:10:23,083
+you'll have to provide it then, you can say self equals.
+
+1360
+01:10:23,152 --> 01:10:25,720
+Now, a very important thing to notice here, if you're going
+
+1361
+01:10:25,789 --> 01:10:28,890
+to modify yourself in an enum by saying self equals,
+
+1362
+01:10:28,959 --> 01:10:30,357
+that's the only way to modify yourself,
+
+1363
+01:10:30,426 --> 01:10:34,195
+by the way. Then you have to put mutating
+
+1364
+01:10:34,264 --> 01:10:37,197
+in front of the function that mutates you,
+
+1365
+01:10:37,266 --> 01:10:38,566
+that modifies self.
+
+1366
+01:10:38,634 --> 01:10:43,304
+That's because fast enum is a value type and
+
+1367
+01:10:43,372 --> 01:10:46,073
+remember the value types are passed around by copying but
+
+1368
+01:10:46,142 --> 01:10:49,810
+there is copy on write. So if it doesn't copy on write which
+
+1369
+01:10:49,879 --> 01:10:52,546
+means it doesn't actually make a copy until you write.
+
+1370
+01:10:52,615 --> 01:10:53,615
+Well if it's gonna do that,
+
+1371
+01:10:53,683 --> 01:10:58,519
+it needs to know which funcs might write. So
+
+1372
+01:10:58,588 --> 01:11:01,388
+that's what mutating means, it means this func might write,
+
+1373
+01:11:01,457 --> 01:11:05,025
+it might change this. You have to do exactly the same thing
+
+1374
+01:11:05,094 --> 01:11:08,996
+in a struct. If you have a func in a struct, and
+
+1375
+01:11:09,064 --> 01:11:10,965
+it modifies any internal state of
+
+1376
+01:11:11,033 --> 01:11:13,100
+the struct, it has to be marked mutating, so
+
+1377
+01:11:13,169 --> 01:11:16,370
+the Swift knows to copy and write. And not to worry, Swift
+
+1378
+01:11:16,439 --> 01:11:19,440
+is super smart, it'll see your code, it'll see you're saying
+
+1379
+01:11:19,508 --> 01:11:22,142
+self equal, it'll see that you're modifying your bars in
+
+1380
+01:11:22,211 --> 01:11:26,046
+a struct And it will complain and say this is protected you
+
+1381
+01:11:26,115 --> 01:11:29,183
+can't write to this thing coz this is not a mutating func.
+
+1382
+01:11:29,251 --> 01:11:31,418
+And you can fix it by making it mutating and
+
+1383
+01:11:31,487 --> 01:11:34,555
+in fact you can see that concentration demo in a second
+
+1384
+01:11:34,624 --> 01:11:37,758
+here. All right so let's see if for enums, very simple.
+
+1385
+01:11:37,826 --> 01:11:41,562
+So an optional then is just an enum, it looks like this,
+
+1386
+01:11:41,631 --> 01:11:44,398
+kind of, conceptually. It's an optional,
+
+1387
+01:11:44,467 --> 01:11:47,435
+it's a generic type like array is. Array can have anything in
+
+1388
+01:11:47,504 --> 01:11:49,103
+it, an optional can be an optional Int,
+
+1389
+01:11:49,172 --> 01:11:51,739
+an optional string, whatever it's a generic type. And
+
+1390
+01:11:51,808 --> 01:11:53,941
+it has two cases in the enum,
+
+1391
+01:11:54,009 --> 01:11:58,713
+the case none which is not set, nill, and the other case
+
+1392
+01:11:58,781 --> 01:12:01,782
+some in which it has some associated data of that type.
+
+1393
+01:12:01,851 --> 01:12:04,352
+So an optional int that would mean int, so that's it,
+
+1394
+01:12:04,420 --> 01:12:07,588
+that's what an optional is. Now an optional, Why don't,
+
+1395
+01:12:07,657 --> 01:12:09,190
+why didn't we just leave it in enum?
+
+1396
+01:12:09,259 --> 01:12:10,624
+Well, God, can you imagine,
+
+1397
+01:12:10,693 --> 01:12:13,360
+every time you wanna unwrap an optional, you're having to
+
+1398
+01:12:13,429 --> 01:12:16,029
+switch on that thing in case some get the associated data?
+
+1399
+01:12:16,098 --> 01:12:18,866
+That would be so much typing. So all of these special
+
+1400
+01:12:18,935 --> 01:12:21,135
+characters we have are optionals, question marks,
+
+1401
+01:12:21,204 --> 01:12:23,470
+exclamation points, ifs, double question marks.
+
+1402
+01:12:23,539 --> 01:12:26,674
+All that stuff is just so that we don't have to be constantly
+
+1403
+01:12:26,743 --> 01:12:29,877
+switching on our optional and doing case this, case that.
+
+1404
+01:12:29,945 --> 01:12:31,812
+But that's all it's doing under the covers,
+
+1405
+01:12:31,881 --> 01:12:33,781
+it's just syntactic sugar that is doing that.
+
+1406
+01:12:33,850 --> 01:12:35,382
+It's not doing anything else,
+
+1407
+01:12:35,451 --> 01:12:39,019
+it's not, nothing special. And so I'm gonna show you what all
+
+1408
+01:12:39,088 --> 01:12:42,189
+these special characters look like in enum land.
+
+1409
+01:12:42,258 --> 01:12:44,759
+And, and I'm even gonna show you a new enum or
+
+1410
+01:12:44,827 --> 01:12:47,428
+a new optional thing, which is this thing at the bottom
+
+1411
+01:12:47,497 --> 01:12:50,497
+called optional chaining. And it's where you use a single
+
+1412
+01:12:50,566 --> 01:12:52,900
+question mark when you're accessing an optional.
+
+1413
+01:12:52,969 --> 01:12:55,436
+Which that's the one thing we have not seen, and I'm gonna
+
+1414
+01:12:55,505 --> 01:12:57,605
+show you how that works by showing you in enum land.
+
+1415
+01:12:57,673 --> 01:13:02,477
+All right? So, declaring optionals, obvious, right?
+
+1416
+01:13:02,545 --> 01:13:04,412
+If I say hello, which is an optional string,
+
+1417
+01:13:04,481 --> 01:13:08,181
+that's just optional angle brackets string. And
+
+1418
+01:13:08,250 --> 01:13:11,485
+remember that optionals always start out nil. So, I'm gonna,
+
+1419
+01:13:11,554 --> 01:13:15,990
+it's gonna start out none. Couldn't be simpler.
+
+1420
+01:13:16,059 --> 01:13:18,959
+Unwrapping, also very simple, that's just switching
+
+1421
+01:13:19,028 --> 01:13:22,063
+on the thing. So, if I have an optional string hello, and I
+
+1422
+01:13:22,131 --> 01:13:25,366
+say print(hello!), exclamation point to unwrap it,
+
+1423
+01:13:25,435 --> 01:13:27,834
+I'm just switching on hello. And if it's in the none case,
+
+1424
+01:13:27,903 --> 01:13:30,438
+I crash. And if it's in the some case,
+
+1425
+01:13:30,506 --> 01:13:33,240
+then I print whatever the associated data is. Same thing
+
+1426
+01:13:33,309 --> 01:13:36,577
+down with if let at the bottom there. I'm switching on hello.
+
+1427
+01:13:36,645 --> 01:13:38,445
+If it's in the some case, I do it.
+
+1428
+01:13:38,514 --> 01:13:39,413
+If it's in the none case,
+
+1429
+01:13:39,481 --> 01:13:44,619
+I do the else part of the if. Everybody got that?
+
+1430
+01:13:44,687 --> 01:13:47,188
+Implicitly unwrapped optionals are exactly the same. It's
+
+1431
+01:13:47,256 --> 01:13:49,956
+just that when I say print hello over here on this side,
+
+1432
+01:13:50,025 --> 01:13:53,193
+this print hello, I don't have to put the exclamation point.
+
+1433
+01:13:53,262 --> 01:13:57,731
+And it still switches on hello and crashes if it's none. So
+
+1434
+01:13:57,800 --> 01:14:01,168
+that's implicitly unwrapped. Those start out as nil too
+
+1435
+01:14:01,236 --> 01:14:04,105
+because they're just optionals. The nil-coalescing
+
+1436
+01:14:04,173 --> 01:14:06,340
+operator, which is that defaulting thing we used,
+
+1437
+01:14:06,409 --> 01:14:09,076
+if you remember, in our code. We looked in our emoji
+
+1438
+01:14:09,145 --> 01:14:11,245
+dictionary, and if it wasn't there,
+
+1439
+01:14:11,313 --> 01:14:14,081
+then we returned question mark. That's just
+
+1440
+01:14:14,150 --> 01:14:16,918
+switching on it. And if it's in the case none, then it uses
+
+1441
+01:14:16,986 --> 01:14:19,386
+the default, okay, the thing on the other side. And
+
+1442
+01:14:19,455 --> 01:14:24,125
+if it's in the case some, then it uses the thing it found.
+
+1443
+01:14:24,193 --> 01:14:27,861
+This is optional chaining. So optional chaining, imagine
+
+1444
+01:14:27,930 --> 01:14:31,065
+right here, okay, if you look at this little let x equal,
+
+1445
+01:14:31,134 --> 01:14:34,635
+imagine that x and the method foo and
+
+1446
+01:14:34,704 --> 01:14:39,040
+the var bar, all three of those, imagine those return
+
+1447
+01:14:39,108 --> 01:14:42,476
+an optional string. Okay, so we don't know what they do,
+
+1448
+01:14:42,545 --> 01:14:43,878
+but they return an optional string.
+
+1449
+01:14:43,946 --> 01:14:46,913
+They may or may not return nil. Okay, well, what optional
+
+1450
+01:14:46,982 --> 01:14:49,350
+chaining there allows us to do is to call those thing,
+
+1451
+01:14:49,418 --> 01:14:50,985
+things in sequence called one. And
+
+1452
+01:14:51,053 --> 01:14:53,320
+then when we get the value, call the next thing on that.
+
+1453
+01:14:53,389 --> 01:14:55,523
+And we get the value, call the next thing on that. And
+
+1454
+01:14:55,591 --> 01:14:58,525
+if at any time any of those things is nil, we just bail
+
+1455
+01:14:58,594 --> 01:15:02,796
+out and return nil. So the way that works in optional land is
+
+1456
+01:15:02,865 --> 01:15:06,634
+we switch on that first. If it's none, we return nil.
+
+1457
+01:15:06,703 --> 01:15:09,637
+But if it's not, we get the data and call foo.
+
+1458
+01:15:09,705 --> 01:15:12,139
+If that works, we get the, that data from foo, and
+
+1459
+01:15:12,208 --> 01:15:14,475
+we call bar. And then eventually,
+
+1460
+01:15:14,543 --> 01:15:17,311
+we set y equal to z that comes out of that, right?
+
+1461
+01:15:17,380 --> 01:15:20,581
+We're just moving across the chain. If, at any time,
+
+1462
+01:15:20,649 --> 01:15:22,883
+any of those things is nil, look at all the case nones.
+
+1463
+01:15:22,951 --> 01:15:25,486
+Case .none, case .none, case .none, y gets to be nil, and
+
+1464
+01:15:25,554 --> 01:15:28,322
+we're done and move along. Okay, so that's optional
+
+1465
+01:15:28,390 --> 01:15:32,493
+chaining. I made it optional, no pun intended, for
+
+1466
+01:15:32,561 --> 01:15:35,462
+you to read about that in your current assignment.
+
+1467
+01:15:35,531 --> 01:15:38,532
+I recommend you do because you can make really beautiful code
+
+1468
+01:15:38,601 --> 01:15:41,835
+using optional chaining. It's really nice.
+
+1469
+01:15:41,904 --> 01:15:46,273
+Okay, so we're gonna finish up today with a little review and
+
+1470
+01:15:46,342 --> 01:15:49,910
+a look forward to the data structures to use to build
+
+1471
+01:15:49,979 --> 01:15:54,548
+an app in Swift. These are the four, class,
+
+1472
+01:15:54,616 --> 01:15:57,451
+struct, enum, and protocol. Protocol is the new one that
+
+1473
+01:15:57,519 --> 01:16:01,055
+I'm gonna talk about starting on Wednesday. So a class,
+
+1474
+01:16:01,124 --> 01:16:04,458
+as we know, supports an object-oriented design.
+
+1475
+01:16:04,526 --> 01:16:07,060
+It has single inheritance of both functionality and data.
+
+1476
+01:16:07,129 --> 01:16:09,563
+You inherit the data, your vars.
+
+1477
+01:16:09,632 --> 01:16:13,667
+Stored vars get inherited, um, as well as all your methods
+
+1478
+01:16:13,736 --> 01:16:17,939
+and stuff. It's a reference type, lives in the heap.
+
+1479
+01:16:18,007 --> 01:16:20,073
+Now one thing we didn't talk about, though,
+
+1480
+01:16:20,142 --> 01:16:23,510
+this class lives in the heap. When does it get cleaned up
+
+1481
+01:16:23,579 --> 01:16:28,048
+out of the heap? And how does that happen? Okay, so yeah, so
+
+1482
+01:16:28,117 --> 01:16:30,016
+if, people who are coming from Java, you're probably like,
+
+1483
+01:16:30,085 --> 01:16:32,919
+oh, garbage collection maybe? Okay, um, but no, okay,
+
+1484
+01:16:32,988 --> 01:16:35,722
+Swift does not use garbage collection.
+
+1485
+01:16:35,791 --> 01:16:40,528
+It uses a very awesome system called reference counting. And
+
+1486
+01:16:40,596 --> 01:16:42,329
+in fact, it's automatic reference counting,
+
+1487
+01:16:42,397 --> 01:16:44,965
+it's all handled for you. So how does reference counting
+
+1488
+01:16:45,034 --> 01:16:47,434
+work? Okay, we need to talk a little bit about that.
+
+1489
+01:16:47,503 --> 01:16:51,739
+So let's take a little detour here. By the way, examples of
+
+1490
+01:16:51,807 --> 01:16:54,809
+classes that we've seen of course are UI view controller,
+
+1491
+01:16:54,877 --> 01:16:57,845
+view controller, which is our subclass of it, UI button,
+
+1492
+01:16:57,914 --> 01:17:00,614
+UI label, concentration, we made that a class. Those
+
+1493
+01:17:00,682 --> 01:17:03,150
+are all classes, not structs, right? All right, so let's
+
+1494
+01:17:03,219 --> 01:17:05,786
+talk about how this automatic reference counting thing
+
+1495
+01:17:05,854 --> 01:17:09,389
+works. It's really simple, every time, somehow magically,
+
+1496
+01:17:09,458 --> 01:17:13,227
+every time that you create a pointer to a reference type in
+
+1497
+01:17:13,295 --> 01:17:17,665
+the heap, Swift adds one to some counter somewhere. And
+
+1498
+01:17:17,733 --> 01:17:22,035
+every time that pointer to it goes out of scope or
+
+1499
+01:17:22,104 --> 01:17:24,371
+is not pointed to it anymore, like it was an optional,
+
+1500
+01:17:24,440 --> 01:17:26,072
+it got set to nil, for example,
+
+1501
+01:17:26,141 --> 01:17:29,676
+then it decrements that count. And when that count goes to 0,
+
+1502
+01:17:29,745 --> 01:17:32,580
+it takes it out of the heap instantly. It's not like
+
+1503
+01:17:32,648 --> 01:17:34,614
+it's keeping track, and it's doing any marking and
+
+1504
+01:17:34,683 --> 01:17:37,250
+sweeping, like a garbage collection. It actually
+
+1505
+01:17:37,319 --> 01:17:40,453
+instantly removes it as soon as no one points to it. So
+
+1506
+01:17:40,522 --> 01:17:42,689
+it couldn't be simpler, it's exact way you would think,
+
+1507
+01:17:42,758 --> 01:17:44,291
+conceptually, to make it work.
+
+1508
+01:17:44,360 --> 01:17:47,861
+It's actually quite difficult under the covers to do that.
+
+1509
+01:17:47,930 --> 01:17:50,097
+Swift was designed with it in mind from start.
+
+1510
+01:17:50,165 --> 01:17:55,069
+So it's an awesome system. You can influence
+
+1511
+01:17:55,138 --> 01:17:57,104
+this automatic reference counting a little bit.
+
+1512
+01:17:57,172 --> 01:17:59,807
+You can't really control it, but you can influence,
+
+1513
+01:17:59,875 --> 01:18:02,409
+with these three key words when you declare a var,
+
+1514
+01:18:02,477 --> 01:18:04,612
+okay, a strong, weak, and unowned.
+
+1515
+01:18:04,680 --> 01:18:08,081
+These are the three kind of influencers you can do.
+
+1516
+01:18:08,150 --> 01:18:11,151
+The first one, strong, is normal reference counting.
+
+1517
+01:18:11,220 --> 01:18:15,522
+So that just means if there's a, this pointer is strong, and
+
+1518
+01:18:15,590 --> 01:18:19,025
+so keep that thing in the heap as long as this is around,
+
+1519
+01:18:19,094 --> 01:18:20,794
+because I need it, I'm pointing to it.
+
+1520
+01:18:20,863 --> 01:18:21,795
+That's the default.
+
+1521
+01:18:21,864 --> 01:18:24,431
+So, we never actually type the keyword strong.
+
+1522
+01:18:24,500 --> 01:18:25,666
+It's the default. It's always there.
+
+1523
+01:18:25,735 --> 01:18:27,501
+It's kind of like internal with that access control.
+
+1524
+01:18:27,569 --> 01:18:29,736
+We don't actually ever type that.
+
+1525
+01:18:29,805 --> 01:18:33,340
+Now weak, you've actually seen before. You all remember weak?
+
+1526
+01:18:33,409 --> 01:18:35,109
+It was on the outlets. Okay,
+
+1527
+01:18:35,178 --> 01:18:37,510
+when we made that outlet connection, I said oh,
+
+1528
+01:18:37,579 --> 01:18:40,214
+that, see that weak? I'm gonna tell you about that next week.
+
+1529
+01:18:40,282 --> 01:18:43,017
+Well, I'm living up to my promise, I'm telling you about
+
+1530
+01:18:43,086 --> 01:18:47,121
+weak. What does weak mean? Weak means I'm
+
+1531
+01:18:47,189 --> 01:18:50,690
+pointing to this thing in the heap, but I'm only really
+
+1532
+01:18:50,759 --> 01:18:54,628
+interested in it if someone else is interested in it.
+
+1533
+01:18:54,697 --> 01:18:57,697
+In other words, if someone else has a strong pointer to
+
+1534
+01:18:57,766 --> 01:19:00,534
+it, keep it in the heap. But as soon as no one else is
+
+1535
+01:19:00,603 --> 01:19:01,802
+interested in this, in other words,
+
+1536
+01:19:01,871 --> 01:19:05,505
+all other strong pointers go away. Set me to nil and
+
+1537
+01:19:05,574 --> 01:19:10,243
+throw the thing out of the heap. So this is the don't
+
+1538
+01:19:10,312 --> 01:19:14,414
+keep that thing in the heap on my account kind of pointer.
+
+1539
+01:19:14,483 --> 01:19:17,384
+And notice that it gets set to nil if all the other strong
+
+1540
+01:19:17,453 --> 01:19:20,253
+pointers go away. So what kind of type does this have to be?
+
+1541
+01:19:20,322 --> 01:19:23,457
+It has to be an optional.
+
+1542
+01:19:23,525 --> 01:19:28,362
+So this weak only works with optional pointers to
+
+1543
+01:19:28,430 --> 01:19:31,966
+reference types, okay, things that are in the heap,
+
+1544
+01:19:32,034 --> 01:19:34,901
+which our outlets are. If you remember our outlets,
+
+1545
+01:19:34,970 --> 01:19:38,839
+like flip count label was a UI label exclamation point. That
+
+1546
+01:19:38,908 --> 01:19:41,875
+was an implicitly unwrapped optional. It was an optional,
+
+1547
+01:19:41,944 --> 01:19:44,945
+right? Same thing card buttons was an implicitly unwrapped
+
+1548
+01:19:45,014 --> 01:19:49,817
+optional. So those pointers to things in the UI.
+
+1549
+01:19:49,885 --> 01:19:52,619
+If for some reason those things left the UI, okay,
+
+1550
+01:19:52,688 --> 01:19:55,589
+got removed from the UI somehow, which is possible,
+
+1551
+01:19:55,657 --> 01:19:59,660
+but rare. Then those things would get set to nil, okay?
+
+1552
+01:19:59,728 --> 01:20:00,994
+And you would no longer be pointing to them,
+
+1553
+01:20:01,063 --> 01:20:01,828
+and that's what they want.
+
+1554
+01:20:01,897 --> 01:20:04,130
+Because if there's no flip count label,
+
+1555
+01:20:04,199 --> 01:20:07,234
+there's no use trying to update it. So
+
+1556
+01:20:07,303 --> 01:20:10,170
+that's why they make those weak All right, now, weak,
+
+1557
+01:20:10,239 --> 01:20:12,772
+there's only a couple of places that we use we
+
+1558
+01:20:12,841 --> 01:20:15,842
+commonly. One is for outlets, another one is for delegation.
+
+1559
+01:20:15,911 --> 01:20:19,246
+Remember back to my NBC talk, I talked about the delegation,
+
+1560
+01:20:19,314 --> 01:20:21,815
+the data source. And we have these pointers from the view
+
+1561
+01:20:21,883 --> 01:20:23,950
+back to the controller where there's that blind and
+
+1562
+01:20:24,019 --> 01:20:25,552
+structure of communication all that,
+
+1563
+01:20:25,621 --> 01:20:27,320
+which I'm gonna talk about on Wednesday.
+
+1564
+01:20:27,389 --> 01:20:30,090
+Those pointers are weak, because the view,
+
+1565
+01:20:30,159 --> 01:20:32,959
+if the thing that they're sending will did and
+
+1566
+01:20:33,028 --> 01:20:36,563
+should to goes away, well, they're not gonna send those
+
+1567
+01:20:36,632 --> 01:20:40,400
+messages anymore, so they want to be nil, okay. There's no
+
+1568
+01:20:40,469 --> 01:20:43,970
+one to send their messages to then they just want to be nil,
+
+1569
+01:20:44,039 --> 01:20:45,872
+okay. They don't want to be pointed to something.
+
+1570
+01:20:45,941 --> 01:20:48,475
+They certainly don't want a thing it points to,
+
+1571
+01:20:48,544 --> 01:20:50,543
+to get stuck in the heap because of it.
+
+1572
+01:20:50,612 --> 01:20:53,179
+Because they're happy to just not send the messages if
+
+1573
+01:20:53,248 --> 01:20:55,882
+that thing wants to leave the heap, otherwise we don't
+
+1574
+01:20:55,951 --> 01:21:00,754
+use weak that much. Okay, last is unowned.
+
+1575
+01:21:00,823 --> 01:21:03,223
+Unowned is don't reference count this,
+
+1576
+01:21:03,292 --> 01:21:06,659
+in other words I'm pointing to something in the heap, but
+
+1577
+01:21:06,728 --> 01:21:10,163
+don't count it as a strong pointer. And I promise I'll
+
+1578
+01:21:10,232 --> 01:21:14,668
+never access this thing when it's gone from the heap. Now,
+
+1579
+01:21:14,737 --> 01:21:17,537
+this is very dangerous, this is basically trying to
+
+1580
+01:21:17,606 --> 01:21:20,474
+outsmart the automatic reference counting system.
+
+1581
+01:21:20,542 --> 01:21:23,877
+You're saying, you know when it's in the heap or not, and
+
+1582
+01:21:23,946 --> 01:21:26,113
+this is really rare. And the way,
+
+1583
+01:21:26,182 --> 01:21:30,584
+the one time we use this is to avoid a memory cycle, okay.
+
+1584
+01:21:30,653 --> 01:21:32,052
+Everyone know what a memory cycle is,
+
+1585
+01:21:32,121 --> 01:21:33,854
+that's where you have something in the heap and
+
+1586
+01:21:33,922 --> 01:21:35,522
+it points to something else in the heap, and
+
+1587
+01:21:35,591 --> 01:21:36,657
+that thing points back to it.
+
+1588
+01:21:36,725 --> 01:21:39,159
+So, they're pointing to each other, keeping each other in
+
+1589
+01:21:39,228 --> 01:21:41,728
+the heap. But no one else is interested in them. No one
+
+1590
+01:21:41,797 --> 01:21:44,465
+points to either of them. They only just point to each other.
+
+1591
+01:21:44,533 --> 01:21:46,533
+So they're just sitting in the heap for no reason.
+
+1592
+01:21:46,601 --> 01:21:49,769
+No one's even accessing them, that's a memory cycle. And
+
+1593
+01:21:49,838 --> 01:21:53,540
+memory cycles aren't generally created in Swift normally but
+
+1594
+01:21:53,609 --> 01:21:56,443
+there's one way they're easy to create which is
+
+1595
+01:21:56,511 --> 01:21:57,577
+closures, okay.
+
+1596
+01:21:57,646 --> 01:22:00,113
+Which is a feature I'm gonna talk about on Wednesday, okay.
+
+1597
+01:22:00,182 --> 01:22:05,285
+And so we will use unowned with closures. All right,
+
+1598
+01:22:05,353 --> 01:22:07,821
+back to our list of data structures here, of course
+
+1599
+01:22:07,889 --> 01:22:10,590
+there's struct we know all about that. It's a value type,
+
+1600
+01:22:10,659 --> 01:22:12,893
+it's copy owned right, there's no inheritance of data.
+
+1601
+01:22:12,962 --> 01:22:15,495
+But you're gonna learn with protocols there is inheritance
+
+1602
+01:22:15,564 --> 01:22:16,330
+of functionality,
+
+1603
+01:22:16,398 --> 01:22:19,432
+in fact multiple inheritance of functionality. And you've
+
+1604
+01:22:19,501 --> 01:22:24,905
+seen examples of struct cards, dictionary, string, character,
+
+1605
+01:22:24,973 --> 01:22:29,476
+int, double, UInt32, lots of structs have happened
+
+1606
+01:22:29,545 --> 01:22:32,378
+there. And I have here, let's jump over to concentrations
+
+1607
+01:22:32,447 --> 01:22:35,315
+see what happens when we make concentration of struct.
+
+1608
+01:22:35,384 --> 01:22:37,017
+I start off the next one with that because we're pretty much
+
+1609
+01:22:37,018 --> 01:22:38,651
+How about
+
+1610
+01:22:38,721 --> 01:22:41,121
+out of time here. Enum, I'm not going to,
+
+1611
+01:22:41,189 --> 01:22:44,624
+oh yes, this is the demo, which I will do next time. And
+
+1612
+01:22:44,693 --> 01:22:47,794
+then enum here we already just covered, so I'm not going to
+
+1613
+01:22:47,863 --> 01:22:51,497
+talk about it, another value type, discrete values. It also
+
+1614
+01:22:51,566 --> 01:22:55,702
+can have inherit the same kind of functionality inheritance.
+
+1615
+01:22:55,771 --> 01:22:59,172
+This functionality inheritance that I keep kind of mentioning
+
+1616
+01:22:59,241 --> 01:23:02,342
+is done using this last one, which is called protocols.
+
+1617
+01:23:02,411 --> 01:23:04,845
+So I'm gonna start off on Wednesday with a detailed
+
+1618
+01:23:04,913 --> 01:23:06,613
+explanation of what a protocol is.
+
+1619
+01:23:06,682 --> 01:23:10,016
+It's fundamental to the design of all of foundation,
+
+1620
+01:23:10,085 --> 01:23:12,819
+all the array, dictionary, string, int.
+
+1621
+01:23:12,888 --> 01:23:15,522
+And all of those things fundamentally using protocols
+
+1622
+01:23:15,591 --> 01:23:17,758
+everywhere, massive number of protocols.
+
+1623
+01:23:17,826 --> 01:23:20,093
+And it's also fundamental with things like delegation and
+
+1624
+01:23:20,162 --> 01:23:22,796
+stuff like that, so it's very, very important. And to round
+
+1625
+01:23:22,865 --> 01:23:26,332
+out our full understanding of how to build data structures
+
+1626
+01:23:26,401 --> 01:23:30,436
+in Swift. Okay, so we'll start off on Wednesday with that and
+
+1627
+01:23:30,505 --> 01:23:32,739
+I will see you then. >> For more,
+
+1628
+01:23:32,808 --> 01:23:41,314
+please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu

@@ -1,0 +1,7812 @@
+﻿1
+00:00:00,401 --> 00:00:04,970
+[MUSIC]                         
+
+2
+00:00:05,038 --> 00:00:09,174
+Stanford University.            
+>> Okay,                        
+
+3
+00:00:09,243 --> 00:00:13,845
+well welcome to Lecture 6,      
+Stanford CS193P,                
+
+4
+00:00:13,913 --> 00:00:18,183
+Fall of 2017. So today I'm      
+gonna continue that demo that   
+
+5
+00:00:18,251 --> 00:00:21,620
+I started last time. It's       
+gonna be gigantic demo today,   
+
+6
+00:00:21,689 --> 00:00:24,790
+covering mostly stuff having    
+to do with custom views.        
+
+7
+00:00:24,859 --> 00:00:26,524
+Then I come back                
+to the slides,                  
+
+8
+00:00:26,593 --> 00:00:28,826
+just a few brief slides         
+on multi touch and              
+
+9
+00:00:28,895 --> 00:00:32,664
+how we do that. Then we'll go   
+back to the demo and add some   
+
+10
+00:00:32,733 --> 00:00:36,568
+multi touch gestures to our     
+little playing card thing.      
+
+11
+00:00:36,636 --> 00:00:39,705
+Here's the old slide of what's  
+you're gonna learn today,       
+
+12
+00:00:39,773 --> 00:00:42,541
+which you go back and look at   
+this slide after the demo.      
+
+13
+00:00:42,609 --> 00:00:46,812
+Then try to decide, did I       
+learn that, well, we will find  
+
+14
+00:00:46,880 --> 00:00:50,048
+out. By the way between last    
+lecture and this lecture, I     
+
+15
+00:00:50,117 --> 00:00:53,318
+went ahead and finished off a   
+custom string convertible for   
+
+16
+00:00:53,386 --> 00:00:56,187
+all three of these things.      
+I just made suits custom        
+
+17
+00:00:56,256 --> 00:00:59,591
+string,convertible return its   
+raw value, remember its raw     
+
+18
+00:00:59,660 --> 00:01:02,928
+values are these little equals  
+things here. And then rank,     
+
+19
+00:01:02,996 --> 00:01:05,597
+I had to actually implement     
+a little description,           
+
+20
+00:01:05,666 --> 00:01:08,600
+right there, where I returned   
+A for the one. And then         
+
+21
+00:01:08,669 --> 00:01:12,871
+a string version of a number,   
+or the kind J, Q, or K. But     
+
+22
+00:01:12,940 --> 00:01:15,941
+once I implemented custom       
+strings convertible on          
+
+23
+00:01:16,009 --> 00:01:19,277
+all three of these things.      
+And then this code we had back  
+
+24
+00:01:19,346 --> 00:01:22,114
+here where we just printed      
+out ten random cards,           
+
+25
+00:01:22,182 --> 00:01:24,583
+that prints out a lot           
+nicer on the console.           
+
+26
+00:01:24,652 --> 00:01:26,885
+So let's take a look and        
+see what it does now.           
+
+27
+00:01:26,953 --> 00:01:29,587
+See, it just prints it out      
+here as kind of an abbreviated  
+
+28
+00:01:29,656 --> 00:01:32,757
+version, which is, if you're    
+debugging, it's a lot nicer to  
+
+29
+00:01:32,826 --> 00:01:34,926
+be printing your cards out and  
+seeing that.                    
+
+30
+00:01:34,995 --> 00:01:38,530
+And you might want to do the    
+same thing in your assignment   
+
+31
+00:01:38,598 --> 00:01:42,734
+number three as well.           
+So that's it for that.          
+
+32
+00:01:42,803 --> 00:01:45,037
+We've completely                
+finished our model for          
+
+33
+00:01:45,105 --> 00:01:48,139
+this MVC, that we're            
+building here, this app,        
+
+34
+00:01:48,208 --> 00:01:51,176
+this PlayingCard, so we have    
+a deck of playing cards.        
+
+35
+00:01:51,245 --> 00:01:55,546
+So now it's time to dive in to  
+drawing these, these cards.     
+
+36
+00:01:55,615 --> 00:01:58,616
+And we're gonna do that with a  
+custom UIView subclass, which   
+
+37
+00:01:58,685 --> 00:02:01,853
+is I'm gonna call PlayingCard   
+view. Now you create a custom   
+
+38
+00:02:01,922 --> 00:02:04,589
+view in the same way you        
+create other classes.           
+
+39
+00:02:04,658 --> 00:02:07,859
+So you're gonna do File > New   
+> File. But here instead of     
+
+40
+00:02:07,927 --> 00:02:11,529
+picking Swift File, which is    
+like a UI independent thing,    
+
+41
+00:02:11,598 --> 00:02:16,801
+you're gonna pick Cocoa Touch   
+Class. That's because our UI    
+
+42
+00:02:16,870 --> 00:02:21,306
+view is a subclass of a cocoa   
+touch or UI kit class.          
+
+43
+00:02:21,374 --> 00:02:25,010
+So I'm gonna call it,           
+playing, playing card view,     
+
+44
+00:02:25,078 --> 00:02:28,980
+it's gonna be subclass of       
+UIView. A lot of other UI kit   
+
+45
+00:02:29,049 --> 00:02:33,718
+things can be subclassed here,  
+but the one I want is UIView.   
+
+46
+00:02:33,787 --> 00:02:35,821
+And it says, where you          
+wanna put it? By the way,       
+
+47
+00:02:35,889 --> 00:02:38,890
+I just wanna remind you all,    
+some of you are putting your    
+
+48
+00:02:38,959 --> 00:02:41,960
+files at the top level,         
+the project level, so they're   
+
+49
+00:02:42,028 --> 00:02:44,962
+ending up like next to your     
+X code project right there.     
+
+50
+00:02:45,031 --> 00:02:47,799
+You really wanna be putting     
+them down a level in here.      
+
+51
+00:02:47,868 --> 00:02:50,802
+This is where we collect        
+all of our classes. So just     
+
+52
+00:02:50,871 --> 00:02:53,505
+a little reminder there, we're  
+seeing that on the homework.    
+
+53
+00:02:53,574 --> 00:02:56,408
+And so here's my UIView         
+subclass, look at this, see?    
+
+54
+00:02:56,476 --> 00:02:58,576
+Subclass of UIView,             
+that's great.                   
+
+55
+00:02:58,645 --> 00:03:01,913
+And it even gave me a stub of   
+a very important method here,   
+
+56
+00:03:01,982 --> 00:03:05,450
+which of course, is our draw    
+rect. Now, you notice this is   
+
+57
+00:03:05,519 --> 00:03:08,853
+commented out, in this stub,    
+that's because this iOS         
+
+58
+00:03:08,922 --> 00:03:11,656
+actually looks to see if        
+you have a draw rect.           
+
+59
+00:03:11,725 --> 00:03:14,025
+And if you do, it makes         
+an off screen buffer for        
+
+60
+00:03:14,094 --> 00:03:16,694
+you, and all kinds of           
+preparations for you to draw,   
+
+61
+00:03:16,763 --> 00:03:19,163
+okay, and that's not cheap,     
+it's not free.                  
+
+62
+00:03:19,232 --> 00:03:21,766
+So if you don't actually        
+draw in your draw rect,         
+
+63
+00:03:21,835 --> 00:03:24,236
+then you would want to          
+leave it commented out.         
+
+64
+00:03:24,304 --> 00:03:27,839
+Now why would you ever have     
+a UIView, or UIView subclass    
+
+65
+00:03:27,908 --> 00:03:31,443
+that doesn't have a draw rect?  
+Well, that's actually quite     
+
+66
+00:03:31,512 --> 00:03:33,878
+common, you do all your         
+drawing with subviews,          
+
+67
+00:03:33,947 --> 00:03:37,182
+consider UI stack view, right?  
+It's a UIView, it does all its  
+
+68
+00:03:37,250 --> 00:03:39,851
+drawing with views that         
+are stacked inside of it.       
+
+69
+00:03:39,920 --> 00:03:43,054
+It doesn't do any actual        
+drawing itself, it has no draw  
+
+70
+00:03:43,123 --> 00:03:46,124
+rect, right? But we are gonna   
+have a draw rect, of course,    
+
+71
+00:03:46,192 --> 00:03:48,559
+because we are going to be      
+drawing a playing card.         
+
+72
+00:03:48,628 --> 00:03:51,830
+Now I'm actually just,          
+for example purposes here,      
+
+73
+00:03:51,898 --> 00:03:54,765
+I'm gonna draw some of my       
+card with sub views and         
+
+74
+00:03:54,834 --> 00:03:58,202
+some of my card with this draw  
+rect, okay. So that way you'll  
+
+75
+00:03:58,271 --> 00:04:00,705
+get to see one view that        
+actually does both. And         
+
+76
+00:04:00,774 --> 00:04:03,341
+in your homework assignment,    
+you're probably gonna have at   
+
+77
+00:04:03,410 --> 00:04:04,976
+least one view that             
+does subviews, and              
+
+78
+00:04:05,045 --> 00:04:07,078
+at least one view that          
+has a draw rect. So             
+
+79
+00:04:07,146 --> 00:04:11,016
+you'll be able to see all that  
+at action, in action here.      
+
+80
+00:04:11,084 --> 00:04:14,085
+All right, so we got this       
+PlayingCardView. Let's go back  
+
+81
+00:04:14,154 --> 00:04:17,889
+over to our storyboard right    
+here, and put a UI view,        
+
+82
+00:04:17,958 --> 00:04:21,626
+a PlayingCardView basically,    
+into our UI, okay.              
+
+83
+00:04:21,695 --> 00:04:25,096
+So how do we do that? Well,     
+how do we put views in our UI?  
+
+84
+00:04:25,165 --> 00:04:28,032
+We go over here to utilities    
+and down at the bottom,         
+
+85
+00:04:28,101 --> 00:04:30,735
+maybe we drag out a button,     
+or we drag a label.             
+
+86
+00:04:30,804 --> 00:04:34,105
+And of course where is playing  
+card view? Well, it's not in    
+
+87
+00:04:34,174 --> 00:04:36,775
+here, of course, cuz these are  
+all just the things that come   
+
+88
+00:04:36,843 --> 00:04:40,579
+with X-code. But I can drag     
+out towards the bottom here,    
+
+89
+00:04:40,647 --> 00:04:43,915
+this guy, View,                 
+which is a generic UI view.     
+
+90
+00:04:43,984 --> 00:04:47,051
+So I drag him out here and      
+his class or                    
+
+91
+00:04:47,120 --> 00:04:51,055
+his type is just UI view. I'm   
+going to make my background     
+
+92
+00:04:51,124 --> 00:04:54,259
+a different color so we can     
+see him a little better there.  
+
+93
+00:04:54,327 --> 00:04:56,862
+So I'm just gonna select my     
+background and change it to,    
+
+94
+00:04:56,930 --> 00:04:59,097
+oop, orange, I love orange,     
+there's orange.                 
+
+95
+00:04:59,166 --> 00:05:01,532
+San Francisco Giants            
+colors right there.             
+
+96
+00:05:01,601 --> 00:05:04,002
+So here's my kind               
+of generic UI view.             
+
+97
+00:05:04,071 --> 00:05:06,471
+And I don't want this to        
+be a generic UI view,           
+
+98
+00:05:06,540 --> 00:05:09,640
+I want it to be a playing card  
+view, okay, cuz that's what     
+
+99
+00:05:09,709 --> 00:05:11,976
+I've been working on.           
+And the way we do that is       
+
+100
+00:05:12,045 --> 00:05:13,945
+with the different              
+inspector on the right.         
+
+101
+00:05:14,013 --> 00:05:16,414
+You see we've been using        
+this inspector right here,      
+
+102
+00:05:16,482 --> 00:05:19,384
+the attributes inspector.       
+Right next door to it is this   
+
+103
+00:05:19,453 --> 00:05:21,720
+guy. This is                    
+the identity inspector,         
+
+104
+00:05:21,789 --> 00:05:24,623
+it inspects the identity        
+of the selected thing.          
+
+105
+00:05:24,691 --> 00:05:28,393
+So here I have a view selected  
+and it's of type UI view,       
+
+106
+00:05:28,461 --> 00:05:32,230
+you see the class? But I can    
+go here and change it to be     
+
+107
+00:05:32,298 --> 00:05:36,067
+a playing card view. So now     
+this is a playing card view,    
+
+108
+00:05:36,136 --> 00:05:39,904
+and any time the system needs   
+to draw it, it's gonna use our  
+
+109
+00:05:39,973 --> 00:05:44,676
+draw(rect) right here. It's     
+a code that we've written.      
+
+110
+00:05:44,744 --> 00:05:47,845
+So that's awesome. Now I'm      
+gonna do a little bit of auto   
+
+111
+00:05:47,914 --> 00:05:50,915
+layout here that you've seen    
+before. So this is nothing      
+
+112
+00:05:50,984 --> 00:05:53,985
+new, but I'm just gonna put     
+this up in the edge here,       
+
+113
+00:05:54,053 --> 00:05:56,955
+put this one down here and      
+I'm gonna pin it to the edges.  
+
+114
+00:05:57,024 --> 00:06:00,057
+So my PlayingCard is            
+gonna be kind of tall and       
+
+115
+00:06:00,126 --> 00:06:04,229
+thin in portrait mode and kind  
+of short and wide in landscape  
+
+116
+00:06:04,298 --> 00:06:07,865
+mode, but that's okay,          
+we'll fix that later. So        
+
+117
+00:06:07,934 --> 00:06:10,868
+I'm just gonna drag up to the   
+corner and set my leading and   
+
+118
+00:06:10,937 --> 00:06:14,272
+top spaces to be pinned. And    
+I'm gonna drag Ctrl+drag down   
+
+119
+00:06:14,341 --> 00:06:16,975
+to this corner and              
+set my trailing and bottom.     
+
+120
+00:06:17,044 --> 00:06:19,544
+So they'd start there,          
+so now if I go and              
+
+121
+00:06:19,613 --> 00:06:22,914
+go into landscape mode right    
+here, you can see that it       
+
+122
+00:06:22,983 --> 00:06:26,251
+pins to the edges, so           
+I have this funny shape. Now,   
+
+123
+00:06:26,319 --> 00:06:29,654
+I'm doing this mostly at the    
+start here because I want to    
+
+124
+00:06:29,723 --> 00:06:33,424
+show what happens inside your   
+view when your bounds change.   
+
+125
+00:06:33,493 --> 00:06:36,527
+Because here when we rotate,    
+our bounds are gonna be         
+
+126
+00:06:36,596 --> 00:06:40,065
+changing very dramatically,     
+from tall and thin to wide and  
+
+127
+00:06:40,133 --> 00:06:42,800
+short. So before we dive        
+into doing a playing card,      
+
+128
+00:06:42,869 --> 00:06:44,969
+I'm just gonna do               
+a little bit of drawing,        
+
+129
+00:06:45,038 --> 00:06:47,472
+show you how drawing works      
+with core graphics and          
+
+130
+00:06:47,540 --> 00:06:50,041
+UI bezier path like we          
+talked about in lecture. So     
+
+131
+00:06:50,110 --> 00:06:53,344
+lets first draw a circle, just  
+a circle in the middle of our   
+
+132
+00:06:53,413 --> 00:06:57,281
+view using core graphics, and   
+see what that code looks like.  
+
+133
+00:06:57,350 --> 00:07:00,318
+So in core graphics, we         
+always get the context first.   
+
+134
+00:07:00,387 --> 00:07:03,855
+So we can't draw in core        
+graphics without a context and  
+
+135
+00:07:03,924 --> 00:07:06,391
+we get that in our              
+drawrect by doing this          
+
+136
+00:07:06,459 --> 00:07:10,562
+UIGraphicsGetCurrentContext.    
+Now, this could return nil,     
+
+137
+00:07:10,631 --> 00:07:14,031
+that's why we do if-let, but    
+it will never return nil        
+
+138
+00:07:14,100 --> 00:07:16,567
+inside your drawrect.           
+Okay, it might turn,            
+
+139
+00:07:16,636 --> 00:07:19,170
+return nil in other contexts,   
+but in this environment,        
+
+140
+00:07:19,239 --> 00:07:20,471
+it's always gonna return,       
+
+141
+00:07:20,540 --> 00:07:23,040
+but we're still gonna do        
+if-let right there. We could    
+
+142
+00:07:23,109 --> 00:07:25,576
+do exclamation point where      
+we're just gonna do if-let.     
+
+143
+00:07:25,645 --> 00:07:29,447
+So now that I have a context,   
+now I can tell the context to   
+
+144
+00:07:29,516 --> 00:07:33,184
+do certain things, move to,     
+okay, I can do move to.         
+
+145
+00:07:33,252 --> 00:07:37,422
+I can do add line to,           
+things like that. Add curve,    
+
+146
+00:07:37,491 --> 00:07:40,625
+I can add these things that     
+basically are drawing a path,   
+
+147
+00:07:40,694 --> 00:07:43,461
+right, like a line moving       
+around. So I'm gonna            
+
+148
+00:07:43,529 --> 00:07:47,565
+make a circle. So I'm gonna     
+use one called addArc.          
+
+149
+00:07:47,634 --> 00:07:51,670
+An addArc is kinda cool,        
+it just like takes a point and  
+
+150
+00:07:51,738 --> 00:07:55,240
+then circumscribes a big        
+arc around a circle.            
+
+151
+00:07:55,308 --> 00:07:57,876
+And I'm just gonna use that     
+to go all the way around and    
+
+152
+00:07:57,944 --> 00:08:01,079
+create a circle. So when        
+addArc is creating a path,      
+
+153
+00:08:01,148 --> 00:08:03,581
+it wants to know what's         
+the center of this circular     
+
+154
+00:08:03,650 --> 00:08:04,982
+path that you're going on.      
+
+155
+00:08:05,051 --> 00:08:08,286
+And I'm gonna make it be the    
+center of my drawing area. And  
+
+156
+00:08:08,355 --> 00:08:12,924
+what rectangle specifies my     
+drawing area? Bounds, okay, my  
+
+157
+00:08:12,992 --> 00:08:16,460
+var bounds does that. So I'm    
+gonna create a CGPoint here,    
+
+158
+00:08:16,529 --> 00:08:19,531
+which, whose x coordinate       
+is my bounds midpoint.          
+
+159
+00:08:19,599 --> 00:08:22,900
+And I'm gonna create the y      
+coordinate is my bounds         
+
+160
+00:08:22,969 --> 00:08:26,204
+midpoint in y. So I'm           
+specifying right in the center  
+
+161
+00:08:26,273 --> 00:08:29,240
+of my drawing area, which       
+is my bounds. The radius,       
+
+162
+00:08:29,309 --> 00:08:33,111
+I'm just gonna do 100 points,   
+nice big circle.                
+
+163
+00:08:33,179 --> 00:08:36,414
+The start angle and             
+end angle here are in radians,  
+
+164
+00:08:36,482 --> 00:08:40,452
+not degrees, not 0 to 360,      
+it's radians, 0 to 2 pi.        
+
+165
+00:08:40,520 --> 00:08:43,421
+Does everyone know radian?      
+If you know what radians are.   
+
+166
+00:08:43,489 --> 00:08:46,958
+Okay, everybody, great, so      
+0 to 2 pi. And 0, by the way,   
+
+167
+00:08:47,027 --> 00:08:50,228
+is off to the right.            
+0 is not straight up,           
+
+168
+00:08:50,297 --> 00:08:52,163
+as you might imagine,           
+it is off to the right.         
+
+169
+00:08:52,232 --> 00:08:53,664
+So I'm gonna start              
+off to the right and            
+
+170
+00:08:53,733 --> 00:08:55,233
+I'm gonna go all the way        
+around my circle.               
+
+171
+00:08:55,302 --> 00:08:56,867
+I can go either clockwise or    
+counterclockwise,               
+
+172
+00:08:56,936 --> 00:08:58,869
+it doesn't matter cuz I'm       
+going all the way around. So    
+
+173
+00:08:58,938 --> 00:09:01,406
+how do I go around?             
+Well, that's 2 times pi. And    
+
+174
+00:09:01,474 --> 00:09:06,477
+there's a really nice,          
+little constant here,           
+
+175
+00:09:06,546 --> 00:09:10,448
+CGFloat.pi. Okay, and that's    
+how I can get pi in a CG,       
+
+176
+00:09:10,517 --> 00:09:12,217
+as a CGFloat.                   
+And I can go clockwise or       
+
+177
+00:09:12,285 --> 00:09:16,354
+counterclockwise, it doesn't    
+matter. All right, so           
+
+178
+00:09:16,423 --> 00:09:18,790
+now I've created some path,     
+some drawing here.              
+
+179
+00:09:18,858 --> 00:09:21,526
+So I can do other things        
+in my context like,             
+
+180
+00:09:21,595 --> 00:09:25,230
+I can set the LineWidth, for    
+example, not the LineCap, but   
+
+181
+00:09:25,298 --> 00:09:28,433
+the LineWidth, 5 points wide.   
+That's a reasonably thick,      
+
+182
+00:09:28,502 --> 00:09:32,136
+not super thick, but            
+reasonably. I, of course,       
+
+183
+00:09:32,205 --> 00:09:35,440
+can set the colors I wanna      
+draw with using these static    
+
+184
+00:09:35,508 --> 00:09:39,811
+vars in UIColor. Like let's     
+say, green for our setFill.     
+
+185
+00:09:39,879 --> 00:09:42,680
+That's our favorite fill        
+color. And UIColor.red for      
+
+186
+00:09:42,748 --> 00:09:47,018
+our stroke color. Okay, so      
+I can set whatever colors. And  
+
+187
+00:09:47,087 --> 00:09:52,524
+then I can ask the context for  
+example, to stroke the path.    
+
+188
+00:09:52,592 --> 00:09:56,928
+So let's do strokePath here.    
+And you'd think I could then    
+
+189
+00:09:56,996 --> 00:10:01,166
+say context.fillPath. Let's     
+see if this will stroke and     
+
+190
+00:10:01,234 --> 00:10:04,401
+fill, and it won't. And the     
+reason for that is that when    
+
+191
+00:10:04,470 --> 00:10:07,972
+we draw in a context, it's      
+actually slightly different     
+
+192
+00:10:08,040 --> 00:10:10,875
+than using that UIBezierPath I  
+showed you in the slides.       
+
+193
+00:10:10,943 --> 00:10:14,879
+In the context, when we do      
+a strokePath like this,         
+
+194
+00:10:14,947 --> 00:10:19,483
+it consumes the path. Okay,     
+it uses up the path. And so     
+
+195
+00:10:19,552 --> 00:10:22,153
+when we do the fillPath on the  
+next line, there's no path.     
+
+196
+00:10:22,222 --> 00:10:24,355
+We'd have to start again. So    
+
+197
+00:10:24,424 --> 00:10:26,790
+that's one of the big           
+advantages of UIBezierPath. So  
+
+198
+00:10:26,859 --> 00:10:30,862
+let's do this exact same thing  
+here, but using UIBezierPath,   
+
+199
+00:10:30,931 --> 00:10:35,032
+all right? So I'm gonna say     
+let path = UIBezierPath.        
+
+200
+00:10:35,101 --> 00:10:36,400
+We'll start with an empty one.  
+
+201
+00:10:36,469 --> 00:10:38,903
+It had, I'll show you later     
+how to create a BezierPath to   
+
+202
+00:10:38,972 --> 00:10:42,307
+start with a path. And then I   
+can do the exact same things,   
+
+203
+00:10:42,375 --> 00:10:45,776
+almost exact same methods       
+as above. In fact,              
+
+204
+00:10:45,845 --> 00:10:49,514
+I'm gonna copy and paste this   
+exact same code right here.     
+
+205
+00:10:49,582 --> 00:10:52,416
+The names are slightly          
+different, in UIBezierPath,     
+
+206
+00:10:52,485 --> 00:10:55,219
+but they're doing exactly the   
+same thing, like lineWidth.     
+
+207
+00:10:55,288 --> 00:10:56,520
+You don't say setLineWidth,     
+
+208
+00:10:56,589 --> 00:11:00,692
+it's just a var on that         
+objects. So you set it to 5.0.  
+
+209
+00:11:00,760 --> 00:11:06,230
+You still set your colors       
+by doing this. And              
+
+210
+00:11:06,299 --> 00:11:10,668
+here the difference, though,    
+as I can say path.stroke.       
+
+211
+00:11:10,737 --> 00:11:13,204
+And that path,                  
+that UIBezierPath,              
+
+212
+00:11:13,272 --> 00:11:16,808
+still exists as an object,      
+so I can say path.fill.         
+
+213
+00:11:16,876 --> 00:11:18,342
+I could also move               
+the path over or                
+
+214
+00:11:18,411 --> 00:11:20,611
+shrink it down a little         
+bit and stroke it again.        
+
+215
+00:11:20,680 --> 00:11:23,247
+You see what I'm saying? So I   
+can use this path that I built  
+
+216
+00:11:23,316 --> 00:11:26,584
+this arc over and over and      
+over. That's the whole point    
+
+217
+00:11:26,653 --> 00:11:31,022
+of kind of building it in this  
+struct here, or this class,     
+
+218
+00:11:31,091 --> 00:11:32,790
+UIBezierPath.                   
+So we'll get rid of that.       
+
+219
+00:11:32,859 --> 00:11:35,726
+And let's see what this does    
+right here. And it's gonna be   
+
+220
+00:11:35,795 --> 00:11:39,030
+very similar, but, of course,   
+it's going to stroke and        
+
+221
+00:11:39,099 --> 00:11:43,101
+fill that path.                 
+Oops, did I press play?         
+
+222
+00:11:48,841 --> 00:11:52,977
+Okay, there it is, you see,     
+stroked and filled there.       
+
+223
+00:11:53,046 --> 00:11:55,480
+All right, now while we're      
+here looking at a circle,       
+
+224
+00:11:55,548 --> 00:11:57,248
+I'm gonna do something          
+interesting.                    
+
+225
+00:11:57,317 --> 00:12:01,286
+I'm going to rotate this phone  
+to landscape. And what shape    
+
+226
+00:12:01,354 --> 00:12:04,189
+do you think we're gonna have   
+here? Anyone wanna guess?       
+
+227
+00:12:05,859 --> 00:12:09,994
+Unfortunately, not a circle.    
+We want it to be a circle, but  
+
+228
+00:12:10,063 --> 00:12:15,400
+it's an oval. So why did we     
+get this? Because by default,   
+
+229
+00:12:15,469 --> 00:12:18,302
+when you change                 
+the bounds of your view,        
+
+230
+00:12:18,371 --> 00:12:22,973
+it just takes the bits and      
+scales them to the new size.    
+
+231
+00:12:23,042 --> 00:12:25,542
+Which sometimes that might      
+be what you want, but           
+
+232
+00:12:25,611 --> 00:12:28,579
+a lot of times, this is         
+definitely not what you want,   
+
+233
+00:12:28,648 --> 00:12:32,083
+right? So how do we stop this?  
+Well, what we want it to do is  
+
+234
+00:12:32,152 --> 00:12:36,421
+to call this code again when    
+we change our bounds and        
+
+235
+00:12:36,489 --> 00:12:38,923
+have us draw the circle         
+again in the new space. So      
+
+236
+00:12:38,991 --> 00:12:42,893
+how do we do that? Let's go     
+back to our storyboard here,    
+
+237
+00:12:42,962 --> 00:12:47,231
+take a look at our view. If we  
+inspect our view, at the very   
+
+238
+00:12:47,300 --> 00:12:51,769
+top of the inspector, the very  
+first thing is Content Mode,    
+
+239
+00:12:51,837 --> 00:12:53,771
+Scale To Fill, right?           
+
+240
+00:12:53,840 --> 00:12:57,508
+So it scales the bits to fill   
+when the bounds change. And     
+
+241
+00:12:57,577 --> 00:13:01,713
+we want to change that to be    
+Redraw. So Content Mode Redraw  
+
+242
+00:13:01,781 --> 00:13:05,316
+means call my draw rect again   
+when my bounds change. So       
+
+243
+00:13:05,385 --> 00:13:10,454
+now when we run,                
+we get to see our circle. And   
+
+244
+00:13:10,523 --> 00:13:13,558
+when we rotate to landscape,    
+i's going to redraw, and        
+
+245
+00:13:13,626 --> 00:13:16,360
+thus, draw it as a circle,      
+which is what I intend.         
+
+246
+00:13:16,429 --> 00:13:17,895
+Tha's what our drawing          
+code that does,                 
+
+247
+00:13:17,964 --> 00:13:20,031
+it draws a circle.              
+So that's important to note,    
+
+248
+00:13:20,100 --> 00:13:22,200
+especially in your homework.    
+You're doing these set cards.   
+
+249
+00:13:22,268 --> 00:13:24,802
+You got your squiggles, and     
+your diamonds, and all that.    
+
+250
+00:13:24,870 --> 00:13:27,438
+You, when, if your bounds       
+were to change in a set card,   
+
+251
+00:13:27,507 --> 00:13:30,007
+you wouldn't want it to like    
+squish it into some other       
+
+252
+00:13:30,076 --> 00:13:35,012
+shape. All right, so            
+that is enough of kind of       
+
+253
+00:13:35,081 --> 00:13:39,049
+taking a look at drawing        
+with Core Graphics and with     
+
+254
+00:13:39,118 --> 00:13:43,921
+UIBezierPath. Let's settle      
+down now to drawing a card.     
+
+255
+00:13:43,989 --> 00:13:49,793
+Now what are the parts of       
+a card? We've got the corners,  
+
+256
+00:13:49,862 --> 00:13:52,130
+right? The corners of the       
+card, which is the rank and     
+
+257
+00:13:52,198 --> 00:13:54,932
+the suit in the corners. In     
+the middle, we've got either    
+
+258
+00:13:55,001 --> 00:13:57,801
+a face card image of some sort  
+or we've got a bunch of pips.   
+
+259
+00:13:57,870 --> 00:14:00,304
+Those little things are called  
+pips. The hearts and clubs and  
+
+260
+00:14:00,373 --> 00:14:02,940
+diamonds, we got a bunch of     
+pips in there. So that, that's  
+
+261
+00:14:03,008 --> 00:14:05,810
+how we got to build our card.   
+But actually, the card has      
+
+262
+00:14:05,878 --> 00:14:08,446
+another thing, which is almost  
+always has rounded edges,       
+
+263
+00:14:08,514 --> 00:14:10,948
+right? You know,                
+if you've ever played cards,    
+
+264
+00:14:11,017 --> 00:14:13,718
+you don't want sharp edges      
+cuz it catches on things and    
+
+265
+00:14:13,787 --> 00:14:15,753
+stuff like that. So you         
+want nice rounded edges. So     
+
+266
+00:14:15,822 --> 00:14:18,722
+let's start by back, drawing    
+the background of our card      
+
+267
+00:14:18,791 --> 00:14:21,725
+as a rounded rect. Now you      
+actually know how to do this    
+
+268
+00:14:21,794 --> 00:14:23,527
+using the layer of a UI view,   
+
+269
+00:14:23,596 --> 00:14:26,197
+which was in assignment         
+two hints. But                  
+
+270
+00:14:26,265 --> 00:14:29,667
+I'm gonna draw it directly,     
+using a UIBezierPath. So I'm    
+
+271
+00:14:29,736 --> 00:14:34,572
+just gonna say here, let path,  
+actually, or you can call it    
+
+272
+00:14:34,640 --> 00:14:39,443
+a roundedRect cuz that's what   
+I want, in my background,       
+
+273
+00:14:39,512 --> 00:14:43,180
+= UIBezierPath. And I'm gonna   
+use a different constructor     
+
+274
+00:14:43,249 --> 00:14:45,616
+than I used before. And         
+you see there's a lot of them,  
+
+275
+00:14:45,684 --> 00:14:50,555
+ovals and rects, but            
+here's one for roundedRect. So  
+
+276
+00:14:50,623 --> 00:14:52,523
+I'm gonna get,                  
+do this roundedRect.            
+
+277
+00:14:52,592 --> 00:14:56,026
+It's asking me where you want   
+your roundedRect to fit into.   
+
+278
+00:14:56,095 --> 00:14:58,396
+So I obviously want             
+it in my bounds.                
+
+279
+00:14:58,464 --> 00:15:00,631
+It's gonna fill                 
+my entire bounds.               
+
+280
+00:15:00,700 --> 00:15:04,034
+And then this corner radius is  
+how many points the radius of   
+
+281
+00:15:04,103 --> 00:15:08,072
+the turn of the corners is.     
+And for now I'm gonna set       
+
+282
+00:15:08,140 --> 00:15:12,176
+that to a magic number.         
+We don't really want blue,      
+
+283
+00:15:12,245 --> 00:15:15,713
+which is these literals. We     
+don't want these in our code.   
+
+284
+00:15:15,781 --> 00:15:18,449
+These are bad and I'm gonna     
+get rid of that pretty soon     
+
+285
+00:15:18,518 --> 00:15:21,552
+here. Why do we not want        
+those? Because if we actually,  
+
+286
+00:15:21,620 --> 00:15:24,422
+literally have magic numbers    
+like that, we wanna collect     
+
+287
+00:15:24,491 --> 00:15:27,024
+them all into some area         
+where we have our constants.    
+
+288
+00:15:27,093 --> 00:15:28,192
+So we can modify them and       
+
+289
+00:15:28,261 --> 00:15:30,428
+understand what we've           
+chosen and all that.            
+
+290
+00:15:30,496 --> 00:15:31,863
+We don't spread it all          
+out through our codes.          
+
+291
+00:15:31,931 --> 00:15:34,365
+If we're ever going to          
+change the constants,           
+
+292
+00:15:34,433 --> 00:15:37,267
+we're looking at a round,       
+round form. But for now, we'll  
+
+293
+00:15:37,336 --> 00:15:39,837
+leave it this way. All right,   
+so I got my roundedRect.        
+
+294
+00:15:39,906 --> 00:15:43,540
+The first thing I'm gonna do    
+to my roundedRect actually is   
+
+295
+00:15:43,609 --> 00:15:47,144
+I'm gonna tell it that I want   
+it to be the clipping area for  
+
+296
+00:15:47,213 --> 00:15:50,148
+all my drawing. So as I've      
+had this nice roundedRect,      
+
+297
+00:15:50,216 --> 00:15:52,950
+which is the edges of my card,  
+I don't wanna draw outside      
+
+298
+00:15:53,019 --> 00:15:56,821
+that roundedRect. By Rect, my   
+drawing all has to be inside.   
+
+299
+00:15:56,890 --> 00:15:58,922
+Now, I don't think I'm gonna    
+write any code that goes        
+
+300
+00:15:58,991 --> 00:16:01,792
+outside. But in your            
+assignment three, you might.    
+
+301
+00:16:01,861 --> 00:16:03,894
+Because in assignment three,    
+you're gonna have to draw       
+
+302
+00:16:03,963 --> 00:16:06,964
+the squiggle shape. With arcs   
+and lines or something, and     
+
+303
+00:16:07,033 --> 00:16:09,800
+then one of the fill modes is   
+striping. So you're gonna have  
+
+304
+00:16:09,869 --> 00:16:12,102
+to draw up stripes in there.    
+Well, imagine trying to draw a  
+
+305
+00:16:12,171 --> 00:16:14,671
+stripe that goes from one edge  
+of a squiggle to another edge.  
+
+306
+00:16:14,740 --> 00:16:16,707
+This would be                   
+almost impossible.              
+
+307
+00:16:16,776 --> 00:16:19,543
+Much nicer if you just have     
+your squigle be a path,         
+
+308
+00:16:19,612 --> 00:16:22,880
+add it as the clip, now you     
+can draw those lines sloppily,  
+
+309
+00:16:22,949 --> 00:16:25,783
+like you're a two-year-old      
+in a coloring book,             
+
+310
+00:16:25,852 --> 00:16:27,918
+draw them paths.                
+And it'll get clipped, so       
+
+311
+00:16:27,987 --> 00:16:30,287
+it's all inside the squiggle.   
+You see why you want clipping?  
+
+312
+00:16:30,356 --> 00:16:33,390
+So here I don't care so much,   
+but I just wanna show you what  
+
+313
+00:16:33,459 --> 00:16:36,727
+it looks like to call that.     
+Now, I want the my card to be   
+
+314
+00:16:36,796 --> 00:16:41,531
+white of course, so I'm gonna   
+say UIColor.white.setFill().    
+
+315
+00:16:41,600 --> 00:16:44,835
+And then I'm going to fill my   
+roundedRect. My roundedRect is  
+
+316
+00:16:44,904 --> 00:16:48,239
+just a Bézier path,             
+so I can say fill.              
+
+317
+00:16:48,307 --> 00:16:51,875
+So let's and see. This worked,  
+cuz now, hopefully,             
+
+318
+00:16:51,944 --> 00:16:57,314
+we should have roundedRect for  
+our card. And we don't.         
+
+319
+00:16:57,383 --> 00:17:00,685
+See it still has sharp edges    
+up here, see these sharp edges  
+
+320
+00:17:00,753 --> 00:17:03,487
+right here? Why does that       
+still have sharp edges?         
+
+321
+00:17:03,556 --> 00:17:06,590
+Well, actually, this code       
+worked perfectly. It drew       
+
+322
+00:17:06,659 --> 00:17:11,495
+a perfect white rounded rect    
+on a white background. So       
+
+323
+00:17:11,564 --> 00:17:13,831
+we cannot see it, it's sitting  
+there on a white background.    
+
+324
+00:17:13,900 --> 00:17:16,600
+So we need to go back           
+to our storyboard here,         
+
+325
+00:17:16,669 --> 00:17:20,537
+and change this so that it's    
+not white background. So        
+
+326
+00:17:20,606 --> 00:17:23,707
+what color background do we     
+want for this thing? Actually,  
+
+327
+00:17:23,776 --> 00:17:28,345
+we want it to be clear.         
+Because when we draw a rounded  
+
+328
+00:17:28,414 --> 00:17:30,948
+rect, we wanna see              
+through the parts of            
+
+329
+00:17:31,017 --> 00:17:33,517
+the corners that is rounded,    
+to whatever is in               
+
+330
+00:17:33,586 --> 00:17:35,586
+the background.                 
+So we want it to be clear. But  
+
+331
+00:17:35,654 --> 00:17:37,855
+as soon as we start             
+talking about clear and         
+
+332
+00:17:37,924 --> 00:17:42,059
+see-through in our view,        
+we need to talk about           
+
+333
+00:17:42,128 --> 00:17:45,696
+this switch right here,         
+the is opaque switch.           
+
+334
+00:17:45,764 --> 00:17:49,734
+And as I said in the lecture,   
+this is by default on, and      
+
+335
+00:17:49,802 --> 00:17:51,968
+it's assumed you don't have     
+any see-through parts,          
+
+336
+00:17:52,037 --> 00:17:54,771
+no transparency, and it can be  
+more efficient when it draws.   
+
+337
+00:17:54,840 --> 00:17:57,674
+So if we do use transparency,   
+which is less efficient,        
+
+338
+00:17:57,743 --> 00:17:58,543
+but we need it here,            
+
+339
+00:17:58,611 --> 00:18:00,511
+because we need our             
+corners to show through,        
+
+340
+00:18:00,580 --> 00:18:04,281
+we have to turn this off. So    
+don't forget to turn that off,  
+
+341
+00:18:04,350 --> 00:18:08,619
+if you're gonna do anything     
+transparent in your view.       
+
+342
+00:18:08,687 --> 00:18:12,289
+All right, now we have rounded  
+rect. You see the rounded       
+
+343
+00:18:12,358 --> 00:18:15,860
+corners right there, and we     
+have it in both landscape and   
+
+344
+00:18:15,928 --> 00:18:18,462
+portrait, okay. So that's       
+good. All right, we're off to   
+
+345
+00:18:18,531 --> 00:18:21,298
+a good start. Now,              
+we're gonna do our corners.     
+
+346
+00:18:21,367 --> 00:18:25,135
+So our corners, remember, are   
+rank and suit, and I'm going,   
+
+347
+00:18:25,204 --> 00:18:28,072
+it actually will probably be    
+easier to draw the corners      
+
+348
+00:18:28,141 --> 00:18:31,108
+with an NSAttributedString,     
+directly in my drawRect.        
+
+349
+00:18:31,177 --> 00:18:34,011
+Probably could do it            
+in five lines of code.          
+
+350
+00:18:34,080 --> 00:18:37,415
+But instead, I'm gonna          
+use 15 lines of code, and       
+
+351
+00:18:37,483 --> 00:18:38,983
+do it with a UI label.          
+
+352
+00:18:39,051 --> 00:18:42,453
+Because I wanna show you how    
+you can build your UI view,     
+
+353
+00:18:42,522 --> 00:18:46,690
+out of other views, by making   
+them subviews of yours. Then    
+
+354
+00:18:46,759 --> 00:18:50,528
+we'll do some other drawing     
+with drawRect, which will also  
+
+355
+00:18:50,596 --> 00:18:53,697
+be only a couple lines,         
+all very efficient to do.       
+
+356
+00:18:53,766 --> 00:18:57,768
+So how I'm gonna do this on my  
+UI label, is I'm gonna create   
+
+357
+00:18:57,837 --> 00:19:01,438
+a UI label that uses an         
+attributed string as its text.  
+
+358
+00:19:01,507 --> 00:19:06,777
+And this attributed string      
+is going to look like this.     
+
+359
+00:19:06,846 --> 00:19:08,679
+So if it's gonna have, for      
+
+360
+00:19:08,748 --> 00:19:12,249
+let's say,                      
+let's pick five of hearts. So   
+
+361
+00:19:12,318 --> 00:19:15,853
+I'm doing the five of hearts,   
+and this is the corner of my    
+
+362
+00:19:15,921 --> 00:19:18,455
+big card. So I'm just gonna     
+create an attributed string,    
+
+363
+00:19:18,524 --> 00:19:21,592
+which is five carriage return,  
+
+364
+00:19:21,660 --> 00:19:25,162
+heart. That's the attributed    
+string I'm gonna create. To     
+
+365
+00:19:25,231 --> 00:19:29,233
+make this work, my attributed   
+string needs two attributes.    
+
+366
+00:19:29,302 --> 00:19:31,268
+Attributed strings have         
+attributes, I only need two.    
+
+367
+00:19:31,337 --> 00:19:34,705
+One is the size of the font. I  
+wanna make the font big if my   
+
+368
+00:19:34,773 --> 00:19:38,008
+card is big, small font         
+if my card is small.            
+
+369
+00:19:38,077 --> 00:19:40,578
+The other thing is this         
+needs to be centered,           
+
+370
+00:19:40,646 --> 00:19:43,814
+cuz I don't want this five      
+over here, lined up with        
+
+371
+00:19:43,883 --> 00:19:46,884
+the left edge of the heart.     
+I want the five centered over   
+
+372
+00:19:46,952 --> 00:19:50,054
+the heart, right? And I might   
+have like a ten of hearts.      
+
+373
+00:19:50,123 --> 00:19:52,556
+This ten might actually be      
+wider than the heart. But       
+
+374
+00:19:52,625 --> 00:19:54,425
+I want these two                
+things centered. So             
+
+375
+00:19:54,494 --> 00:19:56,693
+I'm gonna show you              
+an attributed string,           
+
+376
+00:19:56,762 --> 00:20:00,130
+how to do fonts, and how to     
+do centering of your text. So   
+
+377
+00:20:00,199 --> 00:20:04,368
+let's create a little           
+kind of utility function.       
+
+378
+00:20:04,437 --> 00:20:08,239
+Pretty generic function.        
+I'm gonna call it,              
+
+379
+00:20:08,308 --> 00:20:12,876
+it's gonna be private,          
+I'm gonna call it               
+
+380
+00:20:12,945 --> 00:20:18,782
+centeredattributedString.       
+So what this function           
+
+381
+00:20:18,851 --> 00:20:22,119
+is gonna do is it's gonna take  
+a string and a font size, and   
+
+382
+00:20:22,188 --> 00:20:25,389
+return an NSattributedstring    
+that's centered with that font  
+
+383
+00:20:25,457 --> 00:20:28,025
+size. So                        
+it's gonna take a string,       
+
+384
+00:20:28,094 --> 00:20:31,128
+some string as the string that  
+we're gonna do. In our case,    
+
+385
+00:20:31,196 --> 00:20:34,698
+it's gonna be five carriage     
+return heart, and it's gonna    
+
+386
+00:20:34,766 --> 00:20:39,036
+take some font size. Font       
+sizes are CGFloats of course,   
+
+387
+00:20:39,104 --> 00:20:42,907
+all photo point numbers in      
+drawing are CGFloat, and        
+
+388
+00:20:42,975 --> 00:20:47,011
+it's gonna return               
+an NSAattributedString. So      
+
+389
+00:20:47,080 --> 00:20:49,446
+that's what this little         
+function is gonna do.           
+
+390
+00:20:49,515 --> 00:20:52,716
+Because we need that to draw    
+this corner piece. Okay,        
+
+391
+00:20:52,785 --> 00:20:53,651
+let's do the fonts first.       
+
+392
+00:20:53,719 --> 00:20:55,886
+So I'm gonna create a font.     
+And to do that,                 
+
+393
+00:20:55,954 --> 00:20:59,523
+I'm gonna use those preferred   
+fonts. Because this card,       
+
+394
+00:20:59,592 --> 00:21:02,159
+what's on the card, is kind     
+of user information, so         
+
+395
+00:21:02,228 --> 00:21:04,929
+I wanna use a preferred font,   
+not like the system font or     
+
+396
+00:21:04,997 --> 00:21:07,264
+anything. So                    
+I do that with UIFont,          
+
+397
+00:21:07,333 --> 00:21:10,835
+static method,                  
+preferredFont(forTextStyle.     
+
+398
+00:21:10,903 --> 00:21:14,705
+In the text style, I'm gonna    
+use is .body, the body font,    
+
+399
+00:21:14,773 --> 00:21:17,874
+because it's really not         
+a caption or a footnote or      
+
+400
+00:21:17,943 --> 00:21:21,812
+a headline, it's kind of body   
+text. But I'm gonna scale it,   
+
+401
+00:21:21,881 --> 00:21:25,015
+and luckily, you can just       
+say withSize to a font, and     
+
+402
+00:21:25,084 --> 00:21:26,851
+give it the fontSize you want,  
+
+403
+00:21:26,919 --> 00:21:30,287
+which is this argument to my    
+method. So this is great, so    
+
+404
+00:21:30,356 --> 00:21:32,389
+I've created a preferred font,  
+the body font, and              
+
+405
+00:21:32,458 --> 00:21:34,224
+I've scaled it to               
+the right size that I want.     
+
+406
+00:21:34,293 --> 00:21:37,093
+I'm gonna have to figure out    
+what that size is for my card.  
+
+407
+00:21:37,162 --> 00:21:39,530
+But there's one big             
+problem with this.              
+
+408
+00:21:39,599 --> 00:21:43,366
+If someone goes on, let's       
+go to the simulator here.       
+
+409
+00:21:43,435 --> 00:21:44,701
+Where's my simulator? And       
+
+410
+00:21:44,770 --> 00:21:49,006
+if I go over to Settings on my  
+device, and I go to General,    
+
+411
+00:21:49,074 --> 00:21:53,277
+Accessibility, Larger Text.     
+Look, I have a little slider    
+
+412
+00:21:53,346 --> 00:21:57,180
+that can change the size        
+of the text in all my apps.     
+
+413
+00:21:57,249 --> 00:22:00,951
+Well, all my apps won't         
+include this app unless I deal  
+
+414
+00:22:01,019 --> 00:22:05,322
+with the fact that I fixed      
+the font size here. So what I   
+
+415
+00:22:05,391 --> 00:22:08,291
+really want, is something       
+that's this font size, but      
+
+416
+00:22:08,360 --> 00:22:10,861
+if they put that slider up,     
+I want it to be bigger and      
+
+417
+00:22:10,930 --> 00:22:12,796
+if they put that slider down,   
+I want it to be smaller.        
+
+418
+00:22:12,864 --> 00:22:15,766
+Luckily, there's a great way    
+to do that, which is you can    
+
+419
+00:22:15,835 --> 00:22:18,235
+just reset the font to          
+be equal UIFontMetrics.         
+
+420
+00:22:18,304 --> 00:22:22,573
+So this UIFontMetrics has a     
+great feature in it, where you  
+
+421
+00:22:22,641 --> 00:22:26,276
+can create font metrics for     
+a certain text style.           
+
+422
+00:22:26,345 --> 00:22:28,946
+Again, the body font            
+right there. And                
+
+423
+00:22:29,015 --> 00:22:33,450
+then you can get a scaled       
+font from another font. So      
+
+424
+00:22:33,519 --> 00:22:36,386
+you just give it a font, this   
+one up here that I created,     
+
+425
+00:22:36,455 --> 00:22:40,357
+and it will scale it based      
+on that little slider. So       
+
+426
+00:22:40,426 --> 00:22:43,360
+don't forget this line of       
+code. Otherwise, users          
+
+427
+00:22:43,429 --> 00:22:46,163
+who are visually impaired, or   
+even just old guys like me,     
+
+428
+00:22:46,232 --> 00:22:49,033
+who, you know, need big fonts,  
+we set that a little higher,    
+
+429
+00:22:49,101 --> 00:22:52,036
+and your app is not             
+gonna do it. Your cards,        
+
+430
+00:22:52,104 --> 00:22:54,371
+your playing cards, are gonna   
+still have small text, so       
+
+431
+00:22:54,440 --> 00:22:57,775
+don't forget this line,         
+if you're doing fonts.          
+
+432
+00:22:57,843 --> 00:22:59,143
+All right,                      
+how about the centering,        
+
+433
+00:22:59,211 --> 00:23:00,710
+I wanna center the five         
+on top of the heart.            
+
+434
+00:23:00,779 --> 00:23:04,748
+Well, we're gonna do that with  
+another little type, which is   
+
+435
+00:23:04,817 --> 00:23:08,285
+called paragraphStyle.          
+And I'm gonna create            
+
+436
+00:23:08,354 --> 00:23:13,157
+an NSMutableParagraphStyle.     
+So paragraphStyle               
+
+437
+00:23:13,226 --> 00:23:15,125
+encapsulates all the things     
+about a paragraph,              
+
+438
+00:23:15,194 --> 00:23:18,428
+like its alignment and things   
+like that. And so I just set    
+
+439
+00:23:18,497 --> 00:23:20,998
+whatever I want in there.       
+Like in this case, I want       
+
+440
+00:23:21,067 --> 00:23:23,667
+the alignment to be set and     
+I'm gonna set it to center. So  
+
+441
+00:23:23,735 --> 00:23:27,238
+that makes the whole paragraph  
+of text there be centered       
+
+442
+00:23:27,306 --> 00:23:30,875
+horizontally. So that's it.     
+Now, I can just return          
+
+443
+00:23:30,943 --> 00:23:33,110
+an NSAttributedString           
+with those attributes,          
+
+444
+00:23:33,179 --> 00:23:36,547
+and I'm good to go.             
+So let's use the same           
+
+445
+00:23:36,615 --> 00:23:42,052
+exact initializer we used       
+before. So here's the string.   
+
+446
+00:23:42,121 --> 00:23:44,521
+That's the argument to the      
+function right here, string.    
+
+447
+00:23:44,590 --> 00:23:46,089
+And then the attributes         
+right here,                     
+
+448
+00:23:46,158 --> 00:23:47,991
+I'm just gonna put              
+the dictionary right in.        
+
+449
+00:23:48,060 --> 00:23:49,627
+I'm not gonna put it            
+in another bar or               
+
+450
+00:23:49,695 --> 00:23:53,464
+anything like that.             
+Let's just put it in. And so I  
+
+451
+00:23:54,800 --> 00:23:59,770
+do NSAttributedStringKey        
+.paragraphStyle for             
+
+452
+00:23:59,839 --> 00:24:03,907
+example. So that's one of the   
+keys, and the value is this     
+
+453
+00:24:03,976 --> 00:24:07,411
+paragraphStyle I just created,  
+and then I can also do .font    
+
+454
+00:24:07,479 --> 00:24:10,480
+of fonts. Notice, I don't       
+have to type this every time.   
+
+455
+00:24:10,549 --> 00:24:13,316
+In fact, I don't even have      
+to type it the first time,      
+
+456
+00:24:13,385 --> 00:24:18,254
+because Swift knows what type   
+of argument this thing takes.   
+
+457
+00:24:18,323 --> 00:24:23,193
+So, it automatically will       
+infer that part of this. So     
+
+458
+00:24:23,262 --> 00:24:26,930
+that's it. Okay, nice reusable  
+function that will create this  
+
+459
+00:24:26,999 --> 00:24:29,032
+kind of attributed strength.    
+So                              
+
+460
+00:24:29,101 --> 00:24:33,403
+now I'm gonna create a little   
+private var, which I'm gonna    
+
+461
+00:24:33,472 --> 00:24:38,308
+call cornerString. String,      
+
+462
+00:24:38,377 --> 00:24:42,245
+and it's just gonna return a    
+centeredAttributedString with   
+
+463
+00:24:42,314 --> 00:24:46,716
+this, the five over the heart.  
+So somehow I need to have my    
+
+464
+00:24:46,785 --> 00:24:51,622
+rank plus a carriage return,    
++suit, and then I'm gonna,      
+
+465
+00:24:51,691 --> 00:24:55,792
+woah, then I'm going to need,   
+some font size.                 
+
+466
+00:24:55,861 --> 00:24:57,160
+Who knows what                  
+that's gonna be?                
+
+467
+00:24:57,229 --> 00:24:58,596
+Well I have to                  
+talk about that,                
+
+468
+00:24:58,664 --> 00:25:01,898
+because its got that font       
+size. It's gonna depend         
+
+469
+00:25:01,967 --> 00:25:05,702
+on how big my card is. My card  
+is big, that's gonna be big.    
+
+470
+00:25:05,771 --> 00:25:07,537
+So we have a couple of things   
+to deal with here. One,         
+
+471
+00:25:07,606 --> 00:25:10,441
+we need the rank and suit. So   
+the playing card has to have    
+
+472
+00:25:10,509 --> 00:25:13,577
+some way to set the rank and    
+suit. Now, I'm gonna make my    
+
+473
+00:25:13,645 --> 00:25:17,648
+rank be an int, and I'm gonna   
+make my suit be a string.       
+
+474
+00:25:19,051 --> 00:25:21,885
+Now this is different           
+than the model we had.          
+
+475
+00:25:21,954 --> 00:25:25,088
+The model had rank and string   
+be enums, remember that?        
+
+476
+00:25:25,157 --> 00:25:28,124
+But who cares? This is a view,  
+it knows nothing about that     
+
+477
+00:25:28,193 --> 00:25:31,862
+model. This is a generic        
+card drawing view.              
+
+478
+00:25:31,930 --> 00:25:34,498
+It does knows nothing of        
+that particular model. So       
+
+479
+00:25:34,567 --> 00:25:36,333
+the fact that it                
+represents its rank and         
+
+480
+00:25:36,401 --> 00:25:39,703
+suit in a completely different  
+way, perfectly fine.            
+
+481
+00:25:39,772 --> 00:25:43,140
+Whose job is it to translate    
+between model and view?         
+
+482
+00:25:43,209 --> 00:25:45,709
+Of course, the controller. So   
+yo're, w're gonna see code      
+
+483
+00:25:45,778 --> 00:25:48,845
+in our controller that          
+translates between the models,  
+
+484
+00:25:48,914 --> 00:25:52,382
+thought of what a rank and      
+suit is in this view.           
+
+485
+00:25:52,451 --> 00:25:53,450
+I also, I don't wanna have to   
+
+486
+00:25:53,518 --> 00:25:55,686
+be an initializer there, it's   
+used as no initializer. So      
+
+487
+00:25:55,754 --> 00:26:01,458
+let's start, let's start        
+with this 5, 5 of Hearts.       
+
+488
+00:26:01,527 --> 00:26:07,263
+Let me go grab a heart from,    
+over here. Here's heart,        
+
+489
+00:26:07,332 --> 00:26:10,300
+copy. All right. So we got 5    
+of hearts right there. And      
+
+490
+00:26:10,368 --> 00:26:12,969
+there's one other thing too,    
+which is, is this card face     
+
+491
+00:26:13,038 --> 00:26:17,341
+up or face down? So I need a,   
+isfaceup. She's a bull, and     
+
+492
+00:26:17,409 --> 00:26:20,544
+we'll start with a face up,     
+let's say. Now,                 
+
+493
+00:26:20,613 --> 00:26:25,015
+when you have vars like this    
+in a view that affect the way   
+
+494
+00:26:25,084 --> 00:26:29,686
+the view would draw, you have   
+to think about the fact that    
+
+495
+00:26:29,755 --> 00:26:35,025
+if this changes the rank, Your  
+view needs to redraw itself,    
+
+496
+00:26:35,093 --> 00:26:38,929
+right? If you change the rank,  
+you gotta redraw. So            
+
+497
+00:26:38,998 --> 00:26:43,633
+how do you do that? This is     
+a really great use for didSet.  
+
+498
+00:26:43,702 --> 00:26:45,669
+So when this rank changes,      
+
+499
+00:26:45,737 --> 00:26:50,407
+someone sets the rank to 11,    
+for a Jack, we gotta redraw.    
+
+500
+00:26:50,475 --> 00:26:52,976
+And how do we make ourselves    
+redraw? Everyone, remember?     
+
+501
+00:26:53,044 --> 00:26:58,248
+setNeedsDisplay.                
+
+502
+00:26:58,317 --> 00:27:00,317
+So that's gonna cause our       
+drawRect to be called,          
+
+503
+00:27:00,386 --> 00:27:03,119
+eventually. So we can't call    
+our drawRect directly. We just  
+
+504
+00:27:03,188 --> 00:27:07,257
+have to tell the system, hey,   
+we need to be displayed.        
+
+505
+00:27:07,325 --> 00:27:10,227
+Our view has another little     
+thing that needs to happen.     
+
+506
+00:27:10,295 --> 00:27:13,297
+We have subviews to drop        
+part of our view, so            
+
+507
+00:27:13,366 --> 00:27:16,132
+we need to have those           
+subviews laid out.              
+
+508
+00:27:16,201 --> 00:27:19,670
+Now, we're not using            
+Auto Layout in our subviews,    
+
+509
+00:27:19,738 --> 00:27:23,640
+we're putting them where they   
+belong in the corners, but      
+
+510
+00:27:23,709 --> 00:27:27,310
+we still need to say            
+setNeedsLayout as well. So      
+
+511
+00:27:27,379 --> 00:27:28,478
+that our subviews               
+get laid out.                   
+
+512
+00:27:28,547 --> 00:27:31,081
+Now you don't have to say this  
+if you don't have any subviews  
+
+513
+00:27:31,150 --> 00:27:32,516
+that need laying out, or        
+
+514
+00:27:32,584 --> 00:27:35,418
+that aren't affected by the     
+rank changing. In our case,     
+
+515
+00:27:35,487 --> 00:27:37,721
+it definitely does              
+change the rank. So             
+
+516
+00:27:37,790 --> 00:27:40,958
+we're gonna do that for all of  
+our little public vars here,    
+
+517
+00:27:41,026 --> 00:27:43,460
+because if people change        
+any of these things,            
+
+518
+00:27:43,529 --> 00:27:46,195
+it's gonna change               
+the way our card looks.         
+
+519
+00:27:46,264 --> 00:27:49,700
+Don't forget this piece right   
+here, always gonna want that,   
+
+520
+00:27:49,768 --> 00:27:52,802
+either one of these two, or     
+both, on every time you have    
+
+521
+00:27:52,871 --> 00:27:56,306
+a public var, that someone can  
+change the look of your card.   
+
+522
+00:27:57,443 --> 00:28:00,677
+Okay, so now,                   
+we have rank and suit.          
+
+523
+00:28:00,746 --> 00:28:04,581
+Unfortunately, rank is in int,  
+so I can't say rank +suit. And  
+
+524
+00:28:04,650 --> 00:28:07,250
+then also, I have this problem  
+with this magic number here,    
+
+525
+00:28:07,319 --> 00:28:08,785
+somehow I have to               
+pick a font size.               
+
+526
+00:28:08,854 --> 00:28:11,554
+So in order to speed this       
+demo up a little bit,           
+
+527
+00:28:11,623 --> 00:28:16,359
+I actually have a little        
+extension to my playing cards.  
+
+528
+00:28:16,428 --> 00:28:19,763
+Oops, there it is, this         
+little extension right here.    
+
+529
+00:28:19,831 --> 00:28:22,732
+This is the entirety of it,     
+it's not very big. And          
+
+530
+00:28:22,801 --> 00:28:25,769
+this has captured all of        
+my little blue numbers,         
+
+531
+00:28:25,838 --> 00:28:31,508
+my magic numbers,               
+into a struct as static lets.   
+
+532
+00:28:31,577 --> 00:28:36,813
+So this is how we do            
+constants in Swift.             
+
+533
+00:28:36,881 --> 00:28:40,717
+We make a private struct, we    
+give it a name, sometimes it    
+
+534
+00:28:40,786 --> 00:28:43,653
+might be called constants.      
+I've called it SizeRatio,       
+
+535
+00:28:43,722 --> 00:28:46,623
+because all of my constants     
+are about the ratio             
+
+536
+00:28:46,692 --> 00:28:50,026
+of the corner, or of a font,    
+to the size of my card.         
+
+537
+00:28:50,095 --> 00:28:51,828
+So I call this SizeRatio.       
+
+538
+00:28:51,897 --> 00:28:54,998
+And then in here, I have the    
+cornerFontSizeToBoundsHeight,   
+
+539
+00:28:55,067 --> 00:28:57,133
+I have the                      
+cornerRadiusToBoundsHeight,     
+
+540
+00:28:57,202 --> 00:28:59,036
+I have the                      
+cornerOffsetToCornerRadius,     
+
+541
+00:28:59,105 --> 00:29:00,904
+I have the                      
+faceCardImageSizeToBoundsSize.  
+
+542
+00:29:00,972 --> 00:29:04,341
+These are all ratios that I've  
+picked, that I think will       
+
+543
+00:29:04,409 --> 00:29:06,943
+look good. Then I even          
+created some little computed    
+
+544
+00:29:07,012 --> 00:29:10,146
+properties like cornerRadius,   
+which takes the height, and     
+
+545
+00:29:10,215 --> 00:29:14,117
+multiplies it by the ratio. So  
+here's what it looks like to    
+
+546
+00:29:14,186 --> 00:29:17,887
+use a constant that's declared  
+like this, SizeRatio.whatever,  
+
+547
+00:29:17,956 --> 00:29:21,558
+or if you have a constants, it  
+might be constants.whatever.    
+
+548
+00:29:21,627 --> 00:29:25,328
+You see how this kinda          
+looks nice right there.         
+
+549
+00:29:25,397 --> 00:29:25,928
+That's how we do it.            
+
+550
+00:29:25,997 --> 00:29:27,063
+So I have these 3 things,       
+
+551
+00:29:27,132 --> 00:29:29,966
+cornerRadius, cornerOffset,     
+and cornerFontSize which would  
+
+552
+00:29:30,035 --> 00:29:32,602
+have allowed me to get          
+rid of blue numbers.            
+
+553
+00:29:32,671 --> 00:29:35,438
+Instead, use something that's   
+with respect to the size of my  
+
+554
+00:29:35,507 --> 00:29:38,775
+cards' height. I also threw     
+this whole guy in here,         
+
+555
+00:29:38,843 --> 00:29:42,379
+rankString is just a var that   
+turns 1 into A and 11 into      
+
+556
+00:29:42,447 --> 00:29:45,849
+J and 12 into Q, and all the    
+other ones into a number. So    
+
+557
+00:29:45,918 --> 00:29:48,952
+that I can have a string that   
+allows me to go up here when    
+
+558
+00:29:49,021 --> 00:29:52,189
+I'm creating this little        
+string right here. Instead of   
+
+559
+00:29:52,257 --> 00:29:55,358
+saying rank plus character      
+term plus suit, I'm gonna say,  
+
+560
+00:29:55,427 --> 00:29:57,660
+rank string plus                
+character term plus suit.       
+
+561
+00:29:57,729 --> 00:30:00,797
+This, this is the, this means   
+character return, right?        
+
+562
+00:30:00,866 --> 00:30:02,598
+Go to the next line.            
+And so now,                     
+
+563
+00:30:02,667 --> 00:30:07,504
+my font size can be this        
+cornerFontSize, one of these,   
+
+564
+00:30:07,572 --> 00:30:12,141
+once I created down here.       
+And similarly, my cornerRadius  
+
+565
+00:30:12,210 --> 00:30:16,313
+right here which was 16         
+can now be cornerRadius.        
+
+566
+00:30:16,381 --> 00:30:19,549
+That's another one of these     
+that I created. So see          
+
+567
+00:30:19,618 --> 00:30:23,153
+how I've segregated off all of  
+my constants into this nice,    
+
+568
+00:30:23,221 --> 00:30:24,821
+little I even used              
+some extension.                 
+
+569
+00:30:24,890 --> 00:30:26,523
+It wouldn't have to             
+be an extension, but            
+
+570
+00:30:26,592 --> 00:30:29,325
+I just put it off in its own    
+space. And while I was at it,   
+
+571
+00:30:29,394 --> 00:30:32,162
+by the way, I also added some   
+extensions to CGRect and        
+
+572
+00:30:32,230 --> 00:30:35,331
+CGPoint like zooming a rect,    
+or sizing into something, Or    
+
+573
+00:30:35,400 --> 00:30:38,802
+getting the left half of        
+a rect, just for convenience.   
+
+574
+00:30:38,871 --> 00:30:40,770
+It's gonna make my code         
+look a little cleaner.          
+
+575
+00:30:40,839 --> 00:30:42,205
+And you already know            
+about how to do that.           
+
+576
+00:30:42,274 --> 00:30:43,940
+We did that with the art for    
+a random and int,               
+
+577
+00:30:44,009 --> 00:30:47,744
+stuff like that. Okay, so       
+we're getting very close to     
+
+578
+00:30:47,812 --> 00:30:50,346
+making this work right now.     
+All we really need to do is     
+
+579
+00:30:50,415 --> 00:30:53,717
+create these UILabels. So I'm   
+gonna create a var for them,    
+
+580
+00:30:53,786 --> 00:30:56,786
+private var.                    
+I'm gonna have an upperLeft,    
+
+581
+00:30:56,855 --> 00:30:59,222
+upperLeftCornerLabel, okay,     
+
+582
+00:30:59,291 --> 00:31:03,126
+which is gonna be typed         
+UILabel. And then,              
+
+583
+00:31:03,195 --> 00:31:08,732
+I'm gonna have                  
+a lowerRightCornerLabel         
+
+584
+00:31:08,801 --> 00:31:13,336
+to UILabel. Now,                
+I need to create this UILabel,  
+
+585
+00:31:13,405 --> 00:31:17,174
+so I'm gonna create a little    
+function to do that,            
+
+586
+00:31:17,243 --> 00:31:20,677
+private func                    
+createCornerLabel, and it's     
+
+587
+00:31:20,746 --> 00:31:24,081
+just gonna return a UILabel.    
+This is gonna be really easy.   
+
+588
+00:31:24,149 --> 00:31:27,717
+I'm just gonna create           
+a UILabel and return it, but    
+
+589
+00:31:27,786 --> 00:31:31,254
+I have to do a little bit       
+of configuration of this.       
+
+590
+00:31:31,323 --> 00:31:34,291
+We'll get to that in a second.  
+So here, instead of this        
+
+591
+00:31:34,359 --> 00:31:38,795
+declaring this label, I'm       
+gonna say =createCornerLabel.   
+
+592
+00:31:38,864 --> 00:31:42,632
+And then here,                  
+createCornerLabel, oops,        
+
+593
+00:31:42,701 --> 00:31:47,003
+not Repl_host,                  
+how about createCornerLabel.    
+
+594
+00:31:47,072 --> 00:31:50,173
+All right, now, this is going   
+to Once it catches up to me     
+
+595
+00:31:50,242 --> 00:31:52,676
+and compiles,                   
+gonna create this error.        
+
+596
+00:31:52,744 --> 00:31:55,545
+What is this error right here?  
+Cannot use instance member      
+
+597
+00:31:55,613 --> 00:31:59,316
+'createCornerLabel' Label       
+within a property initializer.  
+
+598
+00:32:00,785 --> 00:32:03,319
+Well, of course, I'm            
+initializing a property here,   
+
+599
+00:32:03,388 --> 00:32:06,823
+and here, I'm trying to call    
+a method on myself. And         
+
+600
+00:32:06,892 --> 00:32:09,125
+we know that until we're        
+fully initialized,              
+
+601
+00:32:09,194 --> 00:32:12,128
+we cannot call methods on       
+ourself. So with this,          
+
+602
+00:32:12,197 --> 00:32:14,998
+this is the old catch 22. So    
+anyone wanna say how we could   
+
+603
+00:32:15,067 --> 00:32:20,036
+fix this? Okay. Lazy. Good      
+job, everybody. All right.      
+
+604
+00:32:20,104 --> 00:32:21,872
+Lazy, exactly.                  
+So lazy makes it, so            
+
+605
+00:32:21,940 --> 00:32:24,708
+these things won't be           
+initialized until they          
+
+606
+00:32:24,776 --> 00:32:26,660
+which will be after the thing   
+is fully initialized. So,       
+
+607
+00:32:26,661 --> 00:32:28,545
+are asked for,                  
+
+608
+00:32:28,613 --> 00:32:31,681
+this is equals. All right,      
+so we have this UILabel.        
+
+609
+00:32:31,750 --> 00:32:33,950
+What do we have to do to        
+initialize our label? Really    
+
+610
+00:32:34,019 --> 00:32:38,387
+only a couple things. One is I  
+need to set this bar on label,  
+
+611
+00:32:38,456 --> 00:32:41,624
+which is number of lines,       
+because the default is one.     
+
+612
+00:32:41,693 --> 00:32:45,228
+By default, a UILabel has one   
+line. So if I have a two line   
+
+613
+00:32:45,297 --> 00:32:49,065
+thing, like five\n hearts,      
+it would only see the five.     
+
+614
+00:32:49,134 --> 00:32:52,402
+The heart would not be shown.   
+So I'm gonna change this to 0.  
+
+615
+00:32:52,471 --> 00:32:54,604
+I could change this to 2, but   
+I'm going to change it to 0.    
+
+616
+00:32:54,672 --> 00:32:57,841
+What 0 means is use as many     
+lines as you need, Mr.          
+
+617
+00:32:57,909 --> 00:33:01,444
+Label. So I'm taking it to 0.   
+So that's really the only       
+
+618
+00:33:01,513 --> 00:33:04,648
+thing I have to say. The only   
+other thing I have to do with   
+
+619
+00:33:04,716 --> 00:33:07,584
+this label is add it as         
+a Subview of myself.            
+
+620
+00:33:09,421 --> 00:33:11,788
+If I dont add it as a Subview,  
+then it won't be there,         
+
+621
+00:33:11,857 --> 00:33:14,223
+it will never draw. Okay? So    
+I have to add it as a Subview.  
+
+622
+00:33:14,292 --> 00:33:16,993
+So that's all you need to       
+do to create a CornerLabel.     
+
+623
+00:33:17,062 --> 00:33:20,663
+But, I need to                  
+position these labels.          
+
+624
+00:33:20,732 --> 00:33:22,098
+I have to put them in           
+the right place, right? So      
+
+625
+00:33:22,167 --> 00:33:24,667
+I should put one in the upper   
+left and one down in the lower  
+
+626
+00:33:24,736 --> 00:33:28,638
+right. So, where do I do        
+that in my code? Well,          
+
+627
+00:33:28,707 --> 00:33:32,742
+I have to do that every single  
+time my bounds changes,         
+
+628
+00:33:32,811 --> 00:33:35,011
+especially for the one in       
+the lower right. Okay.          
+
+629
+00:33:35,080 --> 00:33:37,447
+The one in the upper left       
+is actually near my origin.     
+
+630
+00:33:37,516 --> 00:33:40,450
+It's probably gonna be right    
+no matter what my bounds are.   
+
+631
+00:33:40,518 --> 00:33:42,485
+But the one in the lower left,  
+in landscape,                   
+
+632
+00:33:42,554 --> 00:33:45,221
+it's way over to the right and  
+not down very far, and then in  
+
+633
+00:33:45,290 --> 00:33:47,924
+portrait, it's way down and     
+only a little bit across,       
+
+634
+00:33:47,992 --> 00:33:50,526
+right? So that one in the       
+lower right is moving all over  
+
+635
+00:33:50,595 --> 00:33:52,395
+the place when our              
+bounds change like that,        
+
+636
+00:33:52,464 --> 00:33:54,230
+when we rotate or               
+any reason for                  
+
+637
+00:33:54,299 --> 00:33:57,900
+reason our bounds would         
+change. So where can we put     
+
+638
+00:33:57,969 --> 00:34:00,703
+some code that does something   
+when our bounds change?         
+
+639
+00:34:00,772 --> 00:34:04,775
+That's what this method,        
+layoutSubviews is for.          
+
+640
+00:34:04,843 --> 00:34:08,111
+To UIView method,               
+make sure you call super,       
+
+641
+00:34:08,179 --> 00:34:11,881
+because UIView is awesome       
+at laying out Subviews.         
+
+642
+00:34:11,950 --> 00:34:16,452
+It uses auto layout. All that   
+auto layout stuff we're doing,  
+
+643
+00:34:16,521 --> 00:34:19,288
+that's all stuff that           
+UIview knows how to layout      
+
+644
+00:34:19,357 --> 00:34:21,558
+your Subviews.                  
+Now, these two Subviews,        
+
+645
+00:34:21,626 --> 00:34:23,693
+I'm not doing any control       
+dragging. In fact,              
+
+646
+00:34:23,762 --> 00:34:26,296
+I'm creating them in code,      
+right? I created the UILabel    
+
+647
+00:34:26,365 --> 00:34:30,433
+in code right here. So, I have  
+to do the layout myself, and    
+
+648
+00:34:30,501 --> 00:34:32,869
+layoutSubviews is               
+where you do it.                
+
+649
+00:34:32,938 --> 00:34:35,838
+Anytime your Subviews need to   
+be laid out for any reasons,    
+
+650
+00:34:35,907 --> 00:34:38,875
+this is going to get called by  
+the system. You don't call it.  
+
+651
+00:34:38,944 --> 00:34:43,179
+If you want it called,          
+you call setNeedsLayout.        
+
+652
+00:34:43,247 --> 00:34:46,249
+And setNeedsLayout, the system  
+will eventually call this.      
+
+653
+00:34:46,318 --> 00:34:48,651
+Just like if you do             
+setNeedsDisplay,                
+
+654
+00:34:48,720 --> 00:34:51,254
+the system will eventually      
+call this. Okay?                
+
+655
+00:34:51,322 --> 00:34:54,057
+Very, very similar. All right,  
+so we now layoutSubviews.       
+
+656
+00:34:54,126 --> 00:34:58,394
+All we gotta do is move this    
+UILabel, this upper left, and   
+
+657
+00:34:58,463 --> 00:35:01,064
+lower right labels, move them   
+to the right spot. So let's do  
+
+658
+00:35:01,132 --> 00:35:03,666
+the upper left, that's          
+a really easy one, actually.    
+
+659
+00:35:03,735 --> 00:35:07,604
+So I'm just gonna set my        
+upperLeftCornerLabel.frame.     
+
+660
+00:35:07,673 --> 00:35:11,240
+Remember, frame, in a UIView,   
+is what positions it,           
+
+661
+00:35:11,309 --> 00:35:14,343
+bounds is where we draw,        
+frame sets it. So               
+
+662
+00:35:14,412 --> 00:35:18,848
+I'm gonna set its origin        
+basically equal to my origin,   
+
+663
+00:35:18,917 --> 00:35:24,821
+but offsetBy, so I added this   
+little offsetBy in CGPoint.     
+
+664
+00:35:24,889 --> 00:35:27,390
+It just moves the point         
+over by some amount,            
+
+665
+00:35:27,459 --> 00:35:29,893
+offsets it. So                  
+I'm gonna offset it by this     
+
+666
+00:35:29,962 --> 00:35:33,396
+cornerOffset that I have.       
+So the cornerOffset,            
+
+667
+00:35:33,465 --> 00:35:37,634
+which is one of these things I  
+made from my constants here,    
+
+668
+00:35:37,703 --> 00:35:40,570
+that just gets passed           
+the little curve.               
+
+669
+00:35:40,639 --> 00:35:44,274
+I don't wanna draw this with    
+the curve right here, so        
+
+670
+00:35:44,342 --> 00:35:47,977
+I need to move it in a little   
+bit from the roundedRect.       
+
+671
+00:35:48,046 --> 00:35:50,846
+Okay? So that's it.             
+Now, we're not quite there.     
+
+672
+00:35:50,915 --> 00:35:53,783
+We've positioned it, but        
+we haven't actually set         
+
+673
+00:35:53,852 --> 00:35:57,988
+this string on it. So I'm       
+gonna create another little     
+
+674
+00:35:58,056 --> 00:36:01,658
+function here I'm gonna         
+call configureCornerLabel,      
+
+675
+00:36:01,727 --> 00:36:06,062
+and I'm gonna pass that         
+upperLeftCornerLabel to it.     
+
+676
+00:36:06,130 --> 00:36:11,167
+And inside here, it's a little  
+private func. We will pass      
+
+677
+00:36:11,236 --> 00:36:15,538
+this label. We don't really     
+need an external name, because  
+
+678
+00:36:15,606 --> 00:36:18,708
+the name of the function        
+implies the external name,      
+
+679
+00:36:18,777 --> 00:36:24,580
+it's UILabel. So here,          
+I'm gonna configure it.         
+
+680
+00:36:24,649 --> 00:36:26,415
+And I don't actually have to    
+do very much to configure it.   
+
+681
+00:36:26,484 --> 00:36:31,287
+One thing I for sure need to    
+do to this label is set it      
+
+682
+00:36:31,356 --> 00:36:35,925
+attributedText to be my         
+cornerString. Remember,         
+
+683
+00:36:35,994 --> 00:36:38,261
+cornerString is                 
+this thing up here.             
+
+684
+00:36:38,330 --> 00:36:41,397
+This little guy just gets a     
+centeredAttributedString with   
+
+685
+00:36:41,466 --> 00:36:43,632
+the rankStrin\n suit            
+of the right size,              
+
+686
+00:36:43,701 --> 00:36:45,401
+depending on how                
+big our card is.                
+
+687
+00:36:45,470 --> 00:36:47,404
+So we definitely                
+need to do that.                
+
+688
+00:36:47,472 --> 00:36:50,506
+What else might I need to do    
+to my label when I do this?     
+
+689
+00:36:50,575 --> 00:36:53,042
+Well, one thing is I want the   
+label to be the right size.     
+
+690
+00:36:53,111 --> 00:36:57,146
+Okay? I want it to be kind of   
+the perfect size to enclose     
+
+691
+00:36:57,215 --> 00:37:03,586
+this thing. Luckily, label has  
+a method called sizeToFit, and  
+
+692
+00:37:03,655 --> 00:37:08,791
+it will size the label to fit   
+its contents. The only tricky   
+
+693
+00:37:08,860 --> 00:37:11,861
+thing about this though, is if  
+that label already has some     
+
+694
+00:37:11,929 --> 00:37:15,164
+width, and you say sizeToFit,   
+it will make it taller and      
+
+695
+00:37:15,233 --> 00:37:17,634
+keep the width.                 
+Well, we don't want that.       
+
+696
+00:37:17,702 --> 00:37:19,402
+We wanted to do the whole       
+thing, so I'm gonna say,        
+
+697
+00:37:19,471 --> 00:37:27,009
+label.frame.size = CGsize.0.    
+
+698
+00:37:27,078 --> 00:37:30,447
+So I'm gonna clear out its      
+size before I do sizeToFit.     
+
+699
+00:37:30,515 --> 00:37:33,983
+That way, it will expand in     
+both directions, across and     
+
+700
+00:37:34,052 --> 00:37:36,752
+down. That's a little old       
+trick about sizeToFit you       
+
+701
+00:37:36,821 --> 00:37:42,758
+gotta know there. And the last  
+thing, really tricky thing,     
+
+702
+00:37:42,827 --> 00:37:46,496
+is what about if we             
+are not face up?                
+
+703
+00:37:46,565 --> 00:37:49,899
+Do we draw these corners        
+not face up? Of course not.     
+
+704
+00:37:49,968 --> 00:37:52,702
+We don't want the back of the   
+card to have that. That would   
+
+705
+00:37:52,771 --> 00:37:55,171
+make it really easy to play     
+a lot of games if the back of   
+
+706
+00:37:55,240 --> 00:37:57,574
+the card had corners on it.     
+We don't want that,             
+
+707
+00:37:57,642 --> 00:38:01,577
+so I'm going to configure       
+the label to be hidden,         
+
+708
+00:38:01,646 --> 00:38:07,817
+not highlighted.                
+Hidden, if we're not face up.   
+
+709
+00:38:07,886 --> 00:38:10,586
+Okay? So if we're face down,    
+then I'm gonna be hidden.       
+
+710
+00:38:10,655 --> 00:38:12,288
+So here's the example           
+of using Hidden.                
+
+711
+00:38:12,357 --> 00:38:14,791
+It keeps it in the Subviews,    
+list, in everything,            
+
+712
+00:38:14,860 --> 00:38:17,760
+keeps it in the right           
+position, just hides it. Okay?  
+
+713
+00:38:17,829 --> 00:38:19,595
+Instead, we're gonna draw       
+the back of our card,           
+
+714
+00:38:19,664 --> 00:38:22,665
+whatever that looks like.       
+Okay. It's a good example       
+
+715
+00:38:22,733 --> 00:38:26,469
+using isHidden right there.     
+Okay. It should work.           
+
+716
+00:38:26,538 --> 00:38:28,204
+Let's take a look and           
+see if we can get that upper,   
+
+717
+00:38:28,272 --> 00:38:34,243
+at least this upper left        
+one to draw. There it is.       
+
+718
+00:38:34,312 --> 00:38:36,846
+Five of hearts. It looks good.  
+Let's see if it works when we   
+
+719
+00:38:36,914 --> 00:38:40,049
+go to landscape. Whoa! Not      
+only it's right position, but   
+
+720
+00:38:40,117 --> 00:38:43,186
+look, it's smaller because      
+the card is shorter, so         
+
+721
+00:38:43,255 --> 00:38:47,490
+we don't wanna use half         
+the card with our big font.     
+
+722
+00:38:48,960 --> 00:38:51,694
+So that's good. What about      
+the other corner? Okay,         
+
+723
+00:38:51,763 --> 00:38:54,430
+well the other corner is        
+a little harder to position     
+
+724
+00:38:54,499 --> 00:38:57,433
+because our origin's            
+in the upper left and           
+
+725
+00:38:57,502 --> 00:38:58,835
+we're trying to put away        
+down to the lower right.        
+
+726
+00:38:58,903 --> 00:39:00,670
+But it's not that bad,          
+so let's just try and           
+
+727
+00:39:00,739 --> 00:39:04,473
+do it. This is our              
+lowerRightCornerLabel. It's     
+
+728
+00:39:04,542 --> 00:39:08,578
+frame.origin. Well, I'm gonna   
+build this incrementally. I'm   
+
+729
+00:39:08,647 --> 00:39:13,249
+gonna start by making a point,  
+which is my bounds.maxX, so     
+
+730
+00:39:13,318 --> 00:39:17,520
+all the way over to the right,  
+and y is my bounds.maxY,        
+
+731
+00:39:17,589 --> 00:39:21,324
+that's all the way down         
+to the bottom. Okay? But        
+
+732
+00:39:21,393 --> 00:39:23,993
+I can't put it there. If I try  
+to put it there, here let's     
+
+733
+00:39:24,062 --> 00:39:29,131
+draw a little picture so you    
+can see. I'm drawing the lower  
+
+734
+00:39:29,200 --> 00:39:32,902
+edge now. Okay, here's my       
+lower edge of my card and       
+
+735
+00:39:32,971 --> 00:39:36,639
+I'm trying to put this thing    
+here. So I can't put it here.   
+
+736
+00:39:36,708 --> 00:39:39,142
+If I put it where this is,      
+this would be the origin,       
+
+737
+00:39:39,210 --> 00:39:42,245
+it would be down here, not      
+even on the card. So I need to  
+
+738
+00:39:42,314 --> 00:39:46,449
+move this point first inside    
+the corner offset, then,        
+
+739
+00:39:46,517 --> 00:39:50,320
+the whole distance of           
+the width and height of this    
+
+740
+00:39:50,388 --> 00:39:53,555
+little thing, so I need to      
+kinda make a double jump here   
+
+741
+00:39:53,624 --> 00:39:56,726
+to get this origin up here, so  
+this will draw there. Okay, so  
+
+742
+00:39:56,795 --> 00:39:58,727
+I'm just gonna do               
+double offset by.               
+
+743
+00:39:58,796 --> 00:40:03,399
+The first offset by I'm gonna   
+do is -cornerOffset and         
+
+744
+00:40:03,468 --> 00:40:08,438
+-cornerOffset that gets         
+me pass the roundedRect.        
+
+745
+00:40:08,507 --> 00:40:12,141
+Then I'm gonna offset again     
+
+746
+00:40:12,210 --> 00:40:16,980
+-lowerRightCornerLabel.frame.-  
+size.width,                     
+
+747
+00:40:17,048 --> 00:40:20,749
+and                             
+-lowerRightCornerlabel.frame.-  
+
+748
+00:40:20,818 --> 00:40:25,187
+size.height. You see how        
+I had to move the origin        
+
+749
+00:40:25,256 --> 00:40:27,723
+back up there, everybody        
+cool with that. Okay, so        
+
+750
+00:40:27,792 --> 00:40:31,561
+that positions it, this is      
+wrong, cornerOffset, right?     
+
+751
+00:40:31,629 --> 00:40:35,498
+So that position is it, of      
+course we have to configure it  
+
+752
+00:40:35,566 --> 00:40:38,701
+as well. So let's just do       
+the exact same thing here but   
+
+753
+00:40:38,769 --> 00:40:42,037
+we're gonna configure our       
+lower right. Because it needs   
+
+754
+00:40:42,106 --> 00:40:44,774
+to be configured in exact same  
+way. And use the corner string  
+
+755
+00:40:44,842 --> 00:40:50,647
+whatever, so, let's see what    
+it looks like. Lower right,     
+
+756
+00:40:50,715 --> 00:40:55,852
+oops. I didn't finish there     
+lowerRightCornerLabel,          
+
+757
+00:40:55,920 --> 00:41:05,295
+all right Okay,                 
+whoa interesting.               
+
+758
+00:41:05,363 --> 00:41:07,597
+Well that's not                 
+quite right is it?              
+
+759
+00:41:07,665 --> 00:41:12,268
+Okay, it's in the right         
+spot but that five hearts       
+
+760
+00:41:12,337 --> 00:41:16,038
+should be upside down, right?   
+If you look at a card,          
+
+761
+00:41:16,107 --> 00:41:19,842
+a playing card that would       
+be upside down, okay.           
+
+762
+00:41:19,910 --> 00:41:23,012
+So, how the heck am I gonna     
+turn that thing upside down.    
+
+763
+00:41:23,081 --> 00:41:25,514
+Well, that turns out            
+to be super easy                
+
+764
+00:41:25,583 --> 00:41:30,019
+in iOS because every            
+view has a var on it,           
+
+765
+00:41:30,087 --> 00:41:35,591
+lowerRightCornerLabel has       
+a var and it called transform.  
+
+766
+00:41:35,660 --> 00:41:38,428
+And transform is what's         
+called an affine transform,     
+
+767
+00:41:38,496 --> 00:41:41,864
+how many people know what       
+an affine transform is? Okay,   
+
+768
+00:41:41,933 --> 00:41:43,199
+nobody, basically, almost.      
+
+769
+00:41:43,268 --> 00:41:45,234
+So an affine transform          
+is really simple,               
+
+770
+00:41:45,302 --> 00:41:49,772
+it's just a blob, a thing       
+that represents a scale,        
+
+771
+00:41:49,841 --> 00:41:53,542
+a translation, and a rotation.  
+Okay, just those three things.  
+
+772
+00:41:53,611 --> 00:41:57,146
+So you can take a UI view and   
+rotate it, scale it, and        
+
+773
+00:41:57,215 --> 00:42:00,816
+translate it all you want with  
+just this one little var. Now   
+
+774
+00:42:00,885 --> 00:42:02,885
+of course we are positioning    
+things with the frame and       
+
+775
+00:42:02,953 --> 00:42:05,721
+stuff like that, but this is    
+an additional way to control    
+
+776
+00:42:05,790 --> 00:42:07,690
+it's positioning,               
+scaling, and rotation.          
+
+777
+00:42:07,759 --> 00:42:11,627
+Now this is all going to        
+be bit wise translation. So     
+
+778
+00:42:11,695 --> 00:42:14,763
+it's going to be translating    
+the bits. So if you make it     
+
+779
+00:42:14,832 --> 00:42:18,267
+bigger, it might look kind      
+of jaggy, edged, pixellated.    
+
+780
+00:42:18,336 --> 00:42:21,037
+But we're not going to make it  
+bigger. Instead, we just want   
+
+781
+00:42:21,106 --> 00:42:25,574
+to rotate it. So you might      
+think we can just do this.      
+
+782
+00:42:25,643 --> 00:42:28,745
+Let's take                      
+the AffineTransform.identity    
+
+783
+00:42:28,813 --> 00:42:31,881
+transform, so that means        
+unrotated, unscaled,            
+
+784
+00:42:31,949 --> 00:42:33,816
+untranslated, just              
+an identity. And                
+
+785
+00:42:33,885 --> 00:42:35,785
+you think I could               
+just say rotate it.             
+
+786
+00:42:35,854 --> 00:42:37,953
+By the way, transform           
+only has three methods.         
+
+787
+00:42:38,022 --> 00:42:40,890
+Rotate, transform, and scale,   
+that's all it's got. So,        
+
+788
+00:42:40,959 --> 00:42:43,793
+if I created a rotated one,     
+how much would I want to        
+
+789
+00:42:43,862 --> 00:42:47,296
+rotate this if I wanted to      
+turn it upside down? Okay,      
+
+790
+00:42:47,365 --> 00:42:51,233
+in radians? Pi, right?          
+Cuz I want to turn,             
+
+791
+00:42:51,302 --> 00:42:54,770
+turn half way around okay, so   
+it's upside down. So I could    
+
+792
+00:42:54,839 --> 00:42:59,641
+just say CGFloat.pi, but        
+this would not actually work.   
+
+793
+00:42:59,710 --> 00:43:02,311
+This is close but doesn't work  
+so let me show you why that's   
+
+794
+00:43:02,380 --> 00:43:05,681
+not gonna quite work. So if     
+this paper here would do this.  
+
+795
+00:43:05,750 --> 00:43:09,952
+Okay, so here's my corner       
+right here and here's where     
+
+796
+00:43:10,020 --> 00:43:14,357
+this five hearts thing is       
+right now. It's, right side up  
+
+797
+00:43:14,425 --> 00:43:17,293
+like this. Actually here we'll  
+do on a piece of paper. So      
+
+798
+00:43:17,362 --> 00:43:21,497
+here's my five of hearts.       
+And I want it to be             
+
+799
+00:43:21,565 --> 00:43:25,601
+upside down like this, right?   
+Okay, that's what I want.       
+
+800
+00:43:25,670 --> 00:43:29,939
+But, if I rotate it, it         
+rotates around the origin. And  
+
+801
+00:43:30,008 --> 00:43:33,909
+our origin's upper left.        
+So if I rotate it, Pi, whoa,    
+
+802
+00:43:33,978 --> 00:43:38,014
+it's gonna be up there.         
+You see the problem? So         
+
+803
+00:43:38,082 --> 00:43:40,249
+it will be upside down but      
+not in the right place.         
+
+804
+00:43:40,318 --> 00:43:43,052
+So I need to both rotate        
+it and translate it. So         
+
+805
+00:43:43,120 --> 00:43:46,022
+what I'm gonna do is I'm gonna  
+translate it first down to      
+
+806
+00:43:46,090 --> 00:43:50,993
+here to its other corner then   
+I'm gonna rotate it. Woho,      
+
+807
+00:43:51,061 --> 00:43:52,261
+it's gonna work.                
+
+808
+00:43:52,330 --> 00:43:56,932
+Okays So let's do that. Where   
+are we, where is my rotator?    
+
+809
+00:43:57,001 --> 00:43:58,867
+Here's the rotator so I'm       
+going to keep that rotated.     
+
+810
+00:43:58,936 --> 00:44:05,274
+I still want to do              
+.rotated but I want             
+
+811
+00:44:05,342 --> 00:44:08,611
+to do a translate first so      
+I'm going to stay .translated   
+
+812
+00:44:08,680 --> 00:44:11,413
+by and how much do I want       
+to translate by? I want to      
+
+813
+00:44:11,482 --> 00:44:16,219
+translate by the whole width    
+and height of my lower right.   
+
+814
+00:44:16,287 --> 00:44:23,226
+lowerRightCornerLabel.frame.s-  
+ize.width and                   
+
+815
+00:44:23,294 --> 00:44:28,764
+the                             
+lowerRightCornerLabel.frame.s-  
+
+816
+00:44:28,833 --> 00:44:32,935
+ize.height. So I'm taking the   
+identity, I'm translating it    
+
+817
+00:44:33,004 --> 00:44:37,840
+down to the corner, then I'm    
+rotating it. I could also       
+
+818
+00:44:37,908 --> 00:44:40,843
+have kinda translated it to     
+the center and rotate it and    
+
+819
+00:44:40,912 --> 00:44:43,946
+then move back. That's          
+another way commonly to do      
+
+820
+00:44:44,014 --> 00:44:46,983
+that rotation. But here we go,  
+it's upside down and            
+
+821
+00:44:47,051 --> 00:44:51,854
+it works, even in other         
+bounced sizes. Okay,            
+
+822
+00:44:51,923 --> 00:44:54,456
+excellent, so we've used        
+the subview. We've used layout  
+
+823
+00:44:54,525 --> 00:44:56,992
+subviews to make it always      
+be in the right position,       
+
+824
+00:44:57,061 --> 00:45:00,929
+all is looking well.            
+Let's go check and              
+
+825
+00:45:00,998 --> 00:45:04,433
+make sure that our slider,      
+
+826
+00:45:04,502 --> 00:45:08,004
+remember this slider over here  
+in settings. Remember we can    
+
+827
+00:45:08,072 --> 00:45:09,872
+set it larger, let's go         
+make sure this is working.      
+
+828
+00:45:09,941 --> 00:45:13,809
+I'm going to set this to        
+quite a large size font. And    
+
+829
+00:45:13,877 --> 00:45:16,345
+hopefully when I                
+go back to my app,              
+
+830
+00:45:16,414 --> 00:45:21,049
+it should have a large          
+font but it doesn't.            
+
+831
+00:45:21,118 --> 00:45:24,187
+Why doesn't it have a large     
+font? That is weird.            
+
+832
+00:45:24,255 --> 00:45:28,090
+Well actually, it does,         
+it's just it never redrew.      
+
+833
+00:45:28,159 --> 00:45:31,994
+If I change my bounce,          
+and flip back,                  
+
+834
+00:45:32,062 --> 00:45:36,064
+now I get see the large font.   
+So that's a problem.            
+
+835
+00:45:36,133 --> 00:45:40,903
+When that slider moves we need  
+to find out that it moved. And  
+
+836
+00:45:40,972 --> 00:45:43,672
+you can do that in view         
+with a function called          
+
+837
+00:45:43,741 --> 00:45:48,143
+TraitCollectionDidChange. So    
+
+838
+00:45:48,212 --> 00:45:51,146
+traits, we're gonna talk about  
+traits in a couple of weeks.    
+
+839
+00:45:51,215 --> 00:45:55,284
+Traits have a lot to do with    
+are you rotate, are you         
+
+840
+00:45:55,352 --> 00:45:57,820
+landscape, are you portrait,    
+things like that are traits.    
+
+841
+00:45:57,888 --> 00:46:01,557
+But also, your size category    
+in general for your font. So    
+
+842
+00:46:01,626 --> 00:46:04,526
+trait collection gets called    
+whenever those things change.   
+
+843
+00:46:04,595 --> 00:46:09,565
+Here, I'm just going            
+to setNeedsDisplay and          
+
+844
+00:46:09,634 --> 00:46:13,368
+setNeedsLayout, okay.           
+So with my traits,              
+
+845
+00:46:13,437 --> 00:46:16,139
+the thing that control          
+how we draw change,             
+
+846
+00:46:16,207 --> 00:46:20,709
+then I'm gonna redraw.          
+So now if we go back,           
+
+847
+00:46:20,778 --> 00:46:22,911
+right now our fonts are big     
+if we set them big,             
+
+848
+00:46:22,980 --> 00:46:25,514
+so they're gonna start out      
+big. And after I go back and    
+
+849
+00:46:25,583 --> 00:46:30,085
+set them to be small            
+over here in my settings,       
+
+850
+00:46:30,154 --> 00:46:35,657
+go back to normal size, oops,   
+sorry. I'm gonna, got that,     
+
+851
+00:46:35,726 --> 00:46:41,330
+what? There we go, so set it    
+back to normal. Just go here,   
+
+852
+00:46:41,398 --> 00:46:43,799
+go back to our playing card     
+and it rejoint normal.          
+
+853
+00:46:43,867 --> 00:46:47,636
+Okay, because it found out      
+that that slider had moved. So  
+
+854
+00:46:47,704 --> 00:46:49,972
+minor little thing you've got   
+to remember to do this and      
+
+855
+00:46:50,041 --> 00:46:54,610
+we'll talk a lot more about     
+traits down the road. Let's go  
+
+856
+00:46:54,678 --> 00:46:58,414
+back, and do a little bit of    
+layout stuff, take a little     
+
+857
+00:46:58,482 --> 00:47:02,150
+break from drawing our card,    
+and do layout. So right now,    
+
+858
+00:47:02,219 --> 00:47:04,754
+we've got this thing where      
+this card takes up the whole    
+
+859
+00:47:04,822 --> 00:47:07,556
+space, actually, I'm gonna      
+make the card wide again so we  
+
+860
+00:47:07,625 --> 00:47:09,858
+can see it a little better. So  
+I'm just going back here and    
+
+861
+00:47:09,927 --> 00:47:15,330
+make it wide, so this card      
+is not really card-shaped.      
+
+862
+00:47:15,399 --> 00:47:18,734
+Cards are not tall and thin     
+like that and they certainly,   
+
+863
+00:47:18,802 --> 00:47:23,105
+cards are definitely not        
+like this card over here,       
+
+864
+00:47:23,174 --> 00:47:25,874
+no cards look like that.        
+That's ridiculous,              
+
+865
+00:47:25,943 --> 00:47:29,545
+we don't want that. We want it  
+to look more like a card, and   
+
+866
+00:47:29,614 --> 00:47:31,346
+what makes a card look          
+like a card? Well,              
+
+867
+00:47:31,415 --> 00:47:35,450
+it's its aspect ratio. Right,   
+the width, the relationship of  
+
+868
+00:47:35,519 --> 00:47:38,954
+the width to the height, so we  
+want to change that. So to do   
+
+869
+00:47:39,022 --> 00:47:42,757
+that we can't have the edges    
+pinned to the edges anymore.    
+
+870
+00:47:42,826 --> 00:47:46,462
+So let's take our constraints   
+to the pin it to the edges and  
+
+871
+00:47:46,530 --> 00:47:49,631
+instead of making them pinned   
+let's make them be greater      
+
+872
+00:47:49,700 --> 00:47:53,468
+than or equal so that we, our   
+card doesn't go off the edges   
+
+873
+00:47:53,537 --> 00:47:55,538
+but it's not pinned to          
+the edges either. So            
+
+874
+00:47:55,606 --> 00:47:58,974
+how do we do that easily,       
+or you can find out all         
+
+875
+00:47:59,043 --> 00:48:02,344
+the constraints that are on a   
+view by just selecting it and   
+
+876
+00:48:02,412 --> 00:48:05,547
+going to this other inspector   
+on the other side of your       
+
+877
+00:48:05,616 --> 00:48:09,151
+attributes inspector,           
+called the size inspector.      
+
+878
+00:48:09,219 --> 00:48:12,388
+See here's my constraints,      
+these are my four constraints.  
+
+879
+00:48:12,457 --> 00:48:15,658
+So even as I mouse over them,   
+look, they highlight.           
+
+880
+00:48:15,726 --> 00:48:18,160
+So, right now they're all       
+equals, they're pinned.         
+
+881
+00:48:18,228 --> 00:48:21,430
+Okay, equal sixteen, pinned     
+to the edge, equal sixteen.     
+
+882
+00:48:21,498 --> 00:48:23,532
+You can change that equals      
+just by editing them and        
+
+883
+00:48:23,601 --> 00:48:24,800
+changing it to greater than.    
+
+884
+00:48:24,869 --> 00:48:27,769
+We actually did this last       
+time and we can do that for     
+
+885
+00:48:27,838 --> 00:48:30,973
+all of ours. Just let them      
+all just be advisory.           
+
+886
+00:48:31,041 --> 00:48:34,310
+And let's not do the bottom     
+right up against the bottom,    
+
+887
+00:48:34,378 --> 00:48:37,513
+let's go ahead and just do      
+greater than or equal to. And   
+
+888
+00:48:37,582 --> 00:48:40,248
+same thing here, greater than   
+or equal to and we'll do 16.    
+
+889
+00:48:40,317 --> 00:48:43,219
+So it's at least                
+the same on all sides.          
+
+890
+00:48:43,287 --> 00:48:47,523
+So now, these constraints on    
+the edge are just advisory.     
+
+891
+00:48:47,592 --> 00:48:51,727
+They're just saying make sure   
+you don't go past 16 points     
+
+892
+00:48:51,796 --> 00:48:54,329
+from the edge.                  
+So that's great. But now,       
+
+893
+00:48:54,398 --> 00:48:58,467
+the lines are all red, you see  
+how everything's turned red?    
+
+894
+00:48:58,536 --> 00:49:01,837
+That's because we no longer     
+specify where this card's       
+
+895
+00:49:01,906 --> 00:49:04,840
+supposed to be anymore.         
+Since we're not pinning it to   
+
+896
+00:49:04,909 --> 00:49:08,144
+the edges, where it's supposed  
+to be. Well, let's first fix    
+
+897
+00:49:08,212 --> 00:49:11,780
+this aspect ratio problem.      
+Okay, I want the card to        
+
+898
+00:49:11,848 --> 00:49:15,751
+have an aspect ratio, you       
+know, kinda like the ad or so.  
+
+899
+00:49:15,819 --> 00:49:19,988
+Basically, five across to       
+eight down seems to be typical  
+
+900
+00:49:20,057 --> 00:49:22,758
+card ratio. And                 
+it turns out you can            
+
+901
+00:49:22,827 --> 00:49:26,295
+fix the ratio of a view         
+by doing control drag.          
+
+902
+00:49:26,364 --> 00:49:28,830
+But you don't control drag to   
+another view like we do when    
+
+903
+00:49:28,899 --> 00:49:33,101
+we're pinning to the edge.      
+You control drag to itself.     
+
+904
+00:49:33,170 --> 00:49:34,636
+When you control                
+back to itself,                 
+
+905
+00:49:34,705 --> 00:49:37,506
+you're offered the option of    
+fixing the width, the height,   
+
+906
+00:49:37,574 --> 00:49:40,175
+or the aspect ratio of this     
+view. So I'm gonna fix          
+
+907
+00:49:40,244 --> 00:49:43,779
+the aspect ratio. So now,       
+I've added a constraint,look    
+
+908
+00:49:43,847 --> 00:49:46,415
+at it over here,                
+that fixes the aspect ratio.    
+
+909
+00:49:46,484 --> 00:49:50,519
+Now of course, I don't want     
+aspect ratio to be 259 to 461.  
+
+910
+00:49:50,588 --> 00:49:55,357
+So I'm gonna edit to            
+make it five to eight.          
+
+911
+00:49:55,426 --> 00:49:57,159
+So I fixed this after that.     
+
+912
+00:49:57,228 --> 00:49:59,961
+This still doesn't say          
+anything about where the thing  
+
+913
+00:50:00,030 --> 00:50:02,565
+is supposed to be or what       
+size it's supposed to be or     
+
+914
+00:50:02,633 --> 00:50:05,267
+anything like that. So let's    
+put another constraint that     
+
+915
+00:50:05,336 --> 00:50:07,002
+says it's gonna be              
+right in the middle.            
+
+916
+00:50:07,071 --> 00:50:09,538
+So you see how I used the dash  
+blue lines to drop it           
+
+917
+00:50:09,606 --> 00:50:13,542
+perfectly in the middle? Now    
+I'm gonna control drag from     
+
+918
+00:50:13,610 --> 00:50:17,679
+the card back to my outer view  
+right here. And this time,      
+
+919
+00:50:17,748 --> 00:50:20,616
+instead of doing trailing in    
+top which I already have those  
+
+920
+00:50:20,685 --> 00:50:23,419
+greater than or equal to ones,  
+I'm gonna pick center,          
+
+921
+00:50:23,487 --> 00:50:26,756
+horizontally, and vertically.   
+And you notice this says,       
+
+922
+00:50:26,824 --> 00:50:30,025
+horizontally and                
+vertically in safe area. So     
+
+923
+00:50:30,094 --> 00:50:32,394
+every view knows                
+it's safe area.                 
+
+924
+00:50:32,463 --> 00:50:36,632
+It's safe area is the place it  
+can draw without overriding or  
+
+925
+00:50:36,700 --> 00:50:39,835
+impinging upon other            
+views space. So for this        
+
+926
+00:50:39,903 --> 00:50:43,605
+orange view, it's safe area     
+does not include this place     
+
+927
+00:50:43,674 --> 00:50:46,942
+where the facial recognition    
+and the time of day.            
+
+928
+00:50:47,011 --> 00:50:48,577
+All that up here, so            
+it wouldn't draw up there.      
+
+929
+00:50:48,645 --> 00:50:51,746
+It also does not include        
+this little bar down here.      
+
+930
+00:50:51,815 --> 00:50:54,449
+If there were bar buttons       
+along the bottom or a title     
+
+931
+00:50:54,518 --> 00:50:57,286
+across the top, it wouldn't     
+include that either and         
+
+932
+00:50:57,355 --> 00:51:00,656
+that's all automatic and not    
+only automatic, as it changes.  
+
+933
+00:51:00,725 --> 00:51:02,992
+This constraints will           
+automatically adjust to that.   
+
+934
+00:51:03,060 --> 00:51:05,560
+So, if you put a title on       
+the top of this view and        
+
+935
+00:51:05,629 --> 00:51:08,864
+let's say very move down, then  
+my card would move down to be   
+
+936
+00:51:08,933 --> 00:51:11,733
+the center of the new safe      
+area. So that's what safe       
+
+937
+00:51:11,802 --> 00:51:15,871
+areas all about. We are always  
+creating constraints between    
+
+938
+00:51:15,939 --> 00:51:20,041
+view safe areas, all right?     
+Okay, so now I've said where    
+
+939
+00:51:20,110 --> 00:51:23,579
+it is but things are still      
+red. Why are they still red?    
+
+940
+00:51:23,647 --> 00:51:26,314
+Well, because I haven't         
+said how big this view is.      
+
+941
+00:51:26,383 --> 00:51:28,784
+I've said what it's aspect      
+ratio is and where it is and    
+
+942
+00:51:28,853 --> 00:51:30,853
+I've said that it can't         
+go pass the edges but           
+
+943
+00:51:30,921 --> 00:51:33,889
+I haven't said what size it     
+is. A very small card would     
+
+944
+00:51:33,958 --> 00:51:37,359
+satisfy all this constraints    
+over here, right?               
+
+945
+00:51:37,427 --> 00:51:39,961
+Very small card would be going  
+out the edges. It could be      
+
+946
+00:51:40,030 --> 00:51:42,965
+the right aspect of ratio, it   
+could be the middle or larger   
+
+947
+00:51:43,033 --> 00:51:45,934
+cards that doesn't go out to    
+the edges, could fulfill all    
+
+948
+00:51:46,003 --> 00:51:50,005
+these, all right? So, how do I  
+tell the system, I want you to  
+
+949
+00:51:50,074 --> 00:51:53,775
+be as big as possible and       
+still satisfy this? Well,       
+
+950
+00:51:53,844 --> 00:51:57,979
+I'm gonna do that by pinning.   
+By dragging to myself,          
+
+951
+00:51:58,048 --> 00:52:01,416
+my width. And I'm gonna set my  
+width which is currently 259,   
+
+952
+00:52:01,485 --> 00:52:04,553
+I'm gonna edit it. By the way,  
+that fix the problem cuz now    
+
+953
+00:52:04,621 --> 00:52:07,022
+look no red because I've        
+set how high it is.             
+
+954
+00:52:07,091 --> 00:52:11,726
+But I want it to be bigger.     
+I'm gonna say I want it to be,  
+
+955
+00:52:11,795 --> 00:52:16,465
+let's say 800 wide.             
+Okay, now as soon as try to     
+
+956
+00:52:16,534 --> 00:52:19,467
+have a constraint to            
+say this is 800 wide.           
+
+957
+00:52:19,536 --> 00:52:23,672
+Wow, we went red again.         
+Now why are we red? We're red   
+
+958
+00:52:23,741 --> 00:52:27,075
+now because these constraints   
+can not be satisfied.           
+
+959
+00:52:27,144 --> 00:52:30,112
+There is no way you can         
+be 800 wide and also no         
+
+960
+00:52:30,180 --> 00:52:33,382
+go off the edge. Basically,     
+so that's the problem.          
+
+961
+00:52:33,451 --> 00:52:35,951
+Now, how are we gonna           
+fix this? Well all these        
+
+962
+00:52:36,019 --> 00:52:39,488
+other constraints besides       
+the width I got to have those.  
+
+963
+00:52:39,557 --> 00:52:41,123
+If I don't have those           
+edge constraints,               
+
+964
+00:52:41,191 --> 00:52:43,458
+it could go off the edge,       
+got to have it. Aspect ratio,   
+
+965
+00:52:43,527 --> 00:52:45,994
+that's what I want card to      
+look like, got to have it.      
+
+966
+00:52:46,062 --> 00:52:48,597
+In the centre, I definitely     
+want the card in the centre.    
+
+967
+00:52:48,666 --> 00:52:51,433
+Width, well I wanted            
+it to be 800 but                
+
+968
+00:52:51,501 --> 00:52:53,835
+really I just wanted            
+it to be big.                   
+
+969
+00:52:53,904 --> 00:52:57,239
+So, that 800 width is           
+not as important to me,         
+
+970
+00:52:57,308 --> 00:53:00,909
+in other words, it's lower      
+priority constraint.            
+
+971
+00:53:00,978 --> 00:53:03,478
+So, I can tell the system       
+that by going over here and     
+
+972
+00:53:03,547 --> 00:53:06,415
+editing this constraint,        
+and changing it's priority.     
+
+973
+00:53:06,483 --> 00:53:08,850
+You see priority                
+1,000 right there?              
+
+974
+00:53:08,919 --> 00:53:12,621
+That's is the max priority,     
+that is required priority.      
+
+975
+00:53:12,689 --> 00:53:16,058
+So, we can pick any priority    
+less than a 1,000 cuz all of    
+
+976
+00:53:16,127 --> 00:53:18,793
+these are at 1,000. And         
+this will be less important.    
+
+977
+00:53:18,862 --> 00:53:21,630
+So we'll still try to           
+satisfy it as best we can.      
+
+978
+00:53:21,698 --> 00:53:24,466
+But it won't override           
+any of the other ones.          
+
+979
+00:53:24,535 --> 00:53:26,100
+We do that by clicking          
+on the priority.                
+
+980
+00:53:26,169 --> 00:53:27,636
+We could type a number, or      
+
+981
+00:53:27,705 --> 00:53:29,972
+we can pick some kind           
+of well known ones,             
+
+982
+00:53:30,040 --> 00:53:33,641
+like high priority.             
+And whoa, look what happened.   
+
+983
+00:53:33,710 --> 00:53:36,111
+All the red went away, it made  
+the thing as big as it could.   
+
+984
+00:53:36,180 --> 00:53:38,247
+It's still satisfying           
+all the constraints.            
+
+985
+00:53:38,316 --> 00:53:41,783
+It's doing that both here and   
+over here.                      
+
+986
+00:53:41,852 --> 00:53:44,753
+See, it made it as big as it    
+could and still have that       
+
+987
+00:53:44,821 --> 00:53:48,857
+five to eight aspect            
+ratio in the middle. So,        
+
+988
+00:53:48,926 --> 00:53:52,894
+that's the magic of constraint  
+priorities, okay. Making        
+
+989
+00:53:52,963 --> 00:53:55,830
+constraints that don't matter   
+as much have lower priority.    
+
+990
+00:53:55,899 --> 00:53:59,168
+So we'll try to give you as     
+much of them as it can but      
+
+991
+00:53:59,236 --> 00:54:02,237
+it will give in on those        
+lower priority ones.            
+
+992
+00:54:02,305 --> 00:54:05,441
+Everybody cool with that?       
+Okay, so now we got this thing  
+
+993
+00:54:05,509 --> 00:54:08,043
+looking more like a card.       
+It's got a card aspect ratio.   
+
+994
+00:54:08,112 --> 00:54:12,514
+So let's turn it back to        
+clear, here. And go back to     
+
+995
+00:54:12,583 --> 00:54:15,583
+drawing it, because we still    
+have only done the corners and  
+
+996
+00:54:15,652 --> 00:54:18,887
+we need to do the rest. So      
+let's next to do the face in    
+
+997
+00:54:18,956 --> 00:54:23,025
+the middle and of a face card,  
+we need some kind of image.     
+
+998
+00:54:23,094 --> 00:54:25,727
+I'm going to do that            
+by drawing an image,            
+
+999
+00:54:25,796 --> 00:54:28,930
+and I just happen to have       
+over here, somewhere,           
+
+1000
+00:54:28,999 --> 00:54:30,965
+not this. This guy right here.  
+
+1001
+00:54:31,034 --> 00:54:34,836
+Face cards, a bunch of face     
+card images. Woohoo, okay.      
+
+1002
+00:54:34,905 --> 00:54:38,640
+And I'm just gonna drag all     
+these images into my project.   
+
+1003
+00:54:38,709 --> 00:54:41,142
+Well, where do I put them?      
+That's what this                
+
+1004
+00:54:41,211 --> 00:54:45,847
+Assets.xeassets is for, the     
+place where the icon was here.  
+
+1005
+00:54:45,916 --> 00:54:47,716
+You can drag any images         
+you want in here.               
+
+1006
+00:54:47,784 --> 00:54:51,052
+So, I can go grab all of these  
+images, drag them all in.       
+
+1007
+00:54:51,121 --> 00:54:54,156
+Now when I do that, it looks    
+like some of them didn't come   
+
+1008
+00:54:54,225 --> 00:54:56,157
+in, these ones that say @2x.    
+
+1009
+00:54:56,226 --> 00:55:00,362
+You see, @2x? No, those didn't  
+drag in. Yes, they did.         
+
+1010
+00:55:00,430 --> 00:55:04,266
+That @2x means it's the same    
+as the one that doesn't have    
+
+1011
+00:55:04,334 --> 00:55:07,068
+@2x, but                        
+it's twice the resolution.      
+
+1012
+00:55:07,137 --> 00:55:11,273
+So it put them as a 2x          
+version, twice resolution.      
+
+1013
+00:55:11,342 --> 00:55:15,510
+Now, some devices have three x  
+resolution, like iPhone plus    
+
+1014
+00:55:15,579 --> 00:55:18,880
+for example. I don't have any   
+cards in that resolution so     
+
+1015
+00:55:18,949 --> 00:55:21,383
+it'll fall back to using        
+the 2x resolution.              
+
+1016
+00:55:21,451 --> 00:55:25,721
+But I probably should add 3x    
+resolutions to all my cards.    
+
+1017
+00:55:25,789 --> 00:55:28,022
+Now these jpegs                 
+that I dragged in,              
+
+1018
+00:55:28,091 --> 00:55:30,993
+this is telling me the name     
+of it. And it got it from       
+
+1019
+00:55:31,061 --> 00:55:33,428
+the file name of the jpeg, but  
+you can rename these to be      
+
+1020
+00:55:33,497 --> 00:55:34,329
+whatever you want.              
+
+1021
+00:55:34,398 --> 00:55:38,533
+I've conveniently named them    
+Rank suit. Okay? So that I can  
+
+1022
+00:55:38,602 --> 00:55:43,539
+find them. And putting these    
+images in my face card is just  
+
+1023
+00:55:43,607 --> 00:55:47,376
+a matter in my draw(rect) of    
+looking these up by name. So    
+
+1024
+00:55:47,444 --> 00:55:50,311
+let's go to our playing card    
+view. Back to our draw rect     
+
+1025
+00:55:50,380 --> 00:55:56,184
+where we draw our roundedRect   
+here. Now we're gonna say if.   
+
+1026
+00:55:56,253 --> 00:56:01,089
+We can let                      
+the facecardimage =, better     
+
+1027
+00:56:01,157 --> 00:56:05,894
+go wide here, = UIImage.        
+So UIImage is a thing that      
+
+1028
+00:56:05,963 --> 00:56:09,331
+represents an image, and if     
+you look at its constructors,   
+
+1029
+00:56:09,399 --> 00:56:12,067
+it has quite a few, but         
+one of the ones it has is,      
+
+1030
+00:56:12,135 --> 00:56:16,137
+named. And now you just         
+specify the name, and this      
+
+1031
+00:56:16,206 --> 00:56:20,441
+name has to match this name     
+that's in xcassets over here.   
+
+1032
+00:56:20,510 --> 00:56:24,046
+Okay, so                        
+that is our rank string,        
+
+1033
+00:56:26,050 --> 00:56:30,953
+Plus our suit. Okay, so that    
+is the name. So if we're able   
+
+1034
+00:56:31,021 --> 00:56:33,555
+to find that then we must       
+have found a face card.         
+
+1035
+00:56:33,623 --> 00:56:35,857
+So now we're gonna just         
+put that face card image.       
+
+1036
+00:56:35,926 --> 00:56:39,861
+Draw it and                     
+we draw by saying .draw In and  
+
+1037
+00:56:39,930 --> 00:56:42,431
+I'm gonna draw it in my         
+bounds but actually I           
+
+1038
+00:56:42,499 --> 00:56:45,300
+don't really wanna draw that    
+face card in my full bounds,    
+
+1039
+00:56:45,369 --> 00:56:47,969
+it might smash into             
+the corners, right?             
+
+1040
+00:56:48,038 --> 00:56:50,271
+So I'm going to take            
+that bounds and                 
+
+1041
+00:56:50,340 --> 00:56:53,975
+zoom it down a little bit by    
+one of my constants down here,  
+
+1042
+00:56:54,044 --> 00:56:55,877
+this constant right here, so    
+
+1043
+00:56:55,946 --> 00:56:58,580
+this is                         
+SizeRatio.FaceCardImageSizeR-   
+
+1044
+00:56:58,648 --> 00:57:02,517
+atio and I currently have it    
+set to be 75%. So I'm gonna     
+
+1045
+00:57:02,586 --> 00:57:06,655
+have my face card be 75% of     
+the full size right there.      
+
+1046
+00:57:06,723 --> 00:57:09,491
+And that's it, that's all you   
+need to do to draw images.      
+
+1047
+00:57:09,559 --> 00:57:11,326
+Really easy to get              
+them by name and                
+
+1048
+00:57:11,395 --> 00:57:14,296
+then just draw them in some     
+rectangle. So let's go change   
+
+1049
+00:57:14,364 --> 00:57:18,633
+our card to be a face card,     
+how about, let's say a Jack,    
+
+1050
+00:57:18,702 --> 00:57:22,904
+11 is a Jack.                   
+Make sure this draws and        
+
+1051
+00:57:22,973 --> 00:57:26,241
+it should be 75% of             
+the size of card here.          
+
+1052
+00:57:26,310 --> 00:57:31,413
+There it is, it is and when we  
+rotate it draws it smaller.     
+
+1053
+00:57:31,481 --> 00:57:33,348
+Cuz it's drawing it             
+compared to our bounds,         
+
+1054
+00:57:33,417 --> 00:57:36,684
+which our bounds are changing   
+when we rotate. So              
+
+1055
+00:57:36,753 --> 00:57:40,021
+that's super cool. What about   
+pips? So what if we head        
+
+1056
+00:57:40,090 --> 00:57:43,858
+back to having the rank B5,     
+then in the middle we draw      
+
+1057
+00:57:43,927 --> 00:57:47,095
+five hearts, five little        
+hearts. Well, I'm not gonna     
+
+1058
+00:57:47,163 --> 00:57:50,632
+waste our lecture time going    
+through code that does that,    
+
+1059
+00:57:50,700 --> 00:57:52,100
+because it's pretty             
+straightforward code and        
+
+1060
+00:57:52,169 --> 00:57:53,234
+you're not gonna                
+learn anything new.             
+
+1061
+00:57:53,303 --> 00:57:54,502
+You can certainly               
+look at it offline,             
+
+1062
+00:57:54,571 --> 00:57:57,906
+I'll be posting this            
+code online. So                 
+
+1063
+00:57:57,975 --> 00:58:01,543
+I have it right here though,    
+it's called drawPips. So        
+
+1064
+00:58:01,612 --> 00:58:03,244
+there's this                    
+function drawPips.              
+
+1065
+00:58:03,313 --> 00:58:07,215
+The way it works is data        
+driven, so like for the five    
+
+1066
+00:58:07,284 --> 00:58:10,385
+rows goes two pips, and then    
+one pip in the middle, and      
+
+1067
+00:58:10,454 --> 00:58:12,921
+then two pips at the bottom,    
+right? Or an eight is two       
+
+1068
+00:58:12,989 --> 00:58:15,690
+two two and two, etc, so        
+it's just data driven. And      
+
+1069
+00:58:15,759 --> 00:58:18,193
+it literally just does a for    
+loop and goes through the for   
+
+1070
+00:58:18,262 --> 00:58:21,563
+loop and draws either           
+one pip or two pips and         
+
+1071
+00:58:21,632 --> 00:58:24,199
+just goes down and draws        
+however many rows there are.    
+
+1072
+00:58:24,267 --> 00:58:26,801
+It does have this kinda         
+cool little embedded func,      
+
+1073
+00:58:26,870 --> 00:58:30,238
+you notice that functions can   
+be inside functions in Swift.   
+
+1074
+00:58:30,306 --> 00:58:33,542
+This createPipString just       
+creates an attributed centered  
+
+1075
+00:58:33,610 --> 00:58:36,544
+string, but it does't have      
+the five. I's just the pip      
+
+1076
+00:58:36,613 --> 00:58:38,313
+part of it, but i's still       
+centered which is nice so       
+
+1077
+00:58:38,381 --> 00:58:41,115
+it draws it in the center of    
+the card. And it kinda picks    
+
+1078
+00:58:41,184 --> 00:58:43,885
+the size by guessing what       
+the right size would be and     
+
+1079
+00:58:43,954 --> 00:58:45,854
+seeing how big that is and      
+then adjusting it so            
+
+1080
+00:58:45,923 --> 00:58:48,423
+that it picks the perfect       
+size pip to fix,                
+
+1081
+00:58:48,492 --> 00:58:50,825
+to fit the space that's         
+available. So you can look and  
+
+1082
+00:58:50,894 --> 00:58:54,496
+see how I do that using center  
+attributed string there. Okay,  
+
+1083
+00:58:54,565 --> 00:58:58,366
+that's pretty much it. So if    
+it's not a face card, then we   
+
+1084
+00:58:58,435 --> 00:59:03,138
+want to drawPips, so let's see  
+if that works for our five.     
+
+1085
+00:59:09,313 --> 00:59:12,347
+Looks pretty good and let's     
+see, we'll rotate it, smaller,  
+
+1086
+00:59:12,416 --> 00:59:16,518
+it all got smaller. So          
+easy to do this stuff, right?   
+
+1087
+00:59:16,586 --> 00:59:20,955
+Now we kinda are at             
+a point with this thing,        
+
+1088
+00:59:21,024 --> 00:59:21,890
+there was one other thing,      
+sorry,                          
+
+1089
+00:59:21,959 --> 00:59:24,926
+we have to draw which is        
+the back of our card, okay.     
+
+1090
+00:59:24,994 --> 00:59:27,595
+So it really should only do     
+this stuff if it's face up,     
+
+1091
+00:59:27,664 --> 00:59:31,332
+all right. Should only do the   
+face card in the pips if it's   
+
+1092
+00:59:31,401 --> 00:59:33,835
+face up and we already made it  
+so that if it's not face up,    
+
+1093
+00:59:33,903 --> 00:59:37,139
+it hides our little labels,     
+right?                          
+
+1094
+00:59:37,207 --> 00:59:40,441
+It is hidden, hides our labels  
+so that's good. But if our      
+
+1095
+00:59:40,510 --> 00:59:44,312
+card is face-down then we need  
+to show the back of the card.   
+
+1096
+00:59:44,381 --> 00:59:46,114
+So I'm gonna do that            
+with an image as well.          
+
+1097
+00:59:46,182 --> 00:59:49,918
+I'm gonna say if let            
+cardBackImage = UIImage         
+
+1098
+00:59:54,224 --> 00:59:58,026
+again, named, and               
+I'm gonna call it cardback.     
+
+1099
+00:59:58,094 --> 00:59:59,327
+So I'm gonna look for           
+
+1100
+00:59:59,396 --> 01:00:02,931
+an image named cardback and if  
+I can find it, then I'm gonna   
+
+1101
+01:00:03,000 --> 01:00:05,600
+have draw in. And this time     
+I'm gonna draw it in my entire  
+
+1102
+01:00:05,669 --> 01:00:07,602
+bounds because it's not         
+gonna hit any corners,          
+
+1103
+01:00:07,670 --> 01:00:10,405
+the corners aren't there        
+because I'm face down. So       
+
+1104
+01:00:10,473 --> 01:00:13,608
+I need an image named           
+cardback. So I'm gonna over     
+
+1105
+01:00:13,677 --> 01:00:16,545
+here to assets and I have to    
+put an image called cardback.   
+
+1106
+01:00:16,614 --> 01:00:19,081
+So I'm gonna grab this          
+image right here,               
+
+1107
+01:00:19,149 --> 01:00:21,950
+it's my Stanford image.         
+And I'm just gonna rename       
+
+1108
+01:00:22,018 --> 01:00:25,186
+it right here to cardback,      
+so this is my cardback.         
+
+1109
+01:00:25,255 --> 01:00:27,655
+Notice it only has the lower    
+resolution version there,       
+
+1110
+01:00:27,724 --> 01:00:29,290
+it didn't have                  
+an add time 2X but              
+
+1111
+01:00:29,359 --> 01:00:33,261
+I can drag higher resolution    
+versions in to provide higher   
+
+1112
+01:00:33,330 --> 01:00:35,630
+resolutions just like that.     
+And this one is so              
+
+1113
+01:00:35,699 --> 01:00:37,666
+high resolution, it's got       
+a little tree in there even,    
+
+1114
+01:00:37,734 --> 01:00:40,568
+okay and that's perfectly       
+fine. No law that says it has   
+
+1115
+01:00:40,637 --> 01:00:43,104
+to be just a scaled-up          
+version of the same thing. So   
+
+1116
+01:00:43,172 --> 01:00:45,974
+now I have cardback there, so   
+now, let's go and make our      
+
+1117
+01:00:46,043 --> 01:00:52,113
+card be face down by setting    
+our isFaceUp here to be false.  
+
+1118
+01:00:52,182 --> 01:00:55,216
+Okay, and run, and we'll see    
+the back side of our card.      
+
+1119
+01:00:55,285 --> 01:00:56,751
+And hopefully,                  
+we don't see any corners,       
+
+1120
+01:00:56,820 --> 01:00:59,287
+we don't see any face, we       
+don't see any pips. We won't    
+
+1121
+01:00:59,356 --> 01:01:01,790
+see any of that stuff, we'll    
+just have the back of our       
+
+1122
+01:01:01,858 --> 01:01:04,092
+card. And this is a high        
+resolution device so            
+
+1123
+01:01:04,161 --> 01:01:06,895
+we got the 2X version.          
+And you can see it's actually   
+
+1124
+01:01:06,963 --> 01:01:09,464
+kinda jaggy, we really could    
+use a 3X version here,          
+
+1125
+01:01:09,533 --> 01:01:14,436
+it would be nice. Okay, now     
+the next step if I were really  
+
+1126
+01:01:14,504 --> 01:01:17,905
+developing this is I would      
+want to go up here to my rank   
+
+1127
+01:01:17,974 --> 01:01:21,142
+and suit and try every rank     
+and every suit face up and      
+
+1128
+01:01:21,211 --> 01:01:22,911
+face down, and                  
+make sure this all worked.      
+
+1129
+01:01:22,980 --> 01:01:26,547
+Well, can you imagine if I had  
+to do this. Okay, make a six    
+
+1130
+01:01:26,616 --> 01:01:30,117
+and then a clubs and run. No,   
+okay so it's seven and run.     
+
+1131
+01:01:30,186 --> 01:01:33,521
+It would be tedious as all      
+get out to be going back and    
+
+1132
+01:01:33,590 --> 01:01:36,024
+forth running. What would be    
+awesome is, so I can just see   
+
+1133
+01:01:36,093 --> 01:01:39,226
+this playing card view right    
+here in the interface builder.  
+
+1134
+01:01:39,295 --> 01:01:42,063
+And of course, I can do that,   
+I wouldn't have mentioned it.   
+
+1135
+01:01:42,132 --> 01:01:44,432
+So let's go here, and           
+how do you do that?             
+
+1136
+01:01:44,501 --> 01:01:50,371
+You just put @IBdesignable      
+in front of your view.          
+
+1137
+01:01:50,440 --> 01:01:51,572
+If you put that in there,       
+
+1138
+01:01:51,641 --> 01:01:53,275
+then when you go to             
+interface builder,              
+
+1139
+01:01:53,343 --> 01:01:57,145
+it will compile your view,      
+put it in the environment and   
+
+1140
+01:01:57,214 --> 01:02:01,015
+put it here. Now, it's blank,   
+why is it blank? Well,          
+
+1141
+01:02:01,084 --> 01:02:03,618
+it's actually blank because     
+it's face down, and             
+
+1142
+01:02:03,686 --> 01:02:08,456
+images don't work with image    
+named in interface builder.     
+
+1143
+01:02:08,525 --> 01:02:11,025
+For example,                    
+if I put this face up again,    
+
+1144
+01:02:11,094 --> 01:02:14,429
+you'll see that it works with   
+the pips, because they don't    
+
+1145
+01:02:14,498 --> 01:02:17,899
+use any images. All right,      
+go back to my storyboard.       
+
+1146
+01:02:17,968 --> 01:02:21,870
+Look, I got pips, I got my      
+corner things too. Okay, so     
+
+1147
+01:02:21,938 --> 01:02:24,772
+it even does subviews.          
+So what about those images?     
+
+1148
+01:02:24,841 --> 01:02:25,807
+How am I gonna do the images,   
+
+1149
+01:02:25,875 --> 01:02:28,075
+cuz that's problem not just     
+for the card back, but          
+
+1150
+01:02:28,144 --> 01:02:32,513
+if I make it be a a face card,  
+
+1151
+01:02:32,582 --> 01:02:34,649
+the face card is made           
+with images. And so             
+
+1152
+01:02:34,718 --> 01:02:36,851
+I'm getting the corners, but    
+I'm not getting my image.       
+
+1153
+01:02:36,919 --> 01:02:40,722
+Well, it turns out there's      
+another version of image named  
+
+1154
+01:02:40,791 --> 01:02:44,625
+that you can use,               
+that will work with both. So    
+
+1155
+01:02:44,694 --> 01:02:46,394
+it will work image              
+named when you run,             
+
+1156
+01:02:46,463 --> 01:02:50,298
+but it will also work with      
+image named when you are,       
+
+1157
+01:02:52,168 --> 01:02:55,269
+when you're in interface        
+builder environment.            
+
+1158
+01:02:55,338 --> 01:02:57,638
+And it looks the same, I can    
+never even remember it myself,  
+
+1159
+01:02:57,707 --> 01:03:01,909
+so I had to write it down       
+here. It's, in: Bundle          
+
+1160
+01:03:01,978 --> 01:03:07,348
+(for: self.classForCoder),      
+
+1161
+01:03:07,417 --> 01:03:13,287
+compatibleWith:                 
+traitCollection,                
+
+1162
+01:03:13,356 --> 01:03:17,691
+okay. I think I typed that      
+right. So this is the extra     
+
+1163
+01:03:17,760 --> 01:03:20,995
+couple arguments you need, you  
+put it on all your image names  
+
+1164
+01:03:21,064 --> 01:03:23,731
+if you want this stuff to       
+work in interface builder.      
+
+1165
+01:03:23,800 --> 01:03:25,867
+So now if we go to              
+Interface Builder, all right,   
+
+1166
+01:03:25,935 --> 01:03:29,403
+it's showing the image. But     
+this is only half the battle    
+
+1167
+01:03:29,472 --> 01:03:31,639
+because, if I wanna look        
+through all my cards and        
+
+1168
+01:03:31,708 --> 01:03:35,810
+make sure they're working, I    
+still have to go back here and  
+
+1169
+01:03:35,879 --> 01:03:39,113
+change these ranks and          
+suit and                        
+
+1170
+01:03:39,182 --> 01:03:41,782
+then go back and see it again.  
+And what would be really cool   
+
+1171
+01:03:41,851 --> 01:03:44,719
+is if I could bring up the      
+inspector, click on my card,    
+
+1172
+01:03:44,788 --> 01:03:47,321
+and instead of just seeing      
+view attributes, if I could     
+
+1173
+01:03:47,390 --> 01:03:50,258
+see rank and suit and his face  
+up, wouldn't that be awesome.   
+
+1174
+01:03:50,327 --> 01:03:53,828
+If I could just extend          
+this The inspector, well,       
+
+1175
+01:03:53,897 --> 01:03:57,198
+of course we can do that too.   
+All we have to do is put        
+
+1176
+01:03:57,266 --> 01:04:01,269
+@IBInspectable in front of      
+any var that we want to         
+
+1177
+01:04:01,337 --> 01:04:05,507
+be inspectable in Interface     
+Builder. So I'm gonna put it    
+
+1178
+01:04:05,575 --> 01:04:09,077
+on all my vars, I'll make       
+them all be inspectable.        
+
+1179
+01:04:09,145 --> 01:04:13,681
+The only trick here is that     
+you have to explicitly type     
+
+1180
+01:04:13,750 --> 01:04:19,087
+any IBInspectable, you cannot   
+let this be inferred by Swift.  
+
+1181
+01:04:19,156 --> 01:04:22,590
+Because while Swift is          
+good at doing inference,        
+
+1182
+01:04:22,659 --> 01:04:26,828
+Interface Builder not so        
+much, not quite so good.        
+
+1183
+01:04:26,897 --> 01:04:29,030
+All right, so here we go.       
+Now if I click on my view,      
+
+1184
+01:04:29,098 --> 01:04:33,834
+look at this, rank,             
+I could try 5.                  
+
+1185
+01:04:33,903 --> 01:04:38,739
+I could try 12, all right?      
+I can try 2,                    
+
+1186
+01:04:38,808 --> 01:04:43,912
+I can go even just go all       
+through my cards, like this.    
+
+1187
+01:04:43,981 --> 01:04:48,583
+And since I've represented      
+my suit as a string,            
+
+1188
+01:04:48,652 --> 01:04:53,221
+I could even have X be          
+my suit right there.            
+
+1189
+01:04:53,290 --> 01:04:59,493
+That works? Okay, so that's     
+it for all the drawing stuff.   
+
+1190
+01:04:59,562 --> 01:05:02,630
+Let's go back now and learn a   
+little bit about multi-touch.   
+
+1191
+01:05:02,699 --> 01:05:07,668
+So I'm gonna go back to our     
+slides here. And we're running  
+
+1192
+01:05:07,737 --> 01:05:10,305
+a little late, so I'm going to  
+zoom through these. All right,  
+
+1193
+01:05:10,373 --> 01:05:13,941
+so we've seen how to draw,      
+now how do we get multi-touch?  
+
+1194
+01:05:14,010 --> 01:05:15,676
+How do we get all               
+these gestures and              
+
+1195
+01:05:15,745 --> 01:05:18,980
+stuff people can make with      
+their fingers on the screen?    
+
+1196
+01:05:19,049 --> 01:05:21,916
+And you could get get all       
+the touch events yourself,      
+
+1197
+01:05:21,985 --> 01:05:24,152
+that's legal.                   
+You could, and look at them,    
+
+1198
+01:05:24,220 --> 01:05:25,619
+look at every finger            
+when it moves,                  
+
+1199
+01:05:25,688 --> 01:05:28,489
+but that'd be incredibly        
+tedious, so we don't do that.   
+
+1200
+01:05:28,558 --> 01:05:31,492
+Instead, we let iOS look at     
+all those little movements and  
+
+1201
+01:05:31,561 --> 01:05:36,831
+turn them into gestures,        
+like swipe, pinch, pan,         
+
+1202
+01:05:36,899 --> 01:05:40,969
+tap. So that's the level at     
+which we program this stuff.    
+
+1203
+01:05:41,038 --> 01:05:43,905
+Okay, now gestures all          
+represented in iOS              
+
+1204
+01:05:43,974 --> 01:05:46,507
+with this class                 
+UIGestureRecognizer.            
+
+1205
+01:05:46,576 --> 01:05:50,178
+It's a thing that recognizes a  
+gesture from all those finger   
+
+1206
+01:05:50,247 --> 01:05:53,281
+movements. All right,           
+that class is abstract, okay,   
+
+1207
+01:05:53,350 --> 01:05:56,250
+it itself doesn't know how to   
+recognize any gestures. But     
+
+1208
+01:05:56,319 --> 01:05:59,354
+there's a lot of subclasses of  
+it that know how to recognize   
+
+1209
+01:05:59,422 --> 01:06:03,224
+various gestures. So when       
+you're recognizing a gesture,   
+
+1210
+01:06:03,293 --> 01:06:06,394
+there's actually two parts to   
+it. One is, you have to tell    
+
+1211
+01:06:06,463 --> 01:06:09,364
+a view, please start            
+recognizing pinches,            
+
+1212
+01:06:09,433 --> 01:06:13,334
+please start recognizing taps.  
+Then you have to                
+
+1213
+01:06:13,403 --> 01:06:16,070
+provide a handler so that       
+when it does recognize it,      
+
+1214
+01:06:16,139 --> 01:06:18,973
+it calls some function,         
+so there's two parts.           
+
+1215
+01:06:19,042 --> 01:06:22,476
+The first thing, asking a view  
+to recognize a gesture,         
+
+1216
+01:06:22,545 --> 01:06:25,413
+is surprisingly often done      
+by the controller, or           
+
+1217
+01:06:25,481 --> 01:06:29,350
+in your storyboard. That's how  
+you add gestures, usually.      
+
+1218
+01:06:29,419 --> 01:06:32,153
+Sometimes a view will add a     
+gesture recognizer to itself,   
+
+1219
+01:06:32,222 --> 01:06:34,389
+if it's just totally            
+inherent to what it does.       
+
+1220
+01:06:34,458 --> 01:06:37,291
+Like a scroll view              
+will add pinching and           
+
+1221
+01:06:37,360 --> 01:06:38,626
+panning gestures to itself,     
+
+1222
+01:06:38,695 --> 01:06:41,496
+cuz it's not even a scroll      
+view without those gestures.    
+
+1223
+01:06:41,564 --> 01:06:43,598
+But a lot of times,             
+it's the control that does it.  
+
+1224
+01:06:43,667 --> 01:06:46,533
+The second thing,               
+the handling of the gesture,    
+
+1225
+01:06:46,602 --> 01:06:48,936
+if it something that            
+affects the model,              
+
+1226
+01:06:49,005 --> 01:06:51,238
+then the controller is          
+going to handle it.             
+
+1227
+01:06:51,307 --> 01:06:54,441
+If it's something that only     
+affects the way things is       
+
+1228
+01:06:54,510 --> 01:06:58,546
+viewed, then the view will      
+often handle it directly. So    
+
+1229
+01:06:58,615 --> 01:07:01,615
+we'll see examples of both      
+of those in our little demo.    
+
+1230
+01:07:01,684 --> 01:07:04,986
+So, the first part, how do      
+you add a gesture to a view?    
+
+1231
+01:07:05,054 --> 01:07:07,555
+How do you tell that view,      
+start recognizing this?         
+
+1232
+01:07:07,623 --> 01:07:11,692
+Well, usually we do this        
+in the didSet of an outlet      
+
+1233
+01:07:11,761 --> 01:07:15,095
+setter. So here I've got        
+an outlet to some view that I   
+
+1234
+01:07:15,164 --> 01:07:18,933
+want to recognize pans. Okay,   
+it's some view, and I want it   
+
+1235
+01:07:19,002 --> 01:07:22,803
+to recognize pan gestures. So   
+in the didSet of the outlet,    
+
+1236
+01:07:22,872 --> 01:07:27,041
+remember this didSet is called  
+when iOS wires up that outlet   
+
+1237
+01:07:27,110 --> 01:07:29,944
+to the view that you want       
+to pan. Then I'm going to       
+
+1238
+01:07:30,012 --> 01:07:33,481
+create a concrete instance of   
+UIGestureRecognizer called      
+
+1239
+01:07:33,550 --> 01:07:37,117
+a UIPanGestureRecognizer.       
+Now all of the recognizers      
+
+1240
+01:07:37,186 --> 01:07:40,354
+have the same initializer. It   
+has two arguments, the target,  
+
+1241
+01:07:40,423 --> 01:07:42,856
+that's the object that          
+is going to handle this,        
+
+1242
+01:07:42,925 --> 01:07:46,394
+it's usually either the         
+controller or the view itself.  
+
+1243
+01:07:46,462 --> 01:07:49,764
+And then it has the action,     
+and that's just the name of     
+
+1244
+01:07:49,832 --> 01:07:52,667
+the method with #selector       
+around it. You see that         
+
+1245
+01:07:52,736 --> 01:07:56,537
+#selector in yellow there?      
+That is going to be called      
+
+1246
+01:07:56,606 --> 01:08:00,341
+when this gesture starts to     
+recognize a pan happening.      
+
+1247
+01:08:03,313 --> 01:08:07,949
+So then, once we've created     
+a UIPanGestureRecognizer,       
+
+1248
+01:08:08,017 --> 01:08:09,417
+we ask the view,                
+
+1249
+01:08:09,485 --> 01:08:12,420
+please start recognizing this.  
+And we do that by calling       
+
+1250
+01:08:12,489 --> 01:08:15,256
+addGestureRecognizer. And a     
+view can have as many gesture   
+
+1251
+01:08:15,325 --> 01:08:16,291
+recognizers as you want.        
+
+1252
+01:08:16,359 --> 01:08:18,826
+It could be recognizing 20      
+different gestures at the same  
+
+1253
+01:08:18,895 --> 01:08:20,929
+time, it's perfectly fine.      
+
+1254
+01:08:20,997 --> 01:08:23,230
+All right, so now let's         
+talk about the handler. So      
+
+1255
+01:08:23,299 --> 01:08:26,567
+when a pan starts to happen,    
+a handler's gonna get called.   
+
+1256
+01:08:26,636 --> 01:08:29,537
+And the handler's gonna be      
+that pan method that we saw     
+
+1257
+01:08:29,605 --> 01:08:33,541
+over there. And inside that     
+method, we're going to have     
+
+1258
+01:08:33,609 --> 01:08:35,610
+to be able to get               
+information about the pan.      
+
+1259
+01:08:35,679 --> 01:08:38,812
+Well, each kind of gesture      
+has it's own information.       
+
+1260
+01:08:38,881 --> 01:08:41,982
+Like a pinch gesture has        
+the scale you're pinching to,   
+
+1261
+01:08:42,051 --> 01:08:45,119
+a pan gesture is where is       
+the pan happening. So if you    
+
+1262
+01:08:45,188 --> 01:08:48,056
+look at UIPanGestureRecognizer  
+in the dock,                    
+
+1263
+01:08:48,124 --> 01:08:50,859
+you'll see it has methods       
+like translationInView.         
+
+1264
+01:08:50,927 --> 01:08:54,028
+That tells you where            
+the pan is in that view.        
+
+1265
+01:08:54,097 --> 01:08:57,565
+Or velocity, how fast is        
+the pan happening right now?    
+
+1266
+01:08:57,634 --> 01:09:00,201
+Or even setTranslation,         
+which let's you reset           
+
+1267
+01:09:00,269 --> 01:09:03,638
+that translation in view, so    
+you get incremental panning.    
+
+1268
+01:09:03,706 --> 01:09:07,075
+Instead of the continuous       
+length of how far you've        
+
+1269
+01:09:07,143 --> 01:09:08,476
+panned since                    
+the start of the pan,           
+
+1270
+01:09:08,545 --> 01:09:11,445
+you get how much you got since  
+the last time the pan moved.    
+
+1271
+01:09:11,514 --> 01:09:13,982
+Okay, which can                 
+sometimes be useful. Now,       
+
+1272
+01:09:14,050 --> 01:09:16,584
+the abstract superclass         
+UIGestureRecognizer,            
+
+1273
+01:09:16,653 --> 01:09:20,120
+it also has a very important    
+var called state. So            
+
+1274
+01:09:20,189 --> 01:09:23,257
+this whole gesture recognizer   
+thing is a state machine, and   
+
+1275
+01:09:23,326 --> 01:09:24,892
+this state var                  
+represents that.                
+
+1276
+01:09:24,961 --> 01:09:28,696
+So as soon as a gesture         
+becomes possible,               
+
+1277
+01:09:28,765 --> 01:09:31,032
+like a pan. Probably            
+a finger touches down,          
+
+1278
+01:09:31,101 --> 01:09:31,999
+now it's possible.              
+
+1279
+01:09:32,068 --> 01:09:35,669
+And then as soon as it moves,   
+it moves into the began state,  
+
+1280
+01:09:35,738 --> 01:09:39,974
+okay, so this pan has begun.    
+And then as the finger moves,   
+
+1281
+01:09:40,042 --> 01:09:43,377
+it stays in the changed state.  
+But it really keeps moving      
+
+1282
+01:09:43,446 --> 01:09:45,513
+to the changed state from       
+the changed state over and      
+
+1283
+01:09:45,581 --> 01:09:49,217
+over. Now every time one of     
+these state changes happens,    
+
+1284
+01:09:49,285 --> 01:09:52,587
+that handler gets called.       
+Whoever's handling this thing   
+
+1285
+01:09:52,656 --> 01:09:54,755
+gets a chance to do it.         
+So for a pan gesture,           
+
+1286
+01:09:54,824 --> 01:09:57,758
+you get .changed called         
+every time the thing moves.     
+
+1287
+01:09:57,827 --> 01:09:59,627
+And then eventually             
+the finger goes up,             
+
+1288
+01:09:59,695 --> 01:10:03,398
+and it ended, and you get       
+.ended. So your handler's just  
+
+1289
+01:10:03,466 --> 01:10:05,533
+called every time               
+the state machine changes.      
+
+1290
+01:10:05,602 --> 01:10:09,103
+Now, some things, like          
+a swipe, are discrete, either   
+
+1291
+01:10:09,172 --> 01:10:12,139
+the swipe happened or it        
+didn't. You don't get .changed  
+
+1292
+01:10:12,208 --> 01:10:15,710
+as your finger's flying across  
+the screen, it's a discreet     
+
+1293
+01:10:15,779 --> 01:10:18,646
+gesture. You just get .ended,   
+or for a swipe,                 
+
+1294
+01:10:18,715 --> 01:10:23,384
+.recognised gets sent to your   
+handler once, and that's it.    
+
+1295
+01:10:23,452 --> 01:10:26,254
+But for continuous gestures,    
+you get the .changed.           
+
+1296
+01:10:26,322 --> 01:10:29,456
+Now, there's also two other     
+interesting states, .failed,    
+
+1297
+01:10:29,525 --> 01:10:33,127
+and .cancelled. So .failed can  
+happen when you have multiple   
+
+1298
+01:10:33,196 --> 01:10:36,330
+gestures, and                   
+one of them wins.               
+
+1299
+01:10:36,398 --> 01:10:38,900
+Like let's say you have, I      
+don't know, a tap gesture and   
+
+1300
+01:10:38,968 --> 01:10:41,302
+a pan gesture. Well,            
+as soon as you go mouse down,   
+
+1301
+01:10:41,371 --> 01:10:42,536
+it could be either of them.     
+
+1302
+01:10:42,605 --> 01:10:45,172
+But as soon as it doesn't it    
+come right back up as soon      
+
+1303
+01:10:45,241 --> 01:10:48,276
+as you touch down. Soon as      
+you come back up, it's like,    
+
+1304
+01:10:48,344 --> 01:10:51,078
+it can't be a pan anymore,      
+so that one's cancelled,        
+
+1305
+01:10:51,147 --> 01:10:54,415
+cuz It failed, basically. So    
+it can go into failed states,   
+
+1306
+01:10:54,483 --> 01:10:57,952
+but that's only if it actually  
+starts up. It wouldn't be       
+
+1307
+01:10:58,020 --> 01:11:00,922
+recognized in the first place   
+if it didn't get that far.      
+
+1308
+01:11:00,990 --> 01:11:03,758
+And then so cancelled           
+is another one that's           
+
+1309
+01:11:03,826 --> 01:11:07,561
+interesting. And this happens   
+a lot with drag and drop.       
+
+1310
+01:11:07,630 --> 01:11:10,664
+Which is, you started           
+something, and it started up,   
+
+1311
+01:11:10,733 --> 01:11:14,635
+and it's going good. But then   
+a drag and drop happens, and    
+
+1312
+01:11:14,704 --> 01:11:18,305
+now it's canceled. Whatever     
+gesture you were recognizing.   
+
+1313
+01:11:18,374 --> 01:11:20,041
+So you do wanna look for        
+failed and canceled, and        
+
+1314
+01:11:20,109 --> 01:11:24,211
+make sure you clean up or       
+whatever. Take away something   
+
+1315
+01:11:24,280 --> 01:11:28,215
+off the screen or whatever,     
+because your gesture has        
+
+1316
+01:11:28,284 --> 01:11:32,286
+failed, or has been cancelled   
+by something else. All right,   
+
+1317
+01:11:32,355 --> 01:11:35,356
+so given this information,      
+what would our pan handler,     
+
+1318
+01:11:35,424 --> 01:11:37,525
+the handler for                 
+the pan look like?              
+
+1319
+01:11:37,594 --> 01:11:40,061
+Okay, so it's just pan          
+with the argument being         
+
+1320
+01:11:40,129 --> 01:11:42,996
+the pan gesture recognizer      
+itself handed back to us. And   
+
+1321
+01:11:43,065 --> 01:11:46,533
+we switch on the state,         
+we always switch on the state.  
+
+1322
+01:11:46,602 --> 01:11:48,169
+And if it's changed or          
+ended, and                      
+
+1323
+01:11:48,237 --> 01:11:50,671
+notice I'm using fallthrough    
+there, but I could have just    
+
+1324
+01:11:50,739 --> 01:11:54,475
+said .changed, .ended there.    
+So if it's changed or ended,    
+
+1325
+01:11:54,543 --> 01:11:57,411
+my pan is still moving,         
+or I've just finished it.       
+
+1326
+01:11:57,480 --> 01:12:00,247
+Then I'm gonna find out         
+where the pan was by calling    
+
+1327
+01:12:00,316 --> 01:12:02,683
+translationin: view             
+on the recognizer.              
+
+1328
+01:12:02,751 --> 01:12:07,154
+Then I'm gonna do something     
+based on where the pan went.    
+
+1329
+01:12:07,223 --> 01:12:08,288
+And maybe if I'm looking for    
+
+1330
+01:12:08,357 --> 01:12:12,159
+incremental pans,               
+I'll reset it back to zero. So  
+
+1331
+01:12:12,228 --> 01:12:16,797
+that the next one will be from  
+zero and be incremental. So     
+
+1332
+01:12:16,866 --> 01:12:19,733
+that's it, simple to do these   
+handlers. Now what are some of  
+
+1333
+01:12:19,802 --> 01:12:21,902
+the concrete handlers           
+besides PanGesture?             
+
+1334
+01:12:21,971 --> 01:12:26,373
+Well there's PinchGesture. Its  
+information is the scale. So    
+
+1335
+01:12:26,442 --> 01:12:29,477
+if I start here with a pinch,   
+and I go twice as wide,         
+
+1336
+01:12:29,545 --> 01:12:31,979
+well that's scale 2.0.          
+Or if I start here and          
+
+1337
+01:12:32,048 --> 01:12:35,782
+go half as wide, it's 0.5. And  
+there's also velocity for that  
+
+1338
+01:12:35,851 --> 01:12:38,986
+one. There's RotationGesture,   
+which is like turning a knob.   
+
+1339
+01:12:39,055 --> 01:12:41,122
+A two-finger gesture            
+turning the knob.               
+
+1340
+01:12:41,190 --> 01:12:44,124
+And in radians, it'll tell you  
+how much the knob has been      
+
+1341
+01:12:44,193 --> 01:12:46,960
+turned in radians. There's      
+a SwipeGesture, and you can,    
+
+1342
+01:12:47,029 --> 01:12:49,029
+now swipe is a little           
+different than these other      
+
+1343
+01:12:49,098 --> 01:12:52,232
+ones in that you configure      
+the swipe. How many fingers?    
+
+1344
+01:12:52,301 --> 01:12:54,235
+What direction, left,           
+right, up, down?                
+
+1345
+01:12:54,303 --> 01:12:57,772
+And then you turn the swipe     
+gesture on by adding it. And    
+
+1346
+01:12:57,840 --> 01:13:01,075
+then when the swipe happens,    
+you'll just get .ended, your    
+
+1347
+01:13:01,144 --> 01:13:04,512
+handler will get called with    
+.ended. So it's just, there's   
+
+1348
+01:13:04,580 --> 01:13:06,747
+no, it's different in that      
+you configure it up front and   
+
+1349
+01:13:06,816 --> 01:13:09,016
+then it just tells you whether  
+it recognized it or not.        
+
+1350
+01:13:10,186 --> 01:13:11,052
+There's TapGesture,             
+
+1351
+01:13:11,121 --> 01:13:12,887
+which feels like it             
+would be like swipe,            
+
+1352
+01:13:12,955 --> 01:13:14,121
+a discrete gesture,             
+but actually,                   
+
+1353
+01:13:14,189 --> 01:13:16,757
+since it does double tap and    
+other things, you're always     
+
+1354
+01:13:16,826 --> 01:13:20,027
+looking for .ended only with    
+the TapGesture, usually.        
+
+1355
+01:13:20,096 --> 01:13:23,130
+But you also configure it like  
+a swipe gesture how many taps,  
+
+1356
+01:13:23,199 --> 01:13:27,801
+how many fingers etc.           
+There's also long press. Long   
+
+1357
+01:13:27,870 --> 01:13:30,804
+press is you hold your finger   
+down on the screen for enough   
+
+1358
+01:13:30,873 --> 01:13:33,507
+time and it starts recognizing  
+it. This is surprisingly        
+
+1359
+01:13:33,576 --> 01:13:36,209
+a continuous gesture, because   
+as you're holding it down your  
+
+1360
+01:13:36,278 --> 01:13:38,045
+finger might be moving          
+a little bit and                
+
+1361
+01:13:38,113 --> 01:13:39,946
+that's okay it's not a pan.     
+Okay,                           
+
+1362
+01:13:40,015 --> 01:13:41,882
+cuz it can only move            
+a little bit. But               
+
+1363
+01:13:41,951 --> 01:13:45,285
+if it does move a little,       
+you'll get .changed.            
+
+1364
+01:13:45,354 --> 01:13:47,955
+And you can configure how       
+much movement you allow and     
+
+1365
+01:13:48,024 --> 01:13:50,992
+how long it has to be pressed   
+before it's a LongPress.        
+
+1366
+01:13:51,060 --> 01:13:53,628
+This one gets interrupted       
+a lot by drag and drop.         
+
+1367
+01:13:53,696 --> 01:13:57,031
+Because drag and drop uses      
+LongPress. That's how you pick  
+
+1368
+01:13:57,099 --> 01:13:58,765
+something up with drag and      
+drop is LongPress.              
+
+1369
+01:13:58,834 --> 01:14:00,734
+So if you have a LongPress,     
+And there's some drag and       
+
+1370
+01:14:00,803 --> 01:14:03,270
+drop going on, you know         
+the system is very smart about  
+
+1371
+01:14:03,339 --> 01:14:06,040
+figuring which one you          
+actually intend. But            
+
+1372
+01:14:06,109 --> 01:14:08,109
+it could cause your long        
+press to be cancelled.          
+
+1373
+01:14:09,545 --> 01:14:12,413
+All right, so let's see all     
+this in action with a demo,     
+
+1374
+01:14:12,481 --> 01:14:15,015
+we only have five minutes       
+left, but I think we can do it  
+
+1375
+01:14:15,084 --> 01:14:18,186
+in five or ten minutes.         
+We're gonna add three gestures  
+
+1376
+01:14:18,254 --> 01:14:20,454
+to our playing card.            
+Were gonna add a swipe,         
+
+1377
+01:14:20,523 --> 01:14:23,457
+which is gonna flip though our  
+deck of cards. So that's gonna  
+
+1378
+01:14:23,526 --> 01:14:25,459
+affect our model. Our model     
+is that deck of cards, so       
+
+1379
+01:14:25,528 --> 01:14:27,394
+that's something our            
+controller is gonna have to     
+
+1380
+01:14:27,463 --> 01:14:31,131
+do. Then we're gonna have tap   
+will turn the card over. We're  
+
+1381
+01:14:31,200 --> 01:14:34,635
+gonna do tap by adding the      
+gesture in the story board,     
+
+1382
+01:14:34,704 --> 01:14:38,338
+not even in code. And then      
+we're gonna have pinch which    
+
+1383
+01:14:38,407 --> 01:14:41,976
+I'm gonna use to resize         
+the face card faces. And        
+
+1384
+01:14:42,045 --> 01:14:43,677
+that's the view only thing,     
+so the handler for              
+
+1385
+01:14:43,746 --> 01:14:46,847
+that will be in the view.       
+And since I won't be back to    
+
+1386
+01:14:46,916 --> 01:14:48,882
+the slides on Friday,           
+no section again,               
+
+1387
+01:14:48,951 --> 01:14:51,652
+Homecoming week. This time we   
+have conflicting schedules, so  
+
+1388
+01:14:51,720 --> 01:14:53,120
+we couldn't do structured       
+section this week,              
+
+1389
+01:14:53,188 --> 01:14:56,357
+unfortunately. Next week we'll  
+start doing multiple MVCs,      
+
+1390
+01:14:56,425 --> 01:14:59,059
+View Controller Life Cycle,     
+and hopefully we'll get into    
+
+1391
+01:14:59,128 --> 01:15:03,564
+animation as well next week.    
+All right, so here we are,      
+
+1392
+01:15:03,633 --> 01:15:05,666
+let's make our thing            
+look a little better.           
+
+1393
+01:15:05,735 --> 01:15:10,404
+Let's go get back and           
+get a nice, nicer thing,        
+
+1394
+01:15:10,472 --> 01:15:12,406
+maybe clubs this time.          
+
+1395
+01:15:12,475 --> 01:15:16,176
+And go back here so that x      
+will have our clubs. Okay,      
+
+1396
+01:15:16,245 --> 01:15:20,748
+so we have nice looking cards.  
+And, let's do the swipe first.  
+
+1397
+01:15:20,816 --> 01:15:25,319
+So the swipe, to do the swipe   
+let me get both our             
+
+1398
+01:15:27,857 --> 01:15:30,924
+controller and our view up on   
+the screen at the same time.    
+
+1399
+01:15:30,993 --> 01:15:33,026
+So here's our controller.       
+It just has a deck of cards,    
+
+1400
+01:15:33,095 --> 01:15:37,198
+it doesn't really do anything.  
+wanna add a gesture to this     
+
+1401
+01:15:37,266 --> 01:15:41,134
+playing card view that is       
+swipe. I need an outlet to it.  
+
+1402
+01:15:41,203 --> 01:15:43,103
+My controller can't talk to     
+that thing with an outlet.      
+
+1403
+01:15:43,172 --> 01:15:46,173
+So I'm just gonna control drag  
+like I would drag anything to   
+
+1404
+01:15:46,242 --> 01:15:48,442
+make an outlet. Click it here,  
+it's gonna be an outlet.        
+
+1405
+01:15:48,511 --> 01:15:52,446
+It's gonna be my                
+playingCardView is the outlet.  
+
+1406
+01:15:52,515 --> 01:15:54,881
+Here it is.                     
+When this gets wired up,        
+
+1407
+01:15:54,950 --> 01:15:57,318
+I'm going to immediately        
+add adjuster recognizer.        
+
+1408
+01:15:57,386 --> 01:16:01,522
+So I'm gonna do that in the     
+didSet of this, so that when    
+
+1409
+01:16:01,591 --> 01:16:05,559
+iOS sets it I get to execute    
+my code. I'm gonna do a swipe.  
+
+1410
+01:16:05,628 --> 01:16:09,429
+So, I'm going to create         
+a swipe gesture,                
+
+1411
+01:16:09,498 --> 01:16:12,599
+UISwipeGestureRecognizer.       
+
+1412
+01:16:12,668 --> 01:16:16,670
+And the constructor is          
+this target action thing.       
+
+1413
+01:16:16,739 --> 01:16:19,473
+Since swipe is going to flip    
+through the cards, it's going   
+
+1414
+01:16:19,541 --> 01:16:23,243
+to affect the model.            
+So it has to be handled by me,  
+
+1415
+01:16:23,312 --> 01:16:27,848
+the controller. Okay, so self   
+is the target. The view can't   
+
+1416
+01:16:27,917 --> 01:16:30,851
+touch the model, so there's no  
+way it could do the swipe. And  
+
+1417
+01:16:30,920 --> 01:16:32,786
+then the selector can           
+just be any function. So,       
+
+1418
+01:16:32,855 --> 01:16:35,856
+I'm gonna have a function here  
+called nextCard, which goes to  
+
+1419
+01:16:35,925 --> 01:16:38,292
+the next card. It's not even    
+gonna have any arguments.       
+
+1420
+01:16:38,361 --> 01:16:41,195
+That's gonna be the action I    
+want to be called when a swipe  
+
+1421
+01:16:41,264 --> 01:16:45,132
+happens. So,                    
+I just say #selector and        
+
+1422
+01:16:45,201 --> 01:16:46,600
+then I gave the name of it.     
+
+1423
+01:16:46,669 --> 01:16:50,171
+Next card, it has no arguments  
+but if it did I would just put  
+
+1424
+01:16:50,239 --> 01:16:52,606
+the args in there. But it       
+doesn't have any arguments so   
+
+1425
+01:16:52,675 --> 01:16:55,542
+we don't need that.             
+Selector(nextCard). So          
+
+1426
+01:16:55,611 --> 01:16:58,245
+that's my swipe gesture. Now    
+we need to configure the swipe  
+
+1427
+01:16:58,314 --> 01:17:00,714
+gesture. So for example         
+I can set its direction.        
+
+1428
+01:17:00,782 --> 01:17:04,451
+I could say it swipes to the    
+left for example. Swipes to     
+
+1429
+01:17:04,520 --> 01:17:08,656
+the right you could even say,   
+swipes to the left or right.    
+
+1430
+01:17:08,724 --> 01:17:11,725
+Could put a little array        
+notation there, for             
+
+1431
+01:17:11,794 --> 01:17:14,828
+left and right.                 
+So now I've got my swipe,       
+
+1432
+01:17:14,897 --> 01:17:18,765
+it's gonna be a single,         
+what have we got?               
+
+1433
+01:17:18,834 --> 01:17:22,069
+Yeah, so this is an error       
+right here. I'm gonna click     
+
+1434
+01:17:22,138 --> 01:17:25,005
+on it. It's gonna cause our     
+screen to get all wonky here,   
+
+1435
+01:17:25,074 --> 01:17:27,608
+so let's move it around. Let's  
+look at this error right here.  
+
+1436
+01:17:27,677 --> 01:17:30,243
+It says, the argument           
+of #selector refers             
+
+1437
+01:17:30,312 --> 01:17:33,848
+to an instance method           
+nextCard(), which it does.      
+
+1438
+01:17:33,916 --> 01:17:37,384
+That is not exposed to          
+Objective-C. My gosh,           
+
+1439
+01:17:37,453 --> 01:17:41,688
+this whole mechanism is built   
+on Objective-C, mechanism of    
+
+1440
+01:17:41,757 --> 01:17:45,759
+target action. So any method    
+that is going to be the action  
+
+1441
+01:17:45,828 --> 01:17:49,963
+of a gesture recognizer has to  
+be marked @objc. That exports   
+
+1442
+01:17:50,032 --> 01:17:53,133
+this method out of Swift into   
+the Objective C run-time        
+
+1443
+01:17:53,202 --> 01:17:57,037
+which underlies the running of  
+the iOS. Even with Swift code,  
+
+1444
+01:17:57,105 --> 01:18:00,273
+still got the Objective-C       
+run-time. Okay, so that's what  
+
+1445
+01:18:00,342 --> 01:18:03,043
+that's all about. This always   
+has to be ,just mark it objc,   
+
+1446
+01:18:03,111 --> 01:18:06,446
+It's not a big of a deal, just  
+got to mark it. All right,      
+
+1447
+01:18:06,515 --> 01:18:11,151
+let's go back to our split      
+screen here. This and this,     
+
+1448
+01:18:11,220 --> 01:18:15,355
+rearrange everything.           
+Back to automatic.              
+
+1449
+01:18:15,424 --> 01:18:18,759
+All right, so now that we have  
+this SwipeGestureRecognizer,    
+
+1450
+01:18:18,828 --> 01:18:20,827
+we need to ask this             
+playingCardView,                
+
+1451
+01:18:20,896 --> 01:18:24,131
+please start recognizing it.    
+So we say playingCardView,      
+
+1452
+01:18:24,199 --> 01:18:28,134
+add this                        
+GestureRecognizer(swipe).       
+
+1453
+01:18:28,203 --> 01:18:30,637
+And now it will start           
+recognizing it.                 
+
+1454
+01:18:30,706 --> 01:18:33,440
+And that's all we need to do.   
+Now this next card              
+
+1455
+01:18:33,509 --> 01:18:35,742
+is the thing that's gonna       
+flip through our cards. So      
+
+1456
+01:18:35,811 --> 01:18:38,278
+how do we implement that? I'm   
+just gonna say if I can get     
+
+1457
+01:18:38,347 --> 01:18:42,349
+a card out of my deck. Because  
+my deck might be empty.         
+
+1458
+01:18:42,418 --> 01:18:43,917
+That's why I have               
+to do if let there.             
+
+1459
+01:18:43,986 --> 01:18:46,519
+Then I need to set              
+the playing card view's rank    
+
+1460
+01:18:46,588 --> 01:18:49,156
+equal to something. And I need  
+to set the playing card view's  
+
+1461
+01:18:49,225 --> 01:18:52,559
+suit equal to something. Now    
+here's where the controller's   
+
+1462
+01:18:52,628 --> 01:18:57,198
+doing its job of converting     
+between the two. So             
+
+1463
+01:18:57,266 --> 01:18:59,966
+we're going to convert by       
+saying the card's.rank,         
+
+1464
+01:19:00,035 --> 01:19:03,170
+luckily we have order which     
+does the card's order, and      
+
+1465
+01:19:03,238 --> 01:19:07,941
+card.suit has its raw value.    
+Okay,                           
+
+1466
+01:19:08,010 --> 01:19:11,277
+so this is just converting      
+between the model and           
+
+1467
+01:19:11,346 --> 01:19:13,747
+the view there.                 
+Everybody got that? So          
+
+1468
+01:19:13,816 --> 01:19:15,482
+let's give it a try,            
+see if this works.              
+
+1469
+01:19:15,551 --> 01:19:18,952
+So this should swipe through    
+random cards by doing swipes.   
+
+1470
+01:19:19,021 --> 01:19:23,156
+So here we go we go, swipe,     
+sure enough, look at that.      
+
+1471
+01:19:23,225 --> 01:19:26,960
+Swiping through. So that was    
+really easy, right? Just have   
+
+1472
+01:19:27,029 --> 01:19:29,696
+that deck. All we had to do is  
+just set the playing card view  
+
+1473
+01:19:29,765 --> 01:19:31,965
+to show a different card        
+each time. All right,           
+
+1474
+01:19:32,034 --> 01:19:35,369
+the next thing we're gonna do   
+is tap to flip the card over.   
+
+1475
+01:19:35,437 --> 01:19:39,406
+So tap, I'm not even gonna      
+do this code right here.        
+
+1476
+01:19:39,475 --> 01:19:42,543
+Instead I'm gonna               
+go over here, and               
+
+1477
+01:19:42,611 --> 01:19:46,980
+grab a tap gesture from,        
+for this view, from here.       
+
+1478
+01:19:47,049 --> 01:19:49,250
+It's down towards the bottom.   
+Look at all these gestures,     
+
+1479
+01:19:49,318 --> 01:19:51,885
+pinches, rotations, swipes.     
+Here's tap, and                 
+
+1480
+01:19:51,953 --> 01:19:55,055
+I'm gonna drag it to the view   
+I want to recognize a tap.      
+
+1481
+01:19:55,124 --> 01:19:57,891
+Which is my playing card view.  
+I drop it, and it shows up,     
+
+1482
+01:19:57,960 --> 01:20:01,362
+if we zoom in you can see it,   
+right up in this title bar up   
+
+1483
+01:20:01,430 --> 01:20:03,864
+here. You see that right        
+there, Tap Gesture?             
+
+1484
+01:20:03,933 --> 01:20:05,699
+You can click on it and         
+inspect it.                     
+
+1485
+01:20:05,768 --> 01:20:07,968
+Right, how many taps?           
+How many touches?               
+
+1486
+01:20:08,037 --> 01:20:12,239
+You can also control drag       
+from it to set an Action. So    
+
+1487
+01:20:12,308 --> 01:20:15,209
+I'm gonna set an Action here.   
+I'm gonna call it flipCard,     
+
+1488
+01:20:15,278 --> 01:20:17,278
+cuz that's what I want          
+it to do, flip the card.        
+
+1489
+01:20:17,346 --> 01:20:19,879
+I want to fix that anything.    
+Just like any Action,           
+
+1490
+01:20:19,948 --> 01:20:23,050
+I want it to fix the argument.  
+So here's my flip card.         
+
+1491
+01:20:23,118 --> 01:20:26,587
+And inside flip card here,      
+I'm just gonna say              
+
+1492
+01:20:26,655 --> 01:20:31,792
+playingCardView.isFaceUp =      
+not playingCardView.isFaceUp.   
+
+1493
+01:20:31,860 --> 01:20:34,094
+Okay, I'm just gonna flip       
+the card over, and that's it.   
+
+1494
+01:20:34,162 --> 01:20:37,998
+So some gestures are really     
+easy to write. And actually,    
+
+1495
+01:20:38,066 --> 01:20:41,267
+I abbreviated that a little     
+bit. And now if I click, you    
+
+1496
+01:20:41,336 --> 01:20:45,873
+see how it's flipping it over.  
+Okay, now I know we're rushed,  
+
+1497
+01:20:45,941 --> 01:20:47,441
+but actually I'm going to       
+do the right thing here.        
+
+1498
+01:20:47,509 --> 01:20:50,277
+This really shouldn't be        
+like this. I should switch      
+
+1499
+01:20:50,346 --> 01:20:55,115
+on the sender, which is         
+the recognizer's state, and     
+
+1500
+01:20:55,183 --> 01:21:00,053
+make sure that we are in        
+the ended case to do this.      
+
+1501
+01:21:00,122 --> 01:21:02,556
+Now, it'll usually              
+work to not do that,            
+
+1502
+01:21:02,625 --> 01:21:05,225
+but I don't wanna show          
+you something that's            
+
+1503
+01:21:05,294 --> 01:21:09,062
+really kind of not correct.     
+Okay, and then the last         
+
+1504
+01:21:09,131 --> 01:21:13,033
+one we're gonna do is pinching  
+to set the size of the face     
+
+1505
+01:21:13,102 --> 01:21:18,071
+card. Well, to do that, I need  
+to go back to my view count,    
+
+1506
+01:21:18,140 --> 01:21:21,075
+my view,                        
+my custom view over here. And   
+
+1507
+01:21:21,143 --> 01:21:23,910
+I need to make it possible to   
+change that, So right now,      
+
+1508
+01:21:23,979 --> 01:21:28,181
+actually, let's go here.        
+Okay, view.                     
+
+1509
+01:21:28,250 --> 01:21:32,252
+Okay, so right now the size of  
+my face card, remember that's   
+
+1510
+01:21:32,321 --> 01:21:35,355
+a constant. This                
+SizeRatio.faceCardImageSizeTo-  
+
+1511
+01:21:35,424 --> 01:21:38,124
+BoundsSize, so I'm gonna        
+change that to be a var.        
+
+1512
+01:21:38,193 --> 01:21:41,761
+I'm gonna call it               
+faceCardScale. Okay,            
+
+1513
+01:21:41,830 --> 01:21:43,797
+so I need to create a new var   
+to do that. So let's go up,     
+
+1514
+01:21:43,866 --> 01:21:47,167
+do it all at the top.           
+So we can easily see it here,   
+
+1515
+01:21:47,236 --> 01:21:51,037
+var faceCardScale.              
+It's going to be a CGFloat.     
+
+1516
+01:21:51,106 --> 01:21:56,610
+I'll set it equal to that       
+constant. Don't forget to do    
+
+1517
+01:21:56,679 --> 01:22:01,114
+this. Okay,                     
+although we don't really need   
+
+1518
+01:22:01,183 --> 01:22:03,917
+setNeedsLayout because          
+changing the card size,         
+
+1519
+01:22:03,985 --> 01:22:06,887
+the faceCard does not affect    
+the corners, okay. So           
+
+1520
+01:22:06,955 --> 01:22:11,057
+I don't need to relayout. So    
+I've got that faceCardScale,    
+
+1521
+01:22:11,126 --> 01:22:14,160
+so now I'm gonna create         
+a little func that is going to  
+
+1522
+01:22:14,229 --> 01:22:16,162
+be a handler for                
+a pinch gesture.                
+
+1523
+01:22:16,231 --> 01:22:19,366
+Okay, I'm gonna call it,        
+adjust, I had a good name for   
+
+1524
+01:22:19,435 --> 01:22:21,902
+here so it's easy to            
+understand what it is.          
+
+1525
+01:22:21,971 --> 01:22:28,108
+What did I call this thing?     
+adjustFaceCardScale(byHandlin-  
+
+1526
+01:22:28,177 --> 01:22:33,647
+gGestureRecodnizedBy            
+recognizer: UIPinch),           
+
+1527
+01:22:33,716 --> 01:22:38,852
+now, this is an intentionally   
+long name there.                
+
+1528
+01:22:38,921 --> 01:22:41,254
+So that you'd understand        
+that this is the handler for    
+
+1529
+01:22:41,323 --> 01:22:44,858
+the gesture. And since it's a   
+handler, it needs to be @objc,  
+
+1530
+01:22:44,927 --> 01:22:48,161
+of course. And, inside here,    
+I'm just gonna switch on        
+
+1531
+01:22:48,230 --> 01:22:50,630
+the recognizer's state,         
+as I always do.                 
+
+1532
+01:22:50,699 --> 01:22:54,168
+That's what we do in standard   
+in these handlers. And          
+
+1533
+01:22:54,236 --> 01:22:57,604
+if it's changed, so             
+the pinch has changed or        
+
+1534
+01:22:57,673 --> 01:23:01,575
+if it's ended, then I'm going   
+to set my faceCardScale,        
+
+1535
+01:23:01,644 --> 01:23:04,645
+this thing I just               
+created up here, okay,          
+
+1536
+01:23:04,714 --> 01:23:09,349
+to be*= recognizer.scale.       
+
+1537
+01:23:09,417 --> 01:23:12,319
+Now, I only want incremental    
+changes because I'm changing    
+
+1538
+01:23:12,387 --> 01:23:14,988
+the scale each time.            
+So, otherwise, it would         
+
+1539
+01:23:15,057 --> 01:23:17,958
+just start to be exponential.   
+So I'm gonna reset              
+
+1540
+01:23:18,027 --> 01:23:21,928
+the recognizer's scale to 1.0   
+each time that this happens.    
+
+1541
+01:23:21,997 --> 01:23:25,198
+And then we're gonna ignore     
+all other states of the state   
+
+1542
+01:23:25,267 --> 01:23:30,304
+machine. We don't care when it  
+began and all that, stuff. So   
+
+1543
+01:23:30,372 --> 01:23:33,307
+now we're gonna have this       
+adjustFaceCardScale(byHandlin-  
+
+1544
+01:23:33,375 --> 01:23:38,011
+gGesture recognizer) be added   
+back in our controller as       
+
+1545
+01:23:38,080 --> 01:23:40,747
+a pinch gesture. So here I'm    
+gonna create a pinch gesture.   
+
+1546
+01:23:40,816 --> 01:23:43,950
+Let pinch =                     
+UIPinchGestureRecognizer,       
+
+1547
+01:23:44,019 --> 01:23:47,554
+same target inaction thing      
+as the other one, but           
+
+1548
+01:23:47,622 --> 01:23:51,825
+this time the target is going   
+to be the playingCardView.      
+
+1549
+01:23:51,894 --> 01:23:53,260
+It's gonna handle               
+this directly.                  
+
+1550
+01:23:53,329 --> 01:23:55,062
+It's not gonna go to            
+the controller, and             
+
+1551
+01:23:55,131 --> 01:24:02,469
+the selector is that            
+method we had over there.       
+
+1552
+01:24:02,538 --> 01:24:07,040
+Okay, it's in our view, and     
+I'm gonna call it pinch. Okay,  
+
+1553
+01:24:07,109 --> 01:24:10,243
+and now I just need to tell     
+the playingCardView to add      
+
+1554
+01:24:10,312 --> 01:24:14,247
+this gesture recognizer pinch,  
+and it will start recognizing.  
+
+1555
+01:24:14,316 --> 01:24:18,886
+Okay, so                        
+let's take a look. Oops,        
+
+1556
+01:24:18,954 --> 01:24:23,357
+what did I do wrong here?       
+What does it say?               
+
+1557
+01:24:25,260 --> 01:24:29,830
+Unresolved, okay, let's use     
+scape completion here, adjust,  
+
+1558
+01:24:29,898 --> 01:24:32,866
+sorry, PlayingCardView.         
+I need to say that it's in      
+
+1559
+01:24:32,935 --> 01:24:36,937
+PlayingCardView. That's         
+the problem there, handler.     
+
+1560
+01:24:37,005 --> 01:24:45,412
+Sorry about that. Okay, so      
+let's find a face card.         
+
+1561
+01:24:45,481 --> 01:24:47,948
+Here it is. How do you          
+pinch in the simulator?         
+
+1562
+01:24:48,017 --> 01:24:50,484
+You hold down Option,           
+you get these grey things, and  
+
+1563
+01:24:50,553 --> 01:24:55,555
+when you mouse down,            
+you get to pinch. So            
+
+1564
+01:24:55,624 --> 01:24:57,357
+see how that's only             
+effecting the view?             
+
+1565
+01:24:57,425 --> 01:25:00,627
+It's not effecting anything     
+else, effects all the cards     
+
+1566
+01:25:03,399 --> 01:25:06,967
+And that's it. Okay, sorry to   
+rush that at the end. You'll    
+
+1567
+01:25:07,035 --> 01:25:08,802
+be doing all this stuff in      
+your assignment number three,   
+
+1568
+01:25:08,871 --> 01:25:10,470
+which just went out.            
+It's due in a week,             
+
+1569
+01:25:10,538 --> 01:25:13,139
+in other words before           
+lecture next Wednesday. And     
+
+1570
+01:25:13,208 --> 01:25:14,374
+I will see you all then,        
+
+1571
+01:25:14,443 --> 01:25:15,508
+actually, I'll see              
+you on Monday.                  
+
+1572
+01:25:15,577 --> 01:25:16,543
+And if you have questions,      
+
+1573
+01:25:16,612 --> 01:25:19,012
+I'm here, as always.            
+>> For                          
+
+1574
+01:25:19,081 --> 01:25:22,916
+more, please visit              
+us at stanford.edu.             
+

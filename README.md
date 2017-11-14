@@ -16,7 +16,7 @@
 
 ### 下载
 
-课程录像等可以查看[下载列表](./tools/download.md)（从 iTunes U 提取），其中点击 `中英字幕` 就可以下载已经翻译好了的字幕。另一个方案是 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip)。`subtitles` 文件夹中是中英字幕（不一定都翻译了），`en/subtitles` 文件夹中是纯英文字幕。
+课程录像等可以查看[下载列表](./tools/download.md)（从 iTunes U 提取），其中点击 `中英字幕` 就可以下载已经翻译好了的字幕。另一个方案是 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip)。[`subtitles`](./subtitles) 文件夹中是中英字幕（不一定都翻译了），[`en/subtitles`](./en/subtitles) 文件夹中是纯英文字幕。
 
 字幕的格式是 `.srt`，所以您可能需要用带外挂字幕功能的视频播放器，比如 [VLC](http://www.videolan.org/vlc/index.zh.html) 或 [IINA](https://lhc70000.github.io/iina/zh-cn/) 等才可使用。其他字幕使用问题的解答请查看 [常见问题与解答](./SUPPORT.md) 的字幕使用章节。
 
@@ -33,7 +33,7 @@
 
 #### 项目相关资源
 
-- - [Developing iOS 10 Apps with Swift 字幕翻译](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift)
+- [Developing iOS 10 Apps with Swift 字幕翻译](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift)
 - [Developing iOS 9 Apps with Swift 字幕翻译](https://github.com/SwiftGGTeam/Developing-iOS-9-Apps-with-Swift)
 - [Developing iOS 8 Apps with Swift 字幕翻译](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift)
 - 提取字幕：[CCExtractor](https://www.ccextractor.org/)
