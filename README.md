@@ -27,7 +27,7 @@
 - iTunes U：[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/us/course/developing-ios-11-apps-with-swift/id1309275316)
 	- [RSS 源](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)
 	- [课程专辑封面](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/336x428.png)
-	- [首页推广图片](#)
+	- [首页推广图片](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)
 - CS 193P 课程地址：[CS 193P iPhone Application Development](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/)
 - Paul Hegarty：[piazza](https://piazza.com/professors/show/paul_hegarty)
 
