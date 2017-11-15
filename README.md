@@ -10,7 +10,7 @@
 
 如果您感兴趣，有能力，我们欢迎您参与翻译/校对本项目。详情见 [任务相关说明](./CONTRIBUTING.md)（[失效备份](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/blob/master/CONTRIBUTING.md)）。
 
-翻译进度: 翻译第四集中。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
+翻译进度: ![0集](http://progressed.io/bar/0?scale=6&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
 
 如果您想支持我们，请点击项目右上角的 <a class="github-button" href="https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift" data-icon="octicon-star" data-show-count="true" aria-label="Star ApolloZhu/Developing-iOS-11-Apps-with-Swift on GitHub">Star</a> 按钮来 Star 本项目。其他如分享和打赏等方式请查看 [常见问题与解答](./SUPPORT.md) 中的支持我们章节。
 
