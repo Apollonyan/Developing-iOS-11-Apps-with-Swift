@@ -406,7 +406,7 @@ the sliders, all those things are in. And
 82
 00:04:02,576 --> 00:04:05,943
 there's also, really powerful objects here, like the Map Kit
-这一层还有其他强大的对象，比如 MapKit
+这一层还有其他强大的对象，比如 Map Kit
 
 83
 00:04:06,012 --> 00:04:08,679
@@ -511,530 +511,662 @@ which is perfectly valid language to write in.
 103
 00:05:05,105 --> 00:05:06,838
 But Swift kind of a cool new language,
+但是 Swift 是更潮的新语言
 
 104
 00:05:06,906 --> 00:05:09,107
 I think you're really, really gonna like it.
+我相信你会喜欢上它的
 
 105
 00:05:09,176 --> 00:05:12,310
 If you're a serious Computer Scientist another language is
+如果你是个认真的程序员的话，学习一门新语言
 
 106
 00:05:12,378 --> 00:05:15,513
 like big yawn whatever. Just tell me what the syntax is,
+你听了应该觉得这很简单，你告诉我语法
 
 107
 00:05:15,582 --> 00:05:18,316
 tell me what they key fundamental mechanisms for
+告诉我那些基本的，关键的
 
 108
 00:05:18,385 --> 00:05:21,319
 designing with it are, and I'll learn it.
+程序设计方法，然后我就去把它掌握了
 
 109
 00:05:21,388 --> 00:05:24,221
 So, if you don't have that attitude towards languages,
+如果你不能这样接受学习新语言
 
 110
 00:05:24,290 --> 00:05:27,158
 you're gonna be kind of having trouble out in the real world
+你在现实生活中就会有麻烦了
 
 111
 00:05:27,227 --> 00:05:29,161
 being a programmer. And then of course,
+不容易当好程序员。当然
 
 112
 00:05:29,229 --> 00:05:31,596
 there's millions of what we call Frameworks in iOS.
+iOS 里有很多被称为框架（Frameworks）的东西
 
 113
 00:05:31,664 --> 00:05:33,331
 Frameworks are just collections of objects.
+框架就是对象的集合
 
 114
 00:05:33,399 --> 00:05:36,234
 Like the biggest one is UIKit, that's where buttons, and
+最大的一个是 UIKit，里面有按钮
 
 115
 00:05:36,303 --> 00:05:38,769
 sliders, and all that stuff is. Foundation is another
+滑杆等那些控件。Foundation 框架
 
 116
 00:05:38,838 --> 00:05:41,640
 big one. That's where a lot of that core services stuff I was
+也不小，里面主要是 Core Services 层的内容
 
 117
 00:05:41,708 --> 00:05:44,141
 talking about is. But there's the Map Kit, Core Motion,
+但同时还有 Map Kit、Core Motion
 
 118
 00:05:44,210 --> 00:05:46,478
 Core Data, Object Orient, Database, all kinds of them.
+Core Data（面向对象数据库）等等框架
 
 119
 00:05:46,547 --> 00:05:49,513
 And I'll try and get to as many of them as I can. And
+我会尝试讲到尽量多的框架
 
 120
 00:05:49,582 --> 00:05:53,652
 last but definitely not least, there is a Design Strategy for
+最后一个，同样重要的，设计模式
 
 121
 00:05:53,721 --> 00:05:56,754
 building iOS apps that you have to use.
+用来开发 iOS 程序必须要用的
 
 122
 00:05:56,823 --> 00:05:59,290
 This is not like an optional, here's a good idea, why don't
+这并不是一个选项，或者某个很好的点子
 
 123
 00:05:59,359 --> 00:06:03,395
 you design this way? You must design this way. It's called
+建议你这样设计。不，你必须这样设计。它叫做
 
 124
 00:06:03,463 --> 00:06:06,331
 MVC, Model View Controller. How many people have,
+MVC, 即 Model（模型）-View（视图）-Controller（控制器）
 
 125
 00:06:06,399 --> 00:06:09,634
 some experience doing MVC in any other? Okay, it's not so
+这里有多少人有使用过 MVC？好吧
 
 126
 00:06:09,703 --> 00:06:12,303
 many this quarter. Usually I get half the people but
+这学期没有那么多人。通常会有一半的人
 
 127
 00:06:12,372 --> 00:06:14,439
 I'll be teaching all about MVC.
+但我会教你们 MVC
 
 128
 00:06:14,507 --> 00:06:17,342
-The start of electron Wednesday is gonna be a full
+The start of lecture on Wednesday is gonna be a full
+星期三一开始会详尽地
 
 129
 00:06:17,411 --> 00:06:21,345
 coverage of MVC. What it is, how it works, all that stuff,
+讲 MVC，包括它是什么，怎么工作的，等等
 
 130
 00:06:21,414 --> 00:06:25,584
 all right? So now, I'm gonna dive right into a big demo
+好吧？现在，我会开始一个大型的示例程序
 
 131
 00:06:25,652 --> 00:06:29,921
 that's the best way to learn how to do iOS development is
+最好的学习 iOS 开发的方法
 
 132
 00:06:29,990 --> 00:06:32,557
 with a demo. Seeing it happen, we're gonna build
+就是看实例。看着如何做的，我们会
 
 133
 00:06:32,625 --> 00:06:34,926
 an application from scratch. This slide right here,
+从头开始写一个程序。这页幻灯片
 
 134
 00:06:34,995 --> 00:06:36,628
 is a slide for you to look at later, and
+是给你们之后看的
 
 135
 00:06:36,696 --> 00:06:39,197
 see, did I learn all these things, because I should have
+对照检查下我是否学会了这些，因为我
 
 136
 00:06:39,266 --> 00:06:43,468
 learned them today. This is not a slide to read now.
+在今天的课上学了。你们不用现在看
 
 137
 00:06:43,536 --> 00:06:45,503
 Since I'm not gonna get back to the slides,
+因为我不会再回到幻灯片
 
 138
 00:06:45,572 --> 00:06:48,139
 let me just say what's coming up real quick. You are gonna
+我快速地讲讲之后的安排
 
 139
 00:06:48,208 --> 00:06:50,008
 have a reading assignment that goes out today.
+我今天会布置给你们阅读作业
 
 140
 00:06:50,077 --> 00:06:53,044
 It's basically starting to read the manual on
+要求基本就是开始阅读 Swift 的说明书
 
 141
 00:06:53,113 --> 00:06:55,780
 Swift. So you can learn this new language. It'll be all
+以此来学习这门新语言
 
 142
 00:06:55,849 --> 00:06:58,950
 spreaded out over three maybe four weeks, so you don't have
+我会给你们大概三到四周读完整本书
 
 143
 00:06:59,019 --> 00:07:00,918
-too much reading all at once. >> But
+too much reading all at once. But
+我不会一次要求你读太多
 
 144
 00:07:00,987 --> 00:07:03,588
 those reading assignments are gonna be in addition to
+但是不止是阅读作业
 
 145
 00:07:03,657 --> 00:07:06,224
 programming assignments. The reading assignments are going
+你们还会有编程作业。阅读作业是周一布置
 
 146
 00:07:06,293 --> 00:07:07,792
 to go out on Monday, they come back on Monday,
+下周一交
 
 147
 00:07:07,861 --> 00:07:08,993
 they're due the next Monday. And
+阅读作业是下周一交
 
 148
 00:07:09,062 --> 00:07:11,029
 then the program assignments go out on Wednesday and
+编程作业是星期三布置
 
 149
 00:07:11,098 --> 00:07:12,997
 then they're due the next Wednesday generally.
+一般来说会是下周三交
 
 150
 00:07:13,066 --> 00:07:15,599
 Okay, at least we'll start the quarter that way.
+好，至少我们一开始是这样安排的
 
 151
 00:07:15,668 --> 00:07:17,636
 On Friday, we have an optional section,
+星期五的课是选修课
 
 152
 00:07:17,704 --> 00:07:20,138
 it means optional that you don't have to go there.
+你可上可不上
 
 153
 00:07:20,206 --> 00:07:22,841
 The topics we're gonna cover are kind of additional, but
+讲的主题也会是额外的内容
 
 154
 00:07:22,910 --> 00:07:24,943
 this Friday is one is a big one, it's tips and
+但这周五的很重要，是关于
 
 155
 00:07:25,011 --> 00:07:27,412
 tricks of Xcode, including how to use the debugger.
+Xcode 使用的提示和技巧，包括如何使用调试器
 
 156
 00:07:27,481 --> 00:07:29,747
 So if you've never used the debugger in Xcode,
+如果你从没有使用过 Xcode 的调试器
 
 157
 00:07:29,816 --> 00:07:31,115
 this is a good one to go to, so
+我推荐你来参加
 
 158
 00:07:31,184 --> 00:07:33,685
 you can see how to use the debugger for your problem.
+你能见识到如何用调试器解决问题
 
 159
 00:07:33,754 --> 00:07:36,220
 If not, you know, it's a debugger, if you used other
+如果你不想来的话，嘛，就是个调试器，如果用过了其他的
 
 160
 00:07:36,289 --> 00:07:39,356
 debuggers, you could probably figure it out, but anyway, it
+调试器的话，你应该能够自己琢磨出来
 
 161
 00:07:39,425 --> 00:07:42,427
 says right there that it's in Hewlett 205, but I don't think
+这里写着会在 Hewlett 205，但我并不觉得
 
 162
 00:07:42,495 --> 00:07:44,962
 there's such a room. I think it might be in Hewlett 105.
+有这么个教室。我认为应该在 Hewlett 105
 
 163
 00:07:45,031 --> 00:07:47,532
 I don't know, watch Piazza and we'll tell you where it is.
+我记不清了，注意看 Piazza 上我告诉你们的地址
 
 164
 00:07:47,601 --> 00:07:51,869
 But it is gonna be 11:30 to 12:20. And so next week we'll
+但时间是 11:30 到 12:20。下一周
 
 165
 00:07:51,938 --> 00:07:55,473
 talk more about Swift and then launch into all of iOS,
+我们会更多的讲 Swift，然后就完全是 iOS 了
 
 166
 00:07:55,541 --> 00:07:59,243
 all right? So let's jump right into the demo here.
+好吧？我现在就开始演示写程序
 
 167
 00:07:59,312 --> 00:08:02,447
 And I apologize in advance for going fast on this demo,
+我这里提前道歉，这个演示我会过得很快
 
 168
 00:08:02,516 --> 00:08:03,848
 because we have a lot to cover, and
+因为我们要讲的实在是太多了
 
 169
 00:08:03,916 --> 00:08:05,650
 you're gonna find that in this course, in general,
+而对于这门课来说，你会发现这是普遍现象
 
 170
 00:08:05,719 --> 00:08:08,153
 I tend to go pretty quick, cuz I wanna teach you as much of
+我一般讲得很快，因为我想要教你们更多的内容
 
 171
 00:08:08,222 --> 00:08:13,057
 this stuff as I possibly can. All right,
+能教多少教多少。好
 
 172
 00:08:13,126 --> 00:08:16,728
 Xcode. Here's Xcode. I went to the Mac App Store.
+打开 Xcode。这就是 Xcode，我去 Mac App Store
 
 173
 00:08:16,797 --> 00:08:19,030
 I searched Xcode, I found it. I downloaded it.
+搜索 Xcode，找到并下载
 
 174
 00:08:19,099 --> 00:08:21,866
 It was free, it doesn't cost me a dime to develop for
+Xcode 是免费的，不用花一分钱就可以开发
 
 175
 00:08:21,935 --> 00:08:24,602
 iOS. When you launch Xcode for the first time,
+iOS 程序。当你打开 Xcode 的时候
 
 176
 00:08:24,671 --> 00:08:26,637
 you're gonna get this thing right here. So
+你就会看到这个欢迎界面
 
 177
 00:08:26,706 --> 00:08:29,340
 we need to build an app. Now, I decided to show you the app
+我们需要构建一个程序。我准备先给你们展示
 
 178
 00:08:29,408 --> 00:08:32,844
 that I'm gonna build here in real life. So you see these
+我这个程序在现实生活中是怎么玩的。你看到这些
 
 179
 00:08:32,912 --> 00:08:36,681
 cards that I've very artfully taped up here? These cards
+卡片，就是我粘在这里的这些？这些卡片
 
 180
 00:08:36,750 --> 00:08:39,584
 are going to let me play a game called Concentration.
+可以用来玩一个叫做 Concentration 的翻牌游戏
 
 181
 00:08:39,653 --> 00:08:42,654
 How many people have heard of the game Concentration?
+有多少人听说过翻牌这个游戏？
 
 182
 00:08:42,722 --> 00:08:45,389
 Not too many. Okay, so Concentration is just a card
+不是很多。好吧，翻牌这个游戏就是个卡牌游戏
 
 183
 00:08:45,458 --> 00:08:48,059
 game. Behind these cards that are all face down,
+这些正面朝下的卡片上
 
 184
 00:08:48,127 --> 00:08:50,395
 there are some pictures, and the goal is for
+都有某张图片，我们的目标是
 
 185
 00:08:50,463 --> 00:08:53,464
 you to match the pictures up. So there's 12 cards,
+找到相同的图片。这里有 12 张卡
 
 186
 00:08:53,533 --> 00:08:56,834
 6 pairs of pictures, so I get to pick two cards at a time,
+6 对图片。所以我一次挑选两张
 
 187
 00:08:56,903 --> 00:08:58,602
 and if they match, I win, and
+如果是相同的，我就赢了，然后
 
 188
 00:08:58,671 --> 00:09:01,138
 the cards go away. If they don't match,
+牌放一边。如果不一样
 
 189
 00:09:01,207 --> 00:09:04,008
 I have to turn them back down and pick two other cards, and
+我就需要把它们放回原处，然后重新选两张
 
 190
 00:09:04,077 --> 00:09:06,778
 it's called Concentration cuz I have to concentrate on
+这个游戏叫做 Concentration 是因为要集中注意力
 
 191
 00:09:06,847 --> 00:09:09,681
 the ones that didn't match, so that later I can go back and
+关注那些没有配对上的，然后之后来
 
 192
 00:09:09,750 --> 00:09:11,783
 match them. So, let's just flip some cards over here.
+配对。让我们翻开这里的某些卡片
 
 193
 00:09:11,852 --> 00:09:13,984
 I'm gonna start with this one right here.
+我先从这个开始
 
 194
 00:09:14,053 --> 00:09:15,687
 I really don't know what's behind there, but let's see.
+我并不知道后面印的是什么图案
 
 195
 00:09:15,756 --> 00:09:20,491
 Okay, this one is a pair of purple bats.
+好，这个是一对紫色的蝙蝠
 
 196
 00:09:20,560 --> 00:09:22,460
 So now I'm trying to find another pair of purple bats,
+我们需要找到另一对紫色蝙蝠
 
 197
 00:09:22,529 --> 00:09:25,529
 let's try right here. I found them right away, okay.
+让我们试试这里的这个。啊，马上就找到了
 
 198
 00:09:25,598 --> 00:09:27,699
 So this is a match, I get some points.
+所以这是相匹配的，我就得分了
 
 199
 00:09:27,767 --> 00:09:31,535
 These come off the board. So now I'm searching for
+然后就拿下来。现在我要找到更多能配对的
 
 200
 00:09:31,604 --> 00:09:35,240
 more matches. All right, let's try this one right here. It's
+让我们来试试这里的这个
 
 201
 00:09:35,308 --> 00:09:39,977
 a ghost. I got the ghost right there. Let's try this one.
+这是个鬼。我这里有个鬼，让我试试这个
 
 202
 00:09:40,046 --> 00:09:43,748
 No, no match. That looks like a Rorschach thing, but
+啊，不一样，那看起来像罗夏墨迹测验
 
 203
 00:09:43,817 --> 00:09:46,184
 it's a witch. Turns out that's a witch on her broom,
+但其实是女巫，骑着扫把的女巫
 
 204
 00:09:46,253 --> 00:09:48,786
 if you can see right there. So, I don't get any points for
+如果你能看到的话。所以我没有得分
 
 205
 00:09:48,855 --> 00:09:51,522
 this and I have to turn these back down and pick two other
+然后需要放回去，然后另选两张
 
 206
 00:09:51,591 --> 00:09:52,991
 cards. All right, so I'll turn these down.
+好，让我们翻回去
 
 207
 00:09:53,060 --> 00:09:54,659
 Hopefully you guys are concentrating, and
+希望你们注意了
 
 208
 00:09:54,728 --> 00:09:57,729
 you can remember what these things are. I'm gonna try this
+然后能记住这些都在哪里。让我试试这个
 
 209
 00:09:57,798 --> 00:10:01,298
 one. It's a cat, kind of a cute cat right there, and
+是只猫，可爱的猫
 
 210
 00:10:01,367 --> 00:10:07,071
 let's pick another one, how about this one. A pumpkin!
+让我们再选另外一张，这个怎样？是个南瓜！
 
 211
 00:10:07,140 --> 00:10:10,208
 Okay, well, in some ways, this is bad,
+某种意义上说，这很不好
 
 212
 00:10:10,276 --> 00:10:12,276
 because we have another non match,
+因为我们又没有配上对
 
 213
 00:10:12,345 --> 00:10:14,245
 but it's kind of good in that supposedly,
+但同时也有好处
 
 214
 00:10:14,314 --> 00:10:18,049
 if we we're concentrating we know where four cards are. So
+如果我们注意了，我们就知道这四张卡在哪里
 
 215
 00:10:18,117 --> 00:10:21,619
 turn these back down. Pick two new ones, and
+然后我们又翻回去
 
 216
 00:10:21,688 --> 00:10:25,323
 I'm gonna pick cards that I haven't seen before,
+我要挑一个还没有翻过的卡片
 
 217
 00:10:25,391 --> 00:10:28,726
 because I already know where these cards are.
+因为我已经知道这些是什么了
 
 218
 00:10:28,794 --> 00:10:31,395
 All right, that doesn't fall down.
+好，这个没掉下来
 
 219
 00:10:31,464 --> 00:10:35,466
 All right, how about this one. This one is, The witch,
+让我们选这个。这个是女巫
 
 220
 00:10:35,535 --> 00:10:38,837
 the witch! Okay, so now if I was concentrating,
+女巫！如果我注意了的话
 
 221
 00:10:38,905 --> 00:10:42,173
 I remember where the witch was, now where was it? Was it,
+我会记得另一个女巫在哪里，在哪里呢？
 
 222
 00:10:42,241 --> 00:10:46,945
 I think, was it this one? Yeah? Witch, yes, okay!
+我觉得是这个？是的！另一个女巫！
 
 223
 00:10:47,013 --> 00:10:50,548
 So we match these, and these come off the board, and this
+我们找到了配对的，就把这对拿开
 
 224
 00:10:50,617 --> 00:10:54,519
 just continues, and obviously the fewer things you choose,
+然后继续重复。显然你应该尽量少挑选
 
 225
 00:10:54,587 --> 00:10:58,155
 okay, the fewer times that you pick, like here is a cat.
+你应该尽量减少挑选的次数。比如这是个猫
 
 226
 00:10:58,224 --> 00:11:00,625
 Where's that cat? I think it's down here.
+另一只在哪里？我记得在下面这里
 
 227
 00:11:00,693 --> 00:11:04,328
 No, that's not a cat. Now this kind of a mismatch
+不，那不是一只猫。像这种没配对的
 
 228
 00:11:04,397 --> 00:11:06,431
 I should be probably get a big penalty for,
+我应该得到严重的处罚
 
 229
 00:11:06,499 --> 00:11:09,133
 because the cat I've seen before, it's right here.
+因为我之前看到猫就在这里
 
 230
 00:11:09,202 --> 00:11:10,701
 So I should have matched it, and I didn't,
+我应该是能配对的，但是我并没有
 
 231
 00:11:10,770 --> 00:11:14,004
 I wasn't concentrating. So this is the game we're gonna
+因为我注意力并没有集中，所以这就是我们要
 
 232
 00:11:14,073 --> 00:11:18,943
 build an app to do. All right, make sense? Simple game.
+编的游戏。这个简单的游戏简单吧？
 
 233
 00:11:19,012 --> 00:11:23,981
 All right back to Xcode right here. Now this Xcode portal,
+我们回到 Xcode。这个 Xcode 的首页
 
 234
 00:11:24,050 --> 00:11:26,384
 the splash screen that pops up here.
+显示的是这个启动页
 
 235
 00:11:26,452 --> 00:11:29,553
