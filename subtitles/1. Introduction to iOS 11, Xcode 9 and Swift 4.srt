@@ -21,395 +21,492 @@ iOS. Hopefully you're in the right place.
 5
 00:00:15,983 --> 00:00:20,319
 This is fall quarter of 2017. And I'm gonna breeze through
-现在是 2017 年秋季学期。
+现在是 2017 年秋季学期。我先简单
 
 6
 00:00:20,387 --> 00:00:22,754
 a few slides here. And then I'm gonna sit down and
+讲几页幻灯片，然后坐下来
 
 7
 00:00:22,823 --> 00:00:25,256
 do a nice involved demo just to show you what it's like
+给你们写个程序演示一下
 
 8
 00:00:25,325 --> 00:00:27,960
 developing apps for iOS. That's the best way to learn,
+开发 iOS 程序是什么样的。这是最好的学习方法
 
 9
 00:00:28,029 --> 00:00:30,094
 it's for me to show you how to do it. So
+让我来给你展示怎么做
 
 10
 00:00:30,163 --> 00:00:32,231
 this will be what I'm gonna talk about briefly first.
+现在我先简单讲讲
 
 11
 00:00:32,299 --> 00:00:33,465
 So what are you gonna learn in this course?
+你在这节课会学到什么？
 
 12
 00:00:33,534 --> 00:00:35,901
 Of course you're gonna learn how to build cool apps.
+当然你会学习如何编写很酷的程序
 
 13
 00:00:35,970 --> 00:00:39,304
 iOS apps are cool. Why are they cool?
+iOS 程序都很酷，为什么呢？
 
 14
 00:00:39,372 --> 00:00:42,540
 Well, they're cool because they live in your pocket, you
+因为他们“活”在你的口袋里（的手机上）
 
 15
 00:00:42,609 --> 00:00:45,777
 can show them to your friends right there, also incredibly
+你随时可以展示给你的朋友们看
 
 16
 00:00:45,845 --> 00:00:48,813
 easy to sell and market your apps online because you have
+同时还能很轻松地在在线商店销售，因为
 
 17
 00:00:48,882 --> 00:00:52,017
 the App Store. And there's a very vibrant community that's
+有 App Store。那可是个很活跃的大平台
 
 18
 00:00:52,086 --> 00:00:54,953
 because Apple is always doing cool new things like virtual
+因为苹果公司总是在做很酷的事情
 
 19
 00:00:55,021 --> 00:00:57,622
 reality and machine learning and all these things.
+比如今年的虚拟（增强）现实和机器学习
 
 20
 00:00:57,691 --> 00:01:00,725
 And there are millions of apps on the app store, so there's
+同时 App Store 里有成千上万的程序
 
 21
 00:01:00,794 --> 00:01:03,428
 a lot of people doing this stuff. But you're also gonna
+很多人都在做 iOS 开发。同时你会
 
 22
 00:01:03,497 --> 00:01:05,263
 learn in this class a little bit of real life
+在这节课中学习到实际运用
 
 23
 00:01:05,332 --> 00:01:06,965
 Object-Oriented Programming.
+面向对象编程
 
 24
 00:01:07,034 --> 00:01:10,134
-You all are taking classes networking and databases and
+You all are taking classes, networking and databases and
+你在其他计算机课程中学习到了网络，数据库
 
 25
 00:01:10,203 --> 00:01:13,238
 graphics, your other CS classes. And here we're gonna
+图形等，在这里你将会
 
 26
 00:01:13,306 --> 00:01:15,807
 do all those things in a real life platform.
+在 iOS 平台上实际运用这些
 
 27
 00:01:15,876 --> 00:01:19,177
 Because over the weeks we are going to do all of those
+因为这几周的时间我们会
 
 28
 00:01:19,246 --> 00:01:22,480
 computer science things for real. And especially
+实际运用这些计算机相关的知识
 
 29
 00:01:22,549 --> 00:01:25,684
 Object-Oriented Programming, cuz iOS is completely and
+特别是面向对象编程，因为 iOS
 
 30
 00:01:25,753 --> 00:01:29,053
 utterly object-oriented. You cannot develop for
+是完全面向对象的。你不可能开发
 
 31
 00:01:29,122 --> 00:01:32,357
-iOS without being serious object oriented programming.
+iOS without being serious object oriented programmer.
+iOS 程序，除非你掌握了面向对象编程
 
 32
 00:01:32,426 --> 00:01:34,960
 And that brings me to my prerequisite for this course,
+正好我可以讲讲上这门课的前提
 
 33
 00:01:35,029 --> 00:01:37,496
 which is Object-Oriented Programming. You have to be
+其中之一是面向对象编程
 
 34
 00:01:37,564 --> 00:01:39,631
 comfortable with Object-Oriented Programming.
+你必须要适应面向对象编程
 
 35
 00:01:39,699 --> 00:01:42,835
 Definitely CS106 A and B and hopefully CS108,
+必须要上了 CS106 A/B，最好是 CS108
 
 36
 00:01:42,903 --> 00:01:45,704
 which is Object-Oriented Programming here at
+这些是斯坦福开设的面向对象编程课程
 
 37
 00:01:45,773 --> 00:01:48,573
 Stanford. And the other thing you gotta to be comfortable
+其他你需要能适应的是
 
 38
 00:01:48,641 --> 00:01:51,343
 with is writing a lot of code. All your homework in this
+写很多代码。这节课所有的作业
 
 39
 00:01:51,412 --> 00:01:53,912
 class, there's a little bit of reading the first few weeks
+前几周还会有些阅读作业
 
 40
 00:01:53,981 --> 00:01:56,047
 about the language that we're gonna develop in.
+是关于我们开发要用的语言
 
 41
 00:01:56,116 --> 00:01:58,082
 But mostly it's just programming, programming and
+但其他的大部分都是写程序，写程序
 
 42
 00:01:58,151 --> 00:02:01,320
 more programming. So if you're not comfortable writing a lot
+写更多的程序。所以如果你不能适应天天敲代码
 
 43
 00:02:01,388 --> 00:02:04,289
 of code then this class, you might wanna wait until
+那你应该等等再上这节课
 
 44
 00:02:04,358 --> 00:02:07,059
 you've taken some other classes that ask you to
+你可以先上其他要写很多代码的课
 
 45
 00:02:07,127 --> 00:02:09,962
 write a lot of code before you dive in here.
+然后再来上这节课
 
 46
 00:02:10,030 --> 00:02:13,164
 So what's in iOS? What am I gonna be teaching you?
+好，那么什么是 iOS？我要教你什么？
 
 47
 00:02:13,233 --> 00:02:15,533
 I've divided it here into four layers.
+我们可以把 iOS 分成四层
 
 48
 00:02:15,602 --> 00:02:18,003
 The bottom layer is near the hardware, and
+最下面的一层最接近硬件
 
 49
 00:02:18,071 --> 00:02:21,840
 the top layer is near the user. So at that bottom layer,
+最上面一层最接近用户。所以最底下的一层
 
 50
 00:02:21,909 --> 00:02:25,710
 you might be surprised to find out that iOS is Unix.
+你会很惊奇的发现 iOS 其实是 Unix 系统
 
 51
 00:02:25,779 --> 00:02:29,614
 It's a BSD variant of Unix. And so all of the stuff
+BSD 版本 的 Unix。所以所有的这些
 
 52
 00:02:29,683 --> 00:02:34,453
 that's going on down there is all happening in C basically.
+在这里运行的程序大多都是用 C 语言编写的
 
 53
 00:02:34,521 --> 00:02:38,156
 Unix is mostly written in C, most of that stuff is in C.
+Unix 几乎是用 C 语言写的，大部分都是
 
 54
 00:02:38,225 --> 00:02:41,460
 I'm not gonna teach you anything at this layer.
+我不会教你这个层面的内容
 
 55
 00:02:41,528 --> 00:02:42,760
 This is an object-oriented class,
+这节课是教面向对象的
 
 56
 00:02:42,829 --> 00:02:44,396
 everything we do will be object-oriented.
+我们要写的程序也都是面向对象的
 
 57
 00:02:44,465 --> 00:02:47,432
 You will not see me teaching you anything down there,
+你不会看到我教你这部分的内容
 
 58
 00:02:47,501 --> 00:02:49,234
 The next layer up is called the Core Services layer.
+在那一层之上是 Core Serviecs 层
 
 59
 00:02:49,235 --> 00:02:50,968
 all right?
+是吧？
 
 60
 00:02:51,037 --> 00:02:54,939
 This is an object-oriented layer on top of those lower
+这一层是对下面那层服务的面向对象封装
 
 61
 00:02:55,008 --> 00:02:59,377
 services. This I will be teaching you. So if we wanna
+我会教你这一层的内容。如果我们想要
 
 62
 00:02:59,446 --> 00:03:02,547
 do things like find out where the phone is on the planet or
+做比如这个手机在地球上的什么位置
 
 63
 00:03:02,616 --> 00:03:05,817
 find out its orientation or access some files in the file
+或者设备的方向，或者访问文件系统
 
 64
 00:03:05,886 --> 00:03:09,320
 system, we're gonna be using this layer right here and I'll
+我们就需要用到这层，我会
 
 65
 00:03:09,389 --> 00:03:13,191
 be teaching you all about this layer. Core Services layer.
+教你使用这一层，Core Services 层所有的功能。
 
 66
 00:03:13,259 --> 00:03:17,428
 The next layer up, this is kind of not a strict layering,
+再上面一层，这不是很严谨的分层
 
 67
 00:03:17,497 --> 00:03:20,665
 but is the Media layer. Don't forget that your iPhone
+但这层是媒体（Media）处理层，不要忘了你的 iPhone
 
 68
 00:03:20,733 --> 00:03:24,369
 is essentially, originally an iPod with a phone in it. So
+原本是可以打电话的 iPod
 
 69
 00:03:24,438 --> 00:03:27,739
 it's got all kinds of media, video, audio,
+所以它能够对各种媒体，比如视频，音频
 
 70
 00:03:27,807 --> 00:03:31,543
 many different kinds, images, all this stuff. And
+以及众多格式的图片等进行处理
 
 71
 00:03:31,611 --> 00:03:34,446
 unfortunately this is a layer I'd love to teach you but
+虽然我很想教你们这些内容，但不幸的是
 
 72
 00:03:34,515 --> 00:03:37,482
 I have to cut something, so I'm not gonna talk much about
+我必须要消减一些内容，所以我不会讲太多
 
 73
 00:03:37,550 --> 00:03:40,718
 this layer, unfortunately. So I know some of you might be
+这层的内容，真的很不幸。我知道你们中的有些人
 
 74
 00:03:40,787 --> 00:03:43,354
 wanting to write a cool game that has 3D sound with TIE
+会想要编很酷的程序，有 3D 环绕声伴随
 
 75
 00:03:43,423 --> 00:03:46,224
 fighters ripping around from the back of you to the front.
+（星球大战里的）钛战机从后面飞到前面
 
 76
 00:03:46,292 --> 00:03:49,060
 And that's all possible, and quite straightforward to do,
+这些都是可能的，而且实现很简单
 
 77
 00:03:49,128 --> 00:03:51,629
 but in ten weeks I have to pick what I'm gonna teach you,
+但是我必须要选择十周的时间我应该教你们什么
 
 78
 00:03:51,698 --> 00:03:54,832
 and so I'm gonna focus on Core Services. And then this layer,
+所以我会更加注重 Core Services 层的内容。最后一层
 
 79
 00:03:54,901 --> 00:03:58,803
 which is Cocoa Touch. So Cocoa Touch is the UI layer of iOS.
+Cocoa Touch 层，负责 iOS 的用户界面
 
 80
 00:03:58,872 --> 00:04:00,305
 This is where the buttons and
+这一层是比如按钮
 
 81
 00:04:00,374 --> 00:04:02,507
 the sliders, all those things are in. And
+滑杆（Slider）等控件定义的地方
 
 82
 00:04:02,576 --> 00:04:05,943
 there's also, really powerful objects here, like the Map Kit
+这一层还有其他强大的对象，比如 MapKit
 
 83
 00:04:06,012 --> 00:04:08,679
 has a single object that you can just drop in your app
+有个对象，你可以直接把它驾到程序里
 
 84
 00:04:08,748 --> 00:04:11,583
 that gives you pretty much the entire functionality of
+机会你就有了整个
 
 85
 00:04:11,652 --> 00:04:15,053
 the map's app inside a rectangle, inside your window.
+地图程序的功能，呈现在窗口里的某个矩形里
 
 86
 00:04:15,121 --> 00:04:18,256
 So, you're talking about a wide variety of UI stuff here
+所以你会遇到各种 UI 控件
 
 87
 00:04:18,324 --> 00:04:21,660
 and I'm gonna try and cover as much of this as I can. So
+我会尽量多地讲解这一层的内容
 
 88
 00:04:21,728 --> 00:04:23,929
 that's what you're gonna learn in this class.
+这就是你会在这节课中学习到的内容
 
 89
 00:04:23,997 --> 00:04:26,965
 The platform we're gonna develop on is Xcode 9, so
+我们会在 Mac 上使用 Xcode 9 开发
 
 90
 00:04:27,034 --> 00:04:29,568
 you're all gonna need to download Xcode 9,
+你需要从 Mac App Store 免费下载 Xcode 9
 
 91
 00:04:29,637 --> 00:04:32,471
 it's free and it only runs on your Mac.
+（千万别从百度云等第三方下载）注意只支持 Mac
 
 92
 00:04:32,539 --> 00:04:35,140
 And, there's this other little app, Instruments, but it's
+同时还有一个程序，Instruments
 
 93
 00:04:35,208 --> 00:04:37,776
 really kind of just an add-on to Xcode 9. We're gonna do
+Xcode 附带的程序，更像是插件。我们会
 
 94
 00:04:37,844 --> 00:04:41,212
 everything in Xcode 9, source code, editing, debugging,
+在 Xcode 9 中做所有的事情，写代码，编辑，调试
 
 95
 00:04:41,281 --> 00:04:44,515
 all that stuff is gonna happen in Xcode 9. You're also gonna
+这些都是在 Xcode 9 中完成。你同时还要
 
 96
 00:04:44,584 --> 00:04:47,986
 have to learn a new language. iOS has two languages you can
+学习一门新的语言。开发 iOS 有两种语言可以选择
 
 97
 00:04:48,054 --> 00:04:50,154
 develop in, Objective-C and Swift.
+一个是 Objective-C，一个是 Swift
 
 98
 00:04:50,223 --> 00:04:53,291
 Swift is the newer one, that's the one I'm gonna teach you.
+Swift 是更新的一个，同时也是我会教你的语言
 
 99
 00:04:53,360 --> 00:04:56,327
 Everything you learn though in Swift, all about iOS,
+所有你用 Swift 学到的关于 iOS 的知识
 
 100
 00:04:56,396 --> 00:04:59,264
 will apply if you later wanna go learn Objective-C and
+如果你之后决定学 Objective-C 都是可以用到的
 
 101
 00:04:59,332 --> 00:05:02,367
 work for a company that is still writing in Objective-C,
+也可以用在还在使用 Objective-C 的公司的程序里
 
 102
 00:05:02,436 --> 00:05:05,036
 which is perfectly valid language to write in.
+因为 Objective-C 也是可以独当一面的语言
 
 103
 00:05:05,105 --> 00:05:06,838
