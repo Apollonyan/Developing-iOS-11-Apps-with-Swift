@@ -1171,218 +1171,272 @@ the splash screen that pops up here.
 235
 00:11:26,452 --> 00:11:29,553
 It has all the apps that you've been working on all
+右边这里会显示这学期你所有的程序
 
 236
 00:11:29,622 --> 00:11:32,289
 quarter. Right here, and then it lets you create a new app
+就在这里。你还可以新建一个程序
 
 237
 00:11:32,358 --> 00:11:34,692
 over here where it says create a new Xcode project. So,
+在写着 Create a new Xcode project 这里
 
 238
 00:11:34,761 --> 00:11:36,527
 we're gonna create a new Xcode project.
+我们要新建一个 Xcode 项目
 
 239
 00:11:36,596 --> 00:11:39,764
 I just click that button. When you create a project,
+于是我们点这个按钮。当你新建一个项目的时候
 
 240
 00:11:39,833 --> 00:11:42,867
 it asks you what kind of project do you wanna build?
+它会问你是什么样的项目？
 
 241
 00:11:42,936 --> 00:11:45,970
 And we wanna build an iOS app, you see up here at the top.
+我们要编的是 iOS 程序，就是最上面这里选的
 
 242
 00:11:46,039 --> 00:11:48,640
 We could build a watch app, or an Apple TV app,
+我们还可以编写 Apple Watch，Apple TV 程序等
 
 243
 00:11:48,708 --> 00:11:50,675
 but we're building an iOS app, and
+但我们这节课是编写 iOS 程序
 
 244
 00:11:50,743 --> 00:11:53,544
 this is saying what kind of iOS app would you like?
+接着又问你是什么样的 iOS 程序？
 
 245
 00:11:53,612 --> 00:11:57,382
 So here's a game, augmented reality. We're always gonna
+可以是 Game（游戏），Augmented Reality（增强现实）
 
 246
 00:11:57,450 --> 00:12:00,218
 pick this one in the upper left corner, single view app,
+但我们要选的是左上角这个，Single View App
 
 247
 00:12:00,286 --> 00:12:03,154
 because it's the simplest starting template, and I wanna
+因为单一视图程序是最简单的模版
 
 248
 00:12:03,223 --> 00:12:05,322
 teach you how to write the code to do all those
+我会教你如何编写其他的这些模版
 
 249
 00:12:05,391 --> 00:12:08,459
 other ones. I don't want you just click a template, and
+我不希望你只是点击一个模版
 
 250
 00:12:08,528 --> 00:12:11,328
 it just shows you the infrastructure for a game, or
+然后就有了整个游戏的基础结构
 
 251
 00:12:11,397 --> 00:12:13,131
 whatever. I wanna show you how to do that.
+或者其他什么的；我想要教你如何实现那些
 
 252
 00:12:13,199 --> 00:12:15,733
 So we're always gonna pick single view app.
+所以我们总是选 Single View App
 
 253
 00:12:15,802 --> 00:12:18,970
 When we pick the kind of app we want it's gonna ask us some
+当我们选了程序的类型之后，Xcode 会问
 
 254
 00:12:19,039 --> 00:12:21,138
 questions like what do you wanna call this app?
+你想要把这个程序叫做什么
 
 255
 00:12:21,207 --> 00:12:24,676
 Well this game is called Concentration, so I'm gonna
+这个游戏叫做 Concentration，我就叫
 
 256
 00:12:24,744 --> 00:12:27,878
 say Concentration. The next one down here is Team.
+这个程序 Concentration。下一个是 Team
 
 257
 00:12:27,947 --> 00:12:31,816
 That's the development team working on it. That's you. Now
+这个是你工作的开发团队，也就是你自己
 
 258
 00:12:31,885 --> 00:12:35,019
-when are on it it's gonna say Add Team or Make Team right
+when you are on it it's gonna say Add Team or Make Team right
+你的 Xcode 会显示 Add Team 或是 Make Team
 
 259
 00:12:35,088 --> 00:12:38,723
 there. To me, it knows it's me, and when you do that,
+但是我的 Xcode 已经知道我是谁了。对你而言
 
 260
 00:12:38,792 --> 00:12:42,026
 all you're gonna need to create a development team is
+要创建一个开发团队，你只需要
 
 261
 00:12:42,094 --> 00:12:44,195
 an Apple ID. You don't have to pay any money.
+一个 Apple ID。这不需要交钱
 
 262
 00:12:44,264 --> 00:12:46,797
 Any Apple ID will do, go through the process.
+任何 Apple ID 都可以，跟着步骤走
 
 263
 00:12:46,866 --> 00:12:49,634
 You'll creat a development team. Next,
+创建了开发团队之后
 
 264
 00:12:49,702 --> 00:12:52,536
 is this Organization Name. That can be anything you want.
+是 Organization Name。这组织名称随便填
 
 265
 00:12:52,605 --> 00:12:55,239
 It just shows up in the copyright in your Swift files,
+它会显示在 Swift 文件的版权声明里
 
 266
 00:12:55,308 --> 00:13:00,010
 all right? But this one, very important that this be
+但 Organization Identifier 很重要
 
 267
 00:13:00,079 --> 00:13:04,015
 uniquely identifying you. So a real easy way to
+这个是你独一无二的标识符。最简单的方法
 
 268
 00:13:04,084 --> 00:13:06,450
 do that if you're a Stanford student is
+如果你是个斯坦福的学生，就用
 
 269
 00:13:06,519 --> 00:13:09,487
 edu.stanford.cs193p, your SUNet id.
+edu.stanford.cs193p.你的SUNetID
 
 270
 00:13:09,555 --> 00:13:11,789
 Instead of lecture there, put your SUNet ID.
+不填 lecture，而是你的 SUNet ID
 
 271
 00:13:11,858 --> 00:13:14,759
 That's clearly gonna identify you. If you're not a Stanford
+那就可以识别出是你了。如果你不是斯坦福
 
 272
 00:13:14,828 --> 00:13:17,594
 student, you have to figure it out on your own, and
+学生，那你需要自己想一个（惯例是网站域名的反写）
 
 273
 00:13:17,663 --> 00:13:19,664
 then the language I told you about, the two languages,
+最后 Language，我之前说的那两个
 
 274
 00:13:19,733 --> 00:13:22,100
 we're gonna do all our development in Swift. You can
+我们的开发全部会用 Swift。你还可以
 
 275
 00:13:22,168 --> 00:13:24,902
 mix Swift and Objective-C even in the same application.
+在同一个程序里混用 Swift 和 Objective-C
 
 276
 00:13:24,971 --> 00:13:27,638
 They're very interoperable. Swift was designed fully with
+它们是能协同工作的。在设计 Swift 时候充分
 
 277
 00:13:27,707 --> 00:13:30,708
 Objective-C in mind, so it's not a problem. So we'll always
+考虑了 Objective-C，所以这不会是个问题。所以我们总是
 
 278
 00:13:30,777 --> 00:13:33,010
 pick Swift here, and we're not gonna do any of these
+在这里选择 Swift 语言。我们不会用到
 
 279
 00:13:33,079 --> 00:13:34,812
 things down here in the first two weeks,
+下面的这些，至少前两周不会
 
 280
 00:13:34,881 --> 00:13:37,648
 but we will eventually get it, object-oriented databases, and
+但我们最终会讲到面向对象数据库
 
 281
 00:13:37,717 --> 00:13:39,717
 testing, we'll eventually do that stuff.
+和测试这些，都是会讲的
 
 282
 00:13:39,786 --> 00:13:40,985
 So I'm gonna click next.
+接着点 Next
 
 283
 00:13:41,054 --> 00:13:43,454
 Now it's asking me where do you wanna store your project?
+现在问我要把项目放在哪里
 
 284
 00:13:43,523 --> 00:13:46,423
 I strongly recommend you put it in your home directory,
+我建议放在你的用户根目录下的
 
 285
 00:13:46,492 --> 00:13:49,693
 in a folder called Developer, that's the kind of a canonical
+Developer 文件夹里（~/Developer）。这像是个钦定的
 
 286
 00:13:49,762 --> 00:13:51,728
 place that people put their projects.
+人们经常放他们项目的地方
 
 287
 00:13:51,797 --> 00:13:55,033
 All your projects will collect here, okay, concentration, and
+你所有的项目都会在这里，今天是 Concentration
 
 288
 00:13:55,101 --> 00:13:57,368
 then the other ones we're gonna do later in the quarter.
+然后是这学期之后的项目
 
 289
 00:13:58,304 --> 00:13:59,537
@@ -6710,5 +6764,5 @@ I'll see you on Wednesday. >> For
 
 1620
 01:21:53,976 --> 01:22:03,383
-more, please visit us at standford.edu.
+more, please visit us at stanford.edu.
 >> 更多课程详见 stanford.edu
