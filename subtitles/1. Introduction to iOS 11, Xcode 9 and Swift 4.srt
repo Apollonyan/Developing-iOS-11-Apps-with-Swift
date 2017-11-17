@@ -6700,406 +6700,507 @@ that method, I'm gonna create a var called card number
 1401
 01:10:13,743 --> 01:10:16,977
 which I want to be the number the card 0,1,2,3,4 wherever it
+也就是是第几张卡，比如 0, 1, 2, 3, 4
 
 1402
 01:10:17,046 --> 01:10:21,482
 is in the array. I'm gonna set that equal to cardButtons dot,
+就是在数组里的位置。我把它赋值为 cardButtons.
 
 1403
 01:10:21,551 --> 01:10:25,419
 right sending a message card button index. Now interesting,
+发送消息给 cardButtons.index 有趣的是
 
 1404
 01:10:25,488 --> 01:10:29,023
 look how many methods are called index in array,
+看看有多少数组的方法叫做 index
 
 1405
 01:10:29,092 --> 01:10:33,360
 multiple methods. In Swift, that's perfectly legal. Swift,
+Swift 里多个方法是可以重名的
 
 1406
 01:10:33,429 --> 01:10:36,531
 you can have 100 methods all with the same index, but they
+你可以有 100 个方法都叫 index，但是
 
 1407
 01:10:36,599 --> 01:10:39,200
 all have to have different arguments. You see how all of
+每一个都要有不同的参数。看到所有这些
 
 1408
 01:10:39,268 --> 01:10:41,235
 these index methods have different arguments?
+index 方法都有不同的参数吗？
 
 1409
 01:10:41,303 --> 01:10:43,303
 All right, and they get the index after something,
+比如某个索引之后的索引
 
 1410
 01:10:43,372 --> 01:10:44,671
 index before something whatever.
+某个索引之前的索引这些
 
 1411
 01:10:44,740 --> 01:10:47,809
 I want this one down here index of something which is
+我想要的这个 index(of:) 在下面
 
 1412
 01:10:47,877 --> 01:10:51,412
 returns a int, okay, that's gonna be a problem that int,
+返回的是 Int?。这个类型会成为一个问题
 
 1413
 01:10:51,481 --> 01:10:53,581
 we're gonna see in a second here but
+我们等会儿就会遇到
 
 1414
 01:10:53,650 --> 01:10:56,884
 if I double click that, I've got the index here. So,
+但我先双击使用它。我们有了 index 这个方法
 
 1415
 01:10:56,953 --> 01:10:59,653
 I wanna find the index of the sender cuz I'm in touch card
+我想要找到 sender 在数组里的索引，因为我按下的卡片
 
 1416
 01:10:59,722 --> 01:11:02,790
 right here, so this sender and I'm just gonna print this out.
+就在那里，然后我就直接把这个打印出来
 
 1417
 01:11:02,859 --> 01:11:05,560
 So I'm gonna say card number equals and
+print("cardNumber = \(cardNumber)")
 
 1418
 01:11:05,628 --> 01:11:08,196
 we'll do our magic thing here, and
+用了神奇的字符串插值
 
 1419
 01:11:08,264 --> 01:11:11,231
 we will just print out the card number, okay.
+然后打印出了是第几张卡
 
 1420
 01:11:11,300 --> 01:11:13,734
-So before we go look in up in an array and find the emotion,
+So before we go look in up in an array and find the emoji,
+在我们到数组里找出表情符号之前
 
 1421
 01:11:13,803 --> 01:11:16,137
 let's just make sure that we're finding the right card
+我们先确认我们找到的是正确的卡片
 
 1422
 01:11:16,206 --> 01:11:20,041
 right here. Now, right away I get two warnings here.
+注意我马上就有了两个警告
 
 1423
 01:11:20,109 --> 01:11:22,543
 Hm, let's go look at these warnings in depth.
+让我们仔细研究下这两个警告
 
 1424
 01:11:22,612 --> 01:11:24,846
 Let's make our whole screen show these warnings.
+让我们全屏显示这两个警告
 
 1425
 01:11:24,914 --> 01:11:28,549
 The first one is Variable cardNumber was never mutated.
+第一个是说变量 cardNumber 从未被更改
 
 1426
 01:11:28,617 --> 01:11:30,852
 Consider changing to let constant.
+考虑改用 let 声明常量
 
 1427
 01:11:30,920 --> 01:11:34,489
 What does that mean? Well indeed, cardNumber,
+这是什么意思？确实，cardNumber
 
 1428
 01:11:34,557 --> 01:11:37,758
 we give it an initial value here of looking up the card
+我们通过查找给他赋了初值
 
 1429
 01:11:37,826 --> 01:11:40,461
 in the card buttons array but we never change it again.
+就没有从在 cardButtons 数组里的索引更改过
 
 1430
 01:11:40,530 --> 01:11:45,433
 So it is not back in fact variable. It's a constant.
+所以这就不是个变量，是个常量
 
 1431
 01:11:45,501 --> 01:11:49,637
 Okay, and in Swift we always mark constants as constants.
+注意，在 Swift 里常量总是被声明为常量
 
 1432
 01:11:49,706 --> 01:11:52,406
 But we don't use const like in C and
+但我们用的不是像 C 的 const
 
 1433
 01:11:52,474 --> 01:11:55,475
 other languages, we use let, L-E-T.
+或是其他语言那样的。我们用的是 let
 
 1434
 01:11:55,544 --> 01:11:57,978
 And here's another cool thing. You see this little triangle?
+这还有一个很酷的事情是，你看见这个小三角了吗？
 
 1435
 01:11:58,047 --> 01:12:02,917
 If I click on it, oftentimes Swift will fix it for me.
+如果我点击它，通常 Swift 会提供 Fix-it 来帮我解决问题
 
 1436
 01:12:02,985 --> 01:12:05,152
 You see that where it says fix. It's saying,
+看到这里写着 Fix 了吗？它说
 
 1437
 01:12:05,220 --> 01:12:08,622
 you want me to replace var with let? Like yeah, sure, and
+你想用 let 来代替 var 吗？好啊
 
 1438
 01:12:08,691 --> 01:12:12,427
 it did, see? Now why do we use let instead of const?
+然后它就这样做了。为什么我们用 let 而不是 const 呢？
 
 1439
 01:12:12,495 --> 01:12:14,929
 Because we want Swift to read like English.
+因为 Swift 要读起来像英文
 
 1440
 01:12:14,998 --> 01:12:18,199
 let cardNumber = cardButtons.index of
+让卡片序号等于卡片按钮数组里调用函数的按钮的索引
 
 1441
 01:12:18,268 --> 01:12:23,003
 the sender, sounds like English to me, ish, okay? So
+听起来像是通顺的英语，好吧？
 
 1442
 01:12:23,072 --> 01:12:25,606
 that's better than const cardNumber =.
+这比 常卡片序号 好一些
 
 1443
 01:12:25,675 --> 01:12:28,709
 So you're gonna get used to using let, always use let when
+所以你要习惯使用 let，总是用 let 来声明
 
 1444
 01:12:28,777 --> 01:12:32,146
 something's a constant, never use var, all right?
+常量，而不是用 var，好吧？
 
 1445
 01:12:32,215 --> 01:12:35,383
 This other warning right here, I'm gonna ignore. And
+这里还有一个警告，我先忽视掉
 
 1446
 01:12:35,452 --> 01:12:38,051
 let's just see what happens here when we run.
+让我们看看运行会发生什么？
 
 1447
 01:12:38,120 --> 01:12:43,057
 So let's run this guy in our simulator, we're ignoring
+让我们直接在模拟器运行，忽视这个
 
 1448
 01:12:43,126 --> 01:12:47,728
 that, pay no attention to the yellow warning there.
+不在意这个黄色的警告
 
 1449
 01:12:47,796 --> 01:12:50,431
 Okay, here it is, let's click some of these buttons and
+好，出来了。让我们来点这些按钮
 
 1450
 01:12:50,499 --> 01:12:53,000
 see what happens. See, it's going to print.
+然后看看发生什么。它应该会打印出来
 
 1451
 01:12:53,069 --> 01:12:54,668
 We'll put this over on the side so you can see the code
+让我们把这个放到一边，好能同时看到代码
 
 1452
 01:12:54,737 --> 01:12:58,405
 at the same time. We're just gonna print out the cardNumber
+我们只是打印出来 cardNumber
 
 1453
 01:12:58,474 --> 01:13:00,041
 that we found by looking that index up.
+通过找它的索引得到的结果
 
 1454
 01:13:00,109 --> 01:13:05,012
 Ready, click. That's kind of weird, look at that,
+准备，点。这有些奇怪，看看这个
 
 1455
 01:13:05,081 --> 01:13:09,016
 Optional(1), Optional(2), what's that Optional about?
+Optional(1)，Optional(2)，这个 Optional 是什么？
 
 1456
 01:13:09,084 --> 01:13:11,919
 There seems to be seeing the card right, right, 0, 1, 2,
+至少卡是找对了，0，1，2
 
 1457
 01:13:11,988 --> 01:13:15,656
 but it's saying Optional, why is it saying Optional? Well,
+但它一直在说 Optional，为什么呢？其实
 
 1458
 01:13:15,725 --> 01:13:19,860
 this is that super important thing I was telling you about?
+这就是我说的非常重要的知识点
 
 1459
 01:13:19,929 --> 01:13:24,198
 Here it is. Lets option-click on index right here, and
+这就是了。让我们按住 option 点击这个 index 方法
 
 1460
 01:13:24,266 --> 01:13:27,868
 go look at it's documentation. And
+我们去看看它的文档
 
 1461
 01:13:27,937 --> 01:13:31,372
 the return value of index is not an int,
+它的返回值不是普通的整数 Int
 
 1462
 01:13:31,441 --> 01:13:35,542
 the return value of index is an optional,
+返回值是可选（optional）的整数
 
 1463
 01:13:35,611 --> 01:13:36,944
 that's what that question mark means.
+这就是那个问号的意思
 
 1464
 01:13:37,012 --> 01:13:39,346
 We've seen question marks all over in the documentation,
+我们在文档里到处都可以看到问号
 
 1465
 01:13:39,415 --> 01:13:43,050
 right? It means optional. And optional is a different
+是吧？意思就是是可选的。可选类型是不一样的
 
 1466
 01:13:43,119 --> 01:13:47,388
 type entirely from int. Okay, has nothing to do with int.
+可选整型和整形完全不同，没有关联
 
 1467
 01:13:47,457 --> 01:13:51,859
 Optional is a type that has two and only two states,
+可选类型是一种类型，有且仅有两种状态
 
 1468
 01:13:51,928 --> 01:13:56,998
 set and not set. It's an enumeration.
+有值和缺省值，这是个枚举类型（enumeration）
 
 1469
 01:13:57,066 --> 01:13:59,634
 You probably seen enumerations in other languages,
+你多半在其他语言中看到过枚举类型
 
 1470
 01:13:59,702 --> 01:14:02,002
 enumerations are things that have discreet set of values.
+枚举类型是所有可能的值的集合
 
 1471
 01:14:02,071 --> 01:14:04,004
 This one only has two values, set and not set,
+可选类型只有两种值，有值和缺省值
 
 1472
 01:14:04,073 --> 01:14:07,040
 that's it. But the cool things about enumerations in Swift,
+就这样。但 Swift 枚举类型很酷的是
 
 1473
 01:14:07,109 --> 01:14:09,176
 not a lot of other languages have this. For
+并不是很多语言都有这个
 
 1474
 01:14:09,245 --> 01:14:13,246
 each case of an enumeration you can have associated data,
+每个枚举的情况都可以有关联值（associated value）
 
 1475
 01:14:13,315 --> 01:14:17,618
 just data that goes along with that thing. Well, an optional,
+就是跟随它的数据。那对于可选类型
 
 1476
 01:14:17,687 --> 01:14:20,454
 when it's in the set state, has associated data,
+处于有值的情况，就有关联值
 
 1477
 01:14:20,523 --> 01:14:24,324
 which in this case is an int. So this index method is
+在我们这里是整型 Int。所以这个 index 方法
 
 1478
 01:14:24,393 --> 01:14:28,162
 returning whether or not it could find that button in
+返回是否能找到那个按钮的信息
 
 1479
 01:14:28,231 --> 01:14:32,400
 there by returning set or not set. And if it does find it
+是通过返回有值或是缺省值。如果找到了的话
 
 1480
 01:14:32,468 --> 01:14:35,369
 it also gives you the associated data of the int.
+那就把索引作为关联值给你
 
 1481
 01:14:35,437 --> 01:14:38,105
 That's what you're seeing down here. It's printing out,
+这就是我们看到的下面这里打印出来
 
 1482
 01:14:38,174 --> 01:14:41,108
 when we print cardNumber it says this is an optional.
+打印 cardNumber 的时候会输出 Optional
 
 1483
 01:14:41,177 --> 01:14:43,878
 It's in the set case and
+它是有值的状态
 
 1484
 01:14:43,946 --> 01:14:48,816
 the associated value is an int. Got that? Now what if we
+关联值是整型，理解了吗？如果
 
 1485
 01:14:48,884 --> 01:14:51,218
 click on the button that's not in the cardButton's array?
+我们点击一个不在 cardButtons 数组里的按钮呢？
 
 1486
 01:14:51,286 --> 01:14:53,687
 Let's see what that prints, that does right here. Oops,
+我们看看会打印出什么，看看会做什么
 
 1487
 01:14:53,756 --> 01:14:55,923
 we stopped, let's go back and run it again. I'm gonna click
+我们停止运行了，那重新运行。我要按
 
 1488
 01:14:55,992 --> 01:14:57,992
-on that fourth button that is an in cardButton.
+on that fourth button that isn't in cardButton.
+那不再数组里的第四个按钮
 
 1489
 01:14:58,060 --> 01:15:00,527
 So when index looks it up it's not gonna find it.
+当 index 方法在数组里找的话是找不到的
 
 1490
 01:15:00,596 --> 01:15:02,096
 It's gonna return not set.
+所以会返回缺省值
 
 1491
 01:15:02,164 --> 01:15:06,434
 Let's see what that looks like? Click nil, N-I-L. So in
+让我们看看那是什么样的。点击，出现了 nil
 
 1492
 01:15:06,502 --> 01:15:10,771
 Swift the word nil means the not set case of an optional.
+所以在 Swift 语言中，nil 代表可选类型缺省值
 
 1493
 01:15:10,839 --> 01:15:12,640
 That's the only thing it means. In other languages,
+这就是它唯一的意思。在其他语言里
 
 1494
 01:15:12,708 --> 01:15:16,043
 it means zero pointer and other things. No, in Swift it
+它意思是空指针一类的，但 Swift 里不是
 
 1495
 01:15:16,112 --> 01:15:20,414
 always means an optional that's not set. Got that? All
+它总代表可选类型缺省值，理解了吗？
 
 1496
 01:15:20,483 --> 01:15:23,184
 right, so that's no good to me though, to have an optional.
+这对我来说是不够好的，有一个可选类型
 
 1497
 01:15:23,252 --> 01:15:26,520
 I can't look that optional up in another array of emoji,
+我不能用可选类型来索引表情符号数组
 
 1498
 01:15:26,588 --> 01:15:29,756
 I need the int. So how do I get that associated value in
+我需要整数索引。那我如何在有值的情况下
 
 1499
 01:15:29,825 --> 01:15:32,560
 the set state? Well, one way is to put
+得到那个关联值呢？其中一个方法是
 
 1500
 01:15:32,628 --> 01:15:35,429
 an exclamation point at the end of it. If you put
+在后面加一个感叹号 !
 
 1501
 01:15:35,497 --> 01:15:37,397
 an exclamation point at the end of an optional, it says,
+如果你在可选类型的后面加一个感叹号，那意思是
 
 1502
 01:15:37,466 --> 01:15:41,869
