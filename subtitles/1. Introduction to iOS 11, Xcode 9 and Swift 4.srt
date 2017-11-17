@@ -4001,2806 +4001,3513 @@ so that's why we have these different names.
 801
 00:39:05,009 --> 00:39:08,811
 Now, it is possible and legal to only have one name like
+其实是可以，而且完全可以只有一个参数名
 
 802
 00:39:08,880 --> 00:39:12,048
 just emoji. Then the external internal name would both
+比如只有 emoji。这种情况下实参标签和形参名一样
 
 803
 00:39:12,116 --> 00:39:17,320
 be emoji. And this underbar thing like right here.
+都是 emoji。这里的这个英文下划线
 
 804
 00:39:17,389 --> 00:39:19,588
 That means there's no argument,
+意思是没有实参标签
 
 805
 00:39:19,657 --> 00:39:20,790
 in other words it's just like Java or
+也就是像 Java 那样的
 
 806
 00:39:20,858 --> 00:39:24,560
 some other language. We almost never do that, it is done,
+其他语言一样了。我们几乎不会，只有少数时候会这样
 
 807
 00:39:24,629 --> 00:39:26,529
 the document will tell you when you can do it,
+准则里面提到了什么时候你可以或应该这样做
 
 808
 00:39:26,597 --> 00:39:29,832
 we almost never do it. It's here in this touch card
+但基本不会。这里的 touchCard 用了下划线来省略
 
 809
 00:39:29,900 --> 00:39:33,069
 because that's an iOS thing that's sending this message.
+是因为 iOS 系统发来的消息
 
 810
 00:39:33,138 --> 00:39:34,637
 It's from back in the Objective-C world.
+是从 Objective-C 时代就有了
 
 811
 00:39:34,706 --> 00:39:38,007
 Objective-C doesn't have this internal external name thing.
+而 Objective-C 没有这个实参标签的说法
 
 812
 00:39:38,075 --> 00:39:40,476
 So that's why it's under bar there, okay, but
+所以需要有个 _ 来省略参数
 
 813
 00:39:40,545 --> 00:39:43,513
 we don't really use under bar that much. All right, so
+但这并不是很常用
 
 814
 00:39:43,582 --> 00:39:45,748
 how we're gonna implement this flipCard right here?
+那我们怎么实现 flipCard？
 
 815
 00:39:45,816 --> 00:39:48,251
 Well, this flipCard is essentially gonna toggle it,
+flipCard 会把牌翻一个面
 
 816
 00:39:48,320 --> 00:39:50,319
 and I'm just gonna have this flipCard method,
+那么我在 flipCard 方法里
 
 817
 00:39:50,388 --> 00:39:53,623
 look at the button If it's already the ghost,
+判断按钮，看它是否已经显示了鬼了
 
 818
 00:39:53,692 --> 00:39:57,393
 then I'm gonna have it flip it over to orange with no text.
+如果有，那就翻过去，背景色设为橙色，不显示字
 
 819
 00:39:57,462 --> 00:40:00,195
 If it's not, then I'm gonna put the ghost on it with white
+如果没有字的话，那就把鬼显示在白色背景上
 
 820
 00:40:00,264 --> 00:40:05,034
 background. Just exactly what we played around with earlier.
+就像我们之前在白板上玩的一样
 
 821
 00:40:05,102 --> 00:40:09,605
 So, we need to check to see if the buttons current title
+所以我们需要查看按钮目前的标题
 
 822
 00:40:09,674 --> 00:40:12,408
 is this ghost. So I'm just gonna try and type this in
+是否是这个鬼。让我试着输入这段代码
 
 823
 00:40:12,476 --> 00:40:15,377
 let's see, if the button. Okay, now I need to send
+if button，如果按钮……现在我需要
 
 824
 00:40:15,446 --> 00:40:19,415
 a message to the button asking it what's your current title.
+发送消息给按钮问它当前的标题是什么
 
 825
 00:40:19,484 --> 00:40:23,386
 Well, probably I wanna go look in the documentation, figure
+那我应该去查看文档
 
 826
 00:40:23,455 --> 00:40:25,788
 out what button does. In fact, that's what you want to do.
+看看按钮有什么功能。这是最正规的做法
 
 827
 00:40:25,856 --> 00:40:28,757
 But there's actually a cool way if you just wanna guess
+但很酷的是，你可以去猜它叫什么名字
 
 828
 00:40:28,826 --> 00:40:32,628
 what it is. You can press dot. That's how you send a message
+你输入 . 英文句号，也就是 Swift 里发送消息的方法
 
 829
 00:40:32,697 --> 00:40:35,831
 in Swift to just like Java, right, dot to send a message.
+就像 Java 一样，对吧，用点语法来发送消息
 
 830
 00:40:35,900 --> 00:40:39,034
 And when you do that Xcode is gonna show you all the methods
+然后 Xcode 会显示给你所有的方法
 
 831
 00:40:39,103 --> 00:40:43,039
 and variables that button understands, and let me say,
+和变量，这些都是按钮可以接受的。然后我们用
 
 832
 00:40:43,107 --> 00:40:46,409
 there are quite a few. Okay, I'm scrolling through here,
+我看看，不是我说，这里还挺多的
 
 833
 00:40:46,478 --> 00:40:48,711
 I'm only down to the Cs okay, we got Ds,
+我现在还只是在 C 开头的，D 开头的
 
 834
 00:40:48,780 --> 00:40:51,447
 there's probably a couple hundred. So
+可能有好几百个吧
 
 835
 00:40:51,515 --> 00:40:53,983
 how does this help me? This doesn't help me at all.
+所以如何才能用这个帮助我呢？现在这样可没什么用
 
 836
 00:40:54,052 --> 00:40:56,885
 Well, the cool thing is, if I just type a word here that I
+嘛，很酷的是，如果我输入一个词
 
 837
 00:40:56,954 --> 00:41:00,223
 think might be in the name of the method I want like title.
+也就是我猜测的方法的名字，比如我想要 title
 
 838
 00:41:00,291 --> 00:41:03,359
 I want you to set the title. Now it just shows me things
+我想要设置按钮的标题。现在显示的就是
 
 839
 00:41:03,428 --> 00:41:06,295
 that start with title, or that have title in it, or
+以 title 开始的，或者是含有 title 的，或者
 
 840
 00:41:06,364 --> 00:41:09,566
 have T-I-T-L-E in it, which is not very useful, but
+是有字母 T, I, T, L, E 在里面的，虽然这个没什么用
 
 841
 00:41:09,634 --> 00:41:12,668
 that's why it puts those at the bottom. But anyway,
+当然这也就是为什么他们会在下面
 
 842
 00:41:12,737 --> 00:41:15,171
 we got the title. So now I can start looking around in
+总的来说我们有与标题相关的了。现在我可以开始找
 
 843
 00:41:15,239 --> 00:41:18,374
 a much shorter list here, to see if I can find it.
+要找的列表短很多，来看看能不能找到
 
 844
 00:41:18,443 --> 00:41:20,909
 So here's title color, definitely I don't want that.
+这里有 titleColor，标题的颜色不是我想要的
 
 845
 00:41:20,978 --> 00:41:24,079
 Title rectangle, no. Here's set title.
+titleRectangle，不要所在的矩形。这里有 setTitle
 
 846
 00:41:24,148 --> 00:41:25,481
 I don't wanna set the title right now but
+我现在不想要更改标题，但
 
 847
 00:41:25,550 --> 00:41:28,350
 that's kinda good to know. Look at this one, current
+了解这个有好处。看看这个，currentTitle
 
 848
 00:41:28,419 --> 00:41:30,919
 title. Current title that is displayed on the button.
+按钮当前显示的标题
 
 849
 00:41:30,988 --> 00:41:34,824
 Victory, I found exactly what I want. And when I find what I
+赢了呢！这就是我想要的。当我找的了
 
 850
 00:41:34,892 --> 00:41:40,730
 want here, looks like by the way, returns a string?
+我想要的，顺便看看，返回的是 String? 类型
 
 851
 00:41:40,798 --> 00:41:42,932
 We'll try it anyway. If I double click on it,
+管他呢，就用这个了。如果我双击它
 
 852
 00:41:43,000 --> 00:41:46,035
 it's gonna put that there for me. And now I can just say
+Xcode 就会自动补全。如果现在我
 
 853
 00:41:46,103 --> 00:41:49,471
 is that equal to the emoji that you're asking me to flip
+判断是否 == emoji，等于你让我翻过去显示的表情
 
 854
 00:41:49,540 --> 00:41:52,975
 the card to. This first argument. Notice how I'm using
+emoji 就是我们的第一个参数。注意我用的是
 
 855
 00:41:53,044 --> 00:41:56,846
 emoji and button as my internal names here.
+emoji 和 button 来作为方法内部使用的名称
 
 856
 00:41:56,914 --> 00:42:00,483
 I'm not using with emoji or on. That was for the caller.
+而不是 withEmoji 或者 on；那是调用的时候使用的
 
 857
 00:42:00,552 --> 00:42:05,020
 Okay, so now I found out that the button already here
+好，现在我知道了如果按钮
 
 858
 00:42:05,089 --> 00:42:07,957
 has the ghost on it. So now I wanna make it orange and
+已经有鬼的表情在上面了，那就把背景色设为橙色
 
 859
 00:42:08,026 --> 00:42:10,927
 blank. So now I need to set the button's title, and I saw
+然后不显示字。如果我想要设置按钮的标题
 
 860
 00:42:10,995 --> 00:42:14,997
 before that it was set title. Here it is, set title. Now
+我之前看到了有 setTitle 可以实现，所以调用 setTitle
 
 861
 00:42:15,066 --> 00:42:18,501
 this set title has extra thing here, for UI control state.
+setTitle 还有一个参数，for: UIControlState
 
 862
 00:42:18,570 --> 00:42:21,336
 You see that? It's like, what the heck is that?
+看到了吗？你会想，那是什么鬼？
 
 863
 00:42:21,405 --> 00:42:24,439
 I don't know anything about buttons, so, I'm not sure.
+我并不了解按钮，所以我不清楚那是什么
 
 864
 00:42:24,508 --> 00:42:27,109
 But I don't see any other set title, so I guess I'll have to
+但并没有其他类似于 setTitle 的了，那估计
 
 865
 00:42:27,178 --> 00:42:30,713
 go with this one. Okay, so I double click on it. The title
+我只能用这个了。好，我双击它
 
 866
 00:42:30,782 --> 00:42:34,183
 I want to set here, of course, is empty string because,
+我想要设的标题当然是空字符串
 
 867
 00:42:34,251 --> 00:42:36,018
 I'm trying to do the back of the card here.
+因为我想显示卡牌的背面
 
 868
 00:42:36,087 --> 00:42:39,789
 So I empty it out. And now I'm kind of at this control state
+也就是把字清空。然后是这个 UIControlState
 
 869
 00:42:39,858 --> 00:42:43,125
 impasse, because I don't really know what this means.
+陷入僵局了，我不知道那是什么意思
 
 870
 00:42:43,194 --> 00:42:45,795
 So, here's another cool thing you can do,
+这时，我们可以做的另一件很酷的事情是
 
 871
 00:42:45,863 --> 00:42:48,564
 is hold down option and mouse over anything,
+按住 option 键不放，然后把鼠标移动到上面
 
 872
 00:42:48,633 --> 00:42:52,234
 you see how it's highlighting things with a little question
+看到那部分会被高亮，然后鼠标变为一个
 
 873
 00:42:52,303 --> 00:42:55,704
 mark right there? And you can click on it and it'll show you
+问号了吗？你可以点击它，然后就会显示
 
 874
 00:42:55,773 --> 00:42:59,174
 the documentation for that thing. So here is set title,
+那个东西的文档。所以这是 setTitle
 
 875
 00:42:59,243 --> 00:43:01,410
 the documentation for it. And if I read through this,
+这个方法的文档。如果我读了这个
 
 876
 00:43:01,479 --> 00:43:03,579
 the third paragraph and description says,
+第三段的描述说
 
 877
 00:43:03,648 --> 00:43:05,648
 at a minimum, you should set the value for
+至少你需要设置 normal 状态下的标题
 
 878
 00:43:05,717 --> 00:43:10,419
 the normal state. Okay, sounds good. Now I'd like to
+也就是普通状态的标题。好，听起来不错
 
 879
 00:43:10,488 --> 00:43:13,489
 understand how to get that normal state, so I'm gonna
+现在我想知道如何得到那个普通状态
 
 880
 00:43:13,558 --> 00:43:17,393
 actually click on this link here, you see UIControlState?
+所以我点击这个链接，看到 UIControlState 是个链接了吗？
 
 881
 00:43:17,462 --> 00:43:19,428
 And it's gonna take me to the documentation and
+它会带我到文档里
 
 882
 00:43:19,497 --> 00:43:22,598
 show me control state. So here we go, click brings up
+给我展示 UIControlState 的信息。我点下去
 
 883
 00:43:22,667 --> 00:43:26,269
 the documentation, here's control state, see that? And
+文档就出来了，UIControlState，看到了吗？
 
 884
 00:43:26,337 --> 00:43:30,139
 here it is normal, the very first one is called normal.
+这里是 normal，第一个就是普通状态
 
 885
 00:43:30,208 --> 00:43:33,242
 And we're gonna see later how we use these things but
+等会儿我们会看到怎么使用这些
 
 886
 00:43:33,310 --> 00:43:35,778
-this is a static, you see it's a static bar.
+this is a static, you see it's a static var.
+但是这里有 static，这是静态变量
 
 887
 00:43:35,847 --> 00:43:39,115
 So it's kind of a property of the type, and so
+就像是属于类型的属性
 
 888
 00:43:39,183 --> 00:43:42,185
 the way that we will type that in is to say,
+所以我们输入这个的方法是
 
 889
 00:43:42,253 --> 00:43:45,454
-UIControlState.normal. So it's awesome we found that, but
+UIControlState.normal. So it's awesome, we found that, but
+UIControlState.normal。很好，我们找到了普通状态
 
 890
 00:43:45,523 --> 00:43:46,622
 while I'm here in the documentation,
+但当我还在文档里的时候
 
 891
 00:43:46,691 --> 00:43:49,525
 let me briefly show you how the documentation works.
+让我简单介绍一下文档是怎么用的
 
 892
 00:43:49,594 --> 00:43:52,361
 Right here, you can see that I'm looking in UI kits
+这里说我们看的是 UIKit
 
 893
 00:43:52,430 --> 00:43:55,798
 at its views and controls at the class UIControl, which
+视图（view）和控件（control）
 
 894
 00:43:55,867 --> 00:43:59,068
 button inherits from. And we're looking at this thing,
+也就是按钮继承的父类所在的地方，然后我们看的是
 
 895
 00:43:59,136 --> 00:44:01,604
 UIControlState. But I can click anywhere here and
+UIControlState，控件的状态。但我可以随便点击
 
 896
 00:44:01,672 --> 00:44:05,241
 go back and maybe look at UIButton if I want. And here's
+如果我想的话，比如回去看看 UIButton，然后这就是
 
 897
 00:44:05,309 --> 00:44:07,843
 UIButton. Now, when you're looking at the documentation,
+UIButton 的文档。当你看文档的时候
 
 898
 00:44:07,912 --> 00:44:11,246
 I super strongly recommend you read these overview sections.
+我强烈建议你读读概述的部分
 
 899
 00:44:11,315 --> 00:44:12,948
 You see where this says Overview?
+看到这里写着是 Overview 了吗？
 
 900
 00:44:13,017 --> 00:44:15,585
 This overview section in each class,
+每个类的概述
 
 901
 00:44:15,653 --> 00:44:17,787
 only take you five minutes to read. And it's really
+只需要大概五分钟的阅读时间，但是非常有用
 
 902
 00:44:17,855 --> 00:44:20,690
 gonna help you understand what the heck is going on here.
+能帮助你理解这都是些什么东西
 
 903
 00:44:20,759 --> 00:44:22,491
 So, I strongly recommend you do that for
+所以我强烈建议你这样做
 
 904
 00:44:22,559 --> 00:44:25,094
 all the common classes that you're using, UIButton later
+所有你用到的常有的类，比如 UIButton
 
 905
 00:44:25,162 --> 00:44:27,563
 we're gonna do array in dictionary. Go read it so
+之后的 Array（数组）和 Dictionariy（字典），去读读
 
 906
 00:44:27,632 --> 00:44:31,601
 you understand what the heck is going on in here. Got that?
+这样你就理解这些内容了。清楚了吗？
 
 907
 00:44:33,104 --> 00:44:35,470
 You can also search the documentation of course here.
+当然你还可以直接在这里搜索文档
 
 908
 00:44:35,539 --> 00:44:38,474
 And in addition to overview it has a list of all the methods.
+除了概述之外还有方法列表
 
 909
 00:44:38,542 --> 00:44:39,541
 And here, for example,
+比如说这里
 
 910
 00:44:39,610 --> 00:44:42,711
 here is set title again. Go back and see if it's the same
+这是 setTitle 方法，然后点进去还是一样的内容
 
 911
 00:44:42,780 --> 00:44:47,049
 that shows up in that little box. So now we know that this
+和那个小弹窗里的文档一样。所以现在我们知道
 
 912
 00:44:47,118 --> 00:44:49,852
 control state here is supposed too be UIControlState.normal.
+这里控件的状态应该是 UIControlState.normal
 
 913
 00:44:49,920 --> 00:44:53,522
 It's gonna set the normal control state. We also want to
+他会设置普通状态下的标题。我们还想
 
 914
 00:44:53,591 --> 00:44:56,359
 set the background color so I'm going to do button dot and
+设置背景颜色，所以我用 button.
 
 915
 00:44:56,427 --> 00:44:58,827
 I'm gonna just take a flyer, backgroundcolor.
+我就碰碰运气，backgroundColor，背景色
 
 916
 00:44:58,896 --> 00:45:02,198
 Sure enough, look backgroundColor or something,
+没错，还真有 backgroundColor
 
 917
 00:45:02,267 --> 00:45:05,768
 exactly called backgroundColor that takes a UI color,
+就叫做 backgroundColor，类型是 UIColor?
 
 918
 00:45:05,837 --> 00:45:08,470
 I think? Let's double click that one. And
+难道不是吗？让我们双击这个
 
 919
 00:45:08,539 --> 00:45:11,607
 I'm gonna set that equal to, believe it or not you can
+然后赋值为，不管你信不信，你可以
 
 920
 00:45:11,676 --> 00:45:14,409
 actually put a color literal in here. You just
+直接放一个颜色在这里
 
 921
 00:45:14,478 --> 00:45:16,946
 do that by starting to type the word color, and you're
+你只需要输入 color，然后你看
 
 922
 00:45:17,014 --> 00:45:19,148
 gonna see the first choice is always Color Literal.
+第一个选项 Color Literal 就是字面值颜色
 
 923
 00:45:19,217 --> 00:45:20,649
 If you double click on that,
+如果我双击它
 
 924
 00:45:20,718 --> 00:45:22,518
 it puts a little square in here.
+Xcode 就会放一个小方框在这里
 
 925
 00:45:22,587 --> 00:45:25,021
 If you click on the square you can pick the color you want.
+你可以点击这个方框，然后选择一个你想要的颜色
 
 926
 00:45:26,257 --> 00:45:27,823
 So let's go back and pick our nice orange,
+我们就选这个很不错的橙色
 
 927
 00:45:27,892 --> 00:45:29,425
 cuz that's what we do in the background.
+因为这就是我们想要的背景色
 
 928
 00:45:29,493 --> 00:45:33,029
 And so, we've set our background color to orange.
+所以我们就把背景色设为橙色了
 
 929
 00:45:33,097 --> 00:45:34,931
 And it's really nice to be able to see that in your code.
+能在代码里看到实际的颜色是很棒的功能
 
 930
 00:45:34,999 --> 00:45:38,100
 It really highlights the colors you're using.
+能够凸显出你想用的具体是什么颜色
 
 931
 00:45:38,168 --> 00:45:41,304
 All right otherwise if it's not, doesn't have the ghost
+好，那如果没有显示鬼这个表情的话
 
 932
 00:45:41,372 --> 00:45:43,105
 right now then we want to put the ghost on there.
+那我们就把鬼显示出来
 
 933
 00:45:43,173 --> 00:45:45,942
 So I'm gonna do pretty much exactly the same code here.
+我用的基本上是同样的代码
 
 934
 00:45:46,010 --> 00:45:48,311
 It's just that I'm gonna set the title instead of blank,
+还是 setTitle，只不过不是空字符串
 
 935
 00:45:48,379 --> 00:45:51,180
 like the background. I'm gonna set it to the emoji,
+也就是上面的那样，而是设为 emoji
 
 936
 00:45:51,249 --> 00:45:54,316
 the ghost in this case. And I'm gonna double click on this
+这种情况下是鬼的表情。然后我双击
 
 937
 00:45:54,385 --> 00:45:57,186
 orange square and change it to white, because I want a white
+这个橙色的方块，然后改成白色的，因为我想要
 
 938
 00:45:57,254 --> 00:46:01,890
 background for the front. We got that? Okay,
+卡前面是白色背景。看懂了吗？好
 
 939
 00:46:01,959 --> 00:46:04,393
 let's run, see if our card. Our card should flip over now,
+让我们再来运行看看我们的卡片。我们的卡片应该可以翻过来了
 
 940
 00:46:04,461 --> 00:46:08,531
 which is getting us quite a long way along the path here
+虽然我们花了点功夫才实现
 
 941
 00:46:08,600 --> 00:46:11,400
 to getting concentration working. Right here is
+才能玩这个翻牌游戏。这里是
 
 942
 00:46:11,469 --> 00:46:16,272
 our ghost. Cross your fingers. Whoo, it flips over and
+我们的鬼表情。上帝保佑，我要点了。哇哦！翻过去了
 
 943
 00:46:16,340 --> 00:46:20,876
 back. Okay, excellent. All right, we're on a roll.
+很好，我们成功了
 
 944
 00:46:20,945 --> 00:46:21,677
 Now, let's go and
+现在让我们
 
 945
 00:46:21,746 --> 00:46:24,613
 add another card. Okay, we got one card. Let's go to
+添加另外一张卡。这是我们现在的一张卡
 
 946
 00:46:24,682 --> 00:46:27,416
 the second card. Believe it or not, you can take things in
+然后第二张卡，不管你信不信，你可以选择这张卡
 
 947
 00:46:27,484 --> 00:46:29,518
 Interface Builder that are the way you want it and
+选中 Interface Builder 里的这个
 
 948
 00:46:29,587 --> 00:46:32,020
 just copy and paste them. So now I have two cards and
+然后复制粘贴。现在我有了两张卡
 
 949
 00:46:32,089 --> 00:46:34,690
 this card already is the right shape that I want,
+这张卡的形状已经是我想要的了
 
 950
 00:46:34,758 --> 00:46:37,259
 it's got the right font size all that stuff.
+字体大小等也都没有问题
 
 951
 00:46:37,328 --> 00:46:40,129
 So it's really recommended to copy and paste verses dragging
+所以我建议你复制粘贴，而不是
 
 952
 00:46:40,198 --> 00:46:42,297
 out a new one and trying to set it to all the same thing.
+重新拉出来一个，然后尝试修改为一摸一样的
 
 953
 00:46:42,366 --> 00:46:44,599
 Just copy and paste.
+你就复制粘贴就好
 
 954
 00:46:44,668 --> 00:46:48,103
 Now this one wants a different thing on it, so let's do
+但是这个上面的表情应该是不一样的，让我们用
 
 955
 00:46:48,172 --> 00:46:52,942
 something like pumpkin. Yeah, well we could do a pump and
+比如说南瓜 🎃 怎么样？好，我们可以
 
 956
 00:46:53,011 --> 00:46:55,978
 now we'll do pumpkin, all right? So we got pumpkin.
+我们就用南瓜
 
 957
 00:46:56,047 --> 00:46:58,180
 So we had pumpkin card and we got a ghost card.
+我们有了南瓜卡和鬼卡
 
 958
 00:46:58,249 --> 00:47:00,983
 Now this pumpkin card, it needs a method.
+现在这个南瓜卡需要一个方法
 
 959
 00:47:01,051 --> 00:47:04,353
 So we're gonna Ctrl+drag to create another method.
+所以我们按住 control 拖拽来创建另一个方法
 
 960
 00:47:04,422 --> 00:47:06,722
 So if you missed it the first time, this is how we do it.
+如果你第一次没记住，我再来演示下怎么做
 
 961
 00:47:06,791 --> 00:47:10,660
 It's an action. I'm gonna call this touchSecondCard.
+选择 Action 存根，叫做 touchSecondCard
 
 962
 00:47:13,531 --> 00:47:17,967
 The type, of course, we want a UI button, argument sender.
+类型，当然选 UIButton，Argument 是 Sender 作为参数
 
 963
 00:47:18,035 --> 00:47:20,903
 Connect it, here it is. I'm gonna take this
+Connect 来关联它。然后我就把
 
 964
 00:47:20,971 --> 00:47:24,339
 exact same code from here, put it down here,
+这段代码复制粘贴过来
 
 965
 00:47:24,408 --> 00:47:28,578
-but instead of the ghost right here, I'm gonna use R pumpkin.
+but instead of the ghost right here, I'm gonna use our pumpkin.
+但是不是鬼的表情，而是用这个南瓜
 
 966
 00:47:31,616 --> 00:47:34,984
 Okay, looks good, right? This could not possibly go wrong,
+好，很好，是吧？这个可能有问题
 
 967
 00:47:35,052 --> 00:47:40,089
 this is so simple. It's gotta work,
+非常简单，应该可以用
 
 968
 00:47:40,158 --> 00:47:45,427
 okay, let's do it. All right, here we go,
+好，让我们来运行试试
 
 969
 00:47:45,496 --> 00:47:50,666
 the ghost still working like a charm. And a Pumpkin, pumpkin
+鬼这个没有问题。然后南瓜，南瓜，南瓜
 
 970
 00:47:50,734 --> 00:47:54,136
 not working. Okay, what is wrong with our pumpkin?
+并没有用。那南瓜这个有什么问题呢？
 
 971
 00:47:54,204 --> 00:47:57,806
 How could this pumpkin possibly not be right. Well,
+这个换成了南瓜怎么就不行了呢？
 
 972
 00:47:57,875 --> 00:48:00,342
 we could get in the debugger here, set a breakpoint,
+那让我们把调试器显示出来，是一个断点（breakpoint）
 
 973
 00:48:00,411 --> 00:48:02,577
 it's real easy to set a breakpoint by the way.
+顺便说下设置断点很容易
 
 974
 00:48:02,646 --> 00:48:04,179
 You just click on a line number,
+只需要点击行号就可以了
 
 975
 00:48:04,248 --> 00:48:06,782
 puts the breakpoint there. But
+就会在那里设一个断点
 
 976
 00:48:06,851 --> 00:48:08,951
 we're gonna do a little more lightweight debugging.
+但我这会儿用个更简单的调试方法
 
 977
 00:48:09,020 --> 00:48:12,320
 I'm just going to put a print here in flipCard, to see if
+我就在 flipCard 里加一个 print 来看
 
 978
 00:48:12,389 --> 00:48:15,390
 this is even calling flipCard. It should be calling flipCard,
+它是否调用了 flipCard。应该是会调用的
 
 979
 00:48:15,459 --> 00:48:18,427
 because it's connected here to this method, so it should be
+因为它关联了这个方法，所以应该
 
 980
 00:48:18,495 --> 00:48:20,562
 calling flipCard. So I'm just gonna go in here and
+调用 flipCard 方法了的。所以我在这里
 
 981
 00:48:20,631 --> 00:48:25,401
 say print, that I'm in flipCard withEmoji. And
+用 print 函数说我在 "flipCard(withEmoji: 里
 
 982
 00:48:25,470 --> 00:48:28,437
 now I wanna put this emoji in here. Now,
+现在我想要把这个 emoji 表情加到这里
 
 983
 00:48:28,506 --> 00:48:32,174
 in a lot of other languages, you would probably say %s,
+在其他的语言里，你可能会用 %s
 
 984
 00:48:32,243 --> 00:48:34,943
-emoji, or something like that, right?
+comma, emoji, or something like that, right?
+%s)", emoji 之类的，是吧？
 
 985
 00:48:35,012 --> 00:48:39,849
 This would be your, oops, this would be your string.
+然后这就是你的字符串
 
 986
 00:48:39,917 --> 00:48:43,819
 But we don't have this %s business in Swift,
+但是 Swift 里不会和 %s 一类的打交道
 
 987
 00:48:43,887 --> 00:48:48,457
 we have something better, which is\(). So
+我们用更好的 \() 来实现字符串插值
 
 988
 00:48:48,526 --> 00:48:53,362
 \() means put something inside there, it's gonna interpret it
+\() 可以让我们在括号里放一些东西，然后把它
 
 989
 00:48:53,431 --> 00:48:57,099
 as a string, and embed it in this string. So that's exactly
+作为一个字符串插入到这个字符串里。这就是
 
 990
 00:48:57,168 --> 00:49:00,369
 what we want, emoji, and the cool thing about it is,
+我们想要的，把 emoji 放进去。更酷的是
 
 991
 00:49:00,438 --> 00:49:03,105
 I could put, this is a string, so it's easy to embed.
+虽然我这里 emoji 是字符串，插入到字符串里并不难
 
 992
 00:49:03,174 --> 00:49:06,107
 But I could put an Int here, anything that can be converted
+但是我还可以放一个整数在这里，任何能转化
 
 993
 00:49:06,176 --> 00:49:08,844
 to a string, which most things in Swift can, I can put there,
+为字符串的都可以，也就是说 Swift 里大部分的我都能放进去
 
 994
 00:49:08,913 --> 00:49:11,380
 I can even put an array there, or a dictionary.
+我设置可以放个数组或是字典在这里
 
 995
 00:49:11,449 --> 00:49:13,482
 As long as the array only had things that could
+当然前提是数组里的内容要能够
 
 996
 00:49:13,550 --> 00:49:15,717
 be converted to a string, then it can convert the whole
+用字符串来表示，那它就会把整个都转换
 
 997
 00:49:15,786 --> 00:49:20,122
 array to a string. So this is a really cool feature,
+把数组变成字符串。这是个很厉害的特性
 
 998
 00:49:20,191 --> 00:49:24,459
 this\(), all right? So let's run again, and
+能用 \() 实现字符串插值。让我们再次运行
 
 999
 00:49:24,528 --> 00:49:30,232
 see if that pumpkin is calling flipCard, which it should be.
+然后看看南瓜卡是否按照预期调用了 flipCard
 
 1000
 00:49:30,301 --> 00:49:33,202
 All right, so the ghost, it's definitely calling it,
+好，鬼卡，肯定是调用了的
 
 1001
 00:49:33,271 --> 00:49:36,705
 see flipCard withEmoji, the ghost, how about the pumpkin?
+看这个 flipCard(withEmoji: 鬼表情)，那南瓜呢？
 
 1002
 00:49:36,774 --> 00:49:40,442
 It looks like it's calling it, but I didn't press that twice,
+看起来是调用了的，但是我并没有按两下
 
 1003
 00:49:40,511 --> 00:49:43,245
 what's going on there? That that's kinda weird,
+但为什么多了两行呢？这有点奇怪
 
 1004
 00:49:43,314 --> 00:49:49,752
 let's do it again. No look at that, it's doing both.
+让我们再试试。看看，它两个表情都有
 
 1005
 00:49:49,821 --> 00:49:51,186
 Every time I press the pumpkin,
+每次我按下南瓜
 
 1006
 00:49:51,255 --> 00:49:53,088
 it's doing the ghost and the pumpkin, ghost and
+同时会出现鬼和南瓜，鬼和南瓜
 
 1007
 00:49:53,157 --> 00:49:55,657
 pumpkin. Why is it doing it twice, okay,
+为什么会调用两次呢？
 
 1008
 00:49:55,726 --> 00:49:58,460
 that's clearly they're messing things up badly.
+我们肯定是搞砸了
 
 1009
 00:49:58,529 --> 00:50:02,798
 Well, let's look and see why it's doing that. We know that
+让我们来看看为什么会变成这样。我们知道
 
 1010
 00:50:02,867 --> 00:50:06,168
 this method is being called by the pumpkin. And
+touchSecondCard 被南瓜卡调用了
 
 1011
 00:50:06,236 --> 00:50:12,307
 this method is being called by both. that's the problem.
+touchCard 被两张卡都调用了，这就是问题所在
 
 1012
 00:50:12,376 --> 00:50:15,878
 And why did that happen, cuz I copied and pasted the ghost.
+为什么会这样呢？因为我复制粘贴了鬼
 
 1013
 00:50:15,947 --> 00:50:17,946
 And when I copied and pasted the ghost, it copied and
+当我复制粘贴鬼的时候，他还复制
 
 1014
 00:50:18,015 --> 00:50:20,682
 pasted the fact that it was sending that message. So
+粘贴了它要发送的消息
 
 1015
 00:50:20,751 --> 00:50:22,384
 this is a common mistake to make,
+这是很容易犯的错误
 
 1016
 00:50:22,453 --> 00:50:25,287
 really easy. So I did it intentionally to show you how
+非常容易，所以我故意错给你看
 
 1017
 00:50:25,355 --> 00:50:28,957
 to get out of this, which is to right-click on something.
+教你如何解决这个问题——那就是右键点击
 
 1018
 00:50:29,026 --> 00:50:31,794
 If you right-click on anything in the UI, it will show you
+如果你右键点击 Interface Builder 里的东西，就会显示
 
 1019
 00:50:31,862 --> 00:50:35,764
 all the connections that it has. So this is the pumpkin,
+它所有的关联。所以这个是南瓜卡的关联
 
 1020
 00:50:35,833 --> 00:50:38,567
 it's sending touchCard and touchSecondCard, but
+它会调用 touchCard 和 touchSecondCard
 
 1021
 00:50:38,635 --> 00:50:40,969
 we only want it to send touchSecondCard. So
+但我们只想要它调用 touchSecondCard
 
 1022
 00:50:41,038 --> 00:50:45,340
 I'm gonna disconnect touchCard by clicking right here.
+所以我要通过点这个叉来取消关联
 
 1023
 00:50:45,409 --> 00:50:49,711
 Now I fixed it, okay, now the pumpkin is sending this,
+现在我解决了问题，南瓜卡只会发这一个消息
 
 1024
 00:50:49,780 --> 00:50:54,082
 and only the ghost is sending this. So right-click is
+而这个方法也只有鬼卡会调用。所以右键
 
 1025
 00:50:54,151 --> 00:50:57,218
 an important thing to know, if you ever get in a situation
+非常重要的，你需要了解。如果你遇到的
 
 1026
 00:50:57,287 --> 00:50:58,387
 where it seems like,
+那种情况你觉得是
 
 1027
 00:50:58,456 --> 00:51:01,223
 I thought I wired that up, why is it not sending it?
+你应该关联了却没有发送消息
 
 1028
 00:51:01,291 --> 00:51:04,292
 Or even why is it crashing trying to send something that
+或者是尝试发送消息的时候意外崩溃
 
 1029
 00:51:04,361 --> 00:51:06,962
 I didn't intend? Right-click on it, will tell you why.
+那就右键点击看看是什么原因
 
 1030
 00:51:07,030 --> 00:51:11,333
 So let's run, see if that indeed fixed our problem here,
+让我们再来运行看看是否解决了我们这里的问题
 
 1031
 00:51:11,402 --> 00:51:17,873
 I imagine it will. Okay, it's got the ghost flipping over,
+我觉得已经可以了。好，鬼卡翻过去了
 
 1032
 00:51:17,941 --> 00:51:21,176
 we got the pumpkin flipping over, okay, excellent,
+我们让南瓜卡也翻过去，很好
 
 1033
 00:51:21,245 --> 00:51:25,680
 all going great. Now before I add yet more cards, I want to
+一切正常。但在我加另外一张卡之前，我想要
 
 1034
 00:51:25,749 --> 00:51:29,584
 have some UI that tells me how many times I've flipped cards.
+在界面里显示我翻过了多少张牌
 
 1035
 00:51:29,653 --> 00:51:31,420
 Because you notice in this game,
+因为注意这个游戏
 
 1036
 00:51:31,488 --> 00:51:34,823
 the fewer times I flip it, the better I am at it, right?
+翻牌的次数越少，我就算是玩的越好，对吧？
 
 1037
 00:51:34,892 --> 00:51:36,158
 If I flipped them all over, up and down,
+如果我挨个都翻过了，翻过去翻过来
 
 1038
 00:51:36,227 --> 00:51:37,826
 up and down, then I'm not very good, it's easy,
+翻过去翻过来，那可不好，太简单了
 
 1039
 00:51:37,895 --> 00:51:40,395
 I didn't have to concentrate. So I wanna have some UI that
+我并不需要集中注意力，所以我希望界面
 
 1040
 00:51:40,464 --> 00:51:44,266
 says how many times I've flipped a card, okay? So to do
+能够显示我翻了多少张卡了
 
 1041
 00:51:44,335 --> 00:51:46,769
 that I'm gonna start, let's get rid of this print in here,
+那开始，我先把 print 删掉
 
 1042
 00:51:46,837 --> 00:51:49,537
 we don't need that debugging anymore. So I'm gonna
+我们不需要继续调试了
 
 1043
 00:51:49,606 --> 00:51:52,674
 start by adding an instance variable to my class that
+我在类里添加一个实例变量
 
 1044
 00:51:52,743 --> 00:51:56,679
 keeps track of the flip count, okay, real, real simple like.
+来记录翻了多少次，非常简单
 
 1045
 00:51:56,747 --> 00:51:59,782
 Move this down here so we can get some space, all right?
+让我打几个回车来腾点空间
 
 1046
 00:51:59,850 --> 00:52:04,018
 So what does it look like to add an instance variable to
+那如何才能够在类里面添加实例变量呢？
 
 1047
 00:52:04,087 --> 00:52:09,058
 your class? Really simple, you use the keyword var, short for
+非常简单，用关键字 var
 
 1048
 00:52:09,126 --> 00:52:13,962
 variable. Then the name flipCount, then the type,
+变量 variable 的缩写，然后名字是 flipCount
 
 1049
 00:52:14,030 --> 00:52:18,967
 : Int, that's it. So I have added here a variable called
+然后 : Int 说明这是整数。就这样，我就添加了一个变量
 
 1050
 00:52:19,036 --> 00:52:22,804
 flipCount to my class, and I'm gonna keep that flipCount up
+<<<<<<< HEAD
+=======
+我的类里有了叫做 flipCount 的变量，然后
+>>>>>>> upstream/master
 
 1051
 00:52:22,873 --> 00:52:25,640
 to date as these cards are flipped on. But,
+每翻一次牌就更新 更新 flipCount
 
 1052
 00:52:25,709 --> 00:52:30,579
 look what happened here, I had an error. So this red, when
+但是看看发生了什么，提示有个错误。所以这个红色的
 
 1053
 00:52:30,648 --> 00:52:34,382
 you have a red error, your app won't even compile and run.
+当你看到红色的错误，你的程序不能编译，也不能运行
 
 1054
 00:52:34,451 --> 00:52:37,352
 You can also get a yellow one, then your app will compile and
+你还可能遇到黄色的警告，你的程序能编译
 
 1055
 00:52:37,421 --> 00:52:40,021
 run, but do not submit your homework with yellow ones
+能运行，但你交的作业两个都不能有
 
 1056
 00:52:40,090 --> 00:52:42,258
 either. Even though they're just warnings,
+即使只是警告
 
 1057
 00:52:42,326 --> 00:52:44,393
 they are usually indicator something bad, so
+但那说明肯定有问题
 
 1058
 00:52:44,461 --> 00:52:47,963
 don't do that either. But this red, I gotta fix this red.
+所以不能有警告。但这个是红色的，我必须解决这个错误
 
 1059
 00:52:48,032 --> 00:52:50,932
 Now what's funny is this red came up on a different line of
+但有趣的是红色的这一条出现在另一行
 
 1060
 00:52:51,001 --> 00:52:54,503
 code. I typed this line of code in, and it came up on
+我输入的是这一行代码，但是出现在
 
 1061
 00:52:54,572 --> 00:52:56,972
 a completely different line. Well what does this say here,
+完全不同的一行。那说的是什么呢？
 
 1062
 00:52:57,040 --> 00:53:00,809
 it says, class ViewController has no initializers.
+它说 ViewController 类没有构造器（initializer）
 
 1063
 00:53:00,878 --> 00:53:03,645
 Why is it saying that, what does that have to do with it?
+为什么会这么说呢？这和我这行代码有什么关系？
 
 1064
 00:53:03,714 --> 00:53:07,049
 Well, this is happening because Swift requires
+其实原因是 Swift 要求
 
 1065
 00:53:07,117 --> 00:53:09,651
 all instance variables, which by the way in Swift,
+所有的实例变量，顺便一提 Swift
 
 1066
 00:53:09,720 --> 00:53:11,920
 we call instance variables properties.
+把实例变量叫做属性（property)
 
 1067
 00:53:11,989 --> 00:53:13,355
 So when you hear me saying property,
+所以当你听到我用 property 属性
 
 1068
 00:53:13,424 --> 00:53:17,125
 I mean instance variable. So all instance variables,
+我指的就是实例变量。Swift 要求所有实例变量
 
 1069
 00:53:17,194 --> 00:53:19,394
 all properties have to be initialized,
+所有属性都要初始化
 
 1070
 00:53:19,463 --> 00:53:22,831
 you are not allowed to have them like this flipCount int.
+你不能只是写 flipCount: Int
 
 1071
 00:53:22,899 --> 00:53:25,867
 What is the value right now? It has no value, okay,
+flipCount 的值是多少？没有值
 
 1072
 00:53:25,936 --> 00:53:27,769
 it has to have an initial value,
+所以必须要有初始值
 
 1073
 00:53:27,838 --> 00:53:30,472
 it's just not allowed to be sitting out there. Now there's
+不能够就只定义就完了
 
 1074
 00:53:30,540 --> 00:53:33,242
 two ways to initialize an instance variable,
+有两种办法可以初始化实例变量
 
 1075
 00:53:33,310 --> 00:53:36,411
 one is using an initializer. So that's what this error is
+其一是使用构造器，这就是这个错误
 
 1076
 00:53:36,480 --> 00:53:39,982
 trying to tell us, get an initializer here, dude.
+想要告诉我们的，写个构造器
 
 1077
 00:53:40,050 --> 00:53:42,851
 An initializer is just this method with a special name,
+构造器就是个特殊的方法，有一个特殊的名字
 
 1078
 00:53:42,920 --> 00:53:45,087
 init, short for initializer, and
+init，initializer 的缩写
 
 1079
 00:53:45,155 --> 00:53:46,688
 it can have any arguments you want. In fact,
+可以有任何类型和数量的参数。事实上
 
 1080
 00:53:46,757 --> 00:53:49,758
 you can have multiple inits, each with different arguments.
+你还可以有多个构造器，每个的参数不一样
 
 1081
 00:53:49,826 --> 00:53:52,661
 But each init is responsible for initializing
+但是每一个构造器都要负责初始化
 
 1082
 00:53:52,730 --> 00:53:56,931
 all of the variables, okay, that's what the init's job is.
+所有的实例变量，这就是构造器的作用
 
 1083
 00:53:57,000 --> 00:53:59,801
 So we could add an initializer here and do that.
+所以我们可以添加一个构造器
 
 1084
 00:53:59,870 --> 00:54:02,904
 Now, unfortunately, adding an initializer to a class can be
+但是给一个类添加构造器
 
 1085
 00:54:02,973 --> 00:54:05,574
 kinda complicated because of inheritance, right?
+可能会因为继承而变得复杂，对吧？
 
 1086
 00:54:05,643 --> 00:54:07,176
 Because your superclass has initializers,
+因为你的父类有构造器
 
 1087
 00:54:07,244 --> 00:54:09,244
 you gotta make sure they get called properly.
+你需要确保正确调用它们
 
 1088
 00:54:09,312 --> 00:54:11,113
 So I'm not even gonna talk about initializers yet, okay,
+所以我先不讲构造器
 
 1089
 00:54:11,181 --> 00:54:13,682
 I'll talk a little bit about them on Wednesday. Next week
+我星期三会多讲一些。下一周
 
 1090
 00:54:13,750 --> 00:54:16,051
 we'll really talk more in depth about initializers. And
+我们会更深入地讲解构造器。同时
 
 1091
 00:54:16,120 --> 00:54:18,120
 so what's the second way that I can initialize this,
+我们还有第二种方法初始化它
 
 1092
 00:54:18,189 --> 00:54:19,855
 since I don't wanna do initializers right now?
+毕竟我不想用构造器
 
 1093
 00:54:19,924 --> 00:54:24,392
 And that's just right here to say, = 0, okay,
+这个方法就是用 = 0 来赋值为零
 
 1094
 00:54:24,461 --> 00:54:28,797
 if I just, why do I keep pressing v there, okay,
+为啥我打了个 v，应该是空格
 
 1095
 00:54:28,866 --> 00:54:31,533
 Int = 0, okay. That initializes this,
+好，: Int = 0，就能初始化了
 
 1096
 00:54:31,602 --> 00:54:34,369
 that's gonna cause this error to go away, all is well. And
+这样错误就消失了
 
 1097
 00:54:34,437 --> 00:54:38,673
 this is how we initialize most of our instance variables.
+这也是我们大部分时间用来初始化实例变量的方法
 
 1098
 00:54:38,742 --> 00:54:41,210
 Now while I'm here, talking about instance variables,
+既然我讲到了这里，让我继续讲讲实例变量
 
 1099
 00:54:41,278 --> 00:54:44,379
 I wanna talk a little bit about Swift and typing.
+我想多讲讲 Swift 和类型
 
 1100
 00:54:44,448 --> 00:54:48,217
 Swift is an extremely strongly typed language,
+Swift 是个非常强类型的语言
 
 1101
 00:54:48,285 --> 00:54:52,421
 I mean extreme. It does have a type which is kind of like
+极端的强类型。虽然有类型代表
 
 1102
 00:54:52,489 --> 00:54:54,489
 untyped, but really it's mostly for
+没有类型，但那是为了
 
 1103
 00:54:54,558 --> 00:54:57,959
 backwards compatibility with Objective-C. In most cases you
+向后兼容 Objective-C。大部分时候
 
 1104
 00:54:58,028 --> 00:55:01,629
 want to be very specific about what types you're using,
+你应该明确你用的是什么类型
 
 1105
 00:55:01,698 --> 00:55:05,234
 and some people complain about strongly typed languages. It's
+有些人会因此抱怨强类型语言
 
 1106
 00:55:05,302 --> 00:55:08,170
 so much burden to always be typing something. Okay, well
+主要是觉得总是要输入类型太恼火了。所以
 
 1107
 00:55:08,238 --> 00:55:12,574
 Swift is also a language that has strong type inference,
+Swift 同时还有强大的类型推导
 
 1108
 00:55:12,643 --> 00:55:17,445
 which means it will, if it can, guess the type for you.
+也就是能够帮你猜出类型是什么
 
 1109
 00:55:17,514 --> 00:55:20,282
 So in this case, you see I have this : Int type,
+比如这个地方，我用了 : Int 来声明类型
 
 1110
 00:55:20,350 --> 00:55:22,417
 that is completely unnecessary in Swift. And
+这在 Swift 里是完全没有必要的
 
 1111
 00:55:22,486 --> 00:55:25,020
 not only unnecessary, we would not put it in there, there is
+而且不仅是不必要，我们根本就不会放在那里
 
 1112
 00:55:25,089 --> 00:55:28,957
 no reason to put that there. Why is that, because this 0 is
+根本没有理由放在那里。为什么？因为这个 0
 
 1113
 00:55:29,026 --> 00:55:33,895
 clearly an Int. Swift treats all literals like this,
+说明了它就是整数。Swift 对于所有的字面值都是这样处理的
 
 1114
 00:55:33,964 --> 00:55:36,898
 that don't have any decimal points as Ints. And
+这个没有小数点，所以是 Int 类型
 
 1115
 00:55:36,967 --> 00:55:39,400
 so this is an Int, and how do we know that? If we hold down
+我们如何确认这是 Int 类型呢？我们按住
 
 1116
 00:55:39,469 --> 00:55:42,070
 Option, just like we did when we clicked on Title down here
+option 键不放，然后就像我们点击 setTitle 一样
 
 1117
 00:55:42,138 --> 00:55:44,973
 to get the documentation, we can click on flipCount, and
+我们点击 flipCount 就可以得到文档
 
 1118
 00:55:45,042 --> 00:55:49,144
 it'll say flipCount is an Int. You see that, and if I
+然后它说 flipCount 是整数类型的，看到了吧
 
 1119
 00:55:49,213 --> 00:55:53,649
 had said flipCount was 0.0, then if I hold down option and
+如果我说 flipCount = 0.0，我再按住 option 键
 
 1120
 00:55:53,717 --> 00:55:57,385
 go back here to flipCount, it says flipCount is a double,
+点击 flipCount，就会说他是 Double 双精度小数
 
 1121
 00:55:57,454 --> 00:56:00,221
 okay? So into, it infers it, if I said flipCount equals
+所以它能推测出来。如果 flipCard = "hello"
 
 1122
 00:56:00,290 --> 00:56:03,191
 "hello", it's going to say okay,
+那它就会说
 
 1123
 00:56:03,260 --> 00:56:06,995
 flipCount is a string All right, so it's gonna infer.
+flipCount 是个字符串。所以 Swift 能推导出类型
 
 1124
 00:56:07,064 --> 00:56:09,965
 Now, this is easy to infer cause this is a constant but
+可以说因为它是常量，所以很容易推测
 
 1125
 00:56:10,034 --> 00:56:13,668
 swift can even infer in the most amazing complicated
+但是 Swift 甚至能在非常复杂的情况下
 
 1126
 00:56:13,737 --> 00:56:16,838
-situations. There's only one type that thing can be,
+situations. If there's only one type that thing can be,
+推测类型。如果只可能是一种类型的话
 
 1127
 00:56:16,907 --> 00:56:17,772
 it'll make it that type and
+Swift 就认为它是那个类型
 
 1128
 00:56:17,841 --> 00:56:18,573
 you don't have to put the types.
+你不需要声明类型
 
 1129
 00:56:18,642 --> 00:56:22,811
 So it's surprising in Swift. The time you put types in
+这是 Swift 很惊人的一点。你输入类型最多的
 
 1130
 00:56:22,880 --> 00:56:26,414
 the most is arguments to functions. Because that you
+是声明函数参数的类型，因为
 
 1131
 00:56:26,483 --> 00:56:28,650
 kind of have to say what, what you're expecting there. But
+你必须交代你期待的是什么类型
 
 1132
 00:56:28,719 --> 00:56:30,953
 otherwise you rarely are actually putting the types.
+其他情况下你都基本不用声明类型的
 
 1133
 00:56:31,021 --> 00:56:33,755
 It's quite amazing, actually. All right, so we have this
+这还挺神奇的。好，我们有了
 
 1134
 00:56:33,824 --> 00:56:36,257
 flip count here. Let's go ahead and increment it. K,
+这里的 flipCount 来计数，我们这就来增加它
 
 1135
 00:56:36,326 --> 00:56:39,127
 every time someone steps, presses on a card I'm gonna
+每次有人点了一张卡
 
 1136
 00:56:39,195 --> 00:56:43,131
 say flip count plus equals one and ug I'm gonna copy and
+我就 flipCount += 1 来增加一
 
 1137
 00:56:43,200 --> 00:56:45,900
 paste the code. God. Anytime you're copying and
+然后我复制粘贴代码。天呐。每次你
 
 1138
 00:56:45,969 --> 00:56:47,936
 pasting code, you're doing it wrong.
+复制粘贴，那就是做错了
 
 1139
 00:56:48,004 --> 00:56:51,005
 Okay, that can't be right. So I just did something that's
+不应该是这样的，即使我做了不该做的事
 
 1140
 00:56:51,074 --> 00:56:53,608
 not right but I'm doing it anyway. I could probably put
+但我还是要这样。我应该可以
 
 1141
 00:56:53,677 --> 00:56:55,943
 that somewhere else but I'm gonna just.
+把它放到其他地方，但是我就
 
 1142
 00:56:56,012 --> 00:56:58,112
 We'll do it this way for now. You'll see why in a second and
+我们现在就这样了。你等会就知道为什么了
 
 1143
 00:56:58,181 --> 00:57:00,548
 we'll fix it. But we don't want to complicate the code.
+然后我们再来解决它，总之我们不想有复杂的代码
 
 1144
 00:57:00,617 --> 00:57:02,017
 But each time a card is touched,
+总之每次点击一张卡片
 
 1145
 00:57:02,085 --> 00:57:05,120
 I'm gonna increment the flip count. Now that's great, but
+我就增加 flipCount。这很好，但是
 
 1146
 00:57:05,189 --> 00:57:06,855
 I need this flip count to appear in the UI,
+我需要在界面上显示翻的次数
 
 1147
 00:57:06,923 --> 00:57:09,891
 okay. I want the user to see how many flips they've made.
+我希望用户看到他们翻了多少次
 
 1148
 00:57:09,960 --> 00:57:11,260
 So I have to have this int
+所以我需要有这个整数
 
 1149
 00:57:11,328 --> 00:57:13,428
 appear in the UI. So how do I do that? Well,
+出现在用户界面里。我怎么做呢？
 
 1150
 00:57:13,496 --> 00:57:17,265
 I need some sort of other UI element besides a button And
+我需要不是按钮的 UI 控件
 
 1151
 00:57:17,334 --> 00:57:19,467
 that's just a little text field. Okay, in fact there's
+它只是一个标签显示些文字。那么事实上
 
 1152
 00:57:19,536 --> 00:57:23,438
 a read-only text field which is called the UILabel in iOS.
+iOS 里只读的文本框叫做 UILabel
 
 1153
 00:57:23,507 --> 00:57:26,207
 And so of course anytime we wanna add something to UI,
+所以每当我们想往 UI 里添加标签的时候
 
 1154
 00:57:26,276 --> 00:57:29,945
 I go here, to the bottom side, in fact right next to button,
+我到右边，下面这里，就在按钮旁边
 
 1155
 00:57:30,013 --> 00:57:33,181
 here is label. I'll drag it out and put it in here.
+标签就是这个 Label。我把它拖出来放到这里
 
 1156
 00:57:33,250 --> 00:57:36,651
 I'll try and center it or something like that.
+我会尝试把它放在中间，就像这样
 
 1157
 00:57:36,720 --> 00:57:39,454
 It's really really small so I'm gonna make it much bigger
+现在它太小了，我要把它拉宽一点
 
 1158
 00:57:39,523 --> 00:57:42,090
 cuz I'm gonna be using big font in a second here.
+因为等会儿要选一个大一点的字号
 
 1159
 00:57:42,159 --> 00:57:46,728
 Even make it taller. The text is black so
+然后拉高一点。因为现在字是黑色的
 
 1160
 00:57:46,796 --> 00:57:49,398
 it's black on black. That's a little hard to see so
+黑底黑字，所以很难看见字
 
 1161
 00:57:49,466 --> 00:57:52,767
 I'm gonna go back over to here, go to the top half here,
+然我回到这里，右边的上半部分
 
 1162
 00:57:52,836 --> 00:57:54,669
 change the color of the text, okay,
+更改字的颜色
 
 1163
 00:57:54,738 --> 00:57:57,905
 which is a label property right here. From this,
+也就是标签的一个属性，在这里
 
 1164
 00:57:57,974 --> 00:58:02,644
 to our favorite color, orange. This text is really small, so
+把它改为我们最喜欢的颜色，橙色。这个字很小，所以
 
 1165
 00:58:02,713 --> 00:58:04,445
 I'm going to change the font from 17pt,
+我要把字从 17 点
 
 1166
 00:58:04,514 --> 00:58:07,482
 which is the default here, to something like 40.
+也就是默认值，改为 40
 
 1167
 00:58:07,551 --> 00:58:10,318
 Much better. I don't want it to say label here,
+这下好了。还有我不想要它显示 label
 
 1168
 00:58:10,387 --> 00:58:13,655
 I want it to say Flips, let's say we'll start out Flips: 0.
+我想让它显示翻了多少次，那一开始就是 Flips: 0
 
 1169
 00:58:13,723 --> 00:58:17,058
 I don't want it left-aligned like that, okay,
+我不希望是左对齐
 
 1170
 00:58:17,127 --> 00:58:18,159
 I don't want the text left-aligned,
+我不希望字都靠在左边
 
 1171
 00:58:18,228 --> 00:58:20,828
 I want it in the center, so I go over here and hit center.
+我希望他们能居中，所以我在这里选择居中
 
 1172
 00:58:20,897 --> 00:58:24,065
 So see how I'm just using this editing inspecting up here to
+所以我只用了这个检查器来编辑
 
 1173
 00:58:24,134 --> 00:58:26,701
 kinda get the thing to look the way I want it to look.
+让它看起来像我想要的那样
 
 1174
 00:58:26,770 --> 00:58:29,971
 I can even use my dashed blue lines here to
+我还可以用这些蓝色的虚线做参考
 
 1175
 00:58:30,040 --> 00:58:33,208
 put it right along the bottom and right in the center. Okay.
+把它放到下面的正中央
 
 1176
 00:58:33,276 --> 00:58:35,010
 Even though I said we are not really using those,
+虽然我说我们并没有真正用上参考线
 
 1177
 00:58:35,078 --> 00:58:36,278
-it£s still useful to do that one.
+it's still useful to do that one.
+但还是有意义的
 
 1178
 00:58:36,346 --> 00:58:38,279
->> All right, so
+All right, so
+好
 
 1179
 00:58:38,348 --> 00:58:41,916
 now I have my UI, how do I talk to it? How do I tell it
+现在我的 UI 构建好了，我怎么和它沟通呢？我如何告诉他
 
 1180
 00:58:41,985 --> 00:58:45,120
 when the flips change to show the flips? Well, I'm gonna
+<<<<<<< HEAD
+=======
+当翻的次数改变了之后就更新显示新的翻的次数？
+>>>>>>> upstream/master
 
 1181
 00:58:45,189 --> 00:58:48,389
 do that also by making connections between my UI and
+我可以通过关联 UI 到代码来实现这个
 
 1182
 00:58:48,458 --> 00:58:53,228
 my code. And we know how to do that, Ctrl drag Right?
+我们是知道要怎么做的，按住 control 拖拽，对吧？
 
 1183
 00:58:53,296 --> 00:58:56,331
 Ctrl+Drag, put it right here. And this time,
+按 control，拖到这里来。这一次
 
 1184
 00:58:56,400 --> 00:58:59,400
 though, I'm not doing an action, I'm doing an outlet.
+我不会选 Action，我要选 Outlet，出口
 
 1185
 00:58:59,469 --> 00:59:02,404
 And what an outlet does is it creates an instance variable.
+出口就是创建一个实例变量
 
 1186
 00:59:03,874 --> 00:59:05,841
 So action creates a method,
+所以 action 存根创建一个方法
 
 1187
 00:59:05,909 --> 00:59:08,242
 Outlet creates an instance variable or property and
+outlet 出口创建一个实例变量，也就是属性
 
 1188
 00:59:08,311 --> 00:59:11,212
 that property is gonna point to this UI label and
+那个属性会指向这个 UILabel
 
 1189
 00:59:11,281 --> 00:59:12,347
 I'll be able to talk to it and
+这样我就能跟他交流
 
 1190
 00:59:12,416 --> 00:59:15,617
 tell it to update itself when the flips change. All right,
+告诉它翻的次数改变了就更新
 
 1191
 00:59:15,686 --> 00:59:19,387
 so what am I gonna call the name of this thing, I'll
+那我给他取个什么名字好呢？
 
 1192
 00:59:19,456 --> 00:59:22,957
 call this my flipCountLabel, it got the type right here
+我叫它 flipCountLabel。这次类型是对了
 
 1193
 00:59:23,026 --> 00:59:25,927
 didn't see any. Don't worry about this storage week.
+并不是 Any。现在不用管 strong 和 weak
 
 1194
 00:59:25,996 --> 00:59:28,163
 I'm gonna talk about that next week. And so
+这个我下周讲
 
 1195
 00:59:28,231 --> 00:59:30,898
 I'm gonna hit connect and it's gonna create another var.
+现在我点击 Connect，它就创建了另一个变量
 
 1196
 00:59:30,967 --> 00:59:33,668
 Like var flipCount. But this var is gonna be a little
+就像 var flipCount 一样，但这个会有些不一样
 
 1197
 00:59:33,737 --> 00:59:38,874
 different. This var is, sorry wrong place there.
+这个变量，啊，点错地方了
 
 1198
 00:59:38,943 --> 00:59:44,078
 This var is var flipCountLabel: UILabel!
+这个是 var flipCountLabel: UILabel!
 
 1199
 00:59:44,147 --> 00:59:48,649
 Okay? Now you can't infer this type by the way because
+这个你不能推测类型
 
 1200
 00:59:48,718 --> 00:59:51,919
-that UI enables in the UI. So it doesn't know how to look in
+that UILabel is in the UI. So Swift doesn't know how to look in
+因为这个 UILabel 是在用户界面上的。Swift 不知道
 
 1201
 00:59:51,988 --> 00:59:54,556
 the UI and infer a label so it can't infer that there.
+如何看着你的界面设计就推导出你这是个 UILabel，做不到的
 
 1202
 00:59:54,625 --> 00:59:58,259
 So we do need to explicitly say it to UI label here. Week,
+所以这里我们需要明确说明是 UILabel
 
 1203
 00:59:58,328 --> 01:00:01,129
 I told you to look, we'll tell you next week.
+weak 就像我说的，下周讲
 
 1204
 01:00:01,198 --> 01:00:05,200
 This is another kind of directive like this one that
+@IBOutlet 也是一个修饰变量的特殊指令，就像 @IBAction 一样
 
 1205
 01:00:05,268 --> 01:00:08,170
 puts the little dot there so that we can see that's that,
+在这里放了一个小圆圈，看到这个和这个关联
 
 1206
 01:00:08,238 --> 01:00:11,673
 that's that, that's that. Okay, so here's the var,
+这两个是关联的，这两个也是。好，回到我们这里的变量
 
 1207
 01:00:11,742 --> 01:00:13,841
 exactly the same as we did with flip count.
+就像我们的 flipCount 一样
 
 1208
 01:00:13,910 --> 01:00:17,011
 Notice there's a little exclamation point there. That
+注意我们这后面有感叹号
 
 1209
 01:00:17,080 --> 01:00:20,448
 is super important. But I'm not gonna talk about it today.
+这非常重要，但我今天不会讲
 
 1210
 01:00:20,517 --> 01:00:23,919
 I can't talk about everything all at once. Notice that this
+我不能一次把所有内容都讲完。注意这个
 
 1211
 01:00:23,987 --> 01:00:26,487
 very important thing also has a side effect.
+非常重要的感叹号是有副作用的
 
 1212
 01:00:26,556 --> 01:00:27,889
 It's not the primary purpose of it but
+虽然并不是它存在的主要目的
 
 1213
 01:00:27,958 --> 01:00:31,025
 the side effect is. It doesn't have to be initialized.
+但是副作用是，如果 flipCountLabel 没有初始化
 
 1214
 01:00:31,094 --> 01:00:33,694
 notice this doesn't say equals anything and yet
+注意它还没有被赋初值
 
 1215
 01:00:33,763 --> 01:00:36,798
 we don't have an error. Okay? So don't freak out about that.
+但我们并没有得到任何错误。你们不用为此担心
 
 1216
 01:00:36,867 --> 01:00:38,566
 I'm gonna talk all about this exclamation point.
+我会讲关于感叹号的内容的
 
 1217
 01:00:38,635 --> 01:00:40,135
 It could not be more important,
+没有比这更重要的了
 
 1218
 01:00:40,203 --> 01:00:42,170
 probably the most important newish
+可能是最重要的
 
 1219
 01:00:42,238 --> 01:00:44,873
 thing that you're going to learn about Swift, okay,
+你需要学习的关于 Swift 的新知识
 
 1220
 01:00:44,942 --> 01:00:48,243
 is what its all about. All right, so I got this flip
+这就是这段代码的意思。好，我有了
 
 1221
 01:00:48,311 --> 01:00:50,278
 count label right here. Now, all I want to do is,
+这里的 flipCountLabel，我想要的是
 
 1222
 01:00:50,347 --> 01:00:53,047
 every time this flip count changes, like, right here.
+每次 flipCount 改变了，比如这里
 
 1223
 01:00:53,116 --> 01:00:56,818
 I'm going to talk to the flip count label and I want to set
+我想要告诉 flipCountLabel 说
 
 1224
 01:00:56,887 --> 01:01:00,488
 it's text, label. I want to set it's text, so I'm going to
+我想要改变它显示的字，设置这个 flipCountLabel 的字
 
 1225
 01:01:00,557 --> 01:01:03,257
 send it a message and I want to set text, so I'm just going
+所以给它发消息说我想设置显示的字
 
 1226
 01:01:03,326 --> 01:01:05,760
 to say text. There happens to be something called text,
+那就是 text，正好有叫 text 的属性
 
 1227
 01:01:05,829 --> 01:01:07,062
 the very first one there. You see that?
+第一个就是，看到了吗？
 
 1228
 01:01:07,130 --> 01:01:09,864
 It says text as a string, so I'm going to double click on
+它说 text 是个字符串，所以我双击
 
 1229
 01:01:09,933 --> 01:01:15,236
 that All right and I'm gonna set that text to, Flips:,
+好，我把字赋值为 "Flips: "
 
 1230
 01:01:15,305 --> 01:01:18,940
 and then I'm gonna use my favorite feature right here,
+然后我要用我最喜欢的特性
 
 1231
 01:01:19,008 --> 01:01:22,344
 \(). And I'm gonna put the flipCount in there. So
+\(flipCount) 来插入翻牌的次数到这里
 
 1232
 01:01:23,780 --> 01:01:26,881
-that's gonna change the text on this flipCount layer here,
+that's gonna change the text on this flipCountLabel here,
+所以这就会更改 flipCountLabel 显示的字
 
 1233
 01:01:26,950 --> 01:01:30,284
-and we'll say Flips: 1, so it's going to whatever And
+and we'll see Flips: 1, so it's going to whatever And
+我们就能看到 Flips: 1，然后一直加下去
 
 1234
 01:01:30,353 --> 01:01:34,088
 of course, I have to copy and paste again right
+当然，我需要复制粘贴一份
 
 1235
 01:01:34,157 --> 01:01:38,126
 there because I need to update it each time. So,
+因为每次更改 flipCount 都要更新
 
 1236
 01:01:38,195 --> 01:01:42,864
 let's see if
+让我们看看
 
 1237
 01:01:42,933 --> 01:01:47,635
 this works.
+这能不能用
 
 1238
 01:01:47,704 --> 01:01:50,639
 Okay, here we go. Let's try to flipping this card. Ooh, yeah.
+好，出来了，我们试试翻这张卡，好
 
 1239
 01:01:50,707 --> 01:01:53,175
 Everytime we flipped over our back.
+每次我们翻的时候
 
 1240
 01:01:53,243 --> 01:01:57,078
 It's incrementing the flip count. Okay, fantastic.
+它就会把 flipCount 计数器加一。很好
 
 1241
 01:01:57,147 --> 01:02:01,650
 Except this really is nasty. I just copy and pasted.
+除了我们的代码很糟糕都好。我只是在复制粘贴
 
 1242
 01:02:01,718 --> 01:02:04,219
 I mean, imagine I really was doing it this way and
+假设我就这样做
 
 1243
 01:02:04,288 --> 01:02:06,154
 I had another button called New Game and
+然后有了另一个按钮，叫做 newGame
 
 1244
 01:02:06,223 --> 01:02:08,222
 I had to set the flip count back to zero.
+开始新游戏要把 flipCount 重置为零
 
 1245
 01:02:08,291 --> 01:02:10,625
 I'm going to have to put this same line of code there to.
+我需要把同样的代码放在那里
 
 1246
 01:02:10,693 --> 01:02:12,360
 And what if some day I said, well,
+然后如果我有一天决定
 
 1247
 01:02:12,429 --> 01:02:14,796
 I don't want this to say flip, I want it to say flip count.
+我不想要它显示 Flips，我想显示 Flip Count
 
 1248
 01:02:14,865 --> 01:02:16,698
 Now I've got to change it all three places.
+那我三个地方全都要改
 
 1249
 01:02:16,767 --> 01:02:18,733
 This is just horrendous coding.
+这简直是糟糕透了的代码
 
 1250
 01:02:18,801 --> 01:02:21,803
 Luckily, in Swift, there is a way to avoid doing this in
+幸好 Swift 有一种方法能避免这个
 
 1251
 01:02:21,871 --> 01:02:25,707
 this case, which is that any property, if you want,
+如果你想的话，任何的属性
 
 1252
 01:02:25,775 --> 01:02:30,678
 you can put code after it that says, did set. And it will
+都可以放代码在后面的 didSet 里
 
 1253
 01:02:30,747 --> 01:02:35,716
 execute this code every time that thing gets set. Okay?
+每次那个变量的值发生改变之后，这些代码就会运行
 
 1254
 01:02:35,785 --> 01:02:38,720
 That's called a property observer. Because this code is
+这叫做属性观察器，因为这些代码
 
 1255
 01:02:38,789 --> 01:02:43,224
 observing changes of this. So we can take this outta here,
+会观察这个变量的改变。所以我们把这些代码拿出来
 
 1256
 01:02:43,293 --> 01:02:46,294
 put it up here, and we can take it away from here now.
+放到上面这里，我们就可以把它从这里删掉了
 
 1257
 01:02:46,362 --> 01:02:50,565
 Every time flip count changes, it's going to Execute that
+每次 flipCount 改变之后，就会运行
 
 1258
 01:02:50,633 --> 01:02:54,235
 didSet, and talk to the label, and update it.
+didSet 里的代码，然后告诉标签让它更新文字
 
 1259
 01:02:54,303 --> 01:02:56,637
-So now if I add a new game asset, flip count equals zero,
+So now if I add a new game and set flip count equals zero,
+如果我添加个 newGame 设 flipCount 为零
 
 1260
 01:02:56,706 --> 01:03:01,743
 it would automatically update it.
+他也会自动更新
 
 1261
 01:03:01,811 --> 01:03:03,278
 Property observer is really cool.
+属性观察期非常厉害
 
 1262
 01:03:03,346 --> 01:03:07,048
 Obviously we use property observers a lot to keep the UI
+显然我们会经常用属性观察器来让 UI
 
 1263
 01:03:07,117 --> 01:03:10,351
-in sync with te instance variables of our class. Okay,
+in sync with the instance variables of our class. Okay,
+和我们类里的实例变量保持同步
 
 1264
 01:03:10,420 --> 01:03:14,455
 so you'll see that happening all the time. All right, time
+你总是会看到他们。好
 
 1265
 01:03:14,524 --> 01:03:18,826
 to get more buttons. We got these two buttons. By the way,
+让我们多加一些按钮。我们有这两个按钮
 
 1266
 01:03:18,895 --> 01:03:23,698
 notice that we're driving our UI from the code, right?
+注意我们应该是用代码来驱动用户界面的
 
 1267
 01:03:23,767 --> 01:03:26,100
 It's this line of code that's saying what's in the UI.
+这一行代码决定了界面上显示什么
 
 1268
 01:03:26,169 --> 01:03:28,603
 So I'm actually gonna change these two buttons to be
+所以我让这两个按钮改为
 
 1269
 01:03:28,671 --> 01:03:29,771
 face down.
+面朝下
 
 1270
 01:03:29,840 --> 01:03:32,306
 Okay when they start. And what's interesting is if I
+一开始的时候是这样的。注意有趣的是
 
 1271
 01:03:32,375 --> 01:03:35,810
 select them both, and go over to the top here of this thing,
+如果我两个同时选中，到右边上面这里
 
 1272
 01:03:35,879 --> 01:03:38,980
 notice it notices they're both buttons. So
+注意他们都是按钮
 
 1273
 01:03:39,049 --> 01:03:41,582
 I can change things, like here it says multiple values for
+所以我可以更改，比如说这里的目前有多个值
 
 1274
 01:03:41,651 --> 01:03:43,651
 the text, ghost and the pumpkin.
+的文字属性，鬼和南瓜
 
 1275
 01:03:43,720 --> 01:03:46,487
 I can set that to blank, and I can go down to the bottom and
+我可以都设为空白，我可以到下面
 
 1276
 01:03:46,556 --> 01:03:50,825
 set the background color here to orange And it's affecting
+把背景色改为橙色，于是同时更改了
 
 1277
 01:03:50,894 --> 01:03:52,627
 both of them. So if you select multiple things,
+这两个。所以如果你有很多个东西
 
 1278
 01:03:52,696 --> 01:03:55,529
 as long as they're of the same, they share the same
+只要他们是同一类型的
 
 1279
 01:03:55,598 --> 01:03:59,267
 type, then you can edit them all simultaneously.
+你就可以所有的一起编辑
 
 1280
 01:03:59,335 --> 01:04:01,603
 Okay. So I have these cards, let's make some more cards.
+好，我有了这些卡，让我来创造更多的卡
 
 1281
 01:04:01,671 --> 01:04:04,472
 I'm going to copy and paste these cards. Actually,
+我复制粘贴这些卡，但事实上
 
 1282
 01:04:04,540 --> 01:04:06,341
 before I do that, let's do one other thing.
+在那之前，我们先做另一件事
 
 1283
 01:04:06,410 --> 01:04:11,679
 I'm pretty unhappy with my architecture here,
+我很不喜欢我这里的架构
 
 1284
 01:04:11,747 --> 01:04:14,949
 because if I wanna add more cards I guess I'm gonna have
+因为如果我添加更多的卡片的话我需要
 
 1285
 01:04:15,018 --> 01:04:19,120
 to do copy, touch third card, fourth card, fifth card,
+复制粘贴出按下第三张，第四张，第五张卡
 
 1286
 01:04:19,188 --> 01:04:21,122
 sixth card, seventh card, eight card, nine, okay.
+第六张，第七张，第八张，第九张的方法
 
 1287
 01:04:21,191 --> 01:04:23,991
 That is gonna be the worst code, you would get an F on
+那就会成为很糟糕的代码了，然后你的作业会是不及格
 
 1288
 01:04:24,060 --> 01:04:27,461
 your homework if you did that. That's just awful, so we're
+如果你的代码是那样的话，那太差劲了
 
 1289
 01:04:27,530 --> 01:04:30,631
 clearly not gonna use that architecture to do that and
+所以明显我们不会用这种结构来实现
 
 1290
 01:04:30,700 --> 01:04:33,568
 in fact I want to get rid of this touch second card
+其实我也想删掉 touchSecondCard 方法
 
 1291
 01:04:33,637 --> 01:04:36,137
 entirely, and I just want to put everything in touch card.
+完全删掉，然后所有的都放到 touchCard 里
 
 1292
 01:04:36,205 --> 01:04:38,773
 And that means I won't have this line of code duplicated
+这就是说我不用重复这一行代码
 
 1293
 01:04:38,842 --> 01:04:40,007
 and this line of code duplicated.
+和这一行代码
 
 1294
 01:04:40,076 --> 01:04:42,944
 This is gonna be great. This is much better, UI.
+这样就很好，好多了
 
 1295
 01:04:43,013 --> 01:04:45,780
 So to do this I'm gonna right click on this one and
+那要这样做，我需要右键点击它
 
 1296
 01:04:45,849 --> 01:04:49,951
 disconnect touch second card and instead have this guy
+取消关联 touchSecondCard，取而代之
 
 1297
 01:04:50,019 --> 01:04:54,022
 ctrl-drag to here. Look at that you can hook it up to one
+按 control 拖拽到 touchCard 方法。看，你可以关联
 
 1298
 01:04:54,091 --> 01:04:56,090
 that already exist by just dragging to it and
+已经存在的方法，只需要按 control 拖拽过去
 
 1299
 01:04:56,159 --> 01:05:00,929
-letting go. So now both of these are sending Touchcard.
+letting go. So now both of these are sending touchCard.
+然后在方法上松开。现在两个按钮都发送给 touchCard
 
 1300
 01:05:00,998 --> 01:05:03,731
 Okay, so that's great but inside here we
+很好，但是在这里面
 
 1301
 01:05:03,800 --> 01:05:07,101
 obviously can't do this. Have this ghost thing here,
+显然我们不能这么做，用这个鬼作为参数
 
 1302
 01:05:07,170 --> 01:05:09,904
 because then it would set both cards to ghost. So how are we
+因为两张卡都会被设为鬼，那我们
 
 1303
 01:05:09,973 --> 01:05:12,674
 gonna have code in here in touch card, that works for
+怎么样让 touchCard 里面的代码适用于
 
 1304
 01:05:12,742 --> 01:05:16,344
 all the cards? Well what I'm gonna do is I'm gonna create
+所有的卡片呢？我要做的是我会创建
 
 1305
 01:05:16,413 --> 01:05:20,381
 an array of all these cards and when touchCard is pressed,
+一个这些卡片的数组，当按下去之后 touchCard 被调用了
 
 1306
 01:05:20,450 --> 01:05:23,151
 I'm gonna look in that array, find the button that's being
+我就在数组里面找，找到那个被按下的按钮
 
 1307
 01:05:23,220 --> 01:05:26,320
 pressed, and then I'll know which card it is. Then, when I
+然后我就知道是哪张卡片了
 
 1308
 01:05:26,389 --> 01:05:28,355
 know which card it is, which index it is in the array.
+既然我知道了是哪张卡，知道了它的索引（index）
 
 1309
 01:05:28,424 --> 01:05:32,526
 I'm going to lookup in another array, the emoji to put there.
+我就到另一个数组里去找到对应的表情显示出来
 
 1310
 01:05:32,595 --> 01:05:34,796
 So, it's going to be data driven. Right, and so
+也就是由数据驱动。好
 
 1311
 01:05:34,865 --> 01:05:35,730
 if I want to add more cards,
+我想要添加更多的卡
 
 1312
 01:05:35,799 --> 01:05:38,332
 I just add more cards to my emoji array.
+就只用往两个数组里加更多的卡就行了
 
 1313
 01:05:38,401 --> 01:05:39,868
 It's going to be great. All right, so
+这样程序会变得很好
 
 1314
 01:05:39,936 --> 01:05:42,003
 let's make more cards. I'm going to copy and
+让我们来加上更多的卡，复制
 
 1315
 01:05:42,071 --> 01:05:45,339
 paste to make more cards, so I have four cards and
+粘贴出更多的卡，现在我有了四张
 
 1316
 01:05:45,408 --> 01:05:49,744
 now I wanna make an array that includes these cards, okay.
+现在我想要一个包含这四张卡的数组
 
 1317
 01:05:49,812 --> 01:05:51,546
 So how do I do an array that include these cards?
+那我怎么创建一个包含这些卡的数组呢？
 
 1318
 01:05:51,614 --> 01:05:53,647
 Well, that's a connection between the UI and the codes.
+嘛，这需要关联用户界面和代码
 
 1319
 01:05:53,716 --> 01:06:00,087
 So I'm gonna control, drag and create another var right here.
+所以我按住 control 拖拽过来创建另一个变量
 
 1320
 01:06:00,156 --> 01:06:03,458
 Okay, but this one's gonna be the third kind which is outlet
+但是这个我们选第三中类型，outlet collection
 
 1321
 01:06:03,527 --> 01:06:07,095
 collection. So now outlet collection means an array
+出口集合就是一个数组
 
 1322
 01:06:07,163 --> 01:06:10,398
-of the things in the UI. So I'll call this myCardButons,
+of the things in the UI. So I'll call this myCardButtons,
+里面是些 UI 控件。我把数组叫做 myCardButtons
 
 1323
 01:06:10,466 --> 01:06:13,234
 I'm actually gonna make a mistake, okay and
+等等，我要来故意犯个错，少个 t
 
 1324
 01:06:13,303 --> 01:06:15,869
 say card butons instead of buttons,
+叫他 cardButons 而不是 Buttons
 
 1325
 01:06:15,938 --> 01:06:18,606
 because I want to show you how to fix this mistake if you do.
+因为我想像你展示你遇到这种问题怎么解决
 
 1326
 01:06:18,674 --> 01:06:21,609
 And it's got the type right, this is gonna be an array of
+类型是正确的，UIButton 数组
 
 1327
 01:06:21,677 --> 01:06:24,979
 UI button. Okay, so I'm gonna connect it right here and
+然后点 Connect 建立关联
 
 1328
 01:06:25,048 --> 01:06:26,947
 it created another var for me right here.
+然后就创建了另一个变量
 
 1329
 01:06:27,016 --> 01:06:31,119
 This one and look at its type. See that right there. That is
+就这个。看看它的类型，[UIButton]
 
 1330
 01:06:31,187 --> 01:06:35,856
 special syntax in Swift that means an array of UI button.
+Swift 里表示数组的特殊语法，这是一个 UIButton 数组
 
 1331
 01:06:35,925 --> 01:06:39,393
 This might look more familiar if I use another Swift syntax,
+如果我用另一种 Swift 语法表示数组，你估计会更熟悉
 
 1332
 01:06:39,462 --> 01:06:44,732
 array of UI button, that look familiar to
+Array<UIButton>，这个看起来像 Java 里
 
 1333
 01:06:44,801 --> 01:06:49,537
 you from Java, right? So array is a generic class, everyone
+声明数组的语法吧？所以数组是范型（generic）
 
 1334
 01:06:49,606 --> 01:06:52,806
 know about generics in Java, hopefully. It means that
+希望大家都知道 Java 里的范型，意思是
 
 1335
 01:06:52,875 --> 01:06:56,577
 you can't have the class array on its own be a type in Swift,
+数组的元素可以是 Swift 里任何的类型
 
 1336
 01:06:56,646 --> 01:06:59,814
 because I told you Swift is very strict about types.
+因为我告诉过你 Swift 对类型很严格
 
 1337
 01:06:59,882 --> 01:07:02,250
 So when you are putting things in and out of that array,
+所以当你从数组里存取的时候
 
 1338
 01:07:02,319 --> 01:07:04,185
 Swift would have a heart attack if it
+如果它不知道你要把什么类型的值放进去的话
 
 1339
 01:07:04,254 --> 01:07:06,754
 didn't know the type of thing you're putting in there. So
+那 Swift 会吓个半死
 
 1340
 01:07:06,822 --> 01:07:09,556
 when you create an array you have to specify what type of
+所以你创建数组的时候要声明
 
 1341
 01:07:09,625 --> 01:07:13,361
 thing is in the array so that Swift can breathe easy, okay.
+数组元素的类型，这样 Swift 才能正常工作
 
 1342
 01:07:13,429 --> 01:07:16,698
 Now arrays are so common that instead of using this
+因为数组的是很常用的，所以与其用
 
 1343
 01:07:16,766 --> 01:07:20,134
 normal Swift, this is normal Swift syntax right here, but
+这个普通的 Array<元素类型> 语法
 
 1344
 01:07:20,203 --> 01:07:23,738
 for arrays, we do this special thing here, where
+我们实际是用特殊的 [元素类型] 语法
 
 1345
 01:07:23,806 --> 01:07:27,809
 we say [UIButton]. It's just for arrays that we do this,
+比如这个 [UIButton]。这个只是数组的特殊语法
 
 1346
 01:07:27,877 --> 01:07:29,544
 dictionaries also have a special one, I'll show you
+字典我们有另外的语法。我会给你看
 
 1347
 01:07:29,612 --> 01:07:32,813
 that on Wednesday. Okay? So that's our array,
+就星期三的时候吧？好，这是我们的数组
 
 1348
 01:07:32,882 --> 01:07:36,417
 CardButons is array, now I have this cardButons here
+现在我有了这个 cardButons 数组
 
 1349
 01:07:36,486 --> 01:07:39,253
 okay, and this is connected to that one card, I haven't put
+它和那一张卡关联上了，我还没有
 
 1350
 01:07:39,322 --> 01:07:42,156
 the other cards in there yet but I will. It's connected to.
+关联到其他的卡上，但我之后会的。
 
 1351
 01:07:42,225 --> 01:07:44,425
 Now what if I decided no, I don't want Butons,
+现在我决定我不想要 Butons 少个 t
 
 1352
 01:07:44,494 --> 01:07:47,128
 I made a mistake, it's Buttons and remember I told you,
+我犯错了，其实是 Buttons。还记得我告诉你
 
 1353
 01:07:47,196 --> 01:07:50,898
 you don't wanna edit things in here then also in the UI,
+你不能只是更改代码，你需要同时更改 UI
 
 1354
 01:07:50,967 --> 01:07:53,534
 okay like the name of the class and things like that.
+比如要修改类的名称一类的
 
 1355
 01:07:53,603 --> 01:07:56,871
 Well if you do that look what happened to the little circle.
+如果你只改了代码，看看这个圆圈
 
 1356
 01:07:56,940 --> 01:07:59,540
 Okay it doesn't have a dot in it anymore because
+圆圈里的点没了
 
 1357
 01:07:59,609 --> 01:08:01,208
 it's not connected anymore.
+因为没有关联了
 
 1358
 01:08:01,277 --> 01:08:04,545
 Because this, if I right click on it, it's connected to
+因为我右键它，显示的是
 
 1359
 01:08:04,614 --> 01:08:08,716
 Card Butons there, okay? It's not connected to Card Buttons.
+关联的 cardButons 而不是 cardButtons
 
 1360
 01:08:08,785 --> 01:08:12,486
 So, how can I fix this? If I said this Card Butons,
+怎么解决这个问题呢？如果我改回 cardButons，
 
 1361
 01:08:12,555 --> 01:08:14,188
 okay it's back to being connected now and
+它就又关联上了
 
 1362
 01:08:14,257 --> 01:08:17,125
 I want to change this. It's another magic key.
+但我想改名字。还有个神奇的按键
 
 1363
 01:08:17,193 --> 01:08:20,161
 The command key. We all ready showed you the alt key for
+command 键。我们已经展示了 alt/option 键
 
 1364
 01:08:20,230 --> 01:08:21,195
 getting into the documentation.
+可以显示文档
 
 1365
 01:08:21,264 --> 01:08:23,831
 If you command click on something, k,
+如果你按住 command 再点击
 
 1366
 01:08:23,900 --> 01:08:26,600
 like this cardButons right here.
+比如这个 cardButons
 
 1367
 01:08:26,669 --> 01:08:29,637
 You get another kind of menu here that'll do some cool
+你会得到另一个可以干很酷的事情的菜单
 
 1368
 01:08:29,705 --> 01:08:31,939
 things like jump to the definition of this thing,
+比如这里的 Jump to Definition 可以跳转到定义它的地方
 
 1369
 01:08:32,008 --> 01:08:33,040
 which happens to be right here so
+正好就是这一行
 
 1370
 01:08:33,109 --> 01:08:35,043
-that's not gonna go anywhere. Show the health,
+that's not gonna go anywhere. Show quick help,
+所以并不会去其他地方。Show Quick Help
 
 1371
 01:08:35,111 --> 01:08:39,680
 just like the option one does, and also rename and
+会像按 option 键一样给文档。还可以重命名
 
 1372
 01:08:39,749 --> 01:08:42,216
 when I click rename here, look at what happens.
+我点这个 Rename，看看发生了什么
 
 1373
 01:08:42,285 --> 01:08:45,620
 The UI kinda turns a little bit. It looks through my
+Xcode 的界面发生了些变化，他会
 
 1374
 01:08:45,688 --> 01:08:49,223
 entire project and finds that cardButons everywhere
+从我整个项目里查找 cardButons 出现的每一个地方
 
 1375
 01:08:49,291 --> 01:08:53,494
 including in my storyboard. See that? So now if I change
+包括 storyboard 里的，看到了吗？所以现在如果我更改
 
 1376
 01:08:53,563 --> 01:08:57,665
 this to cardButtons here, it changes it everywhere and
+为 cardButtons 的话，它每个地方都会被修改了
 
 1377
 01:08:57,734 --> 01:09:01,669
 now, this is not broken. And if I right-click on this,
+现在这个就没有断开了，然后我右键这个
 
 1378
 01:09:01,738 --> 01:09:05,272
 it cardButtons. So command click rename. That's how you
+关联的是 cardButtons。总结一下，command，点击，Rename
 
 1379
 01:09:05,341 --> 01:09:07,308
 want to rename things that touch both your UI and
+这就是你想要同时重命名界面和代码的方法
 
 1380
 01:09:07,377 --> 01:09:11,812
 your code. Right, so I've got this card buttons here. Now,
+好，我们有了 cardButtons
 
 1381
 01:09:11,881 --> 01:09:15,716
 I need to somehow in touch card, I need to
+我需要在 touchCard 里
 
 1382
 01:09:15,785 --> 01:09:19,920
 look into my card buttons array and find that button.
+去 cardButtons 里找到那个按钮
 
 1383
 01:09:19,989 --> 01:09:22,990
 Okay? By the way, before we do that, let me put the rest of
+等等，在那之前，让我先把剩下的
 
 1384
 01:09:23,058 --> 01:09:25,926
 these cards in there. I'm going to show you another way
+这些卡片关联上。我再给你看看另一种
 
 1385
 01:09:25,995 --> 01:09:28,796
 to connect up your UI to your code. It's this yellow button
+关联 UI 到代码的方法。是这个黄色的按钮
 
 1386
 01:09:28,864 --> 01:09:30,297
 right here. You see this yellow button at the top?
+就这个，看到这个在顶上的黄色按钮了吗？
 
 1387
 01:09:30,366 --> 01:09:34,134
 It says view controller. This button also represents your
+说的是 View Controller。这个按钮也代表了你的代码
 
 1388
 01:09:34,203 --> 01:09:37,571
 code. So, if you want to control drag from here,
+所以如果你想从这里按 control 拖拽
 
 1389
 01:09:37,640 --> 01:09:40,341
 you can do that as well and hook up to card buttons.
+你也可以这样关联上 cardButtons
 
 1390
 01:09:40,409 --> 01:09:43,277
 Control drag from here. CardButtons and I'm
+从这里 control 拖拽，选 cardButtons
 
 1391
 01:09:43,346 --> 01:09:45,946
 intentionally not gonna hook up this card cuz I'm gonna
+我故意不关联这张卡，因为我要
 
 1392
 01:09:46,015 --> 01:09:48,348
 show you what happens when we don't hook up a card. So
+展示给你看不管连会发生什么
 
 1393
 01:09:48,417 --> 01:09:51,652
 look at cardButtons, got those three cards and not this one,
+看看 cardButtons，关联了这三个，但没有这一个
 
 1394
 01:09:51,721 --> 01:09:55,556
 right. All right, so how am I gonna look in cardButtons for
+好，那我怎么从 cardButtons 里找到呢？
 
 1395
 01:09:55,625 --> 01:09:59,160
 mine? Well of course Swift array is a fantastic class.
+当然 Swift 的字典是很神奇的类（注：结构体）
 
 1396
 01:09:59,229 --> 01:10:00,861
 It's got so much great functionality and
+它有很多强大的功能
 
 1397
 01:10:00,930 --> 01:10:03,698
 one thing it knows how to do. Is look inside and
+其中一个就是在数组里找到某个元素
 
 1398
 01:10:03,766 --> 01:10:06,600
 tell you what the index is of something inside of it and
+然后返回它在数组里的索引
 
 1399
 01:10:06,669 --> 01:10:09,703
 that method is called index of all right. So let's just call
+这个方法的名字就是 index(of:)。让我们来调用
 
 1400
 01:10:09,772 --> 01:10:13,674
 that method, I'm gonna create a var called card number
+这个方法。我要创建一个叫做 cardNumber 的变量
 
 1401
 01:10:13,743 --> 01:10:16,977
 which I want to be the number the card 0,1,2,3,4 wherever it
+也就是是第几张卡，比如 0, 1, 2, 3, 4
 
 1402
 01:10:17,046 --> 01:10:21,482
 is in the array. I'm gonna set that equal to cardButtons dot,
+就是在数组里的位置。我把它赋值为 cardButtons.
 
 1403
 01:10:21,551 --> 01:10:25,419
 right sending a message card button index. Now interesting,
+发送消息给 cardButtons.index 有趣的是
 
 1404
 01:10:25,488 --> 01:10:29,023
 look how many methods are called index in array,
+看看有多少数组的方法叫做 index
 
 1405
 01:10:29,092 --> 01:10:33,360
 multiple methods. In Swift, that's perfectly legal. Swift,
+Swift 里多个方法是可以重名的
 
 1406
 01:10:33,429 --> 01:10:36,531
 you can have 100 methods all with the same index, but they
+你可以有 100 个方法都叫 index，但是
 
 1407
 01:10:36,599 --> 01:10:39,200
 all have to have different arguments. You see how all of
+每一个都要有不同的参数。看到所有这些
 
 1408
 01:10:39,268 --> 01:10:41,235
 these index methods have different arguments?
+index 方法都有不同的参数吗？
 
 1409
 01:10:41,303 --> 01:10:43,303
 All right, and they get the index after something,
+比如某个索引之后的索引
 
 1410
 01:10:43,372 --> 01:10:44,671
 index before something whatever.
+某个索引之前的索引这些
 
 1411
 01:10:44,740 --> 01:10:47,809
 I want this one down here index of something which is
+我想要的这个 index(of:) 在下面
 
 1412
 01:10:47,877 --> 01:10:51,412
 returns a int, okay, that's gonna be a problem that int,
+返回的是 Int?。这个类型会成为一个问题
 
 1413
 01:10:51,481 --> 01:10:53,581
 we're gonna see in a second here but
+我们等会儿就会遇到
 
 1414
 01:10:53,650 --> 01:10:56,884
 if I double click that, I've got the index here. So,
+但我先双击使用它。我们有了 index 这个方法
 
 1415
 01:10:56,953 --> 01:10:59,653
 I wanna find the index of the sender cuz I'm in touch card
+我想要找到 sender 在数组里的索引，因为我按下的卡片
 
 1416
 01:10:59,722 --> 01:11:02,790
 right here, so this sender and I'm just gonna print this out.
+就在那里，然后我就直接把这个打印出来
 
 1417
 01:11:02,859 --> 01:11:05,560
 So I'm gonna say card number equals and
+print("cardNumber = \(cardNumber)")
 
 1418
 01:11:05,628 --> 01:11:08,196
 we'll do our magic thing here, and
+用了神奇的字符串插值
 
 1419
 01:11:08,264 --> 01:11:11,231
 we will just print out the card number, okay.
+然后打印出了是第几张卡
 
 1420
 01:11:11,300 --> 01:11:13,734
-So before we go look in up in an array and find the emotion,
+So before we go look in up in an array and find the emoji,
+在我们到数组里找出表情符号之前
 
 1421
 01:11:13,803 --> 01:11:16,137
 let's just make sure that we're finding the right card
+我们先确认我们找到的是正确的卡片
 
 1422
 01:11:16,206 --> 01:11:20,041
 right here. Now, right away I get two warnings here.
+注意我马上就有了两个警告
 
 1423
 01:11:20,109 --> 01:11:22,543
 Hm, let's go look at these warnings in depth.
+让我们仔细研究下这两个警告
 
 1424
 01:11:22,612 --> 01:11:24,846
 Let's make our whole screen show these warnings.
+让我们全屏显示这两个警告
 
 1425
 01:11:24,914 --> 01:11:28,549
 The first one is Variable cardNumber was never mutated.
+第一个是说变量 cardNumber 从未被更改
 
 1426
 01:11:28,617 --> 01:11:30,852
 Consider changing to let constant.
+考虑改用 let 声明常量
 
 1427
 01:11:30,920 --> 01:11:34,489
 What does that mean? Well indeed, cardNumber,
+这是什么意思？确实，cardNumber
 
 1428
 01:11:34,557 --> 01:11:37,758
 we give it an initial value here of looking up the card
+我们通过查找给他赋了初值
 
 1429
 01:11:37,826 --> 01:11:40,461
 in the card buttons array but we never change it again.
+就没有从在 cardButtons 数组里的索引更改过
 
 1430
 01:11:40,530 --> 01:11:45,433
 So it is not back in fact variable. It's a constant.
+所以这就不是个变量，是个常量
 
 1431
 01:11:45,501 --> 01:11:49,637
 Okay, and in Swift we always mark constants as constants.
+注意，在 Swift 里常量总是被声明为常量
 
 1432
 01:11:49,706 --> 01:11:52,406
 But we don't use const like in C and
+但我们用的不是像 C 的 const
 
 1433
 01:11:52,474 --> 01:11:55,475
 other languages, we use let, L-E-T.
+或是其他语言那样的。我们用的是 let
 
 1434
 01:11:55,544 --> 01:11:57,978
 And here's another cool thing. You see this little triangle?
+这还有一个很酷的事情是，你看见这个小三角了吗？
 
 1435
 01:11:58,047 --> 01:12:02,917
 If I click on it, oftentimes Swift will fix it for me.
+如果我点击它，通常 Swift 会提供 Fix-it 来帮我解决问题
 
 1436
 01:12:02,985 --> 01:12:05,152
 You see that where it says fix. It's saying,
+看到这里写着 Fix 了吗？它说
 
 1437
 01:12:05,220 --> 01:12:08,622
 you want me to replace var with let? Like yeah, sure, and
+你想用 let 来代替 var 吗？好啊
 
 1438
 01:12:08,691 --> 01:12:12,427
 it did, see? Now why do we use let instead of const?
+然后它就这样做了。为什么我们用 let 而不是 const 呢？
 
 1439
 01:12:12,495 --> 01:12:14,929
 Because we want Swift to read like English.
+因为 Swift 要读起来像英文
 
 1440
 01:12:14,998 --> 01:12:18,199
 let cardNumber = cardButtons.index of
+让卡片序号等于卡片按钮数组里调用函数的按钮的索引
 
 1441
 01:12:18,268 --> 01:12:23,003
 the sender, sounds like English to me, ish, okay? So
+听起来像是通顺的英语，好吧？
 
 1442
 01:12:23,072 --> 01:12:25,606
 that's better than const cardNumber =.
+这比 常卡片序号 好一些
 
 1443
 01:12:25,675 --> 01:12:28,709
 So you're gonna get used to using let, always use let when
+所以你要习惯使用 let，总是用 let 来声明
 
 1444
 01:12:28,777 --> 01:12:32,146
 something's a constant, never use var, all right?
+常量，而不是用 var，好吧？
 
 1445
 01:12:32,215 --> 01:12:35,383
 This other warning right here, I'm gonna ignore. And
+这里还有一个警告，我先忽视掉
 
 1446
 01:12:35,452 --> 01:12:38,051
 let's just see what happens here when we run.
+让我们看看运行会发生什么？
 
 1447
 01:12:38,120 --> 01:12:43,057
 So let's run this guy in our simulator, we're ignoring
+让我们直接在模拟器运行，忽视这个
 
 1448
 01:12:43,126 --> 01:12:47,728
 that, pay no attention to the yellow warning there.
+不在意这个黄色的警告
 
 1449
 01:12:47,796 --> 01:12:50,431
 Okay, here it is, let's click some of these buttons and
+好，出来了。让我们来点这些按钮
 
 1450
 01:12:50,499 --> 01:12:53,000
 see what happens. See, it's going to print.
+然后看看发生什么。它应该会打印出来
 
 1451
 01:12:53,069 --> 01:12:54,668
 We'll put this over on the side so you can see the code
+让我们把这个放到一边，好能同时看到代码
 
 1452
 01:12:54,737 --> 01:12:58,405
 at the same time. We're just gonna print out the cardNumber
+我们只是打印出来 cardNumber
 
 1453
 01:12:58,474 --> 01:13:00,041
 that we found by looking that index up.
+通过找它的索引得到的结果
 
 1454
 01:13:00,109 --> 01:13:05,012
 Ready, click. That's kind of weird, look at that,
+准备，点。这有些奇怪，看看这个
 
 1455
 01:13:05,081 --> 01:13:09,016
 Optional(1), Optional(2), what's that Optional about?
+Optional(1)，Optional(2)，这个 Optional 是什么？
 
 1456
 01:13:09,084 --> 01:13:11,919
 There seems to be seeing the card right, right, 0, 1, 2,
+至少卡是找对了，0，1，2
 
 1457
 01:13:11,988 --> 01:13:15,656
 but it's saying Optional, why is it saying Optional? Well,
+但它一直在说 Optional，为什么呢？其实
 
 1458
 01:13:15,725 --> 01:13:19,860
 this is that super important thing I was telling you about?
+这就是我说的非常重要的知识点
 
 1459
 01:13:19,929 --> 01:13:24,198
 Here it is. Lets option-click on index right here, and
+这就是了。让我们按住 option 点击这个 index 方法
 
 1460
 01:13:24,266 --> 01:13:27,868
 go look at it's documentation. And
+我们去看看它的文档
 
 1461
 01:13:27,937 --> 01:13:31,372
 the return value of index is not an int,
+它的返回值不是普通的整数 Int
 
 1462
 01:13:31,441 --> 01:13:35,542
 the return value of index is an optional,
+返回值是可选（optional）的整数
 
 1463
 01:13:35,611 --> 01:13:36,944
 that's what that question mark means.
+这就是那个问号的意思
 
 1464
 01:13:37,012 --> 01:13:39,346
 We've seen question marks all over in the documentation,
+我们在文档里到处都可以看到问号
 
 1465
 01:13:39,415 --> 01:13:43,050
 right? It means optional. And optional is a different
+是吧？意思就是是可选的。可选类型是不一样的
 
 1466
 01:13:43,119 --> 01:13:47,388
 type entirely from int. Okay, has nothing to do with int.
+可选整型和整形完全不同，没有关联
 
 1467
 01:13:47,457 --> 01:13:51,859
 Optional is a type that has two and only two states,
+可选类型是一种类型，有且仅有两种状态
 
 1468
 01:13:51,928 --> 01:13:56,998
 set and not set. It's an enumeration.
+有值和缺省值，这是个枚举类型（enumeration）
 
 1469
 01:13:57,066 --> 01:13:59,634
 You probably seen enumerations in other languages,
+你多半在其他语言中看到过枚举类型
 
 1470
 01:13:59,702 --> 01:14:02,002
 enumerations are things that have discreet set of values.
+枚举类型是所有可能的值的集合
 
 1471
 01:14:02,071 --> 01:14:04,004
 This one only has two values, set and not set,
+可选类型只有两种值，有值和缺省值
 
 1472
 01:14:04,073 --> 01:14:07,040
 that's it. But the cool things about enumerations in Swift,
+就这样。但 Swift 枚举类型很酷的是
 
 1473
 01:14:07,109 --> 01:14:09,176
 not a lot of other languages have this. For
+并不是很多语言都有这个
 
 1474
 01:14:09,245 --> 01:14:13,246
 each case of an enumeration you can have associated data,
+每个枚举的情况都可以有关联值（associated value）
 
 1475
 01:14:13,315 --> 01:14:17,618
 just data that goes along with that thing. Well, an optional,
+就是跟随它的数据。那对于可选类型
 
 1476
 01:14:17,687 --> 01:14:20,454
 when it's in the set state, has associated data,
+处于有值的情况，就有关联值
 
 1477
 01:14:20,523 --> 01:14:24,324
 which in this case is an int. So this index method is
+在我们这里是整型 Int。所以这个 index 方法
 
 1478
 01:14:24,393 --> 01:14:28,162
 returning whether or not it could find that button in
+返回是否能找到那个按钮的信息
 
 1479
 01:14:28,231 --> 01:14:32,400
 there by returning set or not set. And if it does find it
+是通过返回有值或是缺省值。如果找到了的话
 
 1480
 01:14:32,468 --> 01:14:35,369
 it also gives you the associated data of the int.
+那就把索引作为关联值给你
 
 1481
 01:14:35,437 --> 01:14:38,105
 That's what you're seeing down here. It's printing out,
+这就是我们看到的下面这里打印出来
 
 1482
 01:14:38,174 --> 01:14:41,108
 when we print cardNumber it says this is an optional.
+打印 cardNumber 的时候会输出 Optional
 
 1483
 01:14:41,177 --> 01:14:43,878
 It's in the set case and
+它是有值的状态
 
 1484
 01:14:43,946 --> 01:14:48,816
 the associated value is an int. Got that? Now what if we
+关联值是整型，理解了吗？如果
 
 1485
 01:14:48,884 --> 01:14:51,218
 click on the button that's not in the cardButton's array?
+我们点击一个不在 cardButtons 数组里的按钮呢？
 
 1486
 01:14:51,286 --> 01:14:53,687
 Let's see what that prints, that does right here. Oops,
+我们看看会打印出什么，看看会做什么
 
 1487
 01:14:53,756 --> 01:14:55,923
 we stopped, let's go back and run it again. I'm gonna click
+我们停止运行了，那重新运行。我要按
 
 1488
 01:14:55,992 --> 01:14:57,992
-on that fourth button that is an in cardButton.
+on that fourth button that isn't in cardButton.
+那不再数组里的第四个按钮
 
 1489
 01:14:58,060 --> 01:15:00,527
 So when index looks it up it's not gonna find it.
+当 index 方法在数组里找的话是找不到的
 
 1490
 01:15:00,596 --> 01:15:02,096
 It's gonna return not set.
+所以会返回缺省值
 
 1491
 01:15:02,164 --> 01:15:06,434
 Let's see what that looks like? Click nil, N-I-L. So in
+让我们看看那是什么样的。点击，出现了 nil
 
 1492
 01:15:06,502 --> 01:15:10,771
 Swift the word nil means the not set case of an optional.
+所以在 Swift 语言中，nil 代表可选类型缺省值
 
 1493
 01:15:10,839 --> 01:15:12,640
 That's the only thing it means. In other languages,
+这就是它唯一的意思。在其他语言里
 
 1494
 01:15:12,708 --> 01:15:16,043
 it means zero pointer and other things. No, in Swift it
+它意思是空指针一类的，但 Swift 里不是
 
 1495
 01:15:16,112 --> 01:15:20,414
 always means an optional that's not set. Got that? All
+它总代表可选类型缺省值，理解了吗？
 
 1496
 01:15:20,483 --> 01:15:23,184
 right, so that's no good to me though, to have an optional.
+这对我来说是不够好的，有一个可选类型
 
 1497
 01:15:23,252 --> 01:15:26,520
 I can't look that optional up in another array of emoji,
+我不能用可选类型来索引表情符号数组
 
 1498
 01:15:26,588 --> 01:15:29,756
 I need the int. So how do I get that associated value in
+我需要整数索引。那我如何在有值的情况下
 
 1499
 01:15:29,825 --> 01:15:32,560
 the set state? Well, one way is to put
+得到那个关联值呢？其中一个方法是
 
 1500
 01:15:32,628 --> 01:15:35,429
 an exclamation point at the end of it. If you put
+在后面加一个感叹号 !
 
 1501
 01:15:35,497 --> 01:15:37,397
 an exclamation point at the end of an optional, it says,
+如果你在可选类型的后面加一个感叹号，那意思是
 
 1502
 01:15:37,466 --> 01:15:41,869

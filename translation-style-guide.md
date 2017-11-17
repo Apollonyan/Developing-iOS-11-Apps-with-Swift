@@ -33,7 +33,7 @@
 
 #### 术语的基本处理：
 
-1. 尽量和已翻译的内容保持一致
+1. 尽量和已翻译的内容保持一致，查阅 [统一翻译](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/issues/7)
 2. 参考 [术语的特殊处理](#术语的特殊处理)
 3. 参考 [Apple Developer 网页中文版](https://developer.apple.com/cn/)
 4. 参考历年来 [iOS 8](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift)，[iOS 9](https://github.com/SwiftGGTeam/Developing-iOS-9-Apps-with-Swift) 和 [iOS 10](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift) 的翻译

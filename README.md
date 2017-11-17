@@ -1,5 +1,11 @@
 # Developing iOS 11 Apps with Swift 字幕简体中文翻译项目
 
+如果您想支持我们，请点击项目右上角的 <a class="github-button" href="https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift" data-icon="octicon-star" data-show-count="true" aria-label="Star ApolloZhu/Developing-iOS-11-Apps-with-Swift on GitHub">Star</a> 按钮来 Star 本项目。其他如分享等方式请查看 [常见问题与解答](./SUPPORT.md) 中的“支持我们”章节。
+
+如果您感兴趣，有能力，我们欢迎您参与翻译/校对本项目。详情见 [任务相关说明](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/blob/master/CONTRIBUTING.md)。
+
+----
+
 ### 版权说明
 
 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png" /></a>
@@ -8,17 +14,11 @@
 
 ----
 
-如果您感兴趣，有能力，我们欢迎您参与翻译/校对本项目。详情见 [任务相关说明](./CONTRIBUTING.md)（[失效备份](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/blob/master/CONTRIBUTING.md)）。
-
 翻译进度: ![0集](http://progressed.io/bar/0?scale=6&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
 
-如果您想支持我们，请点击项目右上角的 <a class="github-button" href="https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift" data-icon="octicon-star" data-show-count="true" aria-label="Star ApolloZhu/Developing-iOS-11-Apps-with-Swift on GitHub">Star</a> 按钮来 Star 本项目。其他如分享和打赏等方式请查看 [常见问题与解答](./SUPPORT.md) 中的支持我们章节。
+课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)；字幕会在每集校对后作为弹幕上传。
 
-### 下载
-
-课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)（目前审核中）；字幕会在每集校对后作为弹幕上传。
-
-课程录像等可以查看[下载列表](./tools/download.md)（从 iTunes U 提取），其中点击 `中英字幕` 就可以下载已经翻译好了的字幕。另一个方案是 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip)。[`subtitles`](./subtitles) 文件夹中是中英字幕（不一定都翻译了），[`en/subtitles`](./en/subtitles) 文件夹中是纯英文字幕。
+其他文档等可以查看[下载列表](./tools/download.md)（从 iTunes U 提取），其中点击 `中英字幕` 就可以下载已经翻译好了的字幕。另一个方案是 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip)。[`subtitles`](./subtitles) 文件夹中是中英字幕（不一定都翻译了），[`en/subtitles`](./en/subtitles) 文件夹中是纯英文字幕。
 
 字幕的格式是 `.srt`，所以您可能需要用带外挂字幕功能的视频播放器，比如 [VLC](http://www.videolan.org/vlc/index.zh.html) 或 [IINA](https://lhc70000.github.io/iina/zh-cn/) 等才可使用。其他字幕使用问题的解答请查看 [常见问题与解答](./SUPPORT.md) 的字幕使用章节。
 
