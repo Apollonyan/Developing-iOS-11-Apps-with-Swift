@@ -16,139 +16,172 @@ iOS 应用程序开发。今天是 2017 年秋季学期
 4
 00:00:15,081 --> 00:00:19,451
 fall of 2017. So today, I'm gonna spend the first 15 or
-的第二节课。
+的第二节课。今天我要先花十五到
 
 5
 00:00:19,520 --> 00:00:22,053
 20 minutes talking about Model-View-Controller,
+二十分钟的时间讲 Model-View-Controller
 
 6
 00:00:22,122 --> 00:00:25,790
 this design paradigm that I told you we always have to do
+这个设计模式，我说的我们总是需要
 
 7
 00:00:25,859 --> 00:00:29,595
-when we develop for iOS. >> And then, we're gonna apply
+when we develop for iOS. And then, we're gonna apply
+在开发 iOS 时用的设计模式。然后我们把
 
 8
 00:00:29,663 --> 00:00:32,964
 Model-View-Controller to our Concentration app, so
+模型-视图-控制器 运用到翻牌游戏里
 
 9
 00:00:33,033 --> 00:00:35,734
 you're gonna get to see the kinda the concepts first,
+你会先了解下这个概念
 
 10
 00:00:35,802 --> 00:00:38,903
 then we get to see it in action. All right,
+然后我们看实际的应用。那么
 
 11
 00:00:38,972 --> 00:00:42,841
 Model-View-Controller, what is it? It's essentially a way
+模型-视图-控制器 究竟是什么呢？它是一种
 
 12
 00:00:42,909 --> 00:00:46,444
 we're gonna divide up all the objects in our system into
+在我们的系统里把对象分类的方法
 
 13
 00:00:46,513 --> 00:00:52,250
 three camps. one camp, this blue camp, is the Model camp.
+分成三个阵营。一个是这个蓝色的 Model，模型
 
 14
 00:00:52,319 --> 00:00:56,521
 That's a UI independent set of objects that is
+这是不依赖于 UI 的一系列对象，这代表了
 
 15
 00:00:56,589 --> 00:01:00,959
 the what of your app? So for our Concentration game, it's
+你的程序究竟能做什么。对于我们的翻牌游戏
 
 16
 00:01:01,027 --> 00:01:03,996
 the part of our app that knows how to play Concentration.
+就是程序里知道翻牌游戏规则的那部分
 
 17
 00:01:04,064 --> 00:01:06,164
 It knows how to match cards, take them away,
+它知道怎么匹配卡片，移走
 
 18
 00:01:06,233 --> 00:01:09,033
 it knows when to flip cards, it knows all that stuff.
+知道什么时候翻牌，知道所有这些
 
 19
 00:01:09,102 --> 00:01:11,803
 It's all the kind of knowledge about the Concentration
+它知道所有翻牌游戏相关的的信息和规则
 
 20
 00:01:11,872 --> 00:01:15,807
 game but nothing about how it appears on screen. That
+但是并不知道这是怎么显示在屏幕上的
 
 21
 00:01:15,876 --> 00:01:19,311
 is all part of the Controller camp's responsibility.
+那个就属于 Controller，控制器的职责了
 
 22
 00:01:19,379 --> 00:01:21,747
 So the Controller camp is the how
+控制器阵营的是负责
 
 23
 00:01:23,083 --> 00:01:25,984
 your Concentration game appears on screen.
+你的翻牌游戏如何显示到屏幕上
 
 24
 00:01:26,053 --> 00:01:28,587
 So Model is what is your app about, and
+所以模型是代表程序是做什么的
 
 25
 00:01:28,655 --> 00:01:31,923
 the Controller is how it shows up on screen.
+控制器是程序是怎么显示到屏幕上的
 
 26
 00:01:31,992 --> 00:01:35,994
 And the View camp is your Controller's minions.
+然后 View，视图阵营就是控制器的下属
 
 27
 00:01:36,063 --> 00:01:41,333
 These are very generic UI elements, like UI button,
+他们是通用的 UI 组件，比如 UIButton
 
 28
 00:01:41,402 --> 00:01:45,104
 the UI view controller even UI label.
+甚至 UIViewController，还有 UILabel
 
 29
 00:01:45,172 --> 00:01:48,173
 All those kind of generic things, UI things,
+所有这些通用的 UI 组件
 
 30
 00:01:48,241 --> 00:01:52,644
 that the Controller has to communicate with the Model to
+在控制器与模型交流过后
 
 31
 00:01:52,712 --> 00:01:58,149
 get your game, whatever is going on your app onto the UI.
+得到了游戏一类的信息，就会用视图显示出来
 
 32
 00:01:58,218 --> 00:02:02,086
 So the View is generic minions of the Controller. So
+所以视图是通用的，控制器的下属
 
 33
 00:02:02,155 --> 00:02:06,524
 those are the three camps. Now, MVC is really all about
+这就是模型-视图-控制器三个阵营，简称 MVC
 
 34
 00:02:06,593 --> 00:02:09,294
 managing the communication between these camps, right?
+但最重要的是规范这三个阵营之间的通讯
 
 35
 00:02:09,363 --> 00:02:10,628
 You put the objects in these camps, and
+你把对象分到这三个阵营里了
 
 36
 00:02:10,697 --> 00:02:13,598
 they have to kind of obey certain rules when they talk
+那他们之间交谈就要遵守一定的规则
 
 37
 00:02:13,667 --> 00:02:16,501
 to each other. So, I've drawn road signs up here.
+所以我这里用路标来表明
 
 38
 00:02:16,570 --> 00:02:19,871
@@ -825,6 +858,7 @@ a grouping of UI. Usually one screen, one iPhone screen
 206
 00:11:03,463 --> 00:11:07,731
 size worth of stuff. So most apps have tons of screens.
+<##> 。所以许多程序都有很多个界面
 
 207
 00:11:07,800 --> 00:11:10,735
