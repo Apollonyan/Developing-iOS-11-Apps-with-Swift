@@ -3700,834 +3700,1042 @@ so that's why we have these different names.
 801
 00:39:05,009 --> 00:39:08,811
 Now, it is possible and legal to only have one name like
+其实是可以，而且完全可以只有一个参数名
 
 802
 00:39:08,880 --> 00:39:12,048
 just emoji. Then the external internal name would both
+比如只有 emoji。这种情况下实参标签和形参名一样
 
 803
 00:39:12,116 --> 00:39:17,320
 be emoji. And this underbar thing like right here.
+都是 emoji。这里的这个英文下划线
 
 804
 00:39:17,389 --> 00:39:19,588
 That means there's no argument,
+意思是没有实参标签
 
 805
 00:39:19,657 --> 00:39:20,790
 in other words it's just like Java or
+也就是像 Java 那样的
 
 806
 00:39:20,858 --> 00:39:24,560
 some other language. We almost never do that, it is done,
+其他语言一样了。我们几乎不会，只有少数时候会这样
 
 807
 00:39:24,629 --> 00:39:26,529
 the document will tell you when you can do it,
+准则里面提到了什么时候你可以或应该这样做
 
 808
 00:39:26,597 --> 00:39:29,832
 we almost never do it. It's here in this touch card
+但基本不会。这里的 touchCard 用了下划线来省略
 
 809
 00:39:29,900 --> 00:39:33,069
 because that's an iOS thing that's sending this message.
+是因为 iOS 系统发来的消息
 
 810
 00:39:33,138 --> 00:39:34,637
 It's from back in the Objective-C world.
+是从 Objective-C 时代就有了
 
 811
 00:39:34,706 --> 00:39:38,007
 Objective-C doesn't have this internal external name thing.
+而 Objective-C 没有这个实参标签的说法
 
 812
 00:39:38,075 --> 00:39:40,476
 So that's why it's under bar there, okay, but
+所以需要有个 _ 来省略参数
 
 813
 00:39:40,545 --> 00:39:43,513
 we don't really use under bar that much. All right, so
+但这并不是很常用
 
 814
 00:39:43,582 --> 00:39:45,748
 how we're gonna implement this flipCard right here?
+那我们怎么实现 flipCard？
 
 815
 00:39:45,816 --> 00:39:48,251
 Well, this flipCard is essentially gonna toggle it,
+flipCard 会把牌翻一个面
 
 816
 00:39:48,320 --> 00:39:50,319
 and I'm just gonna have this flipCard method,
+那么我在 flipCard 方法里
 
 817
 00:39:50,388 --> 00:39:53,623
 look at the button If it's already the ghost,
+判断按钮，看它是否已经显示了鬼了
 
 818
 00:39:53,692 --> 00:39:57,393
 then I'm gonna have it flip it over to orange with no text.
+如果有，那就翻过去，背景色设为橙色，不显示字
 
 819
 00:39:57,462 --> 00:40:00,195
 If it's not, then I'm gonna put the ghost on it with white
+如果没有字的话，那就把鬼显示在白色背景上
 
 820
 00:40:00,264 --> 00:40:05,034
 background. Just exactly what we played around with earlier.
+就像我们之前在白板上玩的一样
 
 821
 00:40:05,102 --> 00:40:09,605
 So, we need to check to see if the buttons current title
+所以我们需要查看按钮目前的标题
 
 822
 00:40:09,674 --> 00:40:12,408
 is this ghost. So I'm just gonna try and type this in
+是否是这个鬼。让我试着输入这段代码
 
 823
 00:40:12,476 --> 00:40:15,377
 let's see, if the button. Okay, now I need to send
+if button，如果按钮……现在我需要
 
 824
 00:40:15,446 --> 00:40:19,415
 a message to the button asking it what's your current title.
+发送消息给按钮问它当前的标题是什么
 
 825
 00:40:19,484 --> 00:40:23,386
 Well, probably I wanna go look in the documentation, figure
+那我应该去查看文档
 
 826
 00:40:23,455 --> 00:40:25,788
 out what button does. In fact, that's what you want to do.
+看看按钮有什么功能。这是最正规的做法
 
 827
 00:40:25,856 --> 00:40:28,757
 But there's actually a cool way if you just wanna guess
+但很酷的是，你可以去猜它叫什么名字
 
 828
 00:40:28,826 --> 00:40:32,628
 what it is. You can press dot. That's how you send a message
+你输入 . 英文句号，也就是 Swift 里发送消息的方法
 
 829
 00:40:32,697 --> 00:40:35,831
 in Swift to just like Java, right, dot to send a message.
+就像 Java 一样，对吧，用点语法来发送消息
 
 830
 00:40:35,900 --> 00:40:39,034
 And when you do that Xcode is gonna show you all the methods
+然后 Xcode 会显示给你所有的方法
 
 831
 00:40:39,103 --> 00:40:43,039
 and variables that button understands, and let me say,
+和变量，这些都是按钮可以接受的。然后我们用
 
 832
 00:40:43,107 --> 00:40:46,409
 there are quite a few. Okay, I'm scrolling through here,
+我看看，不是我说，这里还挺多的
 
 833
 00:40:46,478 --> 00:40:48,711
 I'm only down to the Cs okay, we got Ds,
+我现在还只是在 C 开头的，D 开头的
 
 834
 00:40:48,780 --> 00:40:51,447
 there's probably a couple hundred. So
+可能有好几百个吧
 
 835
 00:40:51,515 --> 00:40:53,983
 how does this help me? This doesn't help me at all.
+所以如何才能用这个帮助我呢？现在这样可没什么用
 
 836
 00:40:54,052 --> 00:40:56,885
 Well, the cool thing is, if I just type a word here that I
+嘛，很酷的是，如果我输入一个词
 
 837
 00:40:56,954 --> 00:41:00,223
 think might be in the name of the method I want like title.
+也就是我猜测的方法的名字，比如我想要 title
 
 838
 00:41:00,291 --> 00:41:03,359
 I want you to set the title. Now it just shows me things
+我想要设置按钮的标题。现在显示的就是
 
 839
 00:41:03,428 --> 00:41:06,295
 that start with title, or that have title in it, or
+以 title 开始的，或者是含有 title 的，或者
 
 840
 00:41:06,364 --> 00:41:09,566
 have T-I-T-L-E in it, which is not very useful, but
+是有字母 T, I, T, L, E 在里面的，虽然这个没什么用
 
 841
 00:41:09,634 --> 00:41:12,668
 that's why it puts those at the bottom. But anyway,
+当然这也就是为什么他们会在下面
 
 842
 00:41:12,737 --> 00:41:15,171
 we got the title. So now I can start looking around in
+总的来说我们有与标题相关的了。现在我可以开始找
 
 843
 00:41:15,239 --> 00:41:18,374
 a much shorter list here, to see if I can find it.
+要找的列表短很多，来看看能不能找到
 
 844
 00:41:18,443 --> 00:41:20,909
 So here's title color, definitely I don't want that.
+这里有 titleColor，标题的颜色不是我想要的
 
 845
 00:41:20,978 --> 00:41:24,079
 Title rectangle, no. Here's set title.
+titleRectangle，不要所在的矩形。这里有 setTitle
 
 846
 00:41:24,148 --> 00:41:25,481
 I don't wanna set the title right now but
+我现在不想要更改标题，但
 
 847
 00:41:25,550 --> 00:41:28,350
 that's kinda good to know. Look at this one, current
+了解这个有好处。看看这个，currentTitle
 
 848
 00:41:28,419 --> 00:41:30,919
 title. Current title that is displayed on the button.
+按钮当前显示的标题
 
 849
 00:41:30,988 --> 00:41:34,824
 Victory, I found exactly what I want. And when I find what I
+赢了呢！这就是我想要的。当我找的了
 
 850
 00:41:34,892 --> 00:41:40,730
 want here, looks like by the way, returns a string?
+我想要的，顺便看看，返回的是 String? 类型
 
 851
 00:41:40,798 --> 00:41:42,932
 We'll try it anyway. If I double click on it,
+管他呢，就用这个了。如果我双击它
 
 852
 00:41:43,000 --> 00:41:46,035
 it's gonna put that there for me. And now I can just say
+Xcode 就会自动补全。如果现在我
 
 853
 00:41:46,103 --> 00:41:49,471
 is that equal to the emoji that you're asking me to flip
+判断是否 == emoji，等于你让我翻过去显示的表情
 
 854
 00:41:49,540 --> 00:41:52,975
 the card to. This first argument. Notice how I'm using
+emoji 就是我们的第一个参数。注意我用的是
 
 855
 00:41:53,044 --> 00:41:56,846
 emoji and button as my internal names here.
+emoji 和 button 来作为方法内部使用的名称
 
 856
 00:41:56,914 --> 00:42:00,483
 I'm not using with emoji or on. That was for the caller.
+而不是 withEmoji 或者 on；那是调用的时候使用的
 
 857
 00:42:00,552 --> 00:42:05,020
 Okay, so now I found out that the button already here
+好，现在我知道了如果按钮
 
 858
 00:42:05,089 --> 00:42:07,957
 has the ghost on it. So now I wanna make it orange and
+已经有鬼的表情在上面了，那就把背景色设为橙色
 
 859
 00:42:08,026 --> 00:42:10,927
 blank. So now I need to set the button's title, and I saw
+然后不显示字。如果我想要设置按钮的标题
 
 860
 00:42:10,995 --> 00:42:14,997
 before that it was set title. Here it is, set title. Now
+我之前看到了有 setTitle 可以实现，所以调用 setTitle
 
 861
 00:42:15,066 --> 00:42:18,501
 this set title has extra thing here, for UI control state.
+setTitle 还有一个参数，for: UIControlState
 
 862
 00:42:18,570 --> 00:42:21,336
 You see that? It's like, what the heck is that?
+看到了吗？你会想，那是什么鬼？
 
 863
 00:42:21,405 --> 00:42:24,439
 I don't know anything about buttons, so, I'm not sure.
+我并不了解按钮，所以我不清楚那是什么
 
 864
 00:42:24,508 --> 00:42:27,109
 But I don't see any other set title, so I guess I'll have to
+但并没有其他类似于 setTitle 的了，那估计
 
 865
 00:42:27,178 --> 00:42:30,713
 go with this one. Okay, so I double click on it. The title
+我只能用这个了。好，我双击它
 
 866
 00:42:30,782 --> 00:42:34,183
 I want to set here, of course, is empty string because,
+我想要设的标题当然是空字符串
 
 867
 00:42:34,251 --> 00:42:36,018
 I'm trying to do the back of the card here.
+因为我想显示卡牌的背面
 
 868
 00:42:36,087 --> 00:42:39,789
 So I empty it out. And now I'm kind of at this control state
+也就是把字清空。然后是这个 UIControlState
 
 869
 00:42:39,858 --> 00:42:43,125
 impasse, because I don't really know what this means.
+陷入僵局了，我不知道那是什么意思
 
 870
 00:42:43,194 --> 00:42:45,795
 So, here's another cool thing you can do,
+这时，我们可以做的另一件很酷的事情是
 
 871
 00:42:45,863 --> 00:42:48,564
 is hold down option and mouse over anything,
+按住 option 键不放，然后把鼠标移动到上面
 
 872
 00:42:48,633 --> 00:42:52,234
 you see how it's highlighting things with a little question
+看到那部分会被高亮，然后鼠标变为一个
 
 873
 00:42:52,303 --> 00:42:55,704
 mark right there? And you can click on it and it'll show you
+问号了吗？你可以点击它，然后就会显示
 
 874
 00:42:55,773 --> 00:42:59,174
 the documentation for that thing. So here is set title,
+那个东西的文档。所以这是 setTitle
 
 875
 00:42:59,243 --> 00:43:01,410
 the documentation for it. And if I read through this,
+这个方法的文档。如果我读了这个
 
 876
 00:43:01,479 --> 00:43:03,579
 the third paragraph and description says,
+第三段的描述说
 
 877
 00:43:03,648 --> 00:43:05,648
 at a minimum, you should set the value for
+至少你需要设置 normal 状态下的标题
 
 878
 00:43:05,717 --> 00:43:10,419
 the normal state. Okay, sounds good. Now I'd like to
+也就是普通状态的标题。好，听起来不错
 
 879
 00:43:10,488 --> 00:43:13,489
 understand how to get that normal state, so I'm gonna
+现在我想知道如何得到那个普通状态
 
 880
 00:43:13,558 --> 00:43:17,393
 actually click on this link here, you see UIControlState?
+所以我点击这个链接，看到 UIControlState 是个链接了吗？
 
 881
 00:43:17,462 --> 00:43:19,428
 And it's gonna take me to the documentation and
+它会带我到文档里
 
 882
 00:43:19,497 --> 00:43:22,598
 show me control state. So here we go, click brings up
+给我展示 UIControlState 的信息。我点下去
 
 883
 00:43:22,667 --> 00:43:26,269
 the documentation, here's control state, see that? And
+文档就出来了，UIControlState，看到了吗？
 
 884
 00:43:26,337 --> 00:43:30,139
 here it is normal, the very first one is called normal.
+这里是 normal，第一个就是普通状态
 
 885
 00:43:30,208 --> 00:43:33,242
 And we're gonna see later how we use these things but
+等会儿我们会看到怎么使用这些
 
 886
 00:43:33,310 --> 00:43:35,778
-this is a static, you see it's a static bar.
+this is a static, you see it's a static var.
+但是这里有 static，这是静态变量
 
 887
 00:43:35,847 --> 00:43:39,115
 So it's kind of a property of the type, and so
+就像是属于类型的属性
 
 888
 00:43:39,183 --> 00:43:42,185
 the way that we will type that in is to say,
+所以我们输入这个的方法是
 
 889
 00:43:42,253 --> 00:43:45,454
-UIControlState.normal. So it's awesome we found that, but
+UIControlState.normal. So it's awesome, we found that, but
+UIControlState.normal。很好，我们找到了普通状态
 
 890
 00:43:45,523 --> 00:43:46,622
 while I'm here in the documentation,
+但当我还在文档里的时候
 
 891
 00:43:46,691 --> 00:43:49,525
 let me briefly show you how the documentation works.
+让我简单介绍一下文档是怎么用的
 
 892
 00:43:49,594 --> 00:43:52,361
 Right here, you can see that I'm looking in UI kits
+这里说我们看的是 UIKit
 
 893
 00:43:52,430 --> 00:43:55,798
 at its views and controls at the class UIControl, which
+视图（view）和控件（control）
 
 894
 00:43:55,867 --> 00:43:59,068
 button inherits from. And we're looking at this thing,
+也就是按钮继承的父类所在的地方，然后我们看的是
 
 895
 00:43:59,136 --> 00:44:01,604
 UIControlState. But I can click anywhere here and
+UIControlState，控件的状态。但我可以随便点击
 
 896
 00:44:01,672 --> 00:44:05,241
 go back and maybe look at UIButton if I want. And here's
+如果我想的话，比如回去看看 UIButton，然后这就是
 
 897
 00:44:05,309 --> 00:44:07,843
 UIButton. Now, when you're looking at the documentation,
+UIButton 的文档。当你看文档的时候
 
 898
 00:44:07,912 --> 00:44:11,246
 I super strongly recommend you read these overview sections.
+我强烈建议你读读概述的部分
 
 899
 00:44:11,315 --> 00:44:12,948
 You see where this says Overview?
+看到这里写着是 Overview 了吗？
 
 900
 00:44:13,017 --> 00:44:15,585
 This overview section in each class,
+每个类的概述
 
 901
 00:44:15,653 --> 00:44:17,787
 only take you five minutes to read. And it's really
+只需要大概五分钟的阅读时间，但是非常有用
 
 902
 00:44:17,855 --> 00:44:20,690
 gonna help you understand what the heck is going on here.
+能帮助你理解这都是些什么东西
 
 903
 00:44:20,759 --> 00:44:22,491
 So, I strongly recommend you do that for
+所以我强烈建议你这样做
 
 904
 00:44:22,559 --> 00:44:25,094
 all the common classes that you're using, UIButton later
+所有你用到的常有的类，比如 UIButton
 
 905
 00:44:25,162 --> 00:44:27,563
 we're gonna do array in dictionary. Go read it so
+之后的 Array（数组）和 Dictionariy（字典），去读读
 
 906
 00:44:27,632 --> 00:44:31,601
 you understand what the heck is going on in here. Got that?
+这样你就理解这些内容了。清楚了吗？
 
 907
 00:44:33,104 --> 00:44:35,470
 You can also search the documentation of course here.
+当然你还可以直接在这里搜索文档
 
 908
 00:44:35,539 --> 00:44:38,474
 And in addition to overview it has a list of all the methods.
+除了概述之外还有方法列表
 
 909
 00:44:38,542 --> 00:44:39,541
 And here, for example,
+比如说这里
 
 910
 00:44:39,610 --> 00:44:42,711
 here is set title again. Go back and see if it's the same
+这是 setTitle 方法，然后点进去还是一样的内容
 
 911
 00:44:42,780 --> 00:44:47,049
 that shows up in that little box. So now we know that this
+和那个小弹窗里的文档一样。所以现在我们知道
 
 912
 00:44:47,118 --> 00:44:49,852
 control state here is supposed too be UIControlState.normal.
+这里控件的状态应该是 UIControlState.normal
 
 913
 00:44:49,920 --> 00:44:53,522
 It's gonna set the normal control state. We also want to
+他会设置普通状态下的标题。我们还想
 
 914
 00:44:53,591 --> 00:44:56,359
 set the background color so I'm going to do button dot and
+设置背景颜色，所以我用 button.
 
 915
 00:44:56,427 --> 00:44:58,827
 I'm gonna just take a flyer, backgroundcolor.
+我就碰碰运气，backgroundColor，背景色
 
 916
 00:44:58,896 --> 00:45:02,198
 Sure enough, look backgroundColor or something,
+没错，还真有 backgroundColor
 
 917
 00:45:02,267 --> 00:45:05,768
 exactly called backgroundColor that takes a UI color,
+就叫做 backgroundColor，类型是 UIColor?
 
 918
 00:45:05,837 --> 00:45:08,470
 I think? Let's double click that one. And
+难道不是吗？让我们双击这个
 
 919
 00:45:08,539 --> 00:45:11,607
 I'm gonna set that equal to, believe it or not you can
+然后赋值为，不管你信不信，你可以
 
 920
 00:45:11,676 --> 00:45:14,409
 actually put a color literal in here. You just
+直接放一个颜色在这里
 
 921
 00:45:14,478 --> 00:45:16,946
 do that by starting to type the word color, and you're
+你只需要输入 color，然后你看
 
 922
 00:45:17,014 --> 00:45:19,148
 gonna see the first choice is always Color Literal.
+第一个选项 Color Literal 就是字面值颜色
 
 923
 00:45:19,217 --> 00:45:20,649
 If you double click on that,
+如果我双击它
 
 924
 00:45:20,718 --> 00:45:22,518
 it puts a little square in here.
+Xcode 就会放一个小方框在这里
 
 925
 00:45:22,587 --> 00:45:25,021
 If you click on the square you can pick the color you want.
+你可以点击这个方框，然后选择一个你想要的颜色
 
 926
 00:45:26,257 --> 00:45:27,823
 So let's go back and pick our nice orange,
+我们就选这个很不错的橙色
 
 927
 00:45:27,892 --> 00:45:29,425
 cuz that's what we do in the background.
+因为这就是我们想要的背景色
 
 928
 00:45:29,493 --> 00:45:33,029
 And so, we've set our background color to orange.
+所以我们就把背景色设为橙色了
 
 929
 00:45:33,097 --> 00:45:34,931
 And it's really nice to be able to see that in your code.
+能在代码里看到实际的颜色是很棒的功能
 
 930
 00:45:34,999 --> 00:45:38,100
 It really highlights the colors you're using.
+能够凸显出你想用的具体是什么颜色
 
 931
 00:45:38,168 --> 00:45:41,304
 All right otherwise if it's not, doesn't have the ghost
+好，那如果没有显示鬼这个表情的话
 
 932
 00:45:41,372 --> 00:45:43,105
 right now then we want to put the ghost on there.
+那我们就把鬼显示出来
 
 933
 00:45:43,173 --> 00:45:45,942
 So I'm gonna do pretty much exactly the same code here.
+我用的基本上是同样的代码
 
 934
 00:45:46,010 --> 00:45:48,311
 It's just that I'm gonna set the title instead of blank,
+还是 setTitle，只不过不是空字符串
 
 935
 00:45:48,379 --> 00:45:51,180
 like the background. I'm gonna set it to the emoji,
+也就是上面的那样，而是设为 emoji
 
 936
 00:45:51,249 --> 00:45:54,316
 the ghost in this case. And I'm gonna double click on this
+这种情况下是鬼的表情。然后我双击
 
 937
 00:45:54,385 --> 00:45:57,186
 orange square and change it to white, because I want a white
+这个橙色的方块，然后改成白色的，因为我想要
 
 938
 00:45:57,254 --> 00:46:01,890
 background for the front. We got that? Okay,
+卡前面是白色背景。看懂了吗？好
 
 939
 00:46:01,959 --> 00:46:04,393
 let's run, see if our card. Our card should flip over now,
+让我们再来运行看看我们的卡片。我们的卡片应该可以翻过来了
 
 940
 00:46:04,461 --> 00:46:08,531
 which is getting us quite a long way along the path here
+虽然我们花了点功夫才实现
 
 941
 00:46:08,600 --> 00:46:11,400
 to getting concentration working. Right here is
+才能玩这个翻牌游戏。这里是
 
 942
 00:46:11,469 --> 00:46:16,272
 our ghost. Cross your fingers. Whoo, it flips over and
+我们的鬼表情。上帝保佑，我要点了。哇哦！翻过去了
 
 943
 00:46:16,340 --> 00:46:20,876
 back. Okay, excellent. All right, we're on a roll.
+很好，我们成功了
 
 944
 00:46:20,945 --> 00:46:21,677
 Now, let's go and
+现在让我们
 
 945
 00:46:21,746 --> 00:46:24,613
 add another card. Okay, we got one card. Let's go to
+添加另外一张卡。这是我们现在的一张卡
 
 946
 00:46:24,682 --> 00:46:27,416
 the second card. Believe it or not, you can take things in
+然后第二张卡，不管你信不信，你可以选择这张卡
 
 947
 00:46:27,484 --> 00:46:29,518
 Interface Builder that are the way you want it and
+选中 Interface Builder 里的这个
 
 948
 00:46:29,587 --> 00:46:32,020
 just copy and paste them. So now I have two cards and
+然后复制粘贴。现在我有了两张卡
 
 949
 00:46:32,089 --> 00:46:34,690
 this card already is the right shape that I want,
+这张卡的形状已经是我想要的了
 
 950
 00:46:34,758 --> 00:46:37,259
 it's got the right font size all that stuff.
+字体大小等也都没有问题
 
 951
 00:46:37,328 --> 00:46:40,129
 So it's really recommended to copy and paste verses dragging
+所以我建议你复制粘贴，而不是
 
 952
 00:46:40,198 --> 00:46:42,297
 out a new one and trying to set it to all the same thing.
+重新拉出来一个，然后尝试修改为一摸一样的
 
 953
 00:46:42,366 --> 00:46:44,599
 Just copy and paste.
+你就复制粘贴就好
 
 954
 00:46:44,668 --> 00:46:48,103
 Now this one wants a different thing on it, so let's do
+但是这个上面的表情应该是不一样的，让我们用
 
 955
 00:46:48,172 --> 00:46:52,942
 something like pumpkin. Yeah, well we could do a pump and
+比如说南瓜 🎃 怎么样？好，我们可以
 
 956
 00:46:53,011 --> 00:46:55,978
 now we'll do pumpkin, all right? So we got pumpkin.
+我们就用南瓜
 
 957
 00:46:56,047 --> 00:46:58,180
 So we had pumpkin card and we got a ghost card.
+我们有了南瓜卡和鬼卡
 
 958
 00:46:58,249 --> 00:47:00,983
 Now this pumpkin card, it needs a method.
+现在这个南瓜卡需要一个方法
 
 959
 00:47:01,051 --> 00:47:04,353
 So we're gonna Ctrl+drag to create another method.
+所以我们按住 control 拖拽来创建另一个方法
 
 960
 00:47:04,422 --> 00:47:06,722
 So if you missed it the first time, this is how we do it.
+如果你第一次没记住，我再来演示下怎么做
 
 961
 00:47:06,791 --> 00:47:10,660
 It's an action. I'm gonna call this touchSecondCard.
+选择 Action 存根，叫做 touchSecondCard
 
 962
 00:47:13,531 --> 00:47:17,967
 The type, of course, we want a UI button, argument sender.
+类型，当然选 UIButton，Argument 是 Sender 作为参数
 
 963
 00:47:18,035 --> 00:47:20,903
 Connect it, here it is. I'm gonna take this
+Connect 来关联它。然后我就把
 
 964
 00:47:20,971 --> 00:47:24,339
 exact same code from here, put it down here,
+这段代码复制粘贴过来
 
 965
 00:47:24,408 --> 00:47:28,578
-but instead of the ghost right here, I'm gonna use R pumpkin.
+but instead of the ghost right here, I'm gonna use our pumpkin.
+但是不是鬼的表情，而是用这个南瓜
 
 966
 00:47:31,616 --> 00:47:34,984
 Okay, looks good, right? This could not possibly go wrong,
+好，很好，是吧？这个可能有问题
 
 967
 00:47:35,052 --> 00:47:40,089
 this is so simple. It's gotta work,
+非常简单，应该可以用
 
 968
 00:47:40,158 --> 00:47:45,427
 okay, let's do it. All right, here we go,
+好，让我们来运行试试
 
 969
 00:47:45,496 --> 00:47:50,666
 the ghost still working like a charm. And a Pumpkin, pumpkin
+鬼这个没有问题。然后南瓜，南瓜，南瓜
 
 970
 00:47:50,734 --> 00:47:54,136
 not working. Okay, what is wrong with our pumpkin?
+并没有用。那南瓜这个有什么问题呢？
 
 971
 00:47:54,204 --> 00:47:57,806
 How could this pumpkin possibly not be right. Well,
+这个换成了南瓜怎么就不行了呢？
 
 972
 00:47:57,875 --> 00:48:00,342
 we could get in the debugger here, set a breakpoint,
+那让我们把调试器显示出来，是一个断点（breakpoint）
 
 973
 00:48:00,411 --> 00:48:02,577
 it's real easy to set a breakpoint by the way.
+顺便说下设置断点很容易
 
 974
 00:48:02,646 --> 00:48:04,179
 You just click on a line number,
+只需要点击行号就可以了
 
 975
 00:48:04,248 --> 00:48:06,782
 puts the breakpoint there. But
+就会在那里设一个断点
 
 976
 00:48:06,851 --> 00:48:08,951
 we're gonna do a little more lightweight debugging.
+但我这会儿用个更简单的调试方法
 
 977
 00:48:09,020 --> 00:48:12,320
 I'm just going to put a print here in flipCard, to see if
+我就在 flipCard 里加一个 print 来看
 
 978
 00:48:12,389 --> 00:48:15,390
 this is even calling flipCard. It should be calling flipCard,
+它是否调用了 flipCard。应该是会调用的
 
 979
 00:48:15,459 --> 00:48:18,427
 because it's connected here to this method, so it should be
+因为它关联了这个方法，所以应该
 
 980
 00:48:18,495 --> 00:48:20,562
 calling flipCard. So I'm just gonna go in here and
+调用 flipCard 方法了的。所以我在这里
 
 981
 00:48:20,631 --> 00:48:25,401
 say print, that I'm in flipCard withEmoji. And
+用 print 函数说我在 "flipCard(withEmoji: 里
 
 982
 00:48:25,470 --> 00:48:28,437
 now I wanna put this emoji in here. Now,
+现在我想要把这个 emoji 表情加到这里
 
 983
 00:48:28,506 --> 00:48:32,174
 in a lot of other languages, you would probably say %s,
+在其他的语言里，你可能会用 %s
 
 984
 00:48:32,243 --> 00:48:34,943
-emoji, or something like that, right?
+comma, emoji, or something like that, right?
+%s)", emoji 之类的，是吧？
 
 985
 00:48:35,012 --> 00:48:39,849
 This would be your, oops, this would be your string.
+然后这就是你的字符串
 
 986
 00:48:39,917 --> 00:48:43,819
 But we don't have this %s business in Swift,
+但是 Swift 里不会和 %s 一类的打交道
 
 987
 00:48:43,887 --> 00:48:48,457
 we have something better, which is\(). So
+我们用更好的 \() 来实现字符串插值
 
 988
 00:48:48,526 --> 00:48:53,362
 \() means put something inside there, it's gonna interpret it
+\() 可以让我们在括号里放一些东西，然后把它
 
 989
 00:48:53,431 --> 00:48:57,099
 as a string, and embed it in this string. So that's exactly
+作为一个字符串插入到这个字符串里。这就是
 
 990
 00:48:57,168 --> 00:49:00,369
 what we want, emoji, and the cool thing about it is,
+我们想要的，把 emoji 放进去。更酷的是
 
 991
 00:49:00,438 --> 00:49:03,105
 I could put, this is a string, so it's easy to embed.
+虽然我这里 emoji 是字符串，插入到字符串里并不难
 
 992
 00:49:03,174 --> 00:49:06,107
 But I could put an Int here, anything that can be converted
+但是我还可以放一个整数在这里，任何能转化
 
 993
 00:49:06,176 --> 00:49:08,844
 to a string, which most things in Swift can, I can put there,
+为字符串的都可以，也就是说 Swift 里大部分的我都能放进去
 
 994
 00:49:08,913 --> 00:49:11,380
 I can even put an array there, or a dictionary.
+我设置可以放个数组或是字典在这里
 
 995
 00:49:11,449 --> 00:49:13,482
 As long as the array only had things that could
+当然前提是数组里的内容要能够
 
 996
 00:49:13,550 --> 00:49:15,717
 be converted to a string, then it can convert the whole
+用字符串来表示，那它就会把整个都转换
 
 997
 00:49:15,786 --> 00:49:20,122
 array to a string. So this is a really cool feature,
+把数组变成字符串。这是个很厉害的特性
 
 998
 00:49:20,191 --> 00:49:24,459
 this\(), all right? So let's run again, and
+能用 \() 实现字符串插值。让我们再次运行
 
 999
 00:49:24,528 --> 00:49:30,232
 see if that pumpkin is calling flipCard, which it should be.
+然后看看南瓜卡是否按照预期调用了 flipCard
 
 1000
 00:49:30,301 --> 00:49:33,202
 All right, so the ghost, it's definitely calling it,
+好，鬼卡，肯定是调用了的
 
 1001
 00:49:33,271 --> 00:49:36,705
 see flipCard withEmoji, the ghost, how about the pumpkin?
+看这个 flipCard(withEmoji: 鬼表情)，那南瓜呢？
 
 1002
 00:49:36,774 --> 00:49:40,442
 It looks like it's calling it, but I didn't press that twice,
+看起来是调用了的，但是我并没有按两下
 
 1003
 00:49:40,511 --> 00:49:43,245
 what's going on there? That that's kinda weird,
+但为什么多了两行呢？这有点奇怪
 
 1004
 00:49:43,314 --> 00:49:49,752
 let's do it again. No look at that, it's doing both.
+让我们再试试。看看，它两个表情都有
 
 1005
 00:49:49,821 --> 00:49:51,186
 Every time I press the pumpkin,
+每次我按下南瓜
 
 1006
 00:49:51,255 --> 00:49:53,088
 it's doing the ghost and the pumpkin, ghost and
+同时会出现鬼和南瓜，鬼和南瓜
 
 1007
 00:49:53,157 --> 00:49:55,657
 pumpkin. Why is it doing it twice, okay,
+为什么会调用两次呢？
 
 1008
 00:49:55,726 --> 00:49:58,460
 that's clearly they're messing things up badly.
+我们肯定是搞砸了
 
 1009
 00:49:58,529 --> 00:50:02,798
