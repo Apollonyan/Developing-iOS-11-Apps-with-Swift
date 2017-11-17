@@ -7512,38 +7512,47 @@ an exclamation point at the end of an optional, it says,
 1502
 01:15:37,466 --> 01:15:41,869
 assume this optional is set, and grab the associated value.
+假设这个可选类型有值并且赋予关联值
 
 1503
 01:15:41,937 --> 01:15:46,874
 So let's see what that looks like. You're gonna see
+所以让我们看一下它是什么样子。你将会看到
 
 1504
 01:15:46,942 --> 01:15:49,243
 this optional syntax is all really simple question mark,
+这个可选类型语法的全部就是简单的疑问号
 
 1505
 01:15:49,311 --> 01:15:51,512
 exclamation point, one characters, because it's so
+感叹号，一个字符。因为处理可选类型
 
 1506
 01:15:51,580 --> 01:15:54,047
 common to do these optionals. All right, so
+实在是太常见了。好的
 
 1507
 01:15:54,116 --> 01:15:57,184
 here look, cardNumber = 0, 1, 2, excellent,
+请看，carNumber 等于 0，1，2，棒极了
 
 1508
 01:15:57,252 --> 01:15:59,886
 it's working. What do you think happens if I press this
+它起作用了。你们认为如果我按下这个
 
 1509
 01:15:59,955 --> 01:16:01,655
 one right here? >> Crash.
+会发生什么？ >> 程序崩溃
 
 1510
 01:16:01,724 --> 01:16:03,190
 exactly. Why is it gonna crash? Because you're
+正是这样子。为什么它会崩溃？因为你正
 
 1511
 01:16:03,191 --> 01:16:04,657
@@ -7552,434 +7561,543 @@ exactly. Why is it gonna crash? Because you're
 1512
 01:16:04,727 --> 01:16:07,128
 returning an option that's not in the set state, so we don't
+返回一个可选类型缺省值，我们
+
 
 1513
 01:16:07,196 --> 01:16:10,064
 have that associated value, so it crashes your program.
+没有其关联值，所以它让你的程序崩溃了
 
 1514
 01:16:10,132 --> 01:16:12,432
 And you're gonna see this crash quite a bit, okay,
+并且你会不少看见这种崩溃，
 
 1515
 01:16:12,501 --> 01:16:15,235
 when you're developing because you'll just accidentally do
+在你开发的过程中，因为你会偶然做这种事情
 
 1516
 01:16:15,304 --> 01:16:17,872
 this quite a bit of time. And if you look in your console,
+不少次。并且如果你查看你的控制台
 
 1517
 01:16:17,941 --> 01:16:19,540
 look what it says. It says an error here,
+它写了什么，它会这里有一个错误:
 
 1518
 01:16:19,609 --> 01:16:23,744
 fatal error unexpectedly found nil, that is to say not set
+fatal error unexpectedly found nil，那是说可选类型缺省值
 
 1519
 01:16:23,813 --> 01:16:27,414
 while unwrapping an optional. Get used to that error,
+while unwraaping an optional。 熟悉这个错误
 
 1520
 01:16:27,483 --> 01:16:30,484
 you see it all the time. Now, this might make you say, whoa,
+你会一直看到它。现在它会让你说，哇
 
 1521
 01:16:30,553 --> 01:16:32,319
 I'm never using exclamation points,
+我将绝不再用感叹号了
 
 1522
 01:16:32,388 --> 01:16:35,355
 gonna crash my program, scary. Yeah,
+它会让我的程序崩溃，可怕。
 
 1523
 01:16:35,424 --> 01:16:38,659
 it's scary, but crashing your program can be really good,
+是的，这是可怕的，但是程序崩溃可以是好事情
 
 1524
 01:16:38,727 --> 01:16:40,694
 because it makes you find problems.
+因为它让你找到了问题所在
 
 1525
 01:16:40,763 --> 01:16:43,898
 Like in this case, that fourth button is supposed to be in
+像在这个例子里，第四个按钮应该在
 
 1526
 01:16:43,966 --> 01:16:47,434
 card buttons It's a bug that is not in card buttons. And
+cardButtons 数组里，但是这是一个 bug，它并不在
 
 1527
 01:16:47,502 --> 01:16:50,070
 if I didn't crash right there, I might not find that bug,
+如果它不会立刻崩溃，我可能不会找到这个 bug
 
 1528
 01:16:50,139 --> 01:16:51,638
 cuz I might not have clicked on that one,
+因为我可能不会点击那张卡片
 
 1529
 01:16:51,707 --> 01:16:53,807
 I might not have noticed. This way, I'm for sure gonna find,
+我可能都不会注意。现在这样子，我确定我会找到这个 bug
 
 1530
 01:16:53,876 --> 01:16:56,410
 it's gonna crash. And now it's gonna crash, it's gonna crash
+它会崩溃。现在它会崩溃，它会崩溃
 
 1531
 01:16:56,479 --> 01:16:58,345
 right where it matters, right in the debugger so
+就在这个关键的地方，就在调试器里
 
 1532
 01:16:58,414 --> 01:17:01,015
 I can look at it. So don't be afraid of crashes, okay?
+所以我能看到它。所以不要害怕崩溃，好么？
 
 1533
 01:17:01,083 --> 01:17:04,084
 Crashes can be good. But let's say you wanted to do this
+崩溃可以是好的。但是你想要让你的
 
 1534
 01:17:04,153 --> 01:17:05,786
 code in a way that didn't crash,
+代码用一种不会崩溃的方式书写
 
 1535
 01:17:05,855 --> 01:17:08,422
 that kind of conditionally looked to see if it was in
+那是一种条件语句来判断是否它
 
 1536
 01:17:08,491 --> 01:17:09,223
 the set state.
+是有值的
 
 1537
 01:17:09,292 --> 01:17:12,659
 And if it was, then use it, otherwise didn't do it.
+如果有值，那么使用它。否则就不使用
 
 1538
 01:17:12,728 --> 01:17:17,531
 To do that, instead of putting exclamation point at the end,
+为了这样做，与在结尾放一个感叹号相反
 
 1539
 01:17:17,600 --> 01:17:21,969
 you take that off and put if, at the beginning, okay?
+你把它拿掉并且把 if 放到开头，好么？
 
 1540
 01:17:23,572 --> 01:17:28,509
 And so now, if this optional right here is in the set state
+这样子，如果这个可选类型是有值的
 
 1541
 01:17:28,577 --> 01:17:33,113
-then this code will execute, otherwise it won't crash. So
+then this code will execute, otherwise it won't, and won't crash. So
+那么这行代码会执行，否则就不会，而且不会崩溃
 
 1542
 01:17:33,182 --> 01:17:35,382
 that's if that's conditional, you can see again,
+如果这是一个条件语句，你可以再看一次
 
 1543
 01:17:35,451 --> 01:17:40,554
 optional minimum possible syntax here.
+关于可选类型，最少字数的语法就在这里了
 
 1544
 01:17:40,623 --> 01:17:43,290
 So now, we can put this print cardNumber inside here,
+现在，我们可以把打印 cardNumber 语句放到里面
 
 1545
 01:17:43,359 --> 01:17:45,759
 and we could even, if we wanted to, put an else.
+我们甚至可以，如果我们想这样做的话，写一个 else 语句
 
 1546
 01:17:45,828 --> 01:17:49,129
 Could something like chosen card was not in card buttons,
+像这样子 选中的卡片不在卡片按钮数组当中
 
 1547
 01:17:49,198 --> 01:17:53,133
 or something like that, so we could notice that it happened.
+或其他差不过的语句，这样子我们能够注意到它发生了
 
 1548
 01:17:53,202 --> 01:17:54,701
 And here we're conditionally doing it, so
+这就是我们如何用条件语句来做这件事情
 
 1549
 01:17:54,770 --> 01:18:03,744
 let's go look at this I'm gonna move,
+让我们看一下结果，我要移动
 
 1550
 01:18:03,813 --> 01:18:07,214
 make this console wide here so you can see what's going on,
+这个控制台宽一点所以你能看到发生了什么
 
 1551
 01:18:07,282 --> 01:18:10,350
 all right? So here this is still working cardNumber 0, 1,
+好么? 所以它仍然可以工作 carNumber 0,1
 
 1552
 01:18:10,419 --> 01:18:13,553
 2 because I'm using that if let right there. But now,
+2 因为我正在使用 if let 的一个条件语句，但是现在
 
 1553
 01:18:13,622 --> 01:18:16,323
 if I click on this bad button it just says chosen card was
+如果我点击这个坏的按钮，它就会写着 
 
 1554
 01:18:16,392 --> 01:18:17,825
 not in card buttons, right?
+选中的卡片不在卡片按钮数组里，是吧？
 
 1555
 01:18:17,893 --> 01:18:21,228
 It says this, okay? So that's optional is how to unwrap
+它是这样写的，对吧？ 所以这个可选类型就是如何解析他们的
 
 1556
 01:18:21,297 --> 01:18:24,498
 them. Super duper important. Really gonna have master this.
+非常非常重要。真的需要掌握它
 
 1557
 01:18:24,567 --> 01:18:27,801
 I know that's new to you. We're gonna talk about
+我知道这对你们来说是新颖的。我们将会讨论
 
 1558
 01:18:27,870 --> 01:18:32,273
 these exclamation points up here, that I mentioned before.
+这些感叹号，正如我刚到提到的
 
 1559
 01:18:32,341 --> 01:18:34,341
 That made it so you didn't have to initialize your thing,
+它们让你不需要初始化你的变量
 
 1560
 01:18:34,410 --> 01:18:36,510
 those are optionals as well. They're a little different
+它们也是可选类型。他们只是有点不同的
 
 1561
 01:18:36,579 --> 01:18:38,979
 kind of optional because their exclamation point instead of
+可选类型由于它们是感叹号而不是
 
 1562
 01:18:39,047 --> 01:18:42,182
 question marks. Remember this index one right here?
+疑问号。记住这里这个 index
 
 1563
 01:18:42,250 --> 01:18:45,352
 Okay, that was a question mark one. These are exclamation
+好么，这是一个疑问号。这些是感叹号
 
 1564
 01:18:45,421 --> 01:18:47,221
 what one's they're slightly different optionals but
+是有点不同的可选类型但是
 
 1565
 01:18:47,290 --> 01:18:49,189
 they're still optional. We'll talk about that later.
+他们仍然是可选类型。我们会之后继续讨论它
 
 1566
 01:18:49,258 --> 01:18:51,691
 So the last thing I wanna do here is just take this
+最后一件事情我想做的是讨论
 
 1567
 01:18:51,760 --> 01:18:53,460
 cardNumber that I got, and
+我得到的这个 cardNumber
 
 1568
 01:18:53,529 --> 01:18:56,429
 go look it up in an array of emojis. So I'm just gonna
+并且在一个 emoji 数组中查询。所以我仅仅
 
 1569
 01:18:56,498 --> 01:19:01,368
 make a var, I'm gonna call it emojiChoices. It's going to be
+需要声明一个 var， 我会叫它 emojiChoices。它将会
 
 1570
 01:19:01,437 --> 01:19:04,938
 an Array of String emoji strings basically.
+是一个 String 的数组，一个 emoji 字符串的数组
 
 1571
 01:19:05,007 --> 01:19:08,676
 And you can create arrays right on a fly by doing open
+然后你可以飞速创建一个数组，通过
 
 1572
 01:19:08,744 --> 01:19:12,780
 square bracket and just put in the things in the arrays.
+中括号，然后把东西放到数组里
 
 1573
 01:19:12,848 --> 01:19:16,349
 So I'm gonna go put my emoji in here, lets go back to our
+所以我将把我的 emoji 放到里面，让我们
 
 1574
 01:19:16,418 --> 01:19:19,687
 emoji chooser, probably its in frequently used.
+返回 emoji 选择器中，大概在 frequently used 里面
 
 1575
 01:19:19,756 --> 01:19:21,788
 Here we go, there's the [INAUDIBLE] for
+这个是
 
 1576
 01:19:21,857 --> 01:19:24,291
 the pumpkin there, I'll put a pumpkin here.
+南瓜，我会放到这里一个南瓜，放到这里一个南瓜
 
 1577
 01:19:24,360 --> 01:19:27,661
 We'll put a ghost here, put a ghost over here,
+放到这里一个幽灵，放到这里一个幽灵
 
 1578
 01:19:27,729 --> 01:19:30,831
 all right? Now we've got that, so we're gonna look
+好么？现在我们有了数组，我们查看
 
 1579
 01:19:30,900 --> 01:19:33,166
 the cardNumber it's gonna be index 0, 1, 2, 3.
+cardNumber, 它将会是指数0，1，2，3
 
 1580
 01:19:33,235 --> 01:19:36,503
 We're gonna look it up in here. While we're here let's
+我们会在这里查询。让我们
 
 1581
 01:19:36,572 --> 01:19:41,008
 go ahead and wire up that last wayward button that's not in
+往前，关联最后一个按钮
 
 1582
 01:19:41,076 --> 01:19:45,379
 the cardButtons array.
+之前它还没有在 cardButtons 数组里
 
 1583
 01:19:45,448 --> 01:19:48,548
 I'm gonna do that again from up here, Ctrl + drag, down to
+我会再做一次，按住 Ctrl，向下拖到这里，
 
 1584
 01:19:48,617 --> 01:19:51,685
 here to put all four buttons in there. Go back to Automatic
+把四个按钮放到这里。回到 Automatic
 
 1585
 01:19:51,754 --> 01:19:56,990
 here, and one other thing I'm gonna do is note that this,
+另一件事情我要做的是，注意
 
 1586
 01:19:57,059 --> 01:20:02,396
 is that necessary? No, because it's clear that
+这里是必要的么？不，因为这是足够明确的
 
 1587
 01:20:02,465 --> 01:20:06,232
 this is an array of strings. So if I option click on this,
+它是一个字符串数组。所以如果我按住 option，点击这个
 
 1588
 01:20:06,301 --> 01:20:08,868
 on emojiChoices right here, it says array of strings.
+emojiChoices，它说这是一个字符串数组
 
 1589
 01:20:08,937 --> 01:20:11,839
 So that again, the inferring. We would never put that colon
+所以再说一次，类型推断。我们永远不要把那个冒号
 
 1590
 01:20:11,907 --> 01:20:16,276
 array string there, never. Totally unnecessary. Okay, so
+array string 放到那里，永远。完全没有不要。好的
 
 1591
 01:20:16,345 --> 01:20:19,379
 now let's say just printing the cardNumber out right here,
+现在让我们把 cardNumber 在这里打印出来
 
 1592
 01:20:19,448 --> 01:20:23,217
 I'm going to call my flipCard. FlipCard with emoji and
+我将调用我的 flipCard 函数。参数标签是 withEmoji
 
 1593
 01:20:23,285 --> 01:20:27,921
 the emoji is gonna be emojiChoices sub cardNumber,
+emoji 参数是 emojiChoices[cardNumber]
 
 1594
 01:20:27,990 --> 01:20:33,727
 okay, and it's on the sender. Got it, let's run it.
+好的，on 的参数是 sender。搞定了，让我们运行它
 
 1595
 01:20:43,371 --> 01:20:48,508
 Okay, here we go. Pumpkin, ghost.
+好的，开始吧。南瓜，幽灵
 
 1596
 01:20:48,577 --> 01:20:51,811
 All these considered working.
+所有考虑到的都运行良好
 
 1597
 01:20:51,880 --> 01:20:54,347
 Now, we might be very proud of ourselves here because we got
+现在，我们可以为自己感到骄傲因为我们
 
 1598
 01:20:54,416 --> 01:20:57,117
 this data-driven architecture. It's really great
+实现了这个数据驱动的架构。这是非常棒的
 
 1599
 01:20:57,186 --> 01:20:59,552
 we can add more buttons now. We can make 20 buttons and
+我们现在可以添加更多的按钮。我们可以添加20个按钮
 
 1600
 01:20:59,621 --> 01:21:01,388
 all we gotta do is add more things to this array.
+我们所有需要做的就是在数组里添加更多的东西
 
 1601
 01:21:01,456 --> 01:21:03,389
 But this is actually not a very good architecture,
+但是这实际上不是一个非常好的架构
 
 1602
 01:21:03,458 --> 01:21:07,260
 because this is very fragile, okay. The number of emoji here
+因为它经不起折腾。emoji 的数量
 
 1603
 01:21:07,329 --> 01:21:10,196
 has to exactly match the number of buttons in the UI,
+必须恰好匹配 UI 上按钮的数量
 
 1604
 01:21:10,265 --> 01:21:12,899
 and you have to put them in there exactly twice.
+并且你必须把他们放到那里两次
 
 1605
 01:21:12,968 --> 01:21:14,601
 And they're not in random order,
+他们还不是处于随机顺序
 
 1606
 01:21:14,669 --> 01:21:17,203
 so the cards are always gonna be in the same place kinda
+所以卡牌总是处在相同的位置
 
 1607
 01:21:17,272 --> 01:21:18,471
 not a very good solution.
+这不是一个好的解决方案
 
 1608
 01:21:18,540 --> 01:21:21,307
 So we really need to take another step and
+所以我们真的非常需要迈进另一步
 
 1609
 01:21:21,376 --> 01:21:25,345
 have a real concentration engine driving our app, it's
+拥有一个真正的翻牌游戏引擎来驱动我们的应用。
 
 1610
 01:21:25,414 --> 01:21:29,015
 doing not only all of this, but all this matching and
+它将不仅做所有这些事情，还会做所有的匹配
 
 1611
 01:21:29,084 --> 01:21:32,018
 all that stuff. Now to do that we're gonna use this design
+和所有其他事情。为了实现这个目标，我们将要使用
 
 1612
 01:21:32,087 --> 01:21:34,587
 paragraph dime I talked about the very beginning model view
+我在一开始提到的 model - view - controller (MVC)
 
 1613
 01:21:34,656 --> 01:21:38,325
 controller. So I'm gonna start Wednesday's lecture with some
+所以我将会在周三的课上用一些幻灯片开始
 
 1614
 01:21:38,393 --> 01:21:40,693
 slides explaining how model view controller works.
+解释 model - view - controller 如何工作
 
 1615
 01:21:40,762 --> 01:21:42,562
 Then we're gonna apply model view controller here, and
+之后我们将要应用 model - veiw - controller 在这上面
 
 1616
 01:21:42,631 --> 01:21:45,765
 you're gonna see wow, that is a way better way, to do this.
+你将会看到，哇，这是更好的方式来做这件事情
 
 1617
 01:21:45,834 --> 01:21:46,933
 The much more flexible and
+更灵活而且
 
 1618
 01:21:47,002 --> 01:21:51,838
 extensible easy to add cards not gonna crash everything. So
+扩展性更强，添加卡片更方便，任何东西都不会崩溃
 
 1619
 01:21:51,907 --> 01:21:53,907
 I'll see you on Wednesday. >> For
+所以我们下周三再见
 
 1620
 01:21:53,976 --> 01:22:03,383
