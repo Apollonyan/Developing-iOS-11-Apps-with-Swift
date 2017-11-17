@@ -2645,846 +2645,1057 @@ Kinda that top cocoa touch layer we're talking about.
 590
 00:28:31,743 --> 00:28:35,445
 So this is the declaration of a class, in an object-oriented
+所以这是定义了一个类，这是面向对象的概念
 
 591
 00:28:35,514 --> 00:28:38,615
 sense, a class. Of course we use the keyword class.
+定义一个类，当然用关键字 class
 
 592
 00:28:38,684 --> 00:28:41,351
 This is the name of the class, ViewController.
+然后是类的名字，ViewController
 
 593
 00:28:41,420 --> 00:28:44,921
 This is not a very good name, it's very generic. Probably
+这并不是什么好名字，太广泛了。最好
 
 594
 00:28:44,990 --> 00:28:47,790
 this wants to be called ConcentrationViewController or
+这个应该叫做 ConcentrationViewController
 
 595
 00:28:47,859 --> 00:28:51,395
 something like that. Do not change the name of this in
+或者类似的名字。不要更改这个类的名字
 
 596
 00:28:51,464 --> 00:28:54,297
 your homework, okay? Changing the name of
+好吗？在你的作业里面更改这个名字
 
 597
 00:28:54,366 --> 00:28:56,566
 this requires a little more than just changing it
+有比仅仅在这里更改它的名字更多的步骤
 
 598
 00:28:56,635 --> 00:28:59,136
 right here, because it's also showing up in your UI.
+因为这个会展示到用户界面上
 
 599
 00:28:59,204 --> 00:29:02,072
-So you have to change it in away that it changes in both
+So you have to change it in a way that it changes in both
+如果你要改的话，那两个地方都要改
 
 600
 00:29:02,141 --> 00:29:05,942
 places. This is its super class. This is
+这是它的父类
 
 601
 00:29:06,011 --> 00:29:09,112
 Object-Oriented Programming. We have inheritance.
+这是面向对象编程，所以我们有继承
 
 602
 00:29:09,181 --> 00:29:11,715
 It's inheriting from UIViewController.
+它继承了 UIViewController
 
 603
 00:29:11,784 --> 00:29:15,085
 Class UIViewController is in UIKit. You can tell because it
+UIViewController 是 UIKit 中定义的。你可以从
 
 604
 00:29:15,154 --> 00:29:17,887
 starts with UI. And what that class does,
+它名字以 UI 开头看出来。这个类的作用
 
 605
 00:29:17,956 --> 00:29:22,092
 it knows everything about controlling a UI like this.
+它知道如何控制像这样的用户界面
 
 606
 00:29:22,161 --> 00:29:25,161
 That's what it does. So by having our ViewController
+这就是它的功能。让我们的 ViewController
 
 607
 00:29:25,230 --> 00:29:28,398
 inherit from that, it inherits all the capability to control
+继承它，就继承了所有控制的能力
 
 608
 00:29:28,467 --> 00:29:30,834
 that thing. So all we have to do is put the code that has
+所以我们只需要把代码
 
 609
 00:29:30,902 --> 00:29:32,736
 to do with the Concentration game in here, so
+和翻牌游戏相关的代码放在这里
 
 610
 00:29:32,804 --> 00:29:36,206
 that's great. Then inside this curly brace, we're gonna
+这很不错。在这对大括号里，我们
 
 611
 00:29:36,275 --> 00:29:39,009
 put all our methods and instance variables. Who
+所有的方法（method）和实例变量都放这里
 
 612
 00:29:39,077 --> 00:29:41,745
 does not know what the word method or instance variable
+谁不知道“方法”或者“实例变量”的意思？
 
 613
 00:29:41,813 --> 00:29:44,814
 means? Okay, good, everybody does. And you should because
+好，很好，大家都知道。你应该知道
 
 614
 00:29:44,883 --> 00:29:47,050
 that's fundamentally an Object-Oriented Programming,
+这是面向对象编程的基础
 
 615
 00:29:47,118 --> 00:29:49,219
 right? So we're gonna put all our instance variables and
+是吧？所以我们把所有的实例变量和
 
 616
 00:29:49,287 --> 00:29:51,254
 methods inside those curly braces.
+方法都放在这对大括号里面
 
 617
 00:29:51,323 --> 00:29:54,624
 That's how we're gonna declare our class. So how are we
+这就是我们声明类的方法。那我们
 
 618
 00:29:54,693 --> 00:29:57,660
 gonna make this button do something here? Well,
+怎么才能让这个按钮做些什么呢？
 
 619
 00:29:57,729 --> 00:30:00,663
 what we're gonna do is we're gonna create a method in here.
+我们要做的是，我们在这里创建一个方法
 
 620
 00:30:00,732 --> 00:30:01,531
 And we're gonna make it so
+我们要让它做到
 
 621
 00:30:01,600 --> 00:30:04,934
 that when you press this button, it calls that method,
+当你按下这个按钮，它就调用这个方法
 
 622
 00:30:05,003 --> 00:30:07,137
 of course. How are we gonna do that?
+当然了。那我们怎么做呢？
 
 623
 00:30:07,205 --> 00:30:11,241
 To do that, believe it or not, we need to get this UI and
+不管你信不信，要实现这个，我们需要让 UI
 
 624
 00:30:11,309 --> 00:30:15,012
 this code over here on the screen at the same time.
+和这个代码同时出现在屏幕上
 
 625
 00:30:15,080 --> 00:30:18,181
 And we do that with this little button right here.
+我们按这里的这个按钮
 
 626
 00:30:18,250 --> 00:30:19,716
 This little circles thing right here,
+这个画着圆圈的按钮
 
 627
 00:30:19,784 --> 00:30:22,652
 this is called the assistant editor. And when I click it,
+这是 Assistant（助理）编辑器。当我点击它
 
 628
 00:30:22,720 --> 00:30:25,822
 they come on screen, both of them on screen, at the same
+它们就出现了，同时显示在屏幕上
 
 629
 00:30:25,891 --> 00:30:29,859
 time. And I can adjust this space however I want.
+我可以随意调整它们的大小
 
 630
 00:30:29,928 --> 00:30:31,194
 Maybe we'll get rid of this now.
+我先在可以先隐藏这个
 
 631
 00:30:31,263 --> 00:30:36,099
 All right, so here's my UI and my code on screen at the same
+好，我们的 UI 和代码同时显示出来了
 
 632
 00:30:36,168 --> 00:30:39,202
 time. Now, why do I want them on screen at the same time if
+为什么我想要他们同时出现
 
 633
 00:30:39,271 --> 00:30:42,605
 I need to hook them up? Because the way I hook them
+来关联他们？因为我关联他们的方法
 
 634
 00:30:42,674 --> 00:30:47,376
 up is I hold down the Ctrl key and drag a line from the UI to
+是按住 control 键不放，然后点击 UI 上（的按钮），再拖出一条线
 
 635
 00:30:47,445 --> 00:30:50,280
 my code. I know that's kinda weird, but
+到代码里。我知道这挺怪的
 
 636
 00:30:50,349 --> 00:30:54,017
 that's how we do it. And when we let go of that drag line,
+但这就是我们实现的方法。当我们松开鼠标的时候
 
 637
 00:30:54,085 --> 00:30:57,286
 it says, you will make a connection between UI and
+他会问，你将要建立 UI 和代码的关联
 
 638
 00:30:57,355 --> 00:30:59,856
 code. No problem, what kinda connection would you like?
+没问题，那是什么样的关联呢？
 
 639
 00:30:59,925 --> 00:31:01,992
 You can make an action, which is a method, or
+你可以创建存根（Action)，也就是一个方法
 
 640
 00:31:02,061 --> 00:31:03,493
 one of these two outlet things,
+或者这两种出口（Outlet）中的一种
 
 641
 00:31:03,562 --> 00:31:06,029
 which I'm gonna talk about later in this lecture. So
+我这节课之后也会讲到
 
 642
 00:31:06,098 --> 00:31:08,732
 let's start with this action one. An Action connection
+所以我们这里是用 Action 这个选项。存根
 
 643
 00:31:08,800 --> 00:31:11,401
 means when this button is pressed, call a method.
+的作用是按下按钮的时候，就调用这个方法
 
 644
 00:31:11,470 --> 00:31:13,336
 And I get to say what the name of the method is.
+然后我要命名这个方法
 
 645
 00:31:13,404 --> 00:31:16,005
 I'm gonna call it touchCard, cuz that's what's happening,
+我要叫它 touchCard，因为这就是发生的事情
 
 646
 00:31:16,074 --> 00:31:19,142
 someone's touching on this card. And this method that's
+也就是有人点击了这张卡片。然后这个方法
 
 647
 00:31:19,211 --> 00:31:21,378
 gonna be created for me, it can have arguments,
+要创建的方法可以通过 Arguments 指定参数
 
 648
 00:31:21,446 --> 00:31:23,947
 it could have no arguments, that's none. Or
+也可以没有参数，也就是 None 这个选项
 
 649
 00:31:24,016 --> 00:31:26,450
 it could have one argument, which is the sender,
+也可以有一个参数，也就是 Sender
 
 650
 00:31:26,518 --> 00:31:29,219
 in other words, the button that is sending me this.
+换句话说，就是调用这个方法的按钮
 
 651
 00:31:29,288 --> 00:31:30,620
 I really need that argument,
+我非常需要这个参数
 
 652
 00:31:30,689 --> 00:31:32,789
 because when this touch card gets sent to me,
+因为 touchCard 被调用了
 
 653
 00:31:32,858 --> 00:31:35,459
 I need to flip it over. So, I have to talk to it, okay, so
+我需要把那张牌翻过来，所以我需要能访问它
 
 654
 00:31:35,527 --> 00:31:38,195
 I want that argument. And really important,
+所以我想要这个参数。非常重要的一点
 
 655
 00:31:38,263 --> 00:31:41,131
 pay attention right now if, if you're dozing right now,
+打瞌睡的注意了
 
 656
 00:31:41,200 --> 00:31:44,034
 is that we do not. This is the type of the arguments.
+我们不能，注意这里这个是参数的类型
 
 657
 00:31:44,102 --> 00:31:47,704
 See it says Type Any? And we want that type to be Button,
+看到它写的是 Any 了吗？但我希望参数是按钮的类型 UIButton
 
 658
 00:31:47,773 --> 00:31:50,807
 okay? Because a button is sending this method to us.
+好吗？因为是这个按钮调起了这个方法
 
 659
 00:31:50,876 --> 00:31:52,709
 Now I don't know why that doesn't default to Button.
+我不知道为什么不是默认为按钮的类型
 
 660
 00:31:52,778 --> 00:31:55,245
-I've been saying that for years, it should. But
+I've been seeing that for years, it should. But
+好多年我看到的都是这样，本因该是按钮的类型
 
 661
 00:31:55,314 --> 00:31:58,181
 it doesn't. And if you don't change that from any to button
+但就不是。如果你不把它从 Any 换为 UIButton
 
 662
 00:31:58,250 --> 00:32:01,151
 the rest of this code is not gonna work. So definitely,
+接下来写的代码是用不了的。所以一定
 
 663
 00:32:01,220 --> 00:32:04,554
 if you remember nothing else from this, remember to change
+就算你其他的都记不住，记得
 
 664
 00:32:04,623 --> 00:32:07,724
 that. All right? So we have this button here and I'm gonna
+把类型改了。好吗？所以类型是按钮
 
 665
 00:32:07,792 --> 00:32:10,393
 hit these other things. But you know, here's obviously,
+然后我点……等等，当然
 
 666
 00:32:10,462 --> 00:32:12,028
 we were sending it to the view controller.
+按钮会发消息告诉 ViewController
 
 667
 00:32:12,097 --> 00:32:15,231
 The event touch up in side just means when you touch
+这个 Event，事件是 touch up inside 的意思你
 
 668
 00:32:15,300 --> 00:32:17,834
 up inside the bounds of the button, send this message.
+在按钮的内部点击就调用这个方法
 
 669
 00:32:17,902 --> 00:32:20,770
 All right, so let's connect. I'm gonna hit Connect.
+好，我们点 Connect 来建立关联
 
 670
 00:32:20,839 --> 00:32:21,805
 It's gonna give me a method.
+然后就会创建一个方法
 
 671
 00:32:21,874 --> 00:32:25,809
 This is your first look at a Swift method right here.
+这是你第一次见到 Swift 的方法
 
 672
 00:32:25,877 --> 00:32:28,911
 And let's look at the parts of it. Interestingly,
+让我们来分析它的各个部分。很有趣的是
 
 673
 00:32:28,980 --> 00:32:32,482
 this is not part of a Swift method, okay. This is just
+@IBAction 不是 Swift 方法的一部分，那只是
 
 674
 00:32:32,550 --> 00:32:35,719
 a special directive that Xcode is putting in there.
+Xcode 放在那里修饰方法的特殊指令
 
 675
 00:32:35,787 --> 00:32:38,754
 That causes it to put this little round circle here where
+这样就能让 Xcode 在左边显示一个小圆圈
 
 676
 00:32:38,823 --> 00:32:42,759
 the line numbers are. You see how line number lucky 13 there
+就在显示行号这里。看到这个“幸运”的 13
 
 677
 00:32:42,828 --> 00:32:47,030
 is a circle instead. If I mouse over that circle,
+被换成了个圆圈么？如果我把鼠标移到上面
 
 678
 00:32:47,098 --> 00:32:50,333
 I'm not clicking just mousing over. If I mouse over that
+我没有按下去，只是放在那里。如果我鼠标放上面
 
 679
 00:32:50,402 --> 00:32:55,272
 it'll show me which buttons send this message,
+就会显示是哪些按钮发的消息
 
 680
 00:32:55,340 --> 00:32:56,806
 which ones invoked this method. So
+是哪些会调用这个方法
 
 681
 00:32:56,875 --> 00:32:59,375
 that's all the IBAction does just cause this circle to
+这就是 @IBAction 的作用，就是让圆圈
 
 682
 00:32:59,444 --> 00:33:04,447
 appear here. Now this is the syntax of a Swift method.
+出现在这里。剩下的就是 Swift 方法了
 
 683
 00:33:04,516 --> 00:33:05,682
 So let's look at it's parts.
+让我们来看它的组成部分
 
 684
 00:33:05,750 --> 00:33:08,318
 Func. It's just a key word that says this is a function.
+func，那就是说明这是一个函数（function）的关键字
 
 685
 00:33:08,387 --> 00:33:11,121
 A method is just a function on a class. It is legal to have
+我们知道方法就是定义在类里面的函数。你也可以
 
 686
 00:33:11,189 --> 00:33:14,023
 functions outside of classes. They're global functions.
+在类的外面定义函数，也就是全局函数
 
 687
 00:33:14,092 --> 00:33:16,960
 We almost never do that cause we're very object oriented,
+我们基本不这么做，毕竟是面向对象
 
 688
 00:33:17,028 --> 00:33:20,030
 but you can do it. This is the name of the method,
+但你可以这么做。空格后是方法的名称
 
 689
 00:33:20,099 --> 00:33:23,199
 touch card. I chose that in the little pop up.
+也就是 touchCard，我在之前的小弹窗里决定的
 
 690
 00:33:23,268 --> 00:33:26,469
 This is a list of all its arguments. Okay,
+然后是参数列表
 
 691
 00:33:26,538 --> 00:33:31,374
 this method has one argument. The type of the argument comes
+这个方法有一个参数，参数的类型
 
 692
 00:33:31,442 --> 00:33:35,578
 at the end with a colon, colon type, which is a UIButton,
+是在最后面，用英文冒号隔开——: 类型。这里类型是 UIButton
 
 693
 00:33:35,647 --> 00:33:37,981
-obviously,. We said we wanted one argument,
+obviously. We said we wanted one argument,
+显然的，我们说我们想要一个参数
 
 694
 00:33:38,049 --> 00:33:41,050
 which the sender was a UIButton, that's what it is.
+也就是类型为 UIButton 的 sender，这就是这个意思
 
 695
 00:33:41,119 --> 00:33:46,456
 This are the names of this parameter.
+然后这些是参数的名称
 
 696
 00:33:46,524 --> 00:33:49,725
 Names plural. Now, there are two things about Swift that
+注意是这些。现在我们讲讲，Swift 有两个
 
 697
 00:33:49,794 --> 00:33:51,160
 are going to be quite different from what you're
+与其他非常不同的地方
 
 698
 00:33:51,229 --> 00:33:57,267
 used to in other languages. One, every argument has a name
+和其他语言不一样，其一是参数有一个实参标签
 
 699
 00:33:57,335 --> 00:34:01,771
 that you actually include when you call the method. Okay?
+你在实际调用方法的时候会用这个标签
 
 700
 00:34:01,840 --> 00:34:02,939
 So like in Java you would
+比如在 Java 里你会用
 
 701
 00:34:03,008 --> 00:34:06,342
-say touchguard open parenthesis six comma hello
+say touchCard open parenthesis six comma hello
+比如 touchCard(6, "hello", 5)
 
 702
 00:34:06,411 --> 00:34:08,178
 comma five. You would never do that in Swift.
+在 Swift 里你不会这样做
 
 703
 00:34:08,246 --> 00:34:10,747
 Each parameter would have a name in front of
+每个实际参数都有一个标签在前面
 
 704
 00:34:10,816 --> 00:34:14,384
 it. That way if you're calling it and you're reading
+这样当你调用了它
 
 705
 00:34:14,452 --> 00:34:16,453
 the code you don't have to remember that first argument,
+你读代码的时候就不需要记住第一个实际参数
 
 706
 00:34:16,521 --> 00:34:18,888
 what's that again? Because they're each named. And
+究竟是什么，因为有标签告诉你
 
 707
 00:34:18,957 --> 00:34:21,791
 the other thing is it has two names. Okay.
+另外一点就是参数有两个名字
 
 708
 00:34:21,860 --> 00:34:24,227
 The two names are the external name.
+其中一个就是之前提的实参标签
 
 709
 00:34:24,296 --> 00:34:27,196
 That's the name callers use and the internal name. That's
+这是调用方法的人用的。另一个是形参名称
 
 710
 00:34:27,265 --> 00:34:30,333
 the name we're going to use inside of are implementation.
+也就是在实现方法的时候使用的形式参数的名称
 
 711
 00:34:30,402 --> 00:34:32,768
 Now I'm going to write my own method in a second here and
+我马上自己写几个方法
 
 712
 00:34:32,837 --> 00:34:35,571
 we'll talk about this more, but that's what's going on
+然后我们再仔细讲讲，但这就是这部分的意思
 
 713
 00:34:35,640 --> 00:34:38,808
 here. Now if this method had a return value, you show that by
+如果这个方法有返回（return）值，你需要
 
 714
 00:34:38,877 --> 00:34:42,912
 saying arrow Int lets say that would mean this method
+通过比如 -> Int 来表示这个方法
 
 715
 00:34:42,981 --> 00:34:47,416
 returns an Int. Very simple syntax for that. But
+会返回 Int 类型的整数。非常简单的语法
 
 716
 00:34:47,485 --> 00:34:49,519
 this method doesn't return an Int, but you could make it so
+但这个方法并不会返回一个整数，但你可以让它
 
 717
 00:34:49,587 --> 00:34:53,756
 it does. Okay, so let's make sure this is working.
+这样做。好，让我们确认下这能用
 
 718
 00:34:53,825 --> 00:34:56,926
 I'm just gonna use that print function I was talk about this
+我就用之前讲的 print 函数
 
 719
 00:34:56,995 --> 00:34:59,829
 is a global function called print. It just takes a string
+print 就是个全局函数。它接受一个字符串参数
 
 720
 00:34:59,898 --> 00:35:05,067
 and prints on the console. So here I'll print agh! a ghost.
+然后打印到控制台里。我输出说这“啊，这是个鬼”
 
 721
 00:35:05,136 --> 00:35:07,504
 Okay, and we're gonna run our app and
+好，运行我们的程序
 
 722
 00:35:07,572 --> 00:35:11,407
 see if this is working when we press the ghost. So
+来看看我们按下这个鬼的时候有没有反应
 
 723
 00:35:11,476 --> 00:35:14,311
 by the way, when we are gonna print stuff from the console,
+顺便一提，当我们要输出到控制台的时候
 
 724
 00:35:14,379 --> 00:35:17,047
 we probably wanna bring this up from the bottom so
+我们最好点这个来显示下面这个面板
 
 725
 00:35:17,115 --> 00:35:20,750
 we can see our console, we can make our debugger smaller.
+这样我们就能看到控制台了。我们把调试器调小点
 
 726
 00:35:20,818 --> 00:35:24,287
 Here's our console bring it up. There's actually a cool
+这就是我们的控制台。其实，很酷的是
 
 727
 00:35:24,355 --> 00:35:26,523
 thing you can do, I'll show you a Xcode tip.
+你还可以这样做。我告诉你个 Xcode 的使用技巧
 
 728
 00:35:26,591 --> 00:35:31,194
 If you got here to Xcode, Behaviors and Edit Behaviors.
+如果你到菜单栏里的 Xcode > Behaviors > Edit Behaviors...
 
 729
 00:35:31,262 --> 00:35:33,863
 And you go down you can have it so
+然后在下面找。你可以让
 
 730
 00:35:33,932 --> 00:35:36,299
 that Xcode does things, opens windows,
+Xcode 做比如新建窗口
 
 731
 00:35:36,368 --> 00:35:39,335
 does other stuff when certain things happen. For example,
+或是在某件事发生的时候做另一件事
 
 732
 00:35:39,403 --> 00:35:40,670
 if you're running and
+比如你运行
 
 733
 00:35:40,739 --> 00:35:44,341
 it generates some output on the console, you can say
+而且会在控制台输出，你可以
 
 734
 00:35:44,409 --> 00:35:47,610
 show the debugger. Okay, and it will automatically bring
+让它显示调试器，Xcode 就会自动
 
 735
 00:35:47,679 --> 00:35:49,011
 that up from the bottom if it's not there.
+把它在下面显示出来
 
 736
 00:35:49,080 --> 00:35:51,647
 So that's kind of a nice little feature. All right, so
+这就是很实用的一个小功能。好
 
 737
 00:35:51,716 --> 00:35:55,852
 let's run it. Those are the kind of tips and tricks we'll
+让我们来运行。像这种使用技巧和提示就是
 
 738
 00:35:55,921 --> 00:35:57,787
 cover on Friday, by the way. Good reason to come on Friday.
+我星期五讲的内容，所以我建议你星期五来。
 
 739
 00:35:57,856 --> 00:36:00,289
 Question, yeah? >> Can you go over again
+谁有问题？>> 你能重新演示下
 
 740
 00:36:00,358 --> 00:36:05,127
 how you link the button to the view controller?
+如何把按钮关联到视图控制器的吗？
 
 741
 00:36:05,196 --> 00:36:06,295
 >> Yeah how we
+>> 好的。
 
 742
 00:36:06,364 --> 00:36:07,897
 connect to the button view controller?
+我们怎么把按钮关联到视图控制器？
 
 743
 00:36:07,966 --> 00:36:09,165
 Yeah, I'll show you that in just a second.
+好，我等会再演示一遍
 
 744
 00:36:09,233 --> 00:36:10,166
 So let's make sure it's working and
+让我们先确保这可以用了
 
 745
 00:36:10,234 --> 00:36:12,168
 then I'll show you how we connect to it again. So
+然后再展示一下怎么关联的
 
 746
 00:36:12,237 --> 00:36:13,036
 we have this button here.
+我们的按钮显示在这里
 
 747
 00:36:13,104 --> 00:36:15,872
 I'm gonna click the ghost and look down in our console.
+我点一下这个鬼，然后看我们下面的控制台
 
 748
 00:36:15,940 --> 00:36:19,576
 Look, agh! it's a ghost, okay. So it's working. So
+看，输出了 agh! a ghost!。所以是可以用的
 
 749
 00:36:19,644 --> 00:36:21,745
 we're clicking the button and it's doing that. So
+我们按这个按钮，就输出这个句话
 
 750
 00:36:21,813 --> 00:36:23,780
 the question is, how did we hook it up again?
+好，刚才的问题是问如何建立关联
 
 751
 00:36:23,849 --> 00:36:26,349
 Well what we did is that we held down control, the control
+我们做的是我们按住 control 键不放
 
 752
 00:36:26,417 --> 00:36:31,087
 key, and we dragged from the button into our code.
+同时按鼠标，从按钮拖拽出一根线到代码里
 
 753
 00:36:31,155 --> 00:36:32,922
 And when we let go it asked us all the questions.
+然后我们松开鼠标，Xcode 就会问那些问题
 
 754
 00:36:32,991 --> 00:36:33,823
 What do you want to call it?
+比如你要叫它什么名字？
 
 755
 00:36:33,891 --> 00:36:37,527
 That kind of stuff. All right, so we got this hooked up,
+这样的问题。好，我们关联上了
 
 756
 00:36:37,596 --> 00:36:40,329
 right. Now we need to flip the card over when this happens
+现在我们需要把牌反转过来
 
 757
 00:36:40,398 --> 00:36:41,797
 instead of just saying, agh! a ghost. Okay?
+而不只是打印出说这是个鬼
 
 758
 00:36:41,866 --> 00:36:44,500
 So we're not gonna say agh! a ghost anymore. So
+我们不会再打印 "agh! a ghost!" 了
 
 759
 00:36:44,569 --> 00:36:48,371
 to do that, I'm going to add my own function that flips
+要实现这个功能，我要自己写一个函数来翻牌
 
 760
 00:36:48,440 --> 00:36:50,973
 the card over. So let's create our own Swift function.
+让我们来自己写个 Swift 的函数
 
 761
 00:36:51,042 --> 00:36:53,643
 So we have to say func cuz its a method on a function.
+我们用 func 关键字，因为方法也是函数的一种
 
 762
 00:36:53,712 --> 00:36:57,580
 I'm gonna call this flipCard, okay.
+我把它叫做 flipCard，翻牌
 
 763
 00:36:57,648 --> 00:36:59,949
-And I£m gonna have two arguments.
+And I'm gonna have two arguments.
+然后有两个参数
 
 764
 00:37:00,018 --> 00:37:04,554
 One is the emoji that I want to be on this card,
+一个是 emoji，我想要显示在牌上的表情
 
 765
 00:37:04,622 --> 00:37:07,290
 the ghost or whatever. The other one is the button
+比如鬼一类的。另一个参数是按钮
 
 766
 00:37:07,358 --> 00:37:10,125
 that I want to set the emoji on, or whatever.
+我用来显示表情的按钮
 
 767
 00:37:10,194 --> 00:37:15,631
-So, interestingly here, I£m going to call in these things
+So, interestingly here, I'm going to call in these things
+很有趣的是，我要取的名字
 
 768
 00:37:15,700 --> 00:37:20,003
 constrain what you might think are strange names.
+你可能会觉得很奇怪
 
 769
 00:37:20,071 --> 00:37:25,774
 I'm gonna say with emoji, emoji of type string. So
+我叫第一个参数 withEmoji emoji: String
 
 770
 00:37:25,843 --> 00:37:30,413
 this is in external name with emoji internal name emoji. And
+实参标签为 withEmoji，形参名称为 emoji，类型是 String 字符串
 
 771
 00:37:30,481 --> 00:37:35,985
 how about this one on button UIButton. Okay?
+然后第二个是 on button: UIButton
 
 772
 00:37:36,054 --> 00:37:39,989
 Now, these might seem really strange to you as names of
+现在看这些，你可能会觉得是很奇怪的
 
 773
 00:37:40,058 --> 00:37:42,158
 parameters, both internal and external.
+参数名，实参标签和形参名称同时出现
 
 774
 00:37:42,227 --> 00:37:44,927
 And in your reading assignment on the last page, it's gonna
+你阅读作业的最后一页会链接到 swift.org 上的
 
 775
 00:37:44,996 --> 00:37:47,897
 link you to a document you have to read that explains
+API Design Guidelines（API 设计准则）
 
 776
 00:37:47,966 --> 00:37:50,466
 how to pick good names here. Cuz there's a very well
+你应该阅读它解释如何挑选好的名字的部分。文档很好地
 
 777
 00:37:50,535 --> 00:37:53,203
 defined set of rules for picking good names here. But
+制定了挑选好名字的规则
 
 778
 00:37:53,271 --> 00:37:56,840
 the number one rule is when someone calls this function,
+但是最重要的是，当有人调用这个函数的时候
 
 779
 00:37:56,908 --> 00:38:00,243
 it should read like English. That is the number one
+应该读起来像普通英语一样。这就是最重要的
 
 780
 00:38:00,311 --> 00:38:02,244
 requirement of picking these names.
+选择名字的要求
 
 781
 00:38:02,313 --> 00:38:04,314
 So let's call this function in touch card right here,
+让我们在 touchCard 里调用这个函数
 
 782
 00:38:04,382 --> 00:38:07,216
 cuz we want to call it with the ghost. So I'm gonna say
+因为我们想要用鬼的表情作为参数，所以我就输入
 
 783
 00:38:07,285 --> 00:38:11,020
 flipCard. Okay, notice, by the way, as I start to type,
+flipCard，注意我开始输入
 
 784
 00:38:11,088 --> 00:38:13,823
 look at Xcode trying to help me. Xcode's so nice,
+Xcode 会想办法帮助我。（没崩溃的）Xcode 多好啊
 
 785
 00:38:13,892 --> 00:38:15,791
 you see look, it know that I have a flipCard method.
+你看看，它知道我有个 flipCard 方法
 
 786
 00:38:15,860 --> 00:38:20,530
 In fact, I'm just gonna hit tab and it shows me the method
+其实如果我按下 tab 键，他就自动补全了方法
 
 787
 00:38:20,599 --> 00:38:23,833
 with the argument names. And I'm just ready to fill it in.
+和实参标签，然后移动到输入实际参数的地方
 
 788
 00:38:23,902 --> 00:38:25,935
 So this is called, from the caller's point of view,
+所以当调用的时候，调用的人所看到的是
 
 789
 00:38:26,004 --> 00:38:30,406
 flipCard(withEmoji). The emoji is let's say, for
+flipCard(withEmoji: 然后是作为参数的表情
 
 790
 00:38:30,475 --> 00:38:32,742
 example, our ghost. I'll just copy and
+比如这里的鬼，我复制粘贴
 
 791
 00:38:32,811 --> 00:38:37,981
 paste him from right here. On the button and which button?
+过来。on，在哪个按钮上操作？
 
 792
 00:38:38,049 --> 00:38:41,250
 Of course, the sender. That's this sender right here. So
+当然是 on: sender)，就是这个形参 sender
 
 793
 00:38:41,319 --> 00:38:43,720
 you see when I call it, it reads like English.
+你看到我调用它的时候，读起来就像英语一样
 
 794
 00:38:43,788 --> 00:38:48,091
 Flip the card with the emoji ghost on the sender button.
+把牌翻过来，显示鬼的表情到发送消息的按钮上
 
 795
 00:38:48,159 --> 00:38:50,459
 That's our number one thing we're trying to accomplish.
+这就是我们要做的第一步
 
 796
 00:38:50,528 --> 00:38:53,596
 But inside here we wouldn't wanna be saying like, well if
+但在 flipCard 里面我们不应该用
 
 797
 00:38:53,665 --> 00:38:58,400
 the button title equals with emoji that just is weird.
+比如 if button.title == withEmoji（如果按钮的标题是使用表情）
 
 798
 00:38:58,469 --> 00:39:02,137
 It's sending a message to the button that says on.whatever,
+很奇怪；或者是用 on.whatever（在上面.无论什么）来调用按钮的方法
 
 799
 00:39:02,206 --> 00:39:03,039
 that would make no sense,
+这都听起来很不正常
 
 800
 00:39:03,107 --> 00:39:04,941
 so that's why we have these different names.
+这就是为什么参数需要两个不同的名字
 
 801
 00:39:05,009 --> 00:39:08,811
@@ -4484,7 +4695,7 @@ variable. Then the name flipCount, then the type,
 
 1050
 00:52:19,036 --> 00:52:22,804
-flipCount to my class, and I£m gonna keep that flipCount up
+flipCount to my class, and I'm gonna keep that flipCount up
 
 1051
 00:52:22,873 --> 00:52:25,640
@@ -5004,7 +5215,7 @@ now I have my UI, how do I talk to it? How do I tell it
 
 1180
 00:58:41,985 --> 00:58:45,120
-when the flips change to show the flips? Well, I£m gonna
+when the flips change to show the flips? Well, I'm gonna
 
 1181
 00:58:45,189 --> 00:58:48,389
