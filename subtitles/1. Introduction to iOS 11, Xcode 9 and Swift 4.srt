@@ -5246,10 +5246,7 @@ variable. Then the name flipCount, then the type,
 1050
 00:52:19,036 --> 00:52:22,804
 flipCount to my class, and I'm gonna keep that flipCount up
-<<<<<<< HEAD
-=======
 我的类里有了叫做 flipCount 的变量，然后
->>>>>>> upstream/master
 
 1051
 00:52:22,873 --> 00:52:25,640
@@ -5899,10 +5896,7 @@ now I have my UI, how do I talk to it? How do I tell it
 1180
 00:58:41,985 --> 00:58:45,120
 when the flips change to show the flips? Well, I'm gonna
-<<<<<<< HEAD
-=======
 当翻的次数改变了之后就更新显示新的翻的次数？
->>>>>>> upstream/master
 
 1181
 00:58:45,189 --> 00:58:48,389
