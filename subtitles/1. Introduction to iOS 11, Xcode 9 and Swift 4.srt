@@ -3191,7 +3191,7 @@ code. No problem, what kinda connection would you like?
 639
 00:30:59,925 --> 00:31:01,992
 You can make an action, which is a method, or
-你可以创建存根（Action)，也就是一个方法
+你可以创建操作（Action），也就是一个方法
 
 640
 00:31:02,061 --> 00:31:03,493
@@ -3206,7 +3206,7 @@ which I'm gonna talk about later in this lecture. So
 642
 00:31:06,098 --> 00:31:08,732
 let's start with this action one. An Action connection
-所以我们这里是用 Action 这个选项。存根
+所以我们这里是用 Action 这个选项。关联一个操作
 
 643
 00:31:08,800 --> 00:31:11,401
@@ -4801,7 +4801,7 @@ So if you missed it the first time, this is how we do it.
 961
 00:47:06,791 --> 00:47:10,660
 It's an action. I'm gonna call this touchSecondCard.
-选择 Action 存根，叫做 touchSecondCard
+选择 Action，操作方法，叫做 touchSecondCard
 
 962
 00:47:13,531 --> 00:47:17,967
@@ -5926,7 +5926,7 @@ And what an outlet does is it creates an instance variable.
 1186
 00:59:03,874 --> 00:59:05,841
 So action creates a method,
-所以 action 存根创建一个方法
+所以 action 创建一个方法
 
 1187
 00:59:05,909 --> 00:59:08,242

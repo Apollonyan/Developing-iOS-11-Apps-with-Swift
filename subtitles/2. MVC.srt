@@ -481,7 +481,7 @@ a method like touchCard. And then UI button and
 97
 00:05:19,586 --> 00:05:21,453
 other things, they can get this action, and
-一类的控件就能得到操作这个方法的存根
+一类的控件就能得到这个操作方法
 
 98
 00:05:21,521 --> 00:05:22,887
