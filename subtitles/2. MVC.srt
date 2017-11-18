@@ -181,259 +181,322 @@ they have to kind of obey certain rules when they talk
 37
 00:02:13,667 --> 00:02:16,501
 to each other. So, I've drawn road signs up here.
-所以我这里用路标来表明
+所以我这里用道路交通标线来表明
 
 38
 00:02:16,570 --> 00:02:19,871
 You see the little road signs that are kind of approximating
+看到这个道路交通标线了吗？它们表示了
 
 39
 00:02:19,940 --> 00:02:22,908
 what kind of communication is allowed between the various
+这几个阵营之间被允许的沟通
 
 40
 00:02:22,977 --> 00:02:25,943
 camps. And let's look at it all in detail. So
+让我们来仔细看看
 
 41
 00:02:26,012 --> 00:02:28,079
 the Controller, talking to the Model,
+所以这个控制器可以访问模型
 
 42
 00:02:28,148 --> 00:02:31,716
 that's a fully dashed white line going in that direction.
+向这个方向的是一条白色的虚线
 
 43
 00:02:31,785 --> 00:02:35,254
 You can cross over anytime you want, big green arrow.
+任何时候都可以穿过去，我用绿色箭头表示
 
 44
 00:02:35,322 --> 00:02:38,022
 The Controller can talk to the Model all it wants.
+这个控制器可以随便和模型交流
 
 45
 00:02:38,091 --> 00:02:41,393
 It has to be able to because it is the Controller's job to
+它必须要能这样做，因为这是控制器的工作
 
 46
 00:02:41,462 --> 00:02:45,563
 present this what the thing is to the user, so it has to be
+就是把模型展示给用户，所以必须要
 
 47
 00:02:45,632 --> 00:02:48,433
 able to access the Model. So that's a big old green arrow,
+能够访问模型，所以这是个肯定可以的绿色箭头
 
 48
 00:02:48,502 --> 00:02:51,803
 and this is the Controller talking to the Model.
+控制器是可以访问模型的
 
 49
 00:02:51,871 --> 00:02:57,609
 Pretty much unlimited communication to the Model's
+访问模型基本没有限制
 
 50
 00:02:57,678 --> 00:03:00,913
 publicly available functionality. What about this
+只要是公开可用的功能都行。那这边呢？
 
 51
 00:03:00,981 --> 00:03:03,815
 direction? Well, similarly here, its minions,
+这边也是类似的，视图是下属
 
 52
 00:03:03,883 --> 00:03:06,584
 the Controller has to be able to control its minions, so
+控制器需要能控制它的下属，所以
 
 53
 00:03:06,653 --> 00:03:09,554
 it's a pretty much a wide open green arrow that way as well,
+这也是可以的，我这个方向也用绿色箭头表示
 
 54
 00:03:09,623 --> 00:03:11,689
 and you've already seen a green arrow from
+而且你已经看到了这样的“绿色通道”了
 
 55
 00:03:11,758 --> 00:03:14,225
 the Controller to the View in our Concentration.
+在翻牌游戏里，从控制器到视图
 
 56
 00:03:14,294 --> 00:03:17,162
 It was called an outlet. We had an outlet to the flip
+就是我们的出口（outlet），我们有一个到
 
 57
 00:03:17,230 --> 00:03:19,964
 count label, and of course we can talk to the flip count
+flipCountLabel 的出口，当然我们可以告诉 flipCountLabel
 
 58
 00:03:20,033 --> 00:03:23,067
 label and say anything we want to it to get it to say what we
+说我们想要让他在 UI 上显示
 
 59
 00:03:23,136 --> 00:03:26,037
 want in the UI. That is the Controller's prerogative.
+我们想要的内容。这就是控制器的特权
 
 60
 00:03:26,106 --> 00:03:28,673
 So you can see the controller can talk to everybody
+你看到了，所以控制器能和所有人交谈
 
 61
 00:03:28,742 --> 00:03:31,977
 pretty much all at once. What about some of the other kind
+基本都可以。那这些其他之间的
 
 62
 00:03:32,046 --> 00:03:34,612
 of communication? What about the Model talking
+通讯呢？比如模型
 
 63
 00:03:34,681 --> 00:03:39,250
 directly to the View? Okay, that's pretty much impossible.
+直接访问视图呢？好吧，这个基本是不可能的
 
 64
 00:03:39,319 --> 00:03:41,153
 Why is that impossible? Two reasons.
+为什么不可能呢？有两个理由
 
 65
 00:03:41,221 --> 00:03:44,989
 One, the Model is UI independent, and the View only
+其一，模型是和 UI 无关的，而视图
 
 66
 00:03:45,058 --> 00:03:47,793
 has UI things in it, so there's absolutely no way a UI
+只负责显示 UI。所以没有可能一个
 
 67
 00:03:47,861 --> 00:03:51,496
 independent thing could talk to such UI dependent things
+无关 UI 的阵营去访问这个只是 UI
 
 68
 00:03:51,564 --> 00:03:54,866
 like the View. Another reason is that these View things
+的视图。另一个原因是视图
 
 69
 00:03:54,935 --> 00:03:58,603
 are generic objects, like a button or a slider. How could
+都是通用的，比如按钮或是滑杆
 
 70
 00:03:58,672 --> 00:04:01,939
 a button have any idea what a Concentration game is about?
+一个按钮怎么可能知道翻牌游戏是干什么的？
 
 71
 00:04:02,008 --> 00:04:04,075
 No way. There's just no way it would know that, it's generic.
+不可能。按钮是通用的，它不可能知道翻牌这个游戏
 
 72
 00:04:04,144 --> 00:04:06,578
-So if there's never any communication between these
+So there's never any communication between these
+所以这两个之间是不可能沟通的
 
 73
 00:04:06,646 --> 00:04:09,113
 two, I never wanna see you having any communication
+我不希望看到你在作业里面
 
 74
 00:04:09,182 --> 00:04:11,516
 between these camps in any of your homeworks or whatever.
+让这两个阵营之间沟通
 
 75
 00:04:11,585 --> 00:04:13,318
 That's why it's a double yellow line there.
+这就是为什么这里是双黄线
 
 76
 00:04:13,387 --> 00:04:16,755
 No crossing over. All right, that's an easy one. What about
+不能跨过去。好，这个简单
 
 77
 00:04:16,823 --> 00:04:20,158
 the View talking back to the Controller? This is probably
+那视图翻过去通知控制器呢？这个可能
 
 78
 00:04:20,226 --> 00:04:25,029
 the most interesting of the communication pathways here.
+是最有趣的交流的方法了
 
 79
 00:04:25,098 --> 00:04:28,099
 The View can speak to its Controller, of course it,
+视图是肯定可以通知控制器的
 
 80
 00:04:28,168 --> 00:04:31,602
 it kind of has to, like when a button is clicked or whatever,
+某种意义上这是必须的，比如按钮被按下一类的
 
 81
 00:04:31,671 --> 00:04:33,204
 but when it communicates,
+但是他们要交流的话
 
 82
 00:04:33,273 --> 00:04:36,608
 this communication has to be blind and structured. It
+这种交流必须要是某种标准化的匿名通讯机制
 
 83
 00:04:36,676 --> 00:04:40,145
 has to be blind because these are generic view objects.
+说它是“匿名的”是因为视图是通用的对象
 
 84
 00:04:40,213 --> 00:04:43,014
 The UI Button doesn't know anything about a Concentration
+UIButton 不知道有关翻牌
 
 85
 00:04:43,082 --> 00:04:46,050
 game controller, so when it's talking to the Controller,
+这个游戏的控制器，所以当它通知控制器的时候
 
 86
 00:04:46,119 --> 00:04:48,252
 it doesn't really know that it's a Concentration game
+它是不知道那是翻牌游戏的
 
 87
 00:04:48,321 --> 00:04:50,488
 controller and it's structured in that
+控制器。说它是有标准的
 
 88
 00:04:50,557 --> 00:04:52,857
 since we're gonna have this communication going on,
+是因为我们要让这个通讯成立
 
 89
 00:04:52,926 --> 00:04:56,294
 a generic object has to think a little bit ahead about how
+一个通用的对象要提前考虑好
 
 90
 00:04:56,363 --> 00:05:00,232
 it might wanna communicate with this Controller object.
+要如何和控制器对象沟通
 
 91
 00:05:00,300 --> 00:05:03,067
 So, you already know one structured, blind way for
+你们已经见过了一个视图使用的
 
 92
 00:05:03,136 --> 00:05:06,471
 your View to communicate, and that's target action.
+标准化的匿名通讯，那就是 target action
 
 93
 00:05:06,540 --> 00:05:09,607
 When we Ctrl dragged and created the method touchCard.
+当我们按住 control 拖拽，创建了一个方法 touchCard
 
 94
 00:05:09,676 --> 00:05:12,344
 That's target action. And all the Controller has to do is
+这就是目标对象操作。而控制器所要做的
 
 95
 00:05:12,412 --> 00:05:16,081
 kinda hang a target on itself. That's to say, it creates
+就是把自己设为目标对象，也就是创建
 
 96
 00:05:16,150 --> 00:05:19,518
 a method like touchCard. And then UI button and
+一个 touchCard 这样的方法，然后 UIButton
 
 97
 00:05:19,586 --> 00:05:21,453
 other things, they can get this action, and
+一类的控件就能得到操作这个方法的存根
 
 98
 00:05:21,521 --> 00:05:22,887
 every time the button is pressed,
+然后每次按下按钮
 
 99
 00:05:22,956 --> 00:05:25,723
 they just call the target. This is a very,
+按钮就调用目标对象的方法。这是一种非常
 
 100
 00:05:25,792 --> 00:05:30,162
 very simple kind of blind structure communication. But
+非常简单的标准化匿名通讯
 
 101
 00:05:30,230 --> 00:05:33,165
