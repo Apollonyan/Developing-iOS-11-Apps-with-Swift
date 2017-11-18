@@ -501,427 +501,532 @@ very simple kind of blind structure communication. But
 101
 00:05:30,230 --> 00:05:33,165
 sometimes you need more complicated communication,
+但有的时候你需要更复杂的通讯
 
 102
 00:05:33,233 --> 00:05:35,867
 like you have a more complicated generic view
+比如你有更复杂的通用 UI 组件
 
 103
 00:05:35,936 --> 00:05:39,103
 item like, let's say a scroll view. A scroll view is
+比如一个 scroll view，滚动视图能够
 
 104
 00:05:39,172 --> 00:05:42,407
 scrolling around on some image or something like that, and
+四处移动来查看一张图片一类的
 
 105
 00:05:42,476 --> 00:05:44,409
 it might need to tell the Controller,
+它可能需要告诉控制器
 
 106
 00:05:44,477 --> 00:05:48,513
 I scrolled to the end. Am I allowed to scroll down here?
+我滚动到最底部了，我还能继续往下么？
 
 107
 00:05:48,582 --> 00:05:50,415
 Can I scroll vertically or horizontally?
+我移动的方向是竖着还是横着？
 
 108
 00:05:50,483 --> 00:05:53,084
 It kinda wants to talk to Controller as it's
+他会想要在完成任务期间
 
 109
 00:05:53,152 --> 00:05:57,255
 working to do its job. And we do that with these kind of
+和控制器保持沟通。为了实现这个，我们会用
 
 110
 00:05:57,324 --> 00:06:00,992
 predefined methods that the scroll view defines as part of
+滚动视图规定好的一些方法，这些方法
 
 111
 00:06:01,061 --> 00:06:06,130
 what's called its delegate. So its delegate is just a var in
+属于 delegate，代理的一部分。代理就是一个变量
 
 112
 00:06:06,199 --> 00:06:11,036
 scroll view that, and this var will have some object in it.
+滚动视图里的一个变量，这个变量存储了一个对象
 
 113
 00:06:11,104 --> 00:06:13,872
 And all we know about this object is that it responds to
+对于这个对象，我们所知道的只有
 
 114
 00:06:13,941 --> 00:06:16,441
 a certain number of messages. Most of these messages
+它能够响应一定数量的某些方法。大部分这些方法
 
 115
 00:06:16,510 --> 00:06:18,710
 start with the words will, should, or did.
+都会以 will, should 或 did 开头
 
 116
 00:06:18,778 --> 00:06:21,979
 Like, I will scroll to here, should I scroll over here? I
+比如我将要（will）滚动到这里，是否能够（should）滚动到那里？
 
 117
 00:06:22,048 --> 00:06:26,585
 did scroll down to here. Those are classic delegate methods.
+我已经（did）滚动到这里了，这些就是典型的代理的方法
 
 118
 00:06:26,653 --> 00:06:29,687
 And the Controller, using a mechanism called protocols,
+然后控制器通过 protocol，协议
 
 119
 00:06:29,756 --> 00:06:31,455
 which we'll talk about next week,
+这个我们下周讲
 
 120
 00:06:31,524 --> 00:06:33,458
 is able to tell the scroll view,
+就能告诉滚动视图
 
 121
 00:06:33,527 --> 00:06:36,528
 I'm your delegate, and all the scroll view will know
+我是你的代理，然而滚动视图只知道
 
 122
 00:06:36,596 --> 00:06:38,562
 is that it implements these will, should, and did.
+我实现了这些 will，should，did 方法
 
 123
 00:06:38,631 --> 00:06:40,966
 It doesn't know anything about it. It doesn't know its class,
+滚动视图不知道其他我的信息，不知道究竟是哪个类
 
 124
 00:06:41,034 --> 00:06:43,568
 doesn't know that it's has to do with Concentration game
+不知道是否是我们的翻牌游戏
 
 125
 00:06:43,637 --> 00:06:46,170
 obviously, it knows nothing. It just knows that
+显然什么也不知道，只知道
 
 126
 00:06:46,239 --> 00:06:48,506
 the Controller will implement that. So
+这个控制器实现了代理方法
 
 127
 00:06:48,575 --> 00:06:52,043
 we'll see delegation in about two weeks when we start using
+我们会在大约两周之后看到代理模式，就是当我们
 
 128
 00:06:52,111 --> 00:06:56,214
 more complicated UI objects. Now, another important thing
+开始使用更加复杂的 UI 对象的时候。另外一个重要的是
 
 129
 00:06:56,283 --> 00:06:58,717
 to remember in the MVC model is that views,
+记住在 MVC 模式里，视图
 
 130
 00:06:58,785 --> 00:07:00,085
 these generic things,
+这些通用的视图
 
 131
 00:07:00,153 --> 00:07:03,388
 cannot own the data they're displaying. In other words,
+不能自己提供他们显示的数据，也就是说
 
 132
 00:07:03,456 --> 00:07:06,157
 they're not going to have the data they're displaying as
+他们不能写死显示的数据，然后作为
 
 133
 00:07:06,225 --> 00:07:09,460
 part of their instance variables. Now why is this?
+实例变量的一部分（伴随每个对象）。为什么呢？
 
 134
 00:07:09,529 --> 00:07:13,064
 Well, imagine that the View is showing your entire iPod music
+让我们现象一下你展示整个 iPod 音乐库
 
 135
 00:07:13,133 --> 00:07:17,268
 library. And let's say you have 50,000 songs in there.
+比如说我们里面有五万首歌
 
 136
 00:07:17,337 --> 00:07:20,471
 There's no way, it would make absolutely no sense to have
+我们不可能，而且也根本没有理由
 
 137
 00:07:20,540 --> 00:07:23,475
 a list view or something, some generic view that lists
+让某个列表视图，某种展示某个列表的通用视图
 
 138
 00:07:23,543 --> 00:07:27,345
 things, to bring all 50,000 of those things in there. So
+存储五万首歌在里面
 
 139
 00:07:27,413 --> 00:07:30,648
 instead, it uses this same kind of protocol mechanism to
+取而代之，应该使用类似的某种协议
 
 140
 00:07:30,717 --> 00:07:32,984
 have another set of special messages,
+让另一些特殊的方法
 
 141
 00:07:33,052 --> 00:07:36,353
 and they are messages like data, give me the data at, or
+这些方法包括给我在这个地方的数据
 
 142
 00:07:36,422 --> 00:07:39,891
 how many items are there? And the Controller implements that
+或者是一共有多少个项目要显示，然后控制器实现这些方法
 
 143
 00:07:39,960 --> 00:07:43,628
 so we can talk to the Model and get the data for the View.
+控制器通过访问模型来获取视图需要的数据
 
 144
 00:07:43,697 --> 00:07:47,832
 So, for example, table view, which is a big scrolling list
+比如列表视图（table view），就是个很长的滚动列表
 
 145
 00:07:47,901 --> 00:07:51,269
 kind of generic view item, that's in iOS.
+这个是 iOS 提供的通用视图组件
 
 146
 00:07:51,338 --> 00:07:53,671
 When it's scrolling around on all your iPad music things,
+当你在来回滑动查看 iPad 音乐库内容的时候
 
 147
 00:07:53,740 --> 00:07:56,441
 it's just asking for the ones it's currently showing. Right,
+它就会去请求正在显示的那些歌曲
 
 148
 00:07:56,510 --> 00:07:58,576
 there's 50,000. It's only scrolling around to
+一共有五万首，来回滑动的话
 
 149
 00:07:58,645 --> 00:08:00,978
 showing maybe 10 at a time. And so it's just asking
+每次大概只会显示十首，它就是去让
 
 150
 00:08:01,047 --> 00:08:02,446
 the controller give me the next ten,
+控制器给它接下来的十首
 
 151
 00:08:02,515 --> 00:08:03,848
 give me the ten here, and
+给我这里的十首歌，然后
 
 152
 00:08:03,917 --> 00:08:05,549
 the controller turns around to the model,
+控制器就转过去问模型
 
 153
 00:08:05,618 --> 00:08:08,586
 which is probably a nice fast SQL database or something, and
+可能是很快的 SQL 数据库一类的
 
 154
 00:08:08,655 --> 00:08:11,489
 grabbing the data, and handing it off to the view. Okay, and
+抓取这些数据，然后传递给视图
 
 155
 00:08:11,558 --> 00:08:14,259
 this uses the same mechanism where the table view again
+这种方法同样的，列表视图
 
 156
 00:08:14,327 --> 00:08:16,894
 doesn't know anything about this as being an iPod
+也是不知道这些数据来源，不知道是不是 iPod
 
 157
 00:08:16,963 --> 00:08:20,364
 music app, it just knows that it's the data provider, and
+音乐程序，只知道它能提供数据
 
 158
 00:08:20,433 --> 00:08:24,202
 we call this kind of delegate the data source. All right, so
+我们叫这种代理 data source，数据源
 
 159
 00:08:24,271 --> 00:08:26,637
 you'll see that as well, and both data source and delegate,
+之后你也会看到。数据源和代理
 
 160
 00:08:26,706 --> 00:08:29,207
 very similar it's just kind of a different set of methods,
+这两个很类似，只是是两套不同的方法
 
 161
 00:08:29,276 --> 00:08:32,076
 and these methods are of course dependent on the kind
+当然这些方法取决于具体的
 
 162
 00:08:32,145 --> 00:08:36,114
 of UI element, they're not a preset list, depends on what's
+UI 组件，并不是固定的，取决于
 
 163
 00:08:36,182 --> 00:08:39,917
 going on in that UI element. So that's the kind of
+那个 UI 组件是干什么的。所以这就是
 
 164
 00:08:39,986 --> 00:08:42,920
 communication the view can have with the controller,
+视图到控制器的通讯
 
 165
 00:08:42,989 --> 00:08:46,625
 it's structured, it's kind of predefined, things like that.
+它是有标准的，提前制定好的
 
 166
 00:08:46,693 --> 00:08:49,894
 Because of all this communication going on in this
+因为这个方向的所有这些通讯
 
 167
 00:08:49,962 --> 00:08:53,164
 direction we say the controller's job in an MVC is
+我们说控制器在 MVC 里的作用
 
 168
 00:08:53,232 --> 00:08:56,500
 to interpret and format the models information for
+是把模型的信息翻译成某种格式
 
 169
 00:08:56,569 --> 00:08:59,203
 the view. That's its primary purpose.
+提供给视图，这就是它主要的目的
 
 170
 00:08:59,272 --> 00:09:01,239
 It kind of also goes the other way,
+反方向它也要处理
 
 171
 00:09:01,307 --> 00:09:04,742
 It interprets user interaction in the view for the model.
+把视图里的用户交互翻译成模型里的数据
 
 172
 00:09:04,811 --> 00:09:06,344
 It's the interpreter back and forth.
+它负责当来回通讯的翻译
 
 173
 00:09:06,413 --> 00:09:11,382
 It's the center of all communication here.
+是所有交流的中心
 
 174
 00:09:11,451 --> 00:09:14,585
 What about the model? Can the model talk to its controller?
+那模型呢？模型能通知控制器吗？
 
 175
 00:09:14,654 --> 00:09:19,623
 Obviously not directly. Because the model is UI
+肯定不是直接的，因为模型是与 UI
 
 176
 00:09:19,692 --> 00:09:23,094
 independent and the controller is fundamentally UI dependant,
+无关的，而控制器根本上讲是取决于 UI 的
 
 177
 00:09:23,162 --> 00:09:25,830
 so it can't do it directly. But there is a mechanism for
+所以不能直接沟通。但是有一种方法
 
 178
 00:09:25,899 --> 00:09:29,167
 the model to communicate, for example, if some data changes
+让模型能够在比如数据发生改变的时候发出通知
 
 179
 00:09:29,235 --> 00:09:32,036
 and it wants any UIs that are interested out there
+好让任何其他对此感兴趣的 UI
 
 180
 00:09:32,105 --> 00:09:36,007
 to update. And the way it does that is with a model that I
+更新，它实现的这种方法我
 
 181
 00:09:36,076 --> 00:09:39,277
 call radio station model, and the model essentially
+把它叫做电台模式。基本上就是模型
 
 182
 00:09:39,346 --> 00:09:42,113
 starts broadcasting on a certain known radio station.
+在某个已知的电台上开始广播
 
 183
 00:09:42,182 --> 00:09:46,117
 And the controller up there it's just going to tune in and
+而上面的控制器就会收听这个电台
 
 184
 00:09:46,185 --> 00:09:49,186
 when it hears oh something's changed on the models radio
+然后听到模型电台说，发生改变的时候
 
 185
 00:09:49,255 --> 00:09:51,689
 station then it's gonna use its big green arrow,
+那控制器就用它的“绿色通道”
 
 186
 00:09:51,758 --> 00:09:54,025
 to go talk to the model and get the date of the change, or
+来访问模型，然后获得改变了的数据
 
 187
 00:09:54,093 --> 00:09:57,161
 whatever. So this is a radio station model. In iOS
+之类的。所以它用的是类似于电台的机制。iOS 里
 
 188
 00:09:57,230 --> 00:10:01,399
 it's called notifications, or KVO, Key Value Observing, and
+这叫做 notification，通知。或者 KVO，键值监听，Key Value Observing
 
 189
 00:10:01,468 --> 00:10:05,103
 we'll talk about those in a few weeks as well. So there is
+这个我们几周之后也会讲。所以我们有
 
 190
 00:10:05,172 --> 00:10:08,405
 a way from the model to kind of broadcast, wow things
+一种方法让模型来广播说
 
 191
 00:10:08,474 --> 00:10:13,544
 are changing. Now, some people have asked can a view tune in
+这些发生了改变。有些人问视图能够收听
 
 192
 00:10:13,613 --> 00:10:16,748
 to a radio station? A View could only really tune into
+某个电台吗？真要说的话，视图只能收听
 
 193
 00:10:16,816 --> 00:10:19,918
-a controller or radio station like another UI thing, cuz
+a controller radio station like another UI thing, cuz
+控制器的电台，或者某种 UI 相关的东西
 
 194
 00:10:19,986 --> 00:10:23,187
 a view is fundamental of UI, but even that's pretty rare.
+因为视图是 UI 的基础，但即使有的话也是很罕见
 
 195
 00:10:23,256 --> 00:10:24,722
 Usually the radio stations are pretty much for
+通常电台是用来让
 
 196
 00:10:24,791 --> 00:10:27,892
 the model to communicate hey something's happening in your
+模型用来交流说你的数据发生了变动
 
 197
 00:10:27,961 --> 00:10:35,099
 data or whatever. This, MVC, a collection of MVC, is
+这类的。这个 MVC，这个模型，视图，控制器的集合
 
 198
 00:10:35,168 --> 00:10:39,437
 generally only used to control one screen on the iPhone, or
+一般只会用来控制 iPhone 上的一个界面
 
 199
 00:10:39,506 --> 00:10:42,941
 on the iPad. Maybe it can control little sub-place,
+或者 iPad 上的一个界面。可能可以控制某个附属的界面
 
 200
 00:10:43,009 --> 00:10:46,344
 like maybe on an iPad, maybe one MVC controls one space,
+比如像在 iPad 上，可能一个 MVC 控制一个界面
 
 201
 00:10:46,413 --> 00:10:49,046
 and another MVC controls another place, and
+另一个 MVC 控制另一个界面
 
 202
 00:10:49,115 --> 00:10:52,050
 possibly a third MVC controls another space, but
+然后可能第三个控制另一个界面，但是
 
 203
 00:10:52,118 --> 00:10:55,453
 you would never have more than one screen, in an iPhone,
+但是在 iPhone 上你不会有多个界面
 
 204
 00:10:55,521 --> 00:10:59,557
 controlled by a single MVC. So the MVC kind of goes with
+是由一个 MVC 同时控制的。所以 MVC 还会
 
 205
 00:10:59,625 --> 00:11:03,394
 a grouping of UI. Usually one screen, one iPhone screen
+把 UI 分组，通常是一个界面，一个 iPhone
 
 206
 00:11:03,463 --> 00:11:07,731
 size worth of stuff. So most apps have tons of screens.
-<##> 。所以许多程序都有很多个界面
+屏幕那么多的内容 。所以大部分程序都有很多个界面
 
 207
 00:11:07,800 --> 00:11:10,735
