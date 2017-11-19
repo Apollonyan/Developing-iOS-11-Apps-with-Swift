@@ -286,7 +286,7 @@ You will not see me teaching you anything down there,
 58
 00:02:47,501 --> 00:02:49,234
 The next layer up is called the Core Services layer.
-在那一层之上是 Core Serviecs 层
+在那一层之上是 Core Services 层
 
 59
 00:02:49,235 --> 00:02:50,968
@@ -1310,7 +1310,7 @@ Any Apple ID will do, go through the process.
 
 263
 00:12:46,866 --> 00:12:49,634
-You'll creat a development team. Next,
+You'll create a development team. Next,
 创建了开发团队之后
 
 264
@@ -1441,17 +1441,17 @@ then the other ones we're gonna do later in the quarter.
 289
 00:13:58,304 --> 00:13:59,537
 This source control,
-这种资源控制
+这个 source control
 
 290
 00:13:59,605 --> 00:14:02,774
 we'll talk about that later in the quarter as well, but
-我们也会在之后的学期里讨论，但是
+源码（版本）管理我们也会在之后讨论，但是
 
 291
 00:14:02,842 --> 00:14:06,477
 we're not doing that for the first week. Okay here it is,
-我们在第一周不会做这件事。
+我们在第一周不会做这件事
 
 292
 00:14:06,546 --> 00:14:10,381
@@ -4521,7 +4521,7 @@ all the common classes that you're using, UIButton later
 905
 00:44:25,162 --> 00:44:27,563
 we're gonna do array in dictionary. Go read it so
-之后的 Array（数组）和 Dictionariy（字典），去读读
+之后的 Array（数组）和 Dictionary（字典），去读读
 
 906
 00:44:27,632 --> 00:44:31,601
@@ -7591,7 +7591,7 @@ fatal error unexpectedly found nil，那是说可选类型缺省值
 1519
 01:16:23,813 --> 01:16:27,414
 while unwrapping an optional. Get used to that error,
-while unwraaping an optional。 熟悉这个错误
+while unwrapping an optional。 熟悉这个错误
 
 1520
 01:16:27,483 --> 01:16:30,484

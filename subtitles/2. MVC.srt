@@ -3800,7 +3800,7 @@ way, cardButtons.indicies, okay. cardButton.indicies
 841
 00:45:05,570 --> 00:45:09,839
 Indices is a method in array. Okay, that returs
-indicies 是数组的一个方法（注：变量）
+indices 是数组的一个方法（注：变量）
 
 842
 00:45:09,907 --> 00:45:13,509
