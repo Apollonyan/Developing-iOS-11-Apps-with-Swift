@@ -3600,170 +3600,212 @@ And we know exactly when that is in our controller.
 801
 00:42:59,577 --> 00:43:02,878
 It's right here in touch card. Whenever a button calls touch
+它就在 touchCard 方法里。每当按钮调用 touchCard
 
 802
 00:43:02,947 --> 00:43:04,613
 card, we know a card's being touched.
+我们就知道点击了某张卡片
 
 803
 00:43:04,682 --> 00:43:07,417
 And instead of doing all this flip card with emoji choices
+然后取代 flipCard(withEmoji: 选中的表情)
 
 804
 00:43:07,485 --> 00:43:09,985
 thing right here, I'm just gonna tell my game hey,
+这个方法，我用 game.chooseCard(at:)
 
 805
 00:43:10,054 --> 00:43:15,591
 choose this card. Okay?
+来告诉游戏说选这张卡片
 
 806
 00:43:15,659 --> 00:43:18,594
 So instead of handling it myself, I'm letting the model
+不是我自己控制器来处理，而是让模型
 
 807
 00:43:18,663 --> 00:43:21,230
 handle it. So, it's the one that's figuring it out.
+来处理它，让模型来实现逻辑
 
 808
 00:43:21,299 --> 00:43:24,199
 But there's something interesting to note here,
+但很有趣的是，我们注意
 
 809
 00:43:24,268 --> 00:43:26,869
 is that when I tell the model choose this card,
+当我让模型选择这张卡的时候
 
 810
 00:43:26,938 --> 00:43:29,905
 it might change the game might change. And in fact, I hope it
+它是可能会发生改变的，游戏的状态会发生改变
 
 811
 00:43:29,974 --> 00:43:31,841
 does change cuz it's supposed to be doing matching and
+而我也希望这样，因为它应该去匹配
 
 812
 00:43:31,909 --> 00:43:34,877
 all kinds of stuff. So it's gonna change. So now,
+等等，所以游戏的状态会改变
 
 813
 00:43:34,946 --> 00:43:39,415
 we have to update our view from the model, okay?
+那我们就需要从模型获取数据更新视图
 
 814
 00:43:39,483 --> 00:43:41,683
 Our view is now a little bit out of sync with the model,
+我们现在的视图就没更上模型的改变了
 
 815
 00:43:41,752 --> 00:43:43,085
 because when we chose this card,
+因为当我们选择这张卡片的时候
 
 816
 00:43:43,154 --> 00:43:45,087
 that could have caused the game to change.
+游戏的状态可能会发生变化
 
 817
 00:43:45,156 --> 00:43:48,057
 So we need a method like updateViewFromModel or
+所以我们需要一个类似于 updateViewFromModel 的方法
 
 818
 00:43:48,126 --> 00:43:51,594
 something like that. Some kind of func down here,
+来用模型更新视图，在下面实现这样一个方法
 
 819
 00:43:51,663 --> 00:43:55,430
 func updateViewFromModel. And what's that gonna do?
+func updateViewFromModel 要做什么呢？
 
 820
 00:43:55,499 --> 00:43:58,534
 That's gonna use the other part of this API right here.
+他会使用 API 里的另一个部分
 
 821
 00:43:58,603 --> 00:44:00,803
 It's gonna look at all the cards and
+他会去查看所有的卡片
 
 822
 00:44:00,871 --> 00:44:03,772
 make sure all our card buttons match, right?
+然后确保按钮和卡片是保持一致的
 
 823
 00:44:03,841 --> 00:44:06,208
 Whether they're face up, whether they're matched,
+他们是否是面朝上的，是否已经配对了
 
 824
 00:44:06,277 --> 00:44:08,010
 all that business. We look in the game,
+等等这些。我们去 game 模型里
 
 825
 00:44:08,079 --> 00:44:11,046
-find out, and make sure our card doesn't match. All right,
+find out, and make sure our card does match. All right,
+查看这些卡的状态，然后确保按钮是正确的
 
 826
 00:44:11,115 --> 00:44:12,948
-so how to we implement this updateViewFromModel?
+so how do we implement this updateViewFromModel?
+好，那我们怎么实现 updateViewFromModel 呢？
 
 827
 00:44:13,017 --> 00:44:15,618
 Well I wanna go through all the card buttons and
+我要遍历所有的卡片的按钮
 
 828
 00:44:15,687 --> 00:44:19,355
 look at the game and set it up appropriately. So I could do
+然后对照 game 模型，然后正确地设置按钮
 
 829
 00:44:19,424 --> 00:44:24,893
 another for loop where I say for button in my cardButtons,
+我可以用一个 for 循环，也就是 for button in cardButtons
 
 830
 00:44:24,962 --> 00:44:28,330
 okay? And just go through and now each button will be if we
+对于 cardButtons 里的每个按钮，这个 button
 
 831
 00:44:28,399 --> 00:44:31,834
 look at the type of this it's going to be a UI button. See?
+如果我们查看它的类型，会是 UIButton，看到了吗？
 
 832
 00:44:31,903 --> 00:44:34,603
 Because this is a sequence of buttons. Isn't that cool?
+因为这是一系列按钮。这个可以吧？
 
 833
 00:44:34,672 --> 00:44:37,306
 All right? But I'm actually not gonna do that.
+是吧？但我不会这样做
 
 834
 00:44:37,375 --> 00:44:40,843
 I'm gonna do something else because I need to look up this
+我会选择用另一种方法，因为我要用
 
 835
 00:44:40,911 --> 00:44:45,147
 button's index in this card thing so I'm gonna do my for
+按钮的索引找到这个 card 里对应的卡片，因此
 
 836
 00:44:45,215 --> 00:44:50,018
 loop by index. In the card buttons array which I could do
+我选择循环索引。要遍历 cardButtons 数组，那我可以
 
 837
 00:44:50,087 --> 00:44:54,757
 with 0 dot dot less than cardButtons.count, okay.
+用 0..<cardButtons.count
 
 838
 00:44:54,825 --> 00:44:57,860
-Everybody understand this counter range right here, but
+Everybody understand this countable range right here, but
+大家都理解这个可数区间吧？
 
 839
 00:44:57,929 --> 00:45:00,830
 I'm not gonna do that either I'm gonna show you another
+但是我也不会这么做。我要给你展示另一种方法
 
 840
 00:45:00,899 --> 00:45:05,501
 way, cardButtons.indicies, okay. cardButton.indicies
+用 cardButtons.indices，cardButtons 的索引
 
 841
 00:45:05,570 --> 00:45:09,839
 Indices is a method in array. Okay, that returs
+indicies 是数组的一个方法（注：变量）
 
 842
 00:45:09,907 --> 00:45:13,509
 you a countable range of all the indexes into the array.
+给你一个由数组所有索引组成的可数的区间
 
 843
 00:45:13,578 --> 00:45:16,946
@@ -5188,6 +5230,7 @@ And then I'm gonna set it to be the index of the one and
 1198
 01:04:41,077 --> 01:04:43,311
 only face up card.
+仅有的那张朝上的卡
 
 1199
 01:04:43,379 --> 01:04:45,714
