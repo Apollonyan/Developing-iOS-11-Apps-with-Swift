@@ -146,12 +146,12 @@ Object-Oriented Programming, cuz iOS is completely and
 30
 00:01:25,753 --> 00:01:29,053
 utterly object-oriented. You cannot develop for
-是完全面向对象的。你不可能开发
+是完全面向对象的。除非你掌握了面向对象编程
 
 31
 00:01:29,122 --> 00:01:32,357
 iOS without being serious object oriented programmer.
-iOS 程序，除非你掌握了面向对象编程
+否则你不可能开发 iOS 程序
 
 32
 00:01:32,426 --> 00:01:34,960
@@ -191,12 +191,12 @@ with is writing a lot of code. All your homework in this
 39
 00:01:51,412 --> 00:01:53,912
 class, there's a little bit of reading the first few weeks
-前几周还会有些阅读作业
+前几周还会有些关于我们
 
 40
 00:01:53,981 --> 00:01:56,047
 about the language that we're gonna develop in.
-是关于我们开发要用的语言
+开发要用的语言的阅读作业
 
 41
 00:01:56,116 --> 00:01:58,082
@@ -226,7 +226,7 @@ write a lot of code before you dive in here.
 46
 00:02:10,030 --> 00:02:13,164
 So what's in iOS? What am I gonna be teaching you?
-好，那么什么是 iOS？我要教你什么？
+好，那么 iOS 里面都有些什么？我要教你什么？
 
 47
 00:02:13,233 --> 00:02:15,533
@@ -284,17 +284,17 @@ You will not see me teaching you anything down there,
 你不会看到我教你这部分的内容
 
 58
-00:02:47,501 --> 00:02:49,234
+00:02:47,501 --> 00:02:50,968
 The next layer up is called the Core Services layer.
-在那一层之上是 Core Serviecs 层
+在那一层之上是 Core Services 层
 
 59
-00:02:49,235 --> 00:02:50,968
+00:02:50,968 --> 00:02:51,968
 all right?
 是吧？
 
 60
-00:02:51,037 --> 00:02:54,939
+00:02:51,968 --> 00:02:54,939
 This is an object-oriented layer on top of those lower
 这一层是对下面那层服务的面向对象封装
 
@@ -321,7 +321,7 @@ system, we're gonna be using this layer right here and I'll
 65
 00:03:09,389 --> 00:03:13,191
 be teaching you all about this layer. Core Services layer.
-教你使用这一层，Core Services 层所有的功能。
+教你使用这一层，Core Services 层所有的功能
 
 66
 00:03:13,259 --> 00:03:17,428
@@ -391,7 +391,7 @@ and so I'm gonna focus on Core Services. And then this layer,
 79
 00:03:54,901 --> 00:03:58,803
 which is Cocoa Touch. So Cocoa Touch is the UI layer of iOS.
-Cocoa Touch 层，负责 iOS 的用户界面
+也就是 Cocoa Touch 层，它负责 iOS 的用户界面
 
 80
 00:03:58,872 --> 00:04:00,305
@@ -411,12 +411,12 @@ there's also, really powerful objects here, like the Map Kit
 83
 00:04:06,012 --> 00:04:08,679
 has a single object that you can just drop in your app
-有个对象，你可以直接把它驾到程序里
+有个对象，你可以直接把它加到程序里
 
 84
 00:04:08,748 --> 00:04:11,583
 that gives you pretty much the entire functionality of
-机会你就有了整个
+然后你就有了整个
 
 85
 00:04:11,652 --> 00:04:15,053
@@ -441,7 +441,7 @@ that's what you're gonna learn in this class.
 89
 00:04:23,997 --> 00:04:26,965
 The platform we're gonna develop on is Xcode 9, so
-我们会在 Mac 上使用 Xcode 9 开发
+我们的开发平台是 Xcode 9
 
 90
 00:04:27,034 --> 00:04:29,568
@@ -616,7 +616,7 @@ you design this way? You must design this way. It's called
 124
 00:06:03,463 --> 00:06:06,331
 MVC, Model View Controller. How many people have,
-MVC, 即 Model（模型）-View（视图）-Controller（控制器）
+MVC，即 Model（模型）-View（视图）-Controller（控制器）
 
 125
 00:06:06,399 --> 00:06:09,634
@@ -856,7 +856,7 @@ this stuff as I possibly can. All right,
 172
 00:08:13,126 --> 00:08:16,728
 Xcode. Here's Xcode. I went to the Mac App Store.
-打开 Xcode。这就是 Xcode，我去 Mac App Store
+打开 Xcode。这就是 Xcode，去 Mac App Store
 
 173
 00:08:16,797 --> 00:08:19,030
@@ -896,7 +896,7 @@ cards that I've very artfully taped up here? These cards
 180
 00:08:36,750 --> 00:08:39,584
 are going to let me play a game called Concentration.
-可以用来玩一个叫做 Concentration 的翻牌游戏
+可以用来玩一个叫做翻牌（Concentration）的游戏
 
 181
 00:08:39,653 --> 00:08:42,654
@@ -924,17 +924,17 @@ you to match the pictures up. So there's 12 cards,
 找到相同的图片。这里有 12 张卡
 
 186
-00:08:53,533 --> 00:08:56,834
+00:08:53,533 --> 00:08:57,834
 6 pairs of pictures, so I get to pick two cards at a time,
 6 对图片。所以我一次挑选两张
 
 187
-00:08:56,903 --> 00:08:58,602
+00:08:57,903 --> 00:08:59,602
 and if they match, I win, and
 如果是相同的，我就赢了，然后
 
 188
-00:08:58,671 --> 00:09:01,138
+00:08:59,671 --> 00:09:01,138
 the cards go away. If they don't match,
 牌放一边。如果不一样
 
@@ -1071,12 +1071,12 @@ if we we're concentrating we know where four cards are. So
 215
 00:10:18,117 --> 00:10:21,619
 turn these back down. Pick two new ones, and
-然后我们又翻回去
+然后我们又翻回去。选两张新卡
 
 216
 00:10:21,688 --> 00:10:25,323
 I'm gonna pick cards that I haven't seen before,
-我要挑一个还没有翻过的卡片
+我要挑还没有翻过的卡片
 
 217
 00:10:25,391 --> 00:10:28,726
@@ -1156,7 +1156,7 @@ I wasn't concentrating. So this is the game we're gonna
 232
 00:11:14,073 --> 00:11:18,943
 build an app to do. All right, make sense? Simple game.
-编的游戏。这个简单的游戏简单吧？
+编的游戏。这个游戏简单吧？
 
 233
 00:11:19,012 --> 00:11:23,981
@@ -1310,7 +1310,7 @@ Any Apple ID will do, go through the process.
 
 263
 00:12:46,866 --> 00:12:49,634
-You'll creat a development team. Next,
+You'll create a development team. Next,
 创建了开发团队之后
 
 264
@@ -1441,17 +1441,17 @@ then the other ones we're gonna do later in the quarter.
 289
 00:13:58,304 --> 00:13:59,537
 This source control,
-这种资源控制
+这个 source control
 
 290
 00:13:59,605 --> 00:14:02,774
 we'll talk about that later in the quarter as well, but
-我们也会在之后的学期里讨论，但是
+源码（版本）管理我们也会在之后讨论，但是
 
 291
 00:14:02,842 --> 00:14:06,477
 we're not doing that for the first week. Okay here it is,
-我们在第一周不会做这件事。
+我们在第一周不会做这件事
 
 292
 00:14:06,546 --> 00:14:10,381
@@ -1576,7 +1576,7 @@ you can actually see a little area that has a top and
 316
 00:15:18,284 --> 00:15:22,153
 a bottom. This is called the utilities pane, and
-小区域，它叫做 Utilities (工具) 区域
+小区域，它叫做 Utilities pane (工具栏)
 
 317
 00:15:22,221 --> 00:15:25,155
@@ -1591,7 +1591,7 @@ So I'm gonna hide it right now.
 319
 00:15:26,492 --> 00:15:28,926
 You see this button in the very upper right.
-你可以看到在非常右边的这个按钮
+你可以看到在最右边的这个按钮
 
 320
 00:15:28,995 --> 00:15:33,197
@@ -1686,7 +1686,7 @@ make the text really big so you can see what I'm doing.
 338
 00:16:16,676 --> 00:16:19,777
 All right, one last thing I want to show before we dive in
-好吧，在进入演示程序之前我想展示最后一件东西
+好了，在进入演示程序之前我想展示最后一件东西
 
 339
 00:16:19,846 --> 00:16:22,980
@@ -1696,12 +1696,12 @@ here, is this area up here, you see this, this is how you
 340
 00:16:23,049 --> 00:16:27,318
 run your application. Okay so, when you run your application,
-好吧，当你运行你的应用
+当你运行你的应用时
 
 341
 00:16:27,387 --> 00:16:30,755
 you have to decide where are you gonna run it. You can run
-你必须决定你要在哪里运行它。
+你必须决定你要在哪里运行它
 
 342
 00:16:30,823 --> 00:16:34,325
@@ -1716,37 +1716,37 @@ And you can hook it up wirelessly actually or
 344
 00:16:36,495 --> 00:16:39,696
 with a little USB cable or whatever. And I don't have any
-用一根 USB 线或其他。我这里
+用一根 USB 线或其他方法。我这里
 
 345
 00:16:39,765 --> 00:16:43,100
 hooked up, so I can't do that. But I can also can run on all
-没有可以连接的东西，所以我不能这么做。但是我仍可以在所有的 simulators (模拟器)
+没有可以连接的东西，所以我不能这么做。但是我仍可以在所有的
 
 346
 00:16:43,168 --> 00:16:47,405
 of these simulators. So, these simulators simulate these
-运行。这些模拟器模拟各式的设备
+simulators（模拟器）中运行。这些模拟器模拟各式的设备
 
 347
 00:16:47,473 --> 00:16:52,176
 various device like an iPad or iPhone 8+ or whatever. And
-像 iPad，iPhone 8 plus 或者其他任何。
+像 iPad，iPhone 8 plus 以及其他设备
 
 348
 00:16:52,245 --> 00:16:54,311
 you can run your app on any of these that you want and
-你可以在任意模拟器上运动你的应用
+你可以在任意模拟器上运行你的应用
 
 349
 00:16:54,380 --> 00:16:56,547
 in fact, the simulator will open both of these,
-事实上，模拟器可以打开任意两个，
+事实上，模拟器可以在同一时间打开两个
 
 350
 00:16:56,616 --> 00:16:59,616
 multiple of these as a time, if you want. So I'm gonna
-或者多个在同一时间，如果你想的话。
+或者多个，如果你想的话
 
 351
 00:16:59,685 --> 00:17:02,820
@@ -1761,7 +1761,7 @@ Okay I'm gonna run my app on IPhone X and
 353
 00:17:05,258 --> 00:17:07,791
 let's go ahead and run it. We haven't done anything, so
-让我们直接运行它。我们没有做任何事情
+让我们直接运行它。我们还没有做任何事情
 
 354
 00:17:07,860 --> 00:17:09,660
@@ -1771,7 +1771,7 @@ it's just a blank app and let's just run it for fun.
 355
 00:17:09,729 --> 00:17:12,496
 You see this play button right here? That's how you run, so
-你看到那个播放按钮了么？那就是你如何运行它的按钮
+你看到那个播放按钮了么？那就是你运行它的按钮
 
 356
 00:17:12,564 --> 00:17:15,499
@@ -1781,17 +1781,17 @@ I'm gonna click that play button. Now it is compiling my
 357
 00:17:15,568 --> 00:17:18,169
 app as you can see at the top, it's it building into
-我的应用，正如你在上方看到的，它正在构建进入一个
+我的应用，正如你在上方看到的，它正在被编译成一个
 
 358
 00:17:18,237 --> 00:17:21,371
 a binary. It's loading it onto the device, or
-二进制文件。它正在加载进设备
+二进制文件。它正在加载到设备中
 
 359
 00:17:21,440 --> 00:17:24,742
 in this case, simulator. And it runs it. Okay so
-在这个情况下，是模拟器。然后运行它。
+在这个情况下，是模拟器。然后运行它
 
 360
 00:17:24,811 --> 00:17:27,011
@@ -1801,17 +1801,17 @@ here it is. It looks like an iPhone X and
 361
 00:17:27,080 --> 00:17:28,979
 it's running my app and it's completely blank.
-它正在运行我的应用，它看起来是完全空白的
+正在运行我的应用，它看起来是完全空白的
 
 362
 00:17:29,048 --> 00:17:30,314
 Well because I haven't done anything,
-因为我没有做任何事情
+因为我还没有做任何事情
 
 363
 00:17:30,383 --> 00:17:34,218
 I haven't built any UI. But if I press the home button
-我还没有构建 UI，但是当我按下 home 键
+我还没有构建 UI，但是如果我按下 home 键
 
 364
 00:17:34,287 --> 00:17:37,321
@@ -1831,22 +1831,22 @@ home 键的功能一样，因为在 iPhone X 上并没有 home 键
 367
 00:17:43,529 --> 00:17:45,896
 And you can see there's our app concentration right there.
-你能看到我们的应用 翻牌 就在那里。
+你能在那里看到我们的应用 翻牌
 
 368
 00:17:45,965 --> 00:17:47,297
 But all other apps are there too.
-其他的应用也都那里
+其他的应用也都在那里
 
 369
 00:17:47,366 --> 00:17:50,434
 Settings, right, you can go into the settings app. And
-设置，没错，你能进入设置应用
+设置，如果你想的话
 
 370
 00:17:50,503 --> 00:17:53,337
 if you want, you might have your app needs to set some
-如果你想，你的应用需要进行一些
+你可以进入设置应用，你的应用可能需要一些
 
 371
 00:17:53,406 --> 00:17:57,107
@@ -1861,17 +1861,17 @@ So these simulators are truly simulating the device, they're
 373
 00:17:59,712 --> 00:18:03,213
 not just running your app only. So that's kinda cool.
-是运行你的应用而已。那是很有点酷的
+是运行你的应用而已。这很酷的
 
 374
 00:18:03,282 --> 00:18:04,982
 And we can always go back to our app. Just go back here and
-我们时刻都可以回到我们的应用。只要返回
+我们随时都可以回到我们的应用。只要
 
 375
 00:18:05,051 --> 00:18:09,187
 say Concentration, here's Concentration. All right,
-说 翻牌，这就是你的翻牌应用了。好的
+点一下 Concentration，这就是翻牌应用了。好了
 
 376
 00:18:09,255 --> 00:18:12,490
@@ -1881,7 +1881,7 @@ so now we're familiar with Xcode and kind of
 377
 00:18:12,558 --> 00:18:15,492
 all its pieces right here. Let's take a look at the files
-的一部分。让我们看一下那些
+的一部分。让我们看一下那些 Xcode
 
 378
 00:18:15,561 --> 00:18:18,262
@@ -1896,7 +1896,7 @@ actually we're only gonna look at two of them. For example,
 380
 00:18:21,367 --> 00:18:24,268
 this one, assets, right here, that's your images,
-这一个, assets, 那是你的图片
+这个, assets, 是你的图片
 
 381
 00:18:24,337 --> 00:18:27,037
@@ -1911,27 +1911,27 @@ I don't really need that. Your launch screen right here, I'm
 383
 00:18:30,009 --> 00:18:33,043
 selecting that as well. This app delegate up here, we don't
-我也一同选中。还有 app delegate
+我也一同选中。还有 AppDelegate
 
 384
 00:18:33,112 --> 00:18:35,679
 need to touch any of these to make our Concentration app. So
-我们不需要动任何一个文件来制作我们的翻牌应用
+我们在编写翻牌应用时不需要碰这三个文件
 
 385
 00:18:35,748 --> 00:18:38,282
 I'm selecting them all and I'm going to right-click on them,
-所以我正选中他们然后我右击他们
+所以我选中然后右键他们
 
 386
 00:18:38,350 --> 00:18:41,819
 and go down to new group from selection, and put them in
-往下选中 new group from selection，然后把它们放到
+选中 New Group from Selection，把它们放到
 
 387
 00:18:41,888 --> 00:18:45,255
 a group. And I'm going to call that group Supporting Files,
-一个分类里，然后我会叫它 Supporting Files
+一个组里，然后我会把它叫做 Supporting Files
 
 388
 00:18:45,324 --> 00:18:46,457
@@ -1941,7 +1941,7 @@ because that's what they are,
 389
 00:18:46,525 --> 00:18:50,461
 they're supporting files. By the way, I would not
-他们是支持性文件。顺便说，我不会
+他们是支持性文件。顺便说一句，我不会
 
 390
 00:18:50,529 --> 00:18:53,330
@@ -1961,22 +1961,22 @@ this other file here, ViewController.swift,
 393
 00:19:00,973 --> 00:19:03,741
 is just some Swift code, we'll get to that in a second. And
-是一些 Swift 代码，我们会一会儿研究它
+是一些 Swift 代码，我们会过一会儿研究它
 
 394
 00:19:03,809 --> 00:19:07,678
 right here, Main.storyboard, that's your UI.
-这里的 Main.storyboard 那是你的 UI
+Main.storyboard 里是你的 UI
 
 395
 00:19:07,747 --> 00:19:10,914
 Now you're gonna build your UI in Xcode graphically,
-如今你将要在 Xcode 中图形化的构建你的 UI
+你将要在 Xcode 中图形化地构建你的 UI
 
 396
 00:19:10,983 --> 00:19:13,517
 okay you're not gonna code it up, you're gonna do it
-你将不会用代码构建它，你将用
+你不会用代码构建它，你将用
 
 397
 00:19:13,586 --> 00:19:16,387
@@ -1986,12 +1986,12 @@ graphically. And not only that the way you're gonna build it,
 398
 00:19:16,455 --> 00:19:17,821
 you're gonna drag out buttons and
-你也要拖拽 button
+你要拖拽按钮
 
 399
 00:19:17,890 --> 00:19:20,257
 text fields and sliders and things like that.
-text field, slider 等其他控件
+文本输入, 滑杆等其他控件
 
 400
 00:19:20,326 --> 00:19:22,726
@@ -2001,22 +2001,22 @@ And it's going to actually put real buttons and
 401
 00:19:22,795 --> 00:19:26,129
 real sliders live on the screen at a time. And
-滑块放置到屏幕上
+滑杆放置到屏幕上
 
 402
 00:19:26,198 --> 00:19:28,399
 you're going to edit them and set them up the way you want.
-你将会编辑他们，以你喜好的方式设定他们
+你可以用你喜欢的方式编辑他们
 
 403
 00:19:28,468 --> 00:19:30,167
 And then when you run them on your app,
-然后当你运行你的应用
+然后当你运行你的应用时
 
 404
 00:19:30,235 --> 00:19:32,903
 it kind of freeze dries them, brings them over and
-就如同冰冻了他们，然后把他们带来
+就如同冰冻了他们，然后给他们
 
 405
 00:19:32,972 --> 00:19:36,306
@@ -2086,32 +2086,32 @@ to see it better. I can also look at it in landscape mode.
 418
 00:20:18,384 --> 00:20:20,918
 So here's portrait and landscape of an iPad, for
-所以 iPad 有横屏和竖屏
+因为 iPad 有横屏和竖屏，就像这样
 
 419
 00:20:20,986 --> 00:20:23,454
 example. I could go to a different kind of iPhone,
-举个例子，我可以用一部不同种类的 iPhone
+我可以用不同种类的 iPhone
 
 420
 00:20:23,523 --> 00:20:28,025
 like here's my iPhone X, all right? So I can look at
-像我的 iPhone X，可以么？我能查看
+就像这是 iPhone X。我能用
 
 421
 00:20:28,094 --> 00:20:32,163
 all possible iOS devices and see how my UI looks.
-所有可能的 iOS 设备，查看我的 UI
+所有可能的 iOS 设备来查看我的 UI
 
 422
 00:20:32,231 --> 00:20:35,766
 Now our goal eventually, once we learn enough about iOS,
-现在我们最终的目标，一旦我们学习了足够多的关于 iOS 的知识
+现在我们最终的目标是，我们学习足够多的关于 iOS 的知识
 
 423
 00:20:35,835 --> 00:20:39,737
 is to build UIs that look good even if they're in landscape
-就是去构建 UI，让它看起来很不错
+去构建 UI，让它无论在哪里看起来很都很棒
 
 424
 00:20:39,806 --> 00:20:44,108
@@ -2141,7 +2141,7 @@ try and look good on an iPhone X.
 429
 00:20:55,321 --> 00:20:57,154
 But next week, not to worry we'll try to make it so
-但是下周，不用担心我们将会尝试
+但是下周，我们将会尝试
 
 430
 00:20:57,223 --> 00:20:59,490
@@ -2151,12 +2151,12 @@ it looks good on other iPhones as well. And
 431
 00:20:59,558 --> 00:21:02,960
 your assignment two is gonna really ask you to make
-你的作业二将会要求你制作一个
+你们的作业二将会要求你制作一个
 
 432
 00:21:03,028 --> 00:21:07,765
 an app that just looks good on all possible iOS devices.
-能够在所以的 iOS 设备上看起来不错的应用
+能够在所有的 iOS 设备上看起来都很好的应用
 
 433
 00:21:07,833 --> 00:21:10,234
@@ -2166,12 +2166,12 @@ Now on the left over here, when we brought up this,
 434
 00:21:10,303 --> 00:21:13,704
 this area in Xcode by the way is called Interface Builder
-这篇区域在 Xcode 中叫做 Interface Builder
+这片区域在 Xcode 中叫做 Interface Builder
 
 435
 00:21:13,773 --> 00:21:15,406
 because we're building our user interface,
-因为我们将要搭建我们的用户界面
+因为我们将要在这里搭建我们的用户界面
 
 436
 00:21:15,474 --> 00:21:19,176
@@ -2181,7 +2181,7 @@ so Interface Builder. This area over here is essentially
 437
 00:21:19,245 --> 00:21:20,911
 all the things that are here but
-包含基本上这里所有的东西
+包含基本上所有这里的东西
 
 438
 00:21:20,979 --> 00:21:23,413
@@ -2191,12 +2191,12 @@ in text form, like a text outline.
 439
 00:21:23,482 --> 00:21:24,715
 And I'm gonna hide that,
-我要隐藏它
+我会通过下方的这个小按钮
 
 440
 00:21:24,784 --> 00:21:26,217
 you do that with this little button down here,
-通过下方的这个小按钮
+来隐藏它
 
 441
 00:21:26,285 --> 00:21:27,718
@@ -2221,12 +2221,12 @@ We'll look at that document outline later in the quarter.
 445
 00:21:40,066 --> 00:21:43,067
 I want to build my UI, how do I build a UI?
-我想要搭建我的 UI，我该如何搭建我的 UI
+我想要搭建我的 UI，我该如何搭建我的 UI 呢？
 
 446
 00:21:43,135 --> 00:21:45,336
 Okay I'm trying to build Concentration here.
-好吧，我想要制作我的翻牌应用
+我想要制作翻牌应用
 
 447
 00:21:45,404 --> 00:21:49,473
@@ -2236,7 +2236,7 @@ So I'm going to need some cards. And I'm going to
 448
 00:21:49,541 --> 00:21:52,008
 use a button to represent a card, which is kind of cool,
-我会用一个按钮来达标一张卡牌，那是蛮酷的
+我会用一个按钮来代表一张卡牌，那是蛮酷的
 
 449
 00:21:52,077 --> 00:21:53,310
@@ -2246,7 +2246,7 @@ because you tap on a button and
 450
 00:21:53,378 --> 00:21:54,445
 it does something. And that's good,
-然后它做出一些反应，那是不错的
+然后它做出一些反应，那很棒
 
 451
 00:21:54,513 --> 00:21:57,314
@@ -2261,7 +2261,7 @@ Okay, I'm going to have my cards flip over. So
 453
 00:21:58,751 --> 00:22:01,252
 that's the first thing you do. Let's build one card that will
-所以这是你需要做的第一件事情。让我们制作一张卡牌
+这是你需要做的第一件事情。让我们制作一张卡牌
 
 454
 00:22:01,320 --> 00:22:04,288
@@ -2276,7 +2276,7 @@ I'm going to zoom in, by the way, you can hold down alt.
 456
 00:22:06,758 --> 00:22:09,960
 You see in the lower left I have a thing here that shows
-你可以看到在左下角我放了一个东西展示
+你可以看到在左下角我放了一个东西来展示
 
 457
 00:22:10,029 --> 00:22:12,196
@@ -2296,7 +2296,7 @@ use your mouse wheel you can zoom in and out, on your
 460
 00:22:17,169 --> 00:22:19,936
 UI, which is kind of cool. Otherwise your mouse wheel
-你的UI, 那是蛮酷的。若不按住 alt 键，滑动鼠标滑轮
+你的 UI, 那是蛮酷的。若不按住 alt 键，滑动鼠标滑轮
 
 461
 00:22:20,005 --> 00:22:22,539
@@ -2306,7 +2306,7 @@ moves it up and down, which is also kinda cool. All right so
 462
 00:22:22,608 --> 00:22:26,677
 we have our UI here, how do we put a button in this UI? Okay,
-我们有了 UI, 改如何放一个按钮到 UI 上
+我们有了 UI, 该如何放一个按钮到 UI 上呢？
 
 463
 00:22:26,745 --> 00:22:30,480
@@ -2316,7 +2316,7 @@ as promised, we go over to this thing that had a top and
 464
 00:22:30,549 --> 00:22:31,849
 a bottom, called the utilities pane.
-的东西，它叫 utilites
+的东西，它叫工具栏
 
 465
 00:22:31,917 --> 00:22:34,985
@@ -2346,12 +2346,12 @@ this is all object-oriented. And all these objects,
 470
 00:22:46,899 --> 00:22:50,634
 like labels and buttons and text fields and switches,
-像标签，按钮，文字区域和开关
+像标签，按钮，文字输入和开关
 
 471
 00:22:50,703 --> 00:22:56,039
 even web views and table views and text views and even ARKit.
-甚至网页视图，表格视图，文本视图甚至 ARKit
+甚至网页视图，表视图，文本视图甚至 ARKit
 
 472
 00:22:56,108 --> 00:22:59,176
@@ -2366,17 +2366,17 @@ These things can all be dragged out,
 474
 00:23:01,180 --> 00:23:03,947
 multi touch gestures, dragged out to build your user
-还有多触控手势，拖拽来搭建你的用户
+还有多触控手势，拖拽来搭建你的用户界面
 
 475
 00:23:04,016 --> 00:23:07,451
 interface. Okay and I'm going to cover the vast majority of
-界面。好的，我将会涉及大量的主要控件
+我将会涉及在这个非常大的列表里的
 
 476
 00:23:07,519 --> 00:23:09,586
 the stuff in this very large list right here.
-在这个非常大的列表里
+很多的主要控件
 
 477
 00:23:09,655 --> 00:23:12,489
@@ -2386,7 +2386,7 @@ But we're going to start with a simple one which is towards
 478
 00:23:12,558 --> 00:23:13,990
 the top, which is buttons. So
-那就是上方的按钮
+那就是上面的按钮
 
 479
 00:23:14,059 --> 00:23:16,260
@@ -2426,7 +2426,7 @@ or up in the upper right corner.
 486
 00:23:32,577 --> 00:23:36,046
 These blue lines are critical to building a UI that will
-这些蓝色的先对于构建你的 UI 来上非常的重要
+这些蓝色的线对于构建你的 UI 来说非常的重要
 
 487
 00:23:36,115 --> 00:23:39,283
@@ -2461,7 +2461,7 @@ on the edge here and resize it to whatever size that I want.
 493
 00:23:52,031 --> 00:23:54,230
 Maybe make it a little more card shaped or
-也许把它做的像卡牌一样大小
+把它的大小设置成卡牌那么大
 
 494
 00:23:54,299 --> 00:23:57,901
@@ -2511,17 +2511,17 @@ they have orange background. How do I do that?
 503
 00:24:15,620 --> 00:24:20,090
 Well, that's the top of this utilities pane. Notice that
-好吧，那在我们工具窗的顶端。注意
+好吧，那在我们工具栏的顶端。注意
 
 504
 00:24:20,158 --> 00:24:23,660
 when I select a button, I get this UI over here that is
-当我选中一个按钮，我得到了这个 UI 
+当我选中一个按钮，我得到了这个页面
 
 505
 00:24:23,729 --> 00:24:26,930
 specific to setting the attributes of a button. And
-这是明确设置一个按钮属性的地方
+这是具体设置这个按钮的属性的地方
 
 506
 00:24:26,999 --> 00:24:29,266
@@ -2531,12 +2531,12 @@ not only that, it's object-oriented. So
 507
 00:24:29,334 --> 00:24:32,836
 I have the button stuff here and as I scroll down, look,
-所以我有一个按钮的对象，并且当我下滑，看，
+所以我有一个按钮的对象，并且当我下滑，看
 
 508
 00:24:32,905 --> 00:24:37,140
 I get UI for a control because button inherits from control.
-我得到了一个关于 Control 的 UI 界面，因为 UIButton 继承自 UIControl
+我得到了一个关于 Control 的界面，因为 UIButton 继承自 UIControl
 
 509
 00:24:37,209 --> 00:24:40,010
@@ -2546,7 +2546,7 @@ And then control inherits from view. So
 510
 00:24:40,079 --> 00:24:43,013
 I get UI to enter to view because a button is a view,
-所以我又得到了一个 view 的 UI，因为一个按钮就是一个视图
+所以我又得到了一个 view 的界面，因为一个按钮就是一个视图
 
 511
 00:24:43,082 --> 00:24:46,550
@@ -2556,7 +2556,7 @@ right? It inherits from view in the object-oriented sense.
 512
 00:24:46,619 --> 00:24:50,620
 So the background of any view is settable here in this UI.
-所以任何一个视图的背景都可以在这个 UI 来设置
+所以任何一个视图的背景都可以在这个界面里设置
 
 513
 00:24:50,689 --> 00:24:53,190
@@ -2601,7 +2601,7 @@ I can go to Other and pick it by name, I could pick orange.
 521
 00:25:12,678 --> 00:25:15,211
 I could pick a crayon that looks orange,
-我能够选中一个看起来像橙色的蜡笔，
+我能够选中一个看起来像橙色的蜡笔
 
 522
 00:25:15,280 --> 00:25:17,881
@@ -2831,7 +2831,7 @@ let's make it 50 point.
 567
 00:27:23,609 --> 00:27:28,411
 Now we got a nice big ghost. Awesome,
-现在我们有了一个打的幽灵，酷
+现在我们有了一个大幽灵，酷
 
 568
 00:27:28,480 --> 00:27:33,149
@@ -2936,12 +2936,12 @@ in for our use. UIKit is iOS's framework that has buttons and
 588
 00:28:25,671 --> 00:28:28,171
 sliders and all that stuff.
-滑块和所有内容
+滑杆和所有内容
 
 589
 00:28:28,240 --> 00:28:31,674
 Kinda that top cocoa touch layer we're talking about.
-就是我们讨论过的顶端的 Cocoa Touch 层。
+就是我们讨论过的顶端的 Cocoa Touch 层
 
 590
 00:28:31,743 --> 00:28:35,445
@@ -3286,7 +3286,7 @@ See it says Type Any? And we want that type to be Button,
 658
 00:31:47,773 --> 00:31:50,807
 okay? Because a button is sending this method to us.
-好吗？因为是这个按钮调起了这个方法
+好吗？因为是这个按钮调用了这个方法
 
 659
 00:31:50,876 --> 00:31:52,709
@@ -3686,7 +3686,7 @@ let's run it. Those are the kind of tips and tricks we'll
 738
 00:35:55,921 --> 00:35:57,787
 cover on Friday, by the way. Good reason to come on Friday.
-我星期五讲的内容，所以我建议你星期五来。
+我星期五讲的内容，所以我建议你星期五来
 
 739
 00:35:57,856 --> 00:36:00,289
@@ -3701,7 +3701,7 @@ how you link the button to the view controller?
 741
 00:36:05,196 --> 00:36:06,295
 >> Yeah how we
->> 好的。
+>> 好的
 
 742
 00:36:06,364 --> 00:36:07,897
@@ -3976,17 +3976,17 @@ That's our number one thing we're trying to accomplish.
 796
 00:38:50,528 --> 00:38:53,596
 But inside here we wouldn't wanna be saying like, well if
-但在 flipCard 里面我们不应该用
+但在 flipCard 里面我们不应该用类似于
 
 797
 00:38:53,665 --> 00:38:58,400
 the button title equals with emoji that just is weird.
-比如 if button.title == withEmoji（如果按钮的标题是使用表情）
+if button.title == withEmoji（如果按钮的标题是使用表情）会很奇怪
 
 798
 00:38:58,469 --> 00:39:02,137
 It's sending a message to the button that says on.whatever,
-很奇怪；或者是用 on.whatever（在上面.无论什么）来调用按钮的方法
+或者是用 on.whatever（在上面.无论什么）来调用按钮的方法
 
 799
 00:39:02,206 --> 00:39:03,039
@@ -4521,7 +4521,7 @@ all the common classes that you're using, UIButton later
 905
 00:44:25,162 --> 00:44:27,563
 we're gonna do array in dictionary. Go read it so
-之后的 Array（数组）和 Dictionariy（字典），去读读
+之后的 Array（数组）和 Dictionary（字典），去读读
 
 906
 00:44:27,632 --> 00:44:31,601
@@ -4771,7 +4771,7 @@ Now this one wants a different thing on it, so let's do
 955
 00:46:48,172 --> 00:46:52,942
 something like pumpkin. Yeah, well we could do a pump and
-比如说南瓜 🎃 怎么样？好，我们可以
+比如说南瓜怎么样？好，我们可以
 
 956
 00:46:53,011 --> 00:46:55,978
@@ -6605,8 +6605,8 @@ collection. So now outlet collection means an array
 
 1322
 01:06:07,163 --> 01:06:10,398
-of the things in the UI. So I'll call this myCardButtons,
-里面是些 UI 控件。我把数组叫做 myCardButtons
+of the things in the UI. So I'll call this my cardButtons,
+里面是些 UI 控件。我把数组叫做 cardButtons
 
 1323
 01:06:10,466 --> 01:06:13,234
@@ -6746,7 +6746,7 @@ okay, and this is connected to that one card, I haven't put
 1350
 01:07:39,322 --> 01:07:42,156
 the other cards in there yet but I will. It's connected to.
-关联到其他的卡上，但我之后会的。
+关联到其他的卡上，但我之后会的
 
 1351
 01:07:42,225 --> 01:07:44,425
@@ -6796,7 +6796,7 @@ Card Butons there, okay? It's not connected to Card Buttons.
 1360
 01:08:08,785 --> 01:08:12,486
 So, how can I fix this? If I said this Card Butons,
-怎么解决这个问题呢？如果我改回 cardButons，
+怎么解决这个问题呢？如果我改回 cardButons
 
 1361
 01:08:12,555 --> 01:08:14,188
@@ -7001,7 +7001,7 @@ that method, I'm gonna create a var called card number
 1401
 01:10:13,743 --> 01:10:16,977
 which I want to be the number the card 0,1,2,3,4 wherever it
-也就是是第几张卡，比如 0, 1, 2, 3, 4
+也就是是第几张卡，比如 0，1，2，3，4
 
 1402
 01:10:17,046 --> 01:10:21,482
@@ -7521,7 +7521,7 @@ this optional syntax is all really simple question mark,
 1505
 01:15:49,311 --> 01:15:51,512
 exclamation point, one characters, because it's so
-感叹号，一个字符。因为处理可选类型
+感叹号，一个字符。因为它们（？和！）
 
 1506
 01:15:51,580 --> 01:15:54,047
@@ -7557,7 +7557,6 @@ exactly. Why is it gonna crash? Because you're
 returning an option that's not in the set state, so we don't
 返回一个可选类型缺省值，我们
 
-
 1513
 01:16:07,196 --> 01:16:10,064
 have that associated value, so it crashes your program.
@@ -7566,17 +7565,17 @@ have that associated value, so it crashes your program.
 1514
 01:16:10,132 --> 01:16:12,432
 And you're gonna see this crash quite a bit, okay,
-并且你会不少看见这种崩溃，
+并且你会看见不少这种崩溃
 
 1515
 01:16:12,501 --> 01:16:15,235
 when you're developing because you'll just accidentally do
-在你开发的过程中，因为你会偶然做这种事情
+因为在你开发的过程中，你经常会做这种事情
 
 1516
 01:16:15,304 --> 01:16:17,872
 this quite a bit of time. And if you look in your console,
-不少次。并且如果你查看你的控制台
+并且如果你查看你的控制台
 
 1517
 01:16:17,941 --> 01:16:19,540
@@ -7591,7 +7590,7 @@ fatal error unexpectedly found nil，那是说可选类型缺省值
 1519
 01:16:23,813 --> 01:16:27,414
 while unwrapping an optional. Get used to that error,
-while unwraaping an optional。 熟悉这个错误
+while unwrapping an optional。 熟悉这个错误
 
 1520
 01:16:27,483 --> 01:16:30,484
@@ -7601,17 +7600,17 @@ you see it all the time. Now, this might make you say, whoa,
 1521
 01:16:30,553 --> 01:16:32,319
 I'm never using exclamation points,
-我将绝不再用感叹号了
+我绝不会再用感叹号了
 
 1522
 01:16:32,388 --> 01:16:35,355
 gonna crash my program, scary. Yeah,
-它会让我的程序崩溃，可怕。
+它会让我的程序崩溃，可怕
 
 1523
 01:16:35,424 --> 01:16:38,659
 it's scary, but crashing your program can be really good,
-是的，这是可怕的，但是程序崩溃可以是好事情
+是的，这是可怕的，但是程序崩溃其实是件好事
 
 1524
 01:16:38,727 --> 01:16:40,694
@@ -7661,7 +7660,7 @@ I can look at it. So don't be afraid of crashes, okay?
 1533
 01:17:01,083 --> 01:17:04,084
 Crashes can be good. But let's say you wanted to do this
-崩溃可以是好的。但是你想要让你的
+崩溃可以是件好事。但是如果你想要让你的
 
 1534
 01:17:04,153 --> 01:17:05,786
@@ -7671,7 +7670,7 @@ code in a way that didn't crash,
 1535
 01:17:05,855 --> 01:17:08,422
 that kind of conditionally looked to see if it was in
-那是一种条件语句来判断是否它
+可以用条件语句来判断是否它
 
 1536
 01:17:08,491 --> 01:17:09,223
@@ -7686,17 +7685,17 @@ And if it was, then use it, otherwise didn't do it.
 1538
 01:17:12,728 --> 01:17:17,531
 To do that, instead of putting exclamation point at the end,
-为了这样做，与在结尾放一个感叹号相反
+为了这样做，与在结尾放一个感叹号不同
 
 1539
 01:17:17,600 --> 01:17:21,969
 you take that off and put if, at the beginning, okay?
-你把它拿掉并且把 if 放到开头，好么？
+你把它拿掉并且把 if 放到开头
 
 1540
 01:17:23,572 --> 01:17:28,509
 And so now, if this optional right here is in the set state
-这样子，如果这个可选类型是有值的
+这样一来，如果这个可选类型是有值的
 
 1541
 01:17:28,577 --> 01:17:33,113
@@ -7706,12 +7705,12 @@ then this code will execute, otherwise it won't, and won't crash. So
 1542
 01:17:33,182 --> 01:17:35,382
 that's if that's conditional, you can see again,
-如果这是一个条件语句，你可以再看一次
+这是一个条件语句，你可以再看一次
 
 1543
 01:17:35,451 --> 01:17:40,554
 optional minimum possible syntax here.
-关于可选类型，最少字数的语法就在这里了
+关于可选类型，最小的语法就在这里了
 
 1544
 01:17:40,623 --> 01:17:43,290
@@ -7726,12 +7725,12 @@ and we could even, if we wanted to, put an else.
 1546
 01:17:45,828 --> 01:17:49,129
 Could something like chosen card was not in card buttons,
-像这样子 选中的卡片不在卡片按钮数组当中
+像这样，选中的卡片不在卡片按钮数组当中
 
 1547
 01:17:49,198 --> 01:17:53,133
 or something like that, so we could notice that it happened.
-或其他差不过的语句，这样子我们能够注意到它发生了
+或其他差不多的话，这样子我们能够注意到它发生了
 
 1548
 01:17:53,202 --> 01:17:54,701
@@ -7741,12 +7740,12 @@ And here we're conditionally doing it, so
 1549
 01:17:54,770 --> 01:18:03,744
 let's go look at this I'm gonna move,
-让我们看一下结果，我要移动
+让我们看一下结果，我要把
 
 1550
 01:18:03,813 --> 01:18:07,214
 make this console wide here so you can see what's going on,
-这个控制台宽一点所以你能看到发生了什么
+控制台弄宽一点以便你们能看到发生了什么
 
 1551
 01:18:07,282 --> 01:18:10,350
@@ -7771,7 +7770,7 @@ not in card buttons, right?
 1555
 01:18:17,893 --> 01:18:21,228
 It says this, okay? So that's optional is how to unwrap
-它是这样写的，对吧？ 所以这个可选类型就是如何解析他们的
+它是这样写的，对吧？ 所以这就是解包可选类型的方法
 
 1556
 01:18:21,297 --> 01:18:24,498
@@ -7781,7 +7780,7 @@ them. Super duper important. Really gonna have master this.
 1557
 01:18:24,567 --> 01:18:27,801
 I know that's new to you. We're gonna talk about
-我知道这对你们来说是新颖的。我们将会讨论
+我知道这对你们来说是新的。我们将会讨论
 
 1558
 01:18:27,870 --> 01:18:32,273
@@ -7801,7 +7800,7 @@ those are optionals as well. They're a little different
 1561
 01:18:36,579 --> 01:18:38,979
 kind of optional because their exclamation point instead of
-可选类型由于它们是感叹号而不是
+可选类型，因为它们是感叹号而不是
 
 1562
 01:18:39,047 --> 01:18:42,182
@@ -7826,7 +7825,7 @@ they're still optional. We'll talk about that later.
 1566
 01:18:49,258 --> 01:18:51,691
 So the last thing I wanna do here is just take this
-最后一件事情我想做的是讨论
+最后一件事情我想做的是讲讲
 
 1567
 01:18:51,760 --> 01:18:53,460
@@ -7841,12 +7840,12 @@ go look it up in an array of emojis. So I'm just gonna
 1569
 01:18:56,498 --> 01:19:01,368
 make a var, I'm gonna call it emojiChoices. It's going to be
-需要声明一个 var， 我会叫它 emojiChoices。它将会
+需要声明一个 var， 叫它 emojiChoices
 
 1570
 01:19:01,437 --> 01:19:04,938
 an Array of String emoji strings basically.
-是一个 String 的数组，一个 emoji 字符串的数组
+是个 String 的数组，一个 emoji 字符串的数组
 
 1571
 01:19:05,007 --> 01:19:08,676
@@ -7861,12 +7860,12 @@ square bracket and just put in the things in the arrays.
 1573
 01:19:12,848 --> 01:19:16,349
 So I'm gonna go put my emoji in here, lets go back to our
-所以我将把我的 emoji 放到里面，让我们
+我将把我的 emoji 放到里面，让我们
 
 1574
 01:19:16,418 --> 01:19:19,687
 emoji chooser, probably its in frequently used.
-返回 emoji 选择器中，大概在 frequently used 里面
+回到 emojiChoices 中，大概在 frequently used 里面
 
 1575
 01:19:19,756 --> 01:19:21,788
@@ -7886,12 +7885,12 @@ We'll put a ghost here, put a ghost over here,
 1578
 01:19:27,729 --> 01:19:30,831
 all right? Now we've got that, so we're gonna look
-好么？现在我们有了数组，我们查看
+好么。现在我们有了数组，我们查看
 
 1579
 01:19:30,900 --> 01:19:33,166
 the cardNumber it's gonna be index 0, 1, 2, 3.
-cardNumber, 它将会是指数0，1，2，3
+cardNumber, 它将会是索引 0，1，2，3
 
 1580
 01:19:33,235 --> 01:19:36,503
@@ -7911,12 +7910,12 @@ the cardButtons array.
 1583
 01:19:45,448 --> 01:19:48,548
 I'm gonna do that again from up here, Ctrl + drag, down to
-我会再做一次，按住 Ctrl，向下拖到这里，
+我会再做一次，按住 control，向下拖到这里
 
 1584
 01:19:48,617 --> 01:19:51,685
 here to put all four buttons in there. Go back to Automatic
-把四个按钮放到这里。回到 Automatic
+把四个按钮都放到这里。回到 Automatic
 
 1585
 01:19:51,754 --> 01:19:56,990
@@ -7946,7 +7945,7 @@ So that again, the inferring. We would never put that colon
 1590
 01:20:11,907 --> 01:20:16,276
 array string there, never. Totally unnecessary. Okay, so
-array string 放到那里，永远。完全没有不要。好的
+Array<String> 放到那里，永远。完全没有必要。好了
 
 1591
 01:20:16,345 --> 01:20:19,379
@@ -8041,7 +8040,7 @@ So we really need to take another step and
 1609
 01:21:21,376 --> 01:21:25,345
 have a real concentration engine driving our app, it's
-拥有一个真正的翻牌游戏引擎来驱动我们的应用。
+拥有一个真正的翻牌游戏引擎来驱动我们的应用
 
 1610
 01:21:25,414 --> 01:21:29,015
@@ -8056,27 +8055,27 @@ all that stuff. Now to do that we're gonna use this design
 1612
 01:21:32,087 --> 01:21:34,587
 paragraph dime I talked about the very beginning model view
-我在一开始提到的 model - view - controller (MVC)
+我在一开始提到的 Model - View - Controller (MVC)
 
 1613
 01:21:34,656 --> 01:21:38,325
 controller. So I'm gonna start Wednesday's lecture with some
-所以我将会在周三的课上用一些幻灯片开始
+所以我将会在周三的课上用一些幻灯片
 
 1614
 01:21:38,393 --> 01:21:40,693
 slides explaining how model view controller works.
-解释 model - view - controller 如何工作
+解释 MVC 是如何工作的
 
 1615
 01:21:40,762 --> 01:21:42,562
 Then we're gonna apply model view controller here, and
-之后我们将要应用 model - veiw - controller 在这上面
+之后我们将要把 MVC 应用在这上面
 
 1616
 01:21:42,631 --> 01:21:45,765
 you're gonna see wow, that is a way better way, to do this.
-你将会看到，哇，这是更好的方式来做这件事情
+你将会看到，哇，这是更好的实现方式
 
 1617
 01:21:45,834 --> 01:21:46,933
