@@ -321,7 +321,7 @@ system, we're gonna be using this layer right here and I'll
 65
 00:03:09,389 --> 00:03:13,191
 be teaching you all about this layer. Core Services layer.
-教你使用这一层，Core Services 层所有的功能。
+教你使用这一层，Core Services 层所有的功能
 
 66
 00:03:13,259 --> 00:03:17,428
@@ -1701,7 +1701,7 @@ run your application. Okay so, when you run your application,
 341
 00:16:27,387 --> 00:16:30,755
 you have to decide where are you gonna run it. You can run
-你必须决定你要在哪里运行它。
+你必须决定你要在哪里运行它
 
 342
 00:16:30,823 --> 00:16:34,325
@@ -1731,7 +1731,7 @@ simulators（模拟器）中运行。这些模拟器模拟各式的设备
 347
 00:16:47,473 --> 00:16:52,176
 various device like an iPad or iPhone 8+ or whatever. And
-像 iPad，iPhone 8 plus 以及其他设备。
+像 iPad，iPhone 8 plus 以及其他设备
 
 348
 00:16:52,245 --> 00:16:54,311
@@ -1746,7 +1746,7 @@ in fact, the simulator will open both of these,
 350
 00:16:56,616 --> 00:16:59,616
 multiple of these as a time, if you want. So I'm gonna
-或者多个，如果你想的话。
+或者多个，如果你想的话
 
 351
 00:16:59,685 --> 00:17:02,820
@@ -1791,7 +1791,7 @@ a binary. It's loading it onto the device, or
 359
 00:17:21,440 --> 00:17:24,742
 in this case, simulator. And it runs it. Okay so
-在这个情况下，是模拟器。然后运行它。
+在这个情况下，是模拟器。然后运行它
 
 360
 00:17:24,811 --> 00:17:27,011
@@ -1831,7 +1831,7 @@ home 键的功能一样，因为在 iPhone X 上并没有 home 键
 367
 00:17:43,529 --> 00:17:45,896
 And you can see there's our app concentration right there.
-你能在那里看到我们的应用 翻牌。
+你能在那里看到我们的应用 翻牌
 
 368
 00:17:45,965 --> 00:17:47,297
@@ -2506,7 +2506,7 @@ to orange, these cards orange, and our Halloween theme here,
 502
 00:24:13,386 --> 00:24:15,552
 they have orange background. How do I do that?
-他们会橙色的背景色。我该如何做呢？
+他们会有橙色的背景色。我该如何做呢？
 
 503
 00:24:15,620 --> 00:24:20,090
@@ -2531,7 +2531,7 @@ not only that, it's object-oriented. So
 507
 00:24:29,334 --> 00:24:32,836
 I have the button stuff here and as I scroll down, look,
-所以我有一个按钮的对象，并且当我下滑，看，
+所以我有一个按钮的对象，并且当我下滑，看
 
 508
 00:24:32,905 --> 00:24:37,140
@@ -2601,7 +2601,7 @@ I can go to Other and pick it by name, I could pick orange.
 521
 00:25:12,678 --> 00:25:15,211
 I could pick a crayon that looks orange,
-我能够选中一个看起来像橙色的蜡笔，
+我能够选中一个看起来像橙色的蜡笔
 
 522
 00:25:15,280 --> 00:25:17,881
@@ -2941,7 +2941,7 @@ sliders and all that stuff.
 589
 00:28:28,240 --> 00:28:31,674
 Kinda that top cocoa touch layer we're talking about.
-就是我们讨论过的顶端的 Cocoa Touch 层。
+就是我们讨论过的顶端的 Cocoa Touch 层
 
 590
 00:28:31,743 --> 00:28:35,445
@@ -3686,7 +3686,7 @@ let's run it. Those are the kind of tips and tricks we'll
 738
 00:35:55,921 --> 00:35:57,787
 cover on Friday, by the way. Good reason to come on Friday.
-我星期五讲的内容，所以我建议你星期五来。
+我星期五讲的内容，所以我建议你星期五来
 
 739
 00:35:57,856 --> 00:36:00,289
@@ -3701,7 +3701,7 @@ how you link the button to the view controller?
 741
 00:36:05,196 --> 00:36:06,295
 >> Yeah how we
->> 好的。
+>> 好的
 
 742
 00:36:06,364 --> 00:36:07,897
@@ -6746,7 +6746,7 @@ okay, and this is connected to that one card, I haven't put
 1350
 01:07:39,322 --> 01:07:42,156
 the other cards in there yet but I will. It's connected to.
-关联到其他的卡上，但我之后会的。
+关联到其他的卡上，但我之后会的
 
 1351
 01:07:42,225 --> 01:07:44,425
@@ -6796,7 +6796,7 @@ Card Butons there, okay? It's not connected to Card Buttons.
 1360
 01:08:08,785 --> 01:08:12,486
 So, how can I fix this? If I said this Card Butons,
-怎么解决这个问题呢？如果我改回 cardButons，
+怎么解决这个问题呢？如果我改回 cardButons
 
 1361
 01:08:12,555 --> 01:08:14,188
@@ -7565,7 +7565,7 @@ have that associated value, so it crashes your program.
 1514
 01:16:10,132 --> 01:16:12,432
 And you're gonna see this crash quite a bit, okay,
-并且你会看见不少这种崩溃，
+并且你会看见不少这种崩溃
 
 1515
 01:16:12,501 --> 01:16:15,235
@@ -7605,7 +7605,7 @@ I'm never using exclamation points,
 1522
 01:16:32,388 --> 01:16:35,355
 gonna crash my program, scary. Yeah,
-它会让我的程序崩溃，可怕。
+它会让我的程序崩溃，可怕
 
 1523
 01:16:35,424 --> 01:16:38,659
@@ -7910,7 +7910,7 @@ the cardButtons array.
 1583
 01:19:45,448 --> 01:19:48,548
 I'm gonna do that again from up here, Ctrl + drag, down to
-我会再做一次，按住 control，向下拖到这里，
+我会再做一次，按住 control，向下拖到这里
 
 1584
 01:19:48,617 --> 01:19:51,685
@@ -8040,7 +8040,7 @@ So we really need to take another step and
 1609
 01:21:21,376 --> 01:21:25,345
 have a real concentration engine driving our app, it's
-拥有一个真正的翻牌游戏引擎来驱动我们的应用。
+拥有一个真正的翻牌游戏引擎来驱动我们的应用
 
 1610
 01:21:25,414 --> 01:21:29,015
