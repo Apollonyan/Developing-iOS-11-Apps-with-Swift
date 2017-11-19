@@ -3926,7 +3926,7 @@ learn next week that there are methods that are called after
 786
 00:42:17,268 --> 00:42:20,936
 all these outlets get fired up. The system will call
-出口被激发后调用。系统将会调用一个
+出口接通后。系统将会调用一个
 
 787
 00:42:21,005 --> 00:42:23,305
