@@ -616,7 +616,7 @@ you design this way? You must design this way. It's called
 124
 00:06:03,463 --> 00:06:06,331
 MVC, Model View Controller. How many people have,
-MVC, 即 Model（模型）-View（视图）-Controller（控制器）
+MVC，即 Model（模型）-View（视图）-Controller（控制器）
 
 125
 00:06:06,399 --> 00:06:09,634
@@ -7001,7 +7001,7 @@ that method, I'm gonna create a var called card number
 1401
 01:10:13,743 --> 01:10:16,977
 which I want to be the number the card 0,1,2,3,4 wherever it
-也就是是第几张卡，比如 0, 1, 2, 3, 4
+也就是是第几张卡，比如 0，1，2，3，4
 
 1402
 01:10:17,046 --> 01:10:21,482
@@ -8055,7 +8055,7 @@ all that stuff. Now to do that we're gonna use this design
 1612
 01:21:32,087 --> 01:21:34,587
 paragraph dime I talked about the very beginning model view
-我在一开始提到的 model - view - controller (MVC)
+我在一开始提到的 Model - View - Controller (MVC)
 
 1613
 01:21:34,656 --> 01:21:38,325
@@ -8065,12 +8065,12 @@ controller. So I'm gonna start Wednesday's lecture with some
 1614
 01:21:38,393 --> 01:21:40,693
 slides explaining how model view controller works.
-解释 model - view - controller 是如何工作的
+解释 MVC 是如何工作的
 
 1615
 01:21:40,762 --> 01:21:42,562
 Then we're gonna apply model view controller here, and
-之后我们将要把 model - veiw - controller 应用在这上面
+之后我们将要把 MVC 应用在这上面
 
 1616
 01:21:42,631 --> 01:21:45,765
