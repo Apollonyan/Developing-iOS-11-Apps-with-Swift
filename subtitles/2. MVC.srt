@@ -1996,1606 +1996,2007 @@ it probably always starts face down, let's say.
 400
 00:21:12,738 --> 00:21:17,808
 A card can be matched or not, probably starts out definitely
+一张卡片可以被匹配或者不匹配，大概我们需要明确地以
 
 401
 00:21:17,876 --> 00:21:21,545
 unmatched. You know a card also needs a unique identity.
+不匹配开始。你知道一张卡片还需要一个唯一的身份识别
 
 402
 00:21:21,614 --> 00:21:23,581
 Because we're playing a matching game and if we can't
+因为我们正在玩一个匹配游戏，如果我们不能
 
 403
 00:21:23,649 --> 00:21:26,083
 tell the identity of the card, we can't match it against
+分辨出卡片的身份识别，我们将不能和它与
 
 404
 00:21:26,151 --> 00:21:29,286
 another card. So we need some kind of identifier or
+另一张卡片匹配。所以我们需要某一种识别符或
 
 405
 00:21:29,355 --> 00:21:31,321
 something, which really could be any type.
+其他东西，这可以是任意类型
 
 406
 00:21:31,390 --> 00:21:32,990
 It could be a string or whatever. I'm gonna make
+它可以是一个 String 或其他。我将
 
 407
 00:21:33,059 --> 00:21:36,993
 an Int because it's really easy to make a unique Int.
+用一个 Int 因为创建一个唯一的 Int 是非常简单的
 
 408
 00:21:37,062 --> 00:21:38,662
 So, we definitely need that. Now,
+所以，我们一定需要它
 
 409
 00:21:38,731 --> 00:21:40,097
 some of you might thinking, oh,
+你们可能有一些人会想
 
 410
 00:21:40,166 --> 00:21:44,134
 okay a card also needs the emoji that's on it.
+一张卡片也需要一个 emoji 在上面
 
 411
 00:21:44,203 --> 00:21:47,838
 Like the pumpkin or the ghost. And very importantly,
+比如南瓜或者幽灵。非常重要的是
 
 412
 00:21:47,907 --> 00:21:53,343
 no it doesn't. This card is UI independent.
+它并不需要。因为卡片是与 UI 不相关的
 
 413
 00:21:53,412 --> 00:21:56,714
 So there's no way it can have emojis or jpeg images or
+所以它不可能拥有一个 emoji 或者一个 jpeg 图片 或者
 
 414
 00:21:56,782 --> 00:21:59,617
 anything like that, that's all how you display the cards.
+其他类似的东西，那都是关于你如何展示这些卡片
 
 415
 00:21:59,685 --> 00:22:02,886
 This is just how the cards behave, how the game works. So
+而这仅是这些卡片如何表现，这个游戏如何运行
 
 416
 00:22:02,955 --> 00:22:05,722
 you would never have an emoji in here, in this model. We're
+所以在这个模型里绝不会有一个 emoji 变量，
 
 417
 00:22:05,791 --> 00:22:09,226
 in the model here not the UI. Very important to understand.
+我们是在模型里而不是 UI 里。这是非常重要的用来理解的事情
 
 418
 00:22:10,862 --> 00:22:15,966
 All right, so now we've got basically all of our API and
+好的，现在我们基本上得到了我们的 API 
 
 419
 00:22:16,035 --> 00:22:18,636
 our model here. Let's get rid of some these errors. You see
+和模型。让我们把一些错误去除
 
 420
 00:22:18,704 --> 00:22:21,371
 that we still have this error class concentration has no
+你看我们仍有这个错误 Concentration 类没有
 
 421
 00:22:21,440 --> 00:22:23,740
 initializers, a very common error that we're used to.
+构造器，一个非常常见的错误
 
 422
 00:22:23,809 --> 00:22:27,144
 That's because this var is never initialized, so
+那是因为这个 var 还没有初始化
 
 423
 00:22:27,213 --> 00:22:30,514
 how do we create an array of cards, okay?
+我们该如何创造一个卡片的数组呢？
 
 424
 00:22:30,582 --> 00:22:33,483
 So this is now you're learning how to create an instance
+现在你将学习如何创造一个结构或者
 
 425
 00:22:33,552 --> 00:22:35,919
 of a struct or of a class. It's exactly the same.
+类的实例。它们是完全一样的
 
 426
 00:22:35,988 --> 00:22:39,456
 And the way we do that is I'm just gonna say equals
+我们要做的方式仅仅是添加一个等号
 
 427
 00:22:39,525 --> 00:22:41,759
 open parentheses, close parentheses.
+左括号，右括号
 
 428
 00:22:41,827 --> 00:22:45,229
 So this is just a type. It could be int or string.
+它仅仅是一个类型。可是是一个 Int 或者 String
 
 429
 00:22:45,297 --> 00:22:47,865
 It happens to be an array of cards. And I'm just putting
+这里碰巧是一个卡片的数组。而且我仅是添加了
 
 430
 00:22:47,933 --> 00:22:50,133
 open parentheses, close parentheses after it. And
+一个左括号和右括号在后面
 
 431
 00:22:50,202 --> 00:22:53,904
 I could actually be putting various arguments in here. And
+我本可以放各种参数在里面
 
 432
 00:22:53,973 --> 00:22:56,674
-these correspond to those in ints I was telling you
+these correspond to those inits I was telling you
+它们与我之前告诉过你的那些 init 函数有关
 
 433
 00:22:56,742 --> 00:22:59,410
 about. Remember last time, I said class could have
+记得上一次，我说过类可以拥有
 
 434
 00:22:59,478 --> 00:23:01,578
-an initializer, it's a special method called in it,
+an initializer, it's a special method called init,
+一个构造器，它是一个叫做 init 的特殊方法
 
 435
 00:23:01,647 --> 00:23:03,446
 it can have whatever arguments you want.
+它可以拥有任意你想要的参数
 
 436
 00:23:03,515 --> 00:23:08,084
-You could have multiple in its. Array has an in it with
+You could have multiple inits. Array has an init with
+你还可以有很多个 init 方法。Array 拥有一个 init 方法
 
 437
 00:23:08,153 --> 00:23:11,855
 no arguments and what it does is it creates an empty array.
+它没有参数，它的作用就是创建一个空数组
 
 438
 00:23:11,924 --> 00:23:14,324
 So the array exists, but there's no cards in it.
+所以这个数组就存在了，但是里面没有卡片
 
 439
 00:23:14,393 --> 00:23:17,427
 There's nothing in it. There are other, and you can go look
+里面没有任何东西。还有一些其他的 init 方法，你可以
 
 440
 00:23:17,496 --> 00:23:19,863
-in the documentation, for other inlets that array has.
+in the documentation, for other inits that array has.
+查阅文档，一个 Array 的其他 init 方法
 
 441
 00:23:19,931 --> 00:23:23,434
-It has an it, for example, let's you reserve capacity for
+It has an init, for example, let's you reserve capacity for
+举个例子，它有一个 init 方法，让你预定它的容量
 
 442
 00:23:23,502 --> 00:23:25,435
 a certain amount for performance reasons if you're
+这是为了一些性能原因，如果你
 
 443
 00:23:25,504 --> 00:23:27,871
 pretty sure you know how big there's going to be array.
+非常确信这个数组将有多大
 
 444
 00:23:27,940 --> 00:23:30,173
 You can create an array from another array and
+你可以从另一个数组里创建一个数组
 
 445
 00:23:30,242 --> 00:23:32,409
 it'll copy over the items from that other array,
+它会从那个数组里复制物品
 
 446
 00:23:32,478 --> 00:23:35,645
-so there are other in its, but the most common array in it
+so there are other inits, but the most common array init
+所以这里有其他的 init 方法，但是最常见的
 
 447
 00:23:35,714 --> 00:23:38,382
 is this one where you just do nothing.
+就是这个，你不需要做任何事情
 
 448
 00:23:38,450 --> 00:23:42,719
 Now by the way, we're using this kind of easier to
+顺便说一下，我们会这样子来做让理解语法
 
 449
 00:23:42,788 --> 00:23:46,456
 understand syntax, but we would almost certainly use
+更容易，但是我们大部分会用
 
 450
 00:23:46,525 --> 00:23:51,861
 this syntax. Array of Card. So I showed you last time.
+这种语法。卡片的数组。我上次给你们展示过
 
 451
 00:23:51,930 --> 00:23:55,032
 So I've got an empty array of cards to work with right here.
+所以我得到了一个空数组来操作
 
 452
 00:23:55,101 --> 00:23:58,001
 I've got no warnings. So now, it's time to go
+没有警告，所以现在，是时候
 
 453
 00:23:58,070 --> 00:24:02,406
 back to our controller and try to start using this model. So
+回到我们的控制器尝试使用这个模型
 
 454
 00:24:02,474 --> 00:24:04,474
-were doing NBC were going back to our control. So
+were doing MVC were going back to our controller. So
+我们正在使用 MVC 设计模式，现在返回我们的控制器
 
 455
 00:24:04,543 --> 00:24:08,345
 I'm gonna back over here. I'm gonna go to my ViewController.
+所以我要返回这里，我要去到我的 ViewController
 
 456
 00:24:08,413 --> 00:24:10,280
 let's have the Concentration on at the same time here. So
+让我们同时把 Concentration 文件也放在这里
 
 457
 00:24:10,281 --> 00:24:12,148
 Actually, let's go,
+现在，让我们开始吧
 
 458
 00:24:12,218 --> 00:24:13,250
 we've got Concentration,
+我们得到了 Concentration 文件
 
 459
 00:24:13,318 --> 00:24:16,220
 I'll make it small, there it is, and our ViewController,
+我把它缩小一点，这样子，在我们的视图控制器里
 
 460
 00:24:16,288 --> 00:24:20,557
 so how am I gonna use my model in this controller? Well,
+我该如何在这个控制器里使用我的模型
 
 461
 00:24:20,625 --> 00:24:23,927
 the first thing I wanna do is make that big green arrow,
+我想做的第一件事就是制造这个绿色通道
 
 462
 00:24:23,996 --> 00:24:26,697
 the green arrow that points from my controller to my
+它从我的控制器指向
 
 463
 00:24:26,766 --> 00:24:29,700
 model. And I'm gonna do that by creating a var
+我的模型。所以我将做这件事，通过创建一个 var
 
 464
 00:24:29,768 --> 00:24:32,969
 in my controller, and call it game. And it's gonna be of
+在我的控制器里，然后把它称为 game（游戏)。然后它的类型是
 
 465
 00:24:33,038 --> 00:24:37,841
 type Concentration. There's my big green arrow. I can send
+Concentration（翻牌游戏）。这就是我的绿色通道，我可以发送
 
 466
 00:24:37,910 --> 00:24:41,779
 any messages I want to game, like, I can get at its cards.
+任何我想要的消息给 game，比如，我可以得到它的 cards (卡片数组)
 
 467
 00:24:41,847 --> 00:24:45,182
 I can choose a card, whatever. and I'm ready to go.
+我可以选择一个卡片，等等。现在可以继续进行下去
 
 468
 00:24:45,250 --> 00:24:48,051
 Now, look at the error I get, our favorite error,
+注意看我得到的这个错误，我们最喜欢的错误
 
 469
 00:24:48,120 --> 00:24:50,553
 Class ViewController has no initializers, because this
+ViewController 类没有构造器，因为它还没有
 
 470
 00:24:50,622 --> 00:24:54,158
 is not initialized. How are we gonna initialize this?
+初始化。我们将如何初始化它
 
 471
 00:24:54,226 --> 00:24:56,893
 Let's see, we wanna do something similar to what we
+让我们看看，我们要做一些类似于对待这个数组一样
 
 472
 00:24:56,962 --> 00:24:59,563
 did with this array over here. Let's try that, let's do
+的事情。让我们试一下，让我们
 
 473
 00:24:59,632 --> 00:25:04,200
 Concentration,this is probably not gonna work, right?
+写下 Concentration, 这可能不太会正常运行，对吧？
 
 474
 00:25:04,269 --> 00:25:06,703
 Because we didn't create an init with no arguments for
+因为我们没有为 Concentration 创建一个没有参数的 init 方法
 
 475
 00:25:06,772 --> 00:25:09,906
 Concentration. But it did work!
+但是它成功了！
 
 476
 00:25:09,975 --> 00:25:14,878
 How could this possibly work? The answer here is classes,
+它怎么可能正常运行？答案是类
 
 477
 00:25:14,947 --> 00:25:19,683
 and Concentration is a class, get a free init with no
+Concentration 是一个类，它自动得到了一个没有参数的
 
 478
 00:25:19,751 --> 00:25:23,253
 arguments as long as all of their vars are initialized.
+构造器，条件是只要它所有的变量都被初始化了
 
 479
 00:25:23,322 --> 00:25:26,122
 And this only has one var, it's initialized, so
+因为它只有一个变量，且已经被初始化，所以
 
 480
 00:25:26,191 --> 00:25:30,694
 Concentration got a free init. We're initialized.
+Concentration 自动得到了一个 init 方法。我们初始化了它
 
 481
 00:25:30,763 --> 00:25:33,797
 We don't actually need this type. Remember why?
+实际上我们不需要这个类型，记得为什么么？
 
 482
 00:25:33,865 --> 00:25:36,600
 Type inference, obviously Swift can figure out from that
+类型推断，显然 Swift 能够从这行代码中分辨出
 
 483
 00:25:36,668 --> 00:25:39,202
 line of code the game is of type Concentration, we don't
+game 是 Concentration 类型，我们
 
 484
 00:25:39,271 --> 00:25:42,739
 need to put that in there. But this was fun and nice that we
+没有必要把它放到这里。但是有趣并且美好的是
 
 485
 00:25:42,808 --> 00:25:46,142
 got this free initializer, but actually, it's no good.
+我们得到了这个默认构造器，但是实际上，它并不优雅
 
 486
 00:25:46,211 --> 00:25:49,245
 It's not good enough. Because when we create a Concentration
+它不足够优雅。因为当我们创建一个翻牌
 
 487
 00:25:49,314 --> 00:25:52,182
 game, we gotta think how many cards there are. Because
+游戏的时候，我们将会思考游戏中有多少卡片。因为
 
 488
 00:25:52,251 --> 00:25:54,685
 the Concentration game has to kinda load up this array over
+翻牌游戏会加载这个
 
 489
 00:25:54,753 --> 00:25:56,820
 here with all the cards that it's gonna use,
+拥有所有卡片的数组，然后使用它
 
 490
 00:25:56,888 --> 00:25:59,556
 and we can't assume that a Concentration game only has 12
+我们不能假设一个翻牌游戏只有12张卡牌
 
 491
 00:25:59,625 --> 00:26:02,559
 cards like we had on the board. Or only has four cards,
+就像我们在面板上的那样子。或者只有四张卡片，
 
 492
 00:26:02,628 --> 00:26:07,231
 like our current UI here has. We actually need to create our
+像我们现在的 UI。我们实际上需要创建一个
 
 493
 00:26:07,299 --> 00:26:11,034
 own init. So let's go, again, make some more space over
+我们自己的 init 方法。让我们开始吧。再一次，让这里的空间
 
 494
 00:26:11,103 --> 00:26:15,238
 here. And add an init to our Concentration class.
+大一点。然后在我们的 Concentration 类里添加一个 init 方法。
 
 495
 00:26:15,307 --> 00:26:18,374
 Init. Now again, we get to have any arguments we want.
+现在，我们又需要得到我们想要的参数
 
 496
 00:26:18,443 --> 00:26:20,944
 And what we need to create our game is we need to know
+创建我们的游戏所需要的就是清楚
 
 497
 00:26:21,013 --> 00:26:25,182
 the number of pairs of cards. And that's gonna be an Int.
+卡牌对的数量。它会是一个 Int
 
 498
 00:26:27,186 --> 00:26:29,119
 So this is the initializer that people are gonna
+所以这就是人们将要用来创建一个翻牌游戏
 
 499
 00:26:29,187 --> 00:26:31,321
 have to use to create a Concentration game.
+所需要的构造器
 
 500
 00:26:31,390 --> 00:26:35,792
 Cuz we need this. So how are we gonna implement this init?
+因为我们需要它。那么我们该如何实现这个构造器呢？
 
 501
 00:26:35,861 --> 00:26:39,996
 We need to create this many pairs of cards and
+我们需要创建一个储存卡牌对数量的属性
 
 502
 00:26:40,065 --> 00:26:44,901
 put them in here. Let's try and create one card.
+然后把它放到里面。让我们尝试创建一个卡片
 
 503
 00:26:44,970 --> 00:26:48,538
 Let card =, maybe we'll get lucky and
+让我们写下 card =, 大概我们比较幸运，我们可以直接
 
 504
 00:26:48,607 --> 00:26:51,675
 we can just say card. We got, that worked for
+写 Card。写好了，我们写好它让它为 Concentration 
 
 505
 00:26:51,743 --> 00:26:56,212
 Concentration. Didn't work. Why didn't that work?
+工作。它并不成功。这是为什么？
 
 506
 00:26:56,281 --> 00:27:00,083
 Because if you look over here to our card.
+因为如果你从这个地方查看我们的 Card 文件
 
 507
 00:27:00,152 --> 00:27:04,888
 Let's bring up Mr. Card here. The card,
+让我们把它拿过来。
 
 508
 00:27:04,956 --> 00:27:10,227
 it has something that has to be initialized there.
+它有一些还未被初始化的东西
 
 509
 00:27:10,296 --> 00:27:15,198
 Card is a struct. Now, structs get a free initializer
+Card 是一个结构体。现在，结构体也有一个自动获得的构造器（逐一成员构造器）
 
 510
 00:27:15,267 --> 00:27:17,367
 as well, but it's different than a class.
+但是它和类的并不同
 
 511
 00:27:17,436 --> 00:27:19,803
 So this is another difference between structs and classes.
+这是结构体和类的另一个不同点
 
 512
 00:27:19,871 --> 00:27:23,807
 Struct, the free initializer they get, initializes all of
+结构体的逐一成员构造器，会初始化它的所有变量
 
 513
 00:27:23,876 --> 00:27:26,376
 their vars, even if they're already pre-initialized,
+即使它们已经有了默认值
 
 514
 00:27:26,445 --> 00:27:28,712
 like isFaceUp and isMatched. Watch this, okay,
+比如 isFaceUp 和 isMatched。看这个，好吧
 
 515
 00:27:28,780 --> 00:27:31,548
 I'm gonna just type card. Open parenthesis,
+我将敲下 Card, 左括号
 
 516
 00:27:31,617 --> 00:27:34,884
 I'm gonna let Xcode show me the initializer, and
+我会让 Xcode 展示给我构造器
 
 517
 00:27:34,953 --> 00:27:38,955
 you can see that it just initializes every single one.
+你可以看到它把每一个变量都初始化了
 
 518
 00:27:39,024 --> 00:27:42,192
 So I could do isFaceUp false, isMatched false,
+所以我可以把 isFaceUp 写成 false, isMatched 写成 false
 
 519
 00:27:42,261 --> 00:27:45,796
 the identifier, I guess I'm gonna have to make up some
+至于 identifier, 我猜我要添加一些
 
 520
 00:27:45,864 --> 00:27:48,165
 identifier for this thing to do it.
+identifier 来做这件事情
 
 521
 00:27:48,233 --> 00:27:51,034
 So I could initialize a card like that, cuz I get a free
+之所以我能够像这样子初始化一个 card 对象，是因为我得到了逐一成员构造器
 
 522
 00:27:51,103 --> 00:27:54,504
 initializer. Classes never get this kind of free initializer.
+。类从来没有这种构造器
 
 523
 00:27:54,573 --> 00:27:56,173
 They don't get the free initializer where they,
+它们没有这种为所有变量都初始化的
 
 524
 00:27:56,241 --> 00:27:58,508
 you can initialize all their vars.
+的构造器
 
 525
 00:27:58,576 --> 00:28:02,279
 That's purely a struct thing. But this is bogus, because
+这完全是结构体拥有的事情。但是它有一个缺点
 
 526
 00:28:02,348 --> 00:28:05,181
 these are, start out false, so why, when I'm initializing,
+因为它们是以 false 开始的，所以为什么当我初始化的时候
 
 527
 00:28:05,250 --> 00:28:08,018
 do I have to say again they're false? If I want to get rid of
+我还要再写一遍它是 false 呢？如果我想要摆脱这些
 
 528
 00:28:08,087 --> 00:28:10,587
 those, and to get rid of those, I have to add
+麻烦，我必须自己添加
 
 529
 00:28:10,656 --> 00:28:13,523
 an initializer here. So I'm gonna have an initializer that
+一个构造器。所以我会在这里添加一个
 
 530
 00:28:13,592 --> 00:28:17,995
 just takes the identifier, which is an Int.
+只有 identifier 一个 Int 类型参数的构造器
 
 531
 00:28:18,063 --> 00:28:22,366
 And then I wanna set this identifier right here equal to
+我想要设置这里的标识符等于
 
 532
 00:28:22,434 --> 00:28:28,071
 this identifier right here. We've
+这里的这个标识符。我们已经
 
 533
 00:28:28,140 --> 00:28:31,208
-got a couple of problems with that, with trying to do that.
+got a couple of problems with that, we're trying to do that.
+遇到了一些问题，我们要尝试解决它
 
 534
 00:28:31,276 --> 00:28:34,177
 One is this certainly can't be right. Identifier equals
+其中这个问题一定是不对的。Identifier 等于 
 
 535
 00:28:34,246 --> 00:28:38,548
 identifier? That, that's just weird. One thing also notice
+identifer? 那太奇怪了。有一件事情需要注意的是
 
 536
 00:28:38,617 --> 00:28:42,319
 that in both of my inits, I didn't do an external name and
+在我的两个 init 方法里，我并没有写参数标签和
 
 537
 00:28:42,387 --> 00:28:44,020
 an internal name. You notice that?
+参数名称。你们注意到了么？
 
 538
 00:28:44,089 --> 00:28:46,389
 I only did one, which means both the external name and
+我只写了一个名字，它意味着参数标签和参数名称
 
 539
 00:28:46,458 --> 00:28:49,226
 the internal name is the same. So one thing I could do to fix
+都是一样的。所以可以修复这个问题的一个方法就是
 
 540
 00:28:49,295 --> 00:28:52,529
 that is make the internal name be different, like i.
+让参数名称不同，想 i
 
 541
 00:28:52,598 --> 00:28:54,865
 And then I could say identifier = i.
+这样子我可以说 identifer 等于 i 
 
 542
 00:28:54,933 --> 00:28:57,534
 You see? This is the external name,
+你看？这是参数标签
 
 543
 00:28:57,603 --> 00:29:00,103
 I'm using it here when I call this init.
+当我调用这个 init 方法时，我在使用它
 
 544
 00:29:00,172 --> 00:29:03,407
 And this is the internal name, which I'm using inside here.
+这是参数名称，我在方法内部使用它
 
 545
 00:29:03,475 --> 00:29:06,543
 And now it knows that this identifier means that one. But
+现在它知道了这个 identifier 意味着那一个
 
 546
 00:29:06,612 --> 00:29:08,545
 you know what? This is kinda gross. First of all,
+但是你知道么 这是有点粗野的。首先
 
 547
 00:29:08,613 --> 00:29:12,916
 I hate variable names like i. i is a bad variable name.
+我讨厌像 i 这样子的变量名字。i 是一个很不好的变量名字
 
 548
 00:29:12,984 --> 00:29:15,518
 I just don't wanna have it here. But I can't really think
+我就是不想要它出现在这里。但是我真的想不出
 
 549
 00:29:15,587 --> 00:29:19,089
 of another one here that's any better than identifier.
+一个比 identifier 更好的名字
 
 550
 00:29:19,157 --> 00:29:20,957
 That's, identifier is a good name there. So
+identifier 在这里是一个足够好的名字。所以
 
 551
 00:29:21,026 --> 00:29:23,560
 I actually want it to be same internal name and
+我想要它同时是参数标签和参数名称
 
 552
 00:29:23,628 --> 00:29:28,431
 external name. Now, inits are the one method that
+现在，init 通常是一个拥有
 
 553
 00:29:28,500 --> 00:29:33,336
 usually has the same internal name and external name. Most
+拥有相同的参数标签和参数名称的方法。
 
 554
 00:29:33,405 --> 00:29:36,873
 functions don't, but inits tend to. They don't have to,
+大部分函数都不是，但是 init 倾向于是这样子。它们不一定都是这样
 
 555
 00:29:36,942 --> 00:29:41,144
 but they tend to. So, now I'm back to saying this, but
+但是它们倾向是这样子。所以，现在我回头再写成这个样子
 
 556
 00:29:41,213 --> 00:29:43,613
 it's not, I can't really distinguish between these two,
+但是我不能完全分辨它们两者
 
 557
 00:29:43,682 --> 00:29:46,183
 so how can I distinguish between two, these two?
+所以我该如何分辨这两个呢？
 
 558
 00:29:46,251 --> 00:29:51,220
 This is the parameter. This is my identifier on myself.
+这个是实参，这个是我的标识符
 
 559
 00:29:51,289 --> 00:29:58,028
 Well, I can say, self. So, self., means my identifier.
+所以，我可以写，self，逗号。所以 self 逗号 意味着我的标识符
 
 560
 00:29:58,096 --> 00:30:01,965
 This card's identifier. So now it knows we want this one,
+这张卡牌的标识符。所以现在它知道我们想要的是这个
 
 561
 00:30:02,034 --> 00:30:06,169
 and so this one is this one. That's kinda cool.
+这个对应这个。这是蛮酷的
 
 562
 00:30:06,237 --> 00:30:11,040
 We got out of having that going on. All right, so
+我们成功地让它能够继续。好的
 
 563
 00:30:11,109 --> 00:30:12,709
 let's go back over here again.
+让我们再一次返回这里
 
 564
 00:30:12,777 --> 00:30:15,979
 We're able to create one card, great, worked good.
+我们已经能成功的创建一张卡牌的实例
 
 565
 00:30:16,048 --> 00:30:19,316
 But we have to specify the identifier for the card. So
+但是我们必须明确它的标识符
 
 566
 00:30:19,384 --> 00:30:21,551
 this really doesn't matter what the identifier is,
+标识符具体是什么真的不重要
 
 567
 00:30:21,620 --> 00:30:24,621
 as long as it's unique. So I'm gonna create a for loop. So
+只要它是唯一的就好。所以我要创建一个 for 循环
 
 568
 00:30:24,690 --> 00:30:26,723
 pay attention, here's how you create a for loop in Swift.
+请注意，看你将如何用 Swift 创建一个 for 循环
 
 569
 00:30:26,792 --> 00:30:30,159
 It's a little different than other languages. It starts out
+和其他语言相比，这有一点不同
 
 570
 00:30:30,228 --> 00:30:34,197
 the same. For identifier, this is just for some variable. But
+它们开始是一样的。For identifier 这仅仅是 for 跟上一些变量，但是
 
 571
 00:30:34,266 --> 00:30:38,902
 you don't say equals zero, less than 20, i plus plus,
+你并不写成 for i = 0; i < 20 ; i ++ 这样子
 
 572
 00:30:38,971 --> 00:30:42,506
 we don't do any of that. Instead we use the word, in,
+我们完全不这样子写。相反，我们使用关键词 in
 
 573
 00:30:42,574 --> 00:30:46,576
 and then this right here can be anything in Swift that is
+然后后面的地方可以是 Swift 里的任意一个序列
 
 574
 00:30:46,645 --> 00:30:50,880
 a sequence. And a sequence in Swift means anything where you
+Swift 中的序列代表着你可以从一个它某一个位置开始
 
 575
 00:30:50,949 --> 00:30:53,249
 can start somewhere and go to the next one, go to next one,
+然后去到下一个位置，再下一个位置
 
 576
 00:30:53,318 --> 00:30:55,151
 go to the next one, and that's what a for loop does.
+再下一个位置，这就是一个 for 循环所做的事情
 
 577
 00:30:55,220 --> 00:30:56,686
 It starts somewhere, and it goes to the next one, and
+它从某个位置开始，然后到达下一个位置
 
 578
 00:30:56,755 --> 00:30:58,288
 goes to the next one, goes to the next one. So
+再下一个位置，再下一个位置。所以
 
 579
 00:30:58,356 --> 00:31:01,558
 what are some examples of sequences in Swift?
+Swift 里序列的例子有什么呢？
 
 580
 00:31:01,627 --> 00:31:04,995
 Arrays? Okay, obviously array, you could start at the first
+数组？是的，显然在数组里，你可以从第一个元素
 
 581
 00:31:05,064 --> 00:31:06,596
 element, and go to the next one, go to the next one,
+开始，然后去到下一个元素，再下一个元素
 
 582
 00:31:06,665 --> 00:31:07,764
 till you get to the end.
+直到你到达结束位置
 
 583
 00:31:07,833 --> 00:31:11,801
 String, a string is a sequence. First character,
+一个字符串，一个字符串也是一个序列。第一个字符
 
 584
 00:31:11,870 --> 00:31:13,302
 go to the next character, go to the next character,
+去到下一个字符，再下一个字符
 
 585
 00:31:13,371 --> 00:31:17,440
 next character. The one I'm gonna use here is a really
+再下一个字符。我现在要在这里使用的
 
 586
 00:31:17,509 --> 00:31:20,276
 cool sequence called a countable range. So
+是一个非常酷的序列叫做 CountableRange
 
 587
 00:31:20,345 --> 00:31:22,812
 a countable range is a range, in other words, it has a start
+所以一个 CountableRange 是一个区间，换句话说，它有一个开端
 
 588
 00:31:22,881 --> 00:31:25,115
 and an end, and it's countable. In other words,
+和一个结尾，并且它是可数的。换句话说
 
 589
 00:31:25,184 --> 00:31:28,118
 it knows how to count through it and go to the next space.
+它知道如何穿过它计数然后到达下一个地方
 
 590
 00:31:28,186 --> 00:31:31,054
 And there's special syntax in Swift because it's so
+这是 Swift 中一个特殊的语法因为
 
 591
 00:31:31,123 --> 00:31:33,089
 common to wanna make a countable range. And
+创建一个 CountableRange 实在是太常见了。
 
 592
 00:31:33,158 --> 00:31:38,294
 it goes like this. The start of the countable range,
+它是这样子运行的。CountableRange 以
 
 593
 00:31:38,363 --> 00:31:41,998
 ..<, which means from 0 up to and
+..< 开头，意味着从零开始直到
 
 594
 00:31:42,067 --> 00:31:46,236
 not including the number of pairs of cards.
+ numberOfParisOfCards 但不包含为止
 
 595
 00:31:48,673 --> 00:31:52,609
 So this is a for loop that is going to go through,
+所以这是一个 for 循环，它将会遍历
 
 596
 00:31:52,677 --> 00:31:55,511
 why is that not cutting? I didn't select it,
+为什么这个没有被剪切？我没有选中它
 
 597
 00:31:55,580 --> 00:31:59,215
 I guess? Cut, there we go, paste. It's gonna go through
+我猜？剪切，好的，粘贴。它将会遍历
 
 598
 00:31:59,284 --> 00:32:02,552
 the number of pairs of cards. Now, there's another kind of
+numberOfParisOfCards。现在，这里有另一种
 
 599
 00:32:02,621 --> 00:32:07,324
 countable range creator here, which is .. Dot,
+创建 CountableRange 的方法，它是 ...
 
 600
 00:32:07,392 --> 00:32:11,594
 that means zero to here, including this one.
+它意味着从零到这个地方，并且包含它
 
 601
 00:32:11,663 --> 00:32:14,197
 So, here, if I wanted to use that one, I would say one dot,
+如果我想要使用这个，我会写成从一开始，
 
 602
 00:32:14,265 --> 00:32:18,100
 dot, dot cuz I only want this many cards. So, that makes
+点点点，因为我只需要这么多卡片。所以，它就成了
 
 603
 00:32:18,169 --> 00:32:22,305
 a countable range. In fact, if you look at this thing's type,
+一个 CountableRange。事实上，如果你查看这个东西的类型
 
 604
 00:32:22,373 --> 00:32:26,476
 it'll be countable range. Okay, so now I'm going through
+它会写着 CountableRange。好的，所以我会遍历
 
 605
 00:32:26,544 --> 00:32:29,479
 and creating a card here, but I need another card.
+然后创建一个卡牌，但是我需要另一张卡牌
 
 606
 00:32:29,548 --> 00:32:33,983
 So I could say matchingCard = the same thing, right?
+所以我会写成 matchingCard (匹配的卡牌) 等于，后面是相同的内容，是吧？
 
 607
 00:32:34,052 --> 00:32:37,754
 Create another card with the same identifier. Makes sense,
+创建另一张有着相同标识符的卡牌。这听起来讲的通
 
 608
 00:32:37,822 --> 00:32:40,323
 right? Now I have two cards that match that I can add to
+对吧？现在我有了两张匹配的卡牌所以我要添加到
 
 609
 00:32:40,392 --> 00:32:41,691
 my bunch of cards up here.
+我的卡牌数组里面
 
 610
 00:32:41,760 --> 00:32:42,992
 I always need two cards that match,
+我总是需要两张能够匹配的卡片
 
 611
 00:32:43,061 --> 00:32:46,196
 but you know what's amazing is I actually don't even need to
+但是你知道惊喜的地方在于，实际上我甚至不需要
 
 612
 00:32:46,265 --> 00:32:50,934
 do this right here. I can just do this,
+在这儿做这件事情。我可以仅仅这样做
 
 613
 00:32:53,071 --> 00:32:56,906
 because when you assign a struct, which card is
+因为当你将一个结构体赋值，Card 是一个结构体
 
 614
 00:32:56,975 --> 00:33:02,111
 a struct, to another variable, it copies it. So
+赋值给另一个变量的时候，它拷贝了值。所以
 
 615
 00:33:02,180 --> 00:33:05,748
 matchingCard is a copy of card. Just by assigning it,
+matchingCard 是 card 的一个拷贝。仅仅通过赋值给它
 
 616
 00:33:05,817 --> 00:33:10,353
 it makes it a copy. Now I have a card and a copy of it. So
+其实是创建了一份拷贝。现在我有了一张卡片和它的一个拷贝
 
 617
 00:33:10,422 --> 00:33:12,455
 I can say cards.append,
+所以我可以写成 cards.append
 
 618
 00:33:12,524 --> 00:33:17,293
 that's how you add something to an array, append the card,
+那是你如何添加一些东西到一个数组上的方法。添加这张卡片
 
 619
 00:33:17,362 --> 00:33:22,265
 and then cards.append the matching card, matchingCard.
+然后 cards.append 跟上匹配的卡片即 matchingCard
 
 620
 00:33:22,333 --> 00:33:25,168
 So now I've added these two matching cards to my array.
+所以现在我已经添加了这两张正在匹配的卡片到我的数组中
 
 621
 00:33:25,237 --> 00:33:27,837
 And I'm going to do that number of pairs of cards
+在循环里，我将一共进行 numberOfPairsOfCards 次这样子的事情
 
 622
 00:33:27,906 --> 00:33:30,073
 times. I've got my cards,
+我就得到了我的卡牌数组
 
 623
 00:33:30,141 --> 00:33:33,977
 however I don't even need this matching card.
+然而，我甚至都不需要这个匹配卡片
 
 624
 00:33:34,045 --> 00:33:37,747
 I can get rid of that, and instead just say append(card).
+我可以去除它，用 append(card) 代替
 
 625
 00:33:37,816 --> 00:33:41,851
 Because putting things in an array or taking them out also
+因为把东西放到数组里或者从里面拿出来也是
 
 626
 00:33:41,919 --> 00:33:46,590
 copies the card. There are actually three cards involved
+复制卡片。这里其实涉及到了三张卡片
 
 627
 00:33:46,658 --> 00:33:49,625
 here. This one I create, the copy that gets put in here,
+我创建的那张，复制到这里的那张
 
 628
 00:33:49,694 --> 00:33:53,363
 and another different copy that gets put here. So
+和另一张不同的复制到这里的那张。所以
 
 629
 00:33:53,431 --> 00:33:56,132
 understand that when you pass these structs around,
+理解这个原理，你就会明白，当你传递结构体的时候，
 
 630
 00:33:56,200 --> 00:33:57,901
 you are copying them.
+你其实是在拷贝它们
+
 
 631
 00:33:57,969 --> 00:34:01,338
 Now later when we turn one of these cards face up,
+之后当我们把其中一张卡片朝上翻转的时候
 
 632
 00:34:01,407 --> 00:34:03,373
 the copy will actually be a real copy and
+那份拷贝是一份真的拷贝的卡片
 
 633
 00:34:03,442 --> 00:34:06,542
 only one of them so it's not a pointer to the same card and
+只会有一张卡片翻转过来，所以它并不是一张卡片的一个指针和
 
 634
 00:34:06,611 --> 00:34:09,779
 memory, it's actually two different cards. By the way,
+内存地址，它们是两张不同的卡片。另外
 
 635
 00:34:09,847 --> 00:34:12,748
 another cool way we can do this different syntax is I can
+我们能用另一种酷的语法来做，我可以写成
 
 636
 00:34:12,817 --> 00:34:16,886
 say cards, which is an array of cards,
+cards 它是一个卡牌数组
 
 637
 00:34:16,955 --> 00:34:21,591
 += another array of cards, with those two cards.
++= 另一个包含这两张卡牌的卡牌数组
 
 638
 00:34:23,562 --> 00:34:26,763
 Plus equals works with arrays. You can add arrays together
+加号等号这种语法在数组里同样适用。你可以把数组们相加到一起
 
 639
 00:34:26,831 --> 00:34:29,499
 and this, putting this card in this array and
+这里，你把这个 card 放到这个数组里，然后
 
 640
 00:34:29,567 --> 00:34:33,069
 this card in this array copies it. And then we put it in
+把这个拷贝的 card 加到这个数组里，然后我们把它放到这儿
 
 641
 00:34:33,138 --> 00:34:36,305
 there, and in effect this array also gets copied
+实际上这个数组也得到了拷贝
 
 642
 00:34:36,374 --> 00:34:41,310
 cuz array is a struct. All right, so we got that,
+因为数组就是一种结构体。好的，现在我们进行到了这里
 
 643
 00:34:41,379 --> 00:34:44,681
 this is all going quite well. The only thing I don't really
+所以事情进行的顺利。唯一我不太喜欢
 
 644
 00:34:44,750 --> 00:34:47,717
 like about this is it doesn't really seem right to me that
+的事情，看起来不太对的事情是
 
 645
 00:34:47,786 --> 00:34:50,654
 the concentration game has to pick the identifiers for
+翻牌游戏不得不为卡片选择标识符
 
 646
 00:34:50,722 --> 00:34:53,456
 the cards, because the concentration game does not
+因为翻牌游戏不需要
 
 647
 00:34:53,525 --> 00:34:55,191
 care what the identifiers are.
+关心标识符具体是什么
 
 648
 00:34:55,260 --> 00:34:58,761
 All it cares is that they're unique. So really,
+它所关心的全部就是它们是唯一的。所以
 
 649
 00:34:58,830 --> 00:35:01,998
 I don't wanna do this. I want to get this out of here, and
+我不想要这样子做。我想要把它从这里分离
 
 650
 00:35:02,067 --> 00:35:06,636
 have the card figure out its own unique identifier. There's
+让卡牌来想出它自己的唯一标识符。
 
 651
 00:35:06,704 --> 00:35:09,739
 no reason the card could just like pick 1 billion and 7.
+一张卡片没有理由选择像十亿零七这样子的数字
 
 652
 00:35:09,807 --> 00:35:12,141
 And that's its, as long as that's unique and
+所以这就是标识符，只要它是唯一的，只要它永远也不会
 
 653
 00:35:12,210 --> 00:35:14,978
 it never gives out another card with 1 billion and 7,
+将十亿零七分配给另一张卡牌
 
 654
 00:35:15,046 --> 00:35:17,380
 then it should be unique. That's what I do.
+那它就是唯一的，这就是我要做的事情
 
 655
 00:35:17,448 --> 00:35:21,150
 I want this init to not have to take this identifier. But
+我想要这个 init 方法省略这个标识符参数。但是
 
 656
 00:35:21,219 --> 00:35:24,721
 if this init over here doesn't take the identifier, then we
+如果这里的 init 方法没有这个参数，那么我们
 
 657
 00:35:24,790 --> 00:35:28,691
 gotta figure out how to create a unique identifier here. So
+要想出如何创造一个唯一的标识符
 
 658
 00:35:28,760 --> 00:35:31,227
 how are we gonna do that? Well, I'm going to teach you
+我们该如何做呢？好吧，我将要教给你
 
 659
 00:35:31,296 --> 00:35:34,163
 another cool Swift thing, which is I'm going to create
+Swift 另一件酷的事情，我要创建另一个
 
 660
 00:35:34,232 --> 00:35:39,436
 a special kind of method. It's a static method.
+特殊的方法。一个静态方法
 
 661
 00:35:39,504 --> 00:35:43,907
 It's a same syntax func but it has static before it, and
+它有着相同的函数语法只不过在前面有一个 static 关键词
 
 662
 00:35:43,975 --> 00:35:48,745
 it's going to get a unique identifier. It's gonna return
+它将产生得到一个唯一的标识符。它会返回
 
 663
 00:35:48,813 --> 00:35:52,015
 an int that's gonna be unique. And every time I call it,
+一个唯一的整数。并且每一次我调用它的时候
 
 664
 00:35:52,084 --> 00:35:54,517
 it's gonna return me another unique identifier.
+它会返回给我另一个唯一标识符
 
 665
 00:35:54,586 --> 00:35:56,853
 It's just gonna return some unique identifier.
+它会返回给我某一个唯一的标识符
 
 666
 00:35:56,921 --> 00:35:59,989
 We're gonna have to make it work. Now, what is a static
+我们必须让它工作。现在，静态
 
 667
 00:36:00,058 --> 00:36:03,526
 function all about? A static function is a function,
+函数到底是什么呢？一个静态函数是一个函数
 
 668
 00:36:03,595 --> 00:36:06,329
 even though it's in the card class, you can't send it
+即使它在 Card 类里面，你也不能用一个 card 实例
 
 669
 00:36:06,397 --> 00:36:11,000
 to a card. A card does not understand this message.
+调用它。一个 Card 实例不能理解这条消息
 
 670
 00:36:11,069 --> 00:36:14,938
 What understands this message is the type card.
+理解这条消息是 Card 类
 
 671
 00:36:16,174 --> 00:36:18,908
 You send it to the type itself.
+你把它发送给类本身
 
 672
 00:36:18,977 --> 00:36:21,811
 So you can think of it kind of like a global function,
+所以某种程度上你可以把它看做一个全局函数
 
 673
 00:36:21,880 --> 00:36:24,747
 a utility function or something that's just tied to
+一个效用函数或其他与这个类
 
 674
 00:36:24,816 --> 00:36:28,952
 the type. Does it make sense? You don't send it to a card.
+关联的东西。这样说的通么？你不会将它发送给某一张卡片
 
 675
 00:36:29,020 --> 00:36:31,154
 You can't ask a card for a unique identifier.
+你不能询问一张卡片要一个唯一标识符
 
 676
 00:36:31,222 --> 00:36:34,891
 You ask the card type. So, and that's what static means.
+你要询问这个卡片类本身。所以，这就是静态的含义
 
 677
 00:36:34,960 --> 00:36:38,361
 So here when I want to call this function,
+所以我将何时调用这个函数
 
 678
 00:36:38,430 --> 00:36:43,066
 I send it to the type card.getUniqueIdentifier.
+我把它发送给类 card.getUniqueIdentifier
 
 679
 00:36:43,134 --> 00:36:46,802
 That's getting it from the card type. Now how am I gonna
+这就是它的语法。现在我改如何实现
 
 680
 00:36:46,871 --> 00:36:49,272
 implement this get unique identifier? Well,
+这个得到唯一标识符的功能呢？
 
 681
 00:36:49,340 --> 00:36:53,310
 I'm gonna have a static var, cuz you can have those too.
+我要拥有一个静态变量，因为你也可以这样子做
 
 682
 00:36:53,378 --> 00:36:56,179
 So that's a variable that's stored with the type,
+所以这里有一个变量，它随着类而储存
 
 683
 00:36:56,248 --> 00:36:59,549
-not with each individual card. These are scored with
+not with each individual card. These are stored with
+而不是单独的一张卡牌实例。这些变量是随着每一个
 
 684
 00:36:59,618 --> 00:37:01,517
 each individual card, this is stored with the type.
+卡牌实例而储存的，这个是随着类而储存
 
 685
 00:37:01,586 --> 00:37:05,088
 And I'm gonna call this my identifierFactory,
+我会把它命名为我的 identifierFactory（标识符工厂）
 
 686
 00:37:05,157 --> 00:37:09,158
 I'm just gonna start out with = 0. And then in here,
+我会以等于零开始。在这里
 
 687
 00:37:09,227 --> 00:37:13,730
 what I'm going to say is Card.identifierFactory += 1 to
+我会写 Card.identifierFactory += 1
 
 688
 00:37:13,798 --> 00:37:17,266
 make it a new unique identifier. And then I'm gonna
+来生成一个新的唯一标识符。然后我会
 
 689
 00:37:17,335 --> 00:37:21,337
 return Card.identifierFactory. So now I'm returning a unique,
+返回 Card.identifierFactory。所以现在，我正在返回一个唯一的标识符
 
 690
 00:37:21,406 --> 00:37:23,740
 every time you call this, it makes a unique int,
+每一次你调用它，它都会生成一个唯一的整数
 
 691
 00:37:23,808 --> 00:37:25,975
 cuz it starts at zero and makes a unique int each time.
+因为它从零开始，每次都会加一，生成一个新的唯一的数字
 
 692
 00:37:26,044 --> 00:37:30,746
-Now, what's interesting is I don't really seen to say Card
+Now, what's interesting is I don't really need to say Card
+现在，有趣的地方在于，我真的不太需要写成 Card.
 
 693
 00:37:30,815 --> 00:37:34,917
 dot because I'm in a static method, so I can access my
+这样子因为我正位于一个静态函数里，所以我能直接调用
 
 694
 00:37:34,986 --> 00:37:41,524
 static vars without the Card. So that's kinda cool.
+静态变量而不需要使用 Card. 。这是蛮酷的
 
 695
 00:37:41,593 --> 00:37:45,295
 So I just want to take this little detour to show you how
+所以我仅是想用这一点点兜圈子的方法向你们展示
 
 696
 00:37:45,363 --> 00:37:48,865
 you can do these nice utility methods or whatever,
+你可以用这些很棒的一个类的工具方法，
 
 697
 00:37:48,934 --> 00:37:51,601
 utility vars on a type. So now let's go back over to
+工具变量做些什么。所以现在让我们返回我们的
 
 698
 00:37:51,670 --> 00:37:54,437
 our concentration, over here cuz it's got a warning, let's
+Concentration 文件，因为这里我们有一个警告，让我们
 
 699
 00:37:54,506 --> 00:37:57,040
 see what this warning is all about. It says immutable value
+看看这个警告是关于什么的。它写着 不可变值 
 
 700
 00:37:57,108 --> 00:38:00,710
 identifier, this, was never used.
+identifer, 这个，从没被使用过
 
 701
 00:38:00,778 --> 00:38:04,747
 It says consider replacing with underbar or removing it.
+它说考虑把它替换成下划线或者移除它
 
 702
 00:38:04,816 --> 00:38:07,583
 Well, we can't remove it because it's the control
+好吧，我们不能移除它因为它是
 
 703
 00:38:07,652 --> 00:38:11,287
 variable of our for loop. But we can replace it with
+我们 for 循环的控制变量。但是我们可以把它替换为
 
 704
 00:38:11,355 --> 00:38:15,424
 underbar. Underbar in Swift means kind of ignore this or
-
+下划线。Swift 中，下划线意味着某种忽略或者
 705
 00:38:15,493 --> 00:38:17,827
 I don't really care what this is cuz I'm not gonna use it.
+我并不十分在乎一件事情是什么，因为我将不会使用它
 
 706
 00:38:17,896 --> 00:38:19,729
 And we've actually used this before, do you remember?
+并且实际上之前我们已经使用过这个语法了，你们记得么？
 
 707
 00:38:19,798 --> 00:38:22,866
 Back over here in our ViewController, touchCard,
+返回我们的 ViewController，touchCard 操作
 
 708
 00:38:22,934 --> 00:38:26,135
 it's external name was underbar. Which means don't
+它的参数标签就是一道下划线，这意味着当你调用它的时候
 
 709
 00:38:26,203 --> 00:38:28,738
 give an external name when you call this because remember
+并没有给它一个参数标签，因为 
 
 710
 00:38:28,807 --> 00:38:30,873
 touchCard's kind of an Objective-C thing.
+touchCard 是有点像 Objective-C 一样的东西
 
 711
 00:38:30,942 --> 00:38:33,376
 This target action, and so it didn't have external name and
+这个目标操作，同样也没有参数标签
 
 712
 00:38:33,444 --> 00:38:34,310
 so we just said, hey,
+所以我们说过，
 
 713
 00:38:34,379 --> 00:38:37,179
 I don't want an external name. Similar kind of thing here in
+我们不想要一个参数标签。与它相似，在
 
 714
 00:38:37,248 --> 00:38:40,015
 Concentration, we're doing a for loop, we still want to do
+Concentration 里，我们正在进行一个 for 循环，我们依然想要
 
 715
 00:38:40,084 --> 00:38:42,752
 this, this many times. But we don't care what identifier is
+进行这个循环很多次，但是我们并不关心这个标识符是什么
 
 716
 00:38:42,821 --> 00:38:47,657
 cuz we don't use it in here anymore. Got that? Okay,
+因为我们再也不会使用它了。明白了么？好的
 
 717
 00:38:47,726 --> 00:38:51,193
 the last thing we need to do here when we're initializing,
+最后一件事情我们需要做的是，当我们初始化的时候
 
 718
 00:38:51,262 --> 00:38:54,997
 it's kind of left to do, is to shuffle the cards. cuz if we
+剩下来要做的，就是洗牌。因为如果我们
 
 719
 00:38:55,066 --> 00:38:58,334
 don't shuffle the cards, then they're always going to be in
+不洗牌，它们将总是
 
 720
 00:38:58,403 --> 00:39:01,136
 the same order all the time. It would be really easy to
+位于相同的顺序。那会让游戏
 
 721
 00:39:01,205 --> 00:39:03,473
 play the game. I'm gonna leave that for your homework.
+变的非常简单。我会把它留作你们的家庭作业
 
 722
 00:39:03,541 --> 00:39:06,676
 Your job is gonna be shuffle the cards there. It's gonna
+你们的任务就是洗牌。它将会
 
 723
 00:39:06,744 --> 00:39:09,879
 require you to understand, again, this value type arrays,
+要求你去再一次理解，这个值类型数组
 
 724
 00:39:09,947 --> 00:39:12,515
 or value types, etc. It's a pretty good exercise to
+或值类型。它是一个非常好的练习
 
 725
 00:39:12,584 --> 00:39:13,582
 do that, so I'm gonna leave that for
+所以我会把它留给你
 
 726
 00:39:13,651 --> 00:39:18,687
 you. We've solved the whole initialization problem. So
+我们已经解决了初始化的问题。所以
 
 727
 00:39:18,756 --> 00:39:22,659
 now we can go back over to our view controller over here. And
+现在我们要返回我们的 ViewController
 
 728
 00:39:22,728 --> 00:39:27,063
 find it. There it is. And Concentration
+找到它，它在这儿。并且 Concentration 
 
 729
 00:39:27,132 --> 00:39:31,066
 right here needs to specify the number of pairs of cards.
+需要明确卡牌对的数量
 
 730
 00:39:31,135 --> 00:39:36,739
 numberOfPairsOfCards, and what number do we put here?
+numberOfParisOfCards，我们要放什么数字到这里
 
 731
 00:39:36,807 --> 00:39:38,874
 Right, I guess we could put four.
+好吧，我猜我会放四到这里
 
 732
 00:39:38,943 --> 00:39:41,577
 We know we have four cards in our UI.
+我们知道我们的 UI 已经有了四张卡牌
 
 733
 00:39:41,646 --> 00:39:43,312
 But what if I wanted to add more buttons?
+但是如果我想要更多的按钮呢？
 
 734
 00:39:43,381 --> 00:39:45,715
 Now I gotta come back here and change this four?
+现在我要返回去然后更改这个数字四
 
 735
 00:39:47,419 --> 00:39:50,286
 Why don't we just count the number of card buttons,
+为什么我们不直接数出卡牌按钮的数量
 
 736
 00:39:50,354 --> 00:39:53,456
 remember? Card buttons, all those buttons are in there,
+记得么？cardButtons 所有的按钮都在这里
 
 737
 00:39:53,524 --> 00:39:57,026
 cardButtons.count. That's how many cards there are, and
+cardButtons.count。那个数字就是这里有多少卡牌
 
 738
 00:39:57,095 --> 00:39:58,961
 we'll just divide by two. All right, make sense?
+然后我们仅要把它除以二。好的，讲得通了吧？
 
 739
 00:39:59,030 --> 00:40:00,730
 Let's so you can see this a little better.
+让我们这样子，让你可以看起来更好一点
 
 740
 00:40:02,500 --> 00:40:04,701
 I'm just gonna take the card buttons and divide by two. So
+我仅要写上 cardButtons 然后除以二
 
 741
 00:40:04,769 --> 00:40:08,237
 if I have four card buttons, that's two pairs, obviously.
+所以如果我有四个卡片按钮，那就是两对，显然
 
 742
 00:40:08,306 --> 00:40:09,505
 Actually I should be a little careful.
+事实上我需要更认真一点
 
 743
 00:40:09,574 --> 00:40:11,707
 If I had an odd number of cards,
+如果我有奇数个卡片的话
 
 744
 00:40:11,776 --> 00:40:15,878
 I probably wanna round up. So if I had three cards I'd need
+我可能要将它取整。所以如果我有三张卡片，我就需要
 
 745
 00:40:15,947 --> 00:40:17,480
 two pairs so I have four total cards.
+两对牌，所以一共我有四张卡片
 
 746
 00:40:17,549 --> 00:40:19,882
 I'll never be able to match that third card but
+我将永远不能匹配第三张卡片，但是
 
 747
 00:40:19,951 --> 00:40:23,252
 at least the game will have enough. Now, this is the right
+至少我们的游戏拥有足够的数量正常进行。这是要做的正确的事情
 
 748
 00:40:23,321 --> 00:40:27,089
 thing to do but I got a very serious error here. Okay,
+但是我得到了一个非常严重的错误。好吧
 
 749
 00:40:27,158 --> 00:40:29,993
 let's look at it. It says, cannot use Instance member
+让我们看一下它。它写着，在这里不能使用实例成员 
 
 750
 00:40:30,061 --> 00:40:33,830
 card buttons, right here, within a property initializer.
+cardButtons，在一个属性构造器里面
 
 751
 00:40:33,898 --> 00:40:35,999
 Oh yeah, look, var game that's a property and
+是的，看，game 变量是一个属性并且我正在
 
 752
 00:40:36,067 --> 00:40:38,667
 I'm initializing it, that's a property initializer.
+初始化它，那是一个属性构造器
 
 753
 00:40:38,736 --> 00:40:42,805
 It says property initializers run before self is available.
+它写着，属性构造器在 self 可用之前运行
 
 754
 00:40:42,873 --> 00:40:45,275
 Oh, remember I told you that in Swift you have to
+记得我告诉过你们，在 Swift 中你必须
 
 755
 00:40:45,343 --> 00:40:48,043
 completely initialize something before you can use
+在使用任何东西之前
 
 756
 00:40:48,112 --> 00:40:50,880
 anything in it, before you can access any of its bars,
+完全初始化它，包括你使用它的任何属性
 
 757
 00:40:50,949 --> 00:40:52,949
 call any of its functions, anything.
+调用它的任何函数，任何事情
 
 758
 00:40:53,018 --> 00:40:55,784
 Well that obviously we're not fully initialized yet
+这里很明显的我们还没有完全初始化它
 
 759
 00:40:55,853 --> 00:40:59,154
 because we're in the process of initializing game. And
+因为我们正在初始化 game 实例的过程中
 
 760
 00:40:59,223 --> 00:41:01,023
 game is the one that's initialized so
+game 就是那个正在被初始化的实例所以
 
 761
 00:41:01,092 --> 00:41:03,893
 we got a catch-22 here. How the heck are we gonna do this,
+我们得到了一个相互抵触的窘境。我们要如何做呢
 
 762
 00:41:03,962 --> 00:41:06,228
 where one depends on the other? Where one var depends
+在这里一个依赖着另一个？一个变量依赖者另一个
 
 763
 00:41:06,297 --> 00:41:09,565
 on another. There's a couple of ways to address this.
+这里有几种方式来解决这个问题
 
 764
 00:41:09,634 --> 00:41:12,101
 But I'm gonna show you kind
+但是我要向你们展示
 
 765
 00:41:12,170 --> 00:41:16,705
 of a cool one which is lazy. If you make a var lazy,
+一种蛮酷的方式，lazy 关键词。如果你懒加载一个变量
 
 766
 00:41:16,774 --> 00:41:21,143
 that means it doesn't actually initialize until someone grabs
+这意味着它并没有被初始化直到一个人想要抓取它
 
 767
 00:41:21,212 --> 00:41:24,881
 it. Until someone tries to use it. As soon as someone tries
+直到一个人想要使用它。一旦一个人尝试使用
 
 768
 00:41:24,950 --> 00:41:27,049
 to use game, then it's going to initialize it.
+game 实例，它才会被初始化
 
 769
 00:41:27,118 --> 00:41:31,087
 Now by definition, because of that very same catch 22, no
+现在通过定义，因为这个相互抵触的窘境
 
 770
 00:41:31,155 --> 00:41:34,924
 one can try and use game until this is fully initialized.
+没有人可以尝试使用 game 实例，直到它被完全初始化
 
 771
 00:41:34,993 --> 00:41:39,062
 So we win, it works perfectly. And lazy count as,
+所以我们赢了，它完美运行。而且是 lazy 关键词让这个
 
 772
 00:41:39,130 --> 00:41:43,700
 this var initialized. Counting that game of getting going
+变量成功初始化的。让这个 game 能够成功发展到
 
 773
 00:41:43,768 --> 00:41:46,268
 this way, so it's awesome. There is one restriction
+这里，它太棒了。不过这里有一个关于
 
 774
 00:41:46,337 --> 00:41:48,437
 about lazy though, that's not so nice.
+lazy 的限制，这不太好。
 
 775
 00:41:48,506 --> 00:41:52,909
 Which is, it can not have a didSet. If you try
+那就是，你不能使用 didSet 语法。如果你尝试
 
 776
 00:41:52,977 --> 00:41:55,678
 to add a didSet to it, like we did here with flipCount,
+给它添加一个 didSet，就想我们对 flipCount 做的那样子
 
 777
 00:41:55,747 --> 00:41:58,847
 remember that? It's, you're gonna get an error here,
+记得么？如果添加了，你就会得到一个错误
 
 778
 00:41:58,916 --> 00:42:02,284
 this is clash declaration blah blah blah, but basically what
+这是一个崩溃的声明 等等等，但是基本上它
 
 779
 00:42:02,353 --> 00:42:05,587
 it's saying here is you can't use property observers with
+所说的就是你不能够在一个懒加载的变量上使用
 
 780
 00:42:05,656 --> 00:42:07,957
 a lazy var. So if you need to use a property observer there,
+属性观察者。所以如果你需要在某个地方使用属性观察者
 
 781
 00:42:08,026 --> 00:42:09,692
 you need to find out every time the game changes,
+你需要找出每次 game 改变的地方
 
 782
 00:42:09,761 --> 00:42:11,260
 you're going to have to do a different way.
+你将以一种不同的方式来做
 
 783
 00:42:11,328 --> 00:42:12,829
 What are the other ways you can do it, by the way?
+顺便说一下，你可以用什么其他的方式呢？
 
 784
 00:42:12,897 --> 00:42:14,062
 Well, you're going to
+你将会在
 
 785
 00:42:14,131 --> 00:42:17,199
 learn next week that there are methods that are called after
+下周学习到一些方法，它们会在所有的
 
 786
 00:42:17,268 --> 00:42:20,936
 all these outlets get fired up. The system will call
+出口接通后。系统将会调用一个
 
 787
 00:42:21,005 --> 00:42:23,305
 a method and in there you can initialize your game.
+方法，在那里你可以初始化你的 game 实例
 
 788
 00:42:23,374 --> 00:42:25,708
 And maybe in the mean time you make it an optional or
+可能你想要把它设置成一个可选类型或者
 
 789
 00:42:25,776 --> 00:42:28,978
 maybe even an implicitly unwrapped optional.
+甚至是一个隐式解析可选类型
 
 790
 00:42:29,046 --> 00:42:30,813
 A little hint to you there. But you won't need that for
+这是给你一点小的提示，不过你的家庭作业
 
 791
 00:42:30,882 --> 00:42:32,515
 your homework though. You'll be able to do this for
+不需要它。你用这个就可以完成
 
 792
 00:42:32,583 --> 00:42:36,485
 your homework. Okay, so it's good. Now we have the game,
+你的家庭作业。好的，它是棒的。现在我们有了 game 实例，
 
 793
 00:42:36,554 --> 00:42:39,355
 the big green arrow. There our controller is talking to our
+有了绿色通道，在那里我们的控制器正在向模型通信
 
 794
 00:42:39,423 --> 00:42:41,724
 model. What do we need to do next?
+我们接下来需要做什么？
 
 795
 00:42:41,793 --> 00:42:44,526
 Let's go back and look at our Concentration API again, see
+让我们再一次返回查看我们的 Concentration API
 
 796
 00:42:44,595 --> 00:42:47,496
 what we need to do. It seems like there is two things,
+看我们需要做什么。它看起来是两件事情
 
 797
 00:42:47,565 --> 00:42:51,067
 we have used this part of the API. We got these two left, so
+我们已经使用了一部分的 API。我们还剩下两个，所以
 
 798
 00:42:51,135 --> 00:42:53,902
 let's do this one, chooseCard. We got to tell
+让我们来处理这个，chooseCard。当一张卡片被选中的时候
 
 799
 00:42:53,971 --> 00:42:56,539
 the concentration model when our card is chosen.
+我们要告诉这个 concentration 模型
 
 800
 00:42:56,607 --> 00:42:59,508
 And we know exactly when that is in our controller.
+并且在我们的控制器中，我们知道确切的时间
 
 801
 00:42:59,577 --> 00:43:02,878
@@ -5235,474 +5636,592 @@ only face up card.
 1199
 01:04:43,379 --> 01:04:45,714
 Let's do all that. Let's check if the cards match,
+让我们开始做吧。首先检查是否卡片是配对的
 
 1200
 01:04:45,782 --> 01:04:52,786
 really easy if the cards match index its identifier
+这是非常简单的，如果要配对的卡片的标识符
 
 1201
 01:04:52,855 --> 01:04:57,592
 equals the cards of the index you chose. This is choose card
+等于你选择的卡片的标识符，index 就是 chooseCard 这个函数里面的
 
 1202
 01:04:57,661 --> 01:05:01,596
 at index. If they match, then I'm gonna mark them matched.
+实参。如果它们是匹配的，那么我将要标记它们为成功匹配
 
 1203
 01:05:01,664 --> 01:05:06,501
 Cards of match index is matched and
+待匹配的卡片修改为成功匹配
 
 1204
 01:05:06,570 --> 01:05:11,772
 the cards that you chose is matched.
+你选择的卡片也是成功匹配
 
 1205
 01:05:11,841 --> 01:05:18,412
 So I matched them, excellent. Now, even if they don't match,
+所以如果我匹配了它们，是很棒的。现在，如果它们不匹配的话
 
 1206
 01:05:18,481 --> 01:05:21,549
 what happens when I chose that second card right there? Two
+当我选择第二张卡片的时候，这里要发生什么事情呢？
 
 1207
 01:05:21,617 --> 01:05:26,621
 things happen, one, I gotta flip up the card you chose.
+两件事情发生，首先，我将要把你选择的卡片翻到正面
 
 1208
 01:05:26,689 --> 01:05:29,023
 Cuz you chose a card that was face down, right there so
+因为你选择的那张卡片之前是朝下的，在这里
 
 1209
 01:05:29,092 --> 01:05:32,193
 I'm gonna say cards sub index is...
+我会写成，那张卡片的 
 
 1210
 01:05:33,697 --> 01:05:37,198
 Is face up is true, cuz you chose a card,
+isFaceUp 属性为 ture，因为你选择了它
 
 1211
 01:05:37,267 --> 01:05:39,400
 I'm flipping it up of course. And number two and
+当然我就会把它翻到正面。其次
 
 1212
 01:05:39,469 --> 01:05:43,337
 most importantly the index of the one and only face up card
+也是最重要的是，indexOfOneAndOnlyFaceUpCard 
 
 1213
 01:05:43,406 --> 01:05:48,542
 equals nil. Because now there are two matched cards,
+赋值为 nil，因为现在这里有了两张匹配的卡片
 
 1214
 01:05:48,611 --> 01:05:51,979
 two, matched or unmatched, two face up cards. So
+不，是两张匹配或者不匹配的，正面朝上的卡片
 
 1215
 01:05:52,048 --> 01:05:55,549
 there is not a one and only face up card. So it's nil, so
+所以并不是有且只有一张朝上的卡片。所以它的值为 nil
 
 1216
 01:05:55,618 --> 01:05:58,653
 it's perfectly legal to to set an optional to nil. So that's
+并且设定一个可选类型的值为 nil 是完全有效的
 
 1217
 01:05:58,721 --> 01:06:00,755
 what we do if the cards match, that's all we have to do.
+那就是我们要做的如果卡片匹配的逻辑，必须去做的全部的逻辑
 
 1218
 01:06:00,823 --> 01:06:03,024
 Now here we either have no cards or
+在这里我们要么没有卡片朝上
 
 1219
 01:06:03,093 --> 01:06:04,792
 two cards are face up. In this case,
+或者有两张卡片朝上。在这种情况下
 
 1220
 01:06:04,861 --> 01:06:07,795
 I'm gonna turn all cards face down. Now they might already
+我会先把所有卡片翻到背面。它们可能已经
 
 1221
 01:06:07,864 --> 01:06:10,798
 all be face down but so it's a little of wasted work.
+全部翻到背面，这只不过这做了一点点多余的工作
 
 1222
 01:06:10,867 --> 01:06:15,636
 I'm just gonna go for flip down index in, what?
+我要写 for flipDownIndex in 
 
 1223
 01:06:15,705 --> 01:06:21,943
 In my cards' indices. Cards.indices,
+cards.indices。Cards 的 indices 属性
 
 1224
 01:06:22,012 --> 01:06:24,679
 that's all, that's a countable range. Remember,
+那是一个 CountableRange，记得么
 
 1225
 01:06:24,747 --> 01:06:29,884
 this is a countable range right here, of all the indexes
+在这里它是一个 CountableRange，范围是
 
 1226
 01:06:29,952 --> 01:06:33,321
 of the flip, in my cards. So for each one of the cards,
+我所有的卡片。所以对于每一张卡片
 
 1227
 01:06:33,389 --> 01:06:39,527
 I'm gonna say card at the flipDownIndex.isFaceup= false.
+我会写 位于 flipDownIndex 的那张卡片的 isFaceUp 属性为 false
 
 1228
 01:06:39,596 --> 01:06:43,131
 I just turned every single card on the board face down.
+我仅仅是把桌面上每一张卡片都翻到了背面
 
 1229
 01:06:43,199 --> 01:06:45,766
 But now you've chose a card, so I'm gonna turn that card
+但是既然你已经选择了一张卡片，我就要把你选择的那张
 
 1230
 01:06:45,835 --> 01:06:53,541
 that you just chose back to face up. .isFaceUp = true and
+翻到正面，isFaceUp 设为 true 
 
 1231
 01:06:53,610 --> 01:06:56,944
 of course since I just turned all the cards face down and
+当然因为我刚刚把所有的卡片都翻到了背面
 
 1232
 01:06:57,013 --> 01:07:00,414
 turned one card faced up, what is the index of the one and
+而且只把一张卡片翻到了正面，那么 indexOfOneAndOnlyFaceUp 的
 
 1233
 01:07:00,483 --> 01:07:04,752
 only face up card? It's this index. I just turned it
+那张卡片的指数是什么呢？它就是这个 index。我刚刚
 
 1234
 01:07:04,821 --> 01:07:08,256
 faced up so, by definition it's the only card.
+把它翻到正面，所以通过定义，它就是唯一的卡片
 
 1235
 01:07:08,325 --> 01:07:10,858
 And this ladies and gentlemen what do we got here? Oh this
+我们现在得到了什么？噢，这里应该是
 
 1236
 01:07:10,926 --> 01:07:15,229
 is cardsindex.identifier got to compare the identifiers.
+cards[index].identifier 来对比那个 identifier
 
 1237
 01:07:15,298 --> 01:07:18,532
 This is the entirety of the concentration game logic,
+这就是翻牌游戏整个的逻辑
 
 1238
 01:07:18,601 --> 01:07:21,502
 that's it, that's all that's necessary.
+这就是了，这是所有必要的逻辑
 
 1239
 01:07:21,571 --> 01:07:23,437
 And can you see how having this optional
+你能够看出如何通过这里的可选类型
 
 1240
 01:07:23,506 --> 01:07:26,407
 right here kinda made it very simple and straightforward?
+令整个逻辑十分的简洁和直白么？
 
 1241
 01:07:26,475 --> 01:07:29,810
 Because it's easy for me to track the card I want it to
+因为对我来说，定位我想要的那张要匹配的卡片一直是
 
 1242
 01:07:29,879 --> 01:07:32,379
 match against all the time. And it was easy for
+非常简单的。并且对我来说
 
 1243
 01:07:32,448 --> 01:07:35,183
 me to tell whether there was one to match it against or
+判断出这里是否有一张要匹配的卡片也是简单的
 
 1244
 01:07:35,251 --> 01:07:37,518
 not, all contained in one little variable that had a lot
+所有的逻辑都包含在一个小小的变量里面
 
 1245
 01:07:37,587 --> 01:07:41,856
 of information it it. That's it, let's go see if our
+它有着太多的信息。这就是了它了。让我们看看是否
 
 1246
 01:07:41,924 --> 01:07:44,325
 app is working. It should just work, I mean once you make
+应用可以运行。它应该可以运行，我的意思是一旦你实现好了
 
 1247
 01:07:44,393 --> 01:07:47,561
 the model, do what its suppose to do the UI doesn't care.
+模型，实现了它应该做的事情， UI 并不会在意
 
 1248
 01:07:47,630 --> 01:07:49,630
 It's just presenting what the model has, so
+它只是展示模型的内容，所以
 
 1249
 01:07:49,699 --> 01:07:52,200
 it should just work. So let's try it here. All right,
+它应该可以正常运行。让我们试一下
 
 1250
 01:07:52,268 --> 01:07:56,837
 we've got this, the cat, oh, there's the screaming face.
+好的，我们得到了这个，那只猫，喔，那里有一张尖叫的脸
 
 1251
 01:07:56,906 --> 01:07:58,873
 Now what should happen when I click another card?
+现在如果我点击另一张卡片应该发生什么？
 
 1252
 01:07:58,941 --> 01:08:00,741
 It should flip them all face down.
+它应该把所有的卡片都翻到背面
 
 1253
 01:08:00,810 --> 01:08:02,276
 It didn't match, this didn't match, so
+因为它并没有匹配，没有匹配，所以
 
 1254
 01:08:02,345 --> 01:08:05,213
 it should flip these all face down. Turn the new one face
+所以它应该把所有的卡片都翻到背面。把新的卡片
 
 1255
 01:08:05,281 --> 01:08:07,615
 up, and now that optional's gonna be set. So
+翻到正面，然后那个可选类型将会有值
 
 1256
 01:08:07,684 --> 01:08:10,418
 let's try it. Sure enough it turned them all face down and
+让我们试一下。当然它把它们都翻到了背面
 
 1257
 01:08:10,486 --> 01:08:14,589
 turned this one up. Now what happens if I choose a match?
+然后把它翻到了正面。现在如果我选择一张能够匹配的卡片会发生什么？
 
 1258
 01:08:14,657 --> 01:08:17,458
 Now they've both been marked matched. Now the next time I
+现在它们全部都会被标记为成功匹配。下一次
 
 1259
 01:08:17,527 --> 01:08:19,760
 click on a card, it's gonna turn them face down.
+我点击一张卡片的时候，它们就会翻到背面
 
 1260
 01:08:19,829 --> 01:08:24,365
 They're gonna be both face down and matched, so
+它们将会全部翻到背面并且成功匹配，所以这里会有
 
 1261
 01:08:24,434 --> 01:08:28,303
 they're gonna get a clear background and
+一个透明的背景
 
 1262
 01:08:28,371 --> 01:08:32,973
 we're not gonna be able to see them, watch.
+我们将不会再看到它们，看
 
 1263
 01:08:33,042 --> 01:08:38,312
 Now that the game is done. Now in your homework you're gonna
+现在这个游戏就完成了。在你们的家庭作业里，你们将要
 
 1264
 01:08:38,381 --> 01:08:40,882
 add a new game button which is what you would press at this
+添加一个按钮，当你按下的时候会开始一局新的游戏
 
 1265
 01:08:40,950 --> 01:08:46,354
 point. I won't play another game. Last thing
+我不会再玩另一场游戏。最后一件事情
 
 1266
 01:08:46,423 --> 01:08:51,492
 to do here and we have time luckily is to add more cards.
+要做的，幸运的是我们有时间添加更多的卡片
 
 1267
 01:08:51,561 --> 01:08:54,262
 Because four cards is kind of a boring game so
+四张卡片的游戏是有点无聊的
 
 1268
 01:08:54,331 --> 01:08:59,400
 let's go here to our UI. We've got our UI. I made my
+让我们去到我们的 UI。我们得到了我们的 UI
 
 1269
 01:09:01,771 --> 01:09:05,673
 buttons here be 80 points wide which I kinda recommend you do
+我让这里的按钮变成 80 像素点宽，我推荐
 
 1270
 01:09:05,742 --> 01:09:08,776
 for your homework. Because 80 points wide,
+你们的家庭作业也这么多。因为 80 像素点宽
 
 1271
 01:09:08,845 --> 01:09:12,747
 they fit really nice four across okay? Let's put them
+可以非常好的符合四张卡片的排布，好么？让我们
 
 1272
 01:09:12,816 --> 01:09:15,816
 up,now I'm gonna use the little blue lines to help me
+把它们放上去，我会利用这条蓝线
 
 1273
 01:09:15,885 --> 01:09:21,389
 place them here. If you use the blue lines look,
+帮我放置它们。如果你使用这些蓝线，看
 
 1274
 01:09:21,458 --> 01:09:24,559
 four of them at 80 points each fit right across. And
+四个 80 像素点的恰好横向排布
 
 1275
 01:09:24,627 --> 01:09:26,126
 then I'm gonna make some more. I'm gonna select them and
+我还要做更多事情。我要选中它们
 
 1276
 01:09:26,195 --> 01:09:29,496
 copy paste. Use the blinds, the blue lines paste some
+然后复制粘贴。利用这些像百叶一样的东西，这些蓝线
 
 1277
 01:09:29,565 --> 01:09:31,466
 more, let's have 12 of them here.
+复制了更多，现在我们有了12张卡片
 
 1278
 01:09:33,202 --> 01:09:36,136
 And I need to make sure that everything is connected so
+我需要确定每个都连接上了
 
 1279
 01:09:36,205 --> 01:09:38,839
 let's look at like touch card. Hey, they're all sending touch
+让我们可以看一下 touchCard。它们都会发送 touchCard 消息
 
 1280
 01:09:38,908 --> 01:09:43,411
 card, great. How about card buttons? When we copy and
+棒极了。至于 cardButtons 呢？当我们复制粘贴的时候
 
 1281
 01:09:43,479 --> 01:09:47,682
 paste it doesn't put them into that card buttons outlet
+它并不会把它们放到 cardButtons 出口数组里
 
 1282
 01:09:47,751 --> 01:09:49,584
 array of buttons, so we need to do that.
+所以我们需要做这个
 
 1283
 01:09:49,652 --> 01:09:51,351
 So I'm just going to do ctrl+drag.
+我要按住 Ctrl，拖拽
 
 1284
 01:09:51,420 --> 01:09:56,557
 Now if you really had 12 cards or more than 12 cards, in real
+如果你真的有12张或更多的卡牌，在实际操作中
 
 1285
 01:09:56,626 --> 01:09:59,527
 life you'd probably wouldn't use an outlet collection.
+你可能不会使用一个 出口集合
 
 1286
 01:09:59,595 --> 01:10:03,064
 You would probably go in your code and go find all these
+你可能会去到你的代码里面，发现所有的事情
 
 1287
 01:10:03,133 --> 01:10:04,698
 things, you could probably do it all in one or
+事实上，你可能会用一到两行代码
 
 1288
 01:10:04,767 --> 01:10:07,301
 two lines of code actually. But you really haven't learned
+搞定全部的事情。但是你还没有
 
 1289
 01:10:07,370 --> 01:10:10,537
 enough from me about how the view hierarchy works and
+从我这里学到足够多的关于视图嵌套是如何工作的，和有关的
 
 1290
 01:10:10,606 --> 01:10:13,007
 all these things to do that. So for your homework
+全部事情。所以对于你的家庭作业来说
 
 1291
 01:10:13,075 --> 01:10:15,443
 you're just gonna have to be doing some control dragging
+你将做一些拖拽的控制，就像我做的
 
 1292
 01:10:15,512 --> 01:10:19,380
 like I am to hook them all up. They're all hooked up,
+把它们关联起来。它们都关联好了
 
 1293
 01:10:19,448 --> 01:10:22,183
 they're all hooked up. Our flip count label's hooked up.
+都关联好了。我们的 flipCount 标签已经关联好了
 
 1294
 01:10:22,252 --> 01:10:25,286
 Our UI looks all set. I haven't changed anything but
+我们的 UI 看起来都设置完成了。除了那个我还没改动任何东西
 
 1295
 01:10:25,354 --> 01:10:30,324
 that. I didn't go change any code anywhere. Okay, I just
+我并没有改动任何的代码。好的，我仅仅
 
 1296
 01:10:30,392 --> 01:10:32,827
 put more buttons in my UI. And because I built this nice,
+在我的 UI 里放置了更多的按钮。并且正因为我搭建了这个好的
 
 1297
 01:10:32,895 --> 01:10:37,799
 flexible UI that can really handle any number of cards,
+灵活的界面，以至于它真的可以应付任何数量的卡片
 
 1298
 01:10:37,867 --> 01:10:46,374
 this should just work. Here we go,
+它应该可以工作。让我们开始
 
 1299
 01:10:46,443 --> 01:10:49,977
 let's try. We got candy, apple,
+试一下，我们得到了糖果，苹果
 
 1300
 01:10:50,046 --> 01:10:54,882
 no match. I have bat, no match.
+没有匹配。我得到了蝙蝠，没有匹配
 
 1301
 01:10:54,951 --> 01:11:01,021
 How about pumpkin? Oh candy I think I remember candy,
+南瓜如何？噢！糖果，我认为我记得糖果的位置
 
 1302
 01:11:01,090 --> 01:11:04,725
 was it maybe right here? Yes,
+它是在这里么？是的
 
 1303
 01:11:04,794 --> 01:11:07,795
 woo ho we found the candy it was right next to each other.
+哇，我们找到了糖果，他们就在彼此的旁边
 
 1304
 01:11:07,863 --> 01:11:11,365
 Let's try something else. Okay how about this one, apple,
+让我们试试其他东西。这个怎么样，苹果
 
 1305
 01:11:11,433 --> 01:11:16,604
 no.,no match. Oh, apple oh, this is a pretty easy game.
+没有匹配。噢，苹果，噢，这是一个相当简单的游戏
 
 1306
 01:11:16,673 --> 01:11:18,505
 I don't know why everyone thinks Concentration's so
+我不知道为什么每个人都认为翻牌游戏很
 
 1307
 01:11:18,574 --> 01:11:20,174
 hard, look at that. Okay,
+困难，看那个啊。好的
 
 1308
 01:11:20,242 --> 01:11:24,312
 all done. Okay so why is this game so easy?
+所有都完成了。所以为什么这个游戏如此简单呢？
 
 1309
 01:11:24,380 --> 01:11:27,882
 Well, because you guys have not done your homework yet,
+因为你们还没有完成家庭作业
 
 1310
 01:11:27,951 --> 01:11:31,719
 which if you remember back here Concentration we have
+如果你记得在 Concentration 文件里，我们还有
 
 1311
 01:11:31,788 --> 01:11:37,124
 this little to do. To do by the way is a special comment.
+这点小事情要做。顺便说一下，ToDo 是一个特殊的注释
 
 1312
 01:11:37,193 --> 01:11:40,194
 If you look at the top line of your thing right here, which
+如果你看向 Xcode 顶部那里，它
 
 1313
 01:11:40,262 --> 01:11:42,797
 shows you which file you're choosing. It also shows you
+展示给你正在选中的文件是哪一个。它还展示给你
 
 1314
 01:11:42,865 --> 01:11:46,533
 within that file with all your methods and properties and
+这个文件里所有的方法和属性以及
 
 1315
 01:11:46,602 --> 01:11:51,906
 if you put //to do, it shows up. See shuffle the cards.
+如果你写了一个 ToDo 的注释，它也会出现。看 shuffle the cards
 
 1316
 01:11:51,975 --> 01:11:55,242
 All right, see you on Monday. >> For
+好的，我们周一再见
 
 1317
 01:11:55,311 --> 01:12:04,718
