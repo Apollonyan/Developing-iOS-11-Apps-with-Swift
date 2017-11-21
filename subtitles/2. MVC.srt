@@ -5636,474 +5636,592 @@ only face up card.
 1199
 01:04:43,379 --> 01:04:45,714
 Let's do all that. Let's check if the cards match,
+让我们开始做吧。首先检查是否卡片是配对的
 
 1200
 01:04:45,782 --> 01:04:52,786
 really easy if the cards match index its identifier
+这是非常简单的，如果要配对的卡片的标识符
 
 1201
 01:04:52,855 --> 01:04:57,592
 equals the cards of the index you chose. This is choose card
+等于你选择的卡片的标识符，index 就是 chooseCard 这个函数里面的
 
 1202
 01:04:57,661 --> 01:05:01,596
 at index. If they match, then I'm gonna mark them matched.
+实参。如果它们是匹配的，那么我将要标记它们为成功匹配
 
 1203
 01:05:01,664 --> 01:05:06,501
 Cards of match index is matched and
+待匹配的卡片修改为成功匹配
 
 1204
 01:05:06,570 --> 01:05:11,772
 the cards that you chose is matched.
+你选择的卡片也是成功匹配
 
 1205
 01:05:11,841 --> 01:05:18,412
 So I matched them, excellent. Now, even if they don't match,
+所以如果我匹配了它们，是很棒的。现在，如果它们不匹配的话
 
 1206
 01:05:18,481 --> 01:05:21,549
 what happens when I chose that second card right there? Two
+当我选择第二张卡片的时候，这里要发生什么事情呢？
 
 1207
 01:05:21,617 --> 01:05:26,621
 things happen, one, I gotta flip up the card you chose.
+两件事情发生，首先，我将要把你选择的卡片翻到正面
 
 1208
 01:05:26,689 --> 01:05:29,023
 Cuz you chose a card that was face down, right there so
+因为你选择的那张卡片之前是朝下的，在这里
 
 1209
 01:05:29,092 --> 01:05:32,193
 I'm gonna say cards sub index is...
+我会写成，那张卡片的 
 
 1210
 01:05:33,697 --> 01:05:37,198
 Is face up is true, cuz you chose a card,
+isFaceUp 属性为 ture，因为你选择了它
 
 1211
 01:05:37,267 --> 01:05:39,400
 I'm flipping it up of course. And number two and
+当然我就会把它翻到正面。其次
 
 1212
 01:05:39,469 --> 01:05:43,337
 most importantly the index of the one and only face up card
+也是最重要的是，indexOfOneAndOnlyFaceUpCard 
 
 1213
 01:05:43,406 --> 01:05:48,542
 equals nil. Because now there are two matched cards,
+赋值为 nil，因为现在这里有了两张匹配的卡片
 
 1214
 01:05:48,611 --> 01:05:51,979
 two, matched or unmatched, two face up cards. So
+不，是两张匹配或者不匹配的，正面朝上的卡片
 
 1215
 01:05:52,048 --> 01:05:55,549
 there is not a one and only face up card. So it's nil, so
+所以并不是有且只有一张朝上的卡片。所以它的值为 nil
 
 1216
 01:05:55,618 --> 01:05:58,653
 it's perfectly legal to to set an optional to nil. So that's
+并且设定一个可选类型的值为 nil 是完全有效的
 
 1217
 01:05:58,721 --> 01:06:00,755
 what we do if the cards match, that's all we have to do.
+那就是我们要做的如果卡片匹配的逻辑，必须去做的全部的逻辑
 
 1218
 01:06:00,823 --> 01:06:03,024
 Now here we either have no cards or
+在这里我们要么没有卡片朝上
 
 1219
 01:06:03,093 --> 01:06:04,792
 two cards are face up. In this case,
+或者有两张卡片朝上。在这种情况下
 
 1220
 01:06:04,861 --> 01:06:07,795
 I'm gonna turn all cards face down. Now they might already
+我会先把所有卡片翻到背面。它们可能已经
 
 1221
 01:06:07,864 --> 01:06:10,798
 all be face down but so it's a little of wasted work.
+全部翻到背面，这只不过这做了一点点多余的工作
 
 1222
 01:06:10,867 --> 01:06:15,636
 I'm just gonna go for flip down index in, what?
+我要写 for flipDownIndex in 
 
 1223
 01:06:15,705 --> 01:06:21,943
 In my cards' indices. Cards.indices,
+cards.indices。Cards 的 indices 属性
 
 1224
 01:06:22,012 --> 01:06:24,679
 that's all, that's a countable range. Remember,
+那是一个 CountableRange，记得么
 
 1225
 01:06:24,747 --> 01:06:29,884
 this is a countable range right here, of all the indexes
+在这里它是一个 CountableRange，范围是
 
 1226
 01:06:29,952 --> 01:06:33,321
 of the flip, in my cards. So for each one of the cards,
+我所有的卡片。所以对于每一张卡片
 
 1227
 01:06:33,389 --> 01:06:39,527
 I'm gonna say card at the flipDownIndex.isFaceup= false.
+我会写 位于 flipDownIndex 的那张卡片的 isFaceUp 属性为 false
 
 1228
 01:06:39,596 --> 01:06:43,131
 I just turned every single card on the board face down.
+我仅仅是把桌面上每一张卡片都翻到了背面
 
 1229
 01:06:43,199 --> 01:06:45,766
 But now you've chose a card, so I'm gonna turn that card
+但是既然你已经选择了一张卡片，我就要把你选择的那张
 
 1230
 01:06:45,835 --> 01:06:53,541
 that you just chose back to face up. .isFaceUp = true and
+翻到正面，isFaceUp 设为 true 
 
 1231
 01:06:53,610 --> 01:06:56,944
 of course since I just turned all the cards face down and
+当然因为我刚刚把所有的卡片都翻到了背面
 
 1232
 01:06:57,013 --> 01:07:00,414
 turned one card faced up, what is the index of the one and
+而且只把一张卡片翻到了正面，那么 indexOfOneAndOnlyFaceUp 的
 
 1233
 01:07:00,483 --> 01:07:04,752
 only face up card? It's this index. I just turned it
+那张卡片的指数是什么呢？它就是这个 index。我刚刚
 
 1234
 01:07:04,821 --> 01:07:08,256
 faced up so, by definition it's the only card.
+把它翻到正面，所以通过定义，它就是唯一的卡片
 
 1235
 01:07:08,325 --> 01:07:10,858
 And this ladies and gentlemen what do we got here? Oh this
+我们现在得到了什么？噢，这里应该是
 
 1236
 01:07:10,926 --> 01:07:15,229
 is cardsindex.identifier got to compare the identifiers.
+cards[index].identifier 来对比那个 identifier
 
 1237
 01:07:15,298 --> 01:07:18,532
 This is the entirety of the concentration game logic,
+这就是翻牌游戏整个的逻辑
 
 1238
 01:07:18,601 --> 01:07:21,502
 that's it, that's all that's necessary.
+这就是了，这是所有必要的逻辑
 
 1239
 01:07:21,571 --> 01:07:23,437
 And can you see how having this optional
+你能够看出如何通过这里的可选类型
 
 1240
 01:07:23,506 --> 01:07:26,407
 right here kinda made it very simple and straightforward?
+令整个逻辑十分的简洁和直白么？
 
 1241
 01:07:26,475 --> 01:07:29,810
 Because it's easy for me to track the card I want it to
+因为对我来说，定位我想要的那张要匹配的卡片一直是
 
 1242
 01:07:29,879 --> 01:07:32,379
 match against all the time. And it was easy for
+非常简单的。并且对我来说
 
 1243
 01:07:32,448 --> 01:07:35,183
 me to tell whether there was one to match it against or
+判断出这里是否有一张要匹配的卡片也是简单的
 
 1244
 01:07:35,251 --> 01:07:37,518
 not, all contained in one little variable that had a lot
+所有的逻辑都包含在一个小小的变量里面
 
 1245
 01:07:37,587 --> 01:07:41,856
 of information it it. That's it, let's go see if our
+它有着太多的信息。这就是了它了。让我们看看是否
 
 1246
 01:07:41,924 --> 01:07:44,325
 app is working. It should just work, I mean once you make
+应用可以运行。它应该可以运行，我的意思是一旦你实现好了
 
 1247
 01:07:44,393 --> 01:07:47,561
 the model, do what its suppose to do the UI doesn't care.
+模型，实现了它应该做的事情， UI 并不会在意
 
 1248
 01:07:47,630 --> 01:07:49,630
 It's just presenting what the model has, so
+它只是展示模型的内容，所以
 
 1249
 01:07:49,699 --> 01:07:52,200
 it should just work. So let's try it here. All right,
+它应该可以正常运行。让我们试一下
 
 1250
 01:07:52,268 --> 01:07:56,837
 we've got this, the cat, oh, there's the screaming face.
+好的，我们得到了这个，那只猫，喔，那里有一张尖叫的脸
 
 1251
 01:07:56,906 --> 01:07:58,873
 Now what should happen when I click another card?
+现在如果我点击另一张卡片应该发生什么？
 
 1252
 01:07:58,941 --> 01:08:00,741
 It should flip them all face down.
+它应该把所有的卡片都翻到背面
 
 1253
 01:08:00,810 --> 01:08:02,276
 It didn't match, this didn't match, so
+因为它并没有匹配，没有匹配，所以
 
 1254
 01:08:02,345 --> 01:08:05,213
 it should flip these all face down. Turn the new one face
+所以它应该把所有的卡片都翻到背面。把新的卡片
 
 1255
 01:08:05,281 --> 01:08:07,615
 up, and now that optional's gonna be set. So
+翻到正面，然后那个可选类型将会有值
 
 1256
 01:08:07,684 --> 01:08:10,418
 let's try it. Sure enough it turned them all face down and
+让我们试一下。当然它把它们都翻到了背面
 
 1257
 01:08:10,486 --> 01:08:14,589
 turned this one up. Now what happens if I choose a match?
+然后把它翻到了正面。现在如果我选择一张能够匹配的卡片会发生什么？
 
 1258
 01:08:14,657 --> 01:08:17,458
 Now they've both been marked matched. Now the next time I
+现在它们全部都会被标记为成功匹配。下一次
 
 1259
 01:08:17,527 --> 01:08:19,760
 click on a card, it's gonna turn them face down.
+我点击一张卡片的时候，它们就会翻到背面
 
 1260
 01:08:19,829 --> 01:08:24,365
 They're gonna be both face down and matched, so
+它们将会全部翻到背面并且成功匹配，所以这里会有
 
 1261
 01:08:24,434 --> 01:08:28,303
 they're gonna get a clear background and
+一个透明的背景
 
 1262
 01:08:28,371 --> 01:08:32,973
 we're not gonna be able to see them, watch.
+我们将不会再看到它们，看
 
 1263
 01:08:33,042 --> 01:08:38,312
 Now that the game is done. Now in your homework you're gonna
+现在这个游戏就完成了。在你们的家庭作业里，你们将要
 
 1264
 01:08:38,381 --> 01:08:40,882
 add a new game button which is what you would press at this
+添加一个按钮，当你按下的时候会开始一局新的游戏
 
 1265
 01:08:40,950 --> 01:08:46,354
 point. I won't play another game. Last thing
+我不会再玩另一场游戏。最后一件事情
 
 1266
 01:08:46,423 --> 01:08:51,492
 to do here and we have time luckily is to add more cards.
+要做的，幸运的是我们有时间添加更多的卡片
 
 1267
 01:08:51,561 --> 01:08:54,262
 Because four cards is kind of a boring game so
+四张卡片的游戏是有点无聊的
 
 1268
 01:08:54,331 --> 01:08:59,400
 let's go here to our UI. We've got our UI. I made my
+让我们去到我们的 UI。我们得到了我们的 UI
 
 1269
 01:09:01,771 --> 01:09:05,673
 buttons here be 80 points wide which I kinda recommend you do
+我让这里的按钮变成 80 像素点宽，我推荐
 
 1270
 01:09:05,742 --> 01:09:08,776
 for your homework. Because 80 points wide,
+你们的家庭作业也这么多。因为 80 像素点宽
 
 1271
 01:09:08,845 --> 01:09:12,747
 they fit really nice four across okay? Let's put them
+可以非常好的符合四张卡片的排布，好么？让我们
 
 1272
 01:09:12,816 --> 01:09:15,816
 up,now I'm gonna use the little blue lines to help me
+把它们放上去，我会利用这条蓝线
 
 1273
 01:09:15,885 --> 01:09:21,389
 place them here. If you use the blue lines look,
+帮我放置它们。如果你使用这些蓝线，看
 
 1274
 01:09:21,458 --> 01:09:24,559
 four of them at 80 points each fit right across. And
+四个 80 像素点的恰好横向排布
 
 1275
 01:09:24,627 --> 01:09:26,126
 then I'm gonna make some more. I'm gonna select them and
+我还要做更多事情。我要选中它们
 
 1276
 01:09:26,195 --> 01:09:29,496
 copy paste. Use the blinds, the blue lines paste some
+然后复制粘贴。利用这些像百叶一样的东西，这些蓝线
 
 1277
 01:09:29,565 --> 01:09:31,466
 more, let's have 12 of them here.
+复制了更多，现在我们有了12张卡片
 
 1278
 01:09:33,202 --> 01:09:36,136
 And I need to make sure that everything is connected so
+我需要确定每个都连接上了
 
 1279
 01:09:36,205 --> 01:09:38,839
 let's look at like touch card. Hey, they're all sending touch
+让我们可以看一下 touchCard。它们都会发送 touchCard 消息
 
 1280
 01:09:38,908 --> 01:09:43,411
 card, great. How about card buttons? When we copy and
+棒极了。至于 cardButtons 呢？当我们复制粘贴的时候
 
 1281
 01:09:43,479 --> 01:09:47,682
 paste it doesn't put them into that card buttons outlet
+它并不会把它们放到 cardButtons 出口数组里
 
 1282
 01:09:47,751 --> 01:09:49,584
 array of buttons, so we need to do that.
+所以我们需要做这个
 
 1283
 01:09:49,652 --> 01:09:51,351
 So I'm just going to do ctrl+drag.
+我要按住 Ctrl，拖拽
 
 1284
 01:09:51,420 --> 01:09:56,557
 Now if you really had 12 cards or more than 12 cards, in real
+如果你真的有12张或更多的卡牌，在实际操作中
 
 1285
 01:09:56,626 --> 01:09:59,527
 life you'd probably wouldn't use an outlet collection.
+你可能不会使用一个 出口集合
 
 1286
 01:09:59,595 --> 01:10:03,064
 You would probably go in your code and go find all these
+你可能会去到你的代码里面，发现所有的事情
 
 1287
 01:10:03,133 --> 01:10:04,698
 things, you could probably do it all in one or
+事实上，你可能会用一到两行代码
 
 1288
 01:10:04,767 --> 01:10:07,301
 two lines of code actually. But you really haven't learned
+搞定全部的事情。但是你还没有
 
 1289
 01:10:07,370 --> 01:10:10,537
 enough from me about how the view hierarchy works and
+从我这里学到足够多的关于视图嵌套是如何工作的，和有关的
 
 1290
 01:10:10,606 --> 01:10:13,007
 all these things to do that. So for your homework
+全部事情。所以对于你的家庭作业来说
 
 1291
 01:10:13,075 --> 01:10:15,443
 you're just gonna have to be doing some control dragging
+你将做一些拖拽的控制，就像我做的
 
 1292
 01:10:15,512 --> 01:10:19,380
 like I am to hook them all up. They're all hooked up,
+把它们关联起来。它们都关联好了
 
 1293
 01:10:19,448 --> 01:10:22,183
 they're all hooked up. Our flip count label's hooked up.
+都关联好了。我们的 flipCount 标签已经关联好了
 
 1294
 01:10:22,252 --> 01:10:25,286
 Our UI looks all set. I haven't changed anything but
+我们的 UI 看起来都设置完成了。除了那个我还没改动任何东西
 
 1295
 01:10:25,354 --> 01:10:30,324
 that. I didn't go change any code anywhere. Okay, I just
+我并没有改动任何的代码。好的，我仅仅
 
 1296
 01:10:30,392 --> 01:10:32,827
 put more buttons in my UI. And because I built this nice,
+在我的 UI 里放置了更多的按钮。并且正因为我搭建了这个好的
 
 1297
 01:10:32,895 --> 01:10:37,799
 flexible UI that can really handle any number of cards,
+灵活的界面，以至于它真的可以应付任何数量的卡片
 
 1298
 01:10:37,867 --> 01:10:46,374
 this should just work. Here we go,
+它应该可以工作。让我们开始
 
 1299
 01:10:46,443 --> 01:10:49,977
 let's try. We got candy, apple,
+试一下，我们得到了糖果，苹果
 
 1300
 01:10:50,046 --> 01:10:54,882
 no match. I have bat, no match.
+没有匹配。我得到了蝙蝠，没有匹配
 
 1301
 01:10:54,951 --> 01:11:01,021
 How about pumpkin? Oh candy I think I remember candy,
+南瓜如何？噢！糖果，我认为我记得糖果的位置
 
 1302
 01:11:01,090 --> 01:11:04,725
 was it maybe right here? Yes,
+它是在这里么？是的
 
 1303
 01:11:04,794 --> 01:11:07,795
 woo ho we found the candy it was right next to each other.
+哇，我们找到了糖果，他们就在彼此的旁边
 
 1304
 01:11:07,863 --> 01:11:11,365
 Let's try something else. Okay how about this one, apple,
+让我们试试其他东西。这个怎么样，苹果
 
 1305
 01:11:11,433 --> 01:11:16,604
 no.,no match. Oh, apple oh, this is a pretty easy game.
+没有匹配。噢，苹果，噢，这是一个相当简单的游戏
 
 1306
 01:11:16,673 --> 01:11:18,505
 I don't know why everyone thinks Concentration's so
+我不知道为什么每个人都认为翻牌游戏很
 
 1307
 01:11:18,574 --> 01:11:20,174
 hard, look at that. Okay,
+困难，看那个啊。好的
 
 1308
 01:11:20,242 --> 01:11:24,312
 all done. Okay so why is this game so easy?
+所有都完成了。所以为什么这个游戏如此简单呢？
 
 1309
 01:11:24,380 --> 01:11:27,882
 Well, because you guys have not done your homework yet,
+因为你们还没有完成家庭作业
 
 1310
 01:11:27,951 --> 01:11:31,719
 which if you remember back here Concentration we have
+如果你记得在 Concentration 文件里，我们还有
 
 1311
 01:11:31,788 --> 01:11:37,124
 this little to do. To do by the way is a special comment.
+这点小事情要做。顺便说一下，ToDo 是一个特殊的注释
 
 1312
 01:11:37,193 --> 01:11:40,194
 If you look at the top line of your thing right here, which
+如果你看向 Xcode 顶部那里，它
 
 1313
 01:11:40,262 --> 01:11:42,797
 shows you which file you're choosing. It also shows you
+展示给你正在选中的文件是哪一个。它还展示给你
 
 1314
 01:11:42,865 --> 01:11:46,533
 within that file with all your methods and properties and
+这个文件里所有的方法和属性以及
 
 1315
 01:11:46,602 --> 01:11:51,906
 if you put //to do, it shows up. See shuffle the cards.
+如果你写了一个 ToDo 的注释，它也会出现。看 shuffle the cards
 
 1316
 01:11:51,975 --> 01:11:55,242
 All right, see you on Monday. >> For
+好的，我们周一再见
 
 1317
 01:11:55,311 --> 01:12:04,718
