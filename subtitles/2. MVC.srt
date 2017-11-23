@@ -4186,7 +4186,7 @@ with 0 dot dot less than cardButtons.count, okay.
 838
 00:44:54,825 --> 00:44:57,860
 Everybody understand this countable range right here, but
-大家都理解这个可数区间吧？
+大家都理解这个 CountableRange 吧？
 
 839
 00:44:57,929 --> 00:45:00,830
@@ -4210,231 +4210,288 @@ you a countable range of all the indexes into the array.
 
 843
 00:45:13,578 --> 00:45:16,946
-In fact, if I option click on Indices, look at it's type,
+In fact, if I option click on indices, look at it's type,
+事实上如果我们按住 option 点击 indices 看他的类型
 
 844
 00:45:17,014 --> 00:45:20,916
 Countable range of int. Okay? So,
+他是 Int 构成的 CountableRange
 
 845
 00:45:20,985 --> 00:45:23,986
 that's a kind of a cool way to go through all the indices.
+这是一种遍历索引的有趣的方式
 
 846
 00:45:24,055 --> 00:45:26,088
 And now that I have the Indices,
+现在我有了索引
 
 847
 00:45:26,156 --> 00:45:29,858
 I can say let button equal our cardButtons at that index.
+我可以赋值 button 为 cardButtons 在那个索引的按钮
 
 848
 00:45:29,927 --> 00:45:34,764
 And let the card equal the game's cards
+然后赋值 card 为 game 里 card 数组
 
 849
 00:45:34,832 --> 00:45:38,567
 at that index. So this is awesome. I've got the button.
+在那个索引的卡片。很好，我得到了那个按钮
 
 850
 00:45:38,636 --> 00:45:41,270
 I've got the card. I just have to make them match up.
+我也得到了卡片。我只有需要将它们同步
 
 851
 00:45:41,338 --> 00:45:44,039
 So I'm going to say, if the card is faced up,
+所以我要判断，如果卡片是面朝上的
 
 852
 00:45:44,108 --> 00:45:47,009
 then I'm gonna do my face up UI, which is what,
+那我就显示正面的 UI，也就是
 
 853
 00:45:47,077 --> 00:45:50,512
 that's this one. With the white background there.
+这一个，白色为底色的这个
 
 854
 00:45:50,581 --> 00:45:54,450
 So let's do that. Otherwise else, if it's faced down,
+让我们就把这段代码移过来。否则朝下的话
 
 855
 00:45:54,519 --> 00:45:57,820
 I want the orange background thing right here, that there.
+那我就用这个橙色底色的这部分代码
 
 856
 00:45:57,889 --> 00:45:59,554
 And now I don't even need flip card,
+现在我们甚至不需要 flipCard 方法了
 
 857
 00:45:59,623 --> 00:46:03,525
 let's get rid of flip card. Everybody,
+让我们把 flipCard 方法删掉。大家
 
 858
 00:46:03,594 --> 00:46:05,661
 see what I did ther? I just made it so
+看到我干了什么吧？我刚才让
 
 859
 00:46:05,730 --> 00:46:09,164
 that the button matches the card. There's one other thing,
+按钮显示了对应的卡片。还有一件事
 
 860
 00:46:09,233 --> 00:46:12,634
 by the way, cards can be matched. They have is matched.
+我们可以配对卡片，有 isMatched 变量
 
 861
 00:46:12,703 --> 00:46:16,005
 Remember, when we put that in the card, is matched. So
+还记得我们 Card 里的 isMatched 吗？
 
 862
 00:46:16,074 --> 00:46:19,875
 I need to handle that. And the way I'm gonna do that,
+我需要处理这个。而我实现的方法是
 
 863
 00:46:19,944 --> 00:46:25,648
-is I'm gonna make matched, cards, so
+is I'm gonna make matched cards be clear, so
+我要让配对了的卡片透明
 
 864
 00:46:25,716 --> 00:46:28,917
-that I can see them. If the card is matched,
+that I can't see them. If the card is matched,
+这样我就看不见他们了。如果已经配对了
 
 865
 00:46:28,986 --> 00:46:31,988
 I'm just gonna take it out of the UI by making it background
+我就把他们“移出” UI，就通过让背景色
 
 866
 00:46:32,056 --> 00:46:34,690
 be clear instead of orange, when it's matched and
+变为透明，而不是橙色。如果是配对了
 
 867
 00:46:34,758 --> 00:46:37,259
 face down. If it matches and still faced up, I don't want
+而且朝下就这样。如果还是朝上的话，我不想
 
 868
 00:46:37,327 --> 00:46:39,495
 it to be clear, I want people to see you gotta a match.
+让它变透明，我想要让人们看到它们配了对
 
 869
 00:46:39,564 --> 00:46:42,298
 But once it turns back face down in Match I don't want it
+但只要它们配了对翻过去了的话，我不想让它
 
 870
 00:46:42,366 --> 00:46:46,602
 to show. So the way I'm gonna do that is by doing this,
+显示出来。所以我要做的是
 
 871
 00:46:46,671 --> 00:46:51,707
 card.isMatched. Matched. Question mark.
+card.isMatched ? 透明 : 橙色
 
 872
 00:46:51,775 --> 00:46:56,412
 Either this thing or this. Does everyone know this
+配对就透明，否则用橙色。是否大家都知道这个
 
 873
 00:46:56,481 --> 00:46:59,614
 question mark colon? We have it in C and other languages as
+?: 这个三元运算符？在 C 等其他语言里也有这个
 
 874
 00:46:59,683 --> 00:47:02,518
 well. So here instead of orange I want it to be clear.
+所以如果是配对了的话，我不用橙色，改用透明
 
 875
 00:47:02,586 --> 00:47:04,553
 How do you get clear? Well if you go to any color
+我们怎么才能得到透明色？如果你用任何颜色
 
 876
 00:47:04,622 --> 00:47:08,023
 chooser, if you look at the bottom it says opacity. That's
+选择器，然后看最下面的 opacity
 
 877
 00:47:08,092 --> 00:47:11,827
 how transparent the color is. So that's fully opaque, fully
+也就是颜色的不透明度。这便是完全不透明
 
 878
 00:47:11,896 --> 00:47:16,898
 transparent. In other words, clear. So if the cards match,
+这是完全透明。如果卡配对了
 
 879
 00:47:16,967 --> 00:47:19,902
 I'm gonna make it clear. Now, there's one other error here.
+那我就让他们变透明。但这里有个错误
 
 880
 00:47:19,971 --> 00:47:23,339
 It's this, emoji. Now, this emoji used to be something we
+是这个 emoji。本来这个我们是从
 
 881
 00:47:23,407 --> 00:47:26,375
 grabbed out of this emoji choices based on the index and
+用基于索引选中 emojiChoices 里的 emoji 来
 
 882
 00:47:26,444 --> 00:47:30,746
 all that. I'm gonna postpone implementing that here by,
+实现的。我准备等会儿再来实现这个，通过
 
 883
 00:47:30,814 --> 00:47:34,950
 it's calling a function emoji for card. And
+调用函数 emoji(for: card) 来实现
 
 884
 00:47:35,019 --> 00:47:38,387
 this is gonna be a function I'm gonna do down here.
+这会是我在下面实现的一个函数
 
 885
 00:47:38,455 --> 00:47:40,589
-Let's scoot this up a little bit so
+Let's scroll this up a little bit so
+我们向上移动下
 
 886
 00:47:40,658 --> 00:47:44,359
 you can see it, func emoji for card which is a type card, is
+好让你看清。方法 emoji(for card:) 参数是 Card 类型
 
 887
 00:47:44,428 --> 00:47:48,263
 gonna return an emoji and I'm gonna return question mark for
+-> String 会返回一个表情。我返回问号
 
 888
 00:47:48,332 --> 00:47:51,167
 now. We just returned question mark,
+作为我们临时的表情符号
 
 889
 00:47:51,235 --> 00:47:55,304
 we're gonna deal with taking these emoji choices up here.
+我们等会儿会处理上面这个 emojiChoices
 
 890
 00:47:55,373 --> 00:47:58,140
 We're gonna put these emoji choices and eventually,
+我们会用这些 emojiChoices，而最终
 
 891
 00:47:58,208 --> 00:48:02,110
 we're going to pick one of these emojis. Randomly,
+我们会随机选择这里的某个表情
 
 892
 00:48:02,179 --> 00:48:04,847
 and put it on the card, and actually I have a few more
+然后放到卡片上。而事实上我还准备了些
 
 893
 00:48:04,916 --> 00:48:07,817
 emojis here, little more Halloween emojis.
+更多的和万圣节相关的的表情
 
 894
 00:48:07,885 --> 00:48:10,719
 So we're gonna pick one of these many emojis right here,
+所以我们要从这里选某个表情
 
 895
 00:48:10,788 --> 00:48:11,687
 and put it on the card, but for
+让后放到卡片上。但现在
 
 896
 00:48:11,755 --> 00:48:13,655
 now, I'm just gonna do question marks. Cuz I really
+我就用问号代替，因为我
 
 897
 00:48:13,724 --> 00:48:15,924
 wanna get back to my UI and make sure I haven't broken
+想回到 UI 里去确认我没有
 
 898
 00:48:15,993 --> 00:48:21,197
 anything with all this MVC machinations. Let's go back
+因为 MVC 搞砸任何部分。让我们回到
 
 899
 00:48:21,265 --> 00:48:25,835
 to our model and do something when a card is chosen. So
+模型里，然后在选中卡片之后做些处理
 
 900
 00:48:25,903 --> 00:48:28,437
@@ -5234,7 +5291,7 @@ So we're gonna have to protect against that case.
 
 1099
 00:59:23,660 --> 00:59:28,029
-So I'm gonna say if emojichoices.count
+So I'm gonna say if emojiChoices.count
 
 1100
 00:59:28,097 --> 00:59:30,732
