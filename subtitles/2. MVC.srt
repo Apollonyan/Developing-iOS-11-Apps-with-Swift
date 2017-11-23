@@ -4496,478 +4496,597 @@ to our model and do something when a card is chosen. So
 900
 00:48:25,903 --> 00:48:28,437
 all I'm gonna do, eventually we gotta make it match. But
+最终我们要进行配对，但我要做的就是
 
 901
 00:48:28,506 --> 00:48:30,906
 all I'm gonna do now is have the model flip the card over.
+我现在要做的就是让模型把牌翻个面
 
 902
 00:48:30,975 --> 00:48:34,209
 The model's just gonna flip the card over for now, so
+现在模型就是把卡翻个面，所以
 
 903
 00:48:34,278 --> 00:48:37,346
 here we are in chooseCard in our model. And so
+我们到模型的 chooseCard 方法里，然后
 
 904
 00:48:37,415 --> 00:48:43,385
 I'm gonna say, if the card at that index is face up,
+判断如果在那个索引的卡牌是面朝上的
 
 905
 00:48:43,454 --> 00:48:48,624
 then I'm going to set the card at that index to
+那我就让那个索引的卡片
 
 906
 00:48:48,693 --> 00:48:56,065
 be isFaceUp = false, and else, I'm going to make this true.
+的 isFaceUp 属性为 false，否则就设为 true
 
 907
 00:48:59,137 --> 00:49:02,538
 True, so I'm just gonna flip the card over, everyone
+所以我这就让卡片翻个面，大家
 
 908
 00:49:02,607 --> 00:49:06,942
 believe me that that flips the card over? Yes, just gonna,
+都同意这能让卡翻面吧？是的，就这样
 
 909
 00:49:07,011 --> 00:49:09,378
 if it's face up, it goes face down, if it's face down,
+如果朝上，就朝下了；否则就是朝下的
 
 910
 00:49:09,446 --> 00:49:12,914
 face up, so that's it. So now when we run our app,
+现在就朝上了，就这样。现在让我们运行我们的程序
 
 911
 00:49:12,983 --> 00:49:15,450
 there's no emoji, everything's gonna be a question mark, but
+没有表情，所有的都会是问号，但是
 
 912
 00:49:15,519 --> 00:49:18,954
 the card should flip over. And this is the entirety of our
+这个卡片会翻个面。这就是我们全部的
 
 913
 00:49:19,023 --> 00:49:23,091
 UI, here's our controller, that's all there is.
+UI 了。这是我们的控制器，就这样了
 
 914
 00:49:23,160 --> 00:49:26,696
 And here's our model over here, plus we have the card,
+然后这是我们的模型，再加上我们的 Card 卡片类
 
 915
 00:49:26,764 --> 00:49:28,698
 which is just keeping track of isMatched and
+用 isMatched 来记录是否配对
 
 916
 00:49:28,766 --> 00:49:30,632
 doing that identifier. So let's take a look,
+和保存 identifer 标识符。那让我们来看看
 
 917
 00:49:30,701 --> 00:49:33,302
 let's run this, make sure we haven't broken anything.
+让我们运行这个，确保我们没有搞砸任何部分
 
 918
 00:49:33,370 --> 00:49:36,071
 It's always nice when you make MVC and you divide it up,
+当你用 MVC 的时候总是可以很好的有分工合作
 
 919
 00:49:36,140 --> 00:49:38,640
 try to make your model to just do something simple.
+不过尽量先让你的模型实现些简单的功能
 
 920
 00:49:38,709 --> 00:49:42,178
 Just so you can make sure that your MVC is actually working.
+来确保你的 MVC 确实是可用的
 
 921
 00:49:42,246 --> 00:49:46,148
 Here we go, sure enough, it appears to be flipping these
+显示出来了，而且确实在把这些
 
 922
 00:49:46,216 --> 00:49:50,785
 cards over. Okay, excellent, so all we need,
+卡片翻面。很好，所以我们需要的
 
 923
 00:49:50,854 --> 00:49:55,257
 we have two things left to do. One, get emoji on these cards,
+就只有这两个了。一个是让表情显示到卡片上
 
 924
 00:49:55,326 --> 00:49:59,662
 two, make it actually match, make it be a real game.
+第二个是让他们配对，实现这个游戏
 
 925
 00:49:59,730 --> 00:50:02,831
 One thing is a controller thing, the emoji,
+显示表情是控制器负责的
 
 926
 00:50:02,900 --> 00:50:06,768
 another thing is the model. So let's go to our controller
+而另一个是模型负责的，所以让我们到控制器
 
 927
 00:50:06,837 --> 00:50:10,772
 right here, and do this emoji thing. Now in teaching you and
+就这里，然后实现显示表情。为了教学目的
 
 928
 00:50:10,841 --> 00:50:12,574
 showing you this emoji thing, I'm gonna show you and
+在实现显示表情的同时，我会展示给你
 
 929
 00:50:12,643 --> 00:50:15,644
 teach you how to use a dictionary. A dictionary,
+并教你如何使用 Dictionary，也就是字典
 
 930
 00:50:15,713 --> 00:50:17,012
-it's very important to cloud,
+it's very important to struct,
+这是个很重要的结构体
 
 931
 00:50:17,081 --> 00:50:19,147
 does everybody know what a dictionary is?
+是否大家都知道什么是字典？
 
 932
 00:50:19,216 --> 00:50:21,883
 Like a hash table, it's just a data structure where you can
+它就是个哈希表（hash table）这种数据类型，你可以
 
 933
 00:50:21,952 --> 00:50:25,053
 look something up and get a value for a certain thing.
+通过键查找，然后获得某个值
 
 934
 00:50:25,122 --> 00:50:26,554
 So we're gonna use a dictionary,
+所以我们要使用个字典
 
 935
 00:50:26,623 --> 00:50:30,592
 and our dictionary looks like this, I'm gonna call it emoji,
+然后我们的字典是这样的，我把它叫做 emoji
 
 936
 00:50:30,661 --> 00:50:33,828
 and its type is gonna be a dictionary.
+然后他的类型是 Dictionary，字典
 
 937
 00:50:33,897 --> 00:50:36,965
 Now, dictionary is also a generic type like array, but
+注意，字典和数组一样都是范型，但
 
 938
 00:50:37,034 --> 00:50:40,035
 you specify the type both of the key, which I'm gonna
+你需要同时声明键（key）的类型，这个我会
 
 939
 00:50:40,103 --> 00:50:43,672
 have be a int, cuz it's gonna be a card identifier, and
+用 Int 类型，因为这会是我们卡片的标识符，还要
 
 940
 00:50:43,741 --> 00:50:48,477
 the value, which is a string, an emoji.
+声明值（value）的类型，也就是 String 类型存储表情
 
 941
 00:50:48,545 --> 00:50:51,213
 So this emoji dictionary, I'm going to look up the card
+所以这就是存储表情的字典，我会通过查找卡片
 
 942
 00:50:51,282 --> 00:50:54,883
 identifiers to get the emoji that goes on that card.
+的标识符来获取显示到卡片上的表情
 
 943
 00:50:54,951 --> 00:50:57,719
 Everybody got that, gotta understand that before we move
+大家都明白吧？我往下讲之前大家得明白
 
 944
 00:50:57,788 --> 00:51:01,823
 on here. So how do I create one of these dictionaries,
+那我怎么创建一个字典呢？
 
 945
 00:51:01,892 --> 00:51:04,126
 exactly the same as I did with array.
+其实是和数组一样的
 
 946
 00:51:04,195 --> 00:51:05,694
 I'm just gonna do open parentheses,
+我就用做小括号
 
 947
 00:51:05,763 --> 00:51:08,063
 close parentheses, which creates an empty dictionary.
+右小括号来创建一个空字典
 
 948
 00:51:08,132 --> 00:51:12,133
 So this is a dictionary of ints mapped to strings, but
+这就是个把 Int 映射到 String 的字典，但是
 
 949
 00:51:12,202 --> 00:51:14,937
 it's empty. Now down here in emoji for
+它是空的。在下面 emoji(for: card)
 
 950
 00:51:15,006 --> 00:51:19,174
 card I'm just gonna look in this dictionary and
+里我就在这个字典里查找
 
 951
 00:51:19,243 --> 00:51:23,612
 get a card. So let's say let chosen emoji equal, and
+然后得到卡片（的表情）。 我们赋值 chosenEmoji，选中的表情
 
 952
 00:51:23,681 --> 00:51:26,314
 here's how you look something up in a dictionary. You say
+然后这是你查找字典的语法，就用
 
 953
 00:51:26,383 --> 00:51:28,817
 the name of the dictionary, open square bracket,
+字典的名字，左中括号
 
 954
 00:51:28,886 --> 00:51:32,554
 the thing you wanna look up. And this had better be an int,
+然后查找用的键，这里最好是 Int 类型的
 
 955
 00:51:32,623 --> 00:51:34,689
 because this is a dictionary that looks up
+因为这是个字典，它查找的
 
 956
 00:51:34,758 --> 00:51:37,392
 ints and gives you back strings, and this is gonna be
+是 Int 类型的键，然后返回 String 类型的值
 
 957
 00:51:37,461 --> 00:51:40,796
 a string. If I alt-click, option-click on this,
+这会是个字符串。如果我按住 alt/option 点击它
 
 958
 00:51:40,865 --> 00:51:44,299
-is that going to be a string, obviously not, or I wouldn't
+is that going to be a string? Obviously not, or I wouldn't
+它的类型会是 String 吗？肯定不是，否则我就不会
 
 959
 00:51:44,368 --> 00:51:47,969
 be asking that question. Let's see what this chosen emoji is,
+问你们这个问题了。让我们看看 chosenEmoji 是什么类型的
 
 960
 00:51:48,038 --> 00:51:51,773
 you think it would be a string, oh, what is that? What
+你认为他会是 String，但你看看它其实是什么？
 
 961
 00:51:51,842 --> 00:51:56,578
 type is that, anyone want to venture, I heard it out there
+那是什么类型，有谁大胆说一下？我听到了
 
 962
 00:51:56,646 --> 00:52:01,616
 whispered, an optional. It returns an optional, why is it
+悄悄地说那是可选类型，他返回的是可选类型，为什么
 
 963
 00:52:01,685 --> 00:52:04,319
 returning an optional instead of returning a string? Well of
+它不返回 String，而是返回可选类型 Optional 呢？
 
 964
 00:52:04,388 --> 00:52:07,222
 course, because when we look something up in a dictionary,
+当然，因为我们在字典里查找的时候
 
 965
 00:52:07,291 --> 00:52:09,624
 it might not be in there.
+可能它不在里面
 
 966
 00:52:09,693 --> 00:52:11,493
 The thing we looked up isn't necessarily in there, and
+我们查找的键不一定在字典里面
 
 967
 00:52:11,562 --> 00:52:15,030
 if it's not there, we're gonna get back not set,
+如果不在里面，我们就会得到缺省值
 
 968
 00:52:15,098 --> 00:52:18,066
 the optional not set. If it is in there, we're gonna get
+空的可选类型。如果在里面的话，我们就会得到
 
 969
 00:52:18,135 --> 00:52:21,036
 the optional set, and it's going to be a string as its
+有值的可选类型，然后就有个 String 字符串作为
 
 970
 00:52:21,105 --> 00:52:24,039
 associated value, because of course, a string is what's in
+他的关联值。当然了，因为 String 是字典里的
 
 971
 00:52:24,107 --> 00:52:27,643
 the dictionary. Everyone, understand that looking
+值的类型。大家要明白
 
 972
 00:52:27,711 --> 00:52:29,745
 something up in the dictionary returns an optional.
+在字典里查找的时候会返回可选类型
 
 973
 00:52:30,881 --> 00:52:32,747
 By the way, see this kind of thing,
+顺便一提，这个 Dictionary<Int, String>
 
 974
 00:52:32,816 --> 00:52:35,317
 you know how we have that special array syntax,
+大家还记得数组特殊的语法糖吗？
 
 975
 00:52:35,385 --> 00:52:37,952
-open square bracket, type, bits in the array.
+open square bracket, type that's in the array.
+中括号里写数组元素类型
 
 976
 00:52:38,021 --> 00:52:39,388
 We have the same thing for dictionary,
+同样字典也有语法糖
 
 977
 00:52:39,457 --> 00:52:40,956
 it looks like this, open square bracket.
+它看起来是这样子的，左中括号
 
 978
 00:52:41,025 --> 00:52:45,593
 Open square bracket, the key,
+左中括号，键的类型
 
 979
 00:52:45,662 --> 00:52:50,499
 colon, the value type. So that's,
+英文冒号，值的类型（，右中括号）。就这样
 
 980
 00:52:50,568 --> 00:52:52,834
 dictionaries and strings are the most common things we're,
+字典和字符串（和数组）是我们最常用的
 
 981
 00:52:52,903 --> 00:52:55,571
 data structures we're using. So we have special syntax for
+数据结构，所以我们有特殊的语法糖
 
 982
 00:52:55,639 --> 00:52:58,440
 both of them, so that's what declaration of a dictionary.
+来定义他们。所以这就是定义字典的方法
 
 983
 00:52:58,508 --> 00:53:00,742
 That's exactly the same as the thing I just blanked out,
+这和我替换掉的是等价的，也就是
 
 984
 00:53:00,811 --> 00:53:04,546
 dictionary, int, string.
+Dictionary<Int, String>
 
 985
 00:53:04,615 --> 00:53:08,116
 So we could, since we know this returns,
+所以我们可以，既然我们知道它返回
 
 986
 00:53:08,185 --> 00:53:11,786
 this thing is an optional, we could do if let here. But
+这个是可选类型，我们可以用 if-let，但是
 
 987
 00:53:11,855 --> 00:53:14,022
 I'm gonna show you a different way to deal with optional. So
+我要给你展示处理可选类型的另一种方法
 
 988
 00:53:14,090 --> 00:53:16,258
 you know how to do exclamation point, which we definitely
+你知道如何用感叹号，但我们这里肯定
 
 989
 00:53:16,327 --> 00:53:18,394
 don't wanna do here. Because, for example,
+不想要这么做，因为，比如
 
 990
 00:53:18,462 --> 00:53:21,163
 this dictionary starts out empty, so if we do exclamation
+这个字典一开始是空的，如果我们用感叹号
 
 991
 00:53:21,232 --> 00:53:24,533
 point here, it's gonna crash every time, so that's no good.
+那每次运行程序就会崩溃，所以这是不行的
 
 992
 00:53:24,601 --> 00:53:26,968
 And we could do if let, that would be safe, but I'm gonna
+我们可以用 if-let，那会很安全，但是我
 
 993
 00:53:27,037 --> 00:53:29,471
 show you another way that we often deal with something that
+要给你展示另一种方法，我们经常用来处理
 
 994
 00:53:29,540 --> 00:53:32,741
 might be optional. Is that we just check to see,
+可能为可选类型的值，那就是我们看
 
 995
 00:53:32,809 --> 00:53:37,613
 if this thing does not equal nil, then we can exclamation
+如果不是 nil 的话，那我们就能用感叹号
 
 996
 00:53:37,681 --> 00:53:43,184
 point it. I can return this thing exclamation point, and
+强制解包它。我可以返回这个加上个感叹号，而且
 
 997
 00:53:43,253 --> 00:53:48,423
 it's safe because I checked to make sure it's not nil first.
+这是安全的，因为我已经检查确保过这不是 nil 了
 
 998
 00:53:48,492 --> 00:53:50,559
 So that's another way to deal with optionals, just check and
+所以这是我们处理可选类型的另一种方法，就判断
 
 999
 00:53:50,628 --> 00:53:51,526
 make sure it's not nil, and
+确保不是 nil 之后
 
 1000
 00:53:51,595 --> 00:53:53,829
 then you can exclamation point it. And then the else,
+就用感叹号强制解包。然后否则的话
 
 1001
 00:53:53,898 --> 00:53:57,165
 I guess if we can't find the emoji in the dictionary, we'll
+我想如果我们不能在字典里找到这个表情，我们
 
 1002
 00:53:57,234 --> 00:54:00,568
 just return question mark, so we'll kinda give up and
+就返回个问号，我们放弃尝试
 
 1003
 00:54:00,637 --> 00:54:04,840
 just show question marks. Now, this code is so common to want
+然后就显示个问号。其实这个代码很常见，我们想
 
 1004
 00:54:04,909 --> 00:54:07,809
 to get something that's an optional, and
+得到某个可选类型，如果
 
 1005
 00:54:07,878 --> 00:54:11,813
 if it's not, if it's set, then use it. But if it's not set,
+它不是空的话，就用它的关联值，否则如果缺省值的话
 
 1006
 00:54:11,882 --> 00:54:14,816
 do some other well-defined thing like this, but you can
+我们就使用另一个值，就比如这个问号。所以这个你可以
 
 1007
 00:54:14,885 --> 00:54:17,819
 write this with a special operator, looks like this.
+用另一个特殊的运算符，它长这样的
 
 1008
 00:54:17,888 --> 00:54:22,591
 Return, return, this thing right here.
+你 return 返回这里的这个
 
 1009
 00:54:26,263 --> 00:54:29,697
 But if it's nil, question mark, question mark,
+如果是 nil 的话，就用 ?? 运算符
 
 1010
 00:54:29,766 --> 00:54:34,369
 return a different thing. So this is return this, but
+以此返回另一个默认值。这个就是，有值就返回这个，否则
 
 1011
 00:54:34,438 --> 00:54:37,305
 if it's nil return this. Very common,
+如果它是 nil 的话就返回这个，非常常见
 
 1012
 00:54:37,374 --> 00:54:41,443
 that's exactly the same code as this, exactly the same. So
+这和我们这段代码是等价的，完全一样，所以
 
 1013
 00:54:41,512 --> 00:54:44,879
 we do not need that, everyone got that syntax,
+我们不需要那些代码，大家都理解这个语法吧？
 
 1014
 00:54:44,948 --> 00:54:49,251
 it's very common to do this. So we're awesomely looking
+实现这个很常见，所以我们顺利地
 
 1015
 00:54:49,319 --> 00:54:52,253
 up the card identifier in our emoji dictionary and
+在 emoji 字典里通过 card 的 identifer 标识符查找
 
 1016
 00:54:52,322 --> 00:54:55,490
 returning emoji, hopefully. But we never put anything
+然后最好返回了某个表情，但是我们没有放进去
 
 1017
 00:54:55,559 --> 00:54:58,060
 in that dictionary, so it's always gonna return a question
+任何东西到那个字典里，所以它总是会返回问号
 
 1018
 00:54:58,128 --> 00:55:00,462
 mark, so how do we put something in the dictionary?
+那我们怎么向字典里添加键值对呢？
 
 1019
 00:55:00,531 --> 00:55:03,899
