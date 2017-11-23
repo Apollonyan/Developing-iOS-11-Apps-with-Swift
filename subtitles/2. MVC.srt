@@ -5091,342 +5091,427 @@ mark, so how do we put something in the dictionary?
 1019
 00:55:00,531 --> 00:55:03,899
 Well, I'm gonna put them in the dictionary on demand,
+我会在有需要的时候再把他们添加到字典里
 
 1020
 00:55:03,967 --> 00:55:06,435
 as they are used. So every time someone asks me for
+也就使用他们的时候再放进去。所以每次有人让我
 
 1021
 00:55:06,504 --> 00:55:08,036
 the emoji in a card, I'm gonna check and
+提供某张卡的表情，我就去看
 
 1022
 00:55:08,104 --> 00:55:13,007
 see. If this emoji for that card is currently nil,
+如果这个卡的 emoji 是 nil 话
 
 1023
 00:55:13,076 --> 00:55:16,778
 then I'm gonna put an emoji in the dictionary for that card.
+那我就把选一个表情对应那个按钮放到字典里
 
 1024
 00:55:16,847 --> 00:55:21,049
 So I'm kind of just in time loading up of this dictionary,
+我就及时准备好字典
 
 1025
 00:55:21,118 --> 00:55:24,285
 now, how am I gonna do that? I'm going to take one of these
+那我要怎么做呢？我需要选这里的一个
 
 1026
 00:55:24,354 --> 00:55:27,956
 at random, and put it in this dictionary, so let's get
+随便选一个放到字典里，那我们生成个
 
 1027
 00:55:28,025 --> 00:55:33,195
 a random index. I'm gonna let randomIndex equal something,
+随机的索引。我要赋值 randomIndex 为某个随机索引
 
 1028
 00:55:33,264 --> 00:55:36,865
 I'm gonna use this nice Swift function called
+我要用 Swift 里的一个很好的函数，叫
 
 1029
 00:55:36,934 --> 00:55:38,933
-arc4rando_uniform.
+arc4random_uniform.
+arc4random_uniform 函数
 
 1030
 00:55:39,002 --> 00:55:41,603
-So arc4rando_uniform is a pseudo-random number
+So arc4random_uniform is a pseudo-random number
+arc4random_uniform 是个伪随机数
 
 1031
 00:55:41,672 --> 00:55:44,539
 generator, and it generates a random number between 0 and
+生成器，他会生成一个随机数，在 0 到
 
 1032
 00:55:44,608 --> 00:55:47,075
-this upper bound. Do you see it says_uppe_bound,
+this upper bound. Do you see it says __upper_bound,
+这个上限，__upper_bound 之间的随机数
 
 1033
 00:55:47,144 --> 00:55:48,977
 which is an unsigned int, 32 bit integer.
+它是以个 UInt32，无符号 32 位整数
 
 1034
 00:55:49,046 --> 00:55:51,613
 It will generate a random number between 0 and that,
+他会生成个 0 到那个上限之间的随机数
 
 1035
 00:55:51,682 --> 00:55:55,350
 not inclusive of that number. Which is exactly what I want,
+但不包括上限。而这正是我想要的
 
 1036
 00:55:55,419 --> 00:55:58,820
 where the upper bound is, how many things are in this array?
+因为那个上限就是这个数组里有多少个元素
 
 1037
 00:55:58,889 --> 00:56:01,757
 Cause I want an index into this array between zero and
+因为我想要索引这个数组里在 0 到
 
 1038
 00:56:01,825 --> 00:56:05,160
 however many things are in the array minus one. So here,
+数组元素个数减一区间某个地方的元素
 
 1039
 00:56:05,228 --> 00:56:05,827
 the upper bound,
+所以这个上限
 
 1040
 00:56:05,896 --> 00:56:10,198
 I'm just gonna say emojiChoices.count.
+我就用 emojiChoices.count
 
 1041
 00:56:10,266 --> 00:56:14,236
 Now this is great, but it doesn't work. I get an error,
+这很好，但不能直接用，我得到了个错误
 
 1042
 00:56:14,304 --> 00:56:17,639
 and what does the error say? It says cannot convert value
+那个错误说什么？它说不能转换
 
 1043
 00:56:17,707 --> 00:56:22,344
 of type int to unexpected argument type unsigned 32 bit
+Int 类型为要求的 UInt32 类型
 
 1044
 00:56:22,413 --> 00:56:27,115
-int. Our for random totally works only with unsigned ints.
+int. arc4random totally works only with unsigned ints.
+也就是 arc4random_uniform 只能用无符号整数
 
 1045
 00:56:27,184 --> 00:56:32,354
 Whereas this array's count is an int. Not an unsigned int.
+而这个数组的 count 是个 Int 整数，不是无符号的 UInt
 
 1046
 00:56:32,423 --> 00:56:35,924
 And Swift never does automatic type conversion never.
+而 Swift 又从来不会自动转换类型
 
 1047
 00:56:35,993 --> 00:56:38,526
 It does never automatically converts from into an unsigned
+它从来不会把有符号的 Int 转换为无符号的整数
 
 1048
 00:56:38,595 --> 00:56:41,696
 enter from into a double. You have to explicitly convert it.
+也不会转换为 Double；你必须要明确的去转换
 
 1049
 00:56:41,765 --> 00:56:43,999
 And so how do you convert types in Swift?
+那在 Swift 里怎么转换类型呢？
 
 1050
 00:56:44,068 --> 00:56:45,267
 This is why I'm showing you this so
+这就是为什么我要给你展示这个
 
 1051
 00:56:45,336 --> 00:56:47,402
 that you'll know how to convert types in Swift
+这样你就知道怎么在 Swift 里转换类型了
 
 1052
 00:56:47,470 --> 00:56:50,072
 you have to create a new thing and
+你想要构造一个新的类型的实例
 
 1053
 00:56:50,140 --> 00:56:53,007
 use the initializer of that new thing to create one. So
+那就要用那个类型的构造器来创建
 
 1054
 00:56:53,076 --> 00:56:58,246
-here, I wanna create A uint32, an unsigned int 32. So I have
+here, I wanna create a UInt32, an unsigned int 32. So I have
+所以这里，我要创建个 UInt32，无符号 32 位整数，那我
 
 1055
 00:56:58,315 --> 00:57:03,485
 to call uint32 initializer to create a uint32. Luckily,
+就要用 UInt32 的构造器来构造个 UInt32。幸运的是
 
 1056
 00:57:03,554 --> 00:57:07,389
-uint32, which is a struct, by the way, just like INT,
+uint32, which is a struct, by the way, just like Int,
+UInt32，顺便一提 UInt32 和 Int 一样是结构体
 
 1057
 00:57:07,457 --> 00:57:09,957
 just like string, just like array, just like dictionary,
+就像 String 字符串, Array 数组，Dictionary 字典
 
 1058
 00:57:10,026 --> 00:57:12,894
 just like card. These are all structs.
+和 Card 卡片一样都是结构体
 
 1059
 00:57:12,963 --> 00:57:15,630
 It has an initializer that takes an int.
+UInt32 正好有个构造器的参数是 Int
 
 1060
 00:57:15,699 --> 00:57:19,734
 Exactly what I want, okay? So I can create a UInt32 by
+正是我想要的，所以我构造一个 UInt32
 
 1061
 00:57:19,803 --> 00:57:21,636
 passing it an int emojiChoices.
+通过给它 emojiChoices.count 这整数
 
 1062
 00:57:21,705 --> 00:57:23,905
 That's why it's suggesting this fix right here.
+这就是它这里建议的解决方案
 
 1063
 00:57:23,974 --> 00:57:27,175
 So I'm gonna do that, fix. You see what it did? UInt32,
+所以我就点这个 Fix。看到它干了什么吗？UInt32
 
 1064
 00:57:27,244 --> 00:57:30,345
 open parentheses. The argument to its init is an Int.
+左小括号。这个构造器的参数是 Int 类型
 
 1065
 00:57:30,414 --> 00:57:33,015
 It knows how to do that. Now we're not there yet.
+它知道如何去转换。但还没完
 
 1066
 00:57:33,083 --> 00:57:35,517
 Because look at the return value here, randomIndex.
+因为你看他的返回值，这个 randomIndex
 
 1067
 00:57:35,585 --> 00:57:38,086
 It's also an unsigned integer, and that's no good.
+他也是无符号整数了，这不好
 
 1068
 00:57:38,155 --> 00:57:41,623
 Because I want to use it as an index into this array. And
+因为我想要用它索引这个数组，而
 
 1069
 00:57:41,692 --> 00:57:43,791
 we know that indexes are not unsigned ints,
+我们知道索引不是无符号整数
 
 1070
 00:57:43,860 --> 00:57:47,495
 although they probably should be. They are ints. Okay,
+虽然理论上都不是负数，但他们是 Int 类型的
 
 1071
 00:57:47,564 --> 00:57:50,766
 just for mostly for backwards compatibility issues.
+应该是为了向后兼容
 
 1072
 00:57:50,834 --> 00:57:55,203
 So I need to convert this whole thing to an int, luckily
+所以我需要把它转换为 Int，幸好
 
 1073
 00:57:55,272 --> 00:57:59,974
 int Has an initializer that will take an unsigned int and
+Int 有个构造器接受无符号整数
 
 1074
 00:58:00,043 --> 00:58:04,913
 turn it into an int. Okay, so now I have random index here.
+然后转换为 Int。好，我现在有了随机的索引
 
 1075
 00:58:04,981 --> 00:58:08,583
 It's an int, it's suitable for indexing into this array.
+它是个 Int，可以用来索引数组
 
 1076
 00:58:08,652 --> 00:58:12,620
 It's a random index in there. So to get it, I can say emoji
+它是这里的某个随机的索引。那我们就来得到这个表情，我可以用
 
 1077
 00:58:12,689 --> 00:58:16,892
 sub card.identifier. Now to put something in A dictionary.
+emoji[card.identifer]。我们要把值放到字典里这个地方
 
 1078
 00:58:16,960 --> 00:58:20,795
 You just say equals and the thing you want. Emoji,
+就用 = 后面接要放的值就可以了，也就是
 
 1079
 00:58:20,864 --> 00:58:25,266
 choices, sub, random, index. But I'm not, this is not quite
+emojiChoices[randomIndex]。但我并不想，这并不完全
 
 1080
 00:58:25,335 --> 00:58:27,769
 what I'm gonna do. This would work kind of.
+是我想做的。这个某种意义上说是可以用的
 
 1081
 00:58:27,838 --> 00:58:31,006
 The only problem with this is, I could get two identifiers
+但这个的问题是，我可能会得到两个不同的标识符
 
 1082
 00:58:31,075 --> 00:58:34,576
 that use the same emoji. So instead of just grabbing
+他们会使用同一个表情，所以不是从数组里取得
 
 1083
 00:58:34,645 --> 00:58:38,580
 something out here, I'm gonna remove it. Okay, when I use
+那个表情，我会移除那个表情。当我用
 
 1084
 00:58:38,649 --> 00:58:40,915
 one of these emojis, I'm going to remove it out of here so
+这里的某个表情的时候，我要把它从这里移走
 
 1085
 00:58:40,984 --> 00:58:44,586
 I never use it again. So to do that, I'm going to use
+这样我就不会再次使用它了。那要这样的话，我就
 
 1086
 00:58:44,655 --> 00:58:47,288
 a different method in array than subscripting called
+不用数组下标，而是用另一个方法，叫做
 
 1087
 00:58:47,357 --> 00:58:52,460
 remove at. And I'm just gonna remove at the random index.
+remove(at:)，我就移除在 randomIndex 的表情
 
 1088
 00:58:52,529 --> 00:58:55,797
 So remove at returns the thing it removed. And so it's gonna
+remove(at:) 方法会返回移除的元素，所以他会
 
 1089
 00:58:55,865 --> 00:58:58,266
 pick one of these emojis out of here and return it.
+移除这里的某个表情，然后返回它
 
 1090
 00:58:58,335 --> 00:59:01,370
 And I'm gonna put it in the dictionary. Everybody got
+然后我把它添加到字典里。大家懂了吧？
 
 1091
 00:59:01,438 --> 00:59:04,339
 that? Now there's only one other thing here,
+那我们还有要处理的是
 
 1092
 00:59:04,407 --> 00:59:07,442
 which is what if emojiChoices.count is zero.
+如果  emojiChoices.count 是零
 
 1093
 00:59:07,511 --> 00:59:10,045
 In other words, what if I've used all the emoji
+换句话说，我把所有的表情都用完了
 
 1094
 00:59:10,113 --> 00:59:12,447
 in emojiChoices, I've pulled them all out of there?
+我把 emojiChoices 里的全部都移除了怎么办？
 
 1095
 00:59:12,516 --> 00:59:15,283
 That's going to cause a problem. ran, arc4random can't
+那会是个问题。arc4random_uniform 不能
 
 1096
 00:59:15,352 --> 00:59:18,687
 take zero because it goes from zero To that number minus 1.
+接受 0 作为参数，因为它返回 0 到参数减一之间的数
 
 1097
 00:59:18,755 --> 00:59:21,522
 And it's an unsigned int, so it can't be a minus number.
+而且是无符号的整数，所以不能是负数
 
 1098
 00:59:21,591 --> 00:59:23,591
 So we're gonna have to protect against that case.
+所以我们要避免这种情况
 
 1099
 00:59:23,660 --> 00:59:28,029
 So I'm gonna say if emojiChoices.count
+所以我判断如果 emojiChoices.count
 
 1100
 00:59:28,097 --> 00:59:30,732
 is greater than 0, then I can grab
+要是大于零的话，那我就移走
 
 1101
 00:59:30,801 --> 00:59:33,635
 an emoji out of there and use it. But if
+并使用里面的某个表情，否则
 
 1102
 00:59:33,704 --> 00:59:36,971
 it's less than that, if it's equal 0 then I can't do this.
+如果小于等于零，那我就不这样
 
 1103
 00:59:37,040 --> 00:59:39,975
 And then I'm stuck with question mark down here. By
+那就放个问号进去
 
 1104
 00:59:40,043 --> 00:59:42,477
