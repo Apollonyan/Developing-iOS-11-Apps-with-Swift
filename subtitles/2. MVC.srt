@@ -5516,383 +5516,477 @@ And then I'm stuck with question mark down here. By
 1104
 00:59:40,043 --> 00:59:42,477
 the way cool thing in Swift, you see how we have back to
+顺便说个 Swift 很酷的地方，看到我们这里有
 
 1105
 00:59:42,546 --> 00:59:46,881
 back ifs here. You can put back to back ifs on the same
+两个相邻的 if 语句，你可以把两个合并到一行
 
 1106
 00:59:46,950 --> 00:59:51,253
 line by just separating them with comma, okay,
+只要用英文逗号分隔 if 的判断就可以了
 
 1107
 00:59:51,321 --> 00:59:54,155
 then you don't need the embedded ifs right there.
+这样你就不需要嵌套 if 语句了
 
 1108
 00:59:54,224 --> 00:59:56,858
 And it's nice especially when things are related, like look
+在两个 if 语句相关的时候这会显得非常好。你看看
 
 1109
 00:59:56,927 --> 00:59:59,761
 at how this cut line of code reads. If the emoji for
+这行代码多么清晰，如果表情里对应
 
 1110
 00:59:59,829 --> 01:00:02,530
 this card identifier is not set and
+这个卡片标识符的表情不存在，而且
 
 1111
 01:00:02,599 --> 01:00:08,736
 if we have emojiChoices, then go get one, All right?
+我们还有可以选择的表情，那就去获取一个，是吧？
 
 1112
 01:00:08,805 --> 01:00:11,272
 Okay, so let's see if this works. Let's go and run and
+好，让我们看看这能不能用。让我们运行然后
 
 1113
 01:00:11,341 --> 01:00:14,675
 see if we're grabbing a random emoji out of there and putting
+看我们是否随机从这里选择了个表情然后放
 
 1114
 01:00:14,744 --> 01:00:18,513
 them in one of our four cards. It's pseudorandom by the way,
+到我们这四张卡上了。顺便一提这是伪随机数
 
 1115
 01:00:18,582 --> 01:00:20,548
 so you're gonna see that it's not super random.
+所以你会看到它并不是很随机
 
 1116
 01:00:20,617 --> 01:00:22,183
 But anyway, all right, so let's look.
+但管他呢。好，我们来看一看
 
 1117
 01:00:22,252 --> 01:00:26,154
 Oh yeah, look, we got a random emoji. Oh there's another one,
+哦，太好了，我们得到了个随机的表情。哦，这是另一个
 
 1118
 01:00:26,223 --> 01:00:29,791
 little candy, hopefully these two are the same, yay!. Okay
+是个糖果。希望这两个是一样的。是的！好
 
 1119
 01:00:29,860 --> 01:00:33,161
 so it's working. Okay it's looking it up by identifier,
+我们的程序可以用，它在字典里通过标识符
 
 1120
 01:00:33,230 --> 01:00:36,164
 picking emoji and using that emoji for that identifier
+找到表情，然后把那个表情显示到所有那个标识符
 
 1121
 01:00:36,233 --> 01:00:38,466
 on all cards. And hopefully it's random. Let's stop again.
+对应的卡牌上。为了验证是不是随机的，让我们再试一次
 
 1122
 01:00:38,535 --> 01:00:41,603
 So we've got the devil guy, and the candy here.
+我们这里是魔鬼和糖果
 
 1123
 01:00:41,671 --> 01:00:45,440
 Cross your fingers that pseudo random generator does it,
+我们期望伪随机数生成器没问题
 
 1124
 01:00:45,509 --> 01:00:48,643
 let's see. Uh oh, devil guy, oh we got the cat,
+我们来看看。哦，这是魔鬼。哦，这是猫
 
 1125
 01:00:48,711 --> 01:00:52,280
 the scared cat or whatever that is, the screaming cat. So
+受惊吓的猫一类的，尖叫的猫
 
 1126
 01:00:52,349 --> 01:00:54,182
 we're getting random, this looks like it's working.
+所以我们得到的是随机的，它可以用
 
 1127
 01:00:54,251 --> 01:00:56,217
 So we've got our UI fully functional here.
+所以我们的 UI 是正常工作的
 
 1128
 01:00:56,286 --> 01:00:58,687
 So the only thing that's left to do now
+那我们唯一剩下的就是
 
 1129
 01:00:58,756 --> 01:01:00,354
 is make this thing play Concentration and
+让他能实际玩翻牌游戏
 
 1130
 01:01:00,423 --> 01:01:02,457
 that's purely a model thing. So to make
+那完全是模型负责的，所以要
 
 1131
 01:01:02,525 --> 01:01:05,594
 that work I'm going to bring up my model. And
+实现这个，我们把模型显示出来
 
 1132
 01:01:05,662 --> 01:01:07,929
 I'm only going to put code here in my model.
+我只会向模型添加代码
 
 1133
 01:01:07,998 --> 01:01:10,699
 Right now it flips cards over. We'll stop that.
+现在它只会把牌翻过来，我们删掉它
 
 1134
 01:01:10,768 --> 01:01:13,869
 Instead we're gonna have it play the game. And
+取而代之，我们让他能够玩这个游戏
 
 1135
 01:01:13,937 --> 01:01:16,337
 as part of implementing this, I'm gonna use an optional.
+而实现这个的其中之一，我会用到可选类型
 
 1136
 01:01:16,406 --> 01:01:17,872
 Because I know you're all still except for
+因为我知道你们所有人，除了
 
 1137
 01:01:17,941 --> 01:01:20,342
 this guy who asked this great question. You're all still not
+这个问了个好问题的同学，都还不太
 
 1138
 01:01:20,410 --> 01:01:21,877
 quite sure I understand the optional thing.
+理解可选类型
 
 1139
 01:01:21,945 --> 01:01:24,946
 So here's a chance, case where I'm gonna use an optional
+所以这就是个我会用可选类型的例子
 
 1140
 01:01:25,014 --> 01:01:27,849
 as part of my Fundamental semantic implementation
+用可选类型实现这个方法的基础语义
 
 1141
 01:01:27,918 --> 01:01:30,451
 of this method. So here we go.
+那我们开始吧
 
 1142
 01:01:30,520 --> 01:01:34,155
 The first thing I'm gonna do when a card is chosen is
+当选中一张卡片之后我要做的第一件是
 
 1143
 01:01:34,224 --> 01:01:37,458
 I'm gonna ignore a card that's already been matched. So
+我要忽略已经配对了的卡片，也就是
 
 1144
 01:01:37,527 --> 01:01:39,994
 if you choose a card that's on the board that's already been
+如果你选中了桌面上已经
 
 1145
 01:01:40,063 --> 01:01:42,029
 matched to another card, I'm just gonna ignore it. So
+配对了的另一张卡的话，我就直接忽略它
 
 1146
 01:01:42,098 --> 01:01:46,735
 I'm gonna say if the card that you chose, card of the index,
+所以我用 if 判断如果选中的卡，cards 里在索引 index 的卡
 
 1147
 01:01:46,804 --> 01:01:50,739
 isMatched. Then I'm not gonna do this, so
+如果 isMatched，配对了的话，那我就什么也不做
 
 1148
 01:01:50,808 --> 01:01:53,107
 I'm gonna say if it's not Matched then do it,
+所以我要判断如果没有配对，那就这样做
 
 1149
 01:01:53,176 --> 01:01:56,811
 if it is Matched then don't do this. This notch,
+如果配对了就不这样做。这个感叹号
 
 1150
 01:01:56,880 --> 01:01:59,481
 just like any other language means not, the opposite of
+和其他语言一样表示“非”，相反的
 
 1151
 01:01:59,550 --> 01:02:02,250
 this Bool. I'm gonna ignore all Matched cards.
+布尔值。我会忽略所有配对了的卡片
 
 1152
 01:02:02,319 --> 01:02:05,519
 Now what am I gonna do? There's three cases here
+现在我要干什么呢？现在有三种情况
 
 1153
 01:02:05,588 --> 01:02:10,091
 that can happen. One, no cards are face up. If no cards
+可能会发生。第一种，没有卡片面朝上。如果没有卡片
 
 1154
 01:02:10,159 --> 01:02:12,894
 are face up when I choose a card it just flips it over.
+面朝上的时候我选了一张卡，那就把它翻过来
 
 1155
 01:02:12,962 --> 01:02:16,764
 That's all it does. Another option is two cards are face
+这就是它要做的。另一种可能性是有两张卡朝上
 
 1156
 01:02:16,833 --> 01:02:19,900
 up, either matching or not matching. If that's true,
+可能配对可能没配对。如果是这种情况
 
 1157
 01:02:19,969 --> 01:02:22,704
 when I choose another card it needs to flip those cards face
+当我再选一张卡的时候，那就需要让那两张卡
 
 1158
 01:02:22,773 --> 01:02:27,541
 down cuz I'm starting a new match now. The third option is
+面朝下，因为我要开始新的一轮配对。第三种可能是
 
 1159
 01:02:27,610 --> 01:02:30,978
 there's one card face up and I choose some other card.
+有一张卡面朝上，然后我选了另一张卡
 
 1160
 01:02:31,047 --> 01:02:33,882
 Now I need to match. I need to see if they match.
+那现在我要尝试配对，看看是否是匹配的
 
 1161
 01:02:33,950 --> 01:02:37,585
 So those are the three options. So I want to
+所以就是这三种情况，那么我想要
 
 1162
 01:02:37,654 --> 01:02:40,455
 really keep track of the option where there's one card
+记录的情况是有一张卡
 
 1163
 01:02:40,524 --> 01:02:42,691
 face up because that's where I really have to do the work.
+面朝上，因为我需要实际地做额外的工作
 
 1164
 01:02:42,760 --> 01:02:44,392
 I have to try and see if they match. So
+我需要去尝试看看是否配对了
 
 1165
 01:02:44,461 --> 01:02:47,662
 I'm going to create a var to keep track if there is one and
+我要创建一个变量记录是否有一张
 
 1166
 01:02:47,730 --> 01:02:49,363
 only one card face up.
+而且仅有一张卡朝上
 
 1167
 01:02:49,432 --> 01:02:53,067
 I'm going to call it indexOfOneAndOnlyFaceUpCard
+我把它叫做 indexOfOneAndOnlyFaceUpCard
 
 1168
 01:02:53,136 --> 01:02:59,541
 and of course its an index so its going to be an int.
+既然是索引的话，那自然就是 Int 类型了
 
 1169
 01:02:59,609 --> 01:03:03,978
 Now whats the value of the indexOfOneAndOnlyFaceUpCard if
+那 indexOfOneAndOnlyFaceUpCard 的值是什么？
 
 1170
 01:03:04,047 --> 01:03:10,218
 no cards are face up? What's the value of that if two
+特别是当没有卡朝上的时候？如果两张卡朝上的时候
 
 1171
 01:03:10,286 --> 01:03:14,155
 cards are face up? Ah, interesting.
+它的值又是什么？非常有趣
 
 1172
 01:03:14,224 --> 01:03:19,393
 I think this wants to be optional. You see why, because
+那我认为这应该定义为可选类型。你是知道原因的，因为
 
 1173
 01:03:19,462 --> 01:03:22,197
 in those cases where there's not one index of a one and
+在这两种情况下，我们没有一张且仅有一张朝上的卡
 
 1174
 01:03:22,266 --> 01:03:25,133
 only face card, then this going to be not set,
+的索引，因此这就会缺省值
 
 1175
 01:03:25,201 --> 01:03:28,603
 cause there is not one and only face card. So this
+因为没有唯一的一张朝上的卡，所以这个
 
 1176
 01:03:28,672 --> 01:03:32,473
 is a great use of optionals right here. So all the time in
+是使用可选类型的好地方。所以每当
 
 1177
 01:03:32,542 --> 01:03:35,076
 my game, when there's one and only one face up card, this
+我游戏里有一张且仅有一张朝上的卡片，这个
 
 1178
 01:03:35,145 --> 01:03:37,712
 going to tell me the index of it so I can match against it.
+就会告诉我他的索引，让我来尝试和他配对
 
 1179
 01:03:37,780 --> 01:03:40,114
-And all the other times this is gonna be nill and
+And all the other times this is gonna be nil and
+其他的时候，这就是 nil
 
 1180
 01:03:40,183 --> 01:03:42,550
 I'm gonna know I don't have to do any work. I don't have to
+我会知道我不需要做任何的工作，我不需要
 
 1181
 01:03:42,619 --> 01:03:44,652
 do any matching because there's no card to match
+去尝试配对，因为没有卡片可以用来配对
 
 1182
 01:03:44,721 --> 01:03:47,522
 against. So what does the code look like to use this?
+那使用它的代码长什么样？
 
 1183
 01:03:47,590 --> 01:03:50,591
 I'm going to say if I can let a match index,
+我判断如果可以让 matchIndex
 
 1184
 01:03:50,660 --> 01:03:54,295
 which is a local variable, equal this index of one and
+这个局部变量赋值为 indexOfOneAndOnlyFaceUpCard
 
 1185
 01:03:54,364 --> 01:03:57,665
 only face up card right here, then I have something to
+就是这里的这个，那我就有尝试匹配的对象了
 
 1186
 01:03:57,734 --> 01:04:01,135
 match. By the way, I wanna make sure that that match
+顺便一提，我要确保那个配对的
 
 1187
 01:04:01,204 --> 01:04:06,207
 index of that thing is not equal to the card you chose.
+卡片索引和选择的卡片是不一样的
 
 1188
 01:04:06,276 --> 01:04:08,709
 If there's only, only, if there's one and
+如果这里只有
 
 1189
 01:04:08,778 --> 01:04:10,979
 only one face of card and you chose that,
+只有那张朝上的卡，然后你再选了它一次
 
 1190
 01:04:11,047 --> 01:04:13,748
 it's going to ignore that. You have to choose a different
+我会选择忽视它。你必须要选张不同的
 
 1191
 01:04:13,817 --> 01:04:19,220
 card. This inside this curly brace right here is, you know,
+卡。在这对大括号里面，你知道的
 
 1192
 01:04:19,289 --> 01:04:24,892
 check if cards match. And then outside right here is what?
+判断卡片是否配对。而在外面呢？
 
 1193
 01:04:24,961 --> 01:04:28,129
 Either no cards or
+要么没有卡片
 
 1194
 01:04:28,198 --> 01:04:33,734
 two cards are face up, so I can't match. So
+要么有两张卡片朝上，我没法配对，所以
 
 1195
 01:04:33,803 --> 01:04:36,638
 in that case I'm gonna need to turn the cards face down and
+那种情况我就要把牌翻到背面
 
 1196
 01:04:36,706 --> 01:04:38,673
 have the card you chose be the only face up card.
+然后让你选的卡成为唯一朝上的卡
 
 1197
 01:04:38,741 --> 01:04:41,008
 And then I'm gonna set it to be the index of the one and
+然后赋值给 indexOfOneAndOnlyFaceUpCard
 
 1198
 01:04:41,077 --> 01:04:43,311
 only face up card.
-仅有的那张朝上的卡
+让它成为仅有的那张朝上的卡
 
 1199
 01:04:43,379 --> 01:04:45,714
