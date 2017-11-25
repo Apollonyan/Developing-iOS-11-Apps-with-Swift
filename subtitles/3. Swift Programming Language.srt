@@ -1001,402 +1001,502 @@ we wouldn't overlap our titles and stuff. It's really cool.
 201
 00:09:54,394 --> 00:10:00,264
 So, I'm gonna put this top space little pin, so
+所以我要在这个顶端空间放置一个别针
 
 202
 00:10:00,333 --> 00:10:03,501
 I'm kinda connected it and you can see this blue line appears
+所以我就把它连接了起来，你可以看到这个蓝色的线出现在
 
 203
 00:10:03,570 --> 00:10:07,371
 right here. Okay? This blue line here, long blue line.
+这里，好么？这里的蓝色的线，这条长长的蓝色的线
 
 204
 00:10:07,440 --> 00:10:11,375
 It represents that pinning and I can even click on it. Okay,
+它代表着那个别针，我甚至可以点击它
 
 205
 00:10:11,444 --> 00:10:14,045
 and when I click on it, look, it's inspectable in the top
+当我点击它的时候，它变成了可被检查的
 
 206
 00:10:14,113 --> 00:10:17,248
 half here. Okay? And it's just telling me that un-pinned
+在这上半部分。好么？它就是告诉我这个别针连接着
 
 207
 00:10:17,317 --> 00:10:20,284
 from the safe area top to the top of that stack view. And
+从安全区域的顶端到栈视图的顶端
 
 208
 00:10:20,353 --> 00:10:23,321
 we're zero points away from it.
+它们的距离是0像素点
 
 209
 00:10:23,389 --> 00:10:25,824
 We wanna be right up against that safe edge.
+我们就在安全边缘的正上方
 
 210
 00:10:25,892 --> 00:10:28,058
 That's where the blue dashed lines told me to put it, so
+那里就是蓝色的虚线告诉我放置的地方，所以
 
 211
 00:10:28,127 --> 00:10:30,661
 that's where I'm gonna put it. Now, we can do the same thing
+我就放置到了那里。现在我们可以对
 
 212
 00:10:30,730 --> 00:10:34,032
 to the left edge over here, so I'm gonna control drag over.
+左边缘做相同的事情，所以我要按住 Control 拖到那里
 
 213
 00:10:34,101 --> 00:10:37,001
 This time it says, Leading Space to Safe Area.
+这次它写着，Leading Space to Safe Area（到安全区域的前导间距）
 
 214
 00:10:37,069 --> 00:10:40,872
 Now, why do you think that says leading instead of left?
+现在，你认为为什么它写的是前而不是左呢？
 
 215
 00:10:40,941 --> 00:10:45,743
 Anyone wanna guess? It says leading instead of left,
+有人想猜猜么？它写的是前而不是左
 
 216
 00:10:45,812 --> 00:10:50,081
 because some languages Hebrew, Arabic, they go right to
+因为一些语言，比如希伯来语，阿拉伯语，它们是从右向左
 
 217
 00:10:50,150 --> 00:10:53,117
 left. The letters come from the right, and they flow
+念的。字母从右边来，流向左边
 
 218
 00:10:53,186 --> 00:10:55,820
 out towards the left. In those cases, you want pretty much
+在这些例子里，你非常想要
 
 219
 00:10:55,889 --> 00:10:58,656
 your whole UI flipped over. So, you would want these
+你的整个 UI 翻转过来。所以你想要
 
 220
 00:10:58,725 --> 00:11:01,259
 buttons pinned to the other side, because the text on
+这些按钮钉到另一边，因为按钮
 
 221
 00:11:01,328 --> 00:11:03,761
 the buttons is gonna be coming from the right. Okay?
+上的文本是从右边来的，好么？
 
 222
 00:11:03,830 --> 00:11:05,830
 Now, it doesn't matter with our emojis, but
+现在，对于 emoji 来说并不重要，但是
 
 223
 00:11:05,898 --> 00:11:08,332
 that's why we do leading and trailing instead of left and
+这是为什么我们使用前导和后导而不是左和右
 
 224
 00:11:08,401 --> 00:11:11,435
 right. Okay? So, I'm gonna click this Leading Space to
+的原因。好么？所以，我要点击这里的 到安全区域的
 
 225
 00:11:11,504 --> 00:11:14,405
 Save Area right here. Connect it, I get another little blue
+前导距离。连接它，在这里我得到了另一个小的蓝色的
 
 226
 00:11:14,474 --> 00:11:17,141
 thing right here. You see this one? If I click on it,
+东西。你看到这个了么？如果我点击它
 
 227
 00:11:17,210 --> 00:11:19,143
 it looks like a little eyebeam,
+它看起来就像一个小眼睛
 
 228
 00:11:19,212 --> 00:11:22,947
 it's pinning these 2 and it's pinned it with 16 points.
+它正钉着这两个并且间距是16个像素点
 
 229
 00:11:23,016 --> 00:11:25,950
 You see 16 points, evidently the blue lines think from
+你看这是16个像素点的距离，明显的，这些蓝色的线认为从左边边缘
 
 230
 00:11:26,019 --> 00:11:28,986
 the left edge, or the leading edge you want 16 points.
+或者前导边缘的距离，你想要的是16个像素点
 
 231
 00:11:29,055 --> 00:11:31,489
 Okay, I'll take that. And then, of course,
+好的，我会采用它。之后，当然
 
 232
 00:11:31,557 --> 00:11:36,026
 I could pin to the other side. Ctrl+drag over here.
+我能够钉到另一边。按 Ctrl 拖拽到这里
 
 233
 00:11:36,095 --> 00:11:39,397
 And now, here I didn't use the blue line for that edge.
+现在，在这里我不利用蓝线来处理这个边缘
 
 234
 00:11:39,466 --> 00:11:42,634
 So, here if I say trailing space to safe area.
+如果我选择 trailing space to safe area（到安全区域的后导间距）
 
 235
 00:11:42,702 --> 00:11:44,635
 I get an eyebeam, this huge, okay.
+我得到了一个小眼睛，这个大的，好的
 
 236
 00:11:44,704 --> 00:11:46,537
 So, it goes all the way across like that.
+所以它伸展到了它穿过的所有地方
 
 237
 00:11:46,606 --> 00:11:50,241
 And I don't want that, I want it to be the same as the other
+但是我不想要这样子，我要它和其他边一样
 
 238
 00:11:50,310 --> 00:11:53,444
 side, 16 points. So, in my inspector right here,
+16像素点。所以在这里的检查器
 
 239
 00:11:53,513 --> 00:11:56,681
 this distance is this constant right here, 215 points.
+这段距离就是这里的这个常数，215像素点
 
 240
 00:11:56,749 --> 00:11:58,882
 So, I'm gonna change that to be 16,
+所以我要把它改成16
 
 241
 00:11:58,951 --> 00:12:02,219
 so it matches the other side. Oh, and look what happened, it
+所以它会和另一边匹配。噢，看发生了什么
 
 242
 00:12:02,288 --> 00:12:06,223
 pinned the edge of my buttons and they spread out, equally,
+它钉到了我的按钮的边缘然后等距离伸展开来
 
 243
 00:12:06,292 --> 00:12:09,727
 filling equally, because we told we want to fill equally.
+均匀填充起来，因为我们说过我们想要均匀的填满
 
 244
 00:12:09,796 --> 00:12:13,664
 Okay, so that's pretty cool, now we have the bottom.
+好的，这是非常酷的，现在我还剩下底部
 
 245
 00:12:13,733 --> 00:12:16,467
 So, the bottom is a little trickier, because we've got
+处理底部有一点小技巧，因为我们
 
 246
 00:12:16,536 --> 00:12:20,771
 flips down here. So, we want flips to be on the bottom, and
+在底部有 Flips 标签。所以我们想要 Flips 处于底部并且
 
 247
 00:12:20,840 --> 00:12:23,874
 we want this thing to be above flips. So,
+让这个东西在 Flips 上方。所以
 
 248
 00:12:23,943 --> 00:12:26,310
 let's work on flips first, let's just get it, so
+让我们先对 Flips 展开工作 
 
 249
 00:12:26,379 --> 00:12:28,947
 that flips is on the bottom and we're gonna do exact same
+Flips 位于底部，我们要做完全一样的工作
 
 250
 00:12:29,015 --> 00:12:31,549
 thing. So, I'm gonna grab flips and use the blue lines,
+所以我要抓住 Flips 然后利用这些蓝色的线
 
 251
 00:12:31,618 --> 00:12:33,517
 okay, put it in the center on the bottom.
+把它放到底部的中央
 
 252
 00:12:33,586 --> 00:12:36,520
 And then a controlled drag to the bottom,
+然后按住 Ctrl 键拖拽到底部
 
 253
 00:12:36,589 --> 00:12:40,658
 and say that I want the bottom space to be pinned to the safe
+选择安全区域的底部间距
 
 254
 00:12:40,726 --> 00:12:44,962
 area. So, that's good. Now, when I did that,
+所以，那是好的。现在，当我完成后
 
 255
 00:12:45,031 --> 00:12:47,632
 look I got this yellow and red lines and
+看我得到了这条黄色和红色的线
 
 256
 00:12:47,701 --> 00:12:50,434
 I got a warning up here. See a warning this warning,
+并且在这里我得到了一个警告。看这个警告
 
 257
 00:12:50,503 --> 00:12:53,037
 this means there is a warning and it can be red if you have
+它意味着这里有一个警告，并且如果你有一个错误，它会是红色的
 
 258
 00:12:53,106 --> 00:12:56,140
 an error. And if you click on it it will tell you what all
+并且如果你点击它，它会告诉你你全部的警告是什么
 
 259
 00:12:56,209 --> 00:12:59,210
 your warnings are kind of a quick summary there, and
+有一点像一个快速的概要
 
 260
 00:12:59,278 --> 00:13:02,179
 here it says horizontal position is ambiguous for
+这里它写到 你的翻牌计数表现的
 
 261
 00:13:02,248 --> 00:13:06,183
 your flip count label. In fact, it is ambiguous.
+横向位置是模棱两可的。事实上，它是模棱两可的
 
 262
 00:13:06,252 --> 00:13:08,052
 I never told it where it horizontally,
+我从没告诉过它在横向要位于哪里
 
 263
 00:13:08,121 --> 00:13:09,587
 I pinned it to the bottom, but
+我把它钉在了底部，但是
 
 264
 00:13:09,656 --> 00:13:11,322
 I didn't say it was in the middle, or left, or
+我没有告诉它是处于中央，还是左边，还是
 
 265
 00:13:11,390 --> 00:13:14,625
-right now I dragged it there with a blue lines, but
+right. Nor I dragged it there with a blue lines, but
+右边。我也没有用蓝色的线拖拽它
 
 266
 00:13:14,694 --> 00:13:18,362
-starting with blue lines, it doesn't pin it there. So
+distract with blue lines, just put there, it doesn't pin it there. So
+蓝色的线会分散你的注意力，它只是放到了那里，而没有钉在那里
 
 267
 00:13:18,431 --> 00:13:19,897
 really what I want with flips is,
+所以我真正想要 flips 成为的
 
 268
 00:13:19,966 --> 00:13:22,599
 I want it to be in the center. Okay, I want it to be in
+我想要它位于中央。好的，我想要它位于
 
 269
 00:13:22,668 --> 00:13:24,134
 center. Just to show you something a little different.
+中央。恰好给你们展示一些不一样的东西
 
 270
 00:13:24,203 --> 00:13:27,738
 And to do that, again, I Control+drag from flips right
+为了做这件事，再一次的，我按住 Ctrl 键拖拽 flips 标签到
 
 271
 00:13:27,807 --> 00:13:30,808
 here, to the thing I wanted to be in the center of,
+我想要它位于其中心的东西，
 
 272
 00:13:30,876 --> 00:13:33,144
 which is this background here. So,
+即这里的背景
 
 273
 00:13:33,212 --> 00:13:35,112
 I'm just gonna Control+drag to the background. And
+所以我仅是 按住 Control 键拖拽到背景
 
 274
 00:13:35,181 --> 00:13:39,750
 another option is center this horizontally in the safe area.
+另一个选项是 在安全区域横向居中
 
 275
 00:13:39,819 --> 00:13:44,621
 So, I'm gonna do that. Now, it, it puts it in the middle.
+所以我要这么做。现在，它居中了
 
 276
 00:13:44,690 --> 00:13:47,758
 It's still yellow here. So, what does this yellow say?
+它仍是黄色的。所以，这个黄色警告说了什么
 
 277
 00:13:47,827 --> 00:13:50,727
 It says the frame for the Flip Count Label will be different
+它说 这个翻转计数标签的框架
 
 278
 00:13:50,796 --> 00:13:55,332
 at run time. That's, because I have not constrained the size
+在运行时将会不懂。那是，因为我还没有为标签的尺寸
 
 279
 00:13:55,401 --> 00:13:58,168
 of this Flip Count Label. I've let it be any size it wants.
+添加约束。我让它可以是它想要的任意尺寸
 
 280
 00:13:58,237 --> 00:13:59,536
 And since it can be any size it wants,
+正因为这样子
 
 281
 00:13:59,605 --> 00:14:02,206
 it's gonna want to be its natural size,
+它将想变成它的自然尺寸
 
 282
 00:14:02,274 --> 00:14:03,841
 whatever size fits it.
+只要适合它无论多大
 
 283
 00:14:03,910 --> 00:14:07,211
 Now, I can fix this warning down here in this button right
+现在，我能够在这里这个按钮，修理这个警告
 
 284
 00:14:07,280 --> 00:14:09,813
 here. This is where all your constraints.
+这里是你所有的约束所在的地方
 
 285
 00:14:09,882 --> 00:14:12,984
 All this pinning things to edges is called constraints
+所有这些把东西钉到边缘的东西叫做约束
 
 286
 00:14:13,052 --> 00:14:15,686
 we're constraining these views to be in a certain place,
+我们将要约束这些视图到一个具体的位置
 
 287
 00:14:15,755 --> 00:14:18,522
 that we can just, um, actually we don't fix it there,
+我们能够仅仅，呃...实际上我们不在这里修补
 
 288
 00:14:18,591 --> 00:14:20,458
 but we're gonna fix that over here.
+但是我们要在这里修补
 
 289
 00:14:20,526 --> 00:14:23,627
 So, remember, our document outline that we had over here
+所以记得，我们这里的的文件大纲
 
 290
 00:14:23,696 --> 00:14:26,464
 this little thing we hide. If you unhide that and
+这个我们隐藏的小东西。如果你取消隐藏
 
 291
 00:14:26,533 --> 00:14:29,500
 look in the upper right, if there are any of these little
+并且向右上方看，如果这里有任何的小的警告
 
 292
 00:14:29,569 --> 00:14:32,436
 warnings you have this little button, if you click on it,
+你会得到这个小的按钮，如果你点击它
 
 293
 00:14:32,505 --> 00:14:34,338
 it will tell you all the problems. So,
+它会告诉你所有的问题。所以
 
 294
 00:14:34,407 --> 00:14:39,310
 this one is a misplaced view, cuz this flip is too big. For
+它是一个错误放置的视图，因为这个 flip 标签太大了，对于应该
 
 295
 00:14:39,379 --> 00:14:41,345
 what it should be. So, again, if you click on this little
+是什么样子来说。所以再一次，如果你点击这个小的
 
 296
 00:14:41,414 --> 00:14:44,715
 triangle, it'll offer, hey, you wanna fix this? And
+三角形，它会提供给你，嘿，你想要修补这个警告？
 
 297
 00:14:44,784 --> 00:14:47,051
 you can fix it by updating the frames, which we want,
+你可以通过更新框架来修补，这是我们需要的
 
 298
 00:14:47,120 --> 00:14:49,653
 cuz we don't care what the frame this is, the rectangle
+因为我们并不关心它的框架是什么，围绕它的
 
 299
 00:14:49,722 --> 00:14:51,389
 that encloses it. It could be anything as long as it's
+这个矩形，可以是任何样子只要它
 
 300
 00:14:51,457 --> 00:14:54,058
 pinned to the bottom and in the center. And we can
+钉在底部和中央。
 
 301
 00:14:54,126 --> 00:14:56,160
