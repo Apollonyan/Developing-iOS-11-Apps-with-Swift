@@ -471,17 +471,17 @@ dimensions like this. So I'm gonna have to make three
 95
 00:04:46,019 --> 00:04:50,155
 horizontal stacks out of this group, out of this group, and
-横向的堆，这些一组，这些一组，这些一组
+横向的栈，这些一组，这些一组，这些一组
 
 96
 00:04:50,223 --> 00:04:53,024
 out of this group. But then I'll take those three stacks
-之后我再讲这三个堆
+之后我再讲这三个栈
 
 97
 00:04:53,092 --> 00:04:55,794
 and stack them vertically. Cuz it's perfectly fine to put
-竖向地堆在一起。因为把堆放到堆里
+竖向地堆在一起。因为把栈放到栈里
 
 98
 00:04:55,863 --> 00:04:59,230
@@ -501,7 +501,7 @@ then I can pin it to the edges and they'll stretch out. So
 101
 00:05:05,872 --> 00:05:07,405
 how do we make this stack use?
-我们该如何创建这个堆呢？
+我们该如何创建这个栈呢？
 
 102
 00:05:07,473 --> 00:05:10,074
@@ -515,392 +515,488 @@ we can really see what's going on here. We only need the top
 
 104
 00:05:13,046 --> 00:05:15,347
-part for now. So I deselected these four things.
-顶端的部分。
+part for now. So I selected these four things.
+顶端的部分。所以我选中了这四个按钮
 
 105
 00:05:15,416 --> 00:05:17,215
 I'm going down to this button right here.
+我去到下面这里的这个按钮
 
 106
 00:05:17,284 --> 00:05:19,751
-You see this button, embed and stack?
+You see this button, embed in stack?
+你看到这个按钮了么，写着 embed in stack（嵌入栈中）？
 
 107
 00:05:19,820 --> 00:05:22,020
 Well, that's what it does. It embeds in stack.
+好的，那就是它所做的事情。它把东西嵌入栈中
 
 108
 00:05:22,089 --> 00:05:24,188
 And it embedded it. Now, couple of things.
+它把这四个按钮嵌进去了。现在，有几件事情
 
 109
 00:05:24,257 --> 00:05:27,392
 One is, it made the buttons as small as it could when you put
+一件是，当你把它放到栈中的时候，它令按钮变得足够的小
 
 110
 00:05:27,460 --> 00:05:30,028
 in the stack. It has 50 point font, remember, for
+记得么，那些 emoji 有50像素点大
 
 111
 00:05:30,097 --> 00:05:32,730
 those emojis. So that's just as small as they'll go.
+所以它会把它们变得足够的小
 
 112
 00:05:32,799 --> 00:05:36,434
 It also has no spacing between. But I can put spacing
+其次它们之间也没有空间，但是我可以在它们之间
 
 113
 00:05:36,503 --> 00:05:40,638
 in-between by just selecting it. It was left selected after
+放置空间，通过选中它。在我把它们堆到一起之后它们就是选中的
 
 114
 00:05:40,707 --> 00:05:43,809
 I stacked. And going over here to the inspector because this
+去到这里检查器，因为这个
 
 115
 00:05:43,877 --> 00:05:47,145
 stack view, just like a button, can be inspected,
+栈视图，就像一个按钮一样，是可以被检查的
 
 116
 00:05:47,213 --> 00:05:49,881
 right? And you can see it made it horizontal,
+好么？你可以看到它把它横向堆叠
 
 117
 00:05:49,950 --> 00:05:52,617
 it kinda noticed my buttons were mostly horizontal. So
+它大概注意到我的按钮大致是以横向分布的，所以它
 
 118
 00:05:52,686 --> 00:05:57,522
 it picked horizontal. And so here's how I set the spacing.
+选择了横向模式。所以这里是我该如何设置空间的地方
 
 119
 00:05:57,590 --> 00:06:00,492
 I go down here. I'm gonna use a standard spacing.
+点击向下的按钮，我会使用一个标准间距
 
 120
 00:06:00,560 --> 00:06:03,027
 There's a lot of places when you're doing UI design where
+当你进行 UI 设计的时候，有很多地方你可以选择一种
 
 121
 00:06:03,096 --> 00:06:05,463
 you can pick an UI standard value and
+UI 标准值
 
 122
 00:06:05,532 --> 00:06:07,498
 it'll pick a standard spacing.
+它会选择一个标准间距
 
 123
 00:06:07,567 --> 00:06:09,167
 This is a standard spacing between buttons.
+这就是按钮间的标准间距
 
 124
 00:06:09,235 --> 00:06:11,336
 And you wanna use that pretty much as much as possible.
+你会想着尽可能多的使用这个功能
 
 125
 00:06:11,404 --> 00:06:14,005
 That way, your UI will be spaced like other UI and
+以这种方式，你的 UI 将像其他 UI 一样布局
 
 126
 00:06:14,074 --> 00:06:17,609
 you will feel like rolling on the same page as
+当 UI 设计师翻阅所有那些应用的时候，你会感到像
 
 127
 00:06:17,678 --> 00:06:21,746
 UI designers across all these apps. Also I wanna make sure
+在一张页面上滚动。我还想确定
 
 128
 00:06:21,814 --> 00:06:26,317
 that these four buttons get equal amount of space. Okay,
+这四个按钮有着相同的间距。
 
 129
 00:06:26,386 --> 00:06:29,421
 whatever space I am given here gets equally distributed and
+无论这里给了多大的间距都能够均匀分布
 
 130
 00:06:29,489 --> 00:06:31,322
 I do that with this distribution thing here,
+我通过这里的分布选项来做这件事
 
 131
 00:06:31,391 --> 00:06:36,228
 I say fill equally. Alignment just means I fill the whole
+我选择 均匀填满。Alignment 意味着填满整个
 
 132
 00:06:36,296 --> 00:06:38,563
 space, I could have these things being centered or
+空间，我本可以令这些东西居中或者
 
 133
 00:06:38,632 --> 00:06:40,431
 kinda pushed up to the top of the stack but
+把它们推到栈的顶端
 
 134
 00:06:40,500 --> 00:06:42,801
 I'm gonna have it fill the whole space. So that's it.
+但是我要把它填满整个空间。所以这就是它了
 
 135
 00:06:42,869 --> 00:06:45,503
 So I'm just gonna do the same thing with these two rows.
+我要对这两行做相同的事情
 
 136
 00:06:45,572 --> 00:06:48,373
 So this one go down here, embed in stack,
+这一行下到这里，嵌入栈中
 
 137
 00:06:48,441 --> 00:06:52,210
 this group right here embed in stack. Oops,
+这里这一组嵌入栈中。噢
 
 138
 00:06:52,279 --> 00:06:56,080
 I did it twice there. Now I'm gonna select both of these.
+这里我做了两次。现在我要选中这两个
 
 139
 00:06:56,149 --> 00:07:00,851
 Make them fill equally and standard value spacing. So
+让它们均匀填满并且标准间距分布
 
 140
 00:07:00,920 --> 00:07:04,756
 now I've got three horizontal stacks. I'm gonna stack these
+现在我得到了三个横向的栈。我要把它们堆叠
 
 141
 00:07:04,824 --> 00:07:06,991
 together, I'm gonna select them. By the way,
+在一起，我要选中它们。顺便说
 
 142
 00:07:07,060 --> 00:07:09,694
 dragging to select is really an awesome way to select.
+拖拽选中真的是一种很酷的选中方式
 
 143
 00:07:09,763 --> 00:07:12,163
 I highly recommend you do that rather than trying to click on
+我高度推荐你们这样做而不是尝试点击
 
 144
 00:07:12,231 --> 00:07:15,433
 things. Because by the way, let's say I try to click on
+东西。因为通过这样做，比如说我尝试点击这里
 
 145
 00:07:15,502 --> 00:07:19,370
 here to select this row. Oops, I selected the button inside.
+来选择这一行。噢，我选中了里面的按钮
 
 146
 00:07:19,439 --> 00:07:21,940
 I didn't want that, I wanted the whole row. But
+我并不想这么做，我想要这一整行。但是
 
 147
 00:07:22,008 --> 00:07:25,610
 if I just drag, not control drag but regular drag here,
+如果我只是拖拽，正常的拖拽而不是按住 Control 键来拖拽
 
 148
 00:07:25,679 --> 00:07:30,048
 it selects the thing that I intercepted with my drag.
+它会选中我拖拽截取的东西
 
 149
 00:07:30,117 --> 00:07:32,650
 Anyway, so I'm gonna select all three of these with drag.
+总之，我会通过拖拽选中所有三个栈
 
 150
 00:07:32,719 --> 00:07:35,086
 And I'm gonna go embed in stack. You put them in
+然后去到 嵌入栈中。你把它们
 
 151
 00:07:35,155 --> 00:07:37,622
 a vertical stack. You notice this time it's vertical,
+放到了一个竖向的栈中。你注意到这次它是竖向的
 
 152
 00:07:37,691 --> 00:07:39,623
 cuz it noticed those three things are vertical.
+因为它注意到了这三个东西是竖向的
 
 153
 00:07:39,692 --> 00:07:40,925
 If your things are random,
+如果你的东西是随机分布的
 
 154
 00:07:40,994 --> 00:07:43,461
 it'll pick the one that it thinks is the most likely.
+它会选择一个它认为最可能的方向
 
 155
 00:07:43,530 --> 00:07:44,863
 You can always change it by going here and
+你可以一直通过去到这里来改变它
 
 156
 00:07:44,931 --> 00:07:47,932
 changing it to the other one. So we have vertical,
+改成另一个。所以我们有了竖向排布
 
 157
 00:07:48,001 --> 00:07:51,135
 we also wanna fill equally, top to bottom here, and
+我们还想要均匀填满，从上到下
 
 158
 00:07:51,204 --> 00:07:53,271
 we also want standard spacing. So
+我们还想要标准间距
 
 159
 00:07:53,340 --> 00:07:56,607
 it's great. We got our buttons in this nice grid.
+这太棒了。我们让按钮放置到了这个很好的栅格中
 
 160
 00:07:56,676 --> 00:08:02,046
 They're all Perfectly laid out in this rectangle. Now,
+它们都完美的布局在了这个矩形中。现在
 
 161
 00:08:02,115 --> 00:08:05,483
 we want to pin this rectangle to the edges. Okay, so
+我们想要把这个矩形钉在边缘。好的
 
 162
 00:08:05,552 --> 00:08:08,820
 that when the device rotates, or if the device was bigger,
+因此当设备旋转的时候，或者如果设备更大的时候
 
 163
 00:08:08,888 --> 00:08:10,388
 like if it was an iPhone 8 Plus, or
+比如它是一台 iPhone 8 plus 或者
 
 164
 00:08:10,457 --> 00:08:12,223
 something like that and it was wider, so
+更宽的东西
 
 165
 00:08:12,292 --> 00:08:15,026
 that it would all just stretch out. So, the way we do
+以便它能够伸展开来。所以
 
 166
 00:08:15,095 --> 00:08:17,529
 that is first I'm going to use those dash blue lines.
+我们要做的就是首先，我要利用这些蓝色的虚线
 
 167
 00:08:17,598 --> 00:08:21,065
 I picked up this thing. Again, picking it up,
+我捡起这个东西，再一次，捡起这个东西
 
 168
 00:08:21,134 --> 00:08:23,601
 you wanna select it first, then pick it up.
+你会先选中它，然后捡起来
 
 169
 00:08:23,669 --> 00:08:26,538
 If you don't select it first and try to pick it up, oops,
+如果你不先选中它，尝试去捡起来的话，噢
 
 170
 00:08:26,606 --> 00:08:28,706
 you might try and pull one of these things out of there.
+你可能把其中一个东西拉出来
 
 171
 00:08:28,775 --> 00:08:30,742
 Okay? So, be careful about that. All right.
+好么？所以，小心一点。好的
 
 172
 00:08:30,810 --> 00:08:32,176
 So, I'm gonna use the blue lines. I'm gonna
+我要利用这些蓝色的线，我要
 
 173
 00:08:32,245 --> 00:08:35,013
 put this where it kinda suggests for
+把它放置到它建议的
 
 174
 00:08:35,082 --> 00:08:36,147
 the upper left hand corner.
+左上角的角落里
 
 175
 00:08:36,216 --> 00:08:39,484
 You see that? That's pretty much where the blue line,
+你看到了它了么？那就是蓝线所在的地方
 
 176
 00:08:39,552 --> 00:08:41,953
 that would be the standard spacing from the edges.
+和边缘有着标准的间距
 
 177
 00:08:42,022 --> 00:08:43,387
 That's what the blue lines are telling you.
+那就是蓝线正告诉你的东西
 
 178
 00:08:43,456 --> 00:08:45,857
 This is a standard place to put this. Now,
+这是放置它的标准位置
 
 179
 00:08:45,926 --> 00:08:49,227
 I need to pin it and the way we make relationships between
+我需要把它钉在这里，我们把视图和 UI 关联起来
 
 180
 00:08:49,296 --> 00:08:52,764
 views and the UI like pinning them to each other and
+的方式，比如让它们相互定位在一起
 
 181
 00:08:52,832 --> 00:08:56,200
 stuff is with control drag. Exact same way that we made
+是通过按住 Control 键拖拽。和我们将 UI 
 
 182
 00:08:56,269 --> 00:08:58,202
 a relationship between our UI and our code,
+和代码关联起来的方式完全一样
 
 183
 00:08:58,271 --> 00:09:01,239
 by dragging the code, we do the same thing between views.
+通过拖拽代码，我们在视图间做相同的事情
 
 184
 00:09:01,308 --> 00:09:04,675
 So, I'm gonna control drag from this already selected
+所以，我将要按住 Control 键从这里已经选中的盒子拖拽到
 
 185
 00:09:04,744 --> 00:09:09,047
 box here to the top. Okay, so I'm just dragging up towards
+顶部，好的，所以我只是正向上拖拽到顶部
 
 186
 00:09:09,115 --> 00:09:11,750
 the top, and when I let go it's going to say, okay,
+当我松开鼠标的时候，它会问，
 
 187
 00:09:11,818 --> 00:09:14,619
 what relationship do you want between that view and
+你想要视图和顶端用什么关系关联
 
 188
 00:09:14,687 --> 00:09:17,588
 the top. And there's various relationships you can have,
+这里有各种关系你可以选择
 
 189
 00:09:17,657 --> 00:09:19,090
 like I said, in three weeks we're going to have
+正如我说过，三周后我们将有
 
 190
 00:09:19,159 --> 00:09:21,159
 a whole lecture on these relationships, but
+一整节课来讨论这些关系
 
 191
 00:09:21,227 --> 00:09:24,962
 at the very top is the one Top Space to Safe Area.
+在最顶部的是 Top Space to Safe Area
 
 192
 00:09:25,031 --> 00:09:28,132
 You see that Top Space to Space Area? The safe area
+你看到它了么？ Safe Area (安全区域)
 
 193
 00:09:28,201 --> 00:09:31,336
 is a safe edge around the screen where you can
+是一个安全的屏幕边缘，在那里你可以
 
 194
 00:09:31,405 --> 00:09:34,639
 safely draw without overlapping some other UI.
+安全的绘制空间而不和其他 UI 重叠
 
 195
 00:09:34,707 --> 00:09:37,241
 So, here it's putting it right under the place where all
+所以，在这里把它放在了所有的摄像头
 
 196
 00:09:37,310 --> 00:09:40,578
 the cameras and face recognition stuff is all in
+面部识别模块等所有东西的正下方
 
 197
 00:09:40,647 --> 00:09:44,883
 here. So, it's to keeping it below that. Now, if I had
+所以，它是为了保持在那些东西正下方。现在如果我有
 
 198
 00:09:44,951 --> 00:09:47,752
 other UI on this, like tab bars, or title bars, or
+其他 UI 在上面，比如 tab bars 或者 title bars
 
 199
 00:09:47,820 --> 00:09:51,455
 whatever, then the safety area would be inside those. So,
+或其他任意东西，safe area 会在他们内部
 
 200
 00:09:51,524 --> 00:09:54,325
 we wouldn't overlap our titles and stuff. It's really cool.
+所以我们不会和我们的标题和其他东西重叠。这是非常棒的
 
 201
 00:09:54,394 --> 00:10:00,264
