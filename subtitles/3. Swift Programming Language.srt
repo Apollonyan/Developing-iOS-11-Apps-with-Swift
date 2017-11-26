@@ -3705,410 +3705,512 @@ You see, the design approach there?
 901
 00:45:35,066 --> 00:45:39,802
 All right, let's go look at card, so
+好，我们再来看看 Card 结构体
 
 902
 00:45:39,871 --> 00:45:42,304
 here's Card. Card definitely, this has to be public.
+这就是 Card。Card 里这个肯定是公开的
 
 903
 00:45:42,373 --> 00:45:43,839
 We need to know whether the cards are face up,
+我们需要知道是否朝上
 
 904
 00:45:43,908 --> 00:45:45,908
 we, this has to be public. Unfortunately,
+这个也必须是公开的。不幸的是
 
 905
 00:45:45,977 --> 00:45:48,110
 this has to be public. Cuz otherwise,
+这个也得是公开的，因为否则的话
 
 906
 00:45:48,179 --> 00:45:50,846
 we can't tell if two cards are the same without that,
+没有这个的话我们不能判断两张是否相同
 
 907
 00:45:50,915 --> 00:45:54,516
 but these two guys definitely don't need to be public.
+但这两个肯定不用是公开的
 
 908
 00:45:54,585 --> 00:45:58,620
 This whole idea of I, making identierFactory that's purely
+我这整个使用 identierFactory 只是为了
 
 909
 00:45:58,689 --> 00:46:02,458
 internal implementation, okay, so no reason for that to be
+内部实现，所以没有理由把它
 
 910
 00:46:04,295 --> 00:46:06,995
 public. And this really, I'd love this to be private as
+公开。然后这个 identifier，我虽然想要是 private
 
 911
 00:46:07,064 --> 00:46:09,965
 well, because a card it's either face up it's matched
+因为这卡，我就想知道是否朝上，是否配对了
 
 912
 00:46:10,034 --> 00:46:12,134
 whether it's the same as another card,
+而两张卡是否相同
 
 913
 00:46:12,203 --> 00:46:14,971
 I shouldn't have to look an identifier to find that.
+我不应该靠 identier 标识符来判断
 
 914
 00:46:15,039 --> 00:46:18,007
 I should be able to say the this card == the other card,
+我应该能用 一张卡 == 另一张卡 来判断
 
 915
 00:46:18,076 --> 00:46:20,308
 wouldn't that be cool? And yeah it is cool and
+那不更好么？是的，那是挺酷的
 
 916
 00:46:20,377 --> 00:46:23,646
 we're gonna be doing that, in, later in this lecture or next
+而我们也就会这样做，要么等会儿这节课，要么
 
 917
 00:46:23,714 --> 00:46:26,582
 lecture. Um, this is really kind of gross but for now we
+下节课。我挺讨厌这个，但现在我们
 
 918
 00:46:26,650 --> 00:46:28,350
 have to leave that public because otherwise we do,
+就让他保持公开，因为否则的话
 
 919
 00:46:28,419 --> 00:46:31,687
 we can't tell what two cards are the same. Okay,
+我们就不能判断两张卡是否相同了吧
 
 920
 00:46:31,756 --> 00:46:35,090
 here's the Concentration game, this is a really interesting
+然后这个是 Concentration 游戏本身，这是个很有趣的
 
 921
 00:46:35,159 --> 00:46:38,660
 case of private and public because, here is an object,
+决定私有还是公开的例子，因为这个对象
 
 922
 00:46:38,729 --> 00:46:41,697
 a model that is intended to be used by some UI somewhere,
+模型本身就是给其他的某个 UI 使用的
 
 923
 00:46:41,765 --> 00:46:44,500
 okay. It's very intentional use kind of thing, and
+就是为了被使用而存在的
 
 924
 00:46:44,569 --> 00:46:46,535
 there's some things we know are private,
+这里有我们知道是 private 的
 
 925
 00:46:46,604 --> 00:46:49,271
 like this guy for sure, indexOfTheOneAndOnlyFaceUpC-
+比如肯定有这里的 indexOfOneAndOnlyFaceUpCard
 
 926
 00:46:49,340 --> 00:46:51,640
 ard, we don't need someone using us to know that,
+我们不需要让使用的人知道
 
 927
 00:46:51,709 --> 00:46:53,142
 they don't need to know that.
+他们不需要知道这个
 
 928
 00:46:53,211 --> 00:46:55,944
 And in fact, if we left that public, someone using us would
+实际上，如果我们把它公开的话，使用我们的人会
 
 929
 00:46:56,013 --> 00:46:58,613
 be like when am I supposed to set that, I wonder?
+想，“我是否应该设置它呢？”
 
 930
 00:46:58,682 --> 00:47:01,483
 Okay, but it has nothing to do with it, it's internal to our
+但他们和这个是无关的，这是我们内部
 
 931
 00:47:01,552 --> 00:47:06,488
 implementation. Cards has to be public
+实现用的。card 必须要是公开的
 
 932
 00:47:06,557 --> 00:47:09,625
 because otherwise the UI can't display the cards.
+因为否则的话 UI 就不能显示卡片了
 
 933
 00:47:09,694 --> 00:47:12,961
 However, cards being flipped up and down or
+但是把牌翻面，或是
 
 934
 00:47:13,030 --> 00:47:18,200
 matching that's my job. So I am gonna make this one private
+让他们配对这是我的工作，所以我要让它是 private(set)
 
 935
 00:47:18,269 --> 00:47:22,405
 set, okay, so this is gonna be yeah you can look at my cards
+所以这个会是，使用的人可以看我有哪些牌
 
 936
 00:47:22,473 --> 00:47:25,608
-if you wanna use counting game but I am responsible for
+if you wanna use Concentration game but I am responsible for
+如果他们在用 Concentration 这个游戏的话可以看，但我负责
 
 937
 00:47:25,676 --> 00:47:29,077
 setting face up and is matched. So
+把卡片翻面，设置是否配对了，所以
 
 938
 00:47:29,146 --> 00:47:32,114
 you can see this one's clearly private set,
+我们可以明确地看出这个是 private(set)
 
 939
 00:47:32,183 --> 00:47:35,784
 everyone see that? Yeah. >> So for that you can access
+大家都看到了吗？>> 所以 private(set) 就是你可以获得
 
 940
 00:47:35,853 --> 00:47:38,487
 the cards but you can't access the methods or
+cards 和数组的元素，但是你不能访问元素 Card 的实例方法
 
 941
 00:47:38,556 --> 00:47:40,956
 properties associated with it? >> Yeah, so
+或者实例的属性吗？>> 好，所以
 
 942
 00:47:41,025 --> 00:47:43,759
 the question is when it's like this does that mean I
+问题是用 private(set) 是否意味着
 
 943
 00:47:43,827 --> 00:47:46,962
 can access the cards but I can't access the methods that
+我可以访问 cards 的元素，但是不能访问方法
 
 944
 00:47:47,031 --> 00:47:50,366
 are on the cards you mean? No the methods on the cards,
+这是你的问题吧？但并不是这样的。Card 实例的方法
 
 945
 00:47:50,435 --> 00:47:53,436
-that's over, here those are public, okay,
+that's over here, those are public, okay,
+那是在这里定义的，这些是公开的
 
 946
 00:47:53,504 --> 00:47:56,905
-those are not internal so I can access those. From here,
+those are not internal so I can access those from here,
+这些不是内部实现，所以我这里可以访问他们
 
 947
 00:47:56,974 --> 00:48:00,542
 okay? But you remember that this is a value type, so
+但你要记得 Card 是值类型，所以
 
 948
 00:48:00,611 --> 00:48:03,745
-I can't set is Space up and stuff, I can only set that
+I can't set is face up and stuff, I can only set that
+我不能赋值给 isFaceUp 这些，我只能直接
 
 949
 00:48:03,814 --> 00:48:07,950
 directly in the array. Like I'm doing right here. You see,
+通过数组给它赋值，就像我这里这样，你看
 
 950
 00:48:08,018 --> 00:48:10,252
 here I'm modifying the thing in place in the array.
+我这里直接更改了在数组里的 Card 实例的属性
 
 951
 00:48:10,321 --> 00:48:13,121
 That's the only way to do it. Well, I can't do this if this
+这是我唯一能用的方法。而在其他地方是不能这样做的，如果这个
 
 952
 00:48:13,190 --> 00:48:17,559
 is private set. Okay? Cuz this is a value type.
+是 private(set) 的话，对吧？因为这个是值类型
 
 953
 00:48:17,628 --> 00:48:20,796
 So this makes it so this, this it's kind of like it's a let.
+这个让它有点像是 let 声明的常量
 
 954
 00:48:20,865 --> 00:48:22,731
 This almost makes it like a let for
+对于其他人，不在这个范围内的
 
 955
 00:48:22,800 --> 00:48:25,101
 other people, people other than me. And then, and so
+private(set) 就像是 let 一样，也就是
 
 956
 00:48:25,169 --> 00:48:28,571
 you can't touch anything in an array when it's a let. So
+在数组是 let 常量的时候你不能修改数组的元素
 
 957
 00:48:28,639 --> 00:48:31,573
 that's a really cool feature of value types.
+所以这是值类型很酷的特性
 
 958
 00:48:31,642 --> 00:48:33,875
 And remember that array's a value type and
+然后，要记得数组是值类型
 
 959
 00:48:33,944 --> 00:48:37,646
 card is a value type. So that whole thing is frozen for
+Card 也是值类型，所以这整个就被“冻”住了
 
 960
 00:48:37,715 --> 00:48:41,616
 people who, you can't be modified for outside people.
+其他人就没法修改它
 
 961
 00:48:41,685 --> 00:48:44,152
 But for us, it's private set so
+但 private(set) 对于我们来说
 
 962
 00:48:44,221 --> 00:48:46,789
 we can do anything we want in there which we have been
+我们可以像现在这样为所欲为
 
 963
 00:48:46,857 --> 00:48:50,259
 doing. All right. And then of course, choose card.
+好吧。然后肯定的，chooseCard
 
 964
 00:48:50,328 --> 00:48:53,929
 That's our fundamental public API. So we got to leave that
+这是我们基础的公有 API，所以我们就让他
 
 965
 00:48:53,998 --> 00:48:56,298
 not private, okay. That's how people do it. And
+不是私有的，这就是我们的做法。然后
 
 966
 00:48:56,367 --> 00:48:59,869
 initializing, initializers can be made private as well. But
+构造过程，init 构造器也可以是私有的，但是
 
 967
 00:48:59,937 --> 00:49:02,971
 this one obviously can't be private because otherwise no
+这个不能是私有的，因为否则的话
 
 968
 00:49:03,040 --> 00:49:06,976
-one could create a game, all right. So that's it. I really
+one could create a game, all right. So that's it. Everyone
+没有人可以新建一个游戏，好，就是这样
 
 969
 00:49:07,044 --> 00:49:10,045
-got that. Now, while I'm here, I'm gonna show you another
+got that? Now, while I'm here, I'm gonna show you another
+大家都明白吧？现在我在这里还要给你展示另一种
 
 970
 00:49:10,114 --> 00:49:12,982
 API protection thing that's different from access control.
+方法来保护 API。不是靠访问权限控制
 
 971
 00:49:13,050 --> 00:49:16,618
 That's still good, which is using assertions, okay.
+（虽然也可以用，）那就是使用 assert，断言
 
 972
 00:49:16,687 --> 00:49:18,654
 Do anyone know what an assertion is from other
+大家从其他语言知道了 assert/断言是什么吗？
 
 973
 00:49:18,722 --> 00:49:21,957
 languages? An assertion is just a function that you call
+断言就是一个你调用的函数
 
 974
 00:49:22,026 --> 00:49:25,027
 where you assert something to be true. And if it's not,
+以此来确保某个条件是成立的；如果不是的话
 
 975
 00:49:25,095 --> 00:49:28,063
 your program crashes and print out an error.
+你的程序就会崩溃，然后打印出错误信息
 
 976
 00:49:28,131 --> 00:49:31,533
 And you put it in your code, the asserts are ignored when
+你这代码里使用 assert 函数，但发布到
 
 977
 00:49:31,602 --> 00:49:33,936
 you ship to the App Store. But when you're in development,
+App Store 时会被忽略。但你在开发的时候
 
 978
 00:49:34,005 --> 00:49:35,504
 it'll be crashing your program, which is good,
+他会让你的程序崩溃，这是好事情
 
 979
 00:49:35,572 --> 00:49:38,807
 cuz it takes the debugger right to the assertion failed.
+因为调试器会带你到断言为 false 的地方
 
 980
 00:49:38,876 --> 00:49:42,477
 And asserts are a great way to protect your API. For example,
+断言是保护你 API 的好方法，比如说
 
 981
 00:49:42,546 --> 00:49:43,979
 look at this API, chooseCard.
+看 chooseCard 这个 API
 
 982
 00:49:44,047 --> 00:49:46,448
 What if someone says at index -1?
+如果别人传的 index 是 -1 呢？
 
 983
 00:49:46,517 --> 00:49:51,620
 Or at index 100 and they're only 12 cards.
+或者我们只有 12 张，但他们选择在索引 100 的卡
 
 984
 00:49:51,689 --> 00:49:54,657
 Okay, that's gonna crash somewhere deep inside here,
+那种情况程序会在这里的某个地方崩溃
 
 985
 00:49:54,726 --> 00:49:56,425
 probably like maybe here or
+可能是在这里或者
 
 986
 00:49:56,494 --> 00:49:59,694
 something like that. And if I'm the Google guys again, and
+类似的地方。再次设想如果我是 Google 的员工
 
 987
 00:49:59,763 --> 00:50:01,363
 these guys are in another building and
+他们在另一栋建筑里
 
 988
 00:50:01,431 --> 00:50:05,900
 I accidentally pass -1 here and I don't know what's. And
+我不小心传了 -1 给 index，然后
 
 989
 00:50:05,969 --> 00:50:09,438
 the crash happens in here, I'm gonna need to have this code,
+程序在这里面崩溃了，那我需要拿到这份代码
 
 990
 00:50:09,507 --> 00:50:11,807
 and look in there, and I'm debugging it.
+然后到这里面找，去调试它
 
 991
 00:50:11,876 --> 00:50:13,842
 That code belongs to someone in another building,
+这段代码是在别的地方的其他人
 
 992
 00:50:13,910 --> 00:50:16,712
 why would I ever wanna be in here debugging it? Instead,
+为什么我会想去帮他调试代码？取而代之
 
 993
 00:50:16,780 --> 00:50:20,382
 the guys in the other building should put an assert here.
+在另一个建筑里的人应该在这里使用断言
 
 994
 00:50:20,450 --> 00:50:28,290
 That asserts that the cards indices contain that index.
+assert(cards.indices.contains(index), )
 
 995
 00:50:28,359 --> 00:50:31,360
 Okay, if the card's indices don't contain this index,
+如果 cards 数组的索引 indices 不包含 index
 
 996
 00:50:31,429 --> 00:50:34,563
 then we're going to crash, if we're in development and so,
+如果我们在开发的过程中，那程序就会崩溃
 
 997
 00:50:34,632 --> 00:50:37,266
 then we want to put some kind of crash message here.
+然后这里我们应该放崩溃的时候显示的信息
 
 998
 00:50:37,334 --> 00:50:40,736
 I like to put the name of the struct or class and
+我个人喜欢放这个结构体或类的名字
 
 999
 00:50:40,805 --> 00:50:44,739
 the function which chooseCard. I even like to include
+以及函数名，也就是 chooseCard。我甚至喜欢包括
 
 1000
 00:50:44,808 --> 00:50:47,876
 the actual arguments that you passed so you can see what you
+传给我的实际参数，这样调用的人就能知道
 
 1001
 00:50:47,944 --> 00:50:51,914
 passed there and then, I give the message. In this case,
+传给我的参数。最后是我的错误信息，这里
 
 1002
 00:50:51,983 --> 00:50:57,186
 something like chosen index not in the cards.
+就用比如“选择的索引不在 cards 数组里”
 
 1003
 00:50:59,523 --> 00:51:02,091
