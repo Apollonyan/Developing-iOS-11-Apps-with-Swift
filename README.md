@@ -14,7 +14,7 @@
 
 ----
 
-翻译进度: ![2集](http://progressed.io/bar/2?scale=6&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
+翻译进度: ![2集](http://progressed.io/bar/2?scale=8&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
 
 课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)；字幕会在每集校对后作为弹幕上传。
 
@@ -42,7 +42,8 @@
 - 字幕重排：[X140Yu/Developing_iOS_8_Apps_With_Swift/tools/trim.rb](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift/blob/master/tools/trim.rb)
 - 字幕上传：[Srt2BilibiliKit](https://github.com/ApolloZhu/Srt2BilibiliKit)
 
-----
+<details>
+<summary></summary>
 
 <script async defer src="https://buttons.github.io/buttons.js">/*请忽略这段代码*/</script>
 <script type="text/javascript">
@@ -52,3 +53,5 @@
     realH1.style.display="none";
   }
 </script>
+
+</details>

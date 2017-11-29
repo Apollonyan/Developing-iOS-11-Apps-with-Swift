@@ -7,7 +7,7 @@
 import Foundation
 import AppKit
 
-/// itunes.apple.com/us/course/developing-ios-11-apps-with-swift/id<#iTunesUCourseID#>
+/// itunes.apple.com/course/id<#iTunesUCourseID#>
 let iTunesUCourseID = 1309275316
 
 enum ResourceType: String, CustomStringConvertible {
@@ -135,14 +135,14 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             resources.filter { $0.type == type } .sorted { $0.index < $1.index }
         }
 
-        var out = "[返回主页](../README.md) / [Back to Main Page](../en/README.md)\n\n"
+        var out = "[返回主页](../README.md) / [Back to Main Page](../en/README.md)\n"
         for (index, type) in ResourceType.all.enumerated() {
             guard !sorted[index].isEmpty else {
                 continue
                 // fatalError("Missing Resources of Type \(type)")
             }
-            out += "# \(type)\n\n"
-                + "\(sorted[index].reduce("") { "\($0)\($1)\n" })\n"
+            out += "\n# \(type)\n\n"
+                + "\(sorted[index].reduce("") { "\($0)\($1)\n" })"
         }
 
         let cwd = CommandLine.arguments.first { $0.contains(#file) } ?? FileManager.default.currentDirectoryPath
