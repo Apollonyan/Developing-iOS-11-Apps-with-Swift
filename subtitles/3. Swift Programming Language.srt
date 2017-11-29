@@ -4215,62 +4215,77 @@ something like chosen index not in the cards.
 1003
 00:50:59,523 --> 00:51:02,091
 So that, so now if someone calls to choose
+这样的话，其他人调用 chooseCard
 
 1004
 00:51:02,159 --> 00:51:04,860
 card at minus one, it's gonna crash right away and
+传入负一，那就会直接崩溃
 
 1005
 00:51:04,928 --> 00:51:06,695
 put that on the console. And they're gonna be like,
+然后显示这个信息到控制台里。调用的人就知道
 
 1006
 00:51:06,763 --> 00:51:08,564
 oh, shows the index not on the card, oh, and
+哦，说索引不在 cards 数组里，哦
 
 1007
 00:51:08,632 --> 00:51:11,667
 I passed minus one. You see, they're gonna one stop shop.
+我传的是 -1。你看，一步到位
 
 1008
 00:51:11,735 --> 00:51:14,803
 Know what they did. And with the similar thing thing down
+能知道他们干了什么。下面这也是类似的
 
 1009
 00:51:14,872 --> 00:51:18,239
 here for number of pairs of cards because it's illegal to
+对于 numberOfPairsOfCards，是不能有
 
 1010
 00:51:18,308 --> 00:51:22,678
 have 0 or less pairs of cards. You have to have at least one
+0 或者更少对卡片的。你必须要有至少一对
 
 1011
 00:51:22,747 --> 00:51:25,514
 pair of card. So here I'm just gonna have the assertion be
+卡片，所以我这里就加个断言
 
 1012
 00:51:25,583 --> 00:51:29,184
 that the number of Pairs Of Cards is greater than 0.
+确保 numberOfPairsOfCards 大于 0
 
 1013
 00:51:29,253 --> 00:51:30,986
 And if there is an error then I'm gonna say yes,
+如果不是的话，那我就会说
 
 1014
 00:51:31,054 --> 00:51:34,890
 I'm in the concentrations Init and
+我在 Concentration.init 里
 
 1015
 00:51:34,959 --> 00:51:40,629
 you passed me this number of pairs of cards right here and
+然后是你传给我的这个 numberOfPairsOfCards
 
 1016
 00:51:40,698 --> 00:51:45,100
 the problem here is that you must have at least
+问题是你必须至少有
 
 1017
 00:51:45,169 --> 00:51:49,604
 one pair of cards. Okay? So, you see how I'm, I'm using
+一对卡片。好吧？
 
 1018
 00:51:49,673 --> 00:51:53,476
