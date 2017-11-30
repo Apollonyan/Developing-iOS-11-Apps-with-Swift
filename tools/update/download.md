@@ -37,3 +37,4 @@
 1. [Concentration](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/04/b5/81/04b58115-f130-54e7-e23d-020840f92932/311-6986826354385551794-CS193P_F17_Assignment_1_iTunesU.pdf)
 2. [Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/a9/7f/a3/a97fa31e-7bb6-6fa3-3e37-dd3654699ba4/314-6143069573660719394-CS193P_F17_Assignment_2.pdf)
 3. [Graphical Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/34/b1/5e34b154-8ffd-ee18-2df3-16d50177b8cc/309-1475895300459033080-CS193P_F17_Assignment_3.pdf)
+4. [Animated Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/89/9f/5e899f5d-19e7-aa34-6ca7-93a1e645eefc/309-2441628197055099936-CS193P_F17_Assignment_4.pdf)
