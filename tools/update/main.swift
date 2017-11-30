@@ -18,15 +18,16 @@ enum ResourceType: String, CustomStringConvertible {
     case demoCode = "Demo Code"
     case readingAssignment = "Reading"
     case programmingProject = "Programming Project"
-
+    
     static let all: [ResourceType] = [.video, .slides, .demoCode, .readingAssignment, .programmingProject]
-
+    
     var description: String {
         switch self {
-        case .slides, .demoCode:
-            return rawValue
-        default:
-            return "\(rawValue)s"
+        case .video: return "课程视频 / Videos"
+        case .slides: return "课程讲义 / Slides"
+        case .demoCode: return "示例代码 / Demo Code"
+        case .readingAssignment: return "阅读作业 / Readings"
+        case .programmingProject: return "编程作业 / Programming Projects"
         }
     }
 }
@@ -37,10 +38,10 @@ struct Resource: CustomStringConvertible {
     let type: ResourceType
     let url: String
     let summary: String?
-
+    
     init(title: String, rawType: String, url: String, summary: String?) {
         self.url = url
-
+        
         if rawType.contains("video") {
             type = .video
         } else if let resType = ResourceType.all.first(where: { title.contains($0.rawValue) }) {
@@ -48,7 +49,7 @@ struct Resource: CustomStringConvertible {
         } else {
             fatalError("Unknown Raw Type \(rawType)")
         }
-
+        
         var parts: [String]
         if type == .video {
             // 4. Views -> index: 4, title: Views
@@ -68,10 +69,10 @@ struct Resource: CustomStringConvertible {
         }
         self.index = Int(parts[0])!
         self.title = parts[1]
-
+        
         self.summary = summary == title ? nil : summary?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
-
+    
     var description: String {
         guard let summary = summary else { return "\(index). [\(title)](\(url))" }
         return "\(index). <details><summary><a href=\"\(url)\">\(title)</a></summary>\(summary)</details>"
@@ -97,14 +98,14 @@ struct Resource: CustomStringConvertible {
  */
 class ParsingDelegate: NSObject, XMLParserDelegate {
     var resources = [Resource]()
-
+    
     var title: String?
     var isParsingTitle = false
     var type: String?
     var url: String?
     var summary: String?
     var isParsingSummary = false
-
+    
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
         case "title":
@@ -118,7 +119,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             break
         }
     }
-
+    
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
         if let cData = String(data: CDATABlock, encoding: .utf8) {
             if isParsingTitle {
@@ -132,7 +133,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             fatalError("Unable to parse CDATA[ \(CDATABlock) ]")
         }
     }
-
+    
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
         switch elementName {
         case "title":
@@ -151,12 +152,12 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             break
         }
     }
-
+    
     func parserDidEndDocument(_ parser: XMLParser) {
         let sorted = ResourceType.all.map { [resources] type in
             resources.filter { $0.type == type } .sorted { $0.index < $1.index }
         }
-
+        
         var out = "[返回主页](../../README.md) / [Back to Main Page](../../en/README.md)\n"
         for (index, type) in ResourceType.all.enumerated() {
             guard !sorted[index].isEmpty else {
@@ -166,7 +167,22 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             out += "\n# \(type)\n\n"
                 + "\(sorted[index].reduce("") { "\($0)\($1)\n" })"
         }
-
+        
+        out += """
+        
+        <details>
+        <summary></summary>
+        
+        <script type="text/javascript">
+        window.onload = function () {
+        document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials";
+        }
+        </script>
+        
+        </details>
+        
+        """
+        
         let cwd = CommandLine.arguments.first { $0.contains(#file) } ?? FileManager.default.currentDirectoryPath
         let url = URL(fileURLWithPath: cwd).deletingLastPathComponent().appendingPathComponent("download.md")
         do {

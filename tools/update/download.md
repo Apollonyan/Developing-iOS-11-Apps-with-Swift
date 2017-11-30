@@ -1,6 +1,6 @@
 [返回主页](../../README.md) / [Back to Main Page](../../en/README.md)
 
-# Videos
+# 课程视频 / Videos
 
 1. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/c2/81/f1/c281f1aa-3abd-e87e-e16d-7eb0d4b1a5d8/311-6554896743492737986-01_9_25_17_1080p_CS193p_1080p_3mb_cc.m4v">Introduction to iOS 11, Xcode 9 and Swift 4</a></summary>Paul Hegarty provides an overview of the lecture series and introduces the different components in iOS. He concludes with a demo of Concentration Game.</details>
 2. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/a3/0f/1e/a30f1e6c-66b6-35da-ca51-321d272f0444/309-2503760600607007728-02_9_27_17_CS193p_720p_3mb_cc.m4v">MVC</a></summary>Paul Hegarty explains the Model-View-Controller (MVC) concept. He then continues the Concentration demo: demonstrating the application of MVC to the Concentration Game.</details>
@@ -13,7 +13,7 @@
 9. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/b5/d5/96/b5d596e4-2ebc-f53e-930b-642207e21c87/335-8360806109958293556-09_10_23_17_prores_CS193p_1080p_3mb_cc2.m4v">View Controller Lifecycle and Scroll View</a></summary>Paul Hegarty delves into the view controller lifecycle – keeping track of what's happening in your Controller as it goes through its lifetime – and then demonstrates putting print()s into the multiple-MVC version of Concentration. He then covers scroll view.</details>
 10. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/1d/45/43/1d4543d6-2ed9-55d1-6cf1-1929b5319c10/311-695518005627000002-10_10_25_17_prores_CS193p_1080p_3mb_cc.m4v">Multithreading and Autolayout</a></summary>Paul Hegarty covers multithreading and then demonstrates with a multithreaded Cassini. He then introduces autolayout.</details>
 
-# Slides
+# 课程讲义 / Slides
 
 1. [Lecture 1 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/b8/e3/2e/b8e32eaf-b0c4-4c3c-15e3-047f446b3e39/306-8064245884110005836-CS193P_F17_Lecture_1.pdf)
 2. [Lecture 2 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/c2/d5/8f/c2d58f95-6448-17c1-fd56-46536fe6e2ae/335-8348407309262319289-CS193P_F17_Lecture_2.pdf)
@@ -26,15 +26,26 @@
 9. [Lecture 9 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/84/92/46/849246d8-03f1-4eb8-9ab6-bedde8580d24/332-3154341613995510587-CS193P_F17_Lecture_9.pdf)
 10. [Lecture 10 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/d2/d2/6b/d2d26bfc-0528-265c-6c60-90ec126e6ee5/322-6515997048783028736-CS193P_F17_Lecture_10.pdf)
 
-# Readings
+# 阅读作业 / Readings
 
 1. [Intro to Swift](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/4b/1b/f6/4b1bf6e4-f408-21fe-924d-c5fdb8ec9ea3/309-1725317477475915568-CS193P_F17_Reading_1.pdf)
 2. [Intro to Swift](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/a1/8b/72/a18b72d5-6c48-9898-ff1e-7d95d2c5d914/301-1950499169436194703-CS193P_F17_Reading_2.pdf)
 3. [Finishing Off Swift](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/d3/2d/e5/d32de58b-bbb0-2264-be85-25b2c84a4733/336-3367719085568248138-CS193P_F17_Reading_3.pdf)
 
-# Programming Projects
+# 编程作业 / Programming Projects
 
 1. [Concentration](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/04/b5/81/04b58115-f130-54e7-e23d-020840f92932/311-6986826354385551794-CS193P_F17_Assignment_1_iTunesU.pdf)
 2. [Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/a9/7f/a3/a97fa31e-7bb6-6fa3-3e37-dd3654699ba4/314-6143069573660719394-CS193P_F17_Assignment_2.pdf)
 3. [Graphical Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/34/b1/5e34b154-8ffd-ee18-2df3-16d50177b8cc/309-1475895300459033080-CS193P_F17_Assignment_3.pdf)
 4. [Animated Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/89/9f/5e899f5d-19e7-aa34-6ca7-93a1e645eefc/309-2441628197055099936-CS193P_F17_Assignment_4.pdf)
+
+<details>
+<summary></summary>
+
+<script type="text/javascript">
+window.onload = function () {
+document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials";
+}
+</script>
+
+</details>
