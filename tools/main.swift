@@ -36,8 +36,9 @@ struct Resource: CustomStringConvertible {
     let title: String
     let type: ResourceType
     let url: String
+    let summary: String?
 
-    init(title: String, rawType: String, url: String) {
+    init(title: String, rawType: String, url: String, summary: String?) {
         self.url = url
 
         if rawType.contains("video") {
@@ -67,10 +68,13 @@ struct Resource: CustomStringConvertible {
         }
         self.index = Int(parts[0])!
         self.title = parts[1]
+
+        self.summary = summary == title ? nil : summary
     }
 
     var description: String {
-        return "\(index). [\(title)](\(url))"
+        guard let summary = summary else { return "\(index). [\(title)](\(url))" }
+        return "\(index). <details><summary><a href=\"\(url)\">\(title)</a></summary>\(summary)</details>"
     }
 }
 
@@ -98,35 +102,53 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
     var isParsingTitle = false
     var type: String?
     var url: String?
+    var summary: String?
+    var isParsingSummary = false
 
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
-        if elementName == "link" {
+        switch elementName {
+        case "title":
+            isParsingTitle = true
+        case "summary":
+            isParsingSummary = true
+        case "link":
             type = attributeDict["type"]
             url = attributeDict["href"]
-        } else if elementName == "title" {
-            isParsingTitle = true
+        default:
+            break
         }
     }
 
     func parser(_ parser: XMLParser, foundCDATA CDATABlock: Data) {
-        if isParsingTitle {
-            if let title = String(data: CDATABlock, encoding: .utf8) {
-                self.title = title
+        if let cData = String(data: CDATABlock, encoding: .utf8) {
+            if isParsingTitle {
+                title = cData
+            } else if isParsingSummary {
+                summary = cData
             } else {
-                fatalError("Unable to parse title from \(CDATABlock)")
+                debugPrint("Ignored CDATA[ \(CDATABlock) ]")
             }
+        } else {
+            fatalError("Unable to parse CDATA[ \(CDATABlock) ]")
         }
     }
 
     func parser(_ parser: XMLParser, didEndElement elementName: String, namespaceURI: String?, qualifiedName qName: String?) {
-        if elementName == "title" {
+        switch elementName {
+        case "title":
             isParsingTitle = false
-        } else if elementName == "entry" {
-            resources.append(Resource(title: title!, rawType: type!, url: url!))
+        case "summary":
+            isParsingSummary = false
+        case "entry":
+            resources.append(Resource(title: title!, rawType: type!, url: url!, summary: summary))
             title = nil
             isParsingTitle = false
             type = nil
             url = nil
+            summary = nil
+            isParsingSummary = false
+        default:
+            break
         }
     }
 
