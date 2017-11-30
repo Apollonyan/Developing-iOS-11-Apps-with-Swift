@@ -26,12 +26,12 @@
 
 #### 课程相关资源
 
-- iTunes U：[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/us/course/developing-ios-11-apps-with-swift/id1309275316)
-	- [RSS 源](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)
-	- [课程专辑封面](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/336x428.png)
-	- [首页推广图片](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg) | [带英文](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)
-- CS 193P 课程地址：[CS 193P iPhone Application Development](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/)
-- Paul Hegarty：[piazza](https://piazza.com/professors/show/paul_hegarty)
+|[Paul Hegarty](https://piazza.com/professors/show/paul_hegarty)|iTunes U（仅 iOS）|Podcasts（多平台）|
+|--:|:--:|:--:|
+|[CS 193P iPhone Application Development](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/)|[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/course/id1309275316) |[Developing iOS 11 Apps with Swift By Paul Hegarty](https://itunes.apple.com/podcast/id1315130780)|
+|RSS 源|[隔周三更新两集](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)|未知|
+|课程封面|[![iTunes U](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/466x570.png)](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/466x570.png)|[![Podcasts](http://is1.mzstatic.com/image/thumb/Music128/v4/fa/b1/5c/fab15cf7-b968-7e65-0f32-9955ae02fc3e/source/1024x1024bb.jpg)](http://is1.mzstatic.com/image/thumb/Music128/v4/fa/b1/5c/fab15cf7-b968-7e65-0f32-9955ae02fc3e/source/1024x1024bb.jpg)|
+|[![首页推广](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)|[![带英文](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)|[![Twitter](https://pbs.twimg.com/media/DPz9KZ4VQAAyUwJ.jpg)](https://pbs.twimg.com/media/DPz9KZ4VQAAyUwJ.jpg)| 
 
 #### 项目相关资源
 

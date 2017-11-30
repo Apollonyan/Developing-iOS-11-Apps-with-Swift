@@ -1,0 +1,5979 @@
+1
+00:00:00,401 --> 00:00:04,736
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,805 --> 00:00:09,374
+>> Stanford University. >> Hey, well,
+>> 斯坦福大学 >> 大家好
+
+3
+00:00:09,443 --> 00:00:14,012
+welcome to Lecture number 7, Stanford CS193P, Fall 2017. So
+欢迎来到 2017 年秋季学期 CS193P 的第七节课
+
+4
+00:00:14,080 --> 00:00:19,351
+our primary topic today is combining MVCs to make bigger,
+
+5
+00:00:19,420 --> 00:00:22,153
+more powerful applications, obviously. And
+
+6
+00:00:22,222 --> 00:00:24,890
+then I'm gonna do a big demo that shows you how to do that.
+
+7
+00:00:24,959 --> 00:00:27,559
+We're gonna do it with Concentration, we're gonna add
+
+8
+00:00:27,627 --> 00:00:30,929
+an MVC into that app. Then I'll come back to the slides,
+
+9
+00:00:30,998 --> 00:00:33,865
+and talk I'll about timer and choose classes, some of you
+
+10
+00:00:33,934 --> 00:00:37,169
+used in the extra credit of the homework assignments. And
+
+11
+00:00:37,237 --> 00:00:39,004
+then I'm gonna dive into the next topic and try and
+
+12
+00:00:39,073 --> 00:00:41,373
+get as far as I can which is animation.
+
+13
+00:00:41,442 --> 00:00:43,275
+Which will be our topic on Wednesday and
+
+14
+00:00:43,343 --> 00:00:45,376
+I'll get to much more detail, do a big demo.
+
+15
+00:00:45,445 --> 00:00:47,512
+But I wanna kinda get in as far as I can today just so
+
+16
+00:00:47,581 --> 00:00:50,916
+we have more time for a demo on Wednesday.
+
+17
+00:00:50,984 --> 00:00:54,486
+Alright so combining MVCs, remember this slide from when
+
+18
+00:00:54,555 --> 00:00:58,190
+I talked about MVC. This is the MVCs working together, and
+
+19
+00:00:58,259 --> 00:01:01,193
+we saw that when we have MVCs working together,
+
+20
+00:01:01,261 --> 00:01:04,862
+these other MVCs. Let me get my thing under control here,
+
+21
+00:01:04,931 --> 00:01:08,967
+well, can't do it. Okay, these other MVCs down in the corner,
+
+22
+00:01:09,036 --> 00:01:12,170
+they serve as part of the view of another MVC. That's
+
+23
+00:01:12,239 --> 00:01:16,608
+the way MVC's relate. An MVC is a view, part of a view
+
+24
+00:01:16,677 --> 00:01:19,811
+of another class. And that has some ramifications for MVC,
+
+25
+00:01:19,880 --> 00:01:22,781
+most notably it has to have blind structured communication
+
+26
+00:01:22,849 --> 00:01:26,618
+back to the other MVC. But that's the way we
+
+27
+00:01:26,687 --> 00:01:29,154
+structure it, and that keeps everything well contained and
+
+28
+00:01:29,222 --> 00:01:32,523
+understandable. So we're gonna talk about how we do that,
+
+29
+00:01:32,592 --> 00:01:36,595
+how we make MVCs that are the view of other MVCs. So,
+
+30
+00:01:36,663 --> 00:01:40,065
+combining MVCs we do this using some special
+
+31
+00:01:40,133 --> 00:01:44,569
+controllers that iOS provides whose view is other MVCs.
+
+32
+00:01:44,638 --> 00:01:48,339
+Now you could write your own special MVC whose view is
+
+33
+00:01:48,408 --> 00:01:52,544
+other MVCs. But 99% of the time you're gonna use one of
+
+34
+00:01:52,612 --> 00:01:55,980
+the three that iOS provides. And the three that iOS
+
+35
+00:01:56,049 --> 00:01:59,418
+provides are TabBarController, SplitViewController, and
+
+36
+00:01:59,486 --> 00:02:02,520
+navigation controller. Now there are other ways to
+
+37
+00:02:02,589 --> 00:02:05,157
+combine MVCs we'll talk about later in the quarter but
+
+38
+00:02:05,225 --> 00:02:07,859
+this is the primary way that we're gonna do it with these
+
+39
+00:02:07,928 --> 00:02:11,229
+three MVC's. Those three here, TabBar, SplitView, and
+
+40
+00:02:11,298 --> 00:02:15,567
+NavigationController, they are the controllers of MVCs. So
+
+41
+00:02:15,636 --> 00:02:17,002
+let's look at them one by one.
+
+42
+00:02:17,070 --> 00:02:18,870
+TabBar is by far the simplest one,
+
+43
+00:02:18,939 --> 00:02:22,240
+you've seen this a million times, it's got
+
+44
+00:02:22,309 --> 00:02:24,475
+some tabs along the bottom there. You see those tabs,
+
+45
+00:02:24,544 --> 00:02:27,179
+like a little orange thing and the gray one's next to it. And
+
+46
+00:02:27,247 --> 00:02:31,049
+each of those tabs, when you press it, shows another MVC.
+
+47
+00:02:31,117 --> 00:02:34,519
+So you can already see that the TabBarController's view
+
+48
+00:02:34,588 --> 00:02:39,257
+includes the buttons at the bottom and another MVC. So
+
+49
+00:02:39,326 --> 00:02:42,227
+this is what we mean by the view of this tab bar
+
+50
+00:02:42,295 --> 00:02:46,498
+controller MVC gives another MVC. And the icon and
+
+51
+00:02:46,567 --> 00:02:48,566
+the title that appears down in the TabBar,
+
+52
+00:02:48,635 --> 00:02:51,570
+that's determined by which MVC is showing.
+
+53
+00:02:51,638 --> 00:02:55,240
+In specific UI view controller has this bar TabBar item.
+
+54
+00:02:55,308 --> 00:02:58,709
+And the TabBar controller, when it shows the MVC as part
+
+55
+00:02:58,778 --> 00:03:02,280
+of its view, it looks at that so it knows what the title and
+
+56
+00:03:02,349 --> 00:03:05,917
+icon to display down at the bottom there. This is all very
+
+57
+00:03:05,986 --> 00:03:10,722
+object oriented in that sense. So, for example here we've got
+
+58
+00:03:10,791 --> 00:03:13,658
+some sort of health oriented API here and
+
+59
+00:03:13,727 --> 00:03:16,961
+we've got the four tabs at the bottom. By the way, if there's
+
+60
+00:03:17,030 --> 00:03:21,300
+more than four tabs, more than four MVCs, it can show that,
+
+61
+00:03:21,368 --> 00:03:24,469
+actually, it'll show five. And if they're six, then
+
+62
+00:03:24,538 --> 00:03:27,439
+the fifth one becomes a little more button and you click it.
+
+63
+00:03:27,508 --> 00:03:31,243
+And iOS provides an API or UI, rather, for the user to pick
+
+64
+00:03:31,311 --> 00:03:33,044
+which tabs they want to be there at the bottom, or
+
+65
+00:03:33,113 --> 00:03:35,480
+to pick some other tab that's not showing. Generally though,
+
+66
+00:03:35,549 --> 00:03:39,384
+we recommend no more than five MVCs in a TabBarController.
+
+67
+00:03:39,452 --> 00:03:41,720
+That's kinda just pretty good UI,
+
+68
+00:03:41,789 --> 00:03:43,154
+It just starts to get a little complicated for
+
+69
+00:03:43,223 --> 00:03:46,291
+the user if there's more than that. So, in this case,
+
+70
+00:03:46,360 --> 00:03:50,395
+this whole thing is five MVCs, the TabBarController itself,
+
+71
+00:03:50,463 --> 00:03:53,131
+and the four MVCs that serve as its view and
+
+72
+00:03:53,200 --> 00:03:55,934
+you just switch between them by clicking.
+
+73
+00:03:56,002 --> 00:04:00,805
+So this is by far the easiest Of the MVCs of MVCs,
+
+74
+00:04:00,874 --> 00:04:04,008
+all right? Next, let's talk about SplitViewController,
+
+75
+00:04:04,077 --> 00:04:06,911
+probably the second simplest one. It's only two MVCs in its
+
+76
+00:04:06,980 --> 00:04:10,348
+view, and it puts them side by side with a very thin line in
+
+77
+00:04:10,417 --> 00:04:13,751
+between them. So, here's a little calculator app,
+
+78
+00:04:13,820 --> 00:04:16,454
+It's got the calculator on the left and then it's got maybe
+
+79
+00:04:16,523 --> 00:04:19,790
+a graph of what's in the calculator on the right. And
+
+80
+00:04:19,859 --> 00:04:23,628
+we call this MVC that's on the left, and it's usually smaller
+
+81
+00:04:23,697 --> 00:04:27,132
+like this, the Master in the SplitViewController, and
+
+82
+00:04:27,200 --> 00:04:30,134
+we call the one on the right the Detail. And
+
+83
+00:04:30,203 --> 00:04:32,471
+we call them master detail cuz usually what you do on the one
+
+84
+00:04:32,539 --> 00:04:34,672
+on the left affects what happens on the right. It's
+
+85
+00:04:34,741 --> 00:04:37,942
+the master, the detail is kind of little bit of a slave. And,
+
+86
+00:04:38,011 --> 00:04:42,614
+of course, this is on iPad. It also works on iPhone Pluses,
+
+87
+00:04:42,682 --> 00:04:47,084
+but non-plus iPhones. This little side-by-side mechanism.
+
+88
+00:04:47,153 --> 00:04:48,486
+You can, of course, rotate your iPad.
+
+89
+00:04:48,555 --> 00:04:51,089
+And when you rotate your iPad into portrait, now
+
+90
+00:04:51,157 --> 00:04:55,026
+it'll only show the detail, except for you can slide out
+
+91
+00:04:55,094 --> 00:04:57,528
+with your finger from the left and see the Master,
+
+92
+00:04:57,597 --> 00:05:01,899
+then slide it back. Now on an iPhone Plus in portrait,
+
+93
+00:05:01,968 --> 00:05:04,403
+it acts like a normal iPhone, it doesn't have the slide out.
+
+94
+00:05:04,471 --> 00:05:06,904
+Even if an iPhone Plus is not quite wide enough to
+
+95
+00:05:06,973 --> 00:05:11,810
+slide that thing out. So, SplitViewController, super,
+
+96
+00:05:11,878 --> 00:05:14,646
+super easy. And then there's NavigationController.
+
+97
+00:05:14,715 --> 00:05:17,282
+This is probably the most flexible, most powerful of
+
+98
+00:05:17,350 --> 00:05:20,652
+the MVC of MVCs, you've seen this a million times in IOS
+
+99
+00:05:20,720 --> 00:05:23,855
+apps. You can think of a NavigationController MVC,
+
+100
+00:05:23,924 --> 00:05:28,025
+as a deck of cards. And each card is an MVC. And what
+
+101
+00:05:28,094 --> 00:05:31,829
+the navigation controller does is let you put an MVC on top,
+
+102
+00:05:31,898 --> 00:05:34,499
+obscuring all the ones below. And then if you hit the back
+
+103
+00:05:34,568 --> 00:05:37,201
+button, it throws that one away, and shows you the one
+
+104
+00:05:37,270 --> 00:05:39,337
+that was there before. And you can keep going back, and
+
+105
+00:05:39,406 --> 00:05:40,871
+it keeps showing the cards off the top, and
+
+106
+00:05:40,940 --> 00:05:44,009
+you put new cards back on. So it's like a card stack, where
+
+107
+00:05:44,077 --> 00:05:48,512
+the stack are MVCs. And you can see that the navigation
+
+108
+00:05:48,581 --> 00:05:51,583
+controller as part of its view it does actually draw a little
+
+109
+00:05:51,652 --> 00:05:54,319
+bit. At the top it draws a little title there, right?
+
+110
+00:05:54,388 --> 00:05:57,155
+The settings, okay, that's not part of the MVC that's
+
+111
+00:05:57,224 --> 00:06:00,458
+showing right there. But the content that are in that title
+
+112
+00:06:00,527 --> 00:06:03,562
+are driven by whatever MVCs on top of the card stack,
+
+113
+00:06:03,630 --> 00:06:06,965
+the one that's showing. So that's called settings
+
+114
+00:06:07,034 --> 00:06:09,734
+because the MVC that's there is the settings MVC, so
+
+115
+00:06:09,803 --> 00:06:13,605
+it's being driven by what's there. And each MVC,
+
+116
+00:06:13,674 --> 00:06:16,708
+similar with the tab bar item and the tab bar controller,
+
+117
+00:06:16,776 --> 00:06:21,012
+there's a var in UI Controller called navigationItem. And
+
+118
+00:06:21,081 --> 00:06:24,649
+that contains things like the title and other buttons that
+
+119
+00:06:24,717 --> 00:06:27,252
+you can put in the title bar, all kinds of stuff.
+
+120
+00:06:27,320 --> 00:06:28,953
+You're gonna wanna go look at the documentation for
+
+121
+00:06:29,022 --> 00:06:29,754
+navigationItem and
+
+122
+00:06:29,823 --> 00:06:32,657
+see what kind of things the navigation controller can
+
+123
+00:06:32,725 --> 00:06:37,596
+do for you when your MVC is on top of the stack. So
+
+124
+00:06:37,664 --> 00:06:40,732
+if I then click on something, this is a table view here,
+
+125
+00:06:40,800 --> 00:06:44,001
+we'll talk about table views next week or the week after.
+
+126
+00:06:44,070 --> 00:06:47,639
+If I click on something here then a new MVC slides in,
+
+127
+00:06:47,708 --> 00:06:52,477
+animates in on top. Now there are two cards on this stack.
+
+128
+00:06:52,546 --> 00:06:54,179
+All settings one which is now behind,
+
+129
+00:06:54,247 --> 00:06:57,715
+we can't see it, and now this new one on top of course.
+
+130
+00:06:57,784 --> 00:06:59,618
+By the way you can also have tool bar
+
+131
+00:06:59,686 --> 00:07:02,353
+items on the bottom using the tool bar items bar of view
+
+132
+00:07:02,422 --> 00:07:04,288
+controller, so those two of our items would come and
+
+133
+00:07:04,357 --> 00:07:07,626
+go as new ones come on the stack. But
+
+134
+00:07:07,694 --> 00:07:09,961
+also notice that when we have two things on there,
+
+135
+00:07:10,030 --> 00:07:11,863
+a little back button appears in the upper left,
+
+136
+00:07:11,932 --> 00:07:15,600
+automatically. It even has the name of the one that's
+
+137
+00:07:15,668 --> 00:07:18,903
+lower down on the stack of cards. And if you press that,
+
+138
+00:07:18,972 --> 00:07:20,805
+of course it's gonna throw this card away, and
+
+139
+00:07:20,873 --> 00:07:23,842
+we'll be back at the other card. But lets imagine I click
+
+140
+00:07:23,910 --> 00:07:25,409
+on something in this one like this
+
+141
+00:07:25,478 --> 00:07:27,679
+accessibility thing. It puts a new card on there,
+
+142
+00:07:27,747 --> 00:07:30,781
+that's the accessibility card. Maybe I click on something
+
+143
+00:07:30,850 --> 00:07:33,718
+inside the accessibility card like larger text, and it puts
+
+144
+00:07:33,786 --> 00:07:37,388
+another one on. Now we have four MVCs on the the stack.
+
+145
+00:07:37,457 --> 00:07:39,156
+So there's a total of five MVCs here.
+
+146
+00:07:39,225 --> 00:07:41,926
+The navigation controller itself which is an MVC, and
+
+147
+00:07:41,995 --> 00:07:46,197
+these four MVCs which are part of its view. And of course we
+
+148
+00:07:46,266 --> 00:07:48,333
+know we can backup if we pres the back button and
+
+149
+00:07:48,401 --> 00:07:50,902
+it throws that button away, and it actually does throws
+
+150
+00:07:50,971 --> 00:07:53,237
+the card away. Throws it out of the heap.
+
+151
+00:07:53,306 --> 00:07:55,773
+So it's complete throw away, this card now gets thrown
+
+152
+00:07:55,842 --> 00:07:58,242
+away, we are just now seeing the card on the underneath
+
+153
+00:07:58,311 --> 00:08:01,212
+until we go all the way the back, To the beginning and
+
+154
+00:08:01,281 --> 00:08:03,180
+now we're seeing the root card, the root
+
+155
+00:08:03,249 --> 00:08:06,150
+view controller, this is called a navigationController.
+
+156
+00:08:06,219 --> 00:08:08,385
+All right, so everybody knows about navigationController,
+
+157
+00:08:08,454 --> 00:08:09,787
+you've seen it everywhere.
+
+158
+00:08:09,856 --> 00:08:12,089
+Here's how navigational controller's working behind
+
+159
+00:08:12,158 --> 00:08:15,527
+the scenes in terms of looking at it from an MVC standpoint.
+
+160
+00:08:15,596 --> 00:08:18,462
+So let's say I have a MVC that's shown there,
+
+161
+00:08:18,531 --> 00:08:21,198
+and I have more API or more UI than I can fit on
+
+162
+00:08:21,267 --> 00:08:25,369
+my screen, so I need to got to another screen to do more UI.
+
+163
+00:08:25,438 --> 00:08:27,905
+That's the little thing in the corner right there. Well, to
+
+164
+00:08:27,974 --> 00:08:31,142
+do that I have to make another MVC that will control that UI.
+
+165
+00:08:31,210 --> 00:08:34,078
+And then when I make my navigationController
+
+166
+00:08:34,147 --> 00:08:37,015
+to have them share the screen, the navigationController comes
+
+167
+00:08:37,083 --> 00:08:39,684
+up and this is what its UI looks like. But as soon
+
+168
+00:08:39,752 --> 00:08:42,587
+as you set a very important var in navigationController,
+
+169
+00:08:42,656 --> 00:08:45,690
+call it rootViewController to be some MVC,
+
+170
+00:08:45,759 --> 00:08:51,162
+then its view now includes the view of that MVC. And
+
+171
+00:08:51,231 --> 00:08:54,298
+then, if you interact with some button or
+
+172
+00:08:54,367 --> 00:08:56,534
+something that's in that MVC's view,
+
+173
+00:08:56,603 --> 00:09:00,472
+it can move to this other MVC, push it on the stack.
+
+174
+00:09:00,540 --> 00:09:02,173
+Now the other MVC is still there, it's just kind of
+
+175
+00:09:02,242 --> 00:09:05,644
+behind the scenes because it's lower on the stack, and a back
+
+176
+00:09:05,712 --> 00:09:07,378
+button will automatically appear as we saw.
+
+177
+00:09:07,447 --> 00:09:10,882
+When we click this back we move back to the other one,
+
+178
+00:09:10,951 --> 00:09:14,285
+and notice that the MVC that we had originally added
+
+179
+00:09:14,354 --> 00:09:17,522
+on there is gone. So it's very important to understand
+
+180
+00:09:17,591 --> 00:09:19,056
+as we use the navigationController,
+
+181
+00:09:19,125 --> 00:09:21,392
+usually when we put things on we're creating a new one and
+
+182
+00:09:21,461 --> 00:09:23,461
+when we take things off we're throwing it away.
+
+183
+00:09:23,530 --> 00:09:27,164
+That is the normal operation of a navigationController. It
+
+184
+00:09:27,233 --> 00:09:30,669
+can be used in other ways but that is it's normal operation.
+
+185
+00:09:31,971 --> 00:09:36,341
+Okay, so those are the three kinds of MVCs of MVCs.
+
+186
+00:09:36,409 --> 00:09:40,444
+How do you get at them? Okay, it's really easy actually.
+
+187
+00:09:40,513 --> 00:09:44,015
+Each of those three different kinds of MVCs has a var called
+
+188
+00:09:44,084 --> 00:09:46,951
+viewControllers, it's just an array of view controller. So
+
+189
+00:09:47,020 --> 00:09:49,854
+for a tab bar it's just the view controllers one, two,
+
+190
+00:09:49,923 --> 00:09:52,089
+three, four in order I think from left to right,
+
+191
+00:09:52,158 --> 00:09:54,426
+the tabs. If it's a split-view controller,
+
+192
+00:09:54,494 --> 00:09:57,128
+then view controller sub 0 is the master and
+
+193
+00:09:57,197 --> 00:09:59,697
+view controller sub 1 is the detail.
+
+194
+00:09:59,766 --> 00:10:01,632
+Or sometimes we say the first thing in the array is
+
+195
+00:10:01,701 --> 00:10:04,469
+the master and the last thing in the array is the detail.
+
+196
+00:10:04,538 --> 00:10:06,170
+And if it's a navigationController, then
+
+197
+00:10:06,239 --> 00:10:08,806
+viewController sub 0 is the rootViewController, and all of
+
+198
+00:10:08,875 --> 00:10:12,744
+these cards lined on top are the other viewControllers
+
+199
+00:10:12,812 --> 00:10:15,079
+in the array in order. So that's how you can get at all
+
+200
+00:10:15,147 --> 00:10:18,449
+the viewControllers that are in one of the MVCs of MVCs.
+
+201
+00:10:18,518 --> 00:10:22,020
+Now, how do you get at the MVC of MVCs itself?
+
+202
+00:10:22,088 --> 00:10:23,354
+How do you get to the navigationController,
+
+203
+00:10:23,422 --> 00:10:24,756
+the splitViewController, whatever?
+
+204
+00:10:24,825 --> 00:10:27,058
+Well there's three awesome vars in UI view controller
+
+205
+00:10:27,127 --> 00:10:29,460
+called tabBarController, splitViewController, and
+
+206
+00:10:29,528 --> 00:10:31,962
+navigationController. And they will tell you the tabBar
+
+207
+00:10:32,031 --> 00:10:34,632
+controller you're in, or the splitViewController you're
+
+208
+00:10:34,701 --> 00:10:37,401
+in or the navigationController you're in. It might be in more
+
+209
+00:10:37,470 --> 00:10:40,037
+than one, because you might be inside a navigationController
+
+210
+00:10:40,106 --> 00:10:42,373
+as the master in a splitViewController.
+
+211
+00:10:42,441 --> 00:10:44,642
+Which might even be in a tab of a tab bar controller, so
+
+212
+00:10:44,710 --> 00:10:47,045
+you could be in all three of these things, and this will
+
+213
+00:10:47,113 --> 00:10:50,214
+return what you're in. And so this way you can kinda get
+
+214
+00:10:50,283 --> 00:10:55,153
+at the other MVCs that are involved in whatever
+
+215
+00:10:55,221 --> 00:10:58,723
+combination of MVCs you have. So it's really good
+
+216
+00:11:00,193 --> 00:11:04,895
+kind of access to things. Now navigationController,
+
+217
+00:11:04,964 --> 00:11:07,064
+I wanna just briefly tell you about the API for
+
+218
+00:11:07,133 --> 00:11:09,200
+it, it has a method pushViewController and
+
+219
+00:11:09,268 --> 00:11:11,636
+popViewController, both can be animated. And
+
+220
+00:11:11,705 --> 00:11:14,973
+that takes an MVC and puts it on the stack of your cars or
+
+221
+00:11:15,041 --> 00:11:17,908
+popViewController pops the top one off. Okay,
+
+222
+00:11:17,977 --> 00:11:20,444
+so you can do that pushing and popping, but we don't usually
+
+223
+00:11:20,513 --> 00:11:23,447
+do it that way. We usually use what are called segues which
+
+224
+00:11:23,516 --> 00:11:25,884
+I'm going to talk about in a moment here.
+
+225
+00:11:26,886 --> 00:11:27,751
+All right, so
+
+226
+00:11:27,820 --> 00:11:30,488
+how do we wire all of this stuff in our storyboard up?
+
+227
+00:11:30,557 --> 00:11:32,723
+Okay, how do we get these navigationControllers, and
+
+228
+00:11:32,792 --> 00:11:33,791
+splitViewControllers and
+
+229
+00:11:33,860 --> 00:11:36,594
+tabBarControllers all hooked up to our MVCs? Okay, well
+
+230
+00:11:36,662 --> 00:11:39,964
+of course we do it with Ctrl drag in the interface field,
+
+231
+00:11:40,033 --> 00:11:42,333
+we do everything with Ctrl drag, right? Constraints,
+
+232
+00:11:42,401 --> 00:11:45,336
+outlets, actions, all of these stuff with Ctrl drag, and
+
+233
+00:11:45,405 --> 00:11:47,605
+we use Ctrl drag to do this as well. So
+
+234
+00:11:47,673 --> 00:11:50,208
+let's look at an example of a splitViewController.
+
+235
+00:11:50,277 --> 00:11:52,076
+If I wanted to have a couple of MVCs and
+
+236
+00:11:52,145 --> 00:11:53,344
+set them as the master and
+
+237
+00:11:53,412 --> 00:11:55,279
+the detail in splitViewController,
+
+238
+00:11:55,348 --> 00:11:57,748
+I would just drag out a splitViewController from
+
+239
+00:11:57,817 --> 00:11:59,249
+the same place I get a button or
+
+240
+00:11:59,318 --> 00:12:02,954
+something. It will come with a bunch of extra VCs by the way,
+
+241
+00:12:03,023 --> 00:12:05,990
+view controller is kind of, that it comes with for fun or
+
+242
+00:12:06,058 --> 00:12:08,827
+for free. I'm not sure why it does it. We usually almost
+
+243
+00:12:08,895 --> 00:12:12,463
+always just delete them. And then we Ctrl drag from
+
+244
+00:12:12,531 --> 00:12:15,666
+the splitViewController to our master and we control drag
+
+245
+00:12:15,735 --> 00:12:18,702
+to our detail. Same thing with a tabBarController, we drag it
+
+246
+00:12:18,771 --> 00:12:21,840
+out and then we just Ctrl drag to each of the MVCs in there.
+
+247
+00:12:21,908 --> 00:12:23,807
+NavigationController is a little bit different and
+
+248
+00:12:23,876 --> 00:12:25,043
+I'll show you that in a moment.
+
+249
+00:12:25,111 --> 00:12:27,212
+So this is what it looks like approximately in interface
+
+250
+00:12:27,280 --> 00:12:29,714
+builder ,here's the calculator again. I dragged out
+
+251
+00:12:29,783 --> 00:12:32,716
+a splitViewController there on the left, I just Ctrl drag
+
+252
+00:12:32,785 --> 00:12:35,486
+to the master. I choose Master View Controller from the thing
+
+253
+00:12:35,555 --> 00:12:38,288
+that pops up. I Ctrl dragged it to the other one,
+
+254
+00:12:38,357 --> 00:12:42,326
+I choose detail, bam, I've got a wired up splitViewController
+
+255
+00:12:42,395 --> 00:12:47,865
+right there. Couldn't be simpler. Now the split view
+
+256
+00:12:47,934 --> 00:12:51,368
+can really only do it's thing fully on an iPad.
+
+257
+00:12:51,437 --> 00:12:54,272
+Cuz there's just not enough screen real
+
+258
+00:12:54,340 --> 00:12:57,308
+estate on other devices to really do this side by
+
+259
+00:12:57,376 --> 00:12:59,843
+side thing, especially the portrait mode slide out thing,
+
+260
+00:12:59,912 --> 00:13:04,582
+there's just not enough room there. So what we often do
+
+261
+00:13:04,651 --> 00:13:07,752
+is wrap the master in a navigationController.
+
+262
+00:13:07,821 --> 00:13:10,822
+And when we do that then the system can show it
+
+263
+00:13:10,890 --> 00:13:13,557
+in a navigationController on an iPhone, and
+
+264
+00:13:13,626 --> 00:13:15,459
+in a splitViewController on an iPad.
+
+265
+00:13:15,528 --> 00:13:18,262
+It'll automatically adapt, that's the word we use to
+
+266
+00:13:18,331 --> 00:13:20,431
+describe that to the environment it's in.
+
+267
+00:13:20,500 --> 00:13:23,735
+So that makes it really easy for us to build UIs that work
+
+268
+00:13:23,803 --> 00:13:26,770
+on both. They work on iPads, they work on iPhones.
+
+269
+00:13:26,839 --> 00:13:29,440
+Okay, same exact storyboard. So here's what that looks
+
+270
+00:13:29,509 --> 00:13:31,842
+like, here's my split view with my master and
+
+271
+00:13:31,911 --> 00:13:34,411
+my detail there, we're looking at the master. And
+
+272
+00:13:34,480 --> 00:13:36,547
+I 'm selecting it and I'm going to the menu and
+
+273
+00:13:36,616 --> 00:13:39,016
+I'm saying editor embed in navigationController.
+
+274
+00:13:39,085 --> 00:13:41,586
+So instead of dragging the navigationController out,
+
+275
+00:13:41,655 --> 00:13:42,920
+which I could do by the way and
+
+276
+00:13:42,989 --> 00:13:45,556
+just Ctrl drag them up, but instead of dragging it out you
+
+277
+00:13:45,624 --> 00:13:48,126
+can actually do this embed in navigationController.
+
+278
+00:13:48,194 --> 00:13:51,796
+And it will insert a navigationController MVC
+
+279
+00:13:51,865 --> 00:13:55,132
+in as the master and make my previous thing that was
+
+280
+00:13:55,201 --> 00:13:57,134
+the master be it's rootViewController.
+
+281
+00:13:57,203 --> 00:14:00,070
+So, now I have a navigationController
+
+282
+00:14:00,139 --> 00:14:03,975
+wrapping around the master of my split view. Okay, this also
+
+283
+00:14:04,044 --> 00:14:07,077
+has a nice benefit, it puts a title on your master,
+
+284
+00:14:07,146 --> 00:14:10,114
+which is often nice to have a title of your master of
+
+285
+00:14:10,183 --> 00:14:13,517
+your split view. Now you can- One thing to notice about this
+
+286
+00:14:13,586 --> 00:14:16,420
+of course, is that now the master of your split view is
+
+287
+00:14:16,489 --> 00:14:19,757
+no longer the calculator, it's a navigationController.
+
+288
+00:14:19,826 --> 00:14:21,492
+So if you actually wanted to get out the calculator,
+
+289
+00:14:21,561 --> 00:14:23,394
+you would have to get the master and
+
+290
+00:14:23,463 --> 00:14:27,465
+then look at the master's rootViewController to find
+
+291
+00:14:27,533 --> 00:14:29,901
+the calculator there.
+
+292
+00:14:29,969 --> 00:14:32,469
+By the way, you can also put the detail, wrap it in
+
+293
+00:14:32,538 --> 00:14:34,839
+a navigationController. The only reason you would ever
+
+294
+00:14:34,908 --> 00:14:37,908
+want to do that is to give it a title bar, cuz you don't,
+
+295
+00:14:37,977 --> 00:14:40,445
+you always navigate from the master, that's why it's called
+
+296
+00:14:40,513 --> 00:14:43,313
+the master. So you can do it, but again if you do that,
+
+297
+00:14:43,382 --> 00:14:45,716
+make sure when you look at the detail, if you find that
+
+298
+00:14:45,784 --> 00:14:48,652
+it's a navigationController, you need to look inside and
+
+299
+00:14:48,721 --> 00:14:51,488
+see the thing that's inside of it, the rootViewController.
+
+300
+00:14:51,557 --> 00:14:53,223
+Or you can also use visibleViewController
+
+301
+00:14:53,292 --> 00:14:54,392
+on a navigationController,
+
+302
+00:14:54,461 --> 00:14:56,260
+that will tell you the card that's on the top,
+
+303
+00:14:56,329 --> 00:15:00,331
+that's visible. All right, so that's how we wire up split
+
+304
+00:15:00,400 --> 00:15:04,034
+views navigationControllers together. How do we make it so
+
+305
+00:15:04,103 --> 00:15:07,905
+that when we click something in a view it causes
+
+306
+00:15:07,974 --> 00:15:12,043
+some card to slide on, or it causes the detail of our split
+
+307
+00:15:12,111 --> 00:15:14,379
+view to change, right? We're doing the calculator,
+
+308
+00:15:14,447 --> 00:15:17,281
+we enter some equation, we press the graph button.
+
+309
+00:15:17,350 --> 00:15:21,118
+Well in the iPhone we wanna slide a graph in front,
+
+310
+00:15:21,187 --> 00:15:24,254
+on the stack. And on the iPad we want to replace the detail
+
+311
+00:15:24,323 --> 00:15:26,757
+view with a graph of what's in my current calculator.
+
+312
+00:15:26,826 --> 00:15:29,293
+So how do we do that? We do that with what's called
+
+313
+00:15:29,362 --> 00:15:34,265
+segues. A segue just makes a brand new MVC,
+
+314
+00:15:34,334 --> 00:15:37,067
+always a new MVC, I'm gonna say that three or
+
+315
+00:15:37,136 --> 00:15:39,704
+four times, so that sinks in. Always a new MVC,
+
+316
+00:15:39,772 --> 00:15:42,306
+it makes it and puts it on the top of the stack or
+
+317
+00:15:42,375 --> 00:15:45,910
+puts it in the right side of a splitViewController.
+
+318
+00:15:45,978 --> 00:15:47,912
+So here are the kinds of segues that exist.
+
+319
+00:15:47,981 --> 00:15:50,581
+There is a Show Segue, that's the kind of segue that works
+
+320
+00:15:50,650 --> 00:15:51,982
+in a navigationController.
+
+321
+00:15:52,051 --> 00:15:54,418
+Okay, that causes the new MVC to be
+
+322
+00:15:54,487 --> 00:15:57,254
+put on top of a stack if you're not Inside a Navigation
+
+323
+00:15:57,323 --> 00:16:00,024
+Controller you probably shouldn't be doing Show Segue.
+
+324
+00:16:00,092 --> 00:16:04,828
+Then there's Show Detail, that works in a split view. So
+
+325
+00:16:04,897 --> 00:16:08,866
+Show Detail will replace the right side of the split view.
+
+326
+00:16:08,935 --> 00:16:10,201
+Then there's Modal and Popover,
+
+327
+00:16:10,270 --> 00:16:11,869
+which I'm going to talk about later in the quarter.
+
+328
+00:16:11,937 --> 00:16:15,773
+Modal takes over the entire screen. So forget about any
+
+329
+00:16:15,842 --> 00:16:17,575
+navigation controllers or split view controllers, or
+
+330
+00:16:17,643 --> 00:16:19,777
+tab view controllers. It takes over the entire screen and
+
+331
+00:16:19,846 --> 00:16:22,112
+just fills the screen with the MVC.
+
+332
+00:16:22,181 --> 00:16:24,748
+We generally try to avoid Modal because it puts
+
+333
+00:16:24,817 --> 00:16:27,518
+the app in this kind of stuck state where it's only the MVC
+
+334
+00:16:27,587 --> 00:16:30,488
+that you've taken over the screen with is active,
+
+335
+00:16:30,556 --> 00:16:32,190
+can be kind of disconcerting for the user but
+
+336
+00:16:32,258 --> 00:16:34,525
+sometimes we do want things to be Modal. And
+
+337
+00:16:34,594 --> 00:16:37,328
+then Popover Segue is kind of like a Modal segue but
+
+338
+00:16:37,397 --> 00:16:38,562
+instead of taking over the whole screen,
+
+339
+00:16:38,631 --> 00:16:40,264
+it just puts it up in a little popover.
+
+340
+00:16:40,332 --> 00:16:42,366
+You've seen that on an iPad especially. But
+
+341
+00:16:42,434 --> 00:16:45,636
+it's still modal because the background is grayed out and
+
+342
+00:16:45,705 --> 00:16:46,671
+you can't interact with it,
+
+343
+00:16:46,739 --> 00:16:48,473
+you can only do the thing in the popover. So
+
+344
+00:16:48,541 --> 00:16:50,074
+we'll talk about those segues later in the quarter.
+
+345
+00:16:50,142 --> 00:16:53,644
+Today I'm just gonna talk about show and show detail. So
+
+346
+00:16:53,712 --> 00:16:57,014
+this is in red.
+
+347
+00:16:57,083 --> 00:17:01,285
+I'm just re-emphasizing that segues always create a new
+
+348
+00:17:01,353 --> 00:17:05,590
+instance of the MVC. Segues always create a new instance
+
+349
+00:17:05,658 --> 00:17:08,091
+of the MVC. This is important to understand. You're not
+
+350
+00:17:08,160 --> 00:17:11,395
+gonna be reusing some MVC that you had on screen before. And
+
+351
+00:17:11,464 --> 00:17:14,231
+we'll show in our demo today, what we can do about this if
+
+352
+00:17:14,300 --> 00:17:18,869
+we really do want re-use of MVCs. By the way, the back
+
+353
+00:17:18,938 --> 00:17:21,505
+button in a navigation controller is not a segue.
+
+354
+00:17:21,574 --> 00:17:22,807
+That's just part of the navigation controller,
+
+355
+00:17:22,875 --> 00:17:25,442
+so when you go back you're not creating a new MVC. You're
+
+356
+00:17:25,511 --> 00:17:27,945
+going back to the one that was on the stack underneath.
+
+357
+00:17:29,515 --> 00:17:31,081
+All right, so how do we make these segues happen?
+
+358
+00:17:31,150 --> 00:17:33,684
+Ctrl-drag. We do Ctrl-drag for everything.
+
+359
+00:17:33,753 --> 00:17:35,286
+It can also be done in code as well, and
+
+360
+00:17:35,355 --> 00:17:37,921
+I'll show you how to do that in the demo, too.
+
+361
+00:17:37,990 --> 00:17:40,457
+So, if I have this calculator example. Here's my split view
+
+362
+00:17:40,526 --> 00:17:42,760
+with the navigation controller around the master, and
+
+363
+00:17:42,828 --> 00:17:43,994
+I've got a button in my calculator
+
+364
+00:17:44,063 --> 00:17:45,963
+which is show me a graph of what's currently in
+
+365
+00:17:46,031 --> 00:17:48,733
+the calculator. I just Ctrl-drag from that button.
+
+366
+00:17:48,801 --> 00:17:51,902
+Down to the lower left here to my detail. And
+
+367
+00:17:51,971 --> 00:17:54,738
+when I let go of the control drag a little black window is
+
+368
+00:17:54,807 --> 00:17:58,141
+going to come up and there is it more detail and
+
+369
+00:17:58,210 --> 00:18:02,179
+it will choose the show detail segway there. Okay, and
+
+370
+00:18:02,248 --> 00:18:05,082
+that will create this little line. See the line that it
+
+371
+00:18:05,151 --> 00:18:08,352
+created right there, which we can click on and inspect. And
+
+372
+00:18:08,421 --> 00:18:10,754
+that little line is called a segue, so that's
+
+373
+00:18:10,823 --> 00:18:13,190
+a thing in your storyboard that you can inspect.
+
+374
+00:18:13,259 --> 00:18:15,292
+And why do you wanna inspect that little line?
+
+375
+00:18:15,361 --> 00:18:17,829
+Mostly because you wanna give a unique identifier which is
+
+376
+00:18:17,897 --> 00:18:19,764
+just a string. So I'm gonna call this one for
+
+377
+00:18:19,832 --> 00:18:23,834
+example show graph cuz that's what this segue does. And
+
+378
+00:18:23,903 --> 00:18:27,371
+then in my code, I can refer to that segue by the name,
+
+379
+00:18:27,439 --> 00:18:29,740
+show graph. Everything in interface builder files,
+
+380
+00:18:29,808 --> 00:18:32,776
+all these storyboards, is always referenced by name. And
+
+381
+00:18:32,845 --> 00:18:35,413
+the great thing about that is that you can copy and paste
+
+382
+00:18:35,481 --> 00:18:38,048
+things to one storyboard to another as long as the names
+
+383
+00:18:38,117 --> 00:18:40,684
+in your code are their right names, it'll just work.
+
+384
+00:18:40,753 --> 00:18:41,885
+So that's why it goes by name.
+
+385
+00:18:41,954 --> 00:18:44,688
+Okay, it does everything by name. Some people think it
+
+386
+00:18:44,757 --> 00:18:46,624
+kind of can be a little annoying that you have to have
+
+387
+00:18:46,693 --> 00:18:49,026
+these names that are exactly the same in the code and
+
+388
+00:18:49,095 --> 00:18:50,861
+in the storyboard. But it turns out to be quite
+
+389
+00:18:50,930 --> 00:18:53,764
+a flexible thing to do it that way. A little more work for
+
+390
+00:18:53,833 --> 00:18:56,733
+the programmer to ensure that those things are the same but
+
+391
+00:18:56,802 --> 00:18:58,135
+kinda worth it in flexibility, I think.
+
+392
+00:18:58,204 --> 00:19:02,472
+All right, so that's the main thing you wanna inspect.
+
+393
+00:19:02,541 --> 00:19:05,710
+You can also inspect whether it's show detail or
+
+394
+00:19:05,778 --> 00:19:08,479
+show, but you're gonna see that, in my demo, you actually
+
+395
+00:19:08,547 --> 00:19:11,115
+don't wanna change that show detail to show right there.
+
+396
+00:19:11,184 --> 00:19:15,319
+Your better off creating a new segue. Okay, so
+
+397
+00:19:15,388 --> 00:19:18,522
+that's segues. So that identifier. Why do we want it?
+
+398
+00:19:18,591 --> 00:19:21,459
+Where would we use it in our code? What's an example? Well,
+
+399
+00:19:21,527 --> 00:19:24,395
+one way is you can perform a segue from code.
+
+400
+00:19:24,463 --> 00:19:28,032
+So manually cause a segue to happen. Okay well to do that
+
+401
+00:19:28,100 --> 00:19:30,968
+you need to know which segue it is in the storyboard you
+
+402
+00:19:31,037 --> 00:19:33,938
+want to perform manually and so you can do perform segway.
+
+403
+00:19:34,006 --> 00:19:36,640
+We don't usually perform manually. I'll show it in
+
+404
+00:19:36,708 --> 00:19:39,910
+the demo we don't usually do it that often. Okay because
+
+405
+00:19:39,979 --> 00:19:42,246
+the real way we do it is just the control dragging and
+
+406
+00:19:42,315 --> 00:19:44,348
+that's gonna automatically segue from that button so
+
+407
+00:19:44,417 --> 00:19:46,284
+we don't need to do it from the code. But
+
+408
+00:19:46,352 --> 00:19:49,420
+the most important use of identifier is to prepare
+
+409
+00:19:49,489 --> 00:19:53,357
+the MVC that you're segue to. Okay think about
+
+410
+00:19:53,425 --> 00:19:56,860
+the calculator example. I press graph and it's going to
+
+411
+00:19:56,929 --> 00:19:59,530
+show me a graph, presumably it's going to show me a graph
+
+412
+00:19:59,599 --> 00:20:01,832
+of what's in my calculator. Well I have
+
+413
+00:20:01,901 --> 00:20:05,402
+to somehow let that new graphing MVC know what
+
+414
+00:20:05,471 --> 00:20:10,174
+equation to graph. We call that preparing that
+
+415
+00:20:10,242 --> 00:20:14,111
+MVC to do it's job and segues always create a new MVC so
+
+416
+00:20:14,179 --> 00:20:16,947
+they always have to be prepared to do what they do.
+
+417
+00:20:17,015 --> 00:20:20,784
+Makes sense? So we do that with a function called prepare
+
+418
+00:20:20,853 --> 00:20:24,021
+for segues. This function is implemented in the MVC,
+
+419
+00:20:24,090 --> 00:20:27,624
+that is causing the segues to happen. It's obviously
+
+420
+00:20:27,693 --> 00:20:31,395
+the only one who could prepare the new MVC To be ready to go.
+
+421
+00:20:31,464 --> 00:20:32,596
+This is what that method looks like.
+
+422
+00:20:32,665 --> 00:20:35,532
+Prepare for segue. It has two arguments: the segue,
+
+423
+00:20:35,601 --> 00:20:38,336
+which is a UI storyboard segue.
+
+424
+00:20:38,404 --> 00:20:42,072
+That segue mostly just has the identifier and
+
+425
+00:20:42,141 --> 00:20:44,541
+also the MVC that we need to prepare.
+
+426
+00:20:44,610 --> 00:20:47,811
+The MVC that it just created, that we're going to segue to
+
+427
+00:20:47,880 --> 00:20:50,748
+the second argument there, the sender that's the button or
+
+428
+00:20:50,816 --> 00:20:54,017
+the line in a table view. Or if you're doing it from code
+
+429
+00:20:54,086 --> 00:20:56,853
+it can be almost anything, that's why it's of type any.
+
+430
+00:20:56,922 --> 00:20:58,322
+That cause this segue to happen,
+
+431
+00:20:58,390 --> 00:21:02,726
+that could also be nil. It's happening, you don't know or
+
+432
+00:21:02,795 --> 00:21:07,665
+care, who did it. So that's what those two arguments are.
+
+433
+00:21:08,834 --> 00:21:10,534
+All right, now let's dive into this thing.
+
+434
+00:21:10,602 --> 00:21:12,936
+The first thing we usually do is take a look
+
+435
+00:21:13,005 --> 00:21:16,340
+at our identifier, our segue identifier which could be nil.
+
+436
+00:21:16,408 --> 00:21:18,509
+Shouldn't be, you always wanna set an identifier in your
+
+437
+00:21:18,577 --> 00:21:20,243
+story board. But we look at it and
+
+438
+00:21:20,312 --> 00:21:21,545
+here I'm gonna switch on it, although,
+
+439
+00:21:21,614 --> 00:21:25,515
+we can use if then on it, and find out which segue it is.
+
+440
+00:21:25,584 --> 00:21:28,052
+And that's because an MVC can have multiple different
+
+441
+00:21:28,120 --> 00:21:31,521
+buttons, each that segue to a different kind of MVC. So
+
+442
+00:21:31,590 --> 00:21:33,224
+we obviously, have to prepare them differently.
+
+443
+00:21:33,293 --> 00:21:36,260
+So, we need to know which one is which.
+
+444
+00:21:36,329 --> 00:21:38,261
+So, that's why we check the identifier to see
+
+445
+00:21:38,330 --> 00:21:41,432
+which segue we're talking about. Then, we need to get
+
+446
+00:21:41,501 --> 00:21:44,802
+the MVC that we are segueing to and prepare it.
+
+447
+00:21:44,871 --> 00:21:48,872
+Okay, well, segue.destination, that var segue.
+
+448
+00:21:48,941 --> 00:21:51,909
+That var destination in the segue object is passed to you.
+
+449
+00:21:51,978 --> 00:21:54,511
+That is the view controller that you're segueing to,
+
+450
+00:21:54,580 --> 00:21:58,182
+the brand new just created MVC, all right. But
+
+451
+00:21:58,250 --> 00:22:03,120
+the type of that argument is not gonna be a graph
+
+452
+00:22:03,188 --> 00:22:06,156
+controller or something like that, it's going to be just
+
+453
+00:22:06,225 --> 00:22:09,192
+UI View controller. That's because Segue,
+
+454
+00:22:09,261 --> 00:22:12,329
+UI Storyboard Segue Class, each var has to have a type,
+
+455
+00:22:12,398 --> 00:22:13,697
+and it can't know anything about a graph.
+
+456
+00:22:13,766 --> 00:22:16,366
+It was written by Apple years ago. It's
+
+457
+00:22:16,435 --> 00:22:21,137
+a type UI View controller. So that means we have to use as,
+
+458
+00:22:21,206 --> 00:22:24,441
+right, the typecasting to downcast it,
+
+459
+00:22:24,510 --> 00:22:28,112
+to the kind of MVC controller we think this is,
+
+460
+00:22:28,180 --> 00:22:31,381
+based on which segue it is. So in this case,
+
+461
+00:22:31,450 --> 00:22:34,118
+it's the calculator case, I think it's a graph controller,
+
+462
+00:22:34,187 --> 00:22:36,520
+that controls one of these graphing things. So
+
+463
+00:22:36,589 --> 00:22:38,689
+I'm going to downcast. If that fails,
+
+464
+00:22:38,757 --> 00:22:40,390
+then obviously I can't prepare it.
+
+465
+00:22:40,459 --> 00:22:44,895
+That's why I do if let there. Okay, but if it doesn't fail
+
+466
+00:22:44,964 --> 00:22:47,531
+then now I can set properties in the graph controller,
+
+467
+00:22:47,600 --> 00:22:50,567
+call methods, whatever is necessary to get it to know
+
+468
+00:22:50,636 --> 00:22:54,004
+what function to graph so that it can do its job. Okay, we
+
+469
+00:22:54,072 --> 00:22:57,641
+prepare it. Cool, everybody? Everybody make sense?
+
+470
+00:22:57,710 --> 00:22:59,509
+It's very important to understand prepare for segues.
+
+471
+00:22:59,578 --> 00:23:01,912
+You can't do any multiple MVC stuff without understanding
+
+472
+00:23:01,981 --> 00:23:04,715
+this method. It's the most important method in all of
+
+473
+00:23:04,784 --> 00:23:10,521
+multiple MVCs, all right? Now, red again.
+
+474
+00:23:10,589 --> 00:23:13,390
+Look, some red on the slide. It is absolutely crucial to
+
+475
+00:23:13,459 --> 00:23:17,194
+understand that when you're executing these yellow lines,
+
+476
+00:23:17,263 --> 00:23:19,563
+you're preparing that MVC when that's happening.
+
+477
+00:23:19,631 --> 00:23:24,635
+That MVC's outlets have not been set yet. So
+
+478
+00:23:24,704 --> 00:23:25,803
+all those outlets,
+
+479
+00:23:25,871 --> 00:23:28,238
+like in our Concentration the card buttons,
+
+480
+00:23:28,307 --> 00:23:32,209
+the flip count, all those labels they're all nil. Now,
+
+481
+00:23:32,277 --> 00:23:35,045
+they're implicitly unwrapped optionals, but they're still
+
+482
+00:23:35,114 --> 00:23:37,814
+gonna get unwrapped when you try to access them.
+
+483
+00:23:37,883 --> 00:23:40,550
+This will cause many crashes in your apps cuz you'll
+
+484
+00:23:40,619 --> 00:23:43,253
+forget, oops, and during preparing,
+
+485
+00:23:43,322 --> 00:23:46,223
+I accidentally accessed one of my outlets. Especially since,
+
+486
+00:23:46,291 --> 00:23:49,093
+when you're preparing, you kinda want the outlets because
+
+487
+00:23:49,161 --> 00:23:52,863
+you're trying to prepare the UI. But you have to get used
+
+488
+00:23:52,931 --> 00:23:54,998
+to this fact that this happens before. I'm not sure
+
+489
+00:23:55,067 --> 00:23:57,700
+why they made the decision to do this, but
+
+490
+00:23:57,769 --> 00:23:59,336
+it can be a pain. I mean,
+
+491
+00:23:59,404 --> 00:24:01,939
+sometimes when you prepare the MVC that you're preparing,
+
+492
+00:24:02,008 --> 00:24:03,874
+it's just collecting the information. And
+
+493
+00:24:03,943 --> 00:24:06,876
+then, in its view did load, which is a function, remember,
+
+494
+00:24:06,945 --> 00:24:09,680
+that we know is called after our outlets are hooked up.
+
+495
+00:24:09,749 --> 00:24:12,816
+Then you talk to the outlets and parcel out the information
+
+496
+00:24:12,884 --> 00:24:15,485
+or whatever. So it can be annoying.
+
+497
+00:24:15,554 --> 00:24:18,755
+But I'll intentionally crash in the demo, just so
+
+498
+00:24:18,824 --> 00:24:21,725
+you can see this happening, because it will happen to you.
+
+499
+00:24:23,396 --> 00:24:25,262
+All right, so that's prepare for segue. You can
+
+500
+00:24:25,331 --> 00:24:27,765
+prevent a segue from happening with this method
+
+501
+00:24:27,834 --> 00:24:30,300
+shouldPerformSegue in UIViewController.
+
+502
+00:24:30,369 --> 00:24:33,170
+Okay, you get the identifier, if you return false from this,
+
+503
+00:24:33,239 --> 00:24:34,672
+then the segue will not happen.
+
+504
+00:24:34,740 --> 00:24:37,207
+So some will click on that graph button, the system looks
+
+505
+00:24:37,276 --> 00:24:40,511
+at this method. If it says no, then it will not segue
+
+506
+00:24:40,579 --> 00:24:43,047
+to a new graph controller. It's just like you never even
+
+507
+00:24:43,115 --> 00:24:47,217
+clicked on that button. This is pretty rare to do,
+
+508
+00:24:47,286 --> 00:24:50,120
+but occasionally, you might wanna do it. All right,
+
+509
+00:24:50,189 --> 00:24:51,622
+so let's see a demo of all the stuff.
+
+510
+00:24:51,691 --> 00:24:54,624
+I'm probably gonna show you all this stuff in here.
+
+511
+00:24:54,693 --> 00:24:58,762
+I think we have time for all of that. Yeah, we probably do.
+
+512
+00:24:58,831 --> 00:25:03,600
+All right, so let's head back over to our Concentration. So
+
+513
+00:25:03,669 --> 00:25:07,137
+what I'm gonna do here, this is Concentration as we left it
+
+514
+00:25:07,205 --> 00:25:10,140
+off last time. I'm gonna change it to have multiple
+
+515
+00:25:10,209 --> 00:25:13,343
+MVCs, so the new MVC I'm gonna add is a theme chooser.
+
+516
+00:25:13,411 --> 00:25:16,647
+Remember how you all in your homework added theme to your
+
+517
+00:25:16,715 --> 00:25:20,751
+Concentration game? You did, but it chose a random theme.
+
+518
+00:25:20,820 --> 00:25:24,021
+So I'm gonna add a theme mechanism to mine, a simple
+
+519
+00:25:24,090 --> 00:25:27,524
+one because it's a demo. And then, but I'm gonna have
+
+520
+00:25:27,593 --> 00:25:32,695
+another MVC that lets me choose the theme. So, let's do
+
+521
+00:25:32,764 --> 00:25:37,200
+that. Let's start by one thing I wanna do in here after I've
+
+522
+00:25:37,269 --> 00:25:40,170
+been putting off, but I wanna do is now that I have multiple
+
+523
+00:25:40,239 --> 00:25:44,040
+MVCs, I do not want any of my MVCs to have their controller
+
+524
+00:25:44,109 --> 00:25:47,611
+called view controller. Okay, that's just way too generic.
+
+525
+00:25:47,680 --> 00:25:48,645
+Okay, I'm gonna have multiple MVCs.
+
+526
+00:25:48,714 --> 00:25:51,148
+I want each one to have the class of controls.
+
+527
+00:25:51,217 --> 00:25:54,017
+It'd be, you know, nicely named. So here,
+
+528
+00:25:54,086 --> 00:25:59,723
+I'm going to go, Oops, controller here.
+
+529
+00:25:59,792 --> 00:26:02,292
+And I'm gonna rename this. And the way to rename this,
+
+530
+00:26:02,361 --> 00:26:04,928
+you can't just type in a new name here.
+
+531
+00:26:04,997 --> 00:26:07,697
+Because this also appears in the storyboard by name.
+
+532
+00:26:07,766 --> 00:26:10,133
+Everything in the storyboard is by name. So
+
+533
+00:26:10,202 --> 00:26:14,871
+the way to rename here is to do the special Cmd+Click,
+
+534
+00:26:14,940 --> 00:26:17,474
+remember that menu? And choose Rename and
+
+535
+00:26:17,543 --> 00:26:22,145
+the Xcode will go and look at all the places that is used.
+
+536
+00:26:22,214 --> 00:26:23,113
+And now I'll just type in,
+
+537
+00:26:23,181 --> 00:26:25,148
+I'm gonna call this my ConcentrationViewController.
+
+538
+00:26:25,217 --> 00:26:31,020
+Because it's the view controller that controls this
+
+539
+00:26:31,089 --> 00:26:36,827
+view controller right here, my Concentration game, all right?
+
+540
+00:26:36,895 --> 00:26:43,100
+Okay, so let's go and add this theme support to my app.
+
+541
+00:26:43,168 --> 00:26:45,769
+I'm gonna do it super simply. Here's where all my emoji
+
+542
+00:26:45,838 --> 00:26:49,373
+stuff is. I'm just gonna add a var called theme, which I'm
+
+543
+00:26:49,441 --> 00:26:53,309
+gonna have be an optional string, which is one of these.
+
+544
+00:26:53,378 --> 00:26:56,814
+Okay, so my theme, when you set my theme, you just set
+
+545
+00:26:56,882 --> 00:26:59,817
+the emoji you want, and that is the theme. Okay, so like,
+
+546
+00:26:59,885 --> 00:27:02,619
+this would be the Halloween theme if we pasted in here.
+
+547
+00:27:02,688 --> 00:27:04,621
+And when its didSet happens,
+
+548
+00:27:04,690 --> 00:27:08,892
+I'm just gonna reset my emoji choices to equal this theme.
+
+549
+00:27:08,961 --> 00:27:10,660
+By the way, this is an optional.
+
+550
+00:27:10,729 --> 00:27:13,330
+It's gonna start out nil, and if you set it to nil,
+
+551
+00:27:13,399 --> 00:27:16,433
+then I'll just have no emoji as your theme.
+
+552
+00:27:16,501 --> 00:27:18,735
+In which case, you're gonna end up getting this question
+
+553
+00:27:18,804 --> 00:27:21,204
+mark if you'll remember, if you don't have any emoji.
+
+554
+00:27:21,273 --> 00:27:24,340
+And then I'm also gonna reset the emoji that we have used so
+
+555
+00:27:24,409 --> 00:27:26,910
+far because it might be from a different theme.
+
+556
+00:27:26,979 --> 00:27:29,078
+So I'm gonna reset it, and by the way,
+
+557
+00:27:29,147 --> 00:27:31,882
+all I need to do to create an empty dictionary is that
+
+558
+00:27:31,951 --> 00:27:34,818
+because Swift is gonna be able to infer the type from this.
+
+559
+00:27:34,887 --> 00:27:38,588
+So I don't need to put card and string in here.
+
+560
+00:27:38,657 --> 00:27:40,791
+And finally, what if someone sets my theme, and
+
+561
+00:27:40,859 --> 00:27:44,027
+I'm in the middle of a game? I think I'd better update my
+
+562
+00:27:44,095 --> 00:27:47,664
+view from my model. Okay, remember updateViewFromModel,
+
+563
+00:27:47,732 --> 00:27:51,468
+so that whatever is showing, if it's got the wrong theme,
+
+564
+00:27:51,537 --> 00:27:55,071
+will update to my new theme. Okay, so that's it.
+
+565
+00:27:55,140 --> 00:27:58,074
+That's how I'm gonna do my theme. it's really simple,
+
+566
+00:27:58,143 --> 00:28:01,211
+probably a little too simple. Another thing I'm gonna do is
+
+567
+00:28:01,280 --> 00:28:05,449
+that, since we now let the theme be set, I really don't
+
+568
+00:28:05,517 --> 00:28:08,651
+want this Halloween color theme here. So I'm gonna
+
+569
+00:28:08,720 --> 00:28:13,090
+change all these things to be a more kind of standard color.
+
+570
+00:28:13,158 --> 00:28:15,759
+Blue, blue is this default blue right here is
+
+571
+00:28:15,827 --> 00:28:18,428
+probably one of the most standard colors, so
+
+572
+00:28:18,497 --> 00:28:22,098
+let's make everything here be blue. I'll have to change up
+
+573
+00:28:22,167 --> 00:28:27,704
+my code as well, easy to change here. All right,
+
+574
+00:28:27,773 --> 00:28:30,240
+and then, the background doesn't wanna be black,
+
+575
+00:28:30,308 --> 00:28:33,243
+it's very unusual, we're gonna make that white. And
+
+576
+00:28:33,311 --> 00:28:35,511
+then our flips down here wants to be black,
+
+577
+00:28:35,580 --> 00:28:40,483
+just standard color black, where's black, there it is.
+
+578
+00:28:40,552 --> 00:28:42,786
+So now our UI looks a little more standard color.
+
+579
+00:28:42,855 --> 00:28:46,489
+Let's go do the same thing in our code over here.
+
+580
+00:28:46,558 --> 00:28:48,024
+Concentration ViewController,
+
+581
+00:28:48,093 --> 00:28:49,559
+see we've got these colors here,
+
+582
+00:28:49,628 --> 00:28:51,061
+so this orange right here,
+
+583
+00:28:51,130 --> 00:28:53,696
+which is the back of the cards, we'll make that blue.
+
+584
+00:28:53,765 --> 00:28:55,965
+We don't want the card's background to be white, and so
+
+585
+00:28:56,034 --> 00:28:57,367
+our overall background is white.
+
+586
+00:28:57,436 --> 00:28:58,769
+So I'll just make it be light gray, so
+
+587
+00:28:58,837 --> 00:29:01,137
+that we can see the edges of the cards better. And
+
+588
+00:29:01,206 --> 00:29:03,407
+then I also, we have our flip count label,
+
+589
+00:29:03,475 --> 00:29:06,709
+we'll make that be black. Okay, so I've added the theme,
+
+590
+00:29:06,778 --> 00:29:09,846
+I've changed my color scheme. Let's just run and make
+
+591
+00:29:09,915 --> 00:29:13,383
+sure I haven't broken anything here before we dive in.
+
+592
+00:29:18,557 --> 00:29:20,557
+Okay, so we got this blue theme, and
+
+593
+00:29:20,625 --> 00:29:24,260
+we got the Halloween default, kind of our default theme,
+
+594
+00:29:24,329 --> 00:29:26,697
+looks like it is functioning properly.
+
+595
+00:29:26,766 --> 00:29:28,732
+We're even getting our outline font. And
+
+596
+00:29:28,800 --> 00:29:32,803
+we've got normal colors here. Okay, so now let's go and
+
+597
+00:29:32,872 --> 00:29:36,139
+add this other MVC, right? We've got this MVC,
+
+598
+00:29:36,208 --> 00:29:40,477
+we need another one. How do we add an MVC to our app? Well,
+
+599
+00:29:40,545 --> 00:29:42,913
+we just go over here, same place that we get a button or
+
+600
+00:29:42,981 --> 00:29:45,749
+a label from. The very top one is View Controller.
+
+601
+00:29:45,817 --> 00:29:48,085
+I just drag it out and drop it in.
+
+602
+00:29:48,153 --> 00:29:52,923
+So now I have two MVCs, two view controllers here.
+
+603
+00:29:52,991 --> 00:29:55,325
+We call these things, by the way,
+
+604
+00:29:55,393 --> 00:29:59,929
+each one of these things a scene, S-C-E-N-E, scene. Okay,
+
+605
+00:29:59,998 --> 00:30:03,266
+so, we, we have these two view controllers right here,
+
+606
+00:30:03,335 --> 00:30:06,936
+two MVCs, and one, a couple things I need to do here.
+
+607
+00:30:07,005 --> 00:30:10,273
+One is, every time I have a view controller, it needs
+
+608
+00:30:10,342 --> 00:30:13,476
+a view controller subclass to control it. This one has one,
+
+609
+00:30:13,545 --> 00:30:15,879
+ConcentrationViewController. We need to make one for
+
+610
+00:30:15,948 --> 00:30:18,549
+here. And I do that with File > New File.
+
+611
+00:30:18,617 --> 00:30:21,551
+That's always how I create a new class. And
+
+612
+00:30:21,620 --> 00:30:24,287
+it's a UI thing, so I'm gonna do Cocoa Touch Class.
+
+613
+00:30:24,356 --> 00:30:26,289
+It's a subclass of UIViewController.
+
+614
+00:30:26,358 --> 00:30:32,228
+I'm gonna call this my ConcentrationThemeChooserView-
+
+615
+00:30:32,297 --> 00:30:35,531
+Controller. Nice long name right there, won't have to
+
+616
+00:30:35,600 --> 00:30:39,001
+type it very much though. And I'm gonna make sure not to put
+
+617
+00:30:39,070 --> 00:30:41,738
+it at the level of my project. I'm gonna put it down a level,
+
+618
+00:30:41,806 --> 00:30:46,310
+where all my files are, are there. And here we go.
+
+619
+00:30:46,378 --> 00:30:48,445
+This is our viewController. We're gonna get rid of
+
+620
+00:30:48,513 --> 00:30:51,014
+these viewController lifecycle methods like we always do.
+
+621
+00:30:51,083 --> 00:30:53,383
+And that leaves us with this one method,
+
+622
+00:30:53,452 --> 00:30:56,720
+all important prepare(for segue. So we will get back
+
+623
+00:30:56,788 --> 00:31:01,158
+to prepare(for segue) there, and implement it quite soon.
+
+624
+00:31:01,226 --> 00:31:03,259
+But the first thing we just do is the same thing you did
+
+625
+00:31:03,328 --> 00:31:07,130
+when you dragged out a blank UI view. What did you do?
+
+626
+00:31:07,199 --> 00:31:10,100
+You went to the identity inspector over here. And
+
+627
+00:31:10,169 --> 00:31:12,835
+you changed its identity to be your custom subclass.
+
+628
+00:31:12,904 --> 00:31:15,339
+So we wanna do the same thing here. So I'm gonna select this
+
+629
+00:31:15,407 --> 00:31:18,241
+guy, I'm gonna go here to the identity inspector.
+
+630
+00:31:18,310 --> 00:31:22,178
+I'm gonna change it from being just generic UIViewController
+
+631
+00:31:22,247 --> 00:31:24,714
+to being my ConcentrationThemeChooser
+
+632
+00:31:24,783 --> 00:31:27,784
+ViewController. Okay, don't forget that step.
+
+633
+00:31:27,852 --> 00:31:30,153
+If you don't do that step, then your prepare(for segue),
+
+634
+00:31:30,221 --> 00:31:31,688
+for example, will never get called.
+
+635
+00:31:31,756 --> 00:31:34,457
+You won't be able to create any outlets, or any actions,
+
+636
+00:31:34,526 --> 00:31:37,427
+or anything. You need to do that. Another thing I'm gonna
+
+637
+00:31:37,496 --> 00:31:40,230
+do is this little arrow, you see this arrow right here?
+
+638
+00:31:40,299 --> 00:31:42,932
+This is the arrow that says when this app runs,
+
+639
+00:31:43,001 --> 00:31:46,369
+which view controller do I show first? Okay, and
+
+640
+00:31:46,438 --> 00:31:49,305
+obviously now, I wanna show the theme one first. So
+
+641
+00:31:49,374 --> 00:31:52,241
+I just, you can just pick this up and drag it to whatever MVC
+
+642
+00:31:52,310 --> 00:31:56,079
+you want to be the first one. All right, so here's my theme
+
+643
+00:31:56,148 --> 00:31:59,148
+chooser right here. If we were really doing this for real,
+
+644
+00:31:59,217 --> 00:32:02,619
+this would probably be a table view. Or some extensible list
+
+645
+00:32:02,687 --> 00:32:05,321
+of themes, that I could add more themes to with one line
+
+646
+00:32:05,390 --> 00:32:07,524
+of code, like you were asked to do do in your homework.
+
+647
+00:32:07,592 --> 00:32:10,159
+But I haven't taught you table view yet, so I can't do it
+
+648
+00:32:10,228 --> 00:32:12,696
+that way. Instead, I'm just gonna have three buttons,
+
+649
+00:32:12,764 --> 00:32:16,432
+each of which is a theme. So, I'm just gonna grab three
+
+650
+00:32:16,501 --> 00:32:19,302
+buttons here, and make this nice UI to this MVC.
+
+651
+00:32:19,371 --> 00:32:23,473
+We'll make the font nice and big, so you can see it.
+
+652
+00:32:23,541 --> 00:32:27,611
+Go over here, and maybe 40 points or something like that.
+
+653
+00:32:30,082 --> 00:32:32,014
+And we need three of them so I'll copy and paste,
+
+654
+00:32:32,083 --> 00:32:34,884
+and then paste another one. Okay, so,
+
+655
+00:32:34,953 --> 00:32:39,856
+the three themes that I have, I have a Sports theme,
+
+656
+00:32:39,925 --> 00:32:45,395
+I have a Faces theme, and I have an Animals Theme. So
+
+657
+00:32:45,464 --> 00:32:48,965
+these are my themes. Lets do a quick review of auto layout.
+
+658
+00:32:49,034 --> 00:32:51,768
+I'm going to select these and put them in a stack, with this
+
+659
+00:32:51,837 --> 00:32:54,470
+button down here. Then in stack view, here they are.
+
+660
+00:32:54,539 --> 00:32:56,806
+I'm going to make them be centered in the stack.
+
+661
+00:32:56,875 --> 00:32:59,209
+And I'm going to make them be equal size.
+
+662
+00:32:59,278 --> 00:33:02,578
+And I'm going to pick a standard spacing, like that.
+
+663
+00:33:02,647 --> 00:33:04,181
+I'm also going to put this in the center,
+
+664
+00:33:04,249 --> 00:33:07,517
+and do my control drag to my outer level, and
+
+665
+00:33:07,586 --> 00:33:11,321
+have the center, horizontal and vertical there.
+
+666
+00:33:11,389 --> 00:33:15,324
+Notice I get the yellow. That yellow is just warning me,
+
+667
+00:33:15,393 --> 00:33:19,529
+that these frames will be different at run time.
+
+668
+00:33:19,598 --> 00:33:21,465
+I can fix that in the document outline.
+
+669
+00:33:21,533 --> 00:33:23,833
+If you'll recall this little guy right here,
+
+670
+00:33:23,902 --> 00:33:26,903
+with this yellow button in the upper right, and go here, and
+
+671
+00:33:26,972 --> 00:33:29,105
+then click on anything that's yellow. And
+
+672
+00:33:29,174 --> 00:33:32,242
+it can fix the misplacement for me by updating the frame,
+
+673
+00:33:32,310 --> 00:33:35,545
+so we'll do that. It moved it slightly, and
+
+674
+00:33:35,614 --> 00:33:39,515
+now everything is resolved. Okay, so this is great.
+
+675
+00:33:39,584 --> 00:33:43,019
+I got my nice UI here, I've got auto layouts, so
+
+676
+00:33:43,088 --> 00:33:46,055
+it should work when I rotate, and do all those things. So,
+
+677
+00:33:46,124 --> 00:33:49,692
+now all I need to do is wire these two MVCs up. Okay,
+
+678
+00:33:49,761 --> 00:33:51,661
+make it so that when I click on one of these buttons,
+
+679
+00:33:51,730 --> 00:33:54,464
+it shows this MVC over here on the right. And I
+
+680
+00:33:54,533 --> 00:33:57,000
+do that with control drag. So, I'm just gonna control drag
+
+681
+00:33:57,069 --> 00:34:00,236
+from the sports button over here. I'm gonna put this
+
+682
+00:34:00,305 --> 00:34:02,973
+in a navigation controller to start anyway.
+
+683
+00:34:03,041 --> 00:34:05,541
+So I'm gonna pick Show here, not Show Detail which is for
+
+684
+00:34:05,610 --> 00:34:08,344
+split views, I'm gonna pick Show. Okay, let's do the same
+
+685
+00:34:08,413 --> 00:34:11,180
+thing with this one. That's also gonna be a Show, and
+
+686
+00:34:11,249 --> 00:34:15,918
+this one here also a Show, so they're all going to Show. And
+
+687
+00:34:15,987 --> 00:34:19,088
+I want to make sure to click on each one of them,
+
+688
+00:34:19,157 --> 00:34:22,425
+it's nice it shows you what's causing the segue here, and
+
+689
+00:34:22,493 --> 00:34:23,860
+go over here to the inspector and
+
+690
+00:34:23,929 --> 00:34:27,430
+change the identifier. What does this segue do?
+
+691
+00:34:27,499 --> 00:34:29,933
+It basically let's you choose a theme, so
+
+692
+00:34:30,001 --> 00:34:32,569
+I'm going to call this Choose Theme, and I'm gonna
+
+693
+00:34:32,638 --> 00:34:36,239
+call all three of them, identify with Choose Theme,
+
+694
+00:34:36,308 --> 00:34:39,242
+because all three of them do exactly the same thing.
+
+695
+00:34:39,311 --> 00:34:42,212
+They choose a theme, all right?
+
+696
+00:34:42,280 --> 00:34:45,448
+Now I'm gonna do something kind of bad, in fact not kind
+
+697
+00:34:45,517 --> 00:34:49,018
+of bad, very bad, which is I'm gonna look at the button
+
+698
+00:34:49,087 --> 00:34:52,589
+that caused the segue to decide which theme to show.
+
+699
+00:34:52,657 --> 00:34:55,491
+Can anyone think of why that would be really bad?
+
+700
+00:34:55,560 --> 00:35:00,596
+Should never do that, no guesses? Because, what happens
+
+701
+00:35:00,665 --> 00:35:05,235
+when I convert this to French, or Chinese? Am I gonna have my
+
+702
+00:35:05,304 --> 00:35:07,103
+code have to have French, and Chinese in it so
+
+703
+00:35:07,172 --> 00:35:10,039
+that it works in those languages, no makes no sense?
+
+704
+00:35:10,108 --> 00:35:12,609
+So you never really want to drive your code from something
+
+705
+00:35:12,678 --> 00:35:13,310
+that's in the UI,
+
+706
+00:35:13,378 --> 00:35:15,311
+cuz your UI is gonna be in 40 different languages,
+
+707
+00:35:15,380 --> 00:35:17,680
+you hope if your app is successful. But for
+
+708
+00:35:17,749 --> 00:35:20,250
+downloads it's really good, because it's very little code,
+
+709
+00:35:20,318 --> 00:35:22,619
+and I can do it quickly. So this is download ware,
+
+710
+00:35:22,687 --> 00:35:25,822
+do not copy this aspect of what we're doing today.
+
+711
+00:35:27,325 --> 00:35:30,259
+All right, so we have created these segues right here.
+
+712
+00:35:30,328 --> 00:35:31,928
+Lets go ahead and run and see.
+
+713
+00:35:31,996 --> 00:35:35,098
+Wait, one more thing we have to do. We're missing an MVC.
+
+714
+00:35:35,167 --> 00:35:38,168
+We've got the first card on our stack, the second card of
+
+715
+00:35:38,237 --> 00:35:40,169
+our stack, but we don't have the stack itself.
+
+716
+00:35:40,238 --> 00:35:43,039
+We never have put a navigation control, which we could get
+
+717
+00:35:43,107 --> 00:35:46,576
+from here by the way. If you go down and look here, right
+
+718
+00:35:46,645 --> 00:35:49,245
+here navigation controller. I could just drag it out, and
+
+719
+00:35:49,314 --> 00:35:50,747
+then control drag to wire it up, but
+
+720
+00:35:50,816 --> 00:35:53,115
+I'm going to use that embed that I was telling you about.
+
+721
+00:35:53,184 --> 00:35:55,818
+So I'm just selecting this view controller, and
+
+722
+00:35:55,887 --> 00:35:58,822
+doing editor, embed in, navigation controller.
+
+723
+00:36:00,758 --> 00:36:03,493
+Now we have three MVCs here okay,
+
+724
+00:36:03,562 --> 00:36:06,028
+the navigation controller, the first card on the stack, and
+
+725
+00:36:06,097 --> 00:36:10,467
+then the one that we're going to push on to the stack Okay,
+
+726
+00:36:10,535 --> 00:36:12,335
+are we cool with that? All right so now let's run,
+
+727
+00:36:12,403 --> 00:36:15,171
+and notice it automatically moved the arrow when I
+
+728
+00:36:15,240 --> 00:36:18,842
+embedded that, which is kinda nice. So,
+
+729
+00:36:18,910 --> 00:36:22,945
+let's hope this works, and see what happens.
+
+730
+00:36:23,014 --> 00:36:26,682
+All right here's our UI, all right. Okay, it came into
+
+731
+00:36:26,751 --> 00:36:29,619
+the right space at least which is our chooser. Let's see if
+
+732
+00:36:29,687 --> 00:36:33,222
+when we choose one of these themes, if it will segue to
+
+733
+00:36:33,291 --> 00:36:36,092
+that other MVC. In fact let's move it out of the way, so we
+
+734
+00:36:36,161 --> 00:36:41,131
+can see what's going on here. Ready go, woo hoo it did it.
+
+735
+00:36:41,199 --> 00:36:46,535
+But, the theme is Halloween. So, how about animals,
+
+736
+00:36:46,604 --> 00:36:50,707
+still Halloween. So of course this is still Halloween,
+
+737
+00:36:50,776 --> 00:36:53,409
+because we never did anything to actually
+
+738
+00:36:53,478 --> 00:36:57,147
+prepare that MVC to be one of these themes, right? We just
+
+739
+00:36:57,215 --> 00:36:59,515
+put the name here, we didn't actually do the prepare. So,
+
+740
+00:36:59,584 --> 00:37:03,652
+our next step is to prepare this MVC, that gets put on to
+
+741
+00:37:03,721 --> 00:37:06,423
+the top of the stack of cards to have the right theme.
+
+742
+00:37:06,491 --> 00:37:08,958
+So, we're gonna prepare that. So, let's go do that. And
+
+743
+00:37:09,027 --> 00:37:13,062
+we do that in the code of the ConcentrationThemeChooserView-
+
+744
+00:37:13,131 --> 00:37:15,565
+Controller, right? That's the controller that we're choosing
+
+745
+00:37:15,633 --> 00:37:18,034
+the theme. So, let's uncomment out
+
+746
+00:37:18,103 --> 00:37:19,736
+this all-important function right here. And
+
+747
+00:37:19,804 --> 00:37:22,672
+get rid of the comments. And we gotta implement prepare.
+
+748
+00:37:22,741 --> 00:37:25,241
+So, what do we have to do to implement prepare?
+
+749
+00:37:25,309 --> 00:37:27,844
+Well, the first thing, as I've talked about before,
+
+750
+00:37:27,913 --> 00:37:31,947
+is we're gonna check to see which segue we're doing.
+
+751
+00:37:32,016 --> 00:37:35,284
+Now, we only have one kind of segue. So let's check for it,
+
+752
+00:37:35,353 --> 00:37:38,821
+and if the identifier equals the Choose Theme segue,
+
+753
+00:37:38,890 --> 00:37:41,357
+that's what we put in the inspector,
+
+754
+00:37:41,426 --> 00:37:46,029
+remember in the storyboard. Then we want to see if we can
+
+755
+00:37:46,097 --> 00:37:50,200
+find the Concentration game MVC and
+
+756
+00:37:50,269 --> 00:37:53,369
+prepare it by telling it its theme. So,
+
+757
+00:37:53,438 --> 00:37:55,338
+let's get the theme. How are we gonna get the theme?
+
+758
+00:37:55,407 --> 00:37:59,642
+Well, to speed things up I actually created a little
+
+759
+00:37:59,711 --> 00:38:02,979
+code snippet here, that creates this dictionary. So
+
+760
+00:38:03,048 --> 00:38:06,248
+this dictionary, it's just got the name of the theme,
+
+761
+00:38:06,317 --> 00:38:07,584
+which is the same as the button title,
+
+762
+00:38:07,652 --> 00:38:09,352
+that's why I'm saying that's bad design, and
+
+763
+00:38:09,420 --> 00:38:12,455
+then the theme itself. All right so there's sports,
+
+764
+00:38:12,524 --> 00:38:13,622
+there's a bunch of animals,
+
+765
+00:38:13,691 --> 00:38:17,594
+there's a bunch of faces. Okay so, we want to get that theme.
+
+766
+00:38:17,662 --> 00:38:21,297
+So, we're going to get the name of theme from the button.
+
+767
+00:38:21,366 --> 00:38:23,899
+That's this sender argument, the sender is the thing
+
+768
+00:38:23,968 --> 00:38:27,470
+causing this segue. So, we want to say something like,
+
+769
+00:38:27,539 --> 00:38:32,408
+if we can let the themeName equal the sender's
+
+770
+00:38:32,477 --> 00:38:37,380
+currentTitle, then we're gonna get the theme from that. But,
+
+771
+00:38:37,449 --> 00:38:41,685
+this we can't do because sender, what type is sender?
+
+772
+00:38:44,523 --> 00:38:47,056
+It's of type Any, optional Any, in fact.
+
+773
+00:38:47,125 --> 00:38:50,192
+You can't send an optional Any with the method currentTitle,
+
+774
+00:38:50,261 --> 00:38:52,028
+that's a button method.
+
+775
+00:38:52,096 --> 00:38:55,698
+Okay, so we're gonna have to use as, any time we see Any
+
+776
+00:38:55,767 --> 00:38:58,835
+we're almost always gonna have to use as. So I'm gonna say,
+
+777
+00:38:58,904 --> 00:39:03,573
+if I can let button equal the sender as a UI button,
+
+778
+00:39:05,443 --> 00:39:09,345
+then I can do this theme main thing. Because I now have
+
+779
+00:39:09,413 --> 00:39:13,983
+a var of this button which is of type, Button, UIbutton,
+
+780
+00:39:14,051 --> 00:39:18,854
+all right. So, now I can say button.currentTitle. So you
+
+781
+00:39:18,923 --> 00:39:21,358
+see how we used as to resolve that ending right there.
+
+782
+00:39:23,161 --> 00:39:25,895
+Now that we have the theme name, I can say if I can let
+
+783
+00:39:25,964 --> 00:39:30,433
+the theme equal my themes sub theme name.
+
+784
+00:39:31,936 --> 00:39:35,137
+Then I'm ready to go to prepare, right?
+
+785
+00:39:35,206 --> 00:39:37,473
+And we're just looking at this theme as this. So
+
+786
+00:39:37,542 --> 00:39:40,009
+I'm looking it up, and we know that that can fail of course,
+
+787
+00:39:40,078 --> 00:39:42,878
+because maybe this theme name is not in this dictionary. So
+
+788
+00:39:42,947 --> 00:39:46,882
+that's why we if let. By the way, these two if lets are so
+
+789
+00:39:46,951 --> 00:39:50,119
+related to each other we would almost certainly go up here,
+
+790
+00:39:50,188 --> 00:39:53,822
+and put them on the same line with a comma. Cuz they really,
+
+791
+00:39:53,891 --> 00:39:55,058
+really go together. By the way,
+
+792
+00:39:55,127 --> 00:39:56,726
+we probably wouldn't do this line either.
+
+793
+00:39:56,795 --> 00:40:00,229
+We'd take this and put it right here.
+
+794
+00:40:00,298 --> 00:40:01,564
+In fact, I'll show you how to do that.
+
+795
+00:40:01,633 --> 00:40:03,733
+So, instead of creating a separate bar here, I would
+
+796
+00:40:03,801 --> 00:40:07,337
+just take this right here out of that, get rid of this,
+
+797
+00:40:07,405 --> 00:40:12,475
+put parentheses around this. Since this could return nil
+
+798
+00:40:12,544 --> 00:40:17,947
+I need to optional chain it. And now I can get rid of
+
+799
+00:40:18,016 --> 00:40:22,385
+all this. This is how we would write this code right here.
+
+800
+00:40:22,454 --> 00:40:24,153
+We wouldn't have all those extra if lets,
+
+801
+00:40:24,222 --> 00:40:26,255
+we try to make this concise because this is all
+
+802
+00:40:26,324 --> 00:40:28,525
+has to do with the same thing which is getting this theme.
+
+803
+00:40:29,961 --> 00:40:32,361
+If you didn't understand what I did right here.
+
+804
+00:40:32,430 --> 00:40:35,597
+Ask on Piazza, go to a TA, go back and do your reading
+
+805
+00:40:35,666 --> 00:40:39,501
+assignment, this is important to understand what's going on
+
+806
+00:40:39,570 --> 00:40:42,271
+here. Alright, so I got this, now I've got the theme,
+
+807
+00:40:42,340 --> 00:40:44,106
+now I need to prepare the destination.
+
+808
+00:40:44,175 --> 00:40:47,476
+So I'd like to say something like segue.destination,
+
+809
+00:40:47,545 --> 00:40:51,781
+set your theme to be this theme. Oops,
+
+810
+00:40:51,849 --> 00:40:56,018
+not that theme, this theme. But I can't do that either.
+
+811
+00:40:56,087 --> 00:40:57,954
+Because again, this segue destination,
+
+812
+00:40:58,022 --> 00:41:00,523
+let's look at the type of this segue destination.
+
+813
+00:41:00,592 --> 00:41:04,160
+Option click on it. It took type UI view controller.
+
+814
+00:41:04,229 --> 00:41:07,430
+And of course, UI view controller does not have
+
+815
+00:41:07,498 --> 00:41:10,133
+the var theme so we can't do that.
+
+816
+00:41:10,201 --> 00:41:15,404
+So we have to say here use as and say if we can let CVC,
+
+817
+00:41:15,473 --> 00:41:19,341
+Concentration view controller, equal the segue destination as
+
+818
+00:41:19,410 --> 00:41:23,913
+downcasted to a Concentration view controller. Now we can
+
+819
+00:41:23,981 --> 00:41:27,417
+compare, prepare this thing by setting it's theme.
+
+820
+00:41:30,321 --> 00:41:34,390
+Everyone see that? See how we're using as to downcast?
+
+821
+00:41:34,459 --> 00:41:36,825
+Super important to understand that. So now that's it,
+
+822
+00:41:36,894 --> 00:41:40,930
+we have successfully prepared this thing. So let's go,
+
+823
+00:41:40,999 --> 00:41:48,270
+run our app, see how it works. Okay,
+
+824
+00:41:48,339 --> 00:41:53,877
+hopefully Sports. No, what's going on? My app crashed.
+
+825
+00:41:55,446 --> 00:41:59,482
+Why did my app crash? No, Let's take a look and
+
+826
+00:41:59,551 --> 00:42:01,584
+see if we can find out here. It says,
+
+827
+00:42:01,653 --> 00:42:05,154
+unexpectedly found nil while unwrapping an Optional value.
+
+828
+00:42:05,223 --> 00:42:08,257
+And here's my call stack here on the left and it looks like
+
+829
+00:42:08,326 --> 00:42:13,729
+card buttons here. My outlet to all my card buttons is nil.
+
+830
+00:42:13,798 --> 00:42:19,435
+Let's make sure that's true. PO card buttons nil,
+
+831
+00:42:19,504 --> 00:42:22,337
+no. So, let's go back up to call stack and
+
+832
+00:42:22,406 --> 00:42:25,474
+see how we got here. Okay, so we're in update view for
+
+833
+00:42:25,543 --> 00:42:28,878
+model. That got called from setting the theme.
+
+834
+00:42:28,947 --> 00:42:30,112
+Cuz when we set our theme we update
+
+835
+00:42:30,181 --> 00:42:33,783
+the view from model. And that theme setting got called for
+
+836
+00:42:33,852 --> 00:42:37,519
+preparing. So, the preparing is work it's trying to prepare
+
+837
+00:42:37,588 --> 00:42:40,223
+it in setting the theme. But when it sets the theme it
+
+838
+00:42:40,291 --> 00:42:43,426
+calls updateViewFromModel which tries to access the card
+
+839
+00:42:43,494 --> 00:42:46,495
+buttons which is nil, because of that red on the slide.
+
+840
+00:42:46,564 --> 00:42:50,399
+Which is that your outlets are not set when you're preparing.
+
+841
+00:42:50,468 --> 00:42:54,770
+Okay, so what do we do about this. Unfortunately,
+
+842
+00:42:54,839 --> 00:42:57,506
+even though this is an implicitly unwrapped optional,
+
+843
+00:42:57,575 --> 00:43:00,276
+we're gonna have to check and see if cardButtons does not
+
+844
+00:43:00,344 --> 00:43:03,179
+equal nil. And if cardButtons does not equal nil,
+
+845
+00:43:03,248 --> 00:43:06,382
+then we can update our view from our model. But
+
+846
+00:43:06,450 --> 00:43:09,952
+if it's not nil then we, if it's nil then we simply just
+
+847
+00:43:10,021 --> 00:43:13,656
+can't do this. Now, hopefully, somewhere later in our code
+
+848
+00:43:13,725 --> 00:43:17,259
+either in viewed load or case, when someone touches a card,
+
+849
+00:43:17,328 --> 00:43:19,695
+update view from model happens.
+
+850
+00:43:19,764 --> 00:43:22,298
+And so, everything's gonna be fine, cuz all the cards
+
+851
+00:43:22,367 --> 00:43:25,067
+are faced down until someone touches one, so we're good to
+
+852
+00:43:25,136 --> 00:43:28,103
+go. So it's very important to understand, you've got to
+
+853
+00:43:28,172 --> 00:43:30,639
+protect your code that can be called when your MVC is being
+
+854
+00:43:30,708 --> 00:43:38,214
+prepared. Okay, now, let's try again.
+
+855
+00:43:38,283 --> 00:43:40,916
+Let's try Sports. All right, it segued.
+
+856
+00:43:40,985 --> 00:43:44,553
+Let's cross our fingers that these are sports related, and
+
+857
+00:43:44,622 --> 00:43:48,324
+they are, excellent. The game is working just fine. Let's go
+
+858
+00:43:48,392 --> 00:43:51,460
+back, we're gonna hit back, when I hit back, that sports
+
+859
+00:43:51,529 --> 00:43:55,865
+game got thrown away. So now, when I pick animals, and
+
+860
+00:43:55,933 --> 00:44:00,336
+go forward, look, brand new MVC. Game started over, and
+
+861
+00:44:00,404 --> 00:44:04,540
+it's animals, so that's good. Go back over here, Faces.
+
+862
+00:44:04,609 --> 00:44:08,877
+Brand new MVC. Segueing always creates a brand new MVC.
+
+863
+00:44:08,946 --> 00:44:13,816
+It's a very good example of that happening,
+
+864
+00:44:13,885 --> 00:44:17,653
+all right. Now let's do iPad. This is the first time we've
+
+865
+00:44:17,722 --> 00:44:18,854
+done iPad in this course and
+
+866
+00:44:18,923 --> 00:44:20,923
+you're going to be doing it from here on out and
+
+867
+00:44:20,992 --> 00:44:24,526
+you're going to have to do it in your next assignment. So
+
+868
+00:44:24,595 --> 00:44:27,629
+let's do this, let's take the app that we have right now and
+
+869
+00:44:27,698 --> 00:44:31,867
+see what it would look like in our story board on an iPad. So
+
+870
+00:44:31,936 --> 00:44:34,970
+here we're looking at it in iPhone X view here,
+
+871
+00:44:35,039 --> 00:44:38,107
+I'm just gonna switch over and look at it as an iPad.
+
+872
+00:44:38,176 --> 00:44:40,976
+And you can see that as an iPad it's really large so
+
+873
+00:44:41,045 --> 00:44:42,978
+maybe I wanna zoom out a little bit so
+
+874
+00:44:43,047 --> 00:44:46,515
+I can see it a little better. And this UI doesn't look very
+
+875
+00:44:46,584 --> 00:44:50,019
+good. Look at all this extra white space around.
+
+876
+00:44:50,088 --> 00:44:53,188
+If I had an iPad app and it looked like this, I'd be like,
+
+877
+00:44:53,257 --> 00:44:56,425
+this is a terrible design. And it's kind of a waste because
+
+878
+00:44:56,494 --> 00:44:59,262
+we really would a split view where this is on the left and
+
+879
+00:44:59,330 --> 00:45:00,395
+this is on the right.
+
+880
+00:45:00,464 --> 00:45:03,599
+That would be a much more effective use of the space,
+
+881
+00:45:03,667 --> 00:45:06,802
+especially in landscape. Imagine this in landscape
+
+882
+00:45:06,871 --> 00:45:08,838
+with this part on the left and this on the right,
+
+883
+00:45:08,906 --> 00:45:11,840
+that would be really good use of space there.
+
+884
+00:45:11,909 --> 00:45:15,111
+Okay, so that's what we wanna do. How are we gonna do that?
+
+885
+00:45:15,180 --> 00:45:17,246
+Of course, we need a split-view controller for
+
+886
+00:45:17,314 --> 00:45:19,782
+that. Now, I recommend anytime you add a split-view
+
+887
+00:45:19,851 --> 00:45:23,118
+controller to your app, that you zoom way out.
+
+888
+00:45:23,187 --> 00:45:26,722
+Okay, really, really far out. And that's because when you go
+
+889
+00:45:26,791 --> 00:45:29,391
+over here to grab one of these split views and you get all
+
+890
+00:45:29,460 --> 00:45:32,561
+those extra views that come with it, it's gonna be really
+
+891
+00:45:32,630 --> 00:45:36,632
+big. See, so it's nice to have your scale be small.
+
+892
+00:45:36,701 --> 00:45:39,201
+So I'm gonna drop this in here. And you can see this
+
+893
+00:45:39,270 --> 00:45:41,871
+has dropped the split view controller here. And
+
+894
+00:45:41,939 --> 00:45:45,141
+then it gave me a navigation controller and a master and
+
+895
+00:45:45,209 --> 00:45:48,310
+a detail. Okay, I don't want any of those things.
+
+896
+00:45:48,379 --> 00:45:49,912
+So I'm just gonna select them and delete.
+
+897
+00:45:49,980 --> 00:45:53,215
+Right, cuz I already have my master, it's right here, and
+
+898
+00:45:53,283 --> 00:45:56,986
+I have my detail right here. So let's move this up, if I
+
+899
+00:45:57,055 --> 00:45:59,921
+can grab a hold of it it's so small. So we can do that and
+
+900
+00:45:59,990 --> 00:46:03,559
+I'm even gonna move my detail, right here. If I can grab it,
+
+901
+00:46:03,628 --> 00:46:06,562
+it's hard to get a hold of it when it's small.
+
+902
+00:46:06,630 --> 00:46:09,364
+Over to here so that I can easily control drags. So let's
+
+903
+00:46:09,433 --> 00:46:12,468
+zoom back in now that we've collected everything here.
+
+904
+00:46:12,536 --> 00:46:15,771
+Get that out of there. And two things I want to do, one,
+
+905
+00:46:15,840 --> 00:46:19,541
+I want to get this arrow to be here on the split view
+
+906
+00:46:19,610 --> 00:46:22,178
+controller so that my app starts with the split view
+
+907
+00:46:22,246 --> 00:46:25,748
+controller. Doesn't start with the master showing.
+
+908
+00:46:25,817 --> 00:46:28,517
+Then I'm just going to control drag to my master and
+
+909
+00:46:28,586 --> 00:46:31,553
+choose master view controller right here. And then I'm gonna
+
+910
+00:46:31,622 --> 00:46:35,924
+control drag to my detail and choose Detail View Controller.
+
+911
+00:46:35,993 --> 00:46:39,094
+Now notice I still have these segues right here.
+
+912
+00:46:39,163 --> 00:46:42,631
+So my master when I'm clicking these is still trying to segue
+
+913
+00:46:42,699 --> 00:46:45,234
+to this view controller. So let's just run on an iPhone,
+
+914
+00:46:45,303 --> 00:46:47,737
+on an iPad rather and see if this works on iPad.
+
+915
+00:46:47,805 --> 00:46:49,538
+We put it in a split view. Let's just try it.
+
+916
+00:46:49,607 --> 00:46:54,277
+Let's see what's going on here. Okay so
+
+917
+00:46:54,345 --> 00:46:57,046
+here's my iPad, wahoo, it looks like it's working,
+
+918
+00:46:57,115 --> 00:46:59,948
+right? We've got our master on the left we've got our game
+
+919
+00:47:00,017 --> 00:47:02,251
+here on the right, okay, looking good.
+
+920
+00:47:02,320 --> 00:47:06,989
+Let's go ahead and choose a theme. Oops,
+
+921
+00:47:07,057 --> 00:47:11,060
+that's not good. That's not what we want. Look at that.
+
+922
+00:47:11,129 --> 00:47:13,929
+Now why is that happening. When I click Choose This,
+
+923
+00:47:13,998 --> 00:47:17,633
+I want this over here to change to a new sports game.
+
+924
+00:47:17,701 --> 00:47:19,168
+Why am I getting it in here? Well,
+
+925
+00:47:19,236 --> 00:47:22,371
+that's because of the type of these segues.
+
+926
+00:47:22,440 --> 00:47:25,340
+You see these segues? They're all Show Segues.
+
+927
+00:47:25,409 --> 00:47:29,946
+Show Segues mean do the navigation controller's trick.
+
+928
+00:47:30,014 --> 00:47:34,416
+I want show detail, also know as replace because it
+
+929
+00:47:34,485 --> 00:47:37,253
+replaces the detail view of your split view. Now,
+
+930
+00:47:37,321 --> 00:47:40,622
+you might think let's just change it, oops we changed it.
+
+931
+00:47:40,691 --> 00:47:44,994
+Okay, there is a bug interface builder, this does not work.
+
+932
+00:47:45,062 --> 00:47:49,431
+So do not try to just change your kind here.
+
+933
+00:47:49,500 --> 00:47:51,967
+I'm not sure under what circumstances it doesn't work,
+
+934
+00:47:52,036 --> 00:47:54,636
+but it often does not work. So what we're gonna do is delete
+
+935
+00:47:54,705 --> 00:47:57,772
+them. I'm just selecting them all and hitting Delete. And
+
+936
+00:47:57,841 --> 00:48:00,876
+I'm gonna rewire them up. It's a simple matter to rewire them
+
+937
+00:48:00,945 --> 00:48:03,278
+up. And this time I'm gonna choose Show Detail.
+
+938
+00:48:03,347 --> 00:48:04,980
+It lets me show you acquiring it and
+
+939
+00:48:05,049 --> 00:48:07,883
+hitting Show Detail, which is kind of a nice side effect.
+
+940
+00:48:07,952 --> 00:48:10,852
+I'm gonna wire all three of these up, and
+
+941
+00:48:10,921 --> 00:48:14,689
+which is not that bad. But, unfortunately, I also
+
+942
+00:48:14,758 --> 00:48:17,593
+have to inspect them all right here and
+
+943
+00:48:17,661 --> 00:48:21,564
+put the identifier back into steam for all three.
+
+944
+00:48:26,737 --> 00:48:30,039
+And you can see that all three of them are of kind show
+
+945
+00:48:30,108 --> 00:48:33,408
+detail now. Show detail, show detail, show detail. So
+
+946
+00:48:33,477 --> 00:48:35,978
+now when we run it's gonna work.
+
+947
+00:48:40,251 --> 00:48:42,084
+Okay, here we go, cross our fingers. So
+
+948
+00:48:42,152 --> 00:48:46,989
+we've got this is the Halloween style. And sports.
+
+949
+00:48:47,057 --> 00:48:51,827
+Now again, it created a new game, hopefully with sports.
+
+950
+00:48:51,896 --> 00:48:56,932
+Animals, new game with animals.
+
+951
+00:48:57,001 --> 00:49:00,202
+Now, the real question here is did we break the iPhone
+
+952
+00:49:00,271 --> 00:49:02,938
+version here? Cuz we did a lot of iPad work here.
+
+953
+00:49:03,007 --> 00:49:04,206
+We added this split view,
+
+954
+00:49:04,275 --> 00:49:07,076
+which we know doesn't work on an iPhone at least not in
+
+955
+00:49:07,145 --> 00:49:10,745
+iPhone Plus. And we changed these segues to be
+
+956
+00:49:10,814 --> 00:49:15,083
+Show Detail. And the iPhone can't show split views, so
+
+957
+00:49:15,152 --> 00:49:17,219
+it can't show detail. Did this break everything?
+
+958
+00:49:17,288 --> 00:49:21,690
+And the answer is no. Because iOS is really smart and
+
+959
+00:49:21,758 --> 00:49:24,460
+it knows that if this structure of having a split
+
+960
+00:49:24,528 --> 00:49:26,328
+view with a navigation controller inside it,
+
+961
+00:49:26,397 --> 00:49:30,299
+even with Show Detail things. That when we're on the iPhone,
+
+962
+00:49:30,368 --> 00:49:35,504
+this means do it all in a navigation controller. So
+
+963
+00:49:35,572 --> 00:49:39,808
+this is called adapting to a different trait collection.
+
+964
+00:49:39,877 --> 00:49:41,543
+And we'll talk about that when we talk more
+
+965
+00:49:41,612 --> 00:49:45,847
+about auto layout. But here's our UI appearing here.
+
+966
+00:49:45,916 --> 00:49:48,817
+One thing interesting to notice here, it didn't come up
+
+967
+00:49:48,886 --> 00:49:54,223
+showing the Themes, it came up showing again with the default
+
+968
+00:49:54,292 --> 00:50:00,061
+theme. Now I can go back and choose a theme and it worked.
+
+969
+00:50:00,130 --> 00:50:03,899
+But interestingly it comes up when. When it first comes up,
+
+970
+00:50:03,968 --> 00:50:06,067
+it comes up with this default theme. And
+
+971
+00:50:06,136 --> 00:50:09,371
+that's just a decision they made, some apps want this,
+
+972
+00:50:09,440 --> 00:50:11,973
+some apps don't. I guess Apple figured this is the most
+
+973
+00:50:12,042 --> 00:50:14,443
+common one. In our example, we don't want that.
+
+974
+00:50:14,512 --> 00:50:17,746
+We would want it coming up with this, right? So
+
+975
+00:50:17,815 --> 00:50:21,283
+if we have time in our demo, we'll fix that. So to do that,
+
+976
+00:50:21,352 --> 00:50:23,485
+we have to become the split view's delegate so
+
+977
+00:50:23,554 --> 00:50:25,687
+it's a little bit of complicated work.
+
+978
+00:50:25,756 --> 00:50:28,657
+The code's not complicated, but being a delegate, you guys
+
+979
+00:50:28,725 --> 00:50:32,027
+have not seen much yet, so we would have to do that. But
+
+980
+00:50:32,096 --> 00:50:34,696
+otherwise, notice that it's working just fine.
+
+981
+00:50:34,765 --> 00:50:37,032
+Okay, and notice that in landscape on an iPhone,
+
+982
+00:50:37,101 --> 00:50:39,534
+it does not do the side-by-side split view thing.
+
+983
+00:50:39,603 --> 00:50:42,871
+It uses the whole screen. However, on an iPhone Plus,
+
+984
+00:50:42,940 --> 00:50:45,307
+like let's look at the iPhone 8 Plus and
+
+985
+00:50:45,375 --> 00:50:49,978
+run it there. On pluses, it does do the split view.
+
+986
+00:50:50,047 --> 00:50:52,481
+You see? This is doing the split view here,
+
+987
+00:50:52,550 --> 00:50:56,852
+faces, sports. So it's doing the split view here.
+
+988
+00:50:56,920 --> 00:51:01,356
+But in Portrait mode, it does navigation controller. See
+
+989
+00:51:01,425 --> 00:51:04,426
+look there's a Back button. I can't slide out from the left,
+
+990
+00:51:04,495 --> 00:51:07,028
+when I pull out from the left it goes back in the navigation
+
+991
+00:51:07,097 --> 00:51:12,401
+controller. So an iPhone Plus, iPhone 8 Plus, iPhone 7 Plus,
+
+992
+00:51:12,470 --> 00:51:16,872
+those are kinda hybrid devices half way between an iPad and
+
+993
+00:51:16,940 --> 00:51:21,876
+iPhone. All right, let's take this one step further and
+
+994
+00:51:21,945 --> 00:51:24,946
+put this whole thing in a tab bar controller. Just so
+
+995
+00:51:25,015 --> 00:51:28,117
+you can see what this looks like. Again, really easy.
+
+996
+00:51:28,185 --> 00:51:30,819
+I'm gonna zoom way out again. Anytime I drag these view
+
+997
+00:51:30,888 --> 00:51:33,254
+controllers out they bring a bunch of extra junk. So
+
+998
+00:51:33,323 --> 00:51:36,525
+here's a tab bar controller. I just drag it out. Here it is.
+
+999
+00:51:36,593 --> 00:51:38,360
+It brings it out. I don't know if you can see it.
+
+1000
+00:51:38,429 --> 00:51:41,997
+But it actually gave me two little blank view controllers
+
+1001
+00:51:42,066 --> 00:51:44,933
+right there, which I'll go ahead and leave.
+
+1002
+00:51:45,002 --> 00:51:48,003
+I'll just leave them there. It has three tabs total.
+
+1003
+00:51:48,072 --> 00:51:49,672
+So let's see if we can get hold of this and
+
+1004
+00:51:49,740 --> 00:51:50,839
+drag this up here. So
+
+1005
+00:51:50,908 --> 00:51:54,142
+I'm gonna leave these two that are brought out as tabs and
+
+1006
+00:51:54,211 --> 00:51:57,379
+then I'm gonna control drag to my split view to make it be
+
+1007
+00:51:57,447 --> 00:52:01,149
+relationship view controller here that's how you add it.
+
+1008
+00:52:01,218 --> 00:52:03,919
+It's not a segue. It's just adding it as a view controller
+
+1009
+00:52:03,988 --> 00:52:07,522
+right there. And we can zoom in see what it
+
+1010
+00:52:07,591 --> 00:52:11,293
+did there. Here's my tab bar controller. If you zoom
+
+1011
+00:52:11,362 --> 00:52:13,795
+in you can see it says tab bar controller right there. And,
+
+1012
+00:52:13,864 --> 00:52:16,698
+of course, I wanna move this little arrow arrow to here so
+
+1013
+00:52:16,767 --> 00:52:18,467
+it starts in the tab bar controller.
+
+1014
+00:52:18,535 --> 00:52:23,872
+You can set the attributes about that the little tab has,
+
+1015
+00:52:23,940 --> 00:52:25,707
+here in the storyboard if you want. You see right here?
+
+1016
+00:52:25,776 --> 00:52:28,009
+If you click on it. Like this is my Concentration game so
+
+1017
+00:52:28,078 --> 00:52:32,581
+I can say Concentration. These ones that it added down here,
+
+1018
+00:52:32,649 --> 00:52:34,816
+lets see what it has for them, maybe we'll just leave it.
+
+1019
+00:52:34,885 --> 00:52:39,287
+It has item one. And item two are the two things that has,
+
+1020
+00:52:39,356 --> 00:52:42,124
+we'll just leave it like that. And you can click on these and
+
+1021
+00:52:42,193 --> 00:52:46,761
+not just set the name that it uses.
+
+1022
+00:52:46,830 --> 00:52:49,531
+Where are we? So when you zoomed in it's hard to find
+
+1023
+00:52:49,600 --> 00:52:50,332
+where the heck you are.
+
+1024
+00:52:50,401 --> 00:52:53,235
+So that's when we often zoom way out. So we can also click
+
+1025
+00:52:53,303 --> 00:52:55,404
+on this thing and set things like the image.
+
+1026
+00:52:55,472 --> 00:52:58,506
+By the way, this image that goes into this tab bar item.
+
+1027
+00:52:58,575 --> 00:53:01,843
+Okay, it's an alpha only image. So all the drawing you
+
+1028
+00:53:01,912 --> 00:53:04,312
+do is either with transparent pixels or opaque ones.
+
+1029
+00:53:04,381 --> 00:53:07,349
+And if they're transparent, then kind of iOS is gonna
+
+1030
+00:53:07,418 --> 00:53:09,985
+shine light through those transparent pixels and
+
+1031
+00:53:10,053 --> 00:53:12,520
+that's what's gonna show up as your tab bar.
+
+1032
+00:53:12,589 --> 00:53:16,157
+The other thing you can do that's kinda cool is you can
+
+1033
+00:53:16,226 --> 00:53:18,526
+reorder the tabs. So here I've got my three tabs,
+
+1034
+00:53:18,595 --> 00:53:21,397
+Item 1, Item 2. Let's move our Concentration one to be
+
+1035
+00:53:21,465 --> 00:53:25,934
+the left most tab. Okay, so let's run it again. We'll do
+
+1036
+00:53:26,003 --> 00:53:31,707
+it on an iPhone 8 Plus. It doesn't really matter. Okay,
+
+1037
+00:53:31,775 --> 00:53:34,076
+here we go. You can barely see these tabs on the bottom.
+
+1038
+00:53:34,145 --> 00:53:35,444
+I don't know if it helps to make it any bigger.
+
+1039
+00:53:35,512 --> 00:53:38,813
+But there they are. There's the Concentration tab.
+
+1040
+00:53:38,882 --> 00:53:41,183
+Here's Item 1 tab. Here's Item 2.
+
+1041
+00:53:41,252 --> 00:53:43,151
+They're blank. If we go back to Concentration,
+
+1042
+00:53:43,220 --> 00:53:45,520
+we still have our full UI here. Okay,
+
+1043
+00:53:45,589 --> 00:53:48,990
+it's just in a tab right there and same thing if we rotate.
+
+1044
+00:53:49,059 --> 00:53:53,261
+Got the three tabs here. Okay, so that's bar. So
+
+1045
+00:53:53,330 --> 00:53:57,633
+it's really, really simple. Okay. Lets talk about another
+
+1046
+00:53:57,701 --> 00:54:01,804
+little bit wonky thing with this app that we have.
+
+1047
+00:54:01,872 --> 00:54:05,874
+I'm going to run it on the iPad again. And just note that
+
+1048
+00:54:05,943 --> 00:54:08,610
+it does. Actually before I do that even I'm going to do one
+
+1049
+00:54:08,679 --> 00:54:13,181
+other thing which is lets show you how to make a segue from
+
+1050
+00:54:13,250 --> 00:54:17,419
+code. Okay so the segues that we have here are just directly
+
+1051
+00:54:17,488 --> 00:54:19,821
+from these buttons like if I click on a segue it's directly
+
+1052
+00:54:19,890 --> 00:54:23,759
+from a button to the MVC. There is a way to make it so
+
+1053
+00:54:23,827 --> 00:54:27,896
+that you do this performed segue business in code without
+
+1054
+00:54:27,965 --> 00:54:30,699
+performed segue lines. So to show that I'm going to delete
+
+1055
+00:54:30,768 --> 00:54:34,069
+these segues. So now the buttons no longer segue and
+
+1056
+00:54:34,138 --> 00:54:38,240
+instead I'm gonna segue from code. And I'm gonna do that by
+
+1057
+00:54:38,308 --> 00:54:40,909
+changing these buttons. Instead of being seguers,
+
+1058
+00:54:40,978 --> 00:54:43,011
+they're going to do target action. So
+
+1059
+00:54:43,079 --> 00:54:47,048
+lets just bring them up here. Zoom in a little bit. And
+
+1060
+00:54:47,117 --> 00:54:48,516
+just do our normal target action.
+
+1061
+00:54:48,585 --> 00:54:51,186
+So this is nothing different than you been doing target
+
+1062
+00:54:51,255 --> 00:54:53,889
+action all quarter long. I'm just gonna control drag
+
+1063
+00:54:53,957 --> 00:54:56,358
+from the button here, and create an action.
+
+1064
+00:54:56,426 --> 00:54:59,261
+I am going to call this action ChangeTheme,
+
+1065
+00:54:59,329 --> 00:55:02,097
+because that's what it's going to do. Just for fun,
+
+1066
+00:55:02,166 --> 00:55:06,201
+you know where usually I say, set this UI Button or else.
+
+1067
+00:55:06,270 --> 00:55:08,437
+Well, actually now you don't need to set that UI Button or
+
+1068
+00:55:08,506 --> 00:55:10,439
+else because you know how to deal with Any. So
+
+1069
+00:55:10,508 --> 00:55:12,508
+I am going to connect this with any as the argument.
+
+1070
+00:55:12,576 --> 00:55:15,210
+Okay the sender instead of being UI Button its Any,
+
+1071
+00:55:15,278 --> 00:55:17,212
+and you know how to deal with that now. Okay,
+
+1072
+00:55:17,281 --> 00:55:18,747
+you didn't before, but now you know,
+
+1073
+00:55:18,816 --> 00:55:21,950
+with the as you can deal with that. And we'll put on that,
+
+1074
+00:55:22,019 --> 00:55:25,554
+we'll have all three buttons send the same thing right
+
+1075
+00:55:25,623 --> 00:55:28,690
+here. So I'm gonna put a choose theme segue in here,
+
+1076
+00:55:28,759 --> 00:55:30,659
+but its not gonna be from a particular button.
+
+1077
+00:55:30,728 --> 00:55:34,863
+It just gonna be a segue from this view controller to this
+
+1078
+00:55:34,932 --> 00:55:38,233
+view controller. So it's kind of like a generic segue
+
+1079
+00:55:38,302 --> 00:55:41,536
+between these two. So how do you create a segue like that?
+
+1080
+00:55:41,605 --> 00:55:44,306
+Well, you control drag like a buttons,
+
+1081
+00:55:44,375 --> 00:55:47,309
+but instead of control dragging from some UI element
+
+1082
+00:55:47,378 --> 00:55:49,711
+You control drag from this little round yellow thing.
+
+1083
+00:55:49,780 --> 00:55:51,913
+You see that's just Concentration theme control.
+
+1084
+00:55:51,982 --> 00:55:56,018
+This right here represents this MVC. This is the thing
+
+1085
+00:55:56,086 --> 00:55:58,553
+you can use to drag from or to, to mean this MVC.
+
+1086
+00:55:58,622 --> 00:56:01,390
+So, I am going to control drag from here
+
+1087
+00:56:01,458 --> 00:56:04,593
+to here. Okay, it's going to be showed detail, because we
+
+1088
+00:56:04,661 --> 00:56:06,995
+are in a split view context. I am gonna go here and
+
+1089
+00:56:07,064 --> 00:56:11,466
+still give it a name. The same name, choose theme, and now,
+
+1090
+00:56:11,535 --> 00:56:13,968
+I've created a segue between this view controller and
+
+1091
+00:56:14,037 --> 00:56:15,603
+this view controller, not between these buttons.
+
+1092
+00:56:15,672 --> 00:56:17,338
+See when I click on these buttons, or
+
+1093
+00:56:17,407 --> 00:56:19,474
+when I click on this it's not selecting these buttons.
+
+1094
+00:56:19,543 --> 00:56:22,143
+It's selecting the whole view controller.
+
+1095
+00:56:22,212 --> 00:56:24,779
+So, this is how you do a manual segue. You create
+
+1096
+00:56:24,848 --> 00:56:27,616
+a segue between the two view controllers. And then, in your
+
+1097
+00:56:27,685 --> 00:56:31,720
+code you just say performSegue with that theme name.
+
+1098
+00:56:52,676 --> 00:56:55,577
+Okay, or you may, or may not want a segue here.
+
+1099
+00:56:55,645 --> 00:56:58,080
+Now, you can also use that should perform segue method to
+
+1100
+00:56:58,148 --> 00:57:00,715
+conditionally segue, but I'm gonna show you how we can do
+
+1101
+00:57:00,784 --> 00:57:02,484
+conditional segue right here,
+
+1102
+00:57:02,553 --> 00:57:06,621
+a really good example of it. So, let's go back to our iPad
+
+1103
+00:57:06,690 --> 00:57:09,491
+Pro that we had running here. And I'm gonna put a cool
+
+1104
+00:57:09,559 --> 00:57:12,528
+feature in here, which is if I'm in the middle of a game,
+
+1105
+00:57:12,596 --> 00:57:16,465
+and I hate sports, it's not going to replace this.
+
+1106
+00:57:17,901 --> 00:57:20,402
+It's going to actually change the theme on the fly and
+
+1107
+00:57:20,471 --> 00:57:24,138
+not reset the game. Wouldn't that be a kind of better
+
+1108
+00:57:24,207 --> 00:57:26,942
+UI here? We don't really wanna start a new game every time we
+
+1109
+00:57:27,010 --> 00:57:28,343
+change the theme. So,
+
+1110
+00:57:28,412 --> 00:57:31,312
+if I am gonna do that, I can not segue.
+
+1111
+00:57:31,381 --> 00:57:34,515
+You see why I can't segue and do that? Because segue always
+
+1112
+00:57:34,584 --> 00:57:38,987
+create a new MVC, so there's no way for me to segue and
+
+1113
+00:57:39,055 --> 00:57:42,790
+keep this MVC like it is. So, I have to do this in code
+
+1114
+00:57:42,859 --> 00:57:46,094
+instead, so in change theme here, instead of segueing.
+
+1115
+00:57:46,162 --> 00:57:49,698
+I'm going to look in my split view controller, and
+
+1116
+00:57:49,767 --> 00:57:54,803
+find this find this little view controller over here,
+
+1117
+00:57:54,872 --> 00:57:56,871
+and talk to it directly. Just gonna talk to it,
+
+1118
+00:57:56,940 --> 00:57:59,541
+I'm not gonna segue to it, I'm gonna see if I can find it.
+
+1119
+00:57:59,609 --> 00:58:01,276
+And if I find it there, I'm just gonna talk to it,
+
+1120
+00:58:01,345 --> 00:58:03,578
+and tell it to change its theme. Okay, so
+
+1121
+00:58:03,646 --> 00:58:04,279
+how I'm gonna do that?
+
+1122
+00:58:04,348 --> 00:58:07,182
+So, now, I'm gonna put that code back that I deleted
+
+1123
+00:58:07,251 --> 00:58:09,484
+this themeName here. And
+
+1124
+00:58:09,553 --> 00:58:14,989
+if I have a theme, then inside here, okay, inside this
+
+1125
+00:58:15,058 --> 00:58:18,627
+thing I'm going to talk to the detail of my split view. So,
+
+1126
+00:58:18,696 --> 00:58:20,295
+this is gonna be a thing where if I'm in split view,
+
+1127
+00:58:20,364 --> 00:58:22,463
+and I can find my detail I'll just talk to it and
+
+1128
+00:58:22,532 --> 00:58:25,100
+tell it the theme otherwise, I'll do the performSegue.
+
+1129
+00:58:25,169 --> 00:58:28,203
+So, that's what I mean about conditional performSegue here.
+
+1130
+00:58:28,272 --> 00:58:31,072
+So, I'm gonna find out, find that split view controller by
+
+1131
+00:58:31,141 --> 00:58:34,342
+saying, if let cvc = and then I'm gonna create a little var,
+
+1132
+00:58:34,411 --> 00:58:38,580
+which is my splitViewDetailConcentrationV-
+
+1133
+00:58:38,649 --> 00:58:43,819
+iewController, which might be nil, if I can't find it. So,
+
+1134
+00:58:43,887 --> 00:58:46,621
+I'm going to do that, and then if I can find that,
+
+1135
+00:58:46,690 --> 00:58:50,792
+then I'll get the theme and set the CVCs theme equal
+
+1136
+00:58:50,861 --> 00:58:55,463
+to this theme. There we go,
+
+1137
+00:58:55,532 --> 00:59:00,869
+like that. Else, I will perform segue. So, everyone
+
+1138
+00:59:00,938 --> 00:59:03,038
+see what I'm doing here. So, I just have to implement this.
+
+1139
+00:59:03,106 --> 00:59:05,840
+This is going to be a var that finds my split view
+
+1140
+00:59:05,909 --> 00:59:08,843
+detail controller as a concentration view controller.
+
+1141
+00:59:08,912 --> 00:59:11,346
+So, that's going to be a private var called this.
+
+1142
+00:59:12,716 --> 00:59:14,649
+Copy. Paste.
+
+1143
+00:59:14,718 --> 00:59:17,219
+It's going to be of type Concentration view controller,
+
+1144
+00:59:17,287 --> 00:59:20,054
+optional though, because I might not be able to find it.
+
+1145
+00:59:20,123 --> 00:59:24,459
+And I'm just gonna return the splitViewController I'm in if
+
+1146
+00:59:24,527 --> 00:59:29,597
+any, dot its viewControllers, which is the master,
+
+1147
+00:59:29,666 --> 00:59:34,001
+an array of the master and the detail, right? Dot last,
+
+1148
+00:59:34,070 --> 00:59:39,407
+which should be the detail as a ConcentrationViewController.
+
+1149
+00:59:39,476 --> 00:59:41,609
+So, if all the optional chaining, and
+
+1150
+00:59:41,678 --> 00:59:43,277
+then as make it through here,
+
+1151
+00:59:43,346 --> 00:59:45,814
+then I was able to find the ConcentratonViewController
+
+1152
+00:59:45,883 --> 00:59:47,849
+in my splitViewController's detail.
+
+1153
+00:59:49,152 --> 00:59:51,085
+See what I'm doing there? Okay, and
+
+1154
+00:59:51,154 --> 00:59:53,722
+if I'm able to do that, then I'll set the theme here.
+
+1155
+00:59:53,790 --> 00:59:57,825
+So, let's see if this works. All right, here we go,
+
+1156
+00:59:57,894 --> 00:59:59,695
+let's try it. So, we've got our Halloween theme here,
+
+1157
+00:59:59,763 --> 01:00:01,662
+that's great. Now, I'm gonna hit sports, hopefully,
+
+1158
+01:00:01,731 --> 01:00:04,499
+it will not reset the game, cuz it will hopefully find
+
+1159
+01:00:04,568 --> 01:00:07,935
+this Concentration view controller. Woo hoo! It just
+
+1160
+01:00:08,004 --> 01:00:11,707
+reset the theme, didn't reset the game, cuz we didn't segue.
+
+1161
+01:00:11,775 --> 01:00:15,743
+We did this, instead, of segueing. All right, what
+
+1162
+01:00:15,812 --> 01:00:18,346
+about this on the iPhone? This is going to work on iPhone?
+
+1163
+01:00:18,415 --> 01:00:22,516
+Let's go over there and see. Okay, so
+
+1164
+01:00:22,585 --> 01:00:24,986
+let's go back, actually, let's pick one here, let's say like,
+
+1165
+01:00:25,055 --> 01:00:28,290
+here's ours sports one. Now, let's go back and try and
+
+1166
+01:00:28,358 --> 01:00:32,728
+change it to animals and see. No, it didn't work.
+
+1167
+01:00:33,863 --> 01:00:38,866
+And why didn't it work? Because, oops.
+
+1168
+01:00:38,935 --> 01:00:42,470
+Sorry, because we only can do
+
+1169
+01:00:42,539 --> 01:00:45,073
+this if we're in a split view controller that has a detail
+
+1170
+01:00:45,141 --> 01:00:47,942
+view controller. And on the iPhone there is no detail in
+
+1171
+01:00:48,011 --> 01:00:50,378
+the split view controller. We use the navigation controller
+
+1172
+01:00:50,447 --> 01:00:54,415
+to get to it. So, how would we fix this on an iPhone? Well,
+
+1173
+01:00:54,484 --> 01:00:59,721
+on an iPhone what we are going to have to do is grab ahold of
+
+1174
+01:00:59,789 --> 01:01:04,092
+an MVC that we segue to, and hold on to it with a strong
+
+1175
+01:01:04,160 --> 01:01:07,562
+pointer. So, that when it gets thrown off the navigation
+
+1176
+01:01:07,631 --> 01:01:10,398
+stack it doesn't leave the heap and we will keep ahold
+
+1177
+01:01:10,467 --> 01:01:13,701
+of it. Then the next time someone wants to go to it,
+
+1178
+01:01:13,770 --> 01:01:16,370
+we will just put it straight on the navigation control.
+
+1179
+01:01:16,439 --> 01:01:18,506
+We will not segued to it, because that would reset it.
+
+1180
+01:01:18,575 --> 01:01:20,208
+We will just push it right on there, and
+
+1181
+01:01:20,277 --> 01:01:22,977
+it will show you how we do navigation
+
+1182
+01:01:23,046 --> 01:01:25,012
+controller direct pushing and popping.
+
+1183
+01:01:25,081 --> 01:01:26,080
+So, how are we going to do that? Well,
+
+1184
+01:01:26,149 --> 01:01:27,949
+I am just going to create a little private var here,
+
+1185
+01:01:28,018 --> 01:01:33,120
+which I am going to call my LastSeguedtToConcentrationVie-
+
+1186
+01:01:33,189 --> 01:01:37,059
+wController, which is going to be
+
+1187
+01:01:37,127 --> 01:01:40,128
+a ConcentrationViewController optional. And
+
+1188
+01:01:40,197 --> 01:01:43,298
+I'm just gonna set this any time I successfully
+
+1189
+01:01:43,367 --> 01:01:45,333
+segue to something. So,
+
+1190
+01:01:45,402 --> 01:01:49,637
+that becomes my last segue to concentration view controller.
+
+1191
+01:01:49,706 --> 01:01:51,505
+Right?, so I'm just grabbing onto it right there.
+
+1192
+01:01:51,574 --> 01:01:54,309
+This is a known normal var, so it's gonna be a strong pointer
+
+1193
+01:01:54,378 --> 01:01:56,477
+too. It's gonna keep it in the heap. So,
+
+1194
+01:01:56,546 --> 01:01:58,246
+even when we hit the back button,
+
+1195
+01:01:58,315 --> 01:02:00,548
+it'll get thrown off the navigation stack, but
+
+1196
+01:02:00,617 --> 01:02:03,818
+it'll stay in the heap, all right? Pointed to by this var.
+
+1197
+01:02:03,886 --> 01:02:06,421
+And then, over here, when we change theme, if I can't do
+
+1198
+01:02:06,490 --> 01:02:10,759
+the splitView trick, then I'm gonna say, else if I can let
+
+1199
+01:02:10,828 --> 01:02:16,697
+cvc equal that last segued of two thing. Then,
+
+1200
+01:02:16,766 --> 01:02:19,100
+I'm just gonna push it right unto the navigation stack.
+
+1201
+01:02:19,169 --> 01:02:21,769
+And remember how we do that from the slides? We just say,
+
+1202
+01:02:21,838 --> 01:02:26,775
+the navigation controller I'm in, if I'm in one,
+
+1203
+01:02:26,843 --> 01:02:32,313
+.pushviewController this last of the CVC actually.
+
+1204
+01:02:32,382 --> 01:02:35,917
+Animated? True. And lets make sure that we, of course,
+
+1205
+01:02:35,986 --> 01:02:38,653
+set it's theme. Got to copy and paste in code here, so
+
+1206
+01:02:38,721 --> 01:02:41,556
+we will want to clean that up a little bit.
+
+1207
+01:02:41,624 --> 01:02:46,361
+But we will set its theme here before we push. All right?
+
+1208
+01:02:47,330 --> 01:02:48,796
+So, a lot going on here.
+
+1209
+01:02:48,865 --> 01:02:50,865
+You're learning about how to find into a Split View.
+
+1210
+01:02:50,934 --> 01:02:52,834
+You're learning how to hold something in the heap that
+
+1211
+01:02:52,903 --> 01:02:54,803
+gets thrown off the navigation deck. You're learning how to
+
+1212
+01:02:54,871 --> 01:02:57,138
+push things on a navigation deck without segueing.
+
+1213
+01:02:57,207 --> 01:02:59,907
+And you're learning how to segue from code. All in this
+
+1214
+01:02:59,976 --> 01:03:02,310
+one method right here. So, let's go see if this worked.
+
+1215
+01:03:08,184 --> 01:03:08,916
+All right, here we go, so
+
+1216
+01:03:08,985 --> 01:03:11,319
+we'll pick a theme like maybe animals,
+
+1217
+01:03:11,388 --> 01:03:14,322
+here we go looking good. Now, let's go and
+
+1218
+01:03:14,390 --> 01:03:17,892
+change it to sports, go back here sports. Woo hoo,
+
+1219
+01:03:17,960 --> 01:03:21,462
+it worked, because we didn't segue to it the second time.
+
+1220
+01:03:21,531 --> 01:03:24,532
+The first time we segued to it and we grabbed it. And
+
+1221
+01:03:24,601 --> 01:03:28,770
+the next time, we just pushed it on the navigation stack,
+
+1222
+01:03:28,838 --> 01:03:33,041
+and set. We go can back and set it to, you know, sports,
+
+1223
+01:03:33,109 --> 01:03:39,514
+how about faces, animals. Okay? So, the last
+
+1224
+01:03:39,582 --> 01:03:44,619
+thing I'm going to do, and this one a little complicated.
+
+1225
+01:03:44,687 --> 01:03:47,455
+Again, not complicated to implement, but it's using some
+
+1226
+01:03:47,524 --> 01:03:50,458
+concepts like delegation here that you're not quite used to.
+
+1227
+01:03:50,527 --> 01:03:53,994
+But I'm gonna make it so that when I run my iPhone version,
+
+1228
+01:03:54,063 --> 01:03:57,598
+it doesn't come up showing me a Concentration game that has
+
+1229
+01:03:57,667 --> 01:04:02,704
+the default Halloween. I want it to come up showing this.
+
+1230
+01:04:02,773 --> 01:04:06,674
+So, to do that, my ThemeChooserViewController
+
+1231
+01:04:06,742 --> 01:04:10,411
+here is gonna make itself the delegate of the split view
+
+1232
+01:04:10,480 --> 01:04:13,048
+controller that it's in. Remember that even on iPhone,
+
+1233
+01:04:13,116 --> 01:04:14,849
+it's still in split view controller even though it
+
+1234
+01:04:14,918 --> 01:04:18,553
+doesn't show it as split view controller. Now it turns out
+
+1235
+01:04:18,621 --> 01:04:22,824
+that one of the ten or so split view delegate methods is
+
+1236
+01:04:22,892 --> 01:04:27,495
+one that controls whether it collapses. The what he calls
+
+1237
+01:04:27,563 --> 01:04:30,431
+the secondary view controller, which is the detail.
+
+1238
+01:04:30,500 --> 01:04:33,067
+Whether it collapses it on top of the primary
+
+1239
+01:04:33,136 --> 01:04:35,970
+at any given time, in the running of the app. So we're
+
+1240
+01:04:36,039 --> 01:04:38,372
+just gonna implement that splitView delegate method.
+
+1241
+01:04:38,441 --> 01:04:40,808
+And we're gonna return some bool that says what to do.
+
+1242
+01:04:40,877 --> 01:04:43,144
+And we're just gonna tell it to do the right thing.
+
+1243
+01:04:43,213 --> 01:04:46,414
+So how do we do that? Well, first we have to set our self
+
+1244
+01:04:46,483 --> 01:04:49,183
+as the split view controller's delegate,
+
+1245
+01:04:49,252 --> 01:04:51,852
+and I'm gonna do that in that function awakeFromNib.
+
+1246
+01:04:51,921 --> 01:04:54,021
+I haven't had a chance to show you awakeFromNib.
+
+1247
+01:04:54,090 --> 01:04:56,157
+It's a function that's called on every object that comes out
+
+1248
+01:04:56,226 --> 01:04:59,661
+of your interface builder file. Here you would never,
+
+1249
+01:04:59,729 --> 01:05:02,130
+extremely unlikely that you would ever build this whole
+
+1250
+01:05:02,199 --> 01:05:05,099
+split view navigation controller tab bar thing
+
+1251
+01:05:05,168 --> 01:05:08,269
+in code, that would be a lot of messy code.
+
+1252
+01:05:08,338 --> 01:05:10,304
+You're gonna build it in a storyboard, so it's okay for
+
+1253
+01:05:10,373 --> 01:05:12,840
+me to do this little split view trick in awakeFromNib.
+
+1254
+01:05:12,909 --> 01:05:14,075
+I don't have to worry about
+
+1255
+01:05:14,144 --> 01:05:17,645
+this being created somewhere else. I'm just gonna tell
+
+1256
+01:05:17,713 --> 01:05:22,450
+my SplitViewController that I'm in, if I'm in one,
+
+1257
+01:05:22,519 --> 01:05:26,053
+to set it's delegate to be myself. So
+
+1258
+01:05:26,122 --> 01:05:28,889
+that it will call that method about the collapsing on top
+
+1259
+01:05:28,958 --> 01:05:31,993
+of, now of course it says you can't do this because it says
+
+1260
+01:05:32,061 --> 01:05:36,130
+self is not a UISplitViewControllerDelegate.
+
+1261
+01:05:36,199 --> 01:05:39,901
+So I have to go up here and announce that I am a
+
+1262
+01:05:39,970 --> 01:05:44,739
+UISplitViewControllerDelegate and all the methods in there
+
+1263
+01:05:44,808 --> 01:05:47,007
+are optional it's an Objective-C protocol.
+
+1264
+01:05:47,076 --> 01:05:49,377
+So I've implemented it, no warnings or
+
+1265
+01:05:49,445 --> 01:05:51,713
+errors everything's good. But of course I do need
+
+1266
+01:05:51,781 --> 01:05:54,115
+to actually implement one of them which is that collapse.
+
+1267
+01:05:54,184 --> 01:05:55,216
+And I don't remember what it's called but
+
+1268
+01:05:55,284 --> 01:05:58,253
+I know it has collapse in it, here it is right here it's
+
+1269
+01:05:58,321 --> 01:06:03,391
+this one. Okay, so I'll let you take a look at this guy.
+
+1270
+01:06:03,459 --> 01:06:07,661
+It's called UIViewController collapseSecondary onto
+
+1271
+01:06:07,730 --> 01:06:12,433
+primaryViewController. And this secondaryViewController
+
+1272
+01:06:12,502 --> 01:06:15,203
+is the detail, the primaryViewController is
+
+1273
+01:06:15,271 --> 01:06:18,005
+the master. And it's basically asking here,
+
+1274
+01:06:18,074 --> 01:06:20,708
+hey I'm adapting to the fact that I'm a splitViewController
+
+1275
+01:06:20,777 --> 01:06:24,678
+on an iPhone. And I want to collapse the detail, using
+
+1276
+01:06:24,747 --> 01:06:27,282
+the navigation controller, on top of the primary,
+
+1277
+01:06:27,350 --> 01:06:31,219
+the master. Should I do it. And unfortunately the return
+
+1278
+01:06:31,287 --> 01:06:34,021
+value of this seems like it should be true, do it.
+
+1279
+01:06:34,090 --> 01:06:37,558
+But actually, if we wanna prevent this from happening,
+
+1280
+01:06:37,627 --> 01:06:41,195
+we return true. And the reason that happens is if you return
+
+1281
+01:06:41,264 --> 01:06:42,697
+false from this method,
+
+1282
+01:06:42,766 --> 01:06:46,234
+you're basically saying I did not collapse this for you so
+
+1283
+01:06:46,303 --> 01:06:49,403
+you do it. So the return values are kind of inverse.
+
+1284
+01:06:49,472 --> 01:06:52,640
+But the bottom line is if we don't want that collapsing
+
+1285
+01:06:52,709 --> 01:06:56,811
+to happen, okay, we need to return true from this method.
+
+1286
+01:06:56,880 --> 01:07:00,014
+So when do we not want it to collapse? Well, we don't want
+
+1287
+01:07:00,083 --> 01:07:02,950
+it to collapse any time that secondaryViewController,
+
+1288
+01:07:03,019 --> 01:07:05,286
+that concentration game, has a nill theme.
+
+1289
+01:07:05,355 --> 01:07:08,122
+If it has a nil theme then the theme's never been set,
+
+1290
+01:07:08,190 --> 01:07:11,926
+we want, don't wanna do that collapse. So I'm just gonna
+
+1291
+01:07:11,995 --> 01:07:16,264
+say here, if I can let cvc = secondaryViewController as
+
+1292
+01:07:16,332 --> 01:07:20,902
+concentrationViewController. Then,
+
+1293
+01:07:20,970 --> 01:07:26,106
+if cve.theme==nil. So
+
+1294
+01:07:26,175 --> 01:07:30,378
+it's never been set, then I'm gonna return false. Otherwise,
+
+1295
+01:07:30,447 --> 01:07:34,716
+I'm just gonna return true, which says to the system true
+
+1296
+01:07:34,784 --> 01:07:38,552
+means yes, please do that collapse for me. Actually it's
+
+1297
+01:07:38,621 --> 01:07:40,622
+the other way around. See, I always get confused, true and
+
+1298
+01:07:40,690 --> 01:07:44,992
+false. So true means I did it. But I'm actually not going
+
+1299
+01:07:45,061 --> 01:07:46,694
+to do it. So it's not gonna get done.
+
+1300
+01:07:46,763 --> 01:07:49,330
+False means no, I didn't collapse it so
+
+1301
+01:07:49,399 --> 01:07:51,599
+you should do it. It's very confusing.
+
+1302
+01:07:51,668 --> 01:07:53,167
+Even I get confused between this true and false.
+
+1303
+01:07:53,235 --> 01:07:58,139
+But this is the way it is. So it's a little complicated.
+
+1304
+01:07:58,208 --> 01:08:00,508
+Little bit of advanced use of delegation there.
+
+1305
+01:08:00,577 --> 01:08:04,578
+But let's see if it works. So when we first run it worked,
+
+1306
+01:08:04,647 --> 01:08:07,949
+because that thing that would normally had put on there had
+
+1307
+01:08:08,018 --> 01:08:11,252
+a nil theme, which is using that default theme. But
+
+1308
+01:08:11,321 --> 01:08:14,222
+if I click, now it does collapse it on there because
+
+1309
+01:08:14,290 --> 01:08:17,691
+the theme is not nil. I set the theme to sports, right?
+
+1310
+01:08:17,760 --> 01:08:20,261
+So the now it's a sports theme. Let me go back here and
+
+1311
+01:08:20,329 --> 01:08:23,031
+now we're getting the reuse because we're not segwaying.
+
+1312
+01:08:25,001 --> 01:08:28,436
+Okay, all right so that's it, I showed you
+
+1313
+01:08:28,505 --> 01:08:32,039
+a lot of stuff about multiple MVCs there, right? So,
+
+1314
+01:08:32,108 --> 01:08:35,043
+you know, make sure you pile through this and understand it
+
+1315
+01:08:35,111 --> 01:08:37,779
+all because you're gonna be using it all pretty much in
+
+1316
+01:08:37,847 --> 01:08:40,714
+your next assignment right away. You're gonna have to do
+
+1317
+01:08:40,783 --> 01:08:42,784
+pretty much all of these stuff in your next assignment.
+
+1318
+01:08:44,287 --> 01:08:46,153
+All right, let's jump back into the slides and
+
+1319
+01:08:46,222 --> 01:08:48,189
+get as far as we can here with
+
+1320
+01:08:48,257 --> 01:08:51,592
+this animation thing. We only have about seven or eight
+
+1321
+01:08:51,661 --> 01:08:53,428
+minutes left, so we probably won't get all the way through.
+
+1322
+01:08:53,496 --> 01:08:55,463
+But that's okay, we'll just continue on Wednesday.
+
+1323
+01:08:57,500 --> 01:08:59,133
+Any questions about that MVC stuff?
+
+1324
+01:08:59,201 --> 01:09:03,704
+I didn't see any raised hands, so. Okay, timer, so timer,
+
+1325
+01:09:03,773 --> 01:09:06,707
+I'm talking about timer right before I talk about animation.
+
+1326
+01:09:06,776 --> 01:09:09,210
+Timer is not really used for animation.
+
+1327
+01:09:09,279 --> 01:09:11,078
+You wouldn't use a timer to do animation.
+
+1328
+01:09:11,147 --> 01:09:14,315
+But sometimes it's used in concert with animation. So
+
+1329
+01:09:14,384 --> 01:09:16,050
+I'm teaching it about the same time.
+
+1330
+01:09:16,119 --> 01:09:19,554
+Now some of you actually used timer in your extra credit.
+
+1331
+01:09:19,622 --> 01:09:22,323
+For assignment two I guess, I'm not sure, yes assignment
+
+1332
+01:09:22,392 --> 01:09:26,427
+two and timer is super simple little struct very,
+
+1333
+01:09:26,495 --> 01:09:28,930
+very simple struct. It's basically made for you to
+
+1334
+01:09:28,998 --> 01:09:31,933
+give it a closure, a little function which will execute
+
+1335
+01:09:32,001 --> 01:09:34,635
+sometime in the future. And you tell it how much,
+
+1336
+01:09:34,704 --> 01:09:37,538
+two seconds in the future, ten seconds, a minute, an hour,
+
+1337
+01:09:37,607 --> 01:09:39,273
+and it will go and execute that code.
+
+1338
+01:09:39,342 --> 01:09:41,175
+And it can do it every hour if you want or
+
+1339
+01:09:41,244 --> 01:09:44,278
+every two seconds or it can just do it one time.
+
+1340
+01:09:44,347 --> 01:09:49,184
+So how do we use Timer? The easiest way to use timer
+
+1341
+01:09:49,252 --> 01:09:52,053
+is to use this class function on timer called
+
+1342
+01:09:52,121 --> 01:09:55,189
+scheduledTimer. It only has three arguments.
+
+1343
+01:09:55,258 --> 01:09:58,959
+One is the time interval to wait until it executes it,
+
+1344
+01:09:59,028 --> 01:10:01,796
+whether it repeats it, keeps doing it, and
+
+1345
+01:10:01,865 --> 01:10:05,633
+the block of code which is a simple little block that takes
+
+1346
+01:10:05,701 --> 01:10:09,337
+the timer as the argument and returns nothing. And
+
+1347
+01:10:09,405 --> 01:10:11,973
+it'll jut execute that code, so it could not be simpler.
+
+1348
+01:10:12,042 --> 01:10:13,441
+So here's an example of it,
+
+1349
+01:10:13,510 --> 01:10:17,278
+I have this private weak var, which is a timer, I'll
+
+1350
+01:10:17,347 --> 01:10:19,880
+explain why that's weak cuz this is the first time besides
+
+1351
+01:10:19,949 --> 01:10:22,015
+outlet that you've seen me use weak.
+
+1352
+01:10:22,084 --> 01:10:25,052
+And I just set that timer var equal to the results of
+
+1353
+01:10:25,121 --> 01:10:28,189
+calling Timer.scheduledTimer. Here I'm doing TimeInterval
+
+1354
+01:10:28,257 --> 01:10:31,058
+of two seconds and it does repeat. So every two seconds,
+
+1355
+01:10:31,126 --> 01:10:34,028
+it's going to implement your code here. And every time he
+
+1356
+01:10:34,097 --> 01:10:36,497
+calls it, you pass over the timer back to you so
+
+1357
+01:10:36,565 --> 01:10:39,366
+that you have a hand of these. I putting it in a var, so
+
+1358
+01:10:39,435 --> 01:10:42,036
+I wouldn't need it. But it's nice to put a passage over
+
+1359
+01:10:42,104 --> 01:10:44,471
+there in case you don't wanna store it around in a var.
+
+1360
+01:10:44,540 --> 01:10:47,942
+Now why did I make that weak.
+
+1361
+01:10:48,011 --> 01:10:52,213
+I make it weak because as soon as that timer stops running.
+
+1362
+01:10:52,281 --> 01:10:54,348
+Either because it wasn't a repeating timer or
+
+1363
+01:10:54,417 --> 01:10:56,751
+because someone stopped it from repeating.
+
+1364
+01:10:56,820 --> 01:10:59,720
+Then no one else will have a strong pointer to it. So
+
+1365
+01:10:59,789 --> 01:11:02,389
+if I don't have a strong pointer to it,
+
+1366
+01:11:02,458 --> 01:11:06,760
+what will happen to this timer var? It gets set to nil.
+
+1367
+01:11:06,829 --> 01:11:10,130
+Which is great. So this time the var will automatically set
+
+1368
+01:11:10,199 --> 01:11:12,766
+to nil as soon as the timer is stopped, which is a really
+
+1369
+01:11:12,835 --> 01:11:15,502
+nice feature. So I can always tell whether the times are on
+
+1370
+01:11:15,571 --> 01:11:17,004
+there, time there is running by
+
+1371
+01:11:17,073 --> 01:11:18,705
+whether that thing is nil or not. So
+
+1372
+01:11:18,774 --> 01:11:22,343
+it is kind of a cool feature. So how do you stop a repeating
+
+1373
+01:11:22,411 --> 01:11:24,578
+timer? You have timers going off every two seconds. Well,
+
+1374
+01:11:24,647 --> 01:11:27,615
+you just send the message invalidate to the timer and
+
+1375
+01:11:27,684 --> 01:11:33,153
+it will no longer run. In fact invalidate is going to throw
+
+1376
+01:11:33,222 --> 01:11:37,858
+it out of the heap and set our weak vars to nil and it's all
+
+1377
+01:11:37,927 --> 01:11:41,862
+gonna be done. So that's it. Super easy to use class timer,
+
+1378
+01:11:41,931 --> 01:11:45,566
+struct timer. Now timer, sorry, I thought I didn't put
+
+1379
+01:11:45,635 --> 01:11:48,035
+this tolerance in here. But the timer you can also specify
+
+1380
+01:11:48,104 --> 01:11:49,103
+a tolerance on your timer.
+
+1381
+01:11:49,172 --> 01:11:52,773
+That just says. If this timer goes off once an hour, it's
+
+1382
+01:11:52,842 --> 01:11:55,542
+okay if it goes off 30 seconds earlier or 30 seconds late.
+
+1383
+01:11:55,611 --> 01:11:58,745
+That's fine, and why would you wanna set a tolerance? Because
+
+1384
+01:11:58,814 --> 01:12:01,615
+it could help the system be a little more battery efficient.
+
+1385
+01:12:01,684 --> 01:12:05,453
+Cuz the system might not be awake exactly one hour later,
+
+1386
+01:12:05,521 --> 01:12:06,820
+it might be sleeping.
+
+1387
+01:12:06,889 --> 01:12:09,623
+But it might wake up to check cellular status or
+
+1388
+01:12:09,692 --> 01:12:10,958
+something like that, and then it could run it.
+
+1389
+01:12:11,027 --> 01:12:12,493
+So if you give it a little tolerance,
+
+1390
+01:12:12,562 --> 01:12:14,461
+it won't have to wake up specifically to try and
+
+1391
+01:12:14,530 --> 01:12:17,097
+run your timer. By the way, these timers,
+
+1392
+01:12:17,166 --> 01:12:19,967
+even if they have tolerance zero, they don't run right
+
+1393
+01:12:20,036 --> 01:12:23,003
+on the microsecond of what you specify. These are not
+
+1394
+01:12:23,072 --> 01:12:27,441
+microsecond level timers. They probably, I mean, in practice,
+
+1395
+01:12:27,510 --> 01:12:30,144
+they're probably a tenth or a hundredth of a second,
+
+1396
+01:12:30,213 --> 01:12:33,047
+very reliably. But these are not for real time animation or
+
+1397
+01:12:33,115 --> 01:12:37,785
+something like that. >> [INAUDIBLE]
+
+1398
+01:12:37,854 --> 01:12:39,420
+>> Yeah, so the question is,
+
+1399
+01:12:39,488 --> 01:12:42,590
+can the timer run when the app is in the background? And
+
+1400
+01:12:42,659 --> 01:12:44,958
+we haven't talked about the whole application life cycle,
+
+1401
+01:12:45,027 --> 01:12:47,361
+and when things are in the background, and
+
+1402
+01:12:47,430 --> 01:12:48,595
+I will talk about that. But
+
+1403
+01:12:48,664 --> 01:12:51,198
+the answer is, once the thing has gone to a suspended state,
+
+1404
+01:12:51,267 --> 01:12:54,535
+no, nothing runs in your app. But in that 30 seconds where
+
+1405
+01:12:54,604 --> 01:12:58,005
+it's not fully, you know, backgrounded,
+
+1406
+01:12:58,073 --> 01:13:01,075
+it could run in that short time. So we'll talk all about
+
+1407
+01:13:01,144 --> 01:13:03,711
+that when we talk about the application life cycle.
+
+1408
+01:13:03,779 --> 01:13:05,779
+What happens to your app when you go to another app, for
+
+1409
+01:13:05,848 --> 01:13:10,684
+example. Okay, so brief overview here of the kinds of
+
+1410
+01:13:10,753 --> 01:13:14,088
+animation that exist in iOS, or at least some of the kinds.
+
+1411
+01:13:14,156 --> 01:13:17,024
+One is animating UIView properties,
+
+1412
+01:13:17,093 --> 01:13:18,459
+there's a few UIView properties,
+
+1413
+01:13:18,527 --> 01:13:20,127
+very important ones which we'll talk about,
+
+1414
+01:13:20,196 --> 01:13:22,262
+that you can animate the changing of.
+
+1415
+01:13:22,331 --> 01:13:26,234
+Okay, this is the most common animation that goes on, okay,
+
+1416
+01:13:26,302 --> 01:13:28,335
+and we'll talk all about that one.
+
+1417
+01:13:28,404 --> 01:13:30,571
+Then there's animating controller transitions,
+
+1418
+01:13:30,640 --> 01:13:32,673
+this is like you're in the navigation controller, and
+
+1419
+01:13:32,742 --> 01:13:36,610
+a new card comes on top of the deck. The animation of that
+
+1420
+01:13:36,679 --> 01:13:40,180
+sliding in or popping in or flipping in, or whatever.
+
+1421
+01:13:40,249 --> 01:13:42,883
+That can be animated, we're not gonna talk anything about
+
+1422
+01:13:42,952 --> 01:13:45,185
+that. That's kind of an advanced animation topic,
+
+1423
+01:13:45,254 --> 01:13:46,987
+we're not gonna talk about that.
+
+1424
+01:13:47,056 --> 01:13:48,655
+There's core animation that,
+
+1425
+01:13:48,724 --> 01:13:51,692
+just like there's a CA layer underneath UI for drawing,
+
+1426
+01:13:51,760 --> 01:13:55,262
+there's kind of core animation under this UIView property
+
+1427
+01:13:55,331 --> 01:13:57,898
+animation at the top there, that I'm gonna talk about.
+
+1428
+01:13:57,967 --> 01:14:00,134
+I'm not gonna get into core animation much,
+
+1429
+01:14:00,202 --> 01:14:03,170
+it's basically the primitives for animating properties.
+
+1430
+01:14:03,239 --> 01:14:05,839
+It can animate more than just the UIView properties that I'm
+
+1431
+01:14:05,908 --> 01:14:08,342
+gonna talk about, but I just don't have time to get
+
+1432
+01:14:08,411 --> 01:14:11,145
+down to that layer. Even for UIView property animation,
+
+1433
+01:14:11,214 --> 01:14:13,614
+I'm just gonna kind of show you the real easy,
+
+1434
+01:14:13,683 --> 01:14:16,517
+top way to do it. Most of this class is really just
+
+1435
+01:14:16,586 --> 01:14:19,553
+trying to get you introduced to things, and you can look in
+
+1436
+01:14:19,622 --> 01:14:22,723
+more detail if you want to do more detailed stuff. If you're
+
+1437
+01:14:22,792 --> 01:14:25,860
+doing 3D, of course there's full 3D animation engine,
+
+1438
+01:14:25,928 --> 01:14:28,829
+OpenGL, and also Metal, which is a fantastic system for
+
+1439
+01:14:28,897 --> 01:14:32,199
+doing that. I'm not gonna talk about any 3D in this class
+
+1440
+01:14:32,267 --> 01:14:34,302
+either, so if you are a 3D person,
+
+1441
+01:14:34,370 --> 01:14:37,104
+I'm presuming you might already know OpenGL.
+
+1442
+01:14:37,173 --> 01:14:40,241
+You may know how to figure how to get your OpenGL into
+
+1443
+01:14:40,309 --> 01:14:43,878
+a view on you own, but it's not actually that difficult.
+
+1444
+01:14:43,947 --> 01:14:46,714
+There is also SpriteKit, a whole framework for
+
+1445
+01:14:46,782 --> 01:14:48,349
+doing 2.5D animation,
+
+1446
+01:14:48,417 --> 01:14:51,919
+basically that's like Mario Brothers kind of animation,
+
+1447
+01:14:51,987 --> 01:14:54,988
+right?. Where you have Images and they're overlapping to
+
+1448
+01:14:55,057 --> 01:14:57,725
+create what appears to kinda be a 3D world, but it's really
+
+1449
+01:14:57,793 --> 01:15:01,495
+drawn 2D, where the images just overlap. So there's whole
+
+1450
+01:15:01,564 --> 01:15:03,664
+mechanisms for that, not gonna talk about that either.
+
+1451
+01:15:03,733 --> 01:15:05,732
+Maybe we'll have a Friday section on that, possibly,
+
+1452
+01:15:05,801 --> 01:15:07,234
+later in the quarter. But I doubt it,
+
+1453
+01:15:07,303 --> 01:15:11,004
+cuz we've got some other things in the pipe for that.
+
+1454
+01:15:11,073 --> 01:15:13,607
+And finally, there's dynamic animation,
+
+1455
+01:15:13,676 --> 01:15:16,376
+this is animating views using physics. So
+
+1456
+01:15:16,445 --> 01:15:18,946
+you give the view a mass and a velocity and
+
+1457
+01:15:19,015 --> 01:15:21,748
+an elasticity, and then you operate on it.
+
+1458
+01:15:21,817 --> 01:15:24,752
+You push it, for example, and it'll just start flying across
+
+1459
+01:15:24,820 --> 01:15:27,254
+the screen. And depending on what its mass is and
+
+1460
+01:15:27,322 --> 01:15:30,090
+what it collides with, it'll bounce around and do various
+
+1461
+01:15:30,159 --> 01:15:33,493
+things. This I am going to tell you about on Wednesday.
+
+1462
+01:15:33,562 --> 01:15:37,231
+Because it's really great for kind of moving views at,
+
+1463
+01:15:37,299 --> 01:15:40,033
+on math and having them interact with each other.
+
+1464
+01:15:40,102 --> 01:15:42,035
+When you slide up from the bottom on your iPhone,
+
+1465
+01:15:42,104 --> 01:15:43,637
+and it kind of bounces a little bit,
+
+1466
+01:15:43,706 --> 01:15:45,272
+that's the dynamic animation, right?
+
+1467
+01:15:45,340 --> 01:15:48,375
+It's just kind of a little bit of elasticity and bounce.
+
+1468
+01:15:48,444 --> 01:15:49,510
+Let's wait on UIView animation,
+
+1469
+01:15:49,579 --> 01:15:51,812
+cuz I don't wanna rush this too much, so
+
+1470
+01:15:51,881 --> 01:15:53,714
+we'll start Wednesday off with this.
+
+1471
+01:15:53,782 --> 01:15:57,417
+UIView property animation is just these yellow properties
+
+1472
+01:15:57,486 --> 01:16:00,154
+right here on your view, like where it is, its center.
+
+1473
+01:16:00,223 --> 01:16:02,623
+Or the transform, remember the thing we did to rotate
+
+1474
+01:16:02,691 --> 01:16:06,527
+the View upside down when we made the corner of the card.
+
+1475
+01:16:06,596 --> 01:16:09,697
+Or alpha how transparent it is, making things fade in and
+
+1476
+01:16:09,765 --> 01:16:12,333
+out, or the background color, which is rare to animate.
+
+1477
+01:16:12,401 --> 01:16:15,068
+These properties and these properties alone,
+
+1478
+01:16:15,137 --> 01:16:18,572
+you can animate, so that your view can fly across screen,
+
+1479
+01:16:18,641 --> 01:16:21,842
+it can fade out, it can flip around because its
+
+1480
+01:16:21,911 --> 01:16:24,377
+transformed can be changed. It can scale up and get big, and
+
+1481
+01:16:24,446 --> 01:16:26,547
+then go back small, because its scale,
+
+1482
+01:16:26,616 --> 01:16:28,482
+the transform scale can be changed, etc.
+
+1483
+01:16:28,550 --> 01:16:30,884
+So there's a whole API for animating these things,
+
+1484
+01:16:30,953 --> 01:16:33,253
+and that's what we'll start Wednesday's with.
+
+1485
+01:16:33,322 --> 01:16:35,622
+And then I'll do dynamic animation, then we'll do
+
+1486
+01:16:35,691 --> 01:16:38,024
+a demo, gonna be time constrained at that point, but
+
+1487
+01:16:38,093 --> 01:16:40,828
+we'll do a demo that includes all of that stuff, hopefully,
+
+1488
+01:16:40,896 --> 01:16:42,296
+in it. And then your assignment that's gonna
+
+1489
+01:16:42,365 --> 01:16:45,399
+be due on Wednesday is to set your set game and
+
+1490
+01:16:45,468 --> 01:16:47,634
+add animation to it. And
+
+1491
+01:16:47,703 --> 01:16:50,570
+there's also going to be another part for
+
+1492
+01:16:50,639 --> 01:16:54,408
+multiple MDCs. All right, sound good, all right,
+
+1493
+01:16:54,477 --> 01:16:57,144
+I'll see you next time. >> For more,
+
+1494
+01:16:57,213 --> 01:17:00,381
+please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu
