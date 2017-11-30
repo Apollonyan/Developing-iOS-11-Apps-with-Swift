@@ -158,30 +158,17 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             resources.filter { $0.type == type } .sorted { $0.index < $1.index }
         }
         
-        var out = "[返回主页](../../README.md) / [Back to Main Page](../../en/README.md)\n"
+        var out = "[返回主页](../../README.md) / [Back to Main Page](../../en/README.md)\n\n"
         for (index, type) in ResourceType.all.enumerated() {
             guard !sorted[index].isEmpty else {
                 continue
                 // fatalError("Missing Resources of Type \(type)")
             }
-            out += "\n# \(type)\n\n"
-                + "\(sorted[index].reduce("") { "\($0)\($1)\n" })"
+            out += "# \(type)\n\n"
+                + "\(sorted[index].reduce("") { "\($0)\($1)\n" })\n"
         }
         
-        out += """
-        
-        <details>
-        <summary></summary>
-        
-        <script type="text/javascript">
-        window.onload = function () {
-        document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials";
-        }
-        </script>
-        
-        </details>
-        
-        """
+        out += "<details><summary></summary><script type=\"text/javascript\"> window.onload = function () { document.getElementsByClassName(\"project-name\")[0].innerHTML = \"下载列表 / Course Materials\"; } </script></details>\n"
         
         let cwd = CommandLine.arguments.first { $0.contains(#file) } ?? FileManager.default.currentDirectoryPath
         let url = URL(fileURLWithPath: cwd).deletingLastPathComponent().appendingPathComponent("download.md")

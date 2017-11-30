@@ -39,13 +39,4 @@
 3. [Graphical Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/34/b1/5e34b154-8ffd-ee18-2df3-16d50177b8cc/309-1475895300459033080-CS193P_F17_Assignment_3.pdf)
 4. [Animated Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/89/9f/5e899f5d-19e7-aa34-6ca7-93a1e645eefc/309-2441628197055099936-CS193P_F17_Assignment_4.pdf)
 
-<details>
-<summary></summary>
-
-<script type="text/javascript">
-window.onload = function () {
-document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials";
-}
-</script>
-
-</details>
+<details><summary></summary><script type="text/javascript"> window.onload = function () { document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials"; } </script></details>
