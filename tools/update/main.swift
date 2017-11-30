@@ -157,7 +157,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             resources.filter { $0.type == type } .sorted { $0.index < $1.index }
         }
 
-        var out = "[返回主页](../README.md) / [Back to Main Page](../en/README.md)\n"
+        var out = "[返回主页](../../README.md) / [Back to Main Page](../../en/README.md)\n"
         for (index, type) in ResourceType.all.enumerated() {
             guard !sorted[index].isEmpty else {
                 continue

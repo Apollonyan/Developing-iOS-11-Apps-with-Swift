@@ -1,4 +1,4 @@
-[返回主页](../README.md) / [Back to Main Page](../en/README.md)
+[返回主页](../../README.md) / [Back to Main Page](../../en/README.md)
 
 # Videos
 
@@ -10,6 +10,8 @@
 6. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/40/b6/28/40b62847-db9f-bc45-10fd-8026ac4e66e4/321-6728107643679048758-06_10_11_17_CS193p_1080p_3mb_cc.m4v">Multitouch</a></summary>Paul Hegarty continues his PlayingCard demonstration on views. He then introduces gestures and concludes with a demo on swiping, tapping and pinching.</details>
 7. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/41/40/da/4140da9f-07b3-52b5-c8a3-8e466d2ed444/309-96054835436878188-07_10_16_17_CS193p_1080p_3mb_cc.m4v">Multiple MVCs, Timer, and Animation</a></summary>Paul Hegarty begins with an explanation of multiple MVCs and demonstrates Theme Chooser in Concentration. He then introduces timer and animation.</details>
 8. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/16/8f/57/168f574f-523a-251d-9c32-22ac7c267ca9/327-7793456677118526749-08_10_18_17_1080p_3mb_cc.m4v">Animation</a></summary>Paul Hegarty continues his coverage of Animation.</details>
+9. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/b5/d5/96/b5d596e4-2ebc-f53e-930b-642207e21c87/335-8360806109958293556-09_10_23_17_prores_CS193p_1080p_3mb_cc2.m4v">View Controller Lifecycle and Scroll View</a></summary>Paul Hegarty delves into the view controller lifecycle – keeping track of what's happening in your Controller as it goes through its lifetime – and then demonstrates putting print()s into the multiple-MVC version of Concentration. He then covers scroll view.</details>
+10. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/1d/45/43/1d4543d6-2ed9-55d1-6cf1-1929b5319c10/311-695518005627000002-10_10_25_17_prores_CS193p_1080p_3mb_cc.m4v">Multithreading and Autolayout</a></summary>Paul Hegarty covers multithreading and then demonstrates with a multithreaded Cassini. He then introduces autolayout.</details>
 
 # Slides
 
@@ -21,6 +23,8 @@
 6. [Lecture 6 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/e5/a7/ae/e5a7aeba-db5f-b50f-a6d3-861dd0bb8a57/312-5688919973254424356-CS193P_F17_Lecture_6.pdf)
 7. [Lecture 7 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/a9/6f/3b/a96f3b8a-35c1-50bd-ce9f-e26a54d48544/320-5503734535583450465-CS193P_F17_Lecture_7.pdf)
 8. [Lecture 8 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/bf/dd/b5/bfddb5ba-503e-0057-a1b7-dfaeeb999387/335-3416648937156657194-CS193P_F17_Lecture_8.pdf)
+9. [Lecture 9 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/84/92/46/849246d8-03f1-4eb8-9ab6-bedde8580d24/332-3154341613995510587-CS193P_F17_Lecture_9.pdf)
+10. [Lecture 10 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/d2/d2/6b/d2d26bfc-0528-265c-6c60-90ec126e6ee5/322-6515997048783028736-CS193P_F17_Lecture_10.pdf)
 
 # Readings
 
