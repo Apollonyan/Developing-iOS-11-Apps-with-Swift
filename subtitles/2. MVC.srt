@@ -26,12 +26,12 @@ fall of 2017. So today, I'm gonna spend the first 15 or
 6
 00:00:22,122 --> 00:00:25,790
 this design paradigm that I told you we always have to do
-这个设计模式，我说的我们总是需要
+这个设计模式，我说过我们总是需要
 
 7
 00:00:25,859 --> 00:00:29,595
 when we develop for iOS. And then, we're gonna apply
-在开发 iOS 时用的设计模式。然后我们把
+在开发 iOS 时使用这个设计模式。然后我们把
 
 8
 00:00:29,663 --> 00:00:32,964
@@ -56,12 +56,12 @@ Model-View-Controller, what is it? It's essentially a way
 12
 00:00:42,909 --> 00:00:46,444
 we're gonna divide up all the objects in our system into
-在我们的系统里把对象分类的方法
+在我们的系统里把对象分成三个阵营
 
 13
 00:00:46,513 --> 00:00:52,250
 three camps. one camp, this blue camp, is the Model camp.
-分成三个阵营。一个是这个蓝色的 Model，模型
+的方法。一个是这个蓝色的模型（Model）
 
 14
 00:00:52,319 --> 00:00:56,521
@@ -81,7 +81,7 @@ the part of our app that knows how to play Concentration.
 17
 00:01:04,064 --> 00:01:06,164
 It knows how to match cards, take them away,
-它知道怎么匹配卡片，移走
+它知道怎么匹配，移走卡片
 
 18
 00:01:06,233 --> 00:01:09,033
@@ -101,7 +101,7 @@ game but nothing about how it appears on screen. That
 21
 00:01:15,876 --> 00:01:19,311
 is all part of the Controller camp's responsibility.
-那个就属于 Controller，控制器的职责了
+那个就属于控制器（Controller）的职责了
 
 22
 00:01:19,379 --> 00:01:21,747
@@ -126,12 +126,12 @@ the Controller is how it shows up on screen.
 26
 00:01:31,992 --> 00:01:35,994
 And the View camp is your Controller's minions.
-然后 View，视图阵营就是控制器的下属
+然后视图（View）阵营就是控制器的下属
 
 27
 00:01:36,063 --> 00:01:41,333
 These are very generic UI elements, like UI button,
-他们是通用的 UI 组件，比如 UIButton
+它们是通用的 UI 组件，比如 UIButton
 
 28
 00:01:41,402 --> 00:01:45,104
@@ -176,7 +176,7 @@ You put the objects in these camps, and
 36
 00:02:10,697 --> 00:02:13,598
 they have to kind of obey certain rules when they talk
-那他们之间交谈就要遵守一定的规则
+那它们之间交谈就要遵守一定的规则
 
 37
 00:02:13,667 --> 00:02:16,501
@@ -286,7 +286,7 @@ flipCountLabel 的出口，当然我们可以告诉 flipCountLabel
 58
 00:03:20,033 --> 00:03:23,067
 label and say anything we want to it to get it to say what we
-说我们想要让他在 UI 上显示
+说我们想要让它在 UI 上显示
 
 59
 00:03:23,136 --> 00:03:26,037
@@ -301,7 +301,7 @@ So you can see the controller can talk to everybody
 61
 00:03:28,742 --> 00:03:31,977
 pretty much all at once. What about some of the other kind
-基本都可以。那这些其他之间的
+基本都可以。那其他阵营之间的
 
 62
 00:03:32,046 --> 00:03:34,612
@@ -321,17 +321,17 @@ Why is that impossible? Two reasons.
 65
 00:03:41,221 --> 00:03:44,989
 One, the Model is UI independent, and the View only
-其一，模型是和 UI 无关的，而视图
+其一，模型与 UI 是无关的，而视图
 
 66
 00:03:45,058 --> 00:03:47,793
 has UI things in it, so there's absolutely no way a UI
-只负责显示 UI。所以没有可能一个
+只负责显示 UI。所以一个无关 UI 的阵营
 
 67
 00:03:47,861 --> 00:03:51,496
 independent thing could talk to such UI dependent things
-无关 UI 的阵营去访问这个只是 UI
+不可能去访问这个只管 UI
 
 68
 00:03:51,564 --> 00:03:54,866
@@ -396,12 +396,12 @@ The View can speak to its Controller, of course it,
 80
 00:04:28,168 --> 00:04:31,602
 it kind of has to, like when a button is clicked or whatever,
-某种意义上这是必须的，比如按钮被按下一类的
+某种意义上这是必须的，比如“按钮被按下”一类的
 
 81
 00:04:31,671 --> 00:04:33,204
 but when it communicates,
-但是他们要交流的话
+但是它们要交流的话
 
 82
 00:04:33,273 --> 00:04:36,608
@@ -536,7 +536,7 @@ Can I scroll vertically or horizontally?
 108
 00:05:50,483 --> 00:05:53,084
 It kinda wants to talk to Controller as it's
-他会想要在完成任务期间
+它想要在完成任务期间
 
 109
 00:05:53,152 --> 00:05:57,255
@@ -651,12 +651,12 @@ these generic things,
 131
 00:07:00,153 --> 00:07:03,388
 cannot own the data they're displaying. In other words,
-不能自己提供他们显示的数据，也就是说
+不能自己提供它们显示的数据，也就是说
 
 132
 00:07:03,456 --> 00:07:06,157
 they're not going to have the data they're displaying as
-他们不能写死显示的数据，然后作为
+它们不能写死显示的数据，然后作为
 
 133
 00:07:06,225 --> 00:07:09,460
@@ -786,7 +786,7 @@ music app, it just knows that it's the data provider, and
 158
 00:08:20,433 --> 00:08:24,202
 we call this kind of delegate the data source. All right, so
-我们叫这种代理 data source，数据源
+我们称这种代理为数据源（data source）
 
 159
 00:08:24,271 --> 00:08:26,637
@@ -936,7 +936,7 @@ whatever. So this is a radio station model. In iOS
 188
 00:09:57,230 --> 00:10:01,399
 it's called notifications, or KVO, Key Value Observing, and
-这叫做 notification，通知。或者 KVO，键值监听，Key Value Observing
+这叫做通知（notification），或者键值监听（KVO，Key Value Observing）
 
 189
 00:10:01,468 --> 00:10:05,103
@@ -1131,7 +1131,7 @@ what model gave the data. We're just totally lost. So by
 227
 00:12:22,542 --> 00:12:25,543
 grouping them into these nice MVCs each screen on the phone
-所以通过把他们分组成为很好的 MVC，每个手机上的界面
+所以通过把它们分组成为很好的 MVC，每个手机上的界面
 
 228
 00:12:25,612 --> 00:12:29,013
@@ -1271,7 +1271,7 @@ We go to file > new > file. That's how you create a new
 255
 00:13:48,961 --> 00:13:51,596
 Swift file, or whatever, and when you do that, it's gonna
-我们创建类似于新 Swift 文件的方法。当你点击之后，他会
+我们创建类似于新 Swift 文件的方法。当你点击之后，它会
 
 256
 00:13:51,664 --> 00:13:55,232
@@ -1647,7 +1647,7 @@ Now the only thing here is we gotta define Mr.Card. So
 00:17:45,832 --> 00:17:51,302
 we're gonna go file>new>file and create another Swift file.
 我们还是 File > New > File... 创建另一个 Swift 文件
- 
+
 331
 00:17:51,371 --> 00:17:54,205
 This one I'm gonna call card. Okay,
@@ -1706,7 +1706,7 @@ structure on the right. One's a class, one's a struct. Now
 342
 00:18:32,612 --> 00:18:35,379
 in a lot of other languages like C, a struct is just kinda
-在很多像 C 语言一类的语言，struct，结构体
+在很多像 C 语言一类的语言，结构体（struct）
 
 343
 00:18:35,447 --> 00:18:39,016
@@ -1726,7 +1726,7 @@ structs and classes are almost exactly the same.
 346
 00:18:44,390 --> 00:18:48,291
 They have methods, they have vars, very very similar. So
-他们都可以有方法，有变量，非常相似
+它们都可以有方法，有变量，非常相似
 
 347
 00:18:48,360 --> 00:18:49,860
@@ -1751,7 +1751,7 @@ there's two major differences between a struct and a class.
 351
 00:18:56,469 --> 00:18:59,770
 This is very important to understand this.
-理解这个是非常总要的
+理解这个是非常重要的
 
 352
 00:18:59,839 --> 00:19:02,606
@@ -1806,12 +1806,12 @@ when you pass it as an argument, put it in an array,
 362
 00:19:30,336 --> 00:19:33,938
 even assign it to another variable, it gets copied.
-甚至把它赋值给另一个变量，他都会被拷贝
+甚至把它赋值给另一个变量，它都会被拷贝
 
 363
 00:19:35,441 --> 00:19:38,042
 This is very important to understand. It gets copied.
-理解这个是非常重要的。他会被拷贝
+理解这个是非常重要的。它会被拷贝
 
 364
 00:19:38,111 --> 00:19:40,210
@@ -1841,12 +1841,12 @@ Dictionary 字典是结构体，这些都是结构体
 369
 00:19:50,990 --> 00:19:52,490
 When you pass them around in your code,
-当你把他们在代码之间传递的时候
+当你把它们在代码之间传递的时候
 
 370
 00:19:52,558 --> 00:19:54,625
 they're getting constantly copied.
-他们总是会被复制
+它们总是会被复制
 
 371
 00:19:54,694 --> 00:19:56,560
@@ -1881,7 +1881,7 @@ only has to make copies, actual copies, when someone
 377
 00:20:11,677 --> 00:20:15,413
 modifies it. That's called a copy-on-write semantics, and
-修改了它的值才拷贝。这叫做 Copy-On-Write，写时复制
+修改了它的值才拷贝。这叫做写时复制（Copy-On-Write）
 
 378
 00:20:15,481 --> 00:20:17,982
@@ -1906,7 +1906,7 @@ That's what you're used to in other languages.
 382
 00:20:25,224 --> 00:20:28,325
 The thing lives in the heap. You got pointers to it. When
-他们被存储在堆（heap）中，你保留指向它的指针
+它们被存储在堆（heap）中，你保留指向它的指针
 
 383
 00:20:28,393 --> 00:20:31,028
@@ -1946,7 +1946,7 @@ you're not used to when you pass things,
 390
 00:20:43,977 --> 00:20:46,377
 it makes a copy. But you're going to see
-他会拷贝这种机制。但你会看到
+它会拷贝这种机制。但你会看到
 
 391
 00:20:46,445 --> 00:20:49,613
@@ -1981,7 +1981,7 @@ what does a card need?
 397
 00:21:03,962 --> 00:21:06,530
 Well same thing, let's think about its essentials.
-同样的，让我们来考虑他的本质是什么
+同样的，让我们来考虑它的本质是什么
 
 398
 00:21:06,599 --> 00:21:10,100
@@ -2001,7 +2001,7 @@ A card can be matched or not, probably starts out definitely
 401
 00:21:17,876 --> 00:21:21,545
 unmatched. You know a card also needs a unique identity.
-不匹配开始。你知道一张卡片还需要一个唯一的身份识别
+不匹配开始。你知道一张卡片还需要一个唯一的身份
 
 402
 00:21:21,614 --> 00:21:23,581
@@ -2011,22 +2011,22 @@ Because we're playing a matching game and if we can't
 403
 00:21:23,649 --> 00:21:26,083
 tell the identity of the card, we can't match it against
-分辨出卡片的身份识别，我们将不能和它与
+分辨出卡片的身份，我们将无法使它与
 
 404
 00:21:26,151 --> 00:21:29,286
 another card. So we need some kind of identifier or
-另一张卡片匹配。所以我们需要某一种识别符或
+另一张卡片匹配。所以我们需要一种识别符
 
 405
 00:21:29,355 --> 00:21:31,321
 something, which really could be any type.
-其他东西，这可以是任意类型
+之类的东西，这可以是任意类型的
 
 406
 00:21:31,390 --> 00:21:32,990
 It could be a string or whatever. I'm gonna make
-它可以是一个 String 或其他。我将
+它可以是一个 String 或其他东西。我将
 
 407
 00:21:33,059 --> 00:21:36,993
@@ -2076,22 +2076,22 @@ This is just how the cards behave, how the game works. So
 416
 00:22:02,955 --> 00:22:05,722
 you would never have an emoji in here, in this model. We're
-所以在这个模型里绝不会有一个 emoji 变量，
+所以在这个模型里绝不会有一个 emoji 变量
 
 417
 00:22:05,791 --> 00:22:09,226
 in the model here not the UI. Very important to understand.
-我们是在模型里而不是 UI 里。这是非常重要的用来理解的事情
+我们是在模型里而不是 UI 里。这是你们需要理解的一件非常重要的事情
 
 418
 00:22:10,862 --> 00:22:15,966
 All right, so now we've got basically all of our API and
-好的，现在我们基本上得到了我们的 API 
+好的，现在我们基本上得到了所有的 API
 
 419
 00:22:16,035 --> 00:22:18,636
 our model here. Let's get rid of some these errors. You see
-和模型。让我们把一些错误去除
+和模型。让我们把一些错误除去
 
 420
 00:22:18,704 --> 00:22:21,371
@@ -2141,17 +2141,17 @@ So this is just a type. It could be int or string.
 429
 00:22:45,297 --> 00:22:47,865
 It happens to be an array of cards. And I'm just putting
-这里碰巧是一个卡片的数组。而且我仅是添加了
+这里碰巧是一个卡片的数组。而且我仅仅是在后面
 
 430
 00:22:47,933 --> 00:22:50,133
 open parentheses, close parentheses after it. And
-一个左括号和右括号在后面
+添加了左括号和右括号
 
 431
 00:22:50,202 --> 00:22:53,904
 I could actually be putting various arguments in here. And
-我本可以放各种参数在里面
+我还可以将各种参数放在里面
 
 432
 00:22:53,973 --> 00:22:56,674
@@ -2236,12 +2236,12 @@ is this one where you just do nothing.
 448
 00:23:38,450 --> 00:23:42,719
 Now by the way, we're using this kind of easier to
-顺便说一下，我们会这样子来做让理解语法
+顺便说一下，我们会这样做让语法变得
 
 449
 00:23:42,788 --> 00:23:46,456
 understand syntax, but we would almost certainly use
-更容易，但是我们大部分会用
+更容易理解，但是我们大部分情况下会用
 
 450
 00:23:46,525 --> 00:23:51,861
@@ -2451,7 +2451,7 @@ and we can't assume that a Concentration game only has 12
 491
 00:25:59,625 --> 00:26:02,559
 cards like we had on the board. Or only has four cards,
-就像我们在面板上的那样子。或者只有四张卡片，
+就像我们在面板上的那样子。或者只有四张卡片
 
 492
 00:26:02,628 --> 00:26:07,231
@@ -2466,17 +2466,17 @@ own init. So let's go, again, make some more space over
 494
 00:26:11,103 --> 00:26:15,238
 here. And add an init to our Concentration class.
-大一点。然后在我们的 Concentration 类里添加一个 init 方法。
+大一点。然后在我们的 Concentration 类里添加一个 init 方法
 
 495
 00:26:15,307 --> 00:26:18,374
 Init. Now again, we get to have any arguments we want.
-现在，我们又需要得到我们想要的参数
+现在，我们需要得到我们想要的参数
 
 496
 00:26:18,443 --> 00:26:20,944
 And what we need to create our game is we need to know
-创建我们的游戏所需要的就是清楚
+创建我们的游戏所需要的是
 
 497
 00:26:21,013 --> 00:26:25,182
@@ -2511,12 +2511,12 @@ put them in here. Let's try and create one card.
 503
 00:26:44,970 --> 00:26:48,538
 Let card =, maybe we'll get lucky and
-让我们写下 card =, 大概我们比较幸运，我们可以直接
+let card =, 大概我们比较幸运，我们可以直接
 
 504
 00:26:48,607 --> 00:26:51,675
 we can just say card. We got, that worked for
-写 Card。写好了，我们写好它让它为 Concentration 
+写 Card。写好了，我们写好它让它为 Concentration
 
 505
 00:26:51,743 --> 00:26:56,212
@@ -2531,7 +2531,7 @@ Because if you look over here to our card.
 507
 00:27:00,152 --> 00:27:04,888
 Let's bring up Mr. Card here. The card,
-让我们把它拿过来。
+让我们把 Card 拿过来
 
 508
 00:27:04,956 --> 00:27:10,227
@@ -2541,7 +2541,7 @@ it has something that has to be initialized there.
 509
 00:27:10,296 --> 00:27:15,198
 Card is a struct. Now, structs get a free initializer
-Card 是一个结构体。现在，结构体也有一个自动获得的构造器（逐一成员构造器）
+Card 是一个结构体，而结构体也有一个自动获得的构造器
 
 510
 00:27:15,267 --> 00:27:17,367
@@ -2556,12 +2556,12 @@ So this is another difference between structs and classes.
 512
 00:27:19,871 --> 00:27:23,807
 Struct, the free initializer they get, initializes all of
-结构体的逐一成员构造器，会初始化它的所有变量
+结构体自动获得的逐一成员构造器会初始化它
 
 513
 00:27:23,876 --> 00:27:26,376
 their vars, even if they're already pre-initialized,
-即使它们已经有了默认值
+所有的变量，即使它们已经有了默认值
 
 514
 00:27:26,445 --> 00:27:28,712
@@ -2601,12 +2601,12 @@ identifier 来做这件事情
 521
 00:27:48,233 --> 00:27:51,034
 So I could initialize a card like that, cuz I get a free
-之所以我能够像这样子初始化一个 card 对象，是因为我得到了逐一成员构造器
+之所以我能够像这样子初始化一个 card 对象，是因为我得到了
 
 522
 00:27:51,103 --> 00:27:54,504
 initializer. Classes never get this kind of free initializer.
-。类从来没有这种构造器
+逐一成员构造器。类从来没有这种构造器
 
 523
 00:27:54,573 --> 00:27:56,173
@@ -2621,7 +2621,7 @@ you can initialize all their vars.
 525
 00:27:58,576 --> 00:28:02,279
 That's purely a struct thing. But this is bogus, because
-这完全是结构体拥有的事情。但是它有一个缺点
+这完全是结构体拥有的东西。但是它有一个缺点
 
 526
 00:28:02,348 --> 00:28:05,181
@@ -2646,7 +2646,7 @@ an initializer here. So I'm gonna have an initializer that
 530
 00:28:13,592 --> 00:28:17,995
 just takes the identifier, which is an Int.
-只有 identifier 一个 Int 类型参数的构造器
+只有 identifier，一个 Int 类型参数的构造器
 
 531
 00:28:18,063 --> 00:28:22,366
@@ -2661,17 +2661,17 @@ this identifier right here. We've
 533
 00:28:28,140 --> 00:28:31,208
 got a couple of problems with that, we're trying to do that.
-遇到了一些问题，我们要尝试解决它
+遇到了两个问题，我们要尝试解决它
 
 534
 00:28:31,276 --> 00:28:34,177
 One is this certainly can't be right. Identifier equals
-其中这个问题一定是不对的。Identifier 等于 
+其中这个问题一定是不对的。Identifier 等于
 
 535
 00:28:34,246 --> 00:28:38,548
 identifier? That, that's just weird. One thing also notice
-identifer? 那太奇怪了。有一件事情需要注意的是
+identifer? 那太奇怪了。有一件需要注意的事情是
 
 536
 00:28:38,617 --> 00:28:42,319
@@ -2696,17 +2696,17 @@ the internal name is the same. So one thing I could do to fix
 540
 00:28:49,295 --> 00:28:52,529
 that is make the internal name be different, like i.
-让参数名称不同，想 i
+让参数名称不同，例如 i
 
 541
 00:28:52,598 --> 00:28:54,865
 And then I could say identifier = i.
-这样子我可以说 identifer 等于 i 
+这样子我可以说 identifer = i
 
 542
 00:28:54,933 --> 00:28:57,534
 You see? This is the external name,
-你看？这是参数标签
+懂了么？这是参数标签
 
 543
 00:28:57,603 --> 00:29:00,103
@@ -2761,7 +2761,7 @@ external name. Now, inits are the one method that
 553
 00:29:28,500 --> 00:29:33,336
 usually has the same internal name and external name. Most
-拥有相同的参数标签和参数名称的方法。
+拥有相同的参数标签和参数名称的方法
 
 554
 00:29:33,405 --> 00:29:36,873
@@ -2776,7 +2776,7 @@ but they tend to. So, now I'm back to saying this, but
 556
 00:29:41,213 --> 00:29:43,613
 it's not, I can't really distinguish between these two,
-但是我不能完全分辨它们两者
+但是我完全不能分辨它们两者
 
 557
 00:29:43,682 --> 00:29:46,183
@@ -2791,7 +2791,7 @@ This is the parameter. This is my identifier on myself.
 559
 00:29:51,289 --> 00:29:58,028
 Well, I can say, self. So, self., means my identifier.
-所以，我可以写，self，逗号。所以 self 逗号 意味着我的标识符
+所以，我可以写，self. 所以 self. 意味着我的标识符
 
 560
 00:29:58,096 --> 00:30:01,965
@@ -2846,7 +2846,7 @@ It's a little different than other languages. It starts out
 570
 00:30:30,228 --> 00:30:34,197
 the same. For identifier, this is just for some variable. But
-它们开始是一样的。For identifier 这仅仅是 for 跟上一些变量，但是
+它们开始是一样的。for identifier 这仅仅是 for 跟上一些变量，但是
 
 571
 00:30:34,266 --> 00:30:38,902
@@ -2931,7 +2931,7 @@ cool sequence called a countable range. So
 587
 00:31:20,345 --> 00:31:22,812
 a countable range is a range, in other words, it has a start
-所以一个 CountableRange 是一个区间，换句话说，它有一个开端
+所以 CountableRange 是个 Range，换句话说，它有一个开端
 
 588
 00:31:22,881 --> 00:31:25,115
@@ -2951,7 +2951,7 @@ And there's special syntax in Swift because it's so
 591
 00:31:31,123 --> 00:31:33,089
 common to wanna make a countable range. And
-创建一个 CountableRange 实在是太常见了。
+创建一个 CountableRange 实在是太常见了
 
 592
 00:31:33,158 --> 00:31:38,294
@@ -2966,7 +2966,7 @@ it goes like this. The start of the countable range,
 594
 00:31:42,067 --> 00:31:46,236
 not including the number of pairs of cards.
- numberOfParisOfCards 但不包含为止
+numberOfParisOfCards 但不包含它为止
 
 595
 00:31:48,673 --> 00:31:52,609
@@ -3001,7 +3001,7 @@ that means zero to here, including this one.
 601
 00:32:11,663 --> 00:32:14,197
 So, here, if I wanted to use that one, I would say one dot,
-如果我想要使用这个，我会写成从一开始，
+如果我想要使用这个，我会写成从一开始
 
 602
 00:32:14,265 --> 00:32:18,100
@@ -3026,7 +3026,7 @@ and creating a card here, but I need another card.
 606
 00:32:29,548 --> 00:32:33,983
 So I could say matchingCard = the same thing, right?
-所以我会写成 matchingCard (匹配的卡牌) 等于，后面是相同的内容，是吧？
+所以我会写成 matchingCard =，后面是相同的内容，是吧？
 
 607
 00:32:34,052 --> 00:32:37,754
@@ -3141,7 +3141,7 @@ and another different copy that gets put here. So
 629
 00:33:53,431 --> 00:33:56,132
 understand that when you pass these structs around,
-理解这个原理，你就会明白，当你传递结构体的时候，
+理解这个原理，你就会明白，当你传递结构体的时候
 
 630
 00:33:56,200 --> 00:33:57,901
@@ -3187,7 +3187,7 @@ cards 它是一个卡牌数组
 638
 00:34:23,562 --> 00:34:26,763
 Plus equals works with arrays. You can add arrays together
-加号等号这种语法在数组里同样适用。你可以把数组们相加到一起
++= 这种语法在数组里同样适用。你可以把数组们相加到一起
 
 639
 00:34:26,831 --> 00:34:29,499
@@ -3212,7 +3212,7 @@ cuz array is a struct. All right, so we got that,
 643
 00:34:41,379 --> 00:34:44,681
 this is all going quite well. The only thing I don't really
-所以事情进行的顺利。唯一我不太喜欢
+所有事情的进行都很顺利。唯一我不太喜欢
 
 644
 00:34:44,750 --> 00:34:47,717
@@ -3237,7 +3237,7 @@ care what the identifiers are.
 648
 00:34:55,260 --> 00:34:58,761
 All it cares is that they're unique. So really,
-它所关心的全部就是它们是唯一的。所以
+它只关心它们是不是唯一的。所以
 
 649
 00:34:58,830 --> 00:35:01,998
@@ -3247,7 +3247,7 @@ I don't wanna do this. I want to get this out of here, and
 650
 00:35:02,067 --> 00:35:06,636
 have the card figure out its own unique identifier. There's
-让卡牌来想出它自己的唯一标识符。
+让卡牌来想出它自己的唯一标识符
 
 651
 00:35:06,704 --> 00:35:09,739
@@ -3362,7 +3362,7 @@ So you can think of it kind of like a global function,
 673
 00:36:21,880 --> 00:36:24,747
 a utility function or something that's just tied to
-一个效用函数或其他与这个类
+一个工具函数或其他与这个类
 
 674
 00:36:24,816 --> 00:36:28,952
@@ -3382,12 +3382,12 @@ You ask the card type. So, and that's what static means.
 677
 00:36:34,960 --> 00:36:38,361
 So here when I want to call this function,
-所以我将何时调用这个函数
+所以我这里在调用这个函数时
 
 678
 00:36:38,430 --> 00:36:43,066
 I send it to the type card.getUniqueIdentifier.
-我把它发送给类 card.getUniqueIdentifier
+我把它发送给类 Card.getUniqueIdentifier
 
 679
 00:36:43,134 --> 00:36:46,802
@@ -3437,12 +3437,12 @@ what I'm going to say is Card.identifierFactory += 1 to
 688
 00:37:13,798 --> 00:37:17,266
 make it a new unique identifier. And then I'm gonna
-来生成一个新的唯一标识符。然后我会
+来生成一个新的唯一标识符。然后我会返回
 
 689
 00:37:17,335 --> 00:37:21,337
 return Card.identifierFactory. So now I'm returning a unique,
-返回 Card.identifierFactory。所以现在，我正在返回一个唯一的标识符
+Card.identifierFactory。所以现在，我正在返回一个唯一的标识符
 
 690
 00:37:21,406 --> 00:37:23,740
@@ -3477,22 +3477,22 @@ So I just want to take this little detour to show you how
 696
 00:37:45,363 --> 00:37:48,865
 you can do these nice utility methods or whatever,
-你可以用这些很棒的一个类的工具方法，
+如何使用这些类型中很棒的的工具方法
 
 697
 00:37:48,934 --> 00:37:51,601
 utility vars on a type. So now let's go back over to
-工具变量做些什么。所以现在让我们返回我们的
+和工具变量。所以现在让我们返回我们的
 
 698
 00:37:51,670 --> 00:37:54,437
 our concentration, over here cuz it's got a warning, let's
-Concentration 文件，因为这里我们有一个警告，让我们
+Concentration，因为这里我们有一个警告，让我们
 
 699
 00:37:54,506 --> 00:37:57,040
 see what this warning is all about. It says immutable value
-看看这个警告是关于什么的。它写着 不可变值 
+看看这个警告是关于什么的。它写着 不可变值
 
 700
 00:37:57,108 --> 00:38:00,710
@@ -3518,6 +3518,7 @@ variable of our for loop. But we can replace it with
 00:38:11,355 --> 00:38:15,424
 underbar. Underbar in Swift means kind of ignore this or
 下划线。Swift 中，下划线意味着某种忽略或者
+
 705
 00:38:15,493 --> 00:38:17,827
 I don't really care what this is cuz I'm not gonna use it.
@@ -3541,7 +3542,7 @@ it's external name was underbar. Which means don't
 709
 00:38:26,203 --> 00:38:28,738
 give an external name when you call this because remember
-并没有给它一个参数标签，因为 
+并没有给它一个参数标签，因为
 
 710
 00:38:28,807 --> 00:38:30,873
@@ -3556,7 +3557,7 @@ This target action, and so it didn't have external name and
 712
 00:38:33,444 --> 00:38:34,310
 so we just said, hey,
-所以我们说过，
+所以我们说过
 
 713
 00:38:34,379 --> 00:38:37,179
@@ -3636,7 +3637,7 @@ now we can go back over to our view controller over here. And
 728
 00:39:22,728 --> 00:39:27,063
 find it. There it is. And Concentration
-找到它，它在这儿。并且 Concentration 
+找到它，它在这儿。并且 Concentration
 
 729
 00:39:27,132 --> 00:39:31,066
@@ -3741,7 +3742,7 @@ thing to do but I got a very serious error here. Okay,
 749
 00:40:27,158 --> 00:40:29,993
 let's look at it. It says, cannot use Instance member
-让我们看一下它。它写着，在这里不能使用实例成员 
+让我们看一下它。它写着，在这里不能使用实例成员
 
 750
 00:40:30,061 --> 00:40:33,830
@@ -3826,17 +3827,17 @@ of a cool one which is lazy. If you make a var lazy,
 766
 00:41:16,774 --> 00:41:21,143
 that means it doesn't actually initialize until someone grabs
-这意味着它并没有被初始化直到一个人想要抓取它
+这意味着它将不会被初始化，直到有人想要抓取它
 
 767
 00:41:21,212 --> 00:41:24,881
 it. Until someone tries to use it. As soon as someone tries
-直到一个人想要使用它。一旦一个人尝试使用
+直到有人想要使用它。一旦有人尝试使用
 
 768
 00:41:24,950 --> 00:41:27,049
 to use game, then it's going to initialize it.
-game 实例，它才会被初始化
+game，它才会被初始化
 
 769
 00:41:27,118 --> 00:41:31,087
@@ -3866,7 +3867,7 @@ this way, so it's awesome. There is one restriction
 774
 00:41:46,337 --> 00:41:48,437
 about lazy though, that's not so nice.
-lazy 的限制，这不太好。
+lazy 的限制，这不太好
 
 775
 00:41:48,506 --> 00:41:52,909
@@ -3956,7 +3957,7 @@ your homework though. You'll be able to do this for
 792
 00:42:32,583 --> 00:42:36,485
 your homework. Okay, so it's good. Now we have the game,
-你的家庭作业。好的，它是棒的。现在我们有了 game 实例，
+你的家庭作业。好的，它很棒。现在我们有了 game
 
 793
 00:42:36,554 --> 00:42:39,355
@@ -3975,8 +3976,8 @@ Let's go back and look at our Concentration API again, see
 
 796
 00:42:44,595 --> 00:42:47,496
-what we need to do. It seems like there is two things,
-看我们需要做什么。它看起来是两件事情
+what we need to do. It seems like there are two things,
+看我们需要做什么。它看起来有两件事情
 
 797
 00:42:47,565 --> 00:42:51,067
@@ -4021,7 +4022,7 @@ thing right here, I'm just gonna tell my game hey,
 805
 00:43:10,054 --> 00:43:15,591
 choose this card. Okay?
-来告诉游戏说选这张卡片
+来告诉 game 说选这张卡片
 
 806
 00:43:15,659 --> 00:43:18,594
@@ -4096,12 +4097,12 @@ func updateViewFromModel 要做什么呢？
 820
 00:43:55,499 --> 00:43:58,534
 That's gonna use the other part of this API right here.
-他会使用 API 里的另一个部分
+它会使用 API 里的另一个部分
 
 821
 00:43:58,603 --> 00:44:00,803
 It's gonna look at all the cards and
-他会去查看所有的卡片
+它会去查看所有的卡片
 
 822
 00:44:00,871 --> 00:44:03,772
@@ -4111,7 +4112,7 @@ make sure all our card buttons match, right?
 823
 00:44:03,841 --> 00:44:06,208
 Whether they're face up, whether they're matched,
-他们是否是面朝上的，是否已经配对了
+它们是否是面朝上的，是否已经配对了
 
 824
 00:44:06,277 --> 00:44:08,010
@@ -4186,7 +4187,7 @@ with 0 dot dot less than cardButtons.count, okay.
 838
 00:44:54,825 --> 00:44:57,860
 Everybody understand this countable range right here, but
-大家都理解这个可数区间吧？
+大家都理解这个 CountableRange 吧？
 
 839
 00:44:57,929 --> 00:45:00,830
@@ -4210,1428 +4211,1783 @@ you a countable range of all the indexes into the array.
 
 843
 00:45:13,578 --> 00:45:16,946
-In fact, if I option click on Indices, look at it's type,
+In fact, if I option click on indices, look at it's type,
+事实上如果我们按住 option 点击 indices 看它的类型
 
 844
 00:45:17,014 --> 00:45:20,916
 Countable range of int. Okay? So,
+它是 Int 构成的 CountableRange
 
 845
 00:45:20,985 --> 00:45:23,986
 that's a kind of a cool way to go through all the indices.
+这是一种遍历索引的有趣的方式
 
 846
 00:45:24,055 --> 00:45:26,088
 And now that I have the Indices,
+现在我有了索引
 
 847
 00:45:26,156 --> 00:45:29,858
 I can say let button equal our cardButtons at that index.
+我可以赋值 button 为 cardButtons 在那个索引的按钮
 
 848
 00:45:29,927 --> 00:45:34,764
 And let the card equal the game's cards
+然后 let card = game 里 card 数组
 
 849
 00:45:34,832 --> 00:45:38,567
 at that index. So this is awesome. I've got the button.
+在那个索引的卡片。很好，我得到了那个按钮
 
 850
 00:45:38,636 --> 00:45:41,270
 I've got the card. I just have to make them match up.
+我也得到了卡片。我只有需要将它们同步
 
 851
 00:45:41,338 --> 00:45:44,039
 So I'm going to say, if the card is faced up,
+所以我要判断，如果卡片是面朝上的
 
 852
 00:45:44,108 --> 00:45:47,009
 then I'm gonna do my face up UI, which is what,
+那我就显示正面的 UI，也就是
 
 853
 00:45:47,077 --> 00:45:50,512
 that's this one. With the white background there.
+这一个，白色为底色的这个
 
 854
 00:45:50,581 --> 00:45:54,450
 So let's do that. Otherwise else, if it's faced down,
+让我们就把这段代码移过来。否则朝下的话
 
 855
 00:45:54,519 --> 00:45:57,820
 I want the orange background thing right here, that there.
+那我就用这个橙色底色的这部分代码
 
 856
 00:45:57,889 --> 00:45:59,554
 And now I don't even need flip card,
+现在我们甚至不需要 flipCard 方法了
 
 857
 00:45:59,623 --> 00:46:03,525
 let's get rid of flip card. Everybody,
+让我们把 flipCard 方法删掉。大家
 
 858
 00:46:03,594 --> 00:46:05,661
 see what I did ther? I just made it so
+看到我干了什么吧？我刚才让
 
 859
 00:46:05,730 --> 00:46:09,164
 that the button matches the card. There's one other thing,
+按钮显示了对应的卡片。还有一件事
 
 860
 00:46:09,233 --> 00:46:12,634
 by the way, cards can be matched. They have is matched.
+我们可以配对卡片，有 isMatched 变量
 
 861
 00:46:12,703 --> 00:46:16,005
 Remember, when we put that in the card, is matched. So
+还记得我们 Card 里的 isMatched 吗？
 
 862
 00:46:16,074 --> 00:46:19,875
 I need to handle that. And the way I'm gonna do that,
+我需要处理这个。而我实现的方法是
 
 863
 00:46:19,944 --> 00:46:25,648
-is I'm gonna make matched, cards, so
+is I'm gonna make matched cards be clear, so
+我要让配对了的卡片透明
 
 864
 00:46:25,716 --> 00:46:28,917
-that I can see them. If the card is matched,
+that I can't see them. If the card is matched,
+这样我就看不见它们了。如果已经配对了
 
 865
 00:46:28,986 --> 00:46:31,988
 I'm just gonna take it out of the UI by making it background
+我就把它们“移出”UI，就通过让背景色
 
 866
 00:46:32,056 --> 00:46:34,690
 be clear instead of orange, when it's matched and
+变为透明，而不是橙色。如果是配对了
 
 867
 00:46:34,758 --> 00:46:37,259
 face down. If it matches and still faced up, I don't want
+而且朝下就这样。如果还是朝上的话，我不想
 
 868
 00:46:37,327 --> 00:46:39,495
 it to be clear, I want people to see you gotta a match.
+让它变透明，我想要让人们看到它们配了对
 
 869
 00:46:39,564 --> 00:46:42,298
 But once it turns back face down in Match I don't want it
+但只要它们配了对翻过去了的话，我不想让它
 
 870
 00:46:42,366 --> 00:46:46,602
 to show. So the way I'm gonna do that is by doing this,
+显示出来。所以我要做的是
 
 871
 00:46:46,671 --> 00:46:51,707
 card.isMatched. Matched. Question mark.
+card.isMatched ? 透明 : 橙色
 
 872
 00:46:51,775 --> 00:46:56,412
 Either this thing or this. Does everyone know this
+配对就透明，否则用橙色。是否大家都知道这个
 
 873
 00:46:56,481 --> 00:46:59,614
 question mark colon? We have it in C and other languages as
+?: 这个三元运算符？在 C 等其他语言里也有这个
 
 874
 00:46:59,683 --> 00:47:02,518
 well. So here instead of orange I want it to be clear.
+所以如果是配对了的话，我不用橙色，改用透明
 
 875
 00:47:02,586 --> 00:47:04,553
 How do you get clear? Well if you go to any color
+我们怎么才能得到透明色？如果你用任何颜色
 
 876
 00:47:04,622 --> 00:47:08,023
 chooser, if you look at the bottom it says opacity. That's
+选择器，然后看最下面的 opacity
 
 877
 00:47:08,092 --> 00:47:11,827
 how transparent the color is. So that's fully opaque, fully
+也就是颜色的不透明度。这便是完全不透明
 
 878
 00:47:11,896 --> 00:47:16,898
 transparent. In other words, clear. So if the cards match,
+这是完全透明。如果卡配对了
 
 879
 00:47:16,967 --> 00:47:19,902
 I'm gonna make it clear. Now, there's one other error here.
+那我就让它们变透明。但这里有个错误
 
 880
 00:47:19,971 --> 00:47:23,339
 It's this, emoji. Now, this emoji used to be something we
+是这个 emoji。本来这个我们是从
 
 881
 00:47:23,407 --> 00:47:26,375
 grabbed out of this emoji choices based on the index and
+用基于索引选中 emojiChoices 里的 emoji 来
 
 882
 00:47:26,444 --> 00:47:30,746
 all that. I'm gonna postpone implementing that here by,
+实现的。我准备等会儿再来实现这个，通过
 
 883
 00:47:30,814 --> 00:47:34,950
 it's calling a function emoji for card. And
+调用函数 emoji(for: card) 来实现
 
 884
 00:47:35,019 --> 00:47:38,387
 this is gonna be a function I'm gonna do down here.
+这会是我在下面实现的一个函数
 
 885
 00:47:38,455 --> 00:47:40,589
-Let's scoot this up a little bit so
+Let's scroll this up a little bit so
+我们向上移动下
 
 886
 00:47:40,658 --> 00:47:44,359
 you can see it, func emoji for card which is a type card, is
+好让你看清。方法 emoji(for card:) 参数是 Card 类型
 
 887
 00:47:44,428 --> 00:47:48,263
 gonna return an emoji and I'm gonna return question mark for
+-> String 会返回一个表情。我返回问号
 
 888
 00:47:48,332 --> 00:47:51,167
 now. We just returned question mark,
+作为我们临时的表情符号
 
 889
 00:47:51,235 --> 00:47:55,304
 we're gonna deal with taking these emoji choices up here.
+我们等会儿会处理上面这个 emojiChoices
 
 890
 00:47:55,373 --> 00:47:58,140
 We're gonna put these emoji choices and eventually,
+我们会用这些 emojiChoices，而最终
 
 891
 00:47:58,208 --> 00:48:02,110
 we're going to pick one of these emojis. Randomly,
+我们会随机选择这里的某个表情
 
 892
 00:48:02,179 --> 00:48:04,847
 and put it on the card, and actually I have a few more
+然后放到卡片上。而事实上我还准备了些
 
 893
 00:48:04,916 --> 00:48:07,817
 emojis here, little more Halloween emojis.
+更多的和万圣节相关的的表情
 
 894
 00:48:07,885 --> 00:48:10,719
 So we're gonna pick one of these many emojis right here,
+所以我们要从这里选某个表情
 
 895
 00:48:10,788 --> 00:48:11,687
 and put it on the card, but for
+让后放到卡片上。但现在
 
 896
 00:48:11,755 --> 00:48:13,655
 now, I'm just gonna do question marks. Cuz I really
+我就用问号代替，因为我
 
 897
 00:48:13,724 --> 00:48:15,924
 wanna get back to my UI and make sure I haven't broken
+想回到 UI 里去确认我没有
 
 898
 00:48:15,993 --> 00:48:21,197
 anything with all this MVC machinations. Let's go back
+因为 MVC 搞砸任何部分。让我们回到
 
 899
 00:48:21,265 --> 00:48:25,835
 to our model and do something when a card is chosen. So
+模型里，然后在选中卡片之后做些处理
 
 900
 00:48:25,903 --> 00:48:28,437
 all I'm gonna do, eventually we gotta make it match. But
+最终我们要进行配对，但我要做的就是
 
 901
 00:48:28,506 --> 00:48:30,906
 all I'm gonna do now is have the model flip the card over.
+我现在要做的就是让模型把牌翻个面
 
 902
 00:48:30,975 --> 00:48:34,209
 The model's just gonna flip the card over for now, so
+现在模型就是把卡翻个面，所以
 
 903
 00:48:34,278 --> 00:48:37,346
 here we are in chooseCard in our model. And so
+我们到模型的 chooseCard 方法里，然后
 
 904
 00:48:37,415 --> 00:48:43,385
 I'm gonna say, if the card at that index is face up,
+判断如果在那个索引的卡牌是面朝上的
 
 905
 00:48:43,454 --> 00:48:48,624
 then I'm going to set the card at that index to
+那我就让那个索引的卡片
 
 906
 00:48:48,693 --> 00:48:56,065
 be isFaceUp = false, and else, I'm going to make this true.
+的 isFaceUp 属性为 false，否则就设为 true
 
 907
 00:48:59,137 --> 00:49:02,538
 True, so I'm just gonna flip the card over, everyone
+所以我这就让卡片翻个面，大家
 
 908
 00:49:02,607 --> 00:49:06,942
 believe me that that flips the card over? Yes, just gonna,
+都认为这能让卡翻面吧？是的，就这样
 
 909
 00:49:07,011 --> 00:49:09,378
 if it's face up, it goes face down, if it's face down,
+如果朝上，就朝下了；否则就是朝下的
 
 910
 00:49:09,446 --> 00:49:12,914
 face up, so that's it. So now when we run our app,
+现在就朝上了，就这样。现在让我们运行我们的程序
 
 911
 00:49:12,983 --> 00:49:15,450
 there's no emoji, everything's gonna be a question mark, but
+没有表情，所有的都会是问号，但是
 
 912
 00:49:15,519 --> 00:49:18,954
 the card should flip over. And this is the entirety of our
+这个卡片会翻个面。这就是我们全部的
 
 913
 00:49:19,023 --> 00:49:23,091
 UI, here's our controller, that's all there is.
+UI 了。这是我们的控制器，就这样了
 
 914
 00:49:23,160 --> 00:49:26,696
 And here's our model over here, plus we have the card,
+然后这是我们的模型，再加上我们的 Card 卡片类
 
 915
 00:49:26,764 --> 00:49:28,698
 which is just keeping track of isMatched and
+用 isMatched 来记录是否配对
 
 916
 00:49:28,766 --> 00:49:30,632
 doing that identifier. So let's take a look,
+和保存 identifer 标识符。那让我们来看看
 
 917
 00:49:30,701 --> 00:49:33,302
 let's run this, make sure we haven't broken anything.
+让我们运行这个，确保我们没有搞砸任何部分
 
 918
 00:49:33,370 --> 00:49:36,071
 It's always nice when you make MVC and you divide it up,
+当你用 MVC 的时候总是可以很好的有分工合作
 
 919
 00:49:36,140 --> 00:49:38,640
 try to make your model to just do something simple.
+不过尽量先让你的模型实现些简单的功能
 
 920
 00:49:38,709 --> 00:49:42,178
 Just so you can make sure that your MVC is actually working.
+来确保你的 MVC 确实是可用的
 
 921
 00:49:42,246 --> 00:49:46,148
 Here we go, sure enough, it appears to be flipping these
+显示出来了，而且确实在把这些
 
 922
 00:49:46,216 --> 00:49:50,785
 cards over. Okay, excellent, so all we need,
+卡片翻面。很好，所以我们需要的
 
 923
 00:49:50,854 --> 00:49:55,257
 we have two things left to do. One, get emoji on these cards,
+就只有这两个了。一个是让表情显示到卡片上
 
 924
 00:49:55,326 --> 00:49:59,662
 two, make it actually match, make it be a real game.
+第二个是让它们配对，实现这个游戏
 
 925
 00:49:59,730 --> 00:50:02,831
 One thing is a controller thing, the emoji,
+显示表情是控制器负责的
 
 926
 00:50:02,900 --> 00:50:06,768
 another thing is the model. So let's go to our controller
+而另一个是模型负责的，所以让我们到控制器
 
 927
 00:50:06,837 --> 00:50:10,772
 right here, and do this emoji thing. Now in teaching you and
+就这里，然后实现显示表情。为了教学目的
 
 928
 00:50:10,841 --> 00:50:12,574
 showing you this emoji thing, I'm gonna show you and
+在实现显示表情的同时，我会展示给你
 
 929
 00:50:12,643 --> 00:50:15,644
 teach you how to use a dictionary. A dictionary,
+并教你如何使用 Dictionary，也就是字典
 
 930
 00:50:15,713 --> 00:50:17,012
-it's very important to cloud,
+it's very important to struct,
+这是个很重要的结构体
 
 931
 00:50:17,081 --> 00:50:19,147
 does everybody know what a dictionary is?
+大家都知道什么是字典吗？
 
 932
 00:50:19,216 --> 00:50:21,883
 Like a hash table, it's just a data structure where you can
+它就是个哈希表（hash table）这种数据类型，你可以
 
 933
 00:50:21,952 --> 00:50:25,053
 look something up and get a value for a certain thing.
+通过键查找，然后获得某个值
 
 934
 00:50:25,122 --> 00:50:26,554
 So we're gonna use a dictionary,
+所以我们要使用个字典
 
 935
 00:50:26,623 --> 00:50:30,592
 and our dictionary looks like this, I'm gonna call it emoji,
+然后我们的字典是这样的，我把它叫做 emoji
 
 936
 00:50:30,661 --> 00:50:33,828
 and its type is gonna be a dictionary.
+然后它的类型是 Dictionary，字典
 
 937
 00:50:33,897 --> 00:50:36,965
 Now, dictionary is also a generic type like array, but
+注意，字典和数组一样都是范型，但
 
 938
 00:50:37,034 --> 00:50:40,035
 you specify the type both of the key, which I'm gonna
+你需要同时声明键（key）的类型，这个我会
 
 939
 00:50:40,103 --> 00:50:43,672
 have be a int, cuz it's gonna be a card identifier, and
+用 Int 类型，因为这会是我们卡片的标识符，还要
 
 940
 00:50:43,741 --> 00:50:48,477
 the value, which is a string, an emoji.
+声明值（value）的类型，也就是 String 类型存储表情
 
 941
 00:50:48,545 --> 00:50:51,213
 So this emoji dictionary, I'm going to look up the card
+所以这就是存储表情的字典，我会通过查找卡片
 
 942
 00:50:51,282 --> 00:50:54,883
 identifiers to get the emoji that goes on that card.
+的标识符来获取显示到卡片上的表情
 
 943
 00:50:54,951 --> 00:50:57,719
 Everybody got that, gotta understand that before we move
+大家都明白吧？我往下讲之前大家得明白
 
 944
 00:50:57,788 --> 00:51:01,823
 on here. So how do I create one of these dictionaries,
+那我怎么创建一个字典呢？
 
 945
 00:51:01,892 --> 00:51:04,126
 exactly the same as I did with array.
+其实是和数组一样的
 
 946
 00:51:04,195 --> 00:51:05,694
 I'm just gonna do open parentheses,
+我就用做小括号
 
 947
 00:51:05,763 --> 00:51:08,063
 close parentheses, which creates an empty dictionary.
+右小括号来创建一个空字典
 
 948
 00:51:08,132 --> 00:51:12,133
 So this is a dictionary of ints mapped to strings, but
+这就是个把 Int 映射到 String 的字典，但是
 
 949
 00:51:12,202 --> 00:51:14,937
 it's empty. Now down here in emoji for
+它是空的。在下面 emoji(for: card)
 
 950
 00:51:15,006 --> 00:51:19,174
 card I'm just gonna look in this dictionary and
+里我就在这个字典里查找
 
 951
 00:51:19,243 --> 00:51:23,612
 get a card. So let's say let chosen emoji equal, and
+然后得到卡片（的表情）。 我们赋值 chosenEmoji，选中的表情
 
 952
 00:51:23,681 --> 00:51:26,314
 here's how you look something up in a dictionary. You say
+然后这是你查找字典的语法，就用
 
 953
 00:51:26,383 --> 00:51:28,817
 the name of the dictionary, open square bracket,
+字典的名字，左中括号
 
 954
 00:51:28,886 --> 00:51:32,554
 the thing you wanna look up. And this had better be an int,
+然后查找用的键，这里最好是 Int 类型的
 
 955
 00:51:32,623 --> 00:51:34,689
 because this is a dictionary that looks up
+因为这是个字典，它查找的
 
 956
 00:51:34,758 --> 00:51:37,392
 ints and gives you back strings, and this is gonna be
+是 Int 类型的键，然后返回 String 类型的值
 
 957
 00:51:37,461 --> 00:51:40,796
 a string. If I alt-click, option-click on this,
+这会是个字符串。如果我按住 alt/option 点击它
 
 958
 00:51:40,865 --> 00:51:44,299
-is that going to be a string, obviously not, or I wouldn't
+is that going to be a string? Obviously not, or I wouldn't
+它的类型会是 String 吗？肯定不是，否则我就不会
 
 959
 00:51:44,368 --> 00:51:47,969
 be asking that question. Let's see what this chosen emoji is,
+问你们这个问题了。让我们看看 chosenEmoji 是什么类型的
 
 960
 00:51:48,038 --> 00:51:51,773
 you think it would be a string, oh, what is that? What
+你认为它会是 String，但你看看它其实是什么？
 
 961
 00:51:51,842 --> 00:51:56,578
 type is that, anyone want to venture, I heard it out there
+那是什么类型，有谁大胆说一下？我听到了
 
 962
 00:51:56,646 --> 00:52:01,616
 whispered, an optional. It returns an optional, why is it
+悄悄地说那是可选类型，它返回的是可选类型，为什么
 
 963
 00:52:01,685 --> 00:52:04,319
 returning an optional instead of returning a string? Well of
+它不返回 String，而是返回可选类型 Optional 呢？
 
 964
 00:52:04,388 --> 00:52:07,222
 course, because when we look something up in a dictionary,
+当然，因为我们在字典里查找的时候
 
 965
 00:52:07,291 --> 00:52:09,624
 it might not be in there.
+可能它不在里面
 
 966
 00:52:09,693 --> 00:52:11,493
 The thing we looked up isn't necessarily in there, and
+我们查找的键不一定在字典里面
 
 967
 00:52:11,562 --> 00:52:15,030
 if it's not there, we're gonna get back not set,
+如果不在里面，我们就会得到缺省值
 
 968
 00:52:15,098 --> 00:52:18,066
 the optional not set. If it is in there, we're gonna get
+空的可选类型。如果在里面的话，我们就会得到
 
 969
 00:52:18,135 --> 00:52:21,036
 the optional set, and it's going to be a string as its
+有值的可选类型，然后就有个 String 字符串作为
 
 970
 00:52:21,105 --> 00:52:24,039
 associated value, because of course, a string is what's in
+它的关联值。当然了，因为 String 是字典里的
 
 971
 00:52:24,107 --> 00:52:27,643
 the dictionary. Everyone, understand that looking
+值的类型。大家要明白
 
 972
 00:52:27,711 --> 00:52:29,745
 something up in the dictionary returns an optional.
+在字典里查找的时候会返回可选类型
 
 973
 00:52:30,881 --> 00:52:32,747
 By the way, see this kind of thing,
+顺便一提，这个 Dictionary<Int, String>
 
 974
 00:52:32,816 --> 00:52:35,317
 you know how we have that special array syntax,
+大家还记得数组特殊的语法糖吗？
 
 975
 00:52:35,385 --> 00:52:37,952
-open square bracket, type, bits in the array.
+open square bracket, type that's in the array.
+中括号里写数组元素类型
 
 976
 00:52:38,021 --> 00:52:39,388
 We have the same thing for dictionary,
+同样字典也有语法糖
 
 977
 00:52:39,457 --> 00:52:40,956
 it looks like this, open square bracket.
+它看起来是这样子的，左中括号
 
 978
 00:52:41,025 --> 00:52:45,593
 Open square bracket, the key,
+左中括号，键的类型
 
 979
 00:52:45,662 --> 00:52:50,499
 colon, the value type. So that's,
+英文冒号，值的类型（，右中括号）。就这样
 
 980
 00:52:50,568 --> 00:52:52,834
 dictionaries and strings are the most common things we're,
+字典和字符串（和数组）是我们最常用的
 
 981
 00:52:52,903 --> 00:52:55,571
 data structures we're using. So we have special syntax for
+数据结构，所以我们有特殊的语法糖
 
 982
 00:52:55,639 --> 00:52:58,440
 both of them, so that's what declaration of a dictionary.
+来定义它们。所以这就是定义字典的方法
 
 983
 00:52:58,508 --> 00:53:00,742
 That's exactly the same as the thing I just blanked out,
+这和我替换掉的是等价的，也就是
 
 984
 00:53:00,811 --> 00:53:04,546
 dictionary, int, string.
+Dictionary<Int, String>
 
 985
 00:53:04,615 --> 00:53:08,116
 So we could, since we know this returns,
+所以我们可以，既然我们知道它返回
 
 986
 00:53:08,185 --> 00:53:11,786
 this thing is an optional, we could do if let here. But
+这个是可选类型，我们可以用 if-let，但是
 
 987
 00:53:11,855 --> 00:53:14,022
 I'm gonna show you a different way to deal with optional. So
+我要给你展示处理可选类型的另一种方法
 
 988
 00:53:14,090 --> 00:53:16,258
 you know how to do exclamation point, which we definitely
+你知道如何用感叹号，但我们这里肯定
 
 989
 00:53:16,327 --> 00:53:18,394
 don't wanna do here. Because, for example,
+不想要这么做，因为，比如
 
 990
 00:53:18,462 --> 00:53:21,163
 this dictionary starts out empty, so if we do exclamation
+这个字典一开始是空的，如果我们用感叹号
 
 991
 00:53:21,232 --> 00:53:24,533
 point here, it's gonna crash every time, so that's no good.
+那每次运行程序就会崩溃，所以这是不行的
 
 992
 00:53:24,601 --> 00:53:26,968
 And we could do if let, that would be safe, but I'm gonna
+我们可以用 if-let，那会很安全，但是我
 
 993
 00:53:27,037 --> 00:53:29,471
 show you another way that we often deal with something that
+要给你展示另一种方法，我们经常用来处理
 
 994
 00:53:29,540 --> 00:53:32,741
 might be optional. Is that we just check to see,
+可能为可选类型的值，那就是我们看
 
 995
 00:53:32,809 --> 00:53:37,613
 if this thing does not equal nil, then we can exclamation
+如果不是 nil 的话，那我们就能用感叹号
 
 996
 00:53:37,681 --> 00:53:43,184
 point it. I can return this thing exclamation point, and
+强制解包它。我可以返回这个加上个感叹号，而且
 
 997
 00:53:43,253 --> 00:53:48,423
 it's safe because I checked to make sure it's not nil first.
+这是安全的，因为我已经检查确保过这不是 nil 了
 
 998
 00:53:48,492 --> 00:53:50,559
 So that's another way to deal with optionals, just check and
+所以这是我们处理可选类型的另一种方法，就判断
 
 999
 00:53:50,628 --> 00:53:51,526
 make sure it's not nil, and
+确保不是 nil 之后
 
 1000
 00:53:51,595 --> 00:53:53,829
 then you can exclamation point it. And then the else,
+就用感叹号强制解包。然后否则的话
 
 1001
 00:53:53,898 --> 00:53:57,165
 I guess if we can't find the emoji in the dictionary, we'll
+我想如果我们不能在字典里找到这个表情，我们
 
 1002
 00:53:57,234 --> 00:54:00,568
 just return question mark, so we'll kinda give up and
+就返回个问号，我们放弃尝试
 
 1003
 00:54:00,637 --> 00:54:04,840
 just show question marks. Now, this code is so common to want
+然后就显示个问号。其实这个代码很常见，我们想
 
 1004
 00:54:04,909 --> 00:54:07,809
 to get something that's an optional, and
+得到某个可选类型，如果
 
 1005
 00:54:07,878 --> 00:54:11,813
 if it's not, if it's set, then use it. But if it's not set,
+它不是空的话，就用它的关联值，否则如果缺省值的话
 
 1006
 00:54:11,882 --> 00:54:14,816
 do some other well-defined thing like this, but you can
+我们就使用另一个值，就比如这个问号。所以这个你可以
 
 1007
 00:54:14,885 --> 00:54:17,819
 write this with a special operator, looks like this.
+用另一个特殊的运算符，它长这样的
 
 1008
 00:54:17,888 --> 00:54:22,591
 Return, return, this thing right here.
+你 return 返回这里的这个
 
 1009
 00:54:26,263 --> 00:54:29,697
 But if it's nil, question mark, question mark,
+如果是 nil 的话，就用 ?? 运算符
 
 1010
 00:54:29,766 --> 00:54:34,369
 return a different thing. So this is return this, but
+以此返回另一个默认值。这个就是，有值就返回这个，否则
 
 1011
 00:54:34,438 --> 00:54:37,305
 if it's nil return this. Very common,
+如果它是 nil 的话就返回这个，非常常见
 
 1012
 00:54:37,374 --> 00:54:41,443
 that's exactly the same code as this, exactly the same. So
+这和我们这段代码是等价的，完全一样，所以
 
 1013
 00:54:41,512 --> 00:54:44,879
 we do not need that, everyone got that syntax,
+我们不需要那些代码，大家都理解这个语法吧？
 
 1014
 00:54:44,948 --> 00:54:49,251
 it's very common to do this. So we're awesomely looking
+实现这个很常见，所以我们顺利地
 
 1015
 00:54:49,319 --> 00:54:52,253
 up the card identifier in our emoji dictionary and
+在 emoji 字典里通过 card 的 identifer 标识符查找
 
 1016
 00:54:52,322 --> 00:54:55,490
 returning emoji, hopefully. But we never put anything
+然后最好返回了某个表情，但是我们没有放进去
 
 1017
 00:54:55,559 --> 00:54:58,060
 in that dictionary, so it's always gonna return a question
+任何东西到那个字典里，所以它总是会返回问号
 
 1018
 00:54:58,128 --> 00:55:00,462
 mark, so how do we put something in the dictionary?
+那我们怎么向字典里添加键值对呢？
 
 1019
 00:55:00,531 --> 00:55:03,899
 Well, I'm gonna put them in the dictionary on demand,
+我会在有需要的时候再把它们添加到字典里
 
 1020
 00:55:03,967 --> 00:55:06,435
 as they are used. So every time someone asks me for
+也就使用它们的时候再放进去。所以每次有人让我
 
 1021
 00:55:06,504 --> 00:55:08,036
 the emoji in a card, I'm gonna check and
+提供某张卡的表情，我就去看
 
 1022
 00:55:08,104 --> 00:55:13,007
 see. If this emoji for that card is currently nil,
+如果这个卡的 emoji 是 nil 话
 
 1023
 00:55:13,076 --> 00:55:16,778
 then I'm gonna put an emoji in the dictionary for that card.
+那我就把选一个表情对应那个按钮放到字典里
 
 1024
 00:55:16,847 --> 00:55:21,049
 So I'm kind of just in time loading up of this dictionary,
+我就及时准备好字典
 
 1025
 00:55:21,118 --> 00:55:24,285
 now, how am I gonna do that? I'm going to take one of these
+那我要怎么做呢？我需要选这里的一个
 
 1026
 00:55:24,354 --> 00:55:27,956
 at random, and put it in this dictionary, so let's get
+随便选一个放到字典里，那我们生成个
 
 1027
 00:55:28,025 --> 00:55:33,195
 a random index. I'm gonna let randomIndex equal something,
+随机的索引。我要赋值 randomIndex 为某个随机索引
 
 1028
 00:55:33,264 --> 00:55:36,865
 I'm gonna use this nice Swift function called
+我要用 Swift 里的一个很好的函数，叫
 
 1029
 00:55:36,934 --> 00:55:38,933
-arc4rando_uniform.
+arc4random_uniform.
+arc4random_uniform 函数
 
 1030
 00:55:39,002 --> 00:55:41,603
-So arc4rando_uniform is a pseudo-random number
+So arc4random_uniform is a pseudo-random number
+arc4random_uniform 是个伪随机数
 
 1031
 00:55:41,672 --> 00:55:44,539
 generator, and it generates a random number between 0 and
+生成器，它会生成一个随机数，在 0 到
 
 1032
 00:55:44,608 --> 00:55:47,075
-this upper bound. Do you see it says_uppe_bound,
+this upper bound. Do you see it says __upper_bound,
+这个上限，__upper_bound 之间的随机数
 
 1033
 00:55:47,144 --> 00:55:48,977
 which is an unsigned int, 32 bit integer.
+它是以个 UInt32，无符号 32 位整数
 
 1034
 00:55:49,046 --> 00:55:51,613
 It will generate a random number between 0 and that,
+它会生成个 0 到那个上限之间的随机数
 
 1035
 00:55:51,682 --> 00:55:55,350
 not inclusive of that number. Which is exactly what I want,
+但不包括上限。而这正是我想要的
 
 1036
 00:55:55,419 --> 00:55:58,820
 where the upper bound is, how many things are in this array?
+因为那个上限就是这个数组里有多少个元素
 
 1037
 00:55:58,889 --> 00:56:01,757
 Cause I want an index into this array between zero and
+因为我想要索引这个数组里在 0 到
 
 1038
 00:56:01,825 --> 00:56:05,160
 however many things are in the array minus one. So here,
+数组元素个数减一区间某个地方的元素
 
 1039
 00:56:05,228 --> 00:56:05,827
 the upper bound,
+所以这个上限
 
 1040
 00:56:05,896 --> 00:56:10,198
 I'm just gonna say emojiChoices.count.
+我就用 emojiChoices.count
 
 1041
 00:56:10,266 --> 00:56:14,236
 Now this is great, but it doesn't work. I get an error,
+这很好，但不能直接用，我得到了个错误
 
 1042
 00:56:14,304 --> 00:56:17,639
 and what does the error say? It says cannot convert value
+那个错误说什么？它说不能转换
 
 1043
 00:56:17,707 --> 00:56:22,344
 of type int to unexpected argument type unsigned 32 bit
+Int 类型为要求的 UInt32 类型
 
 1044
 00:56:22,413 --> 00:56:27,115
-int. Our for random totally works only with unsigned ints.
+int. arc4random totally works only with unsigned ints.
+也就是 arc4random_uniform 只能用无符号整数
 
 1045
 00:56:27,184 --> 00:56:32,354
 Whereas this array's count is an int. Not an unsigned int.
+而这个数组的 count 是个 Int 整数，不是无符号的 UInt
 
 1046
 00:56:32,423 --> 00:56:35,924
 And Swift never does automatic type conversion never.
+而 Swift 又从来不会自动转换类型
 
 1047
 00:56:35,993 --> 00:56:38,526
 It does never automatically converts from into an unsigned
+它从来不会把有符号的 Int 转换为无符号的整数
 
 1048
 00:56:38,595 --> 00:56:41,696
 enter from into a double. You have to explicitly convert it.
+也不会转换为 Double；你必须要明确的去转换
 
 1049
 00:56:41,765 --> 00:56:43,999
 And so how do you convert types in Swift?
+那在 Swift 里怎么转换类型呢？
 
 1050
 00:56:44,068 --> 00:56:45,267
 This is why I'm showing you this so
+这就是为什么我要给你展示这个
 
 1051
 00:56:45,336 --> 00:56:47,402
 that you'll know how to convert types in Swift
+这样你就知道怎么在 Swift 里转换类型了
 
 1052
 00:56:47,470 --> 00:56:50,072
 you have to create a new thing and
+你想要构造一个新的类型的实例
 
 1053
 00:56:50,140 --> 00:56:53,007
 use the initializer of that new thing to create one. So
+那就要用那个类型的构造器来创建
 
 1054
 00:56:53,076 --> 00:56:58,246
-here, I wanna create A uint32, an unsigned int 32. So I have
+here, I wanna create a UInt32, an unsigned int 32. So I have
+所以这里，我要创建个 UInt32，无符号 32 位整数，那我
 
 1055
 00:56:58,315 --> 00:57:03,485
 to call uint32 initializer to create a uint32. Luckily,
+就要用 UInt32 的构造器来构造个 UInt32。幸运的是
 
 1056
 00:57:03,554 --> 00:57:07,389
-uint32, which is a struct, by the way, just like INT,
+uint32, which is a struct, by the way, just like Int,
+UInt32，顺便一提 UInt32 和 Int 一样是结构体
 
 1057
 00:57:07,457 --> 00:57:09,957
 just like string, just like array, just like dictionary,
+就像 String 字符串, Array 数组，Dictionary 字典
 
 1058
 00:57:10,026 --> 00:57:12,894
 just like card. These are all structs.
+和 Card 卡片一样都是结构体
 
 1059
 00:57:12,963 --> 00:57:15,630
 It has an initializer that takes an int.
+UInt32 正好有个构造器的参数是 Int
 
 1060
 00:57:15,699 --> 00:57:19,734
 Exactly what I want, okay? So I can create a UInt32 by
+正是我想要的，所以我构造一个 UInt32
 
 1061
 00:57:19,803 --> 00:57:21,636
 passing it an int emojiChoices.
+通过给它 emojiChoices.count 这整数
 
 1062
 00:57:21,705 --> 00:57:23,905
 That's why it's suggesting this fix right here.
+这就是它这里建议的解决方案
 
 1063
 00:57:23,974 --> 00:57:27,175
 So I'm gonna do that, fix. You see what it did? UInt32,
+所以我就点这个 Fix。看到它干了什么吗？UInt32
 
 1064
 00:57:27,244 --> 00:57:30,345
 open parentheses. The argument to its init is an Int.
+左小括号。这个构造器的参数是 Int 类型
 
 1065
 00:57:30,414 --> 00:57:33,015
 It knows how to do that. Now we're not there yet.
+它知道如何去转换。但还没完
 
 1066
 00:57:33,083 --> 00:57:35,517
 Because look at the return value here, randomIndex.
+因为你看它的返回值，这个 randomIndex
 
 1067
 00:57:35,585 --> 00:57:38,086
 It's also an unsigned integer, and that's no good.
+它也是无符号整数了，这不好
 
 1068
 00:57:38,155 --> 00:57:41,623
 Because I want to use it as an index into this array. And
+因为我想要用它索引这个数组，而
 
 1069
 00:57:41,692 --> 00:57:43,791
 we know that indexes are not unsigned ints,
+我们知道索引不是无符号整数
 
 1070
 00:57:43,860 --> 00:57:47,495
 although they probably should be. They are ints. Okay,
+虽然理论上都不是负数，但它们是 Int 类型的
 
 1071
 00:57:47,564 --> 00:57:50,766
 just for mostly for backwards compatibility issues.
+应该是为了向后兼容
 
 1072
 00:57:50,834 --> 00:57:55,203
 So I need to convert this whole thing to an int, luckily
+所以我需要把它转换为 Int，幸好
 
 1073
 00:57:55,272 --> 00:57:59,974
 int Has an initializer that will take an unsigned int and
+Int 有个构造器接受无符号整数
 
 1074
 00:58:00,043 --> 00:58:04,913
 turn it into an int. Okay, so now I have random index here.
+然后转换为 Int。好，我现在有了随机的索引
 
 1075
 00:58:04,981 --> 00:58:08,583
 It's an int, it's suitable for indexing into this array.
+它是个 Int，可以用来索引数组
 
 1076
 00:58:08,652 --> 00:58:12,620
 It's a random index in there. So to get it, I can say emoji
+它是这里的某个随机的索引。那我们就来得到这个表情，我可以用
 
 1077
 00:58:12,689 --> 00:58:16,892
 sub card.identifier. Now to put something in A dictionary.
+emoji[card.identifer]。我们要把值放到字典里这个地方
 
 1078
 00:58:16,960 --> 00:58:20,795
 You just say equals and the thing you want. Emoji,
+就用 = 后面接要放的值就可以了，也就是
 
 1079
 00:58:20,864 --> 00:58:25,266
 choices, sub, random, index. But I'm not, this is not quite
+emojiChoices[randomIndex]。但我并不想，这并不完全
 
 1080
 00:58:25,335 --> 00:58:27,769
 what I'm gonna do. This would work kind of.
+是我想做的。这个某种意义上说是可以用的
 
 1081
 00:58:27,838 --> 00:58:31,006
 The only problem with this is, I could get two identifiers
+但这个的问题是，我可能会得到两个不同的标识符
 
 1082
 00:58:31,075 --> 00:58:34,576
 that use the same emoji. So instead of just grabbing
+它们会使用同一个表情，所以不是从数组里取得
 
 1083
 00:58:34,645 --> 00:58:38,580
 something out here, I'm gonna remove it. Okay, when I use
+那个表情，我会移除那个表情。当我用
 
 1084
 00:58:38,649 --> 00:58:40,915
 one of these emojis, I'm going to remove it out of here so
+这里的某个表情的时候，我要把它从这里移走
 
 1085
 00:58:40,984 --> 00:58:44,586
 I never use it again. So to do that, I'm going to use
+这样我就不会再次使用它了。那要这样的话，我就
 
 1086
 00:58:44,655 --> 00:58:47,288
 a different method in array than subscripting called
+不用数组下标，而是用另一个方法，叫做
 
 1087
 00:58:47,357 --> 00:58:52,460
 remove at. And I'm just gonna remove at the random index.
+remove(at:)，我就移除在 randomIndex 的表情
 
 1088
 00:58:52,529 --> 00:58:55,797
 So remove at returns the thing it removed. And so it's gonna
+remove(at:) 方法会返回移除的元素，所以它会
 
 1089
 00:58:55,865 --> 00:58:58,266
 pick one of these emojis out of here and return it.
+移除这里的某个表情，然后返回它
 
 1090
 00:58:58,335 --> 00:59:01,370
 And I'm gonna put it in the dictionary. Everybody got
+然后我把它添加到字典里。大家懂了吧？
 
 1091
 00:59:01,438 --> 00:59:04,339
 that? Now there's only one other thing here,
+那我们还有要处理的是
 
 1092
 00:59:04,407 --> 00:59:07,442
 which is what if emojiChoices.count is zero.
+如果  emojiChoices.count 是零
 
 1093
 00:59:07,511 --> 00:59:10,045
 In other words, what if I've used all the emoji
+换句话说，我把所有的表情都用完了
 
 1094
 00:59:10,113 --> 00:59:12,447
 in emojiChoices, I've pulled them all out of there?
+我把 emojiChoices 里的全部都移除了怎么办？
 
 1095
 00:59:12,516 --> 00:59:15,283
 That's going to cause a problem. ran, arc4random can't
+那会是个问题。arc4random_uniform 不能
 
 1096
 00:59:15,352 --> 00:59:18,687
 take zero because it goes from zero To that number minus 1.
+接受 0 作为参数，因为它返回 0 到参数减一之间的数
 
 1097
 00:59:18,755 --> 00:59:21,522
 And it's an unsigned int, so it can't be a minus number.
+而且是无符号的整数，所以不能是负数
 
 1098
 00:59:21,591 --> 00:59:23,591
 So we're gonna have to protect against that case.
+所以我们要避免这种情况
 
 1099
 00:59:23,660 --> 00:59:28,029
-So I'm gonna say if emojichoices.count
+So I'm gonna say if emojiChoices.count
+所以我判断如果 emojiChoices.count
 
 1100
 00:59:28,097 --> 00:59:30,732
 is greater than 0, then I can grab
+要是大于零的话，那我就移走
 
 1101
 00:59:30,801 --> 00:59:33,635
 an emoji out of there and use it. But if
+并使用里面的某个表情，否则
 
 1102
 00:59:33,704 --> 00:59:36,971
 it's less than that, if it's equal 0 then I can't do this.
+如果小于等于零，那我就不这样
 
 1103
 00:59:37,040 --> 00:59:39,975
 And then I'm stuck with question mark down here. By
+那就放个问号进去
 
 1104
 00:59:40,043 --> 00:59:42,477
 the way cool thing in Swift, you see how we have back to
+顺便说个 Swift 很酷的地方，看到我们这里有
 
 1105
 00:59:42,546 --> 00:59:46,881
 back ifs here. You can put back to back ifs on the same
+两个相邻的 if 语句，你可以把两个合并到一行
 
 1106
 00:59:46,950 --> 00:59:51,253
 line by just separating them with comma, okay,
+只要用英文逗号分隔 if 的判断就可以了
 
 1107
 00:59:51,321 --> 00:59:54,155
 then you don't need the embedded ifs right there.
+这样你就不需要嵌套 if 语句了
 
 1108
 00:59:54,224 --> 00:59:56,858
 And it's nice especially when things are related, like look
+在两个 if 语句相关的时候这会显得非常好。你看看
 
 1109
 00:59:56,927 --> 00:59:59,761
 at how this cut line of code reads. If the emoji for
+这行代码多么清晰，如果表情里对应
 
 1110
 00:59:59,829 --> 01:00:02,530
 this card identifier is not set and
+这个卡片标识符的表情不存在，而且
 
 1111
 01:00:02,599 --> 01:00:08,736
 if we have emojiChoices, then go get one, All right?
+我们还有可以选择的表情，那就去获取一个，是吧？
 
 1112
 01:00:08,805 --> 01:00:11,272
 Okay, so let's see if this works. Let's go and run and
+好，让我们看看这能不能用。让我们运行然后
 
 1113
 01:00:11,341 --> 01:00:14,675
 see if we're grabbing a random emoji out of there and putting
+看我们是否随机从这里选择了个表情然后放
 
 1114
 01:00:14,744 --> 01:00:18,513
 them in one of our four cards. It's pseudorandom by the way,
+到我们这四张卡上了。顺便一提这是伪随机数
 
 1115
 01:00:18,582 --> 01:00:20,548
 so you're gonna see that it's not super random.
+所以你会看到它并不是很随机
 
 1116
 01:00:20,617 --> 01:00:22,183
 But anyway, all right, so let's look.
+但管他呢。好，我们来看一看
 
 1117
 01:00:22,252 --> 01:00:26,154
 Oh yeah, look, we got a random emoji. Oh there's another one,
+哦，太好了，我们得到了个随机的表情。哦，这是另一个
 
 1118
 01:00:26,223 --> 01:00:29,791
 little candy, hopefully these two are the same, yay!. Okay
+是个糖果。希望这两个是一样的。是的！好
 
 1119
 01:00:29,860 --> 01:00:33,161
 so it's working. Okay it's looking it up by identifier,
+我们的程序可以用，它在字典里通过标识符
 
 1120
 01:00:33,230 --> 01:00:36,164
 picking emoji and using that emoji for that identifier
+找到表情，然后把那个表情显示到所有那个标识符
 
 1121
 01:00:36,233 --> 01:00:38,466
 on all cards. And hopefully it's random. Let's stop again.
+对应的卡牌上。为了验证是不是随机的，让我们再试一次
 
 1122
 01:00:38,535 --> 01:00:41,603
 So we've got the devil guy, and the candy here.
+我们这里是魔鬼和糖果
 
 1123
 01:00:41,671 --> 01:00:45,440
 Cross your fingers that pseudo random generator does it,
+我们期望伪随机数生成器没问题
 
 1124
 01:00:45,509 --> 01:00:48,643
 let's see. Uh oh, devil guy, oh we got the cat,
+我们来看看。哦，这是魔鬼。哦，这是猫
 
 1125
 01:00:48,711 --> 01:00:52,280
 the scared cat or whatever that is, the screaming cat. So
+受惊吓的猫一类的，尖叫的猫
 
 1126
 01:00:52,349 --> 01:00:54,182
 we're getting random, this looks like it's working.
+所以我们得到的是随机的，它可以用
 
 1127
 01:00:54,251 --> 01:00:56,217
 So we've got our UI fully functional here.
+所以我们的 UI 是正常工作的
 
 1128
 01:00:56,286 --> 01:00:58,687
 So the only thing that's left to do now
+那我们唯一剩下的就是
 
 1129
 01:00:58,756 --> 01:01:00,354
 is make this thing play Concentration and
+让它能实际玩翻牌游戏
 
 1130
 01:01:00,423 --> 01:01:02,457
 that's purely a model thing. So to make
+那完全是模型负责的，所以要
 
 1131
 01:01:02,525 --> 01:01:05,594
 that work I'm going to bring up my model. And
+实现这个，我们把模型显示出来
 
 1132
 01:01:05,662 --> 01:01:07,929
 I'm only going to put code here in my model.
+我只会向模型添加代码
 
 1133
 01:01:07,998 --> 01:01:10,699
 Right now it flips cards over. We'll stop that.
+现在它只会把牌翻过来，我们删掉它
 
 1134
 01:01:10,768 --> 01:01:13,869
 Instead we're gonna have it play the game. And
+取而代之，我们让它能够玩这个游戏
 
 1135
 01:01:13,937 --> 01:01:16,337
 as part of implementing this, I'm gonna use an optional.
+而实现这个的其中之一，我会用到可选类型
 
 1136
 01:01:16,406 --> 01:01:17,872
 Because I know you're all still except for
+因为我知道你们所有人，除了
 
 1137
 01:01:17,941 --> 01:01:20,342
 this guy who asked this great question. You're all still not
+这个问了个好问题的同学，都还不太
 
 1138
 01:01:20,410 --> 01:01:21,877
 quite sure I understand the optional thing.
+理解可选类型
 
 1139
 01:01:21,945 --> 01:01:24,946
 So here's a chance, case where I'm gonna use an optional
+所以这就是个我会用可选类型的例子
 
 1140
 01:01:25,014 --> 01:01:27,849
 as part of my Fundamental semantic implementation
+用可选类型实现这个方法的基础语义
 
 1141
 01:01:27,918 --> 01:01:30,451
 of this method. So here we go.
+那我们开始吧
 
 1142
 01:01:30,520 --> 01:01:34,155
 The first thing I'm gonna do when a card is chosen is
+当选中一张卡片之后我要做的第一件是
 
 1143
 01:01:34,224 --> 01:01:37,458
 I'm gonna ignore a card that's already been matched. So
+我要忽略已经配对了的卡片，也就是
 
 1144
 01:01:37,527 --> 01:01:39,994
 if you choose a card that's on the board that's already been
+如果你选中了桌面上已经
 
 1145
 01:01:40,063 --> 01:01:42,029
 matched to another card, I'm just gonna ignore it. So
+配对了的另一张卡的话，我就直接忽略它
 
 1146
 01:01:42,098 --> 01:01:46,735
 I'm gonna say if the card that you chose, card of the index,
+所以我用 if 判断如果选中的卡，cards 里在索引 index 的卡
 
 1147
 01:01:46,804 --> 01:01:50,739
 isMatched. Then I'm not gonna do this, so
+如果 isMatched，配对了的话，那我就什么也不做
 
 1148
 01:01:50,808 --> 01:01:53,107
 I'm gonna say if it's not Matched then do it,
+所以我要判断如果没有配对，那就这样做
 
 1149
 01:01:53,176 --> 01:01:56,811
 if it is Matched then don't do this. This notch,
+如果配对了就不这样做。这个感叹号
 
 1150
 01:01:56,880 --> 01:01:59,481
 just like any other language means not, the opposite of
+和其他语言一样表示“非”，相反的
 
 1151
 01:01:59,550 --> 01:02:02,250
 this Bool. I'm gonna ignore all Matched cards.
+布尔值。我会忽略所有配对了的卡片
 
 1152
 01:02:02,319 --> 01:02:05,519
 Now what am I gonna do? There's three cases here
+现在我要干什么呢？现在有三种情况
 
 1153
 01:02:05,588 --> 01:02:10,091
 that can happen. One, no cards are face up. If no cards
+可能会发生。第一种，没有卡片面朝上。如果没有卡片
 
 1154
 01:02:10,159 --> 01:02:12,894
 are face up when I choose a card it just flips it over.
+面朝上的时候我选了一张卡，那就把它翻过来
 
 1155
 01:02:12,962 --> 01:02:16,764
 That's all it does. Another option is two cards are face
+这就是它要做的。另一种可能性是有两张卡朝上
 
 1156
 01:02:16,833 --> 01:02:19,900
 up, either matching or not matching. If that's true,
+可能配对可能没配对。如果是这种情况
 
 1157
 01:02:19,969 --> 01:02:22,704
 when I choose another card it needs to flip those cards face
+当我再选一张卡的时候，那就需要让那两张卡
 
 1158
 01:02:22,773 --> 01:02:27,541
 down cuz I'm starting a new match now. The third option is
+面朝下，因为我要开始新的一轮配对。第三种可能是
 
 1159
 01:02:27,610 --> 01:02:30,978
 there's one card face up and I choose some other card.
+有一张卡面朝上，然后我选了另一张卡
 
 1160
 01:02:31,047 --> 01:02:33,882
 Now I need to match. I need to see if they match.
+那现在我要尝试配对，看看是否是匹配的
 
 1161
 01:02:33,950 --> 01:02:37,585
 So those are the three options. So I want to
+所以就是这三种情况，那么我想要
 
 1162
 01:02:37,654 --> 01:02:40,455
 really keep track of the option where there's one card
+记录的情况是有一张卡
 
 1163
 01:02:40,524 --> 01:02:42,691
 face up because that's where I really have to do the work.
+面朝上，因为我需要实际地做额外的工作
 
 1164
 01:02:42,760 --> 01:02:44,392
 I have to try and see if they match. So
+我需要去尝试看看是否配对了
 
 1165
 01:02:44,461 --> 01:02:47,662
 I'm going to create a var to keep track if there is one and
+我要创建一个变量记录是否有一张
 
 1166
 01:02:47,730 --> 01:02:49,363
 only one card face up.
+而且仅有一张卡朝上
 
 1167
 01:02:49,432 --> 01:02:53,067
 I'm going to call it indexOfOneAndOnlyFaceUpCard
+我把它叫做 indexOfOneAndOnlyFaceUpCard
 
 1168
 01:02:53,136 --> 01:02:59,541
 and of course its an index so its going to be an int.
+既然是索引的话，那自然就是 Int 类型了
 
 1169
 01:02:59,609 --> 01:03:03,978
 Now whats the value of the indexOfOneAndOnlyFaceUpCard if
+那 indexOfOneAndOnlyFaceUpCard 的值是什么？
 
 1170
 01:03:04,047 --> 01:03:10,218
 no cards are face up? What's the value of that if two
+特别是当没有卡朝上的时候？如果两张卡朝上的时候
 
 1171
 01:03:10,286 --> 01:03:14,155
 cards are face up? Ah, interesting.
+它的值又是什么？非常有趣
 
 1172
 01:03:14,224 --> 01:03:19,393
 I think this wants to be optional. You see why, because
+那我认为这应该定义为可选类型。你是知道原因的，因为
 
 1173
 01:03:19,462 --> 01:03:22,197
 in those cases where there's not one index of a one and
+在这两种情况下，我们没有一张且仅有一张朝上的卡
 
 1174
 01:03:22,266 --> 01:03:25,133
 only face card, then this going to be not set,
+的索引，因此这就会缺省值
 
 1175
 01:03:25,201 --> 01:03:28,603
 cause there is not one and only face card. So this
+因为没有唯一的一张朝上的卡，所以这个
 
 1176
 01:03:28,672 --> 01:03:32,473
 is a great use of optionals right here. So all the time in
+是使用可选类型的好地方。所以每当
 
 1177
 01:03:32,542 --> 01:03:35,076
 my game, when there's one and only one face up card, this
+我游戏里有一张且仅有一张朝上的卡片，这个
 
 1178
 01:03:35,145 --> 01:03:37,712
 going to tell me the index of it so I can match against it.
+就会告诉我它的索引，让我来尝试和它配对
 
 1179
 01:03:37,780 --> 01:03:40,114
-And all the other times this is gonna be nill and
+And all the other times this is gonna be nil and
+其他的时候，这就是 nil
 
 1180
 01:03:40,183 --> 01:03:42,550
 I'm gonna know I don't have to do any work. I don't have to
+我会知道我不需要做任何的工作，我不需要
 
 1181
 01:03:42,619 --> 01:03:44,652
 do any matching because there's no card to match
+去尝试配对，因为没有卡片可以用来配对
 
 1182
 01:03:44,721 --> 01:03:47,522
 against. So what does the code look like to use this?
+那使用它的代码长什么样？
 
 1183
 01:03:47,590 --> 01:03:50,591
 I'm going to say if I can let a match index,
+我判断如果可以让 matchIndex
 
 1184
 01:03:50,660 --> 01:03:54,295
 which is a local variable, equal this index of one and
+这个局部变量赋值为 indexOfOneAndOnlyFaceUpCard
 
 1185
 01:03:54,364 --> 01:03:57,665
 only face up card right here, then I have something to
+就是这里的这个，那我就有尝试匹配的对象了
 
 1186
 01:03:57,734 --> 01:04:01,135
 match. By the way, I wanna make sure that that match
+顺便一提，我要确保那个配对的
 
 1187
 01:04:01,204 --> 01:04:06,207
 index of that thing is not equal to the card you chose.
+卡片索引和选择的卡片是不一样的
 
 1188
 01:04:06,276 --> 01:04:08,709
 If there's only, only, if there's one and
+如果这里只有
 
 1189
 01:04:08,778 --> 01:04:10,979
 only one face of card and you chose that,
+只有那张朝上的卡，然后你再选了它一次
 
 1190
 01:04:11,047 --> 01:04:13,748
 it's going to ignore that. You have to choose a different
+我会选择忽视它。你必须要选张不同的
 
 1191
 01:04:13,817 --> 01:04:19,220
 card. This inside this curly brace right here is, you know,
+卡。在这对大括号里面，你知道的
 
 1192
 01:04:19,289 --> 01:04:24,892
 check if cards match. And then outside right here is what?
+判断卡片是否配对。而在外面呢？
 
 1193
 01:04:24,961 --> 01:04:28,129
 Either no cards or
+要么没有卡片
 
 1194
 01:04:28,198 --> 01:04:33,734
 two cards are face up, so I can't match. So
+要么有两张卡片朝上，我没法配对，所以
 
 1195
 01:04:33,803 --> 01:04:36,638
 in that case I'm gonna need to turn the cards face down and
+那种情况我就要把牌翻到背面
 
 1196
 01:04:36,706 --> 01:04:38,673
 have the card you chose be the only face up card.
+然后让你选的卡成为唯一朝上的卡
 
 1197
 01:04:38,741 --> 01:04:41,008
 And then I'm gonna set it to be the index of the one and
+然后赋值给 indexOfOneAndOnlyFaceUpCard
 
 1198
 01:04:41,077 --> 01:04:43,311
 only face up card.
-仅有的那张朝上的卡
+让它成为仅有的那张朝上的卡
 
 1199
 01:04:43,379 --> 01:04:45,714
@@ -5686,7 +6042,7 @@ Cuz you chose a card that was face down, right there so
 1209
 01:05:29,092 --> 01:05:32,193
 I'm gonna say cards sub index is...
-我会写成，那张卡片的 
+我会写成，那张卡片的
 
 1210
 01:05:33,697 --> 01:05:37,198
@@ -5701,7 +6057,7 @@ I'm flipping it up of course. And number two and
 1212
 01:05:39,469 --> 01:05:43,337
 most importantly the index of the one and only face up card
-也是最重要的是，indexOfOneAndOnlyFaceUpCard 
+也是最重要的是，indexOfOneAndOnlyFaceUpCard
 
 1213
 01:05:43,406 --> 01:05:48,542
@@ -5751,7 +6107,7 @@ all be face down but so it's a little of wasted work.
 1222
 01:06:10,867 --> 01:06:15,636
 I'm just gonna go for flip down index in, what?
-我要写 for flipDownIndex in 
+我要写 for flipDownIndex in
 
 1223
 01:06:15,705 --> 01:06:21,943
@@ -5791,7 +6147,7 @@ But now you've chose a card, so I'm gonna turn that card
 1230
 01:06:45,835 --> 01:06:53,541
 that you just chose back to face up. .isFaceUp = true and
-翻到正面，isFaceUp 设为 true 
+翻到正面，isFaceUp 设为 true
 
 1231
 01:06:53,610 --> 01:06:56,944
@@ -5806,7 +6162,7 @@ turned one card faced up, what is the index of the one and
 1233
 01:07:00,483 --> 01:07:04,752
 only face up card? It's this index. I just turned it
-那张卡片的指数是什么呢？它就是这个 index。我刚刚
+那张卡片的值是什么呢？它就是这个 index。我刚刚
 
 1234
 01:07:04,821 --> 01:07:08,256
@@ -6156,7 +6512,7 @@ was it maybe right here? Yes,
 1303
 01:11:04,794 --> 01:11:07,795
 woo ho we found the candy it was right next to each other.
-哇，我们找到了糖果，他们就在彼此的旁边
+哇，我们找到了糖果，它们就在彼此的旁边
 
 1304
 01:11:07,863 --> 01:11:11,365

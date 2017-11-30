@@ -4,11 +4,12 @@
 
 1. 请大家翻译和校对的时候尽量对照原视频，结合上下文，不要望文生义
 2. 如保持英文顺序会影响中文理解，为保证行文流畅，应采用理解优先原则，优先按中文断句
-3. 当说话的人变更时，请加 `>>` 来区分。如：Question? >> Is it？ >> Yes.
-4. 出现 Okay，All Right，Now 等语气词，请结合上下文选择合适的翻译，或省略不翻
-5. 学生提问的部分如果听不清楚，字幕也不全（[INAUDIBLE]），但是老师回答时候把问题复述了一遍，字幕可译为 `>> [学生提问]`
-6. 出现 [COUGH]，[LAUGH]，[NOISE]，[BLANK_AUDIO]，[INAUDIBLE] 等，请自行把握，可结合上下文选择省略不翻译
-7. 卖萌请不要使用字符表情，比如（*3）看起来就像是备注；如果是标注说了三遍，请使用 x3 标记
+3. 注意代词的指代对象，区分“它”，“他”，“她”的使用，“其他”除外
+4. 当说话的人变更时，请加 `>>` 来区分。如：Question? >> Is it？ >> Yes.
+5. 出现 Okay，All Right，Now 等语气词，请结合上下文选择合适的翻译，或省略不翻
+6. 学生提问的部分如果听不清楚，字幕也不全（[INAUDIBLE]），但是老师回答时候把问题复述了一遍，字幕可译为 `>> [学生提问]`
+7. 出现 [COUGH]，[LAUGH]，[NOISE]，[BLANK_AUDIO]，[INAUDIBLE] 等，请自行把握，可结合上下文选择省略不翻译
+8. 卖萌请不要使用字符表情，比如（*3）看起来就像是备注；如果是标注说了三遍，请使用 x3 标记
 
 ## 格式要求
 
@@ -27,7 +28,7 @@
 1. 修改错别字，明显的笔误，大小写错误（包括原英文字幕中的错误）
 2. 如能找到对应的 Swift Evolution 编号，以类似（在 SE-0065 之前）… 注明
 3. 如能确定特定的 Swift 语言版本，以类似（在 Swift 4 之前）… 或（对于 Swift 3）… 注明
-4. 如果完全错误，尝试以类似 …（误：原因）或（注：补充）说明。如空间不够，可适当调整上下文。参考第三课 1303 和 420
+4. 如果完全错误，尝试以类似 …（误：原因）或（注：补充）说明。如空间不够，可适当调整上下文。参考 iOS 10 第三课 [420](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift/blob/master/subtitles/3.%20More%20Swift%20and%20the%20Foundation%20Framework.srt#L2100) 和 [1304](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift/blob/master/subtitles/3.%20More%20Swift%20and%20the%20Foundation%20Framework.srt#L6521)
 
 ## 翻译术语（Terminology）的要求
 
@@ -47,10 +48,9 @@
 
 #### 术语的特殊处理
 
-1. 如果想在同时翻译并保留原文，请根据情况从以下的格式中选用一种
-	1. 用逗号隔开。例：这是 Navigator，导航面板
-	2. 用括号补充。例：MVC，即 Model（模型）-View（视图）-Controller（控制器）
-2. 不翻译通用的名称，如 MVC，iPhone，Xcode，Storyboard 等
+1. 如果想在同时翻译并保留原文，请用括号补充。
+	- 例：MVC，即 Model（模型）-View（视图）-Controller（控制器）
+2. 不翻译通用的名称，如 MVC，iPhone，Xcode，storyboard 等
 3. 不翻译直接引用的代码，包括但不限于
 	- Swift 语言关键字：如 true，false 等
 	- 类／结构体／元组类型的名称：如 UIView，String 等

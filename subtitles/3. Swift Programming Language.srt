@@ -3502,870 +3502,1087 @@ it means that setting this var is private, but getting it
 801
 00:40:39,270 --> 00:40:43,639
 is not private. So you allow people to get the var, access
+并不是私有的。所以你允许人们得到这个变量，访问
 
 802
 00:40:43,708 --> 00:40:46,676
-it, but they can not set it. That's you point of view,
+it, but they can not set it. That's you purview,
+这个变量，但是不能给它赋值。那是你的权利
 
 803
 00:40:46,744 --> 00:40:48,611
 that's your internal implementation sets it.
+你的内部实现可以给它赋值
 
 804
 00:40:48,679 --> 00:40:51,514
 We'll see a good example of that in concentration.
+我们会在翻牌游戏里看到个好的例子
 
 805
 00:40:51,583 --> 00:40:54,850
 And then there's fileprivate. Fileprivate in a Swift file,
+然后是 fileprivate，文件内私有。在一个 Swift 文件里
 
 806
 00:40:54,919 --> 00:40:56,852
 you can have multiple classes and structs in there,
+你可以有多个类和结构体
 
 807
 00:40:56,921 --> 00:40:58,955
 you don't have to be just one class which is what we've done
+不需要想我们现在这样一个文件只有一个类
 
 808
 00:40:59,024 --> 00:41:02,158
 so far and fileprivate means anything in that in that
+而 fileprivate 的意思是，任何在那个
 
 809
 00:41:02,227 --> 00:41:06,162
 file can access each other, right. So classes,
+文件里的都可以互相访问，也就是类
 
 810
 00:41:06,230 --> 00:41:09,665
-four classes in there, it can each others methods, okay,
+all classes in there, it can each others methods, okay,
+所有的都可以访问 fileprivate 的方法（和变量）
 
 811
 00:41:09,734 --> 00:41:12,501
 that's what file private means. Okay, the other ones
+这就是 fileprivate 的意思。好，其他的
 
 812
 00:41:12,570 --> 00:41:15,204
 are public and open, those are for framework writers.
+public 和 open，这两个是给框架作者用的
 
 813
 00:41:15,273 --> 00:41:18,007
 Public means that people outside the framework
+public 的意思是编写框架以外的人
 
 814
 00:41:18,076 --> 00:41:21,444
 can call it. Doesn't make sense for outside your app,
+也可以调用它。在你的程序外使用是说不通的
 
 815
 00:41:21,512 --> 00:41:23,746
 that would never happen, so outside your framework.
+这也不可能发生，所以是在框架外使用
 
 816
 00:41:23,815 --> 00:41:26,416
 And open means not only can people outside your framework
+open 的意思是不仅框架外可以
 
 817
 00:41:26,484 --> 00:41:29,585
 call it but they could sub class that class,
+调用，他们还可以继承那个类
 
 818
 00:41:29,654 --> 00:41:31,320
 override your methods all that stuff,
+重写你的方法等
 
 819
 00:41:31,388 --> 00:41:35,124
 so open is like wide open, okay. We don't care about that
+所以 open 是很开放的权限。但我们不用管
 
 820
 00:41:35,193 --> 00:41:38,361
 cuz we're only, we're not doing frameworks, right. So
+因为我们只写程序，不会写框架，好吧，所以
 
 821
 00:41:38,430 --> 00:41:41,030
 we're gonna focus on private of the various privates.
+我们主要关注这几种 private
 
 822
 00:41:41,099 --> 00:41:43,999
 A good strategy to use these is pretty much put private on
+最好的做法是基本都用 private
 
 823
 00:41:44,068 --> 00:41:46,969
 anything until you're sure, yeah I want someone else to be
+除非你确信说我想要其他人
 
 824
 00:41:47,038 --> 00:41:48,904
 able to call this method somewhere.
+在其他地方能够调用这个方法
 
 825
 00:41:48,973 --> 00:41:53,509
 Right that's by default you should make things private. So
+所以默认你应该让所有的都是 private
 
 826
 00:41:53,578 --> 00:41:56,312
 let's look a concentration, what it would look like to
+所以让我们看看翻牌游戏，它看起来是什么样的
 
 827
 00:41:56,381 --> 00:41:58,114
-put access control and concentration and
+put access control on concentration and
+如果我们给玩牌游戏加上访问权限的话
 
 828
 00:41:58,182 --> 00:42:00,883
 pay attention here because I'm gonna require in all your
+你要注意了，因为我要求你所有的
 
 829
 00:42:00,952 --> 00:42:04,153
 homeworks going forward that you mark things properly.
+之后的作业里正确地标记访问权限
 
 830
 00:42:04,222 --> 00:42:05,922
 I want you to mark things private if they should be
+我想要你把私有的都标记为 private
 
 831
 00:42:05,990 --> 00:42:08,224
 private. Okay, cuz I wanna just make sure that you
+因为我想要确保你
 
 832
 00:42:08,292 --> 00:42:11,895
 understand what this is all about. So let's go back here
+理解了这是什么。那我们回到这里
 
 833
 00:42:13,565 --> 00:42:16,665
 to Xcode. Let's start with our ViewController.
+到 Xcode 里，从 ViewController 开始
 
 834
 00:42:16,734 --> 00:42:19,134
 Okay, we have three classes, or three data structures,
+好，我们有三个类，准确说是三个数据结构
 
 835
 00:42:19,203 --> 00:42:21,304
 our ViewController, Card, and Concentration. So let's start
+我们的 ViewController，Card 和 Concentration。那我们从
 
 836
 00:42:21,372 --> 00:42:27,210
 with ViewController. So this right here is our model. So
+ViewController 开始改。所以这里的这个是我们的模型
 
 837
 00:42:27,278 --> 00:42:31,514
 would we want our model to be public, to be not private?
+我们想要模型是公开的，非私有的吗？
 
 838
 00:42:31,583 --> 00:42:33,582
 Well that depends, actually.
+其实那个不一定
 
 839
 00:42:33,651 --> 00:42:36,319
 It depends of what your model is and how it works. Often,
+那取决于你的模型是什么，怎么工作的。一般来说
 
 840
 00:42:36,387 --> 00:42:40,256
 ViewControllers models are public by public I mean
+ViewController 是公开的。我这个公开不是 public
 
 841
 00:42:40,325 --> 00:42:43,492
 non-private. We're inside an app so forget about public and
+意思是非私有。我们写的是一个 App，所以你可以忽略 public 和
 
 842
 00:42:43,561 --> 00:42:47,096
 open keywords. I mean, when I say public I mean non-private.
+open 这两个关键字。所以我所谓的 public/公开是指非私有
 
 843
 00:42:47,165 --> 00:42:49,932
 So a lot of times you do because you give a model to
+而大部分时候都是这样的，因为你把一个模型提供给
 
 844
 00:42:50,001 --> 00:42:51,433
 a view controller and it displays it,
+视图控制器，然后控制器就显示它
 
 845
 00:42:51,502 --> 00:42:54,870
 that's what it does. But that is not the case here. This one
+这就是他的工作。但我们这里不是这样的情况。这里
 
 846
 00:42:54,939 --> 00:42:58,240
 wants to be private. And the reason it wants to be private
+我们想要是 private 的。它应该是私有的
 
 847
 00:42:58,309 --> 00:43:01,477
 is because the number of pairs of cards in the game is
+原因是 numberOfPairsOfCards
 
 848
 00:43:01,545 --> 00:43:04,480
 intimately tied to the UI, okay the number of
+游戏里卡片的对数是和 UI 捆绑着的
 
 849
 00:43:04,549 --> 00:43:07,083
 cards we have in the UI. So if we wanted to make
+是我们 UI 理由的卡的对数。如果我们想要
 
 850
 00:43:07,151 --> 00:43:09,585
 this public then we'd also have to make something public
+让它公开的的话，我们也需要让另一个公开的
 
 851
 00:43:09,653 --> 00:43:13,356
 to specify the number of card buttons that we allow and
+来指定我们允许的显示卡片的按钮的个数
 
 852
 00:43:13,425 --> 00:43:15,391
 we don't do that currently,
+但我们现在并不是这样的
 
 853
 00:43:15,460 --> 00:43:18,127
 that's something that is in our little scene and
+那现在是我们在 Interface Builder
 
 854
 00:43:18,195 --> 00:43:21,430
 interface builder, so we don't do it. So we keep this, we
+的场景里设置的，所以我们不这样做。所以我们保持这个
 
 855
 00:43:21,499 --> 00:43:25,067
 keep this private. How about number of pairs of cards?
+让他就是 private 的。那 numberOfPairsOfCards 呢？
 
 856
 00:43:25,136 --> 00:43:28,271
 Well, this is one where I don't mind if someone asks
+嘛，这个我不介意如果其他人知道
 
 857
 00:43:28,340 --> 00:43:30,706
 what the number of pairs of cards is but
+有多少对卡片，但是
 
 858
 00:43:30,775 --> 00:43:36,612
 setting the number of pairs of cards would be bad. But
+设置有多少对卡片是不好的。但
 
 859
 00:43:36,680 --> 00:43:40,816
 the thing about this is it's already a get-only property.
+这个的话，它已经是只读的属性了
 
 860
 00:43:40,885 --> 00:43:43,419
 You can't set it anyway, it derives it from other data.
+你怎么都没法设置它，它是从其他数据衍生出来的
 
 861
 00:43:43,488 --> 00:43:47,022
 So we're just gonna make this private, sorry, not private.
+所以我们就让他是 private 的。不好意思，让他不是 private
 
 862
 00:43:47,091 --> 00:43:49,358
 And we're gonna allow people to call this,
+我们要让别人能够访问这个
 
 863
 00:43:49,427 --> 00:43:51,493
 people who are using my ViewController, they can say,
+使用我这个 ViewController 人可以问
 
 864
 00:43:51,562 --> 00:43:53,496
 how many pairs of cards are there? But they can't set it,
+这里有多少对卡片，但他们不能给它赋值
 
 865
 00:43:53,565 --> 00:43:55,998
 cuz this is not settable anyway. Okay, so
+因为这个本来就没法赋值。好，所以
 
 866
 00:43:56,067 --> 00:43:57,366
 that's okay to make that in public.
+这个是可以公开的
 
 867
 00:43:57,435 --> 00:43:59,902
 Same thing flipCount, I think flipCount,
+flipCount 也是类似的，我认为 flipCount
 
 868
 00:43:59,970 --> 00:44:03,272
 it's okay for people to get it, but definitely, we don't
+人们是可以读取它的，但肯定我们不
 
 869
 00:44:03,341 --> 00:44:06,508
 want people setting flipCount. That's something we do
+想让人们赋值给 flipCount。那是我们
 
 870
 00:44:06,577 --> 00:44:08,978
 internally when the cards are flip, we implement flipCount.
+在翻牌的时候内部实现的，我们管理的
 
 871
 00:44:09,046 --> 00:44:12,148
 So that's private for the setter, but will allow people
+所以 setter 是 private 的，但我们允许其他人
 
 872
 00:44:12,216 --> 00:44:14,684
 to get the flipCount who are using our thing.
+在使用的时候获得 flipCount
 
 873
 00:44:14,752 --> 00:44:19,021
 Our outlets, almost always we have private outlets.
+我们这些 @IBOutlet，几乎我们都是让出口保持 private
 
 874
 00:44:19,090 --> 00:44:19,989
 Cuz our private outlets,
+因为我们私有的出口
 
 875
 00:44:20,057 --> 00:44:23,159
 these things, and even our actions these are all kind of
+这些，甚至包括 @IBAction 操作，这些都是
 
 876
 00:44:23,227 --> 00:44:26,295
 internal implementation of how we implement our UI.
+内部对 UI 的实现
 
 877
 00:44:26,364 --> 00:44:29,365
 That's what a ViewController does it controls our UI.
+这就是视图控制器的作用，控制 UI
 
 878
 00:44:29,433 --> 00:44:32,702
 Definitely something like update model from UI would be
+肯定类似于 updateViewFromModel 的方法
 
 879
 00:44:32,771 --> 00:44:35,271
 private, that's internal implementation.
+应该是 private 的，这也是内部实现
 
 880
 00:44:35,339 --> 00:44:38,808
 All this emoji business that's all private. Although you
+这些表情相关的也应该是 private 的，虽然
 
 881
 00:44:38,876 --> 00:44:42,845
 could imagine trying to expose some public API eventually
+你可以计划尝试最终暴露些公有 API
 
 882
 00:44:42,914 --> 00:44:45,848
 in this ViewController that let's someone who's using
+让其他使用 ViewController 的人可以
 
 883
 00:44:45,917 --> 00:44:49,051
 our ViewController specify the emojis they want.
+指定他们想用的表情
 
 884
 00:44:49,120 --> 00:44:53,756
 Like, you know, this theme required task that you have,
+比如某个任务要求用某个主题
 
 885
 00:44:53,824 --> 00:44:57,460
 you could imagine that there was a way to specify I want
+你可以设想我们有一种方法指定我想要
 
 886
 00:44:57,528 --> 00:44:59,995
 you mister view controller to play this game,
+ViewController 玩这个游戏
 
 887
 00:45:00,064 --> 00:45:02,998
 but I want you to use this emoji as your theme.
+但是我想要用这套表情作为主题
 
 888
 00:45:03,067 --> 00:45:05,534
 See, so you could imagine that something being public.
+所以设想那种情况下肯定会是有公开的
 
 889
 00:45:05,603 --> 00:45:08,471
 I don't think it would be exactly this API,
+但我不认为会是和这个一样的 API
 
 890
 00:45:08,539 --> 00:45:10,439
 it would be some other kind of API,
+那会是不同的 API
 
 891
 00:45:10,508 --> 00:45:13,942
 I'm not sure what they would let you set the emoji to
+我不确定是什么样的，但它能让你设置使用的表情
 
 892
 00:45:14,011 --> 00:45:16,946
 use. We can't really make this public cuz we actually consume
+这个我们是不能公开的，因为我们实际会消耗
 
 893
 00:45:17,014 --> 00:45:20,883
 this. This is a var and we consume it. We have obviously
+这个数组；这是个变量，而我们会移除里面的内容。肯定
 
 894
 00:45:20,952 --> 00:45:23,119
 had to deal with that in your homework I'm sure. And
+在你们的作业里要解决这个问题。还有
 
 895
 00:45:23,187 --> 00:45:24,954
 you know, this dictionary we're building on a fly,
+你知道的，这个字典我们是及时构建的
 
 896
 00:45:25,022 --> 00:45:26,755
 we wouldn't want anyone messing with it, so
+我们不会想其他人使用它，所以
 
 897
 00:45:26,824 --> 00:45:27,857
 I'm gonna keep all this private.
+我让这些都是 private 的
 
 898
 00:45:27,925 --> 00:45:30,259
 This is an example of making it private first and
+这就是个例子，先让这些都是 private
 
 899
 00:45:30,328 --> 00:45:33,296
 then I'm gonna think about what I want to be public.
+之后我再考虑我要公开哪些
 
 900
 00:45:33,364 --> 00:45:34,997
 You see, the design approach there?
+看到我们用的设计方法了吗？
 
 901
 00:45:35,066 --> 00:45:39,802
 All right, let's go look at card, so
+好，我们再来看看 Card 结构体
 
 902
 00:45:39,871 --> 00:45:42,304
 here's Card. Card definitely, this has to be public.
+这就是 Card。Card 里这个肯定是公开的
 
 903
 00:45:42,373 --> 00:45:43,839
 We need to know whether the cards are face up,
+我们需要知道是否朝上
 
 904
 00:45:43,908 --> 00:45:45,908
 we, this has to be public. Unfortunately,
+这个也必须是公开的。不幸的是
 
 905
 00:45:45,977 --> 00:45:48,110
 this has to be public. Cuz otherwise,
+这个也得是公开的，因为否则的话
 
 906
 00:45:48,179 --> 00:45:50,846
 we can't tell if two cards are the same without that,
+没有这个的话我们不能判断两张是否相同
 
 907
 00:45:50,915 --> 00:45:54,516
 but these two guys definitely don't need to be public.
+但这两个肯定不用是公开的
 
 908
 00:45:54,585 --> 00:45:58,620
 This whole idea of I, making identierFactory that's purely
+我这整个使用 identierFactory 只是为了
 
 909
 00:45:58,689 --> 00:46:02,458
 internal implementation, okay, so no reason for that to be
+内部实现，所以没有理由把它
 
 910
 00:46:04,295 --> 00:46:06,995
 public. And this really, I'd love this to be private as
+公开。然后这个 identifier，我虽然想要是 private
 
 911
 00:46:07,064 --> 00:46:09,965
 well, because a card it's either face up it's matched
+因为这卡，我就想知道是否朝上，是否配对了
 
 912
 00:46:10,034 --> 00:46:12,134
 whether it's the same as another card,
+而两张卡是否相同
 
 913
 00:46:12,203 --> 00:46:14,971
 I shouldn't have to look an identifier to find that.
+我不应该靠 identier 标识符来判断
 
 914
 00:46:15,039 --> 00:46:18,007
 I should be able to say the this card == the other card,
+我应该能用 一张卡 == 另一张卡 来判断
 
 915
 00:46:18,076 --> 00:46:20,308
 wouldn't that be cool? And yeah it is cool and
+那不更好么？是的，那是挺酷的
 
 916
 00:46:20,377 --> 00:46:23,646
 we're gonna be doing that, in, later in this lecture or next
+而我们也就会这样做，要么等会儿这节课，要么
 
 917
 00:46:23,714 --> 00:46:26,582
 lecture. Um, this is really kind of gross but for now we
+下节课。我挺讨厌这个，但现在我们
 
 918
 00:46:26,650 --> 00:46:28,350
 have to leave that public because otherwise we do,
+就让他保持公开，因为否则的话
 
 919
 00:46:28,419 --> 00:46:31,687
 we can't tell what two cards are the same. Okay,
+我们就不能判断两张卡是否相同了吧
 
 920
 00:46:31,756 --> 00:46:35,090
 here's the Concentration game, this is a really interesting
+然后这个是 Concentration 游戏本身，这是个很有趣的
 
 921
 00:46:35,159 --> 00:46:38,660
 case of private and public because, here is an object,
+决定私有还是公开的例子，因为这个对象
 
 922
 00:46:38,729 --> 00:46:41,697
 a model that is intended to be used by some UI somewhere,
+模型本身就是给其他的某个 UI 使用的
 
 923
 00:46:41,765 --> 00:46:44,500
 okay. It's very intentional use kind of thing, and
+就是为了被使用而存在的
 
 924
 00:46:44,569 --> 00:46:46,535
 there's some things we know are private,
+这里有我们知道是 private 的
 
 925
 00:46:46,604 --> 00:46:49,271
 like this guy for sure, indexOfTheOneAndOnlyFaceUpC-
+比如肯定有这里的 indexOfOneAndOnlyFaceUpCard
 
 926
 00:46:49,340 --> 00:46:51,640
 ard, we don't need someone using us to know that,
+我们不需要让使用的人知道
 
 927
 00:46:51,709 --> 00:46:53,142
 they don't need to know that.
+他们不需要知道这个
 
 928
 00:46:53,211 --> 00:46:55,944
 And in fact, if we left that public, someone using us would
+实际上，如果我们把它公开的话，使用我们的人会
 
 929
 00:46:56,013 --> 00:46:58,613
 be like when am I supposed to set that, I wonder?
+想，“我是否应该设置它呢？”
 
 930
 00:46:58,682 --> 00:47:01,483
 Okay, but it has nothing to do with it, it's internal to our
+但他们和这个是无关的，这是我们内部
 
 931
 00:47:01,552 --> 00:47:06,488
 implementation. Cards has to be public
+实现用的。card 必须要是公开的
 
 932
 00:47:06,557 --> 00:47:09,625
 because otherwise the UI can't display the cards.
+因为否则的话 UI 就不能显示卡片了
 
 933
 00:47:09,694 --> 00:47:12,961
 However, cards being flipped up and down or
+但是把牌翻面，或是
 
 934
 00:47:13,030 --> 00:47:18,200
 matching that's my job. So I am gonna make this one private
+让他们配对这是我的工作，所以我要让它是 private(set)
 
 935
 00:47:18,269 --> 00:47:22,405
 set, okay, so this is gonna be yeah you can look at my cards
+所以这个会是，使用的人可以看我有哪些牌
 
 936
 00:47:22,473 --> 00:47:25,608
-if you wanna use counting game but I am responsible for
+if you wanna use Concentration game but I am responsible for
+如果他们在用 Concentration 这个游戏的话可以看，但我负责
 
 937
 00:47:25,676 --> 00:47:29,077
 setting face up and is matched. So
+把卡片翻面，设置是否配对了，所以
 
 938
 00:47:29,146 --> 00:47:32,114
 you can see this one's clearly private set,
+我们可以明确地看出这个是 private(set)
 
 939
 00:47:32,183 --> 00:47:35,784
 everyone see that? Yeah. >> So for that you can access
+大家都看到了吗？>> 所以 private(set) 就是你可以获得
 
 940
 00:47:35,853 --> 00:47:38,487
 the cards but you can't access the methods or
+cards 和数组的元素，但是你不能访问元素 Card 的实例方法
 
 941
 00:47:38,556 --> 00:47:40,956
 properties associated with it? >> Yeah, so
+或者实例的属性吗？>> 好，所以
 
 942
 00:47:41,025 --> 00:47:43,759
 the question is when it's like this does that mean I
+问题是用 private(set) 是否意味着
 
 943
 00:47:43,827 --> 00:47:46,962
 can access the cards but I can't access the methods that
+我可以访问 cards 的元素，但是不能访问方法
 
 944
 00:47:47,031 --> 00:47:50,366
 are on the cards you mean? No the methods on the cards,
+这是你的问题吧？但并不是这样的。Card 实例的方法
 
 945
 00:47:50,435 --> 00:47:53,436
-that's over, here those are public, okay,
+that's over here, those are public, okay,
+那是在这里定义的，这些是公开的
 
 946
 00:47:53,504 --> 00:47:56,905
-those are not internal so I can access those. From here,
+those are not internal so I can access those from here,
+这些不是内部实现，所以我这里可以访问他们
 
 947
 00:47:56,974 --> 00:48:00,542
 okay? But you remember that this is a value type, so
+但你要记得 Card 是值类型，所以
 
 948
 00:48:00,611 --> 00:48:03,745
-I can't set is Space up and stuff, I can only set that
+I can't set is face up and stuff, I can only set that
+我不能赋值给 isFaceUp 这些，我只能直接
 
 949
 00:48:03,814 --> 00:48:07,950
 directly in the array. Like I'm doing right here. You see,
+通过数组给它赋值，就像我这里这样，你看
 
 950
 00:48:08,018 --> 00:48:10,252
 here I'm modifying the thing in place in the array.
+我这里直接更改了在数组里的 Card 实例的属性
 
 951
 00:48:10,321 --> 00:48:13,121
 That's the only way to do it. Well, I can't do this if this
+这是我唯一能用的方法。而在其他地方是不能这样做的，如果这个
 
 952
 00:48:13,190 --> 00:48:17,559
 is private set. Okay? Cuz this is a value type.
+是 private(set) 的话，对吧？因为这个是值类型
 
 953
 00:48:17,628 --> 00:48:20,796
 So this makes it so this, this it's kind of like it's a let.
+这个让它有点像是 let 声明的常量
 
 954
 00:48:20,865 --> 00:48:22,731
 This almost makes it like a let for
+对于其他人，不在这个范围内的
 
 955
 00:48:22,800 --> 00:48:25,101
 other people, people other than me. And then, and so
+private(set) 就像是 let 一样，也就是
 
 956
 00:48:25,169 --> 00:48:28,571
 you can't touch anything in an array when it's a let. So
+在数组是 let 常量的时候你不能修改数组的元素
 
 957
 00:48:28,639 --> 00:48:31,573
 that's a really cool feature of value types.
+所以这是值类型很酷的特性
 
 958
 00:48:31,642 --> 00:48:33,875
 And remember that array's a value type and
+然后，要记得数组是值类型
 
 959
 00:48:33,944 --> 00:48:37,646
 card is a value type. So that whole thing is frozen for
+Card 也是值类型，所以这整个就被“冻”住了
 
 960
 00:48:37,715 --> 00:48:41,616
 people who, you can't be modified for outside people.
+其他人就没法修改它
 
 961
 00:48:41,685 --> 00:48:44,152
 But for us, it's private set so
+但 private(set) 对于我们来说
 
 962
 00:48:44,221 --> 00:48:46,789
 we can do anything we want in there which we have been
+我们可以像现在这样为所欲为
 
 963
 00:48:46,857 --> 00:48:50,259
 doing. All right. And then of course, choose card.
+好吧。然后肯定的，chooseCard
 
 964
 00:48:50,328 --> 00:48:53,929
 That's our fundamental public API. So we got to leave that
+这是我们基础的公有 API，所以我们就让他
 
 965
 00:48:53,998 --> 00:48:56,298
 not private, okay. That's how people do it. And
+不是私有的，这就是我们的做法。然后
 
 966
 00:48:56,367 --> 00:48:59,869
 initializing, initializers can be made private as well. But
+构造过程，init 构造器也可以是私有的，但是
 
 967
 00:48:59,937 --> 00:49:02,971
 this one obviously can't be private because otherwise no
+这个不能是私有的，因为否则的话
 
 968
 00:49:03,040 --> 00:49:06,976
-one could create a game, all right. So that's it. I really
+one could create a game, all right. So that's it. Everyone
+没有人可以新建一个游戏，好，就是这样
 
 969
 00:49:07,044 --> 00:49:10,045
-got that. Now, while I'm here, I'm gonna show you another
+got that? Now, while I'm here, I'm gonna show you another
+大家都明白吧？现在我在这里还要给你展示另一种
 
 970
 00:49:10,114 --> 00:49:12,982
 API protection thing that's different from access control.
+方法来保护 API。不是靠访问权限控制
 
 971
 00:49:13,050 --> 00:49:16,618
 That's still good, which is using assertions, okay.
+（虽然也可以用，）那就是使用 assert，断言
 
 972
 00:49:16,687 --> 00:49:18,654
 Do anyone know what an assertion is from other
+大家从其他语言知道了 assert/断言是什么吗？
 
 973
 00:49:18,722 --> 00:49:21,957
 languages? An assertion is just a function that you call
+断言就是一个你调用的函数
 
 974
 00:49:22,026 --> 00:49:25,027
 where you assert something to be true. And if it's not,
+以此来确保某个条件是成立的；如果不是的话
 
 975
 00:49:25,095 --> 00:49:28,063
 your program crashes and print out an error.
+你的程序就会崩溃，然后打印出错误信息
 
 976
 00:49:28,131 --> 00:49:31,533
 And you put it in your code, the asserts are ignored when
+你这代码里使用 assert 函数，但发布到
 
 977
 00:49:31,602 --> 00:49:33,936
 you ship to the App Store. But when you're in development,
+App Store 时会被忽略。但你在开发的时候
 
 978
 00:49:34,005 --> 00:49:35,504
 it'll be crashing your program, which is good,
+他会让你的程序崩溃，这是好事情
 
 979
 00:49:35,572 --> 00:49:38,807
 cuz it takes the debugger right to the assertion failed.
+因为调试器会带你到断言为 false 的地方
 
 980
 00:49:38,876 --> 00:49:42,477
 And asserts are a great way to protect your API. For example,
+断言是保护你 API 的好方法，比如说
 
 981
 00:49:42,546 --> 00:49:43,979
 look at this API, chooseCard.
+看 chooseCard 这个 API
 
 982
 00:49:44,047 --> 00:49:46,448
 What if someone says at index -1?
+如果别人传的 index 是 -1 呢？
 
 983
 00:49:46,517 --> 00:49:51,620
 Or at index 100 and they're only 12 cards.
+或者我们只有 12 张，但他们选择在索引 100 的卡
 
 984
 00:49:51,689 --> 00:49:54,657
 Okay, that's gonna crash somewhere deep inside here,
+那种情况程序会在这里的某个地方崩溃
 
 985
 00:49:54,726 --> 00:49:56,425
 probably like maybe here or
+可能是在这里或者
 
 986
 00:49:56,494 --> 00:49:59,694
 something like that. And if I'm the Google guys again, and
+类似的地方。再次设想如果我是 Google 的员工
 
 987
 00:49:59,763 --> 00:50:01,363
 these guys are in another building and
+他们在另一栋建筑里
 
 988
 00:50:01,431 --> 00:50:05,900
 I accidentally pass -1 here and I don't know what's. And
+我不小心传了 -1 给 index，然后
 
 989
 00:50:05,969 --> 00:50:09,438
 the crash happens in here, I'm gonna need to have this code,
+程序在这里面崩溃了，那我需要拿到这份代码
 
 990
 00:50:09,507 --> 00:50:11,807
 and look in there, and I'm debugging it.
+然后到这里面找，去调试它
 
 991
 00:50:11,876 --> 00:50:13,842
 That code belongs to someone in another building,
+这段代码是在别的地方的其他人
 
 992
 00:50:13,910 --> 00:50:16,712
 why would I ever wanna be in here debugging it? Instead,
+为什么我会想去帮他调试代码？取而代之
 
 993
 00:50:16,780 --> 00:50:20,382
 the guys in the other building should put an assert here.
+在另一个建筑里的人应该在这里使用断言
 
 994
 00:50:20,450 --> 00:50:28,290
 That asserts that the cards indices contain that index.
+assert(cards.indices.contains(index), )
 
 995
 00:50:28,359 --> 00:50:31,360
 Okay, if the card's indices don't contain this index,
+如果 cards 数组的索引 indices 不包含 index
 
 996
 00:50:31,429 --> 00:50:34,563
 then we're going to crash, if we're in development and so,
+如果我们在开发的过程中，那程序就会崩溃
 
 997
 00:50:34,632 --> 00:50:37,266
 then we want to put some kind of crash message here.
+然后这里我们应该放崩溃的时候显示的信息
 
 998
 00:50:37,334 --> 00:50:40,736
 I like to put the name of the struct or class and
+我个人喜欢放这个结构体或类的名字
 
 999
 00:50:40,805 --> 00:50:44,739
 the function which chooseCard. I even like to include
+以及函数名，也就是 chooseCard。我甚至喜欢包括
 
 1000
 00:50:44,808 --> 00:50:47,876
 the actual arguments that you passed so you can see what you
+传给我的实际参数，这样调用的人就能知道
 
 1001
 00:50:47,944 --> 00:50:51,914
 passed there and then, I give the message. In this case,
+传给我的参数。最后是我的错误信息，这里
 
 1002
 00:50:51,983 --> 00:50:57,186
 something like chosen index not in the cards.
+就用比如“选择的索引不在 cards 数组里”
 
 1003
 00:50:59,523 --> 00:51:02,091
 So that, so now if someone calls to choose
+这样的话，其他人调用 chooseCard
 
 1004
 00:51:02,159 --> 00:51:04,860
 card at minus one, it's gonna crash right away and
+传入负一，那就会直接崩溃
 
 1005
 00:51:04,928 --> 00:51:06,695
 put that on the console. And they're gonna be like,
+然后显示这个信息到控制台里。调用的人就知道
 
 1006
 00:51:06,763 --> 00:51:08,564
 oh, shows the index not on the card, oh, and
+哦，说索引不在 cards 数组里，哦
 
 1007
 00:51:08,632 --> 00:51:11,667
 I passed minus one. You see, they're gonna one stop shop.
+我传的是 -1。你看，一步到位
 
 1008
 00:51:11,735 --> 00:51:14,803
 Know what they did. And with the similar thing thing down
+能知道他们干了什么。下面这也是类似的
 
 1009
 00:51:14,872 --> 00:51:18,239
 here for number of pairs of cards because it's illegal to
+对于 numberOfPairsOfCards，是不能有
 
 1010
 00:51:18,308 --> 00:51:22,678
 have 0 or less pairs of cards. You have to have at least one
+0 或者更少对卡片的。你必须要有至少一对
 
 1011
 00:51:22,747 --> 00:51:25,514
 pair of card. So here I'm just gonna have the assertion be
+卡片，所以我这里就加个断言
 
 1012
 00:51:25,583 --> 00:51:29,184
 that the number of Pairs Of Cards is greater than 0.
+确保 numberOfPairsOfCards 大于 0
 
 1013
 00:51:29,253 --> 00:51:30,986
 And if there is an error then I'm gonna say yes,
+如果不是的话，那我就会说
 
 1014
 00:51:31,054 --> 00:51:34,890
 I'm in the concentrations Init and
+我在 Concentration.init 里
 
 1015
 00:51:34,959 --> 00:51:40,629
 you passed me this number of pairs of cards right here and
+然后是你传给我的这个 numberOfPairsOfCards
 
 1016
 00:51:40,698 --> 00:51:45,100
 the problem here is that you must have at least
+问题是你必须至少有
 
 1017
 00:51:45,169 --> 00:51:49,604
 one pair of cards. Okay? So, you see how I'm, I'm using
+一对卡片。好吧？
 
 1018
 00:51:49,673 --> 00:51:53,476

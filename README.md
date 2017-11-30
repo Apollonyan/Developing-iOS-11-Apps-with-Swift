@@ -14,11 +14,11 @@
 
 ----
 
-翻译进度: ![1集](http://progressed.io/bar/1?scale=6&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
+翻译进度: ![2集](http://progressed.io/bar/2?scale=8&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。
 
 课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)；字幕会在每集校对后作为弹幕上传。
 
-其他文档等可以查看[下载列表](./tools/download.md)（从 iTunes U 提取），其中点击 `中英字幕` 就可以下载已经翻译好了的字幕。另一个方案是 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip)。[`subtitles`](./subtitles) 文件夹中是中英字幕（不一定都翻译了），[`en/subtitles`](./en/subtitles) 文件夹中是纯英文字幕。
+其他文档等可以查看[下载列表](./tools/update/download.md)（从 iTunes U 提取），其中点击 `中英字幕` 就可以下载已经翻译好了的字幕。另一个方案是 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip)。[`subtitles`](./subtitles) 文件夹中是中英字幕（不一定都翻译了），[`en/subtitles`](./en/subtitles) 文件夹中是纯英文字幕。
 
 字幕的格式是 `.srt`，所以您可能需要用带外挂字幕功能的视频播放器，比如 [VLC](http://www.videolan.org/vlc/index.zh.html) 或 [IINA](https://lhc70000.github.io/iina/zh-cn/) 等才可使用。其他字幕使用问题的解答请查看 [常见问题与解答](./SUPPORT.md) 的字幕使用章节。
 
@@ -26,12 +26,12 @@
 
 #### 课程相关资源
 
-- iTunes U：[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/us/course/developing-ios-11-apps-with-swift/id1309275316)
-	- [RSS 源](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)
-	- [课程专辑封面](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/336x428.png)
-	- [首页推广图片](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg) | [带英文](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)
-- CS 193P 课程地址：[CS 193P iPhone Application Development](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/)
-- Paul Hegarty：[piazza](https://piazza.com/professors/show/paul_hegarty)
+|[Paul Hegarty](https://piazza.com/professors/show/paul_hegarty)|iTunes U（仅 iOS）|Podcasts（多平台）|
+|--:|:--:|:--:|
+|[CS 193P iPhone Application Development](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/)|[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/course/id1309275316) |[Developing iOS 11 Apps with Swift By Paul Hegarty](https://itunes.apple.com/podcast/id1315130780)|
+|RSS 源|[隔周三更新两集](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)|未知|
+|课程封面|[![iTunes U](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/466x570.png)](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/466x570.png)|[![Podcasts](http://is1.mzstatic.com/image/thumb/Music128/v4/fa/b1/5c/fab15cf7-b968-7e65-0f32-9955ae02fc3e/source/1024x1024bb.jpg)](http://is1.mzstatic.com/image/thumb/Music128/v4/fa/b1/5c/fab15cf7-b968-7e65-0f32-9955ae02fc3e/source/1024x1024bb.jpg)|
+|[![首页推广](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)|[![带英文](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)|[![Twitter](https://pbs.twimg.com/media/DPz9KZ4VQAAyUwJ.jpg)](https://pbs.twimg.com/media/DPz9KZ4VQAAyUwJ.jpg)| 
 
 #### 项目相关资源
 
@@ -42,7 +42,8 @@
 - 字幕重排：[X140Yu/Developing_iOS_8_Apps_With_Swift/tools/trim.rb](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift/blob/master/tools/trim.rb)
 - 字幕上传：[Srt2BilibiliKit](https://github.com/ApolloZhu/Srt2BilibiliKit)
 
-----
+<details>
+<summary></summary>
 
 <script async defer src="https://buttons.github.io/buttons.js">/*请忽略这段代码*/</script>
 <script type="text/javascript">
@@ -52,3 +53,5 @@
     realH1.style.display="none";
   }
 </script>
+
+</details>

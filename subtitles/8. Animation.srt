@@ -1,0 +1,6663 @@
+1
+00:00:00,401 --> 00:00:04,536
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,605 --> 00:00:09,208
+Standford University. >> Okay, well,
+>> 斯坦福大学 >> 好
+
+3
+00:00:09,276 --> 00:00:14,846
+welcome to lecture number 8, CS193P, Fall of 2017. Today
+欢迎来到 2017 年秋季学期 CS193P 的第八节课。今天
+
+4
+00:00:14,915 --> 00:00:18,183
+it's all about animation, just going to continue a little bit
+
+5
+00:00:18,251 --> 00:00:20,819
+of what we talked about Last time. There's three kinds of
+
+6
+00:00:20,888 --> 00:00:22,087
+information I'm gonna talk about today.
+
+7
+00:00:22,156 --> 00:00:25,924
+The first is UIView Property Animation. And
+
+8
+00:00:25,992 --> 00:00:27,492
+it's exactly what it sounds like.
+
+9
+00:00:27,561 --> 00:00:31,462
+You can animate these yellow properties on your view.
+
+10
+00:00:31,531 --> 00:00:34,066
+This really the only things you can animate using this
+
+11
+00:00:34,135 --> 00:00:37,569
+UIView Property Animation mechanism. But
+
+12
+00:00:37,637 --> 00:00:39,370
+it's pretty powerfu. You've got the frame and
+
+13
+00:00:39,439 --> 00:00:42,441
+center that animating the position of the view. You've
+
+14
+00:00:42,509 --> 00:00:45,343
+got the bounds which will animate the size of the view,
+
+15
+00:00:45,412 --> 00:00:48,112
+although only in a transient way because it's the frame
+
+16
+00:00:48,181 --> 00:00:50,816
+that determines where you are. And so If you're going to make
+
+17
+00:00:50,884 --> 00:00:53,285
+it larger, it occupies more space.
+
+18
+00:00:53,353 --> 00:00:56,321
+In super view, you have to set the frame. The transform,
+
+19
+00:00:56,389 --> 00:00:58,490
+which is super powerful, we saw that with the card,
+
+20
+00:00:58,558 --> 00:01:00,659
+where we rotated the corners upside down. So
+
+21
+00:01:00,727 --> 00:01:03,428
+you can do rotation, you could also do scaling with that,
+
+22
+00:01:03,496 --> 00:01:06,831
+in fact, that's probably a better way to do scaling than
+
+23
+00:01:06,900 --> 00:01:09,901
+trying to mock with your bounds. And then an opacity,
+
+24
+00:01:09,969 --> 00:01:12,837
+another good one, fading views in and out, appearing and
+
+25
+00:01:12,906 --> 00:01:15,573
+disappearing, and background color. We almost never do
+
+26
+00:01:15,642 --> 00:01:18,476
+that, but you could do that. So the way this works is with
+
+27
+00:01:18,545 --> 00:01:22,013
+a class called UIView Property Animator, not surprisingly.
+
+28
+00:01:22,082 --> 00:01:26,217
+And it works with closures. And basically the way it works
+
+29
+00:01:26,286 --> 00:01:29,821
+is you set a bunch of things on your property animator,
+
+30
+00:01:29,890 --> 00:01:32,791
+UIView property animator, to say what kind of animation you
+
+31
+00:01:32,860 --> 00:01:36,227
+want. How long it's gonna take, what curve of going
+
+32
+00:01:36,296 --> 00:01:39,531
+through the process quickly or slowly it's gonna do. If you
+
+33
+00:01:39,599 --> 00:01:42,667
+wanna delay before you start. All these kinds of things.
+
+34
+00:01:42,736 --> 00:01:45,269
+You set that up and then you give it a closure. And inside
+
+35
+00:01:45,338 --> 00:01:50,041
+the closure is just code that modifies these properties. So
+
+36
+00:01:50,110 --> 00:01:52,744
+that's it, then it will animate those changes
+
+37
+00:01:52,813 --> 00:01:56,214
+that you asked for in the fashion that you described.
+
+38
+00:01:56,283 --> 00:01:59,651
+Okay so, this is a super simple way to animate these
+
+39
+00:01:59,720 --> 00:02:02,754
+properties in a view. So let's take a look at what it looks
+
+40
+00:02:02,823 --> 00:02:06,124
+like to call it now. I'm not even gonna scratch the surface
+
+41
+00:02:06,192 --> 00:02:09,794
+of UIViewPropertyAnimator's power, it's amazing. You can
+
+42
+00:02:09,863 --> 00:02:12,197
+create the se animations. You can scrub them backwards and
+
+43
+00:02:12,266 --> 00:02:14,833
+forwards. You can have them with auto-repeat and
+
+44
+00:02:14,902 --> 00:02:16,034
+reverse, do all these things.
+
+45
+00:02:16,103 --> 00:02:19,004
+I'm just gonna talk about the simplest way to use it
+
+46
+00:02:19,073 --> 00:02:22,573
+which is this class method running property animator.
+
+47
+00:02:22,642 --> 00:02:25,844
+Okay, this thing creates a property animator that will
+
+48
+00:02:25,913 --> 00:02:29,348
+immediately start running. Now the arguments to it are very
+
+49
+00:02:29,416 --> 00:02:32,351
+simple. The first one with duration is just how long this
+
+50
+00:02:32,419 --> 00:02:34,919
+animation is going to take to happen. So you can make it
+
+51
+00:02:34,988 --> 00:02:37,956
+a one second animation, or a ten second, solely up to you.
+
+52
+00:02:38,025 --> 00:02:40,825
+Delay is how long to wait before you start this
+
+53
+00:02:40,894 --> 00:02:43,895
+animation. Why would you wanna delay the starting animation?
+
+54
+00:02:43,964 --> 00:02:46,097
+Well, maybe you got some other animation going on you wanna
+
+55
+00:02:46,166 --> 00:02:50,001
+wait, some time for definition although there's ways to
+
+56
+00:02:50,070 --> 00:02:52,771
+chain animations too, so that when one finishes,
+
+57
+00:02:52,839 --> 00:02:54,973
+you start another one, but it might delay for
+
+58
+00:02:55,041 --> 00:02:57,542
+that reason. Then options we'll talk about later,
+
+59
+00:02:57,611 --> 00:03:00,411
+just various options, how you want animations to run. And
+
+60
+00:03:00,480 --> 00:03:03,748
+then the all important closure right there, animations,
+
+61
+00:03:03,817 --> 00:03:07,219
+it takes no arguments, returns no arguments this closure and
+
+62
+00:03:07,287 --> 00:03:09,120
+you just put the code that's gonna
+
+63
+00:03:09,189 --> 00:03:11,522
+modify those properties in ther.
+
+64
+00:03:11,591 --> 00:03:14,893
+And then there's a completion closure as well. This will get
+
+65
+00:03:14,962 --> 00:03:18,096
+called when the animation actually finishes running.
+
+66
+00:03:18,165 --> 00:03:20,331
+And that completion one has an argument there,
+
+67
+00:03:20,400 --> 00:03:23,067
+which the position's either the start,
+
+68
+00:03:23,136 --> 00:03:25,102
+because you might be running this animation backwards,
+
+69
+00:03:25,171 --> 00:03:28,173
+believe it or not. Or it's the end, so the animation got all
+
+70
+00:03:28,242 --> 00:03:31,275
+the way to the end. Or if the animation got interrupted in
+
+71
+00:03:31,344 --> 00:03:34,245
+the middle, then the position will be called current,
+
+72
+00:03:34,314 --> 00:03:37,182
+dot current. This is an enum right here, dot current.
+
+73
+00:03:37,251 --> 00:03:39,384
+Why would an animation get interrupted in the middle?
+
+74
+00:03:39,453 --> 00:03:42,320
+You start another animation that animates one of the same
+
+75
+00:03:42,389 --> 00:03:45,590
+properties. Then that animation wins and
+
+76
+00:03:45,659 --> 00:03:47,392
+it starts to taking over.
+
+77
+00:03:47,461 --> 00:03:49,694
+Now you can have multiple of these property animators going
+
+78
+00:03:49,763 --> 00:03:53,098
+side by side. All modifying different properties, but
+
+79
+00:03:53,166 --> 00:03:56,734
+once one starts to pick on the properties of another one,
+
+80
+00:03:56,803 --> 00:03:59,037
+the later one starts to win and take over.
+
+81
+00:03:59,106 --> 00:04:01,406
+Okay, and then this one will stop, go to,
+
+82
+00:04:01,474 --> 00:04:05,310
+say it's complete with the current position. Now, there's
+
+83
+00:04:05,379 --> 00:04:08,212
+something very important to understand conceptually about
+
+84
+00:04:08,281 --> 00:04:12,016
+how animations work. And I'm gonna show you an example
+
+85
+00:04:12,085 --> 00:04:15,120
+of calling this running property on an, animator. That
+
+86
+00:04:15,188 --> 00:04:19,758
+closure that you passed to it gets executed immediately.
+
+87
+00:04:20,994 --> 00:04:23,762
+It does not take five seconds,or ten seconds, or
+
+88
+00:04:23,831 --> 00:04:25,797
+however long for that closure to execute.
+
+89
+00:04:25,866 --> 00:04:26,931
+It executes immediately and
+
+90
+00:04:27,000 --> 00:04:30,702
+takes effect immediately. So, the animation is only
+
+91
+00:04:30,771 --> 00:04:34,572
+what the user is seeing. The user is seeing your
+
+92
+00:04:34,641 --> 00:04:37,409
+animation happen over five or ten seconds, but actually it
+
+93
+00:04:37,478 --> 00:04:40,344
+happened the instant you started the animation. Okay,
+
+94
+00:04:40,413 --> 00:04:43,715
+so there's a difference going on here. There's the reality,
+
+95
+00:04:43,783 --> 00:04:46,618
+which is in your code. That all happens instantly, then
+
+96
+00:04:46,686 --> 00:04:49,921
+there's the presentation of it that happens to the user.
+
+97
+00:04:49,989 --> 00:04:52,023
+That's what happens over time. So,
+
+98
+00:04:52,092 --> 00:04:55,093
+this can be confusing because you might have an animation
+
+99
+00:04:55,162 --> 00:04:57,361
+that you set to take go off in two seconds,
+
+100
+00:04:57,430 --> 00:05:00,532
+and it starts running for two seconds. And, you know you're
+
+101
+00:05:00,601 --> 00:05:03,601
+thinking, yeah, my animation, when it's done, my frame or
+
+102
+00:05:03,670 --> 00:05:06,404
+my center or my alpha will be changed. But no, the instant
+
+103
+00:05:06,472 --> 00:05:10,642
+you started that animator, it got that stuff changed. So
+
+104
+00:05:10,711 --> 00:05:12,176
+you have to think about these two timeframes.
+
+105
+00:05:12,245 --> 00:05:14,379
+This is what makes animation somewhat difficult,
+
+106
+00:05:14,448 --> 00:05:16,814
+is thinking about them, what we call the model, but
+
+107
+00:05:16,883 --> 00:05:19,050
+has nothing to do with model view controller. But
+
+108
+00:05:19,119 --> 00:05:20,985
+you know the actual reality in your code, and
+
+109
+00:05:21,054 --> 00:05:23,188
+then the presentation which is a different thing if we're to
+
+110
+00:05:23,257 --> 00:05:24,689
+user seeing.
+
+111
+00:05:24,758 --> 00:05:25,923
+Alright, so
+
+112
+00:05:25,992 --> 00:05:29,427
+here I'm going to take a view that's fully opaque and
+
+113
+00:05:29,495 --> 00:05:32,830
+I'm gonna fade it out, and then when it's gone I'm going
+
+114
+00:05:32,899 --> 00:05:35,901
+to remove it from superview. So this is basically make
+
+115
+00:05:35,969 --> 00:05:39,237
+a view disappear from the screen animation. £So first,
+
+116
+00:05:39,306 --> 00:05:41,940
+I'm just checking to make sure that I'm fully opaque,
+
+117
+00:05:42,009 --> 00:05:45,576
+if my alpha is 1, then I'm calling the animator here.
+
+118
+00:05:45,645 --> 00:05:49,047
+This animation is gonna take 3 seconds to fade out, and
+
+119
+00:05:49,115 --> 00:05:51,382
+it's not going to start Until 2 seconds from now.
+
+120
+00:05:51,451 --> 00:05:53,552
+That's what the first two arguments mean.
+
+121
+00:05:53,620 --> 00:05:55,120
+Then I picked one option just for
+
+122
+00:05:55,188 --> 00:05:57,021
+fun, which is allowUserInteraction
+
+123
+00:05:57,090 --> 00:05:59,423
+which means that as it's fading out, gestures and
+
+124
+00:05:59,492 --> 00:06:02,694
+stuff will still work on it. Otherwise,
+
+125
+00:06:02,763 --> 00:06:06,097
+if you don't specify this then as animations happening this
+
+126
+00:06:06,165 --> 00:06:09,100
+kind of animation, you won't be able to, you know,
+
+127
+00:06:09,169 --> 00:06:12,971
+tap on things or whatever. Then here's my animations.
+
+128
+00:06:13,040 --> 00:06:16,007
+My animation is just setting my transparency to zero
+
+129
+00:06:16,076 --> 00:06:19,511
+fully transparent, right? So, that happens
+
+130
+00:06:19,579 --> 00:06:22,280
+immediately when I call this method. This method running
+
+131
+00:06:22,349 --> 00:06:25,383
+property animator return immediately having executed
+
+132
+00:06:25,451 --> 00:06:29,253
+that closure immediately. And then I have a completion.
+
+133
+00:06:29,322 --> 00:06:32,190
+If the thing gets to the end without being interrupted,
+
+134
+00:06:32,259 --> 00:06:34,493
+in other words I do fade all the way out to 0,
+
+135
+00:06:34,561 --> 00:06:37,262
+then I'm going to remove myself from my super view.
+
+136
+00:06:37,330 --> 00:06:39,898
+That's what this little completion closure is all
+
+137
+00:06:39,967 --> 00:06:43,701
+about. But notice I put print alpha equals whatever?
+
+138
+00:06:43,770 --> 00:06:47,638
+That's gonna say alpha equals 0. Do you see why?
+
+139
+00:06:47,707 --> 00:06:50,174
+Cuz even though it's gonna take five seconds for
+
+140
+00:06:50,243 --> 00:06:53,111
+that alpha to go to zero it goes to zero immediately,
+
+141
+00:06:53,180 --> 00:06:57,081
+because I executed this animation. So
+
+142
+00:06:57,150 --> 00:06:59,417
+I've said that I'm sure your like yeah makes sense, but
+
+143
+00:06:59,486 --> 00:07:02,920
+until you start coding it up you're gonna be like woah,
+
+144
+00:07:02,989 --> 00:07:04,555
+that's right, I already changed that,
+
+145
+00:07:04,624 --> 00:07:06,358
+it just hasn't appeared on screen, so
+
+146
+00:07:06,426 --> 00:07:09,594
+you have to get a little bit used to that. What are some
+
+147
+00:07:09,663 --> 00:07:11,596
+of the options that you can do when you're doing these
+
+148
+00:07:11,665 --> 00:07:14,466
+animations? The first one, begin from current state,
+
+149
+00:07:14,534 --> 00:07:16,835
+is if you're animating some property and then you start
+
+150
+00:07:16,903 --> 00:07:19,437
+another animation that animates the same property.
+
+151
+00:07:19,505 --> 00:07:22,473
+Does it start from the real value of the property, which
+
+152
+00:07:22,542 --> 00:07:25,543
+is what it got set to, like alpha equals zero? So does it
+
+153
+00:07:25,612 --> 00:07:28,079
+jump to transparent and start animating from there? Or
+
+154
+00:07:28,147 --> 00:07:31,683
+does it pick up from wherever that other animation was?
+
+155
+00:07:31,752 --> 00:07:35,353
+This is really, do you use the state of alpha that is being
+
+156
+00:07:35,422 --> 00:07:37,756
+animated or do you use the real state of alpha which is
+
+157
+00:07:37,824 --> 00:07:40,458
+what's in the code which using our previous slide,
+
+158
+00:07:40,526 --> 00:07:45,163
+would be zero? Okay, so this is kinda like picking up or
+
+159
+00:07:45,231 --> 00:07:48,232
+just using the real version. We do this quite a bit if we
+
+160
+00:07:48,301 --> 00:07:50,134
+have overlapping animations that are doing
+
+161
+00:07:50,203 --> 00:07:54,272
+the same property by two different animations.
+
+162
+00:07:54,340 --> 00:07:56,675
+What else we got in there? We got repeat and autoreverse.
+
+163
+00:07:56,743 --> 00:07:58,442
+So you can have animations that can go forwards and
+
+164
+00:07:58,511 --> 00:08:00,679
+backwards and forwards and backwards.
+
+165
+00:08:00,747 --> 00:08:02,780
+It's kind of in a loop. That's kind of fun.
+
+166
+00:08:02,849 --> 00:08:05,383
+Down at the bottom you see these curves. Curve ease in,
+
+167
+00:08:05,451 --> 00:08:07,652
+ease out. For example, third from the bottom.
+
+168
+00:08:07,721 --> 00:08:09,554
+That's just saying that when you move the thing,
+
+169
+00:08:09,623 --> 00:08:11,989
+does it move linearly? That's curve linear,
+
+170
+00:08:12,058 --> 00:08:14,825
+which would be like it would move like that, or does it
+
+171
+00:08:14,894 --> 00:08:17,695
+kind of ease into moving slowly then pick up speed and
+
+172
+00:08:17,764 --> 00:08:20,432
+then slow down at the end? Now why would you want it to do
+
+173
+00:08:20,500 --> 00:08:25,637
+that? Well things that move like very linearly feel kind
+
+174
+00:08:25,705 --> 00:08:29,006
+of robotic and mechanical. Things that ease in and
+
+175
+00:08:29,075 --> 00:08:31,909
+then ease out, feel a little more like someone picked them
+
+176
+00:08:31,978 --> 00:08:34,812
+up and moved them over and put them down. You see. So
+
+177
+00:08:34,881 --> 00:08:37,315
+it is just kind of more natural movement. So like for
+
+178
+00:08:37,383 --> 00:08:40,585
+moving things you almost always want curve ease in,
+
+179
+00:08:40,653 --> 00:08:44,188
+ease out. But other ones like maybe fading out to alpha.
+
+180
+00:08:44,257 --> 00:08:49,560
+Maybe you don't need that you can just linearly fade out. So
+
+181
+00:08:49,629 --> 00:08:51,730
+that's it for view animation, super, super easy.
+
+182
+00:08:51,798 --> 00:08:55,400
+You can only animate those properties. It's super easy to
+
+183
+00:08:55,468 --> 00:08:58,403
+do. And again, I only scratched the surface.
+
+184
+00:08:58,471 --> 00:09:01,071
+I showed you one method in UIViewPropertyAnimator.
+
+185
+00:09:01,140 --> 00:09:03,007
+It has dozens of methods,
+
+186
+00:09:03,076 --> 00:09:05,643
+lots of capability in there. All right, so
+
+187
+00:09:05,711 --> 00:09:08,079
+let's talk about a totally different kinda animation now.
+
+188
+00:09:08,148 --> 00:09:11,516
+This is animating an entire view change.
+
+189
+00:09:11,585 --> 00:09:14,452
+So you've got a view and it's gonna completely change
+
+190
+00:09:14,520 --> 00:09:17,422
+the way it looks and you wanna animate that in some ways.
+
+191
+00:09:17,491 --> 00:09:18,956
+And there's limited ways to do that.
+
+192
+00:09:19,025 --> 00:09:22,593
+The classic example of this is a playing card. When a playing
+
+193
+00:09:22,662 --> 00:09:26,063
+card is face down, it looks like the Stanford logo or
+
+194
+00:09:26,132 --> 00:09:29,567
+it's the back of a card. When it's face up it's got pips and
+
+195
+00:09:29,636 --> 00:09:31,268
+corners and all of that stuff.
+
+196
+00:09:31,337 --> 00:09:35,840
+Okay, well when I wanna flip my card over I could just
+
+197
+00:09:35,908 --> 00:09:37,875
+change it immediately and it would just change back and
+
+198
+00:09:37,944 --> 00:09:42,080
+forth starkly, but this allows me to actually flip it over.
+
+199
+00:09:42,149 --> 00:09:44,915
+Like a 3D looking flip. And
+
+200
+00:09:44,984 --> 00:09:47,918
+you can also cross dissolve from one thing to another.
+
+201
+00:09:47,987 --> 00:09:50,454
+Those are the two major things you can do here. There's curl
+
+202
+00:09:50,523 --> 00:09:52,924
+up from the bottom too, which makes it like it's curling up,
+
+203
+00:09:52,993 --> 00:09:54,959
+and you're looking at a piece of paper behind it and
+
+204
+00:09:55,028 --> 00:09:56,627
+that's the new version. But
+
+205
+00:09:56,696 --> 00:09:58,796
+that's only for views that fill the whole screen.
+
+206
+00:09:58,865 --> 00:10:01,498
+Okay, that's not for, it doesn't really work if it's
+
+207
+00:10:01,567 --> 00:10:06,771
+a view inside another view. It kind of doesn't feel right. So
+
+208
+00:10:06,840 --> 00:10:09,574
+this is for transitioning just smoothing out or
+
+209
+00:10:09,642 --> 00:10:12,744
+animating the complete change to a view. Play cards
+
+210
+00:10:12,812 --> 00:10:14,913
+being the classic example. Here's how you would call it.
+
+211
+00:10:14,981 --> 00:10:17,648
+You would use this method in UIView. It's a class method
+
+212
+00:10:17,717 --> 00:10:21,920
+called transition with View. And you give again, duration.
+
+213
+00:10:21,988 --> 00:10:24,522
+You give the option. Same options as we had before.
+
+214
+00:10:24,591 --> 00:10:27,391
+Also with some options like transition flip from left,
+
+215
+00:10:27,460 --> 00:10:30,027
+which means flip this thing from the left edge.
+
+216
+00:10:30,096 --> 00:10:31,262
+You can also have flip from top,
+
+217
+00:10:31,330 --> 00:10:34,231
+flip from bottom, cross dissolve,
+
+218
+00:10:34,300 --> 00:10:37,201
+those kind of things. And now, in the animation block,
+
+219
+00:10:37,270 --> 00:10:40,104
+you're not limited to just changing view properties,
+
+220
+00:10:40,173 --> 00:10:41,706
+you can change anything you want,
+
+221
+00:10:41,775 --> 00:10:44,041
+that's going to make that thing look different. And
+
+222
+00:10:44,110 --> 00:10:46,911
+then, so what the animation system does is, it draws your
+
+223
+00:10:46,980 --> 00:10:50,682
+view before this closure. Then it executes closure,
+
+224
+00:10:50,750 --> 00:10:54,385
+draws the view after, and then it just flips it over or
+
+225
+00:10:54,454 --> 00:10:57,222
+cross dissolves it, see what's going on here? So
+
+226
+00:10:57,290 --> 00:10:59,857
+this is kind of a simple animator for big changes.
+
+227
+00:10:59,926 --> 00:11:02,059
+Playing card is a great example and we'll see that in
+
+228
+00:11:02,128 --> 00:11:04,862
+the demo that I'm going to do. All right, so that's number
+
+229
+00:11:04,931 --> 00:11:08,198
+two. Here's number three. This one's a little more powerful,
+
+230
+00:11:08,267 --> 00:11:09,400
+a little more complicated.
+
+231
+00:11:09,468 --> 00:11:13,104
+Dynamic animation, it's a little approach to animation.
+
+232
+00:11:13,172 --> 00:11:16,541
+Here we're gonna set up physics attributes on our
+
+233
+00:11:16,609 --> 00:11:20,377
+views and then just tell them to go do what they do. So
+
+234
+00:11:20,446 --> 00:11:24,548
+we're talking physics like density, friction, gravity.
+
+235
+00:11:24,617 --> 00:11:26,350
+Stuff like that. You put on them there and
+
+236
+00:11:26,419 --> 00:11:30,088
+then they just start moving because physics, it works. So
+
+237
+00:11:30,156 --> 00:11:34,225
+let's take a look at how you make this happen. The first,
+
+238
+00:11:34,294 --> 00:11:35,860
+there's three steps to making it happen.
+
+239
+00:11:35,929 --> 00:11:37,628
+First, you need an animator.
+
+240
+00:11:37,697 --> 00:11:40,364
+This is just the thing that drives the animation.
+
+241
+00:11:40,433 --> 00:11:43,501
+It's an instance of a class called UIDynamicAnimator,
+
+242
+00:11:43,570 --> 00:11:46,270
+it only takes one argument in it's initializer,
+
+243
+00:11:46,339 --> 00:11:48,973
+which is the view that is going to be the reference
+
+244
+00:11:49,042 --> 00:11:52,076
+coordinate system for all animation that's going on.
+
+245
+00:11:52,145 --> 00:11:54,712
+And the only requirement for this view, can be any view in
+
+246
+00:11:54,781 --> 00:11:58,182
+your app. It just has to be a super view, or a super view of
+
+247
+00:11:58,251 --> 00:11:59,650
+a super view, or a super view of a super view.
+
+248
+00:11:59,719 --> 00:12:02,319
+It has to be at the top of the view hierarchy of all
+
+249
+00:12:02,388 --> 00:12:05,055
+the views that the animator is going to animate.
+
+250
+00:12:05,124 --> 00:12:07,725
+But those views don't all have to be in the same view.
+
+251
+00:12:07,794 --> 00:12:09,494
+They could be in sub-views of other views.
+
+252
+00:12:09,562 --> 00:12:12,396
+As long as they all are eventually have this view.
+
+253
+00:12:12,465 --> 00:12:16,367
+The reference view as a super view. So a lot of times people
+
+254
+00:12:16,435 --> 00:12:18,436
+wanna make their whole view controller's view, and
+
+255
+00:12:18,505 --> 00:12:19,970
+that's what I'm gonna do in my demo.
+
+256
+00:12:20,039 --> 00:12:22,039
+Be a reference view cuz I don't have any other views.
+
+257
+00:12:22,108 --> 00:12:24,642
+But like in your assignment you might just make your view
+
+258
+00:12:24,711 --> 00:12:27,077
+that contains your cards be your reference view.
+
+259
+00:12:27,146 --> 00:12:29,547
+Because you're only gonna animate the cards. So
+
+260
+00:12:29,616 --> 00:12:33,150
+you don't need to go higher level, all right? And in fact,
+
+261
+00:12:33,219 --> 00:12:35,286
+it's better to stay lower down, because it can be more
+
+262
+00:12:35,355 --> 00:12:37,688
+object oriented to have that animation code down where it's
+
+263
+00:12:37,757 --> 00:12:40,057
+actually happening instead of putting everything up in your
+
+264
+00:12:40,126 --> 00:12:43,294
+controller. But I will say by the way, especially when you
+
+265
+00:12:43,363 --> 00:12:45,296
+see me do demos, which are really lightweight,
+
+266
+00:12:45,365 --> 00:12:48,299
+there is a tendency you probably have as beginning iOS
+
+267
+00:12:48,368 --> 00:12:50,902
+people to put everything in your view controller when
+
+268
+00:12:50,971 --> 00:12:54,038
+maybe it wants to be down a level in a custom view.
+
+269
+00:12:54,107 --> 00:12:55,707
+So just food for thought there.
+
+270
+00:12:55,775 --> 00:12:58,576
+Think about what level things wanna be at. All right, so
+
+271
+00:12:58,645 --> 00:12:59,744
+number one is to create the animator,
+
+272
+00:12:59,812 --> 00:13:02,113
+number two is to create behaviors.
+
+273
+00:13:02,182 --> 00:13:06,583
+So this is describing how the things in this view behave.
+
+274
+00:13:06,652 --> 00:13:08,519
+And so we're talking about gravity, and
+
+275
+00:13:08,587 --> 00:13:11,121
+whether things collide with each other, stuff like that.
+
+276
+00:13:11,190 --> 00:13:13,924
+Okay, those are behaviors, and you add the behaviors to
+
+277
+00:13:13,993 --> 00:13:16,560
+the animator, so animator has an add behavior method.
+
+278
+00:13:16,629 --> 00:13:19,697
+You call it after creating a behavior and
+
+279
+00:13:19,766 --> 00:13:23,534
+you just add it. Now as soon as you add that behavior.
+
+280
+00:13:23,602 --> 00:13:26,838
+That animator would start enforcing that behavior,
+
+281
+00:13:26,907 --> 00:13:28,372
+whatever it is gravity or collisions or
+
+282
+00:13:28,441 --> 00:13:31,175
+whatever. But there is no items yet
+
+283
+00:13:31,244 --> 00:13:32,843
+that are being affected by the behaviors.
+
+284
+00:13:32,912 --> 00:13:36,113
+So step three is to add items to the behaviors.
+
+285
+00:13:36,182 --> 00:13:38,983
+So it's creating an animator, add behaviors to the animator.
+
+286
+00:13:39,051 --> 00:13:41,852
+Now add items to the behavior. The instant you add
+
+287
+00:13:41,921 --> 00:13:44,722
+an item to a behavior, it will start being affected by that
+
+288
+00:13:44,791 --> 00:13:48,092
+behavior assuming it's in an animator.
+
+289
+00:13:48,161 --> 00:13:51,863
+And UIView's are the items here, but actually there's
+
+290
+00:13:51,931 --> 00:13:55,433
+not UIView's it's any object that implements the protocol
+
+291
+00:13:55,502 --> 00:13:57,835
+UIDynamicItem, which doesn't have to be a view.
+
+292
+00:13:57,903 --> 00:13:59,971
+I'm gonna show you that protocol in a second. But
+
+293
+00:14:00,039 --> 00:14:04,008
+UIViews are 99% of the time what we pass items to these
+
+294
+00:14:04,077 --> 00:14:07,278
+behaviors. So if I say gravity add item, item 1,
+
+295
+00:14:07,347 --> 00:14:10,247
+item 1 will immediately start feeling the pull of gravity.
+
+296
+00:14:10,316 --> 00:14:14,518
+If I say collider at item 1 immediately item 1 will start
+
+297
+00:14:14,587 --> 00:14:17,421
+colliding with everything else that is added as an item in
+
+298
+00:14:17,490 --> 00:14:21,625
+collider, in the collider. You don't say go. It's just like
+
+299
+00:14:21,694 --> 00:14:24,194
+as soon as you add an item it starts being effected by that
+
+300
+00:14:24,263 --> 00:14:26,730
+behavior. And if you remove an item it instantly stops being
+
+301
+00:14:26,799 --> 00:14:28,099
+effected by that behavior.
+
+302
+00:14:30,103 --> 00:14:31,602
+here's that UI dynamic item protocol that view implements.
+
+303
+00:14:31,603 --> 00:14:33,102
+Okay, so
+
+304
+00:14:33,172 --> 00:14:35,973
+View actually implemented three of them automatically.
+
+305
+00:14:36,042 --> 00:14:39,009
+It already had a bound, center, and transform. Okay so
+
+306
+00:14:39,078 --> 00:14:41,979
+it automatically implemented those. And then the other two
+
+307
+00:14:42,048 --> 00:14:44,148
+are just really simple things having to do with collisions.
+
+308
+00:14:44,217 --> 00:14:45,883
+I'm not even gonna talk about those.
+
+309
+00:14:45,952 --> 00:14:49,987
+But you can see by what's in the dynamic item protocol what
+
+310
+00:14:50,056 --> 00:14:53,123
+the animation system is Is able to animate.
+
+311
+00:14:53,192 --> 00:14:56,227
+It's able to animate the size through the bounds.
+
+312
+00:14:56,296 --> 00:14:58,896
+It's able to animate the position through the center.
+
+313
+00:14:58,965 --> 00:15:01,766
+And it's able to animate the transform, so
+
+314
+00:15:01,835 --> 00:15:03,467
+it can rotate and scale and
+
+315
+00:15:03,536 --> 00:15:06,537
+do anything it wants pretty much in that front.
+
+316
+00:15:06,605 --> 00:15:10,041
+And it tends to mostly use transform in center to do its
+
+317
+00:15:10,110 --> 00:15:14,244
+animation. Okay, the bound to be notice is read only.
+
+318
+00:15:14,313 --> 00:15:17,214
+So the bounds is just for the views that can obviously look
+
+319
+00:15:17,283 --> 00:15:19,082
+at their own bound from their drawing and stuff.
+
+320
+00:15:19,151 --> 00:15:22,987
+The animator doesn't actually change the bounds, as it goes.
+
+321
+00:15:23,056 --> 00:15:26,123
+Mostly doing center and transform. By the way,
+
+322
+00:15:26,192 --> 00:15:29,493
+if you give an object to the animator by making a behavior
+
+323
+00:15:29,562 --> 00:15:32,463
+operate on it, really animator kind of owns it.
+
+324
+00:15:32,532 --> 00:15:33,397
+It owns a center and
+
+325
+00:15:33,466 --> 00:15:35,733
+transform as it's going to change them around.
+
+326
+00:15:35,801 --> 00:15:38,302
+So if you wanted to change a standard, or transform
+
+327
+00:15:38,371 --> 00:15:41,172
+off a view you already gave to a behavior, then you have to
+
+328
+00:15:41,240 --> 00:15:43,674
+call this method in your dynamic animator which is
+
+329
+00:15:43,743 --> 00:15:45,710
+update the item to the current state.
+
+330
+00:15:45,779 --> 00:15:47,945
+In other words, I changed the center or
+
+331
+00:15:48,014 --> 00:15:51,015
+the transform, please, Mr. Animator, take that.
+
+332
+00:15:51,084 --> 00:15:53,684
+And so the animator would take that state, move the object,
+
+333
+00:15:53,753 --> 00:15:56,487
+change its transform, and then start behaving on it again.
+
+334
+00:15:57,857 --> 00:16:01,192
+Keep going forward, behaving from there. All right, so
+
+335
+00:16:01,260 --> 00:16:01,859
+let's talk about some
+
+336
+00:16:01,927 --> 00:16:03,828
+of the behaviors you can have. I mentioned gravity.
+
+337
+00:16:03,897 --> 00:16:07,598
+Gravity is an easy one. By default, gravity is down,
+
+338
+00:16:07,667 --> 00:16:10,100
+meaning down towards the home button or
+
+339
+00:16:10,169 --> 00:16:13,804
+the bottom of the device. Like an iPhone 10, it's away from
+
+340
+00:16:13,873 --> 00:16:17,441
+the face recognition stuff at the top. And the magnitude,
+
+341
+00:16:17,510 --> 00:16:22,412
+we sometimes call it G, but it's not really G.
+
+342
+00:16:22,481 --> 00:16:26,984
+The magnitude of 1.0 is 1,000 points per second per second.
+
+343
+00:16:27,053 --> 00:16:28,519
+Everyone knows what gravity is, right?
+
+344
+00:16:28,588 --> 00:16:31,322
+It's an acceleration, 9.8 meters per second squared.
+
+345
+00:16:31,391 --> 00:16:33,724
+So, this is 1,000 points per second per second.
+
+346
+00:16:33,793 --> 00:16:36,360
+Now, what's incredible is 1,000 points per second per
+
+347
+00:16:36,429 --> 00:16:39,496
+second feels a lot like 9.8 meters per second squared.
+
+348
+00:16:39,565 --> 00:16:42,699
+In other words, if I put an object at the top of my screen
+
+349
+00:16:42,768 --> 00:16:46,170
+and added to it a behavior with that gravity, it falls
+
+350
+00:16:46,238 --> 00:16:48,873
+at about the same rate as a real life object would fall.
+
+351
+00:16:48,942 --> 00:16:49,973
+It's amazing that,
+
+352
+00:16:50,042 --> 00:16:53,377
+that round number ends up being like that. But it is.
+
+353
+00:16:53,446 --> 00:16:56,213
+And then also, gravity doesn't have to be down. You can make
+
+354
+00:16:56,282 --> 00:17:00,384
+gravity go up. Or off to the right or anywhere you want. So
+
+355
+00:17:00,452 --> 00:17:04,088
+you can completely control what is going on with gravity.
+
+356
+00:17:04,157 --> 00:17:06,190
+Attachment behavior, really cool one.
+
+357
+00:17:06,259 --> 00:17:11,963
+Think of it as like an iron bar,
+
+358
+00:17:12,031 --> 00:17:15,599
+or a bar between either two items or between an item and
+
+359
+00:17:15,668 --> 00:17:20,204
+a fixed point, all right? And that bar keeps those two items
+
+360
+00:17:20,273 --> 00:17:23,841
+connected even as all the other behaviors work on it.
+
+361
+00:17:23,910 --> 00:17:27,911
+So, imagine you had two things connected with a detachment
+
+362
+00:17:27,980 --> 00:17:30,748
+behavior. So they're behaving as if they're attached to each
+
+363
+00:17:30,816 --> 00:17:33,550
+other. And they start to fall because they're both being
+
+364
+00:17:33,619 --> 00:17:37,321
+operated on by gravity. Then let's say one of them collides
+
+365
+00:17:37,390 --> 00:17:40,191
+with something. That bark is gonna make it, so
+
+366
+00:17:40,259 --> 00:17:42,292
+the other one which didn't collide is gonna
+
+367
+00:17:42,361 --> 00:17:45,129
+swing like a pendulum, you see? Cuz this one came down,
+
+368
+00:17:45,197 --> 00:17:47,631
+it collided, and this one kept on going. But
+
+369
+00:17:47,700 --> 00:17:51,068
+the bar keeps them together. And same thing if you attached
+
+370
+00:17:51,137 --> 00:17:54,372
+it to a fixed point. And then you turn on gravity, it will
+
+371
+00:17:54,440 --> 00:17:56,640
+start to fall down. But then when it gets to the bottom,
+
+372
+00:17:56,709 --> 00:17:59,143
+it'll start swinging like a pendulum. And then eventually,
+
+373
+00:17:59,212 --> 00:18:00,144
+gravity will pull it so
+
+374
+00:18:00,213 --> 00:18:03,413
+that it's straight down. You see what I'm saying there? So
+
+375
+00:18:03,482 --> 00:18:06,350
+attachments, awesome, cool little things. Another thing
+
+376
+00:18:06,419 --> 00:18:09,854
+that's cool about them is you can change the length of this
+
+377
+00:18:09,922 --> 00:18:13,924
+bar while the animation's happening. So it's animating.
+
+378
+00:18:13,993 --> 00:18:16,093
+Things are falling, bouncing off, things are colliding with
+
+379
+00:18:16,162 --> 00:18:18,529
+things. They're attached, and you can make the bar get
+
+380
+00:18:18,597 --> 00:18:20,831
+closer together or farther apart. You can also make
+
+381
+00:18:20,900 --> 00:18:23,400
+the bar kind of springy with a certain amount of damping. So
+
+382
+00:18:23,469 --> 00:18:26,036
+that things hit something, and then it will come together,
+
+383
+00:18:26,105 --> 00:18:28,539
+and then come back up to make their attachment be the right
+
+384
+00:18:28,608 --> 00:18:30,807
+distance. It's pretty cool behavior.
+
+385
+00:18:30,876 --> 00:18:33,510
+Then there's collision behavior. This is probably
+
+386
+00:18:33,579 --> 00:18:37,014
+the most common behavior. Okay, this is objects UIView
+
+387
+00:18:37,083 --> 00:18:41,352
+bouncing into each other or bouncing off bezier paths,
+
+388
+00:18:41,421 --> 00:18:45,923
+basically, in the background. And you set this up just by
+
+389
+00:18:45,992 --> 00:18:48,793
+adding any fix boundaries you want as bezier paths,
+
+390
+00:18:48,861 --> 00:18:52,129
+usually, and then adding items. And you can control
+
+391
+00:18:52,197 --> 00:18:54,765
+whether the items bounce off each other or only off these
+
+392
+00:18:54,834 --> 00:18:57,802
+boundaries as bezier paths as you set up. All these bezier
+
+393
+00:18:57,870 --> 00:19:00,037
+paths are in the reference views coordinate system,
+
+394
+00:19:00,106 --> 00:19:02,540
+by the way. They're not actually drawn or anything.
+
+395
+00:19:02,608 --> 00:19:08,278
+They're just conceptually boundaries in the space.
+
+396
+00:19:08,347 --> 00:19:11,515
+And there's a really cool var in there.
+
+397
+00:19:11,584 --> 00:19:14,051
+The second from the bottom there translates reference
+
+398
+00:19:14,120 --> 00:19:16,053
+bounds into boundary. If you set that to true
+
+399
+00:19:16,121 --> 00:19:19,156
+on a collision behavior, then your reference views
+
+400
+00:19:19,224 --> 00:19:22,626
+outer edges will become a boundary, which is common cuz
+
+401
+00:19:22,695 --> 00:19:24,895
+you got things bouncing around in your reference view.
+
+402
+00:19:24,964 --> 00:19:28,366
+They'll stay mostly inside. Now, one thing about collision
+
+403
+00:19:28,434 --> 00:19:31,702
+boundaries, a lot of people think, if I put my reference
+
+404
+00:19:31,771 --> 00:19:34,938
+bounds as collision boundary, then no object will ever get
+
+405
+00:19:35,007 --> 00:19:37,941
+out. Okay, it will never escape. But that's not true.
+
+406
+00:19:38,010 --> 00:19:40,478
+Because items can, for example, move so fast that in
+
+407
+00:19:40,546 --> 00:19:43,147
+one animation frame, they move from being on one side of
+
+408
+00:19:43,215 --> 00:19:45,883
+the boundary to the other. And then they just fly off in
+
+409
+00:19:45,952 --> 00:19:48,685
+the outer space, they're gone forever. So
+
+410
+00:19:48,754 --> 00:19:51,655
+collision boundaries, they only check for
+
+411
+00:19:51,724 --> 00:19:55,059
+collisions on each frame of the animation, and so
+
+412
+00:19:55,127 --> 00:19:58,295
+they're not a lock down guarantee. You keep things
+
+413
+00:19:58,364 --> 00:20:01,164
+inside if you put a collision boundary around everything.
+
+414
+00:20:01,233 --> 00:20:04,268
+Now, collision boundaries also have a delegate. Their
+
+415
+00:20:04,336 --> 00:20:07,004
+delegate allows you to find out when collisions happen.
+
+416
+00:20:07,072 --> 00:20:09,673
+So if you set something to be a collision delegate,
+
+417
+00:20:09,741 --> 00:20:12,876
+you'll get these methods like collision behavior, began,
+
+418
+00:20:12,945 --> 00:20:15,412
+contact for some dynamic item with a boundary and
+
+419
+00:20:15,481 --> 00:20:19,050
+an identifier with a name. By the way, notice the boundary
+
+420
+00:20:19,118 --> 00:20:22,052
+identifiers are of type NSCopying.
+
+421
+00:20:22,121 --> 00:20:24,121
+That's really weird old Objective-C thing.
+
+422
+00:20:24,189 --> 00:20:26,723
+That just means that they're either an NS number or an NS
+
+423
+00:20:26,792 --> 00:20:31,695
+string. And so you can use S to turn them into a string or
+
+424
+00:20:31,764 --> 00:20:34,931
+a double or an int, because we know that NS number and
+
+425
+00:20:35,000 --> 00:20:38,002
+NS string can be like automatically as to their
+
+426
+00:20:38,071 --> 00:20:42,906
+Swift counterparts there. Collisions are cool.
+
+427
+00:20:42,975 --> 00:20:46,043
+SnapBehavior, also very common. This is
+
+428
+00:20:46,111 --> 00:20:48,612
+when you're using the dynamic animation system, how you
+
+429
+00:20:48,681 --> 00:20:52,349
+move something. So you wanna move something someplace else.
+
+430
+00:20:52,418 --> 00:20:55,019
+You're not doing view property animation here, you're using
+
+431
+00:20:55,087 --> 00:20:58,021
+dynamic animation, so you say snap to this point.
+
+432
+00:20:58,090 --> 00:21:00,257
+To little better than the view property 1,
+
+433
+00:21:00,326 --> 00:21:02,926
+because when it snaps there, it doesn't just jump
+
+434
+00:21:02,995 --> 00:21:05,229
+right there or even ease out and ease in there.
+
+435
+00:21:05,297 --> 00:21:07,331
+It actually gets there, and when it's there,
+
+436
+00:21:07,399 --> 00:21:09,866
+imagine it has four springs on the corner. So it kind of
+
+437
+00:21:09,935 --> 00:21:13,137
+comes in and vibrates a little. So it feels even more
+
+438
+00:21:13,205 --> 00:21:16,607
+natural flying across the screen and stopping. So you'll
+
+439
+00:21:16,676 --> 00:21:19,777
+probably use the snap behavior in your homework because you
+
+440
+00:21:19,845 --> 00:21:22,646
+have to throw matched cards into a discard pile. You're
+
+441
+00:21:22,714 --> 00:21:24,448
+probably gonna use snapTo to throw them out there,
+
+442
+00:21:24,517 --> 00:21:25,649
+cuz you're gonna be doing dynamic
+
+443
+00:21:25,717 --> 00:21:29,553
+animation with them otherwise. Then there's PushBehavior.
+
+444
+00:21:29,622 --> 00:21:31,922
+Okay, PushBehavior just pushes an object.
+
+445
+00:21:31,990 --> 00:21:35,659
+And it can either constantly push it. Or it can just push
+
+446
+00:21:35,727 --> 00:21:39,864
+it once, like punch it. And this is an interesting one.
+
+447
+00:21:39,932 --> 00:21:43,633
+You can specify the angle and the magnitude of the push.
+
+448
+00:21:43,702 --> 00:21:46,070
+The instantaneous one is kind of interesting, because think
+
+449
+00:21:46,138 --> 00:21:49,573
+about it. This is a behavior that's added to an animator,
+
+450
+00:21:49,641 --> 00:21:53,176
+and this behavior only fires once if it's instantaneous.
+
+451
+00:21:53,245 --> 00:21:55,479
+And then it's just sitting there doing nothing forever.
+
+452
+00:21:55,547 --> 00:21:58,248
+So it's just kinda croft. So it'd be nice if
+
+453
+00:21:58,317 --> 00:22:00,985
+there was a way that we could add a PushBehavior and say,
+
+454
+00:22:01,053 --> 00:22:02,152
+after you fired,
+
+455
+00:22:02,221 --> 00:22:04,388
+please delete yourself because you've already done your work.
+
+456
+00:22:04,457 --> 00:22:06,123
+And I'm gonna show you how to do that, but it's gonna
+
+457
+00:22:07,960 --> 00:22:10,294
+require me to teach you a little more about closures,
+
+458
+00:22:10,362 --> 00:22:15,332
+which I'll do in a little bit. Another one is
+
+459
+00:22:15,401 --> 00:22:19,470
+a UIDynamicItemBehavior. This is like a meta behavior. So
+
+460
+00:22:19,538 --> 00:22:22,372
+this is a behavior where you specify things like friction
+
+461
+00:22:22,441 --> 00:22:25,376
+and elasticity and whether you allow rotation of the view as
+
+462
+00:22:25,445 --> 00:22:26,944
+it's bouncing off of things.
+
+463
+00:22:27,012 --> 00:22:29,680
+And this affects how all the other behaviors work, right?
+
+464
+00:22:29,749 --> 00:22:33,149
+If you add more friction, then obviously, gravity pulls on
+
+465
+00:22:33,218 --> 00:22:35,552
+things. They move slower, because they have friction,
+
+466
+00:22:35,621 --> 00:22:40,457
+etc. You can also ask the UIDynamicItemBehavior about
+
+467
+00:22:40,526 --> 00:22:44,461
+all of its items. Things like, what's your current velocity.
+
+468
+00:22:44,530 --> 00:22:46,596
+How fast are you moving across the screen, or
+
+469
+00:22:46,665 --> 00:22:49,433
+even how fast are you spinning if you happen to be spinning,
+
+470
+00:22:49,502 --> 00:22:50,800
+how fast is that happening?
+
+471
+00:22:50,869 --> 00:22:54,771
+So UIDynamicItemBehavior, we almost always have all or
+
+472
+00:22:54,840 --> 00:22:56,640
+items in a UIDynamicItemBehavior,
+
+473
+00:22:56,709 --> 00:22:59,576
+because we wanna be able to set these various things about
+
+474
+00:22:59,645 --> 00:23:03,481
+them. Then there's UIDynamicBehavior,
+
+475
+00:23:03,549 --> 00:23:06,016
+which is the super class of all of these behaviors,
+
+476
+00:23:06,085 --> 00:23:07,384
+collision behavior, gravity behavior,
+
+477
+00:23:07,453 --> 00:23:10,453
+all of these things. Now, you could subclass this and
+
+478
+00:23:10,522 --> 00:23:12,489
+try and write your own behavior,
+
+479
+00:23:12,558 --> 00:23:16,159
+but writing a gravity behavior is pretty hard. A lot of math
+
+480
+00:23:16,228 --> 00:23:18,963
+involved there, trying to get that to work. But that's not
+
+481
+00:23:19,031 --> 00:23:21,932
+why you use a subclass of UIDynamicBehavior. What you do
+
+482
+00:23:22,001 --> 00:23:24,734
+with UIDynamicBehavior is you collect other behaviors,
+
+483
+00:23:24,803 --> 00:23:27,404
+like collisions and gravity and all this other stuff,
+
+484
+00:23:27,473 --> 00:23:30,240
+into one behavior. So that you have one behavior that you add
+
+485
+00:23:30,308 --> 00:23:32,876
+your items to, and it's got all these children behaviors
+
+486
+00:23:32,945 --> 00:23:34,812
+that are making it behave in all this way.
+
+487
+00:23:34,880 --> 00:23:36,613
+We're gonna do some of the demo as well, and
+
+488
+00:23:36,682 --> 00:23:39,883
+the way you do this is you call addChildBehavior
+
+489
+00:23:39,952 --> 00:23:43,453
+on yourself if you're UIDynamicBehavior sublass. And
+
+490
+00:23:43,522 --> 00:23:48,658
+it now causes that behavior to be your behavior. So
+
+491
+00:23:48,727 --> 00:23:52,162
+very simple. UIDynamicBehavior also has
+
+492
+00:23:52,231 --> 00:23:55,232
+a bar in it called dynamic animator.
+
+493
+00:23:55,300 --> 00:23:58,669
+That is the animator you are currently being animated by,
+
+494
+00:23:58,737 --> 00:24:01,605
+if any. Okay, so you can look at this to find out.
+
+495
+00:24:01,674 --> 00:24:03,940
+Am I currently being animated? This behavior or
+
+496
+00:24:04,009 --> 00:24:07,144
+is it not being animated? And if it is being animated,
+
+497
+00:24:07,212 --> 00:24:09,012
+who by? And it will even send you a message.
+
+498
+00:24:09,081 --> 00:24:11,982
+Will move to animator when you switch to a different
+
+499
+00:24:12,051 --> 00:24:14,251
+animator. Usually when you go from not being animated
+
+500
+00:24:14,320 --> 00:24:18,221
+to being animated or vice versa, all right?
+
+501
+00:24:18,290 --> 00:24:21,525
+Now UIDynamicBehavior has another awesome
+
+502
+00:24:21,593 --> 00:24:24,094
+var that you inherit when you create a subclass or
+
+503
+00:24:24,163 --> 00:24:26,062
+when the subclasses are created.
+
+504
+00:24:26,131 --> 00:24:29,532
+Which is action. So action is a closure. Takes no arguments,
+
+505
+00:24:29,601 --> 00:24:33,070
+returns no arguments. This closure gets executed every
+
+506
+00:24:33,139 --> 00:24:39,076
+time this UIDynamicBehavior Acts. So like a push behavior
+
+507
+00:24:39,145 --> 00:24:42,546
+that's instantaneous, this gets called once. Cuz only
+
+508
+00:24:42,614 --> 00:24:45,615
+once does it act on object. But a collision behavior is
+
+509
+00:24:45,684 --> 00:24:48,686
+kind of always acting on the outer gravity behavior always.
+
+510
+00:24:48,754 --> 00:24:50,921
+So it's this thing is getting called a lot.
+
+511
+00:24:50,989 --> 00:24:54,124
+So never put any code in there that takes a long time to
+
+512
+00:24:54,193 --> 00:24:57,327
+execute because it will slow your animation right way down.
+
+513
+00:24:57,396 --> 00:24:59,529
+Cuz these things are being called all the time,
+
+514
+00:24:59,598 --> 00:25:01,932
+these action closures right here. But
+
+515
+00:25:02,000 --> 00:25:04,634
+they can be kind of useful. For example, you might wanna
+
+516
+00:25:04,703 --> 00:25:08,304
+check in here how's my view left the building, right?
+
+517
+00:25:08,373 --> 00:25:10,908
+You could look at whatever the items of this behavior's
+
+518
+00:25:10,976 --> 00:25:14,043
+acting on and did it cause this thing to go outside
+
+519
+00:25:14,112 --> 00:25:15,879
+the reference bounds even? Or whatever,
+
+520
+00:25:15,948 --> 00:25:18,581
+so that I have to put it back or maybe destroy it, or
+
+521
+00:25:18,650 --> 00:25:21,217
+something like that. So again, it only takes a couple
+
+522
+00:25:21,286 --> 00:25:23,753
+lines of code to check the bounds of your item against
+
+523
+00:25:23,822 --> 00:25:25,890
+the reference bounds and see if anything has happened.
+
+524
+00:25:25,958 --> 00:25:29,526
+So that would be okay to put in your action.
+
+525
+00:25:29,595 --> 00:25:32,128
+Now we're gonna use this action thing in a second to
+
+526
+00:25:32,197 --> 00:25:36,366
+fix that push behavior problem to, all right? Finally,
+
+527
+00:25:36,435 --> 00:25:39,903
+I'm gonna talk about stasis of the animator. Really,
+
+528
+00:25:39,972 --> 00:25:43,273
+most of the time we design these animation mechanisms,
+
+529
+00:25:43,342 --> 00:25:45,442
+with all of the gravity and collision boundaries and
+
+530
+00:25:45,511 --> 00:25:47,577
+physics and all that stuff, we design it in a way that we
+
+531
+00:25:47,646 --> 00:25:51,248
+expect it to come to a stop. Okay, and
+
+532
+00:25:51,316 --> 00:25:53,784
+then maybe a push happens, and it goes back active again.
+
+533
+00:25:53,852 --> 00:25:56,220
+And then it eventually comes to a stop. Most of the time,
+
+534
+00:25:56,288 --> 00:25:58,254
+it's not required. You could have things just constantly
+
+535
+00:25:58,323 --> 00:26:01,591
+going around all the time. But usually you push,
+
+536
+00:26:01,660 --> 00:26:04,995
+whatever comes to a stop. And so you can find out when it
+
+537
+00:26:05,064 --> 00:26:08,364
+reaches stasis with the UIDynamicAnimator's delegate
+
+538
+00:26:08,433 --> 00:26:11,602
+which has these two methods. Did pause and will resume.
+
+539
+00:26:11,671 --> 00:26:14,103
+And it will tell you, I came to stasis.
+
+540
+00:26:14,172 --> 00:26:15,873
+I'm not currently moving anything and
+
+541
+00:26:15,941 --> 00:26:18,975
+then something happens. It'll say I'm resuming because I
+
+542
+00:26:19,044 --> 00:26:24,747
+have to move things. Okay, all right? Let's go back and
+
+543
+00:26:24,816 --> 00:26:27,483
+talk about that push behavior thing. So what I really wanted
+
+544
+00:26:27,552 --> 00:26:29,920
+to do something like thing. I got this push behavior, right?
+
+545
+00:26:29,989 --> 00:26:33,223
+I set it's magnitude and its angle. But I really want that
+
+546
+00:26:33,292 --> 00:26:37,427
+push behavior to get thrown away as soon as it pushes
+
+547
+00:26:37,496 --> 00:26:40,630
+because it's instantaneous. You see here, my thing here is
+
+548
+00:26:40,699 --> 00:26:43,300
+instantaneous. Push, so it's only going to push once.
+
+549
+00:26:43,369 --> 00:26:45,135
+And then I want it to get thrown away, so
+
+550
+00:26:45,203 --> 00:26:47,537
+it doesn't muck up the heap with a totally useless
+
+551
+00:26:47,606 --> 00:26:48,672
+behavior, all right?
+
+552
+00:26:48,740 --> 00:26:50,440
+Well, I can do that with this action method,
+
+553
+00:26:50,508 --> 00:26:53,109
+the yellow part right here. So I can just have the push
+
+554
+00:26:53,178 --> 00:26:57,314
+behaviors action all behaviors inherit this action closure.
+
+555
+00:26:57,382 --> 00:27:00,951
+And inside the closure I can tell, ask the push behaviors
+
+556
+00:27:01,019 --> 00:27:05,055
+animator, please remove me. Okay, remove behavior.
+
+557
+00:27:05,124 --> 00:27:08,592
+The push behavior itself. So that's cool, right?
+
+558
+00:27:08,660 --> 00:27:13,029
+It solves the problem. Well yeah, but red on the slides.
+
+559
+00:27:13,098 --> 00:27:17,434
+This creates a memory cycle. So we're gonna talk
+
+560
+00:27:17,503 --> 00:27:20,737
+a little bit about this memory cycle that this creates. And
+
+561
+00:27:20,806 --> 00:27:23,340
+the bottom line here is that the push behavior is pointing
+
+562
+00:27:23,408 --> 00:27:24,274
+to that closure.
+
+563
+00:27:24,342 --> 00:27:27,010
+That closure is pointing back to the push behavior.
+
+564
+00:27:27,079 --> 00:27:31,381
+So both of them have a pointer to something them in the heap.
+
+565
+00:27:31,450 --> 00:27:33,984
+And so they're both being kept in the heap. All right, so for
+
+566
+00:27:34,053 --> 00:27:36,520
+me to tell you how we're gonna fix that memory cycle,
+
+567
+00:27:36,589 --> 00:27:38,489
+I'm gonna have to take an aside here and go back and
+
+568
+00:27:38,557 --> 00:27:40,224
+teach you a little more about closures. Hopefully,
+
+569
+00:27:40,292 --> 00:27:42,359
+you've read about this in your homework assignment. But
+
+570
+00:27:42,428 --> 00:27:46,429
+here we go. You can define. When you have a closure
+
+571
+00:27:46,498 --> 00:27:49,032
+you can define some local variables.
+
+572
+00:27:49,101 --> 00:27:50,400
+Fun little local variables.
+
+573
+00:27:50,468 --> 00:27:52,836
+You put a little square brackets with these local
+
+574
+00:27:52,905 --> 00:27:55,805
+brackets in there right before you're in with your closure
+
+575
+00:27:55,874 --> 00:27:57,974
+and you can define any variables you want.
+
+576
+00:27:58,043 --> 00:27:59,943
+And you can set them to have some initial value. So
+
+577
+00:28:00,012 --> 00:28:03,446
+here I have variables x and y. And I can use x and y inside
+
+578
+00:28:03,515 --> 00:28:06,616
+my closure. And then I'll have whatever value I set there.
+
+579
+00:28:06,685 --> 00:28:09,286
+It doesn't seem like it's of very much use.
+
+580
+00:28:09,355 --> 00:28:11,488
+And you're right it's not because, of course,
+
+581
+00:28:11,557 --> 00:28:13,223
+I could use some instance of a class, or
+
+582
+00:28:13,292 --> 00:28:15,125
+I could just type hello inside my closure.
+
+583
+00:28:15,193 --> 00:28:17,827
+Why do I need to have the silly little variables there?
+
+584
+00:28:17,896 --> 00:28:20,497
+Well the reason they're not so silly is because they can be
+
+585
+00:28:20,566 --> 00:28:26,170
+declared weak. These x and y are different variables.
+
+586
+00:28:26,238 --> 00:28:29,238
+They're local variables just for the closure. And
+
+587
+00:28:29,307 --> 00:28:32,176
+if you were to declare one of them weak, then it now becomes
+
+588
+00:28:32,244 --> 00:28:34,711
+an optional, first of all. Because we know all weak
+
+589
+00:28:34,780 --> 00:28:37,314
+variables, they don't keep things in the heap. And they
+
+590
+00:28:37,383 --> 00:28:40,116
+also have to be weak because if the thing they're pointing
+
+591
+00:28:40,185 --> 00:28:42,986
+to goes out of the heap they get set to nil, right?
+
+592
+00:28:43,055 --> 00:28:45,622
+So I can now use x and y still inside there but
+
+593
+00:28:45,691 --> 00:28:49,559
+x is now optional and weak. Okay, and you're gonna see why
+
+594
+00:28:49,628 --> 00:28:53,430
+that's valuable in a second. I can even declare that those
+
+595
+00:28:53,499 --> 00:28:57,033
+variables be unowned. And if you remember back to the thing
+
+596
+00:28:57,102 --> 00:28:58,368
+when I was talking about memory management,
+
+597
+00:28:58,437 --> 00:29:00,370
+unowned means it's not reference counted.
+
+598
+00:29:00,439 --> 00:29:02,238
+It's like Swift says okay,
+
+599
+00:29:02,307 --> 00:29:05,275
+it's on you. If you are gonna access that thing, it better
+
+600
+00:29:05,344 --> 00:29:08,111
+be in the heap because if it's not, you're crashing. That's
+
+601
+00:29:08,180 --> 00:29:11,882
+basically what unowned means. So that means I can use x and
+
+602
+00:29:11,950 --> 00:29:14,484
+y inside the closure. It's not an optional, don't
+
+603
+00:29:14,553 --> 00:29:17,620
+have to worry about that. But if I use x in there and
+
+604
+00:29:17,689 --> 00:29:22,091
+it's not in the heap, it's gonna crash my app. Okay, so
+
+605
+00:29:22,160 --> 00:29:25,361
+why is it valuable to do weak and unowned? Well because weak
+
+606
+00:29:25,430 --> 00:29:28,331
+and unowned variables, whether they're these little locals or
+
+607
+00:29:28,400 --> 00:29:31,234
+not, don't keep other things in the heap.
+
+608
+00:29:31,303 --> 00:29:36,006
+They're not strong. They're weak or even unowned. So
+
+609
+00:29:36,074 --> 00:29:37,574
+we can use that to break these memory cycles.
+
+610
+00:29:37,642 --> 00:29:39,810
+So here's another example of a memory cycle that happens
+
+611
+00:29:39,878 --> 00:29:43,413
+all the time. Have a class here, Zerg, it's called.
+
+612
+00:29:43,481 --> 00:29:47,784
+It has a var called foo which whose value is a closure.
+
+613
+00:29:47,852 --> 00:29:51,454
+Inside that closure, I've set it to have a value of
+
+614
+00:29:51,523 --> 00:29:54,891
+a closure that calls another function in Zerg,
+
+615
+00:29:54,960 --> 00:29:58,762
+which is bar. This is a memory cycle. And this is a memory
+
+616
+00:29:58,830 --> 00:30:02,633
+cycle because foo, the closure, is repressing self.
+
+617
+00:30:02,701 --> 00:30:05,301
+Self is keeping the class Zerg, the instance
+
+618
+00:30:05,370 --> 00:30:07,838
+of the class Zerg, in memory. And of course, Zerg is keeping
+
+619
+00:30:07,906 --> 00:30:10,907
+the closure in memory cuz it has a var that points to it.
+
+620
+00:30:10,976 --> 00:30:12,709
+So they're pointing to each other and
+
+621
+00:30:12,777 --> 00:30:15,545
+keeping each other in memory. So that's bad.
+
+622
+00:30:15,613 --> 00:30:16,713
+You got one pointing to the other,
+
+623
+00:30:16,782 --> 00:30:18,481
+the other points to the other, so
+
+624
+00:30:18,550 --> 00:30:21,217
+how are we going to break this cycle?
+
+625
+00:30:21,286 --> 00:30:24,854
+Well, we're gonna use those little local variable hoo-has.
+
+626
+00:30:24,923 --> 00:30:26,990
+So I'm gonna create a little local variable. It's weak.
+
+627
+00:30:27,058 --> 00:30:30,360
+I'm gonna call it weakSelf. I'm gonna say equal to Self.
+
+628
+00:30:30,429 --> 00:30:34,131
+And then inside, I'm gonna say weakSelf, question mark,
+
+629
+00:30:34,199 --> 00:30:37,200
+meaning optional chaining, .bar. So
+
+630
+00:30:37,269 --> 00:30:41,004
+now there's nothing inside that closure, no variable in
+
+631
+00:30:41,072 --> 00:30:43,640
+that closure is keeping a strong pointer to self.
+
+632
+00:30:43,708 --> 00:30:46,276
+And so it's not keeping itself in the heap. Do you agree?
+
+633
+00:30:46,345 --> 00:30:49,445
+Right, the only thing that's even used inside that closure
+
+634
+00:30:49,514 --> 00:30:52,616
+is weakSelf, but we know that weak. Can't keep something in
+
+635
+00:30:52,684 --> 00:30:54,751
+the heap. Now, unfortunately, it's an optional, so
+
+636
+00:30:54,820 --> 00:30:58,387
+I have to optional chain, but I've broken the cycle.
+
+637
+00:30:58,456 --> 00:31:01,224
+So this is how we break these cycles using weak little local
+
+638
+00:31:01,292 --> 00:31:04,727
+variables in our closure. By the way, we are allowed to
+
+639
+00:31:04,796 --> 00:31:08,031
+call that weak self, self. In other words, it can have
+
+640
+00:31:08,100 --> 00:31:11,902
+exactly the same name as a variable in the outer scope.
+
+641
+00:31:11,971 --> 00:31:14,170
+So on this slide, there's two different selfs.
+
+642
+00:31:14,239 --> 00:31:16,706
+There's the yellow self. That's a local in the closure.
+
+643
+00:31:16,775 --> 00:31:17,874
+And there's the green self.
+
+644
+00:31:17,943 --> 00:31:22,078
+That's the more global self of the instance of this class.
+
+645
+00:31:22,147 --> 00:31:23,246
+Okay, so it's two different variables. But
+
+646
+00:31:23,315 --> 00:31:25,682
+I'm not using the green self inside the closure at all.
+
+647
+00:31:25,750 --> 00:31:28,284
+I'm only using the yellow self. And that one's weak. And
+
+648
+00:31:28,353 --> 00:31:31,154
+in fact, this is so common you don't even have to say equal
+
+649
+00:31:31,222 --> 00:31:34,223
+self. If you say weak self, it will automatically set it
+
+650
+00:31:34,292 --> 00:31:36,993
+equal to a variable of the same name in the surrounding
+
+651
+00:31:37,062 --> 00:31:41,698
+code. Okay, so this is how we break these cycles.
+
+652
+00:31:41,766 --> 00:31:43,500
+So now let's go back to UI push behavior and
+
+653
+00:31:43,568 --> 00:31:45,602
+look how we would use unowned. All right, so
+
+654
+00:31:45,670 --> 00:31:49,306
+here's my push behavior code. If I take that same thing,
+
+655
+00:31:49,374 --> 00:31:52,842
+that action, and just say unowned push behavior in that,
+
+656
+00:31:52,911 --> 00:31:56,013
+I've broken this cycle. Because now pushBehavior is no
+
+657
+00:31:56,081 --> 00:31:58,648
+longer managed by the reference accounting system
+
+658
+00:31:58,717 --> 00:32:01,584
+and, but pushBehavior better be in the heap right here.
+
+659
+00:32:01,653 --> 00:32:04,620
+Okay, if it does it in the heap, we're gonna crash. But
+
+660
+00:32:04,689 --> 00:32:07,123
+of course, pushBehavior is gonna be in the heap there.
+
+661
+00:32:07,192 --> 00:32:10,160
+pushBehavior couldn't possibly even be executing here. It's
+
+662
+00:32:10,228 --> 00:32:13,430
+action could not be executed if it wasn't in the heap. So
+
+663
+00:32:13,498 --> 00:32:16,266
+we're guaranteed that that pushBehavior's gonna be there.
+
+664
+00:32:16,335 --> 00:32:19,970
+So this is a classic one where we would do unowned to break
+
+665
+00:32:20,039 --> 00:32:22,605
+the cycle. We could've also done week there and
+
+666
+00:32:22,674 --> 00:32:25,408
+maybe checked to see if it was nil. But it's all unnecessary
+
+667
+00:32:25,477 --> 00:32:28,845
+cuz we know that's never gonna be nil there. It's never gonna
+
+668
+00:32:28,913 --> 00:32:35,051
+not be in the heap.So now I'm going to do a demo.
+
+669
+00:32:35,119 --> 00:32:37,520
+We're gonna take the playing card thing we did last week.
+
+670
+00:32:37,589 --> 00:32:39,122
+And I'm gonna make lots of playing cards.
+
+671
+00:32:39,191 --> 00:32:40,190
+And we're gonna put them in motion,
+
+672
+00:32:40,258 --> 00:32:43,060
+and have them flipping over, and all kinds of fun stuff.
+
+673
+00:32:43,128 --> 00:32:44,928
+Friday, I'm not gonna get back to the slide.
+
+674
+00:32:44,997 --> 00:32:46,663
+So let me tell you that Friday,
+
+675
+00:32:46,732 --> 00:32:50,333
+we will have a Friday section. It's on source code control.
+
+676
+00:32:50,402 --> 00:32:51,434
+So don't miss that one, that's a good one.
+
+677
+00:32:51,503 --> 00:32:54,003
+That's the thing we're always not clicking when we create
+
+678
+00:32:54,072 --> 00:32:56,973
+new projects that say, do you wanna manage this? Connecting
+
+679
+00:32:57,041 --> 00:33:00,176
+your code to GitHub and all that stuff is part of that.
+
+680
+00:33:00,245 --> 00:33:02,112
+Next week, actually, I say these, but actually,
+
+681
+00:33:02,181 --> 00:33:04,013
+we'll definitely do view controller lifecycle.
+
+682
+00:33:04,082 --> 00:33:06,816
+But I'd probably gonna do multi-threading next week,
+
+683
+00:33:06,885 --> 00:33:08,285
+which is an important topic.
+
+684
+00:33:08,353 --> 00:33:10,753
+And then maybe some miscellaneous other UI things,
+
+685
+00:33:10,822 --> 00:33:13,190
+like scroll view, text field, things like that.
+
+686
+00:33:13,258 --> 00:33:15,325
+Probably do table view and collection view, and drag and
+
+687
+00:33:15,394 --> 00:33:21,697
+drop, even, the week after that. All right,
+
+688
+00:33:21,766 --> 00:33:26,469
+so I told you I would show you the homework animation thing,
+
+689
+00:33:26,538 --> 00:33:31,608
+so let me do that. Let's go do it here, where is it?
+
+690
+00:33:31,676 --> 00:33:35,445
+Okay, so again, I'm only gonna show you this briefly. But
+
+691
+00:33:35,514 --> 00:33:38,114
+I just wanted to give you an idea of what you're gonna do.
+
+692
+00:33:38,183 --> 00:33:41,384
+Your set app, when it comes up, is going to automatically
+
+693
+00:33:41,453 --> 00:33:43,620
+deal out the cards. You see how I'm dealing out the cards?
+
+694
+00:33:43,689 --> 00:33:44,654
+They're flying out, and
+
+695
+00:33:44,723 --> 00:33:46,989
+they're also flipping when they get there.
+
+696
+00:33:47,058 --> 00:33:52,362
+When I deal new cards, you see, it's smoothly animated
+
+697
+00:33:52,431 --> 00:33:55,998
+to smaller cards, you see? And then dealt out new cards, so
+
+698
+00:33:56,067 --> 00:33:59,035
+you're gonna have to do that. Notice, I only have diamonds.
+
+699
+00:33:59,104 --> 00:34:00,737
+That's cuz I wanna get closer to the end game faster.
+
+700
+00:34:00,806 --> 00:34:01,938
+This is debugging thing.
+
+701
+00:34:02,007 --> 00:34:05,775
+Also, any three cards are a set right here. So we do this.
+
+702
+00:34:05,844 --> 00:34:07,677
+Now see what happens when you get a set?
+
+703
+00:34:07,746 --> 00:34:11,214
+They go chaos, they just fly all over the place. But
+
+704
+00:34:11,283 --> 00:34:13,983
+then they eventually collect over here in my discard pile.
+
+705
+00:34:14,052 --> 00:34:15,552
+See, look, watch this again.
+
+706
+00:34:15,621 --> 00:34:17,653
+See them flying all over the place? And notice,
+
+707
+00:34:17,722 --> 00:34:20,223
+it's also dealing out new cards to replace them.
+
+708
+00:34:20,292 --> 00:34:21,991
+Eventually, I'll get towards the end here.
+
+709
+00:34:22,060 --> 00:34:23,193
+There won't be any new cards.
+
+710
+00:34:23,261 --> 00:34:25,795
+Notice that my deck nicely disappeared. That's not
+
+711
+00:34:25,864 --> 00:34:28,531
+a required task, but you probably wanna do that. And
+
+712
+00:34:28,599 --> 00:34:32,501
+then, of course, as my number gets smaller, you're still
+
+713
+00:34:32,570 --> 00:34:37,540
+doing the chaos animation. And we're rearranging the cards as
+
+714
+00:34:37,609 --> 00:34:40,243
+they go down. Understand what we're doing?
+
+715
+00:34:40,311 --> 00:34:42,511
+So you're basically doing three animations there.
+
+716
+00:34:42,580 --> 00:34:45,048
+One is you're dealing the cards out and flipping them.
+
+717
+00:34:45,116 --> 00:34:48,017
+Another one is, when cards match, you're exploding them.
+
+718
+00:34:48,086 --> 00:34:50,286
+And then putting them in the discard pile. And
+
+719
+00:34:50,355 --> 00:34:53,323
+then every time the number of cards changes, you're smoothly
+
+720
+00:34:53,392 --> 00:34:57,360
+animating to the new number. You're not jumping them.
+
+721
+00:34:57,429 --> 00:35:02,565
+That's it, all right, that's it. So the demo for
+
+722
+00:35:02,634 --> 00:35:07,670
+today, which will hopefully help you, let's go here.
+
+723
+00:35:07,739 --> 00:35:10,539
+All right, so the demo that we're gonna do today,
+
+724
+00:35:10,608 --> 00:35:13,810
+which will help you with your homework, is to take our card
+
+725
+00:35:13,879 --> 00:35:16,880
+app and put these cards in motion. Now this is pretty
+
+726
+00:35:16,949 --> 00:35:19,716
+much the same exact card app we had last time.
+
+727
+00:35:19,785 --> 00:35:21,784
+Except that the difference is we used to have one card in
+
+728
+00:35:21,853 --> 00:35:26,522
+the middle. In this case, I've created 12 cards. And
+
+729
+00:35:26,591 --> 00:35:30,360
+I've used my viewDidLoad to make them be random cards. I'm
+
+730
+00:35:30,429 --> 00:35:33,997
+just randomly going through, creating these cards, face up,
+
+731
+00:35:34,065 --> 00:35:37,267
+putting the rank and suit on them to create random cards.
+
+732
+00:35:37,335 --> 00:35:38,635
+So let's see what this looks like.
+
+733
+00:35:46,011 --> 00:35:49,679
+All right, there's my random cards. They don't do anything.
+
+734
+00:35:49,747 --> 00:35:50,646
+I don't have any gestures on them.
+
+735
+00:35:50,715 --> 00:35:53,716
+So I can't tap on them or do anything. So the first thing I
+
+736
+00:35:53,785 --> 00:35:56,619
+wanna do is add a tap gesture that flips them over.
+
+737
+00:35:56,687 --> 00:35:57,753
+And we're gonna start this app and
+
+738
+00:35:57,822 --> 00:35:59,188
+flip them over without animation.
+
+739
+00:35:59,257 --> 00:36:01,824
+Then we'll add animation to have them flip, all right?
+
+740
+00:36:01,893 --> 00:36:04,627
+So let's do that. I also heard there was some confusion in
+
+741
+00:36:04,696 --> 00:36:06,863
+office hours about gestures.
+
+742
+00:36:06,931 --> 00:36:10,433
+So this'll be a good opportunity to review gestures
+
+743
+00:36:10,502 --> 00:36:13,002
+again. So what I'm gonna do here, first of all, I'm gonna
+
+744
+00:36:13,071 --> 00:36:16,072
+start my cards face down instead of face up. And then
+
+745
+00:36:16,141 --> 00:36:18,941
+I'm just gonna add a gesture recognizer to them all.
+
+746
+00:36:19,010 --> 00:36:21,444
+add, let's make this code big so
+
+747
+00:36:21,513 --> 00:36:24,414
+you can really see what's going on here, right?
+
+748
+00:36:24,483 --> 00:36:29,052
+So I'm gonna addGestureRecognizer, oops,
+
+749
+00:36:29,120 --> 00:36:32,822
+gotta add it to a view. So I'm gonna add my
+
+750
+00:36:32,891 --> 00:36:37,994
+cardView.addGestureRecognizer, hello. How come, there we go.
+
+751
+00:36:38,063 --> 00:36:40,630
+So I'm adding a gesture recognizer. The gesture
+
+752
+00:36:40,698 --> 00:36:44,767
+recognizer I'm gonna add is UITapGestureRecognizer. And
+
+753
+00:36:44,836 --> 00:36:48,104
+then just to review what the arguments are to a gesture
+
+754
+00:36:48,173 --> 00:36:50,072
+recognizer, there's the target.
+
+755
+00:36:50,141 --> 00:36:54,544
+This is the object that's going to be sent this action
+
+756
+00:36:54,612 --> 00:37:00,616
+method when the gesture happens. So I'm gonna have
+
+757
+00:37:00,685 --> 00:37:04,019
+the target of this be myself, the view controller. But
+
+758
+00:37:04,088 --> 00:37:07,690
+it could be the view, I could send it to that view as well.
+
+759
+00:37:07,759 --> 00:37:10,926
+And this selector is just #selector.
+
+760
+00:37:10,995 --> 00:37:15,365
+And then inside here, you put the name of the method.
+
+761
+00:37:15,434 --> 00:37:19,202
+But only the external names of the arguments.
+
+762
+00:37:19,271 --> 00:37:22,439
+So, for example, I'm gonna do flipCard. And it's only
+
+763
+00:37:22,507 --> 00:37:24,874
+gonna have one argument, which is the tap gesture.
+
+764
+00:37:24,943 --> 00:37:27,043
+And I'm gonna have it have no external name, so
+
+765
+00:37:27,112 --> 00:37:31,514
+I'm gonna do_:. So this is the name of the method with
+
+766
+00:37:31,583 --> 00:37:33,650
+all the external names and colons in there, but
+
+767
+00:37:33,718 --> 00:37:39,522
+nothing else. That's all, everybody cool with that? Now,
+
+768
+00:37:41,626 --> 00:37:44,326
+This is just complaining cuz I haven't defined flipCard.
+
+769
+00:37:44,395 --> 00:37:47,330
+So now when I create flipCard, of course, it has to be objc.
+
+770
+00:37:47,398 --> 00:37:50,499
+Okay, all these things that do this action thing have to
+
+771
+00:37:50,568 --> 00:37:54,570
+be objc. Call it flipCard, has no external name.
+
+772
+00:37:54,639 --> 00:37:58,842
+It's gonna be the recognizer UITapGestureRecognizer.
+
+773
+00:38:02,113 --> 00:38:06,115
+Recognizer, sometimes it makes me type it all in.
+
+774
+00:38:06,184 --> 00:38:10,085
+See if that gets rid of our warning here.
+
+775
+00:38:10,154 --> 00:38:14,958
+Okay, what's it saying here? What do we, the objc func,
+
+776
+00:38:15,026 --> 00:38:20,062
+how about that? It's rebuilding here. Okay,
+
+777
+00:38:20,131 --> 00:38:25,501
+good, that's fixed, are we over here?
+
+778
+00:38:25,570 --> 00:38:29,238
+Did I forget something here? Okay, good,
+
+779
+00:38:29,307 --> 00:38:33,342
+code's a little slow to keep up with my typing today. Okay,
+
+780
+00:38:33,411 --> 00:38:37,713
+so now I have this recognizer. Now I want to just find
+
+781
+00:38:37,782 --> 00:38:41,217
+out which card was clicked on, and then flip it over.
+
+782
+00:38:41,285 --> 00:38:44,154
+And this is something that I think people are like,
+
+783
+00:38:44,222 --> 00:38:46,656
+how do I do that? And the answer here, of course,
+
+784
+00:38:46,725 --> 00:38:50,326
+I'm gonna switch on the recognizer.state. We almost
+
+785
+00:38:50,395 --> 00:38:52,962
+always switch on the state. That's the first thing we do.
+
+786
+00:38:53,031 --> 00:38:55,899
+It's a tap gesture, so I only care about the ended state.
+
+787
+00:38:55,967 --> 00:38:58,968
+All the other states, I'm just gonna break, right?
+
+788
+00:38:59,036 --> 00:39:02,572
+But if I get a tap, what I wanna do is get the card
+
+789
+00:39:02,640 --> 00:39:04,640
+that was tapped on. But I'm in my view controller.
+
+790
+00:39:04,709 --> 00:39:07,310
+Now normally, I might have the target have been the view so
+
+791
+00:39:07,379 --> 00:39:10,113
+it would know that it was itself that got tapped on.
+
+792
+00:39:10,182 --> 00:39:11,480
+But here, I'm in the view controller, so
+
+793
+00:39:11,549 --> 00:39:13,349
+I have to find it. Well, it turns out,
+
+794
+00:39:13,418 --> 00:39:17,019
+TapGestureRecognizer, it knows what view it was tapped on.
+
+795
+00:39:17,088 --> 00:39:19,922
+Remember how I said each of the concrete gestures
+
+796
+00:39:19,991 --> 00:39:21,791
+have information about what happened? Well,
+
+797
+00:39:21,860 --> 00:39:24,060
+one of the things is they know what they were tapped on or
+
+798
+00:39:24,129 --> 00:39:27,997
+whatever. So I can say, for example,
+
+799
+00:39:28,065 --> 00:39:34,203
+if let the chosenCardView = the recognizer's view.
+
+800
+00:39:34,272 --> 00:39:36,272
+So view is a var in TapGestureRecognizer,
+
+801
+00:39:36,340 --> 00:39:38,708
+which is the view that was tapped on. This is maybe
+
+802
+00:39:38,776 --> 00:39:42,311
+the piece some of you didn't get from the doc. As
+
+803
+00:39:42,380 --> 00:39:47,049
+a PlayingCardView. Now why do I need it as PlayingCardView?
+
+804
+00:39:47,118 --> 00:39:49,185
+Because this is just a UI view, of course.
+
+805
+00:39:49,254 --> 00:39:51,220
+TapGestureRecognizer doesn't know anything about
+
+806
+00:39:51,289 --> 00:39:53,756
+PlayingCardView. So I have to make sure it is, in fact,
+
+807
+00:39:53,825 --> 00:39:55,825
+a PlayingCardView. It should be because that's the only
+
+808
+00:39:55,893 --> 00:39:58,595
+thing that I added any of these tap gestures to. Then I
+
+809
+00:39:58,663 --> 00:40:03,732
+can take the chosenCardView here, and have it isFaceUp.
+
+810
+00:40:03,801 --> 00:40:09,605
+=not the chosenCard view isFaceUp. So I'm just flipping
+
+811
+00:40:09,674 --> 00:40:14,209
+the card over here, right? Everybody understand that?
+
+812
+00:40:14,278 --> 00:40:16,746
+Okay, so let's go ahead and run and see if this works.
+
+813
+00:40:21,953 --> 00:40:23,620
+Okay, so they're all face down, that's good.
+
+814
+00:40:23,688 --> 00:40:25,955
+See I changed them all here to be false. So let's click,
+
+815
+00:40:26,023 --> 00:40:29,826
+all right. Flipped it over, working nicely, okay.
+
+816
+00:40:29,895 --> 00:40:33,896
+But of course we want this to be animated. And
+
+817
+00:40:33,964 --> 00:40:37,166
+we know that that is really easy to do with that UI view
+
+818
+00:40:37,235 --> 00:40:42,071
+transition with a view thing. So how do we do that,
+
+819
+00:40:42,140 --> 00:40:44,707
+how do we get started on that? Let's just go right here and
+
+820
+00:40:44,776 --> 00:40:48,644
+surround this and put this in a closure that's in
+
+821
+00:40:48,713 --> 00:40:52,482
+a UIview transition, so UIView.trasition.
+
+822
+00:40:52,550 --> 00:40:53,282
+By the way be careful,
+
+823
+00:40:53,350 --> 00:40:56,519
+their is two different UIView transitions. There is with
+
+824
+00:40:56,588 --> 00:40:59,522
+right here, which is the one we want and there is from to.
+
+825
+00:40:59,590 --> 00:41:02,491
+The from to is when you're transitioning from one view to
+
+826
+00:41:02,560 --> 00:41:05,194
+a completely different view. And you're going to remove one
+
+827
+00:41:05,263 --> 00:41:07,596
+from the superview and add the other one in as a subview. So
+
+828
+00:41:07,665 --> 00:41:08,831
+it's a similar thing, but
+
+829
+00:41:08,900 --> 00:41:11,267
+it's like card where the back of the card goes one view and
+
+830
+00:41:11,336 --> 00:41:13,436
+the front of the card is a different view. But
+
+831
+00:41:13,504 --> 00:41:15,070
+here we're transitioning with the same view,
+
+832
+00:41:15,139 --> 00:41:16,872
+cuz we can turn it face up and
+
+833
+00:41:16,941 --> 00:41:20,042
+face down. Here I'll go ahead and spread this out so
+
+834
+00:41:20,111 --> 00:41:23,446
+you can see these arguments a little more clearly, right.
+
+835
+00:41:23,514 --> 00:41:26,382
+Okay, the arguments, it seems like there's a lot of
+
+836
+00:41:26,450 --> 00:41:29,251
+arguments here but they're all quite simple.
+
+837
+00:41:29,320 --> 00:41:32,555
+So the view we're flipping is the chosenCardView of course,
+
+838
+00:41:32,624 --> 00:41:37,159
+all right? The duration, I find like a half a second,
+
+839
+00:41:37,228 --> 00:41:40,530
+maybe six-tenths of a second is a good amount of time
+
+840
+00:41:40,598 --> 00:41:43,399
+to give it to flip over. Any slower and it feels kind of
+
+841
+00:41:43,468 --> 00:41:46,001
+glacial. Any faster and it's like, what happened there?
+
+842
+00:41:46,070 --> 00:41:47,270
+It kind of flashes at you,
+
+843
+00:41:47,338 --> 00:41:49,838
+so you know. Options, here's where we have to say that we
+
+844
+00:41:49,907 --> 00:41:51,941
+want to flip as opposed to cross dissolve or anything.
+
+845
+00:41:52,009 --> 00:41:55,578
+So I'm gonna make transition, flip from, let's flip from
+
+846
+00:41:55,647 --> 00:41:58,914
+the left. So we gonna flip from the left. Here's
+
+847
+00:41:58,983 --> 00:42:01,717
+the animation's closure, okay this is where we're going to
+
+848
+00:42:01,786 --> 00:42:04,053
+do whatever cause is the view to look totally difference.
+
+849
+00:42:04,122 --> 00:42:07,523
+So, in our case it's this code right here,
+
+850
+00:42:07,592 --> 00:42:10,626
+put this inside here. Don't need that way over there.
+
+851
+00:42:10,695 --> 00:42:11,961
+But and then completion, for
+
+852
+00:42:12,029 --> 00:42:14,296
+now we're not gonna do anything when it completes.
+
+853
+00:42:14,365 --> 00:42:16,933
+So I'm just gonna take the completion thing completely
+
+854
+00:42:17,001 --> 00:42:20,202
+out of there. And we'll put this down here,
+
+855
+00:42:20,271 --> 00:42:24,974
+whoops, Ctrl+I just to make things a bit neater there.
+
+856
+00:42:25,042 --> 00:42:28,177
+Okay, everyone got that? So here's our transition.
+
+857
+00:42:28,245 --> 00:42:31,280
+With this view, flip from left, we're just going to flip
+
+858
+00:42:31,349 --> 00:42:41,223
+the card over. Let's give it a try. Okay, here we go. Woo,
+
+859
+00:42:41,292 --> 00:42:44,159
+see, and look, see, how it kind of shades a little bit.
+
+860
+00:42:44,228 --> 00:42:47,729
+The shading, the kind of gray that gives it that 3D effect.
+
+861
+00:42:47,798 --> 00:42:52,134
+It feels a little more like a 3D flip. And it flips it over.
+
+862
+00:42:52,203 --> 00:42:56,139
+Okay, so that was easy. So that's transition animation,
+
+863
+00:42:56,207 --> 00:43:01,811
+totally trivial. Let's we're not really going to make our
+
+864
+00:43:01,879 --> 00:43:04,613
+app here into a concentration app.
+
+865
+00:43:04,682 --> 00:43:07,283
+We're kinda doing a little bit of a UI study here, but
+
+866
+00:43:07,352 --> 00:43:10,119
+what if we wanted this to be like concentration
+
+867
+00:43:10,187 --> 00:43:12,855
+where we're trying to find two matching cards? Okay, but
+
+868
+00:43:12,923 --> 00:43:14,357
+we're going to make ours a little bit harder.
+
+869
+00:43:14,425 --> 00:43:16,492
+We're going to make it so that when you flip over a card,
+
+870
+00:43:16,560 --> 00:43:19,162
+so here is this card flipped out. If I flip another card,
+
+871
+00:43:19,230 --> 00:43:21,130
+if they don't match it's gonna go like this,
+
+872
+00:43:21,199 --> 00:43:23,632
+flip and then immediately flip them back down.
+
+873
+00:43:23,701 --> 00:43:25,901
+Hm, so you really are going to have to concentrate. Okay,
+
+874
+00:43:25,970 --> 00:43:28,504
+this really is concentration cause they go clip, and
+
+875
+00:43:28,573 --> 00:43:31,006
+then flip, didn't match. You see?
+
+876
+00:43:31,075 --> 00:43:33,242
+So we're gonna have to really watch what we're doing here.
+
+877
+00:43:33,310 --> 00:43:35,744
+So let's add that animation, that just turns cards down.
+
+878
+00:43:35,813 --> 00:43:38,046
+Any time there's two cards up, we're gonna turn them down.
+
+879
+00:43:38,115 --> 00:43:41,650
+So to do that, I need a little private var that tells me what
+
+880
+00:43:41,719 --> 00:43:45,287
+my faceUpCardViews are. Which is gonna be an array of
+
+881
+00:43:45,356 --> 00:43:50,760
+PlayingCardViews here. And I'm going to have it be computed.
+
+882
+00:43:50,829 --> 00:43:55,931
+And we know how to use filters and all that stuff, so
+
+883
+00:43:56,000 --> 00:44:01,103
+I'm going to have my face up cards be my cardViews,
+
+884
+00:44:01,172 --> 00:44:04,339
+return my cardVews filtered and
+
+885
+00:44:04,408 --> 00:44:10,445
+the filter is that they are face up, right? Let's also
+
+886
+00:44:10,514 --> 00:44:13,716
+make sure that they're not hidden. Because I'm gonna be
+
+887
+00:44:13,785 --> 00:44:16,485
+hiding cards that are already matched a little bit later.
+
+888
+00:44:16,554 --> 00:44:20,623
+So I just don't forget we'll make that be hidden.
+
+889
+00:44:22,526 --> 00:44:26,061
+So now we're able to find out what our face up cards is.
+
+890
+00:44:26,130 --> 00:44:30,566
+So now what I'm going to do is after this flip over finishes,
+
+891
+00:44:30,635 --> 00:44:33,269
+I'm going to add a completion handler.
+
+892
+00:44:33,338 --> 00:44:35,904
+Okay, completion, which I didn't have before,
+
+893
+00:44:35,973 --> 00:44:41,377
+I'm adding it. This one has finished. It doesn't have
+
+894
+00:44:41,445 --> 00:44:45,414
+the position, end, start, current. It just has finished,
+
+895
+00:44:45,483 --> 00:44:48,751
+yes or no, whether this flip finished. Because, it doesn't
+
+896
+00:44:48,820 --> 00:44:51,187
+really make sense to move your flip backwards and forwards.
+
+897
+00:44:51,255 --> 00:44:54,123
+It kind of either happens or it doesn't. So inside here,
+
+898
+00:44:54,192 --> 00:44:57,326
+I'm gonna do another transition. Okay so
+
+899
+00:44:57,395 --> 00:45:00,196
+actually I'll just copy and paste why not. Copy, paste and
+
+900
+00:45:00,264 --> 00:45:03,766
+it's perfectly fine to have animations in the completion
+
+901
+00:45:03,835 --> 00:45:08,003
+handlers of other animations. That's perfectly fine.
+
+902
+00:45:08,072 --> 00:45:08,871
+So what am I gonna do here?
+
+903
+00:45:08,940 --> 00:45:11,674
+Here I'm gonna flip down all the face up cards
+
+904
+00:45:11,742 --> 00:45:14,543
+if there's two. So let's go ahead and check,
+
+905
+00:45:14,612 --> 00:45:17,413
+if my faceUpCardViews.count == 2, so
+
+906
+00:45:17,482 --> 00:45:21,217
+I've got 2 face up cards. Then I'm gonna flip them all face
+
+907
+00:45:21,285 --> 00:45:25,154
+down using another transition. So let me show you a cool
+
+908
+00:45:25,222 --> 00:45:29,325
+way to do for loops if you have an array. Watch this, and
+
+909
+00:45:29,393 --> 00:45:32,094
+see here, what it's saying? Let's stop and look at this.
+
+910
+00:45:32,163 --> 00:45:35,497
+I got an error here, it says Reference property in closure
+
+911
+00:45:35,566 --> 00:45:40,736
+requires explicit self to make capture semantics explicit.
+
+912
+00:45:40,804 --> 00:45:42,405
+Okay, this is awesome.
+
+913
+00:45:42,474 --> 00:45:45,074
+Swift if saying, wait a second here bud,
+
+914
+00:45:45,143 --> 00:45:47,776
+you are accessing a bar on yourself,
+
+915
+00:45:47,845 --> 00:45:51,013
+and that's gonna capture yourself. And
+
+916
+00:45:51,082 --> 00:45:54,050
+I want you to type, self., right there, so
+
+917
+00:45:54,118 --> 00:45:57,319
+that you realize that you might have a loop here,
+
+918
+00:45:57,388 --> 00:46:00,923
+a memory cycle. So isn't that cool Swift made us do that.
+
+919
+00:46:00,992 --> 00:46:02,457
+I really appreciate that Swift does that.
+
+920
+00:46:02,526 --> 00:46:04,493
+Cuz otherwise it could be really easy to forget.
+
+921
+00:46:04,562 --> 00:46:08,030
+Oops, this is self and then realize, I got a memory cycle.
+
+922
+00:46:08,099 --> 00:46:10,499
+But do we actually have a memory cycle here? No,
+
+923
+00:46:10,568 --> 00:46:15,004
+we don't, because while this closure does capture self.
+
+924
+00:46:15,073 --> 00:46:19,241
+Self does not in any way point to this closure.
+
+925
+00:46:19,310 --> 00:46:21,910
+It's not part of any var. It's not any part of a dictionary
+
+926
+00:46:21,979 --> 00:46:24,080
+or an array or anything that self has.
+
+927
+00:46:24,148 --> 00:46:26,882
+It's a closure we're giving off to the animation system.
+
+928
+00:46:26,951 --> 00:46:29,218
+So only the animation system has a pointer to it. So
+
+929
+00:46:29,286 --> 00:46:32,521
+there's no cycle here. So there's no reason for us to do
+
+930
+00:46:32,589 --> 00:46:35,791
+any of those weird local variables that are weak or
+
+931
+00:46:35,860 --> 00:46:39,161
+any of that. All right so, if I have two face cards,
+
+932
+00:46:39,229 --> 00:46:41,697
+I'm gonna do a for loop of all the face cards, but
+
+933
+00:46:41,766 --> 00:46:43,232
+I'm going to do it like this.
+
+934
+00:46:43,300 --> 00:46:48,804
+Watch this, Face up cards, forEach, do a closure. So, I'm
+
+935
+00:46:48,873 --> 00:46:52,641
+going to execute a closure for each of these face up cards.
+
+936
+00:46:52,710 --> 00:46:54,843
+So, that is kinda a cool way to do for loop, and
+
+937
+00:46:54,912 --> 00:46:58,414
+inside there I'm gonna put this here. And of course in
+
+938
+00:46:58,483 --> 00:47:03,618
+the for each $0 is each of the things in this so I'm gonna
+
+939
+00:47:03,687 --> 00:47:07,623
+do this flip transition with each of the cards in here.
+
+940
+00:47:07,692 --> 00:47:12,127
+Same thing same thing. Here's it's $0 is face up and
+
+941
+00:47:12,196 --> 00:47:18,434
+it's not flipped over, it's false. We want them face down.
+
+942
+00:47:18,502 --> 00:47:23,672
+You got all that? Make sense? What do we got here?
+
+943
+00:47:23,741 --> 00:47:28,444
+Let's get rid of this right here also. And
+
+944
+00:47:28,513 --> 00:47:33,883
+what's happening here? $0 is face up.
+
+945
+00:47:37,654 --> 00:47:42,991
+Okay, anyone see what I'm doing wrong there? Look at my
+
+946
+00:47:43,060 --> 00:47:47,496
+card here, cardView, maybe I need to do this, cardView in.
+
+947
+00:47:49,834 --> 00:47:54,803
+Oops, cardView or something
+
+948
+00:47:54,872 --> 00:47:59,675
+like that. That fix it, yeah that did, that's interesting.
+
+949
+00:47:59,743 --> 00:48:01,877
+So the $0, I couldn't get it to type right there.
+
+950
+00:48:01,946 --> 00:48:05,747
+I don't know why it couldn't infer that Here, if
+
+951
+00:48:05,816 --> 00:48:09,485
+we have two cards face up we will flip them both face down.
+
+952
+00:48:09,553 --> 00:48:19,361
+Let's see if that works. All right so, one card face up.
+
+953
+00:48:19,430 --> 00:48:21,597
+We can actually turn this card back face down, by the way.
+
+954
+00:48:21,665 --> 00:48:25,734
+Face up, here we go, second card. All right,
+
+955
+00:48:25,803 --> 00:48:31,240
+we're good. Excellent. Now what happens if two of
+
+956
+00:48:31,308 --> 00:48:34,110
+these cards match like that? These two cards, they match,
+
+957
+00:48:34,178 --> 00:48:35,944
+so it shouldn't do that, it shouldn't turn it down.
+
+958
+00:48:36,013 --> 00:48:39,381
+It needs to give us some animation that says woohoo you
+
+959
+00:48:39,450 --> 00:48:42,217
+matched two cards. Okay, so let's come up with that,
+
+960
+00:48:42,286 --> 00:48:45,321
+an animation to do that. So the animation I'm gonna do
+
+961
+00:48:45,389 --> 00:48:48,524
+when cards match is I'm gonna make the cards really big
+
+962
+00:48:48,593 --> 00:48:50,626
+to emphasize that you have a match,
+
+963
+00:48:50,695 --> 00:48:52,227
+then I'm gonna make them really small and
+
+964
+00:48:52,296 --> 00:48:55,164
+have them fade away to nothingness and disappear.
+
+965
+00:48:55,233 --> 00:48:58,033
+Because when cards match, of course I wanna take them away.
+
+966
+00:48:58,102 --> 00:48:59,034
+So that's what we're gonna do.
+
+967
+00:48:59,103 --> 00:49:00,335
+Now that's a two step animation.
+
+968
+00:49:00,404 --> 00:49:01,603
+The first step is to make them big and
+
+969
+00:49:01,672 --> 00:49:04,206
+then the second step is to animation down. And
+
+970
+00:49:04,275 --> 00:49:07,142
+we can do that with the UIView Property Animator, of course,
+
+971
+00:49:07,211 --> 00:49:09,712
+because of the size of the view and it's transparency
+
+972
+00:49:09,780 --> 00:49:12,881
+are animateable properties. And to make it two step like
+
+973
+00:49:12,950 --> 00:49:14,784
+that, we'll use the completion thing,
+
+974
+00:49:14,852 --> 00:49:16,685
+similar to how we did this, right.
+
+975
+00:49:16,753 --> 00:49:19,255
+We waited till the first one finished and then we went to
+
+976
+00:49:19,323 --> 00:49:22,057
+do the other one. All right, so how are we gonna do that?
+
+977
+00:49:22,126 --> 00:49:25,561
+Well, I need another private var here, actually. That's
+
+978
+00:49:25,629 --> 00:49:28,497
+just gonna tell me whether the face up cards match.
+
+979
+00:49:28,565 --> 00:49:31,633
+So I'm gonna call that faceUpCardViewsMatch,
+
+980
+00:49:31,702 --> 00:49:37,773
+I think I called that. Is that what I called it? Yes,
+
+981
+00:49:37,842 --> 00:49:41,777
+faceUpCardViewsMatch. It's a bool, we're going
+
+982
+00:49:41,846 --> 00:49:43,912
+to calculate that as well, I'm just going to return,
+
+983
+00:49:43,981 --> 00:49:49,518
+if our faceupcardviews.count=2,
+
+984
+00:49:49,587 --> 00:49:54,423
+and oops. Kind of made it on the fly. And
+
+985
+00:49:54,492 --> 00:50:00,463
+face up, I'm missing an A there, faceUpCardViews
+
+986
+00:50:00,531 --> 00:50:04,933
+[0].rank=FaceUp,
+
+987
+00:50:05,002 --> 00:50:06,868
+and you can kind of see we don't have a model here so
+
+988
+00:50:06,937 --> 00:50:10,339
+we're kind of looking at these things directly. Again,
+
+989
+00:50:10,408 --> 00:50:12,975
+this is not how you would do this if you were going forward
+
+990
+00:50:13,043 --> 00:50:15,777
+to turn this into a concentration game. You would
+
+991
+00:50:15,846 --> 00:50:19,047
+have a model and all that. I'm really just doing like I said,
+
+992
+00:50:19,116 --> 00:50:24,686
+kind of a UI case study just to see
+
+993
+00:50:24,755 --> 00:50:27,656
+what would it look like and then later I would go back and
+
+994
+00:50:27,725 --> 00:50:33,228
+do my actual model or whatever. So this is
+
+995
+00:50:33,297 --> 00:50:36,765
+just a bool to tell us whether two face up cards match.
+
+996
+00:50:36,834 --> 00:50:40,403
+So down here after I've done my first card flip,
+
+997
+00:50:40,471 --> 00:50:45,740
+I'm gonna say if my self, of course, face up
+
+998
+00:50:45,809 --> 00:50:50,679
+cards views match. Then, here I'm going to do the animation.
+
+999
+00:50:50,748 --> 00:50:53,281
+Otherwise I'll going to go on and check just to see if we
+
+1000
+00:50:53,350 --> 00:50:55,884
+have two face cards that don't match. Then we'll do that flip
+
+1001
+00:50:55,953 --> 00:50:57,852
+down thing. But here we're not going to flip them down.
+
+1002
+00:50:57,921 --> 00:50:59,387
+We're going to make them big and then make them small.
+
+1003
+00:50:59,456 --> 00:51:01,957
+So we're going to use our view eye view property
+
+1004
+00:51:02,026 --> 00:51:04,993
+animator here, very simple to do. We're just gonna say
+
+1005
+00:51:05,062 --> 00:51:10,866
+UIViewPropertyAnimator.runnin- gPropertyAnimator.
+
+1006
+00:51:10,934 --> 00:51:15,137
+Again I will try to make this a little easier to see by
+
+1007
+00:51:15,205 --> 00:51:20,709
+getting each arguments on its own line like that. Okay.
+
+1008
+00:51:20,778 --> 00:51:21,877
+So here is the arguments.
+
+1009
+00:51:21,946 --> 00:51:24,179
+Properties, animators also very simple.
+
+1010
+00:51:24,248 --> 00:51:25,814
+The arguments, seems like there is a lot of them and
+
+1011
+00:51:25,882 --> 00:51:28,250
+they are very complicated, but they are really not. Okay.
+
+1012
+00:51:28,319 --> 00:51:29,918
+So here we are going to make the thing big.
+
+1013
+00:51:29,987 --> 00:51:31,953
+So how long do I want to take to make big?
+
+1014
+00:51:32,022 --> 00:51:36,725
+Again not really more than a second. Maybe .6 or .7. These
+
+1015
+00:51:36,794 --> 00:51:40,462
+are blue numbers that I would put in a constant struct and
+
+1016
+00:51:40,531 --> 00:51:42,798
+then play with to get my animation to look the way I
+
+1017
+00:51:42,867 --> 00:51:45,400
+want. And I'm not gonna delay this animation along,
+
+1018
+00:51:45,469 --> 00:51:47,235
+gonna start it right off.
+
+1019
+00:51:47,304 --> 00:51:52,541
+Really no un-animation options necessary here. Just going to
+
+1020
+00:51:52,610 --> 00:51:55,577
+do the animation. So in here is the closure and
+
+1021
+00:51:55,646 --> 00:51:59,882
+only thing I can change inside here is those view properties.
+
+1022
+00:51:59,950 --> 00:52:02,718
+Okay, if I change anything else, it will do it, but
+
+1023
+00:52:02,786 --> 00:52:05,721
+it's not gonna affect the animation in any way. So
+
+1024
+00:52:05,789 --> 00:52:07,522
+what are the animations we want to do here?
+
+1025
+00:52:07,591 --> 00:52:10,492
+Well we want all the face up cards to get really big.
+
+1026
+00:52:10,560 --> 00:52:14,263
+I'm gonna do that with the transform. Transform is really
+
+1027
+00:52:14,332 --> 00:52:16,865
+easy to make things big or rotate them or whatever so
+
+1028
+00:52:16,934 --> 00:52:23,038
+I'm just going to say, my face up cards views for each again,
+
+1029
+00:52:23,106 --> 00:52:28,711
+for each, oops. And inside this 'for each' I'm just going
+
+1030
+00:52:28,779 --> 00:52:31,346
+to change the properties that I want to change which is
+
+1031
+00:52:31,415 --> 00:52:36,385
+$0.transform=, and I'm gonna get the affine
+
+1032
+00:52:36,453 --> 00:52:39,688
+transform identity which is no rotation. And
+
+1033
+00:52:39,757 --> 00:52:43,492
+I'm gonna scale it by let's say three times as big. So
+
+1034
+00:52:43,560 --> 00:52:48,196
+this is gonna make this view three times its normal size.
+
+1035
+00:52:48,265 --> 00:52:52,501
+Let's just do just this part for now.
+
+1036
+00:52:52,569 --> 00:52:56,772
+We'll do this completion part in a little bit here.
+
+1037
+00:52:58,442 --> 00:53:00,442
+So I just wanna make sure that this is working. So this is
+
+1038
+00:53:00,511 --> 00:53:04,246
+gonna force us to find a match just to see if it's working,
+
+1039
+00:53:04,314 --> 00:53:10,152
+but I'm sure we can do that. Okay,
+
+1040
+00:53:10,221 --> 00:53:13,122
+here we go. I need a match.
+
+1041
+00:53:13,190 --> 00:53:17,726
+No, 4 and 9. No, different kinda 4, no good. There's a 9.
+
+1042
+00:53:17,794 --> 00:53:20,995
+Okay, so I'm gonna click this card. They're gonna match.
+
+1043
+00:53:21,064 --> 00:53:22,831
+And hopefully they'll get really big. And then they're
+
+1044
+00:53:22,900 --> 00:53:24,833
+gonna stop because we're not finished with this animation.
+
+1045
+00:53:24,901 --> 00:53:30,439
+But let's see. Whoo, okay, it worked that was easy.
+
+1046
+00:53:30,508 --> 00:53:32,607
+Now we want the next step of the animation we want to make
+
+1047
+00:53:32,676 --> 00:53:34,710
+it small and we're going to do its alpha so
+
+1048
+00:53:34,778 --> 00:53:37,479
+that gets small and fades away at the same time. Okay so,
+
+1049
+00:53:37,548 --> 00:53:40,782
+we're going to do that with this completion thing that
+
+1050
+00:53:40,851 --> 00:53:45,320
+I commented out, put that back, and expand this thing.
+
+1051
+00:53:45,389 --> 00:53:47,690
+Remember this one has the position not finished,
+
+1052
+00:53:47,758 --> 00:53:51,059
+but position which is either dot end, dot start, or
+
+1053
+00:53:51,128 --> 00:53:54,663
+dot current. And we don't really care
+
+1054
+00:53:54,731 --> 00:53:57,532
+what it is because we're not gonna have animations
+
+1055
+00:53:57,601 --> 00:53:59,635
+that are gonna be jumping on top of each other here.
+
+1056
+00:53:59,703 --> 00:54:01,103
+So it's not gonna be a problem. So
+
+1057
+00:54:01,171 --> 00:54:03,372
+here we wanna do another property animation.
+
+1058
+00:54:03,440 --> 00:54:06,474
+So I'm gonna copy and paste this whole thing right here,
+
+1059
+00:54:06,543 --> 00:54:09,445
+put it in here. Okay. And what are we doing with this
+
+1060
+00:54:09,513 --> 00:54:11,846
+property animation? Very similar to the other one.
+
+1061
+00:54:11,915 --> 00:54:14,249
+But instead of the transform being transform up to 3.0,
+
+1062
+00:54:14,318 --> 00:54:18,721
+I am going to make it really small. Down to 0.1. And
+
+1063
+00:54:18,789 --> 00:54:25,394
+the same time I am going to say alpha equals zero.
+
+1064
+00:54:25,462 --> 00:54:29,398
+Fully transparent. Now, This, remember this is going to
+
+1065
+00:54:29,467 --> 00:54:31,166
+happen immediately. It's going to set it to zero, but
+
+1066
+00:54:31,235 --> 00:54:33,802
+the user is going to see it, over the course of .6. And
+
+1067
+00:54:33,870 --> 00:54:36,572
+actually, this one might want to be longer, maybe .75 or
+
+1068
+00:54:36,640 --> 00:54:40,342
+something because remember I went from Identity Transform
+
+1069
+00:54:40,411 --> 00:54:44,646
+to 3.0 now I'm going from 3.0 passed identify down to 0.1.
+
+1070
+00:54:44,715 --> 00:54:46,681
+So maybe I wanna give it a little extra time,
+
+1071
+00:54:46,750 --> 00:54:48,650
+you see what I'm saying? To go that extra distance, so
+
+1072
+00:54:48,719 --> 00:54:51,319
+it feels like it's coming out and in at about the same time.
+
+1073
+00:54:51,388 --> 00:54:53,989
+But again, these are numbers you tweak over time
+
+1074
+00:54:54,058 --> 00:54:56,925
+as you're working on stuff. All right, so
+
+1075
+00:54:56,994 --> 00:54:59,060
+again, let's just see if this is working.
+
+1076
+00:54:59,129 --> 00:55:01,130
+I have our completion thing in there
+
+1077
+00:55:07,638 --> 00:55:10,372
+Okay, we gotta find the other match again. A three,
+
+1078
+00:55:10,440 --> 00:55:15,043
+and then an eight, an ace. No, that was ace of clubs and
+
+1079
+00:55:15,112 --> 00:55:17,879
+ace of spaded, see? There's the ace of clubs.
+
+1080
+00:55:17,948 --> 00:55:20,782
+Is that the ace of clubs? No, ace of spades. Ace of clubs.
+
+1081
+00:55:20,851 --> 00:55:21,683
+Okay, ready, here we go.
+
+1082
+00:55:21,752 --> 00:55:24,052
+I'm gonna click on this one, now it should go up and
+
+1083
+00:55:24,121 --> 00:55:26,722
+then go down and fade to alpha zero. Let's see.
+
+1084
+00:55:26,791 --> 00:55:31,693
+Perfect, okay. It worked just fine. Now,
+
+1085
+00:55:31,761 --> 00:55:35,731
+once it goes down like that, we want to remove this card,
+
+1086
+00:55:35,799 --> 00:55:37,932
+because it no longer can be involved in the matches. So
+
+1087
+00:55:38,001 --> 00:55:41,136
+we are going to implement our completion handler right here.
+
+1088
+00:55:41,204 --> 00:55:42,170
+And inside the completion handler,
+
+1089
+00:55:42,238 --> 00:55:43,972
+we're not going to be doing any view property animation,
+
+1090
+00:55:44,041 --> 00:55:45,173
+we're just going to be doing cleanup.
+
+1091
+00:55:45,242 --> 00:55:49,211
+For example, I'm going to say here for all these cards, so
+
+1092
+00:55:49,279 --> 00:55:54,182
+I'm going to have this for loop again. But not this. For
+
+1093
+00:55:54,251 --> 00:55:57,252
+all these cards, I want to set each of them to be isHidden,
+
+1094
+00:55:57,320 --> 00:56:00,789
+so I'm gonna hide the cards. Now, I'm also gonna clean up
+
+1095
+00:56:00,858 --> 00:56:02,591
+a little bit. Because I really don't like
+
+1096
+00:56:02,660 --> 00:56:05,594
+the idea of having these views that are really small
+
+1097
+00:56:05,663 --> 00:56:09,698
+transforms. Okay, and transparent, sitting around in
+
+1098
+00:56:09,766 --> 00:56:11,866
+my view hierarchy even if they're hidden. So
+
+1099
+00:56:11,935 --> 00:56:15,537
+I'm going to go ahead and make the alpha be back to 1.
+
+1100
+00:56:15,606 --> 00:56:18,106
+And I'm gonna go ahead and make the transform,
+
+1101
+00:56:18,175 --> 00:56:20,875
+be back to being the identity transform. So
+
+1102
+00:56:20,944 --> 00:56:24,813
+it's just a little clean up, I just don't like to have messy,
+
+1103
+00:56:26,283 --> 00:56:27,983
+weird state views lying around.
+
+1104
+00:56:28,052 --> 00:56:29,417
+They're hidden though, so it's not really gonna
+
+1105
+00:56:29,486 --> 00:56:32,554
+hurt anything to have them around there. But, for me,
+
+1106
+00:56:32,623 --> 00:56:34,356
+it's just a cleanliness thing, to kinda clean up
+
+1107
+00:56:34,424 --> 00:56:35,724
+after your animation a little bit.
+
+1108
+00:56:35,792 --> 00:56:38,259
+And since there it's hidden, none of this is gonna show.
+
+1109
+00:56:38,328 --> 00:56:40,161
+The fact that I'm making it transparent again and
+
+1110
+00:56:40,230 --> 00:56:41,963
+changing its transform, it doesn't matter.
+
+1111
+00:56:42,032 --> 00:56:46,902
+Cuz this view is now hidden from view. Okay, so
+
+1112
+00:56:46,970 --> 00:56:50,505
+that's good, we got that. What's the next thing we need
+
+1113
+00:56:50,574 --> 00:56:53,875
+to do, what's the next one we wanna do? We wanna make it so
+
+1114
+00:56:53,944 --> 00:56:56,645
+this game's a little harder. I've got this game, and
+
+1115
+00:56:56,714 --> 00:56:59,448
+it's actually a little harder than our other concentration
+
+1116
+00:56:59,517 --> 00:57:03,518
+game was because we have to pay more attention.
+
+1117
+00:57:03,587 --> 00:57:05,453
+Because mismatches, they flip over so
+
+1118
+00:57:05,522 --> 00:57:08,489
+fast that if I'm trying to find a match, here, phew,
+
+1119
+00:57:08,558 --> 00:57:11,659
+got lucky with a match. If I'm trying to find a match,
+
+1120
+00:57:11,728 --> 00:57:15,597
+it's harder to do. But I'm gonna make it even harder by
+
+1121
+00:57:15,666 --> 00:57:19,067
+having these cards be in motion.
+
+1122
+00:57:19,136 --> 00:57:21,370
+These cards are just gonna be constantly moving around.
+
+1123
+00:57:21,438 --> 00:57:24,772
+So I'm gonna have to chase after them to flip them over.
+
+1124
+00:57:24,841 --> 00:57:27,743
+And I'm gonna do that with our dynamic animator.
+
+1125
+00:57:29,179 --> 00:57:31,647
+Cuz that's the kind of thing a dynamic animator is good.
+
+1126
+00:57:31,715 --> 00:57:35,417
+Kinda set them out there and it just kinda floats around.
+
+1127
+00:57:36,854 --> 00:57:38,986
+All right, so, how are we gonna do that?
+
+1128
+00:57:39,055 --> 00:57:43,958
+Dynamic animator, let's go up here. We're gonna start, we're
+
+1129
+00:57:44,027 --> 00:57:47,028
+gonna do the 3 steps, right? Animator, behaviors, items, so
+
+1130
+00:57:47,097 --> 00:57:49,764
+let's start with the animator. I'm gonna create a lazy var,
+
+1131
+00:57:49,833 --> 00:57:53,368
+which we're gonna call animator. It's going to be
+
+1132
+00:57:53,437 --> 00:57:57,572
+a UIDynamicAnimator. And the reference view for it, I'm
+
+1133
+00:57:57,641 --> 00:57:59,675
+gonna use the referenceView constructor here.
+
+1134
+00:57:59,743 --> 00:58:03,377
+I'm gonna make myself.view, right, the top level view of
+
+1135
+00:58:03,446 --> 00:58:05,714
+my view controller, I'm gonna make that be my referenceView.
+
+1136
+00:58:05,783 --> 00:58:08,483
+Again, if you're writing an app that had like subviews and
+
+1137
+00:58:08,552 --> 00:58:10,552
+stuff, it might well be not be the top level.
+
+1138
+00:58:10,620 --> 00:58:12,688
+But this is a demo, I don't have any other views.
+
+1139
+00:58:12,756 --> 00:58:15,157
+So that's what I'm gonna have to do. All right, so
+
+1140
+00:58:15,225 --> 00:58:18,226
+that's gonna be my animator, great. Now I need behaviors,
+
+1141
+00:58:18,295 --> 00:58:20,528
+so I'm gonna create another lazy var here.
+
+1142
+00:58:20,597 --> 00:58:24,199
+I'm gonna call it my collisionBehavior.
+
+1143
+00:58:24,268 --> 00:58:27,769
+It's gonna be of type UICollisionBehavior.
+
+1144
+00:58:27,838 --> 00:58:31,339
+And I'm gonna initialize this one with a closure.
+
+1145
+00:58:31,408 --> 00:58:32,774
+We talked about that in lecture but
+
+1146
+00:58:32,843 --> 00:58:34,943
+we've never actually done it I don't think.
+
+1147
+00:58:35,012 --> 00:58:37,479
+So how do I initialize it with a closure? It's really easy,
+
+1148
+00:58:37,548 --> 00:58:40,515
+I just create the behavior. I create a UICollisionBehavior
+
+1149
+00:58:40,584 --> 00:58:43,719
+here. No arguments to its initializier, configure it.
+
+1150
+00:58:43,787 --> 00:58:46,554
+So the only thing I wanna do with this collision behavior
+
+1151
+00:58:46,623 --> 00:58:49,091
+is have the edges of my referenceView keep my cards
+
+1152
+00:58:49,159 --> 00:58:51,559
+in. The only thing the cards are gonna bounce off is each
+
+1153
+00:58:51,628 --> 00:58:54,329
+other and the edges. So, I'm gonna do this
+
+1154
+00:58:54,398 --> 00:58:57,766
+translateReferenceBoundsIntoB- oundary = true.
+
+1155
+00:58:57,835 --> 00:59:02,704
+It's a kinda cheap, quick way to get a collision boundary.
+
+1156
+00:59:02,773 --> 00:59:07,308
+Then I'm gonna add it to my animator, addBehavior, and
+
+1157
+00:59:07,377 --> 00:59:11,913
+then I'm gonna return behavior from the closure. This returns
+
+1158
+00:59:11,982 --> 00:59:14,816
+it from the closure, which assigns it to this var, and
+
+1159
+00:59:14,884 --> 00:59:20,021
+it's all lazy. We see how we use a closure there,
+
+1160
+00:59:20,090 --> 00:59:25,160
+really convenient. Now we have what do we have here?
+
+1161
+00:59:25,229 --> 00:59:29,297
+AddBehavior, add the behavior to the animator,
+
+1162
+00:59:29,366 --> 00:59:32,166
+all right? So now we have this behavior.
+
+1163
+00:59:32,235 --> 00:59:35,103
+We need to do step 3, add the items to it.
+
+1164
+00:59:35,171 --> 00:59:36,905
+Here's where we're creating all of our card views.
+
+1165
+00:59:36,974 --> 00:59:43,211
+Let's just say right here collisionBehavior.addItem,
+
+1166
+00:59:43,280 --> 00:59:47,849
+cardView. Now that card view is instantly going to respect
+
+1167
+00:59:47,918 --> 00:59:50,151
+that boundary and start bouncing into other cards. But
+
+1168
+00:59:50,220 --> 00:59:53,522
+of course we haven't moved the card, it's not moving, so we
+
+1169
+00:59:53,590 --> 00:59:57,158
+need to do that. We're gonna do that with a pushBehavior.
+
+1170
+00:59:57,227 --> 01:00:00,394
+So I'm gonna let push = UIPushBehavior.
+
+1171
+01:00:00,463 --> 01:00:03,765
+Now pushBehavior's initializer here takes the items that you
+
+1172
+01:00:03,834 --> 01:00:08,069
+wanna push. So
+
+1173
+01:00:08,138 --> 01:00:11,473
+So this would only be this one cardView right here. I could
+
+1174
+01:00:11,541 --> 01:00:13,107
+create a push behavior that puts all the cards in there.
+
+1175
+01:00:13,176 --> 01:00:14,809
+But then they would all get pushed in the same direction,
+
+1176
+01:00:14,878 --> 01:00:16,745
+I don't want that. And then the mode,
+
+1177
+01:00:16,813 --> 01:00:21,216
+again, can be continuous or, in our case, instantaneous.
+
+1178
+01:00:21,285 --> 01:00:24,018
+We're just gonna give the card a push and then we are done.
+
+1179
+01:00:24,087 --> 01:00:25,453
+And since it's instantaneous,
+
+1180
+01:00:25,522 --> 01:00:27,655
+we're gonna wanna clean up after it.
+
+1181
+01:00:27,724 --> 01:00:30,258
+So let's give it an angle, so I'm gonna give it a push
+
+1182
+01:00:30,327 --> 01:00:33,327
+angle, which is a random angle between 0 and 2 pi. This is in
+
+1183
+01:00:33,396 --> 01:00:36,264
+radians, so I am gonna say 2 times CGFloat.pi and
+
+1184
+01:00:36,333 --> 01:00:39,534
+it's gonna be random. So I am gonna need to use arch4random.
+
+1185
+01:00:39,603 --> 01:00:42,871
+I added a little arch4random to CGFloat as well.
+
+1186
+01:00:42,939 --> 01:00:45,006
+We added it to int, but you already knew how to do that,
+
+1187
+01:00:45,075 --> 01:00:46,774
+but I added one for float. And
+
+1188
+01:00:46,843 --> 01:00:50,278
+then the magnitude, I don't really wanna push it 0. So
+
+1189
+01:00:50,347 --> 01:00:55,583
+I'm gonna do a magnitude of let's say at least 1.0, right?
+
+1190
+01:00:55,652 --> 01:01:00,255
+But then I'm gonna add a certain amount extra,
+
+1191
+01:01:00,324 --> 01:01:04,725
+let's say 2.0 arc4random. So
+
+1192
+01:01:04,794 --> 01:01:07,795
+we're gonna have the magnitude and this has to be a CGFloat,
+
+1193
+01:01:07,864 --> 01:01:11,166
+right? This is a double, so we'll go CGFloat of all this.
+
+1194
+01:01:11,234 --> 01:01:17,973
+Oops, CGFloat(1.0), CGFloat(2.0),
+
+1195
+01:01:18,041 --> 01:01:22,043
+random. Probably don't need both of those CGFloats. But
+
+1196
+01:01:22,112 --> 01:01:25,213
+anyway, so we create a random. So I'm creating a random
+
+1197
+01:01:25,281 --> 01:01:30,752
+magnitude between 1 and 3. Pushing a random amount there.
+
+1198
+01:01:30,821 --> 01:01:36,390
+Now I just need to say to the animator. Add this behavior,
+
+1199
+01:01:36,459 --> 01:01:38,894
+add this pushBehavior. And as soon as I add it to
+
+1200
+01:01:38,962 --> 01:01:41,763
+the animator, it's going to push its items,
+
+1201
+01:01:41,831 --> 01:01:44,832
+which is just that one cardView. Now again, we know
+
+1202
+01:01:44,901 --> 01:01:47,368
+that this is bad because it's done now and it's never going
+
+1203
+01:01:47,437 --> 01:01:50,204
+to get cleaned up. So I'm gonna use the push.action,
+
+1204
+01:01:50,273 --> 01:01:54,342
+okay, to remove it from the animator by just saying push.
+
+1205
+01:01:54,411 --> 01:01:57,645
+Tell me your dynamicAnimator if you have one, and
+
+1206
+01:01:57,714 --> 01:02:01,182
+remove yourself from it. And
+
+1207
+01:02:01,251 --> 01:02:04,185
+we know that this causes a memory cycle, cuz this push
+
+1208
+01:02:04,253 --> 01:02:06,888
+right here is being kept in memory by this closure. And
+
+1209
+01:02:06,957 --> 01:02:09,090
+of course the push's action is pointing to the closure, so
+
+1210
+01:02:09,159 --> 01:02:10,959
+they're keeping each other in memory.
+
+1211
+01:02:11,028 --> 01:02:15,630
+So we're gonna get rid of this by just saying unowned.push.
+
+1212
+01:02:15,699 --> 01:02:18,733
+And yes I could've said weak push and then had an optional
+
+1213
+01:02:18,802 --> 01:02:21,202
+chain here, and maybe even an exclamation point here.
+
+1214
+01:02:21,271 --> 01:02:22,437
+But if I'm gonna do exclamation point,
+
+1215
+01:02:22,505 --> 01:02:23,638
+you might as well make it unowned,
+
+1216
+01:02:23,706 --> 01:02:28,109
+because you're unwrapping it anyway. All right, so
+
+1217
+01:02:28,178 --> 01:02:29,243
+let's see what happened. So
+
+1218
+01:02:29,312 --> 01:02:31,879
+all we did here is we created an animator, a collision
+
+1219
+01:02:31,948 --> 01:02:34,949
+behavior, and a push behavior. Let's see what happens,
+
+1220
+01:02:35,018 --> 01:02:41,489
+see if it just animates. Woo-hoo, we did it Now,
+
+1221
+01:02:41,558 --> 01:02:45,059
+I'm not quite getting what I want here though.
+
+1222
+01:02:45,128 --> 01:02:47,695
+One thing is look how quickly it settles down.
+
+1223
+01:02:47,764 --> 01:02:50,932
+It kind of settles down too easy, too quickly.
+
+1224
+01:02:51,001 --> 01:02:53,034
+That's gonna make it too easy to play this game.
+
+1225
+01:02:53,103 --> 01:02:54,736
+I wanted those cards moving a little more.
+
+1226
+01:02:54,805 --> 01:02:57,672
+The other thing is I don't think I want them rotated.
+
+1227
+01:02:57,741 --> 01:03:00,375
+It's kind of fun to have them rotate actually.
+
+1228
+01:03:00,444 --> 01:03:03,011
+But when you flip the card, for example,
+
+1229
+01:03:03,080 --> 01:03:05,213
+it doesn't flip along the axis of the drawing.
+
+1230
+01:03:05,281 --> 01:03:08,283
+It flips along the axis of the view. So watch this flip,
+
+1231
+01:03:08,351 --> 01:03:11,052
+you see how it's kinda flipping around the corner?
+
+1232
+01:03:11,121 --> 01:03:13,488
+Maybe that's okay, but I'm gonna decide it's not.
+
+1233
+01:03:13,557 --> 01:03:16,024
+Because I also wanna show you how to do dynamic item
+
+1234
+01:03:16,093 --> 01:03:19,594
+behavior. Also, the reason that it's slowing down so
+
+1235
+01:03:19,662 --> 01:03:23,098
+much is there's not enough elasticity in the collisions.
+
+1236
+01:03:23,167 --> 01:03:24,933
+I want those collisions bouncing off and
+
+1237
+01:03:25,002 --> 01:03:28,636
+keeping the energy up. So let's fix, and
+
+1238
+01:03:28,705 --> 01:03:33,374
+we do that with another kind of behavior, kind of like our
+
+1239
+01:03:33,443 --> 01:03:37,579
+collision behavior. It is a itemBehavior,
+
+1240
+01:03:37,647 --> 01:03:42,250
+it's a UIDynamicItemBehaviour. And I'm gonna do that with
+
+1241
+01:03:42,318 --> 01:03:47,956
+a closure as well. So, we just create the behavior here,
+
+1242
+01:03:48,024 --> 01:03:52,293
+oops, let behavior= UIDynamicItemBehaviour.
+
+1243
+01:03:52,362 --> 01:03:54,696
+And now we'll just configure this behavior.
+
+1244
+01:03:54,764 --> 01:03:58,332
+So I want allowsRotation = false.
+
+1245
+01:03:58,401 --> 01:04:01,169
+I don't want those things rotating around.
+
+1246
+01:04:01,237 --> 01:04:04,339
+I want Elasticity and see and there's a lot,
+
+1247
+01:04:04,407 --> 01:04:05,840
+you're going to have to look in the documentation to see
+
+1248
+01:04:05,909 --> 01:04:07,675
+all of the incredible things that you can do here. But
+
+1249
+01:04:07,744 --> 01:04:12,080
+I want elasticity 1.0 means that collisions don't lose any
+
+1250
+01:04:12,149 --> 01:04:16,384
+energy or gain energy. if I set this to an elasticity 1.1,
+
+1251
+01:04:16,453 --> 01:04:17,852
+they would gain a little energy.
+
+1252
+01:04:17,921 --> 01:04:20,087
+Those things start going faster and faster and faster,
+
+1253
+01:04:20,156 --> 01:04:23,558
+forget it. But if I set it to 0.9, they're gonna slow down.
+
+1254
+01:04:23,626 --> 01:04:26,894
+Not as slowed down as much as they are now, but so
+
+1255
+01:04:26,963 --> 01:04:29,797
+1.0 is as kinda the most elasticity I can give it and
+
+1256
+01:04:29,866 --> 01:04:33,567
+not run into an accelerating situation. And also, I'm gonna
+
+1257
+01:04:33,636 --> 01:04:36,537
+set, I'm not sure what the default of this one is, but
+
+1258
+01:04:36,606 --> 01:04:39,607
+I'm gonna set resistance, which is how much it resists
+
+1259
+01:04:39,675 --> 01:04:43,044
+forces being applied on it. And I'm gonna set that to 0,
+
+1260
+01:04:43,112 --> 01:04:45,713
+I don't want any resistance. I want it to be kind of free
+
+1261
+01:04:45,782 --> 01:04:49,918
+flowing here in outer space not resisting anything. So
+
+1262
+01:04:49,987 --> 01:04:53,688
+let's add this to the animator, add behavior,
+
+1263
+01:04:56,492 --> 01:05:01,996
+and return the behavior. Okay, now is that all we need to do?
+
+1264
+01:05:02,065 --> 01:05:05,367
+No, because if we don't add any items to this
+
+1265
+01:05:05,435 --> 01:05:08,236
+item behavior, then it's not going to do anything.
+
+1266
+01:05:08,304 --> 01:05:10,738
+So same way that we added the cardView to the collision
+
+1267
+01:05:10,807 --> 01:05:13,073
+behavior, we have to add it to the item behavior.
+
+1268
+01:05:13,142 --> 01:05:17,044
+And as soon as we do that, as soon as we add this thing in,
+
+1269
+01:05:17,113 --> 01:05:20,648
+it's gonna be having all those settings allows rotation
+
+1270
+01:05:20,716 --> 01:05:23,317
+and all that business. So let's see if that makes things
+
+1271
+01:05:23,386 --> 01:05:31,759
+better. Okay, it did make it better.
+
+1272
+01:05:31,828 --> 01:05:35,263
+Okay, it's still slowing down, which I kind of want a little
+
+1273
+01:05:35,332 --> 01:05:37,298
+bit because I want the person to have
+
+1274
+01:05:37,367 --> 01:05:40,201
+a chance to by they're off. They're going too fast,
+
+1275
+01:05:40,269 --> 01:05:41,836
+you're just gonna be grabbing after them and
+
+1276
+01:05:41,904 --> 01:05:44,238
+then you'll never remember where the other ones went. So
+
+1277
+01:05:44,307 --> 01:05:45,973
+I do want it to slow down a little bit.
+
+1278
+01:05:46,042 --> 01:05:48,642
+Maybe not all the way to here, I can play with this.
+
+1279
+01:05:48,711 --> 01:05:51,145
+Actually have a kind of an idea for how to keep
+
+1280
+01:05:51,214 --> 01:05:54,582
+things in motion as the game goes on, but still give people
+
+1281
+01:05:54,650 --> 01:05:58,786
+a chance by letting it slow down. But before we do that,
+
+1282
+01:05:58,855 --> 01:06:01,722
+I wanna talk a little bit about that creating
+
+1283
+01:06:01,791 --> 01:06:05,994
+a UIDynamicBehavior subclass, where we combine other ones.
+
+1284
+01:06:06,062 --> 01:06:08,429
+Because look, we've got three different behaviors here.
+
+1285
+01:06:08,497 --> 01:06:10,031
+We've got the collision behavior,
+
+1286
+01:06:10,099 --> 01:06:12,767
+we got the item behavior, we got the push behavior. And
+
+1287
+01:06:12,835 --> 01:06:15,636
+we're having to do all three different pieces of code for
+
+1288
+01:06:15,705 --> 01:06:18,739
+that in our view controller. It'd be a lot nicer if we had
+
+1289
+01:06:18,808 --> 01:06:22,676
+another behavior called the card behavior. And it had all
+
+1290
+01:06:22,745 --> 01:06:25,246
+those as part of it. And then we just add the card the card
+
+1291
+01:06:25,315 --> 01:06:27,481
+behavior, and then we'd get the collision and the item and
+
+1292
+01:06:27,550 --> 01:06:30,718
+the push automatically. So that's what we're gonna do.
+
+1293
+01:06:30,786 --> 01:06:33,688
+Let's go up here to File>New>File.
+
+1294
+01:06:33,757 --> 01:06:35,523
+I'm gonna create a Cocoa Touch Class,
+
+1295
+01:06:35,592 --> 01:06:37,992
+a UIDynamicBehavior as a Cocoa Touch Class.
+
+1296
+01:06:38,061 --> 01:06:39,994
+Here it is subclass of UIDynamicBehavior.
+
+1297
+01:06:40,063 --> 01:06:44,365
+I'm gonna call it CardBehavior. I'm gonna put it
+
+1298
+01:06:44,434 --> 01:06:48,302
+where all the rest of my files are there, don't forget that.
+
+1299
+01:06:48,371 --> 01:06:52,139
+Here it is, CardBehavior, a subclass of UIDynamicBehavior.
+
+1300
+01:06:52,208 --> 01:06:55,175
+And all I'm gonna do is go over here and grab all this
+
+1301
+01:06:55,244 --> 01:06:59,848
+stuff, and take it outta here and put it over here. Okay, so
+
+1302
+01:06:59,916 --> 01:07:01,448
+I'm just putting those behaviors over there,
+
+1303
+01:07:01,517 --> 01:07:04,519
+even the push. I'm gonna take the push out of here as well,
+
+1304
+01:07:04,588 --> 01:07:05,420
+put it over here.
+
+1305
+01:07:05,488 --> 01:07:07,154
+The push I'm gonna put in a little function,
+
+1306
+01:07:07,223 --> 01:07:11,960
+a private func called push, which pushes an item. This can
+
+1307
+01:07:12,028 --> 01:07:15,296
+all work on UIDynamicItem, I have UIViews but
+
+1308
+01:07:15,365 --> 01:07:17,732
+there's nothing in my code that's specific to UIView,
+
+1309
+01:07:17,801 --> 01:07:21,068
+it's all just dynamic items being animated here. So
+
+1310
+01:07:21,137 --> 01:07:24,572
+we'll put all that push stuff in there. Now we're gonna have
+
+1311
+01:07:24,641 --> 01:07:26,374
+to fix some of these little copy and paste problems.
+
+1312
+01:07:26,442 --> 01:07:29,277
+But this is essentially how you create your
+
+1313
+01:07:29,346 --> 01:07:34,148
+own dynamic behaviors by doing these. But these have to be
+
+1314
+01:07:34,216 --> 01:07:38,953
+added as children and we add them as children in an init.
+
+1315
+01:07:39,021 --> 01:07:43,625
+So 99.9% of the time, when you create a dynamic behavior,
+
+1316
+01:07:43,693 --> 01:07:47,127
+you're gonna override init with no argument.
+
+1317
+01:07:47,196 --> 01:07:49,898
+You're gonna call super.init, and then you're gonna add your
+
+1318
+01:07:49,966 --> 01:07:53,067
+children. So I've got my collision behavior,
+
+1319
+01:07:53,135 --> 01:07:58,139
+I'm gonna add, I've got my item behavior, I'm gonna add.
+
+1320
+01:07:58,208 --> 01:08:00,241
+Now, I can't really add my push behavior here,
+
+1321
+01:08:00,309 --> 01:08:03,811
+because the push behaviors, I need to know the item. So
+
+1322
+01:08:03,880 --> 01:08:08,182
+I can't quite do that yet. So and obviously I don't need to
+
+1323
+01:08:08,251 --> 01:08:10,384
+be adding them to animator right in here,
+
+1324
+01:08:10,453 --> 01:08:13,187
+cuz there somebody's gonna add me to an animator and
+
+1325
+01:08:13,256 --> 01:08:14,788
+that's how these things will
+
+1326
+01:08:14,857 --> 01:08:17,291
+all get put in an animator. Same thing here. So
+
+1327
+01:08:17,360 --> 01:08:20,894
+how am I gonna deal with this fact of push? Well,
+
+1328
+01:08:20,963 --> 01:08:25,700
+I'm also gonna add a func add item which adds an item,
+
+1329
+01:08:25,768 --> 01:08:28,636
+a UIDynamicItem. And when I add it,
+
+1330
+01:08:28,705 --> 01:08:31,506
+I'm gonna add it to all my children. So
+
+1331
+01:08:31,575 --> 01:08:35,676
+I'm gonna add it to collisionBehavior.addItem,
+
+1332
+01:08:35,745 --> 01:08:42,283
+I'm gonna add it to my itemBehavior, And
+
+1333
+01:08:42,352 --> 01:08:44,952
+I'm gonna push, so I'm gonna push the item too,
+
+1334
+01:08:45,021 --> 01:08:48,322
+which is essentially adding it to the push behavior here.
+
+1335
+01:08:48,391 --> 01:08:51,259
+So let's fix this one up, this needs to be item not cardView
+
+1336
+01:08:51,328 --> 01:08:52,894
+right here you see that argument, right?
+
+1337
+01:08:54,364 --> 01:08:57,398
+The push action here, notice that we're removing
+
+1338
+01:08:57,467 --> 01:09:00,033
+the behavior directly from the dynamic animator.
+
+1339
+01:09:00,102 --> 01:09:03,904
+Actually what I wanna do here instead is make it a child, so
+
+1340
+01:09:03,973 --> 01:09:10,878
+I'm gonna add a child behavior which is the push. And
+
+1341
+01:09:10,947 --> 01:09:13,914
+then when I remove, instead of removing behavior directly
+
+1342
+01:09:13,983 --> 01:09:18,953
+from the animator, I'm gonna remove my child behavior.
+
+1343
+01:09:21,958 --> 01:09:24,692
+See, now there's a little thing going on here,
+
+1344
+01:09:24,761 --> 01:09:27,528
+it's gonna complain once it compiles here.
+
+1345
+01:09:27,597 --> 01:09:31,332
+Implicitly use of 'self' in closure, use 'self'. In fact,
+
+1346
+01:09:31,401 --> 01:09:36,270
+I'm gonna do this if I can by just typing self., and
+
+1347
+01:09:36,339 --> 01:09:38,505
+this is now capturing self,
+
+1348
+01:09:38,574 --> 01:09:42,943
+which is the dynamic behavior. Yikes, okay, we don't wanna do
+
+1349
+01:09:43,012 --> 01:09:45,512
+that because the dynamic behavior definitely has
+
+1350
+01:09:45,581 --> 01:09:48,215
+a pointer to this closure, because it has a pointer to
+
+1351
+01:09:48,284 --> 01:09:51,886
+its own child behaviors of one which is the push behavior.
+
+1352
+01:09:51,955 --> 01:09:53,221
+And the push behavior points to it.
+
+1353
+01:09:53,289 --> 01:09:56,190
+So I'm gonna get rid of this by saying, weak
+
+1354
+01:09:56,258 --> 01:10:01,328
+self. Okay, phew, broke that thing. I still need unowned
+
+1355
+01:10:01,397 --> 01:10:04,999
+push because I'm also passing push right there. Now I don't
+
+1356
+01:10:05,068 --> 01:10:07,968
+wanna do unowned self there, because just in case for some
+
+1357
+01:10:08,037 --> 01:10:10,738
+reason this whole behavior got removed from the heap,
+
+1358
+01:10:10,807 --> 01:10:12,573
+I don't wanna be crashing here.
+
+1359
+01:10:12,642 --> 01:10:14,508
+So I'm just gonna do a weak to be a little bit safe.
+
+1360
+01:10:14,577 --> 01:10:17,078
+It's not the same case where I know for a fact that this push
+
+1361
+01:10:17,147 --> 01:10:19,046
+has to be in the heap cuz I wouldn't have got here.
+
+1362
+01:10:19,115 --> 01:10:24,618
+That's not necessarily true of self. So we are push there so,
+
+1363
+01:10:24,687 --> 01:10:27,621
+now that we've collected all of our code right here,
+
+1364
+01:10:27,690 --> 01:10:29,557
+actually I'm gonna add one more thing,
+
+1365
+01:10:29,625 --> 01:10:31,926
+cuz we haven't seen this as convenient init.
+
+1366
+01:10:31,995 --> 01:10:34,495
+Okay, I'm gonna add a convenience initializer here,
+
+1367
+01:10:34,564 --> 01:10:37,832
+that let's me specify the animator that I wanna be in.
+
+1368
+01:10:37,901 --> 01:10:39,299
+I just wanna show what it looks like
+
+1369
+01:10:39,368 --> 01:10:42,737
+to create a convenience init. And all you do when you
+
+1370
+01:10:42,805 --> 01:10:46,073
+create a convenience init is you can all a self.init only
+
+1371
+01:10:46,142 --> 01:10:49,076
+on yourself, then you can do what you wanna do.
+
+1372
+01:10:49,145 --> 01:10:52,112
+In this case, I'm just going to tell that animator to
+
+1373
+01:10:52,181 --> 01:10:56,851
+add behavior myself. See how that's like a convenience for
+
+1374
+01:10:56,920 --> 01:10:58,886
+me to be able to create one of these and
+
+1375
+01:10:58,955 --> 01:11:02,390
+have it automatically added. So let's use that convenience
+
+1376
+01:11:02,458 --> 01:11:06,827
+initiator, initializer back in our view controller here,
+
+1377
+01:11:06,896 --> 01:11:10,164
+actually we can go back. Here it is,
+
+1378
+01:11:10,233 --> 01:11:13,700
+and instead of adding each item to both collision and
+
+1379
+01:11:13,769 --> 01:11:16,437
+item, we just add it to a cardBehavior,
+
+1380
+01:11:16,506 --> 01:11:20,240
+which we'll have to create. So I'm gonna have cardBehavior,
+
+1381
+01:11:20,309 --> 01:11:23,343
+add the item to cardView, and then I'm gonna create a var up
+
+1382
+01:11:23,412 --> 01:11:26,079
+here, a lazy var. It probably doesn't even need to be lazy,
+
+1383
+01:11:26,148 --> 01:11:29,684
+yeah, it probably does. Lazy var, which I'm gonna call
+
+1384
+01:11:29,752 --> 01:11:33,754
+cardBehavior, which is just gonna be a cardBehavior. And
+
+1385
+01:11:33,823 --> 01:11:37,224
+I'm gonna use my nice convenience initializer to say
+
+1386
+01:11:37,293 --> 01:11:41,795
+in my animator. Okay, so this really
+
+1387
+01:11:41,864 --> 01:11:45,165
+cleaned up our code here in our view controller. In fact,
+
+1388
+01:11:45,234 --> 01:11:48,803
+there's only two lines of code at all that have to do
+
+1389
+01:11:48,872 --> 01:11:51,339
+with our dynamic animation in this thing.
+
+1390
+01:11:51,407 --> 01:11:54,442
+We've moved it all to that nice thing. Let's make sure we
+
+1391
+01:11:54,511 --> 01:12:00,882
+didn't break anything by doing that. We didn't. Okay,
+
+1392
+01:12:00,950 --> 01:12:04,151
+it's still working. And we can still flip out cards over.
+
+1393
+01:12:04,219 --> 01:12:07,921
+Those are separate animations going on over there. Now,
+
+1394
+01:12:07,990 --> 01:12:10,224
+I wanna do a couple of other things here.
+
+1395
+01:12:10,293 --> 01:12:14,662
+One is ,when you pick a card I want it to stop.
+
+1396
+01:12:14,731 --> 01:12:18,298
+I want it to stop being animated. You picked a card
+
+1397
+01:12:18,367 --> 01:12:21,302
+you get to take a breath, and look at your card.
+
+1398
+01:12:21,371 --> 01:12:24,438
+And then, if you flip the card back over or if it match it,
+
+1399
+01:12:24,507 --> 01:12:27,375
+or if doesn't match and it gets flipped over for you,
+
+1400
+01:12:27,444 --> 01:12:29,944
+then I'm gonna give it a push. Because see how
+
+1401
+01:12:30,013 --> 01:12:33,747
+everything's stopping, so now, choosing cards, we'll start
+
+1402
+01:12:33,816 --> 01:12:35,883
+pushing them a little bit and getting them going again. So,
+
+1403
+01:12:35,952 --> 01:12:37,751
+yeah, you can wait for the whole thing to slow down and
+
+1404
+01:12:37,820 --> 01:12:40,354
+stop and then you can pick a card. But once you pick them,
+
+1405
+01:12:40,423 --> 01:12:42,056
+they're gonna all move around again and
+
+1406
+01:12:42,125 --> 01:12:44,257
+be shuffled up again, make it hard on you. So
+
+1407
+01:12:44,326 --> 01:12:44,925
+that's seemed like a good
+
+1408
+01:12:44,994 --> 01:12:48,295
+compromise to me between constant movement and
+
+1409
+01:12:48,364 --> 01:12:50,565
+all sitting completely still like this. So
+
+1410
+01:12:50,633 --> 01:12:53,367
+how am I gonna do that? Well that's super easy to do now
+
+1411
+01:12:53,435 --> 01:12:56,237
+because I have that one behavior. And if I remove
+
+1412
+01:12:56,305 --> 01:12:59,006
+an item from that behavior, it's going to automatically
+
+1413
+01:12:59,074 --> 01:13:01,242
+stop animating. Because nothing will be behaving.
+
+1414
+01:13:01,311 --> 01:13:04,178
+There will be no behaviors operating on it. Okay, so
+
+1415
+01:13:04,247 --> 01:13:05,112
+how do I do that? Well,
+
+1416
+01:13:05,180 --> 01:13:07,648
+I'm just gonna do this right in my flip card right here.
+
+1417
+01:13:07,717 --> 01:13:11,419
+As soon as I get a touch that's gonna flip a card over,
+
+1418
+01:13:11,487 --> 01:13:14,622
+I am just gonna say cardBehavior, not that.
+
+1419
+01:13:14,690 --> 01:13:17,624
+CardBehavior with a lower case C,
+
+1420
+01:13:17,693 --> 01:13:22,797
+cardBehavior remove this chosenCard. Okay,
+
+1421
+01:13:22,865 --> 01:13:25,532
+but I do wanna add it back to the behaviors.
+
+1422
+01:13:25,601 --> 01:13:30,003
+When do I want to add it back to the behaviors? Either when,
+
+1423
+01:13:30,072 --> 01:13:33,374
+I didn't add remove item, let's make sure we do that,
+
+1424
+01:13:33,443 --> 01:13:38,312
+sorry. Where is our behavior? Yeah, sorry,
+
+1425
+01:13:38,380 --> 01:13:41,582
+we have add item, we need remove item as well, okay. And
+
+1426
+01:13:41,650 --> 01:13:44,585
+removeItem is exactly the same kind of thing, except for
+
+1427
+01:13:44,654 --> 01:13:49,690
+that we are removing things from all of the behaviors.
+
+1428
+01:13:49,759 --> 01:13:53,460
+Remove, Sorry about that, forgot about that. Remove,
+
+1429
+01:13:53,529 --> 01:13:54,661
+and, we don't have to remove the push
+
+1430
+01:13:54,730 --> 01:13:57,064
+because we automatically remove the push as soon as it
+
+1431
+01:13:57,132 --> 01:14:00,868
+happens, right? Here's where we're removing the push. So
+
+1432
+01:14:00,937 --> 01:14:03,737
+since we removed the entire push behavior we don't have to
+
+1433
+01:14:03,806 --> 01:14:06,907
+remove the items from it. So there's removeItem,
+
+1434
+01:14:06,976 --> 01:14:12,012
+sorry about that. Okay, clear, all right let's go back to our
+
+1435
+01:14:12,081 --> 01:14:14,982
+thing here. So now we can do a removeItem, but we wanna put
+
+1436
+01:14:15,051 --> 01:14:17,118
+them back in, when do we wanna put them back in?
+
+1437
+01:14:17,186 --> 01:14:19,286
+Well if you just flipped the card face down, we wanna put
+
+1438
+01:14:19,355 --> 01:14:22,122
+it back in then, or if the two cards gets flipped down for
+
+1439
+01:14:22,191 --> 01:14:24,658
+you automatically because you had a mismatch, then we
+
+1440
+01:14:24,727 --> 01:14:27,294
+also wanna do that. So, let's go put that, and we're just
+
+1441
+01:14:27,362 --> 01:14:30,263
+gonna put add item to put them back in those cases. So,
+
+1442
+01:14:30,332 --> 01:14:33,968
+where are those in here? Let's see if I can find them.
+
+1443
+01:14:34,036 --> 01:14:37,672
+Okay, so here is the one where two cards don't match and
+
+1444
+01:14:37,740 --> 01:14:40,240
+we're automatically flipping it face down right here, so
+
+1445
+01:14:40,309 --> 01:14:43,410
+I'm just gonna have this cardBehavior,
+
+1446
+01:14:43,479 --> 01:14:48,049
+add item, the card view. Okay, let's put it back in.
+
+1447
+01:14:48,117 --> 01:14:51,118
+It got flipped face down automatically, and
+
+1448
+01:14:51,187 --> 01:14:55,088
+then here's the else, oops and of course self.
+
+1449
+01:14:55,157 --> 01:14:57,958
+Does that cause a memory cycle? No because these
+
+1450
+01:14:58,027 --> 01:15:01,361
+are animation system closures. We're okay, all right?
+
+1451
+01:15:01,430 --> 01:15:04,331
+So here, this is in the case where there weren't two cards.
+
+1452
+01:15:04,399 --> 01:15:07,701
+There was only one card. And if you flipped the card face
+
+1453
+01:15:07,770 --> 01:15:13,941
+down, if the chosenCardView,
+
+1454
+01:15:14,009 --> 01:15:17,645
+it's face down, so not face up. So
+
+1455
+01:15:17,713 --> 01:15:21,782
+you pick the card, it's face up then you picked it again,
+
+1456
+01:15:21,851 --> 01:15:24,551
+it went face down, then here I need to have the CardBehavior
+
+1457
+01:15:24,620 --> 01:15:28,188
+right on itself there, because I'm not in a closure add item,
+
+1458
+01:15:28,257 --> 01:15:30,257
+put that cardView back.
+
+1459
+01:15:30,326 --> 01:15:32,693
+Now what about cases were the cards match?
+
+1460
+01:15:32,761 --> 01:15:35,262
+Don't need to put them back because they go away, right?
+
+1461
+01:15:35,331 --> 01:15:36,731
+We remove the areas hidden,
+
+1462
+01:15:36,799 --> 01:15:39,466
+so there's no reason to put them back, right? And
+
+1463
+01:15:39,535 --> 01:15:43,704
+it's not cardVew, it's chosenCardView. Okay, so
+
+1464
+01:15:43,773 --> 01:15:49,510
+let's see if this works. Oops cardBehavior, it's right
+
+1465
+01:15:49,578 --> 01:15:52,579
+in it's in the completion handler. This is in a closure,
+
+1466
+01:15:52,648 --> 01:15:56,784
+it's in the completion handler up here of this initial flip.
+
+1467
+01:15:56,853 --> 01:15:59,386
+So does this cause... every time you have to,
+
+1468
+01:15:59,455 --> 01:16:01,922
+any time it says this to you and you put self in there
+
+1469
+01:16:01,990 --> 01:16:05,225
+you wanna go, hmm, does this cause a memory cycle?
+
+1470
+01:16:05,294 --> 01:16:06,494
+No, it doesn't here, we're okay.
+
+1471
+01:16:06,562 --> 01:16:12,866
+It's just a completion handler closure, we're fine. Okay,
+
+1472
+01:16:12,935 --> 01:16:15,536
+so now when I click one, if I can get one, there it is.
+
+1473
+01:16:15,605 --> 01:16:18,171
+It stopped, see, it's not being bounced into or
+
+1474
+01:16:18,240 --> 01:16:20,641
+moving in any way. And now if I pick another one,
+
+1475
+01:16:20,710 --> 01:16:24,344
+they don't match. Now, they both get a push. Because every
+
+1476
+01:16:24,413 --> 01:16:28,683
+time I add an item back to my cardBehavior, it gets a push
+
+1477
+01:16:28,751 --> 01:16:31,084
+that's kind of cool, kind of a nice little feature.
+
+1478
+01:16:31,153 --> 01:16:33,654
+Same thing here, oop they don't match they got pushed.
+
+1479
+01:16:33,722 --> 01:16:36,156
+Okay, these don't match they get pushed and
+
+1480
+01:16:36,225 --> 01:16:38,759
+hopefully if we find two that match somewhere,
+
+1481
+01:16:38,828 --> 01:16:41,462
+somebody help me how do they know where one is.
+
+1482
+01:16:41,530 --> 01:16:44,865
+There we go, we gotta match, okay, anyhow. So
+
+1483
+01:16:44,934 --> 01:16:46,567
+this is kinda nice, it plays kinda nicer. But
+
+1484
+01:16:46,636 --> 01:16:49,770
+there's still some things I don't really like about this.
+
+1485
+01:16:49,838 --> 01:16:52,173
+One is, I really don't like things on the edges so
+
+1486
+01:16:52,241 --> 01:16:55,476
+much. I don't mind if things stop, but I'd really rather
+
+1487
+01:16:55,545 --> 01:16:58,378
+they be towards the middle. And so, I have a little
+
+1488
+01:16:58,447 --> 01:17:03,317
+fix for that, which is over here in my cardBehavior here.
+
+1489
+01:17:03,385 --> 01:17:06,720
+When I push, instead of pushing at a random angle,
+
+1490
+01:17:06,789 --> 01:17:09,957
+instead, I'm going to push, and we don't have time for
+
+1491
+01:17:10,025 --> 01:17:13,594
+me to type it all in. I'm gonna push towards the center.
+
+1492
+01:17:13,663 --> 01:17:17,164
+So depending on where the card is in its reference bounds,
+
+1493
+01:17:17,233 --> 01:17:18,999
+the reference views bounds,
+
+1494
+01:17:19,067 --> 01:17:22,803
+I'm gonna push towards the center. So this is the process
+
+1495
+01:17:22,871 --> 01:17:25,906
+when you do animation of kind of tuning your animation.
+
+1496
+01:17:25,975 --> 01:17:27,875
+Seeing what makes sense, what doesn't make sense.
+
+1497
+01:17:27,944 --> 01:17:30,845
+So this is a nice tuning thing to push towards the center.
+
+1498
+01:17:30,913 --> 01:17:35,949
+Another way that we can tune our animations
+
+1499
+01:17:36,018 --> 01:17:39,252
+here is to slow them way down. Because when they're going so
+
+1500
+01:17:39,321 --> 01:17:41,821
+quickly sometimes they're not quite working and
+
+1501
+01:17:41,890 --> 01:17:44,858
+we can't really tell. So let's go back and slow down a couple
+
+1502
+01:17:44,927 --> 01:17:48,361
+of our animations to see how they're doing. So, for example
+
+1503
+01:17:48,430 --> 01:17:52,799
+let's load down our animations of the matching cards. So when
+
+1504
+01:17:52,868 --> 01:17:55,903
+the cards match that to right here remember we're scaling it
+
+1505
+01:17:55,972 --> 01:17:59,173
+up to three times and we scale it back down. And we had out
+
+1506
+01:17:59,242 --> 01:18:01,608
+alpha to zero. So instead of this taking, you know,
+
+1507
+01:18:01,677 --> 01:18:03,944
+about a little half a second, three quarters of a second,
+
+1508
+01:18:04,012 --> 01:18:06,546
+let's slow it way down to take six total seconds,
+
+1509
+01:18:06,615 --> 01:18:07,614
+three seconds.
+
+1510
+01:18:07,683 --> 01:18:12,352
+For each part of the animation and see if our app is
+
+1511
+01:18:12,421 --> 01:18:16,357
+working well doing that, so we're gonna find any problems.
+
+1512
+01:18:18,627 --> 01:18:21,262
+Okay, it's gonna require me to find a match. Let's see we got
+
+1513
+01:18:21,330 --> 01:18:26,333
+here search around from cards til we can find, I think,
+
+1514
+01:18:26,402 --> 01:18:31,138
+nope, no well, there we go. So it's going so slow, but
+
+1515
+01:18:31,206 --> 01:18:33,173
+look what happens if I click on other cards.
+
+1516
+01:18:33,242 --> 01:18:34,140
+They're still able to match,
+
+1517
+01:18:34,209 --> 01:18:36,476
+in fact I can select more than two and
+
+1518
+01:18:36,545 --> 01:18:40,581
+then they disappear. Okay why do those disappear?
+
+1519
+01:18:40,650 --> 01:18:43,784
+Well that's because this second animation that comes
+
+1520
+01:18:43,853 --> 01:18:45,719
+along sets their alpha to zero,
+
+1521
+01:18:45,787 --> 01:18:49,155
+picks them up along the way while this long animation is
+
+1522
+01:18:49,224 --> 01:18:52,326
+happening. So we really need to more careful when we're
+
+1523
+01:18:52,395 --> 01:18:55,028
+doing this second half especially of this animation,
+
+1524
+01:18:55,097 --> 01:18:57,898
+that we're only working on the cards that were involved in
+
+1525
+01:18:57,967 --> 01:19:01,635
+the match. And there's a couple of ways we can do that,
+
+1526
+01:19:01,704 --> 01:19:05,138
+one for example here where we're deciding whether we
+
+1527
+01:19:05,207 --> 01:19:08,909
+wanna do this animation or not we could just make sure that
+
+1528
+01:19:08,978 --> 01:19:12,813
+are faceUpcardViews count is always less than 2. Because if
+
+1529
+01:19:12,881 --> 01:19:16,951
+we already have two matching cards that are expanding and
+
+1530
+01:19:17,019 --> 01:19:21,021
+growing out, then we obviously can't match anymore.
+
+1531
+01:19:21,090 --> 01:19:23,190
+So that would kind of work except for
+
+1532
+01:19:23,259 --> 01:19:25,625
+that you can imagine if I had a match and
+
+1533
+01:19:25,694 --> 01:19:28,395
+the cards are expanding out that it might actually want to
+
+1534
+01:19:28,464 --> 01:19:32,666
+start working on my next pair. And so for that to work,
+
+1535
+01:19:32,734 --> 01:19:35,469
+we really wanna have those two matching cards not really
+
+1536
+01:19:35,538 --> 01:19:39,139
+count as face up cards at all. And we can do that up here.
+
+1537
+01:19:39,207 --> 01:19:42,476
+Here's where we decide what a face up card is. Currently
+
+1538
+01:19:42,544 --> 01:19:46,713
+it's a card that is face up and obviously is not hidden.
+
+1539
+01:19:46,782 --> 01:19:49,449
+And we could just enhance this a little bit here because we
+
+1540
+01:19:49,518 --> 01:19:52,786
+know that those cards that are expanding are either scaled up
+
+1541
+01:19:52,855 --> 01:19:57,891
+to 3.0 in their transform, or their alpha is not 1, right?
+
+1542
+01:19:57,960 --> 01:20:01,395
+It's 0, in fact So we can just put those on here. So
+
+1543
+01:20:01,464 --> 01:20:06,266
+lets say a face up card also has to have a transformed that
+
+1544
+01:20:06,335 --> 01:20:11,505
+does not equal the identity transform scaled by 3.0, 3.0.
+
+1545
+01:20:11,574 --> 01:20:15,742
+By the way you can see the terror and
+
+1546
+01:20:15,811 --> 01:20:19,612
+danger of blue numbers because if I were to ever change
+
+1547
+01:20:19,681 --> 01:20:22,782
+this number and forget to change the same thing here,
+
+1548
+01:20:22,851 --> 01:20:25,185
+then this would not work. My animation would be out of
+
+1549
+01:20:25,254 --> 01:20:28,088
+sync with what I consider to be a face-up card. So this is
+
+1550
+01:20:28,157 --> 01:20:31,158
+where we'd wanna create a struct, a private struct and
+
+1551
+01:20:31,227 --> 01:20:35,829
+use statics to have those be constants. So we also want to
+
+1552
+01:20:35,898 --> 01:20:39,333
+make sure that our alpha here is equal to one,
+
+1553
+01:20:39,401 --> 01:20:41,935
+in other words, we're only going to consider card face up
+
+1554
+01:20:42,003 --> 01:20:46,006
+if it's fully visible. The last thing we're going to need
+
+1555
+01:20:46,074 --> 01:20:50,210
+to do here also though is when we go into our animations,
+
+1556
+01:20:50,279 --> 01:20:53,647
+notice that we look for which cards are face up.
+
+1557
+01:20:53,716 --> 01:20:57,551
+By calling this self.face up card views, all right?
+
+1558
+01:20:57,620 --> 01:21:01,221
+And that is this thing right here. Well this is dynamically
+
+1559
+01:21:01,290 --> 01:21:04,091
+always calculating the cards that are face up, so
+
+1560
+01:21:04,159 --> 01:21:06,560
+if we have an animation here and it starts off and
+
+1561
+01:21:06,629 --> 01:21:09,696
+is going and then it tries to do its second part, it looks
+
+1562
+01:21:09,764 --> 01:21:12,866
+for the face drop cards again. When in fact, we just want
+
+1563
+01:21:12,935 --> 01:21:16,870
+this entire animation to apply to the original two cards that
+
+1564
+01:21:16,938 --> 01:21:20,874
+were chosen. So we can capture that by just having
+
+1565
+01:21:20,943 --> 01:21:24,277
+a little local variable. Here I am going to call it cards
+
+1566
+01:21:24,346 --> 01:21:29,049
+to animate that equal the face of cards at the time
+
+1567
+01:21:29,117 --> 01:21:31,552
+we start the animation. Okay so we are sort of capturing
+
+1568
+01:21:31,620 --> 01:21:34,254
+them here. And then going through and using this.
+
+1569
+01:21:34,323 --> 01:21:38,324
+So everywhere we're re-looking up these face up cards instead
+
+1570
+01:21:38,393 --> 01:21:40,127
+we want to use the cards to animate. So
+
+1571
+01:21:40,196 --> 01:21:44,131
+let's go down here, this one, this one, this one, I'm just
+
+1572
+01:21:44,200 --> 01:21:48,168
+searching and replacing here all of those cards to animate.
+
+1573
+01:21:48,237 --> 01:21:52,773
+So let's try all of that and see if that has made it so
+
+1574
+01:21:52,841 --> 01:21:57,577
+that our nice, winning animation doesn't have that
+
+1575
+01:21:57,646 --> 01:22:01,681
+same problem. So, I've gotta find our matches again,
+
+1576
+01:22:01,750 --> 01:22:03,851
+whoops, let's see. There we go, there's a match.
+
+1577
+01:22:03,919 --> 01:22:06,653
+Now I'm gonna click on other cards and it's able to match
+
+1578
+01:22:06,722 --> 01:22:11,158
+them. And that long animation was still continuing. So
+
+1579
+01:22:11,227 --> 01:22:14,027
+that's much better UI. Now of course we're not gonna have
+
+1580
+01:22:14,096 --> 01:22:17,698
+our matching animation take so long, but by making it take so
+
+1581
+01:22:17,766 --> 01:22:20,334
+long we are able to find that problem. So let's put that
+
+1582
+01:22:20,403 --> 01:22:25,472
+back to what it was. I think we had like .6 and
+
+1583
+01:22:25,541 --> 01:22:28,475
+.75. Let's take another animation and slow it down,
+
+1584
+01:22:28,543 --> 01:22:30,877
+how about the animation where the cards don't match and
+
+1585
+01:22:30,946 --> 01:22:32,679
+we flip them back over? Okay,
+
+1586
+01:22:32,748 --> 01:22:34,948
+that's this animation of it flipping over and
+
+1587
+01:22:35,017 --> 01:22:37,651
+then here is where it flips the two mismatching
+
+1588
+01:22:37,719 --> 01:22:39,520
+cards over. So lets slow both of those down.
+
+1589
+01:22:39,588 --> 01:22:43,023
+So that one down and slow this one down here.
+
+1590
+01:22:46,695 --> 01:22:48,394
+This was the matching animation.
+
+1591
+01:22:48,463 --> 01:22:52,599
+I want the, the original flip animation there. All right, so
+
+1592
+01:22:52,668 --> 01:22:54,868
+we click, okay our original flip animation.
+
+1593
+01:22:54,937 --> 01:22:57,370
+Okay, it's going real slow, nothing seems to be a problem.
+
+1594
+01:22:57,439 --> 01:23:00,574
+Let's try another one that goes slow. And
+
+1595
+01:23:00,642 --> 01:23:02,676
+they both, okay. It all looks okay.
+
+1596
+01:23:02,745 --> 01:23:05,411
+Let's try clicking a little faster. How about this one and
+
+1597
+01:23:05,480 --> 01:23:08,581
+this one? All right, they both go slow.
+
+1598
+01:23:08,650 --> 01:23:11,852
+Wow, what's happening? Okay, what happened to that ten,
+
+1599
+01:23:11,920 --> 01:23:15,221
+that second card? It kind of, it didn't flip over.
+
+1600
+01:23:15,290 --> 01:23:16,990
+It kind of jumped, and then it flew around.
+
+1601
+01:23:17,059 --> 01:23:18,726
+Let's try it again to see what's happening here.
+
+1602
+01:23:18,794 --> 01:23:20,928
+Let's try this one and this one, here we go,
+
+1603
+01:23:20,996 --> 01:23:23,796
+whoa. Okay, so something is clearly wrong here. So
+
+1604
+01:23:23,865 --> 01:23:28,301
+what is happening here that's making that card go so wacky?
+
+1605
+01:23:28,370 --> 01:23:31,972
+Well, what's happening here is both the original card, that
+
+1606
+01:23:32,041 --> 01:23:36,309
+we flipped up, and the second card are both trying to flip
+
+1607
+01:23:36,378 --> 01:23:40,614
+the two cards face down. Okay, and so those two transforms,
+
+1608
+01:23:40,682 --> 01:23:44,083
+those two modifications here via transition,
+
+1609
+01:23:44,152 --> 01:23:47,320
+they're both trying to operate on the cards at the same time.
+
+1610
+01:23:47,389 --> 01:23:49,823
+And when you have something in the middle of transforming and
+
+1611
+01:23:49,892 --> 01:23:51,258
+another transform comes along,
+
+1612
+01:23:51,327 --> 01:23:54,561
+it's basically messing up the whole transform. Now,
+
+1613
+01:23:54,630 --> 01:23:57,397
+an easy fix for this one too which is let's just always
+
+1614
+01:23:57,466 --> 01:23:59,933
+let the latest card that was chosen
+
+1615
+01:24:00,001 --> 01:24:03,003
+control the animation. That way they'll never interfere
+
+1616
+01:24:03,072 --> 01:24:05,205
+with each other because when the second one comes along and
+
+1617
+01:24:05,273 --> 01:24:08,341
+chooses it gets to do the animation. So let's do that by
+
+1618
+01:24:08,410 --> 01:24:11,811
+just creating a little var here, to keep track of our
+
+1619
+01:24:11,880 --> 01:24:15,882
+last chosen card view which will be a playing card view of
+
+1620
+01:24:15,951 --> 01:24:19,686
+course. And it'll start out nil, that's fine cuz we
+
+1621
+01:24:19,755 --> 01:24:24,658
+don't have a last chosen card view when we start out. And
+
+1622
+01:24:24,726 --> 01:24:27,294
+so every time that we go through and choose a card,
+
+1623
+01:24:27,363 --> 01:24:29,529
+okay right here, this is where we choose card.
+
+1624
+01:24:29,597 --> 01:24:32,932
+We're just gonna remember that our lastChosenCardView =
+
+1625
+01:24:33,001 --> 01:24:37,203
+chosenCardView. And then when we get down here to this
+
+1626
+01:24:37,272 --> 01:24:40,841
+animation of them closing down here, we're only gonna do this
+
+1627
+01:24:40,909 --> 01:24:45,612
+if the chosenCardView equals the last chosen card
+
+1628
+01:24:49,551 --> 01:24:54,554
+view. So,
+
+1629
+01:24:54,623 --> 01:24:56,990
+that way, this animation right here can only happen,
+
+1630
+01:24:57,059 --> 01:24:58,826
+can only be controlled, by the last card.
+
+1631
+01:24:58,894 --> 01:25:01,161
+And they won't interfere with each other. So
+
+1632
+01:25:01,230 --> 01:25:04,998
+we need a self right here and let's try this.
+
+1633
+01:25:10,539 --> 01:25:13,940
+All right so here's this one, it started animating,
+
+1634
+01:25:14,009 --> 01:25:16,643
+start this one and it worked.
+
+1635
+01:25:16,711 --> 01:25:18,911
+Okay it let the first one finish its animation and
+
+1636
+01:25:18,980 --> 01:25:21,814
+then it didn't do it, didn't do the flip and waited for
+
+1637
+01:25:21,883 --> 01:25:26,353
+the second one to do it. Okay, so these
+
+1638
+01:25:26,422 --> 01:25:29,556
+are the kind of things when you're tuning your animation,
+
+1639
+01:25:29,625 --> 01:25:32,059
+that slowing them down will help you find these
+
+1640
+01:25:32,127 --> 01:25:34,094
+overlapped things. And you might think well,
+
+1641
+01:25:34,163 --> 01:25:34,961
+these cards are flipping so
+
+1642
+01:25:35,030 --> 01:25:37,430
+fast, users would never be able to do this, but
+
+1643
+01:25:37,499 --> 01:25:40,701
+they absolutely can. Users tend to click, click, click,
+
+1644
+01:25:40,769 --> 01:25:43,403
+click, click. Oops, they're clicking quickly to try and
+
+1645
+01:25:43,471 --> 01:25:46,473
+make things happen, so you wanna be prepared for that. So
+
+1646
+01:25:46,541 --> 01:25:49,242
+I'm gonna put these back to where they were.
+
+1647
+01:25:49,311 --> 01:25:54,080
+What do I have, I don't know, 0.5 or
+
+1648
+01:25:54,149 --> 01:25:59,653
+something, 0.6, something like that.
+
+1649
+01:26:02,925 --> 01:26:06,025
+Okay so, here we got this guy and that guy.
+
+1650
+01:26:06,094 --> 01:26:08,495
+Let's see if we can find a match here somewhere.
+
+1651
+01:26:09,865 --> 01:26:14,334
+This one. No, it's hard to find a match at this game.
+
+1652
+01:26:14,403 --> 01:26:15,368
+It's quite a difficult game.
+
+1653
+01:26:15,437 --> 01:26:20,440
+I found that I'm not really very good at it. There's
+
+1654
+01:26:20,509 --> 01:26:23,210
+that jack, I think that one there. Yeah, there's a match.
+
+1655
+01:26:23,279 --> 01:26:27,681
+No that moved. King over here? There we,
+
+1656
+01:26:27,750 --> 01:26:31,351
+that was king of clubs, or king of spades. All right,
+
+1657
+01:26:31,420 --> 01:26:35,955
+well anyway, there we go, there's a match. Alright,
+
+1658
+01:26:36,024 --> 01:26:39,092
+I believe that's all I have time to show you. I think I've
+
+1659
+01:26:39,161 --> 01:26:41,762
+got through most of the stuff I want to show you, so your
+
+1660
+01:26:41,830 --> 01:26:44,998
+homework is just to animate your set. In very predefined
+
+1661
+01:26:45,067 --> 01:26:50,404
+ways. So you'll be using these exact same three mechanisms.
+
+1662
+01:26:50,472 --> 01:26:52,271
+Transitions, view properties, and
+
+1663
+01:26:52,340 --> 01:26:55,075
+the dynamic animator. All right?
+
+1664
+01:26:55,143 --> 01:26:57,543
+I'll see you all next week. >> For
+
+1665
+01:26:57,612 --> 01:27:07,019
+more, please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu
