@@ -69,7 +69,7 @@ struct Resource: CustomStringConvertible {
         self.index = Int(parts[0])!
         self.title = parts[1]
 
-        self.summary = summary == title ? nil : summary
+        self.summary = summary == title ? nil : summary?.trimmingCharacters(in: .whitespacesAndNewlines)
     }
 
     var description: String {
