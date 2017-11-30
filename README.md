@@ -26,7 +26,7 @@
 
 #### 课程相关资源
 
-|[Paul Hegarty](https://piazza.com/professors/show/paul_hegarty)|iTunes U（仅 iOS）|Podcasts（多平台）|
+|[Paul Hegarty](https://piazza.com/professors/show/paul_hegarty)|iTunes U（仅 iOS）|Podcasts（多平台）|
 |--:|:--:|:--:|
 |[CS 193P iPhone Application Development](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/)|[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/course/id1309275316) |[Developing iOS 11 Apps with Swift By Paul Hegarty](https://itunes.apple.com/podcast/id1315130780)|
 |RSS 源|[隔周三更新两集](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)|未知|
