@@ -71,7 +71,7 @@ cover some of the other stuff. But before I do all that,
 15
 00:00:43,977 --> 00:00:46,912
 I'm gonna do a little, what I call a teaser demo of
-我要做些小事情，我管它叫做 auto-layout 的预告示例
+我要做些小事情，我管它叫做 auto-layout 的预告示例  
 
 16
 00:00:46,981 --> 00:00:50,115
@@ -226,7 +226,7 @@ example, rotate this iPhone to the side which I can do
 46
 00:02:20,841 --> 00:02:23,742
 in a simulator by going, Hardware, rotate left or
-操作，通过去到 硬件，旋转向左或
+操作，通过去到-硬件，旋转向左或
 
 47
 00:02:23,811 --> 00:02:28,579
@@ -261,7 +261,7 @@ out and fill the whole space that's involved. By the way,
 53
 00:02:44,831 --> 00:02:47,766
 you can also rotate your device with Command and
-你可以用过 Command 键 和 方向键
+你可以用 Command 键 和 方向键
 
 54
 00:02:47,835 --> 00:02:51,102
@@ -1500,1608 +1500,2010 @@ pinned to the bottom and in the center. And we can
 
 301
 00:14:54,126 --> 00:14:56,160
-do other things too, we'll talk about a couple of weeks.
+do other things too, we'll talk about in a couple of weeks.
+我们还可以做其他事情，我们会在几周后讨论
 
 302
 00:14:56,229 --> 00:14:58,129
 So, I am just gonna update frame drive here fix
+所以，我要更新框架来解决
 
 303
 00:14:58,198 --> 00:15:01,032
 missplacement. Look at moved flips down,
+这个错位问题。看它把 flips 标签向下移动了
 
 304
 00:15:01,100 --> 00:15:04,168
 it made the frame around it just barely contain it.
+令它周围的框架刚好包含着它
 
 305
 00:15:04,237 --> 00:15:07,171
 Okay, and now they frame around that flip zero is it's
+现在围绕在 flip 标签周围的框架就是
 
 306
 00:15:07,240 --> 00:15:10,407
 natural size. If I run this and do a hundred flips, so
+它的自然尺寸。如果我运行程序并且翻一百张牌的话
 
 307
 00:15:10,476 --> 00:15:12,810
 that it has to be bigger it will naturally get bigger.
+它一定会变更大，自然地变更大
 
 308
 00:15:12,879 --> 00:15:15,079
 Because it's size is not constrained.
+因为它的尺寸并没有被约束
 
 309
 00:15:15,147 --> 00:15:17,482
 It's not pinned to anything, only its location. So,
+并没有钉到任何东西上，只有它的位置是。
 
 310
 00:15:17,550 --> 00:15:20,818
 its size will get as big, or small it needs to to contain
+所以它的尺寸会根据它所包含事物的大小
 
 311
 00:15:20,887 --> 00:15:23,521
 its stuff. And now, we see we have no auto layout issues.
+来变大或变小。现在我们就没有了 auto-layout 的问题
 
 312
 00:15:23,590 --> 00:15:27,591
 We have no warning up here, all is well. One last thing we
+这里没有了警告，一切都正常。我们需要做的最后一件事是
 
 313
 00:15:27,660 --> 00:15:30,661
 need to do is the relationship between the top of the flips,
+flips 标签顶部和
 
 314
 00:15:30,730 --> 00:15:34,632
 and the bottom of this. Now, I could just take this thing up
+按钮组底部之间的关系。现在，我可以选中上面的东西
 
 315
 00:15:34,701 --> 00:15:38,336
 here and control drag between that and the flips, right?,
+按住 Control 键拖动到 flips 标签，对吧？
 
 316
 00:15:38,405 --> 00:15:40,837
 that's a good idea. And we could, for example,
+那是一个好主意。举个例子，我们可以
 
 317
 00:15:40,906 --> 00:15:43,875
 constrain the vertical spacing between the two, so I'm gonna
+为两者间的垂直间距添加约束
 
 318
 00:15:43,943 --> 00:15:48,679
 click Vertical Spacing, there it is. It's this huge bar.
+点击 Vertical Spacing，就可以了。它就是这根巨大的条状物
 
 319
 00:15:48,748 --> 00:15:52,917
 I could go over here and change it from 454 to 0, and
+我可以去到这里把它从 454 改为 0
 
 320
 00:15:52,985 --> 00:15:55,986
 use all the space here. But that didn't look very good.
+利用这里所有的空间。但是那看起来并不好
 
 321
 00:15:56,055 --> 00:15:58,722
 I don't really like tall thin buttons like that.
+我真的不太喜欢像这样子的高瘦的按钮
 
 322
 00:15:58,791 --> 00:16:01,492
 So I'm gonna leave this constraint in here. But I'm
+所以我会把这个约束放到一边
 
 323
 00:16:01,561 --> 00:16:04,962
 gonna change it from equal, where it has to be equal,
+不过我要改变它，它原本的关系是等于
 
 324
 00:16:05,031 --> 00:16:08,899
 to 0 with the flips. Also I probably don't want 0, I want
+其值是 0，可能我也不想要 0，我想要
 
 325
 00:16:08,968 --> 00:16:11,936
 a standard value here so I'm gonna change to standard value
+一个标准值所以我要改成标准值
 
 326
 00:16:12,004 --> 00:16:14,605
 difference, okay, this, this, this distance.
+好的，就是这段距离
 
 327
 00:16:14,674 --> 00:16:17,007
 And I don't it to be equal, I want it to be greater than or
+我不想要它是等于，我想要大于等于
 
 328
 00:16:17,076 --> 00:16:19,677
 equal. So I just wanna make sure that these things on
+我只是想要确认上方的这些东西
 
 329
 00:16:19,746 --> 00:16:23,113
 the top are always above the flips, greater than or equal.
+总是在 flips 标签上方，即为大于等于
 
 330
 00:16:23,182 --> 00:16:25,716
 But it doesn't have to be right above it like that. So
+但它没有必要恰好在它上方
 
 331
 00:16:25,785 --> 00:16:28,318
 you don't have to always have these constraints be equal.
+所以你没有必要总是把这些约束设定为等于
 
 332
 00:16:28,387 --> 00:16:31,388
 They can be greater than or equal, less than or
+它们可以是大于等于，小于等于
 
 333
 00:16:31,457 --> 00:16:35,526
 equal kind of relative constraints. You see all this?
+之类的约束。看到全部的布局了么？
 
 334
 00:16:35,594 --> 00:16:37,795
 Now, we can run the app and this should all work.
+现在，我们可以运行这个程序，它应该全部都可以正常工作
 
 335
 00:16:37,864 --> 00:16:40,097
 Everything is kind of constrained to each other.
+一切都互相约束
 
 336
 00:16:40,165 --> 00:16:43,834
 We can actually kinda take a look at it here in interface
+实际上我们可以看一眼 interface builder 的这个地方
 
 337
 00:16:43,903 --> 00:16:46,470
 builder. Right, remember this button down here that showed
+记得按下这个按钮就会展示
 
 338
 00:16:46,538 --> 00:16:49,373
 us all these phones? We can say, okay, what's this thing
+所有的手机么？我们可以说，它在 
 
 339
 00:16:49,442 --> 00:16:52,810
 gonna look like on an iPhone 8? Here's iPhone 8,
+iPhone 8 上看起来怎么样？这里是 iPhone 8
 
 340
 00:16:52,879 --> 00:16:55,346
 we click on it, and sometimes when it does it,
+我们点击它，有时当你点击它的时候
 
 341
 00:16:55,415 --> 00:16:58,015
 you can kind of zoom in and out to get it to redraw.
+你会稍微放大和缩小来让它重新绘制
 
 342
 00:16:58,084 --> 00:17:00,284
 So this is what it's gonna look like on iPhone 8.
+所以这就是它在 iPhone 8 上看起来的样子
 
 343
 00:17:00,353 --> 00:17:03,988
 We can look at, back on iPhone X, but rotate it.
+我们返回查看在 iPhone X 上的效果，只不过旋转它
 
 344
 00:17:04,056 --> 00:17:06,557
 So here's what it's gonna look like rotated on iPhone X,
+这就是它在 iPhone X 旋转下的样子
 
 345
 00:17:06,626 --> 00:17:08,960
 that looks like that's gonna look okay. So
+它看起来还不错
 
 346
 00:17:09,028 --> 00:17:11,963
 we can kind of preview a little bit what's going on
+我们可以在 Interface Builder 中稍微预览
 
 347
 00:17:12,031 --> 00:17:13,997
 here in interface builder, but there's no substitute for
+现在展示的东西，但是对于运行程序来说
 
 348
 00:17:14,066 --> 00:17:16,667
 running it. So let's just run it on our simulator and
+这里没有替代品。所以让我们在模拟器上运行它
 
 349
 00:17:16,736 --> 00:17:19,537
 see if it looks like what we expect.
+看看它看起来是否和我们期待的一样
 
 350
 00:17:21,040 --> 00:17:23,340
 Right here it is, app seems to be working. Oh,
+这就是了，应用看起来正在运行
 
 351
 00:17:23,409 --> 00:17:27,678
 let's go make our background black again. So go back here,
+让我们把北京再次设为黑色。回到这里
 
 352
 00:17:27,746 --> 00:17:32,183
 background black, keep our Halloween theme intact.
+背景为黑色，保持我们的万圣节主题完整
 
 353
 00:17:35,488 --> 00:17:38,655
 Right now here, okay, so this thing is working we can still
+就是现在，应用正在运行我们仍然
 
 354
 00:17:38,724 --> 00:17:41,458
 match things, etc. But now when we rotate,
+可以匹配卡片，等等，但是当我们旋转的时候
 
 355
 00:17:41,527 --> 00:17:45,496
 remember Command+Arrow, look, it re-lays out the entire UI
+记得按住 Command 加方向键，看，它重新布局在整个 UI 上
 
 356
 00:17:45,565 --> 00:17:48,766
 to fit the space. And it's doing this, it's relaying
+来适应空间，它正在做者减轻，它正在重新布局
 
 357
 00:17:48,835 --> 00:17:50,868
 it out because of those constraints we put it.
+正是由于我们放置的那些约束
 
 358
 00:17:50,936 --> 00:17:53,337
 We constrained this edge to be stuck to here,
+我们约束这个边粘到这里
 
 359
 00:17:53,405 --> 00:17:55,573
 we constrained this edge to be stuck up here.
+我们约束这个边粘到这里
 
 360
 00:17:55,641 --> 00:17:57,541
 We constrained this distance to be
+我们约束这段距离
 
 361
 00:17:57,610 --> 00:17:59,610
 greater than or equal to a standard distance.
+大于等于一个标准距离
 
 362
 00:17:59,679 --> 00:18:02,980
 We constrained the bottom of this to be a distance down
+我们约束它的底部到下面一段距离
 
 363
 00:18:03,049 --> 00:18:05,783
 here. We constrained the x position of this to be in
+我们约束它的 x 位置处在中央
 
 364
 00:18:05,852 --> 00:18:08,319
 the center. We put those constraints on here, and so
+我们把这些约束放到这里
 
 365
 00:18:08,388 --> 00:18:12,756
 that when we flip this thing around, it's living with those
+以便当我们翻转手机的时候，它能够
 
 366
 00:18:12,825 --> 00:18:18,095
 constraints. Got it? So like I said, this is just a teaser
+和这些约束友好相处。明白了么？所以正如我说的
 
 367
 00:18:18,163 --> 00:18:21,031
 of this constraint stuff. It's a very powerful system for
+它仅是这些约束的一个预告示例。完成这些
 
 368
 00:18:21,100 --> 00:18:23,768
 doing these constraints and we'll talk all about that,
+约束是一个非常庞大的系统，正如我说的
 
 369
 00:18:23,837 --> 00:18:27,738
 like I said, in about three weeks. Okay,
+我们会在大约三个星期后讨论它的全部内容
 
 370
 00:18:27,806 --> 00:18:30,441
 back to the slides. All right, so
+返回去幻灯片
 
 371
 00:18:30,510 --> 00:18:32,876
 here's your brief review of week 1, okay,
+这里是第一周的一个简单回顾
 
 372
 00:18:32,945 --> 00:18:35,846
 hyperspeed review. Of course you know about target action,
+超快速的回顾。你了解了目标操作
 
 373
 00:18:35,914 --> 00:18:38,015
 outlet out to out collection, outlet collections.
+出口变量，出口变量集合
 
 374
 00:18:38,083 --> 00:18:40,651
 The card buttons, your flip count label. The touch card,
+卡片按钮，你的计数标签，触摸卡片
 
 375
 00:18:40,720 --> 00:18:43,454
 you know about that. You learned all about methods and
+你了解了它们。你学习了关于方法
 
 376
 00:18:43,523 --> 00:18:46,056
 properties, what their syntax was for all of those things.
+和属性的一切，它们的语法是什么
 
 377
 00:18:46,125 --> 00:18:49,794
 Properties like flip count and tons of methods all the ones
+属性例如 flipCount 还有在
 
 378
 00:18:49,862 --> 00:18:53,397
 in concentration in card and view controller. You learned
+Concentration Card ViewController 里所有的方法。
 
 379
 00:18:53,466 --> 00:18:56,367
 about property observing right when the flip count changed,
+你学习了关于属性观察的内容，当 flipCount 改变的时候
 
 380
 00:18:56,435 --> 00:18:58,902
 we have that didSet that would cause the UI to change as
+我们有 didSet，它可以导致 UI 也发生变化
 
 381
 00:18:58,971 --> 00:19:01,138
 well. You obviously learned about arrays,
+显然你学习了数组
 
 382
 00:19:01,207 --> 00:19:04,041
 how to put things in arrays, how to declare an array.
+如何把东西放到数组里，如果声明一个数组
 
 383
 00:19:04,110 --> 00:19:06,477
-You'll learned a ton about model view controller.
+You learned a ton about model view controller.
+你学会了关于 MVC 的很多知识
 
 384
 00:19:06,545 --> 00:19:09,646
 We went and made the Concentration game have
+我们令翻牌游戏拥有了一个
 
 385
 00:19:09,715 --> 00:19:12,816
 a model like concentration on the card.
+模型，像基于 Card 的 Concentration 文件
 
 386
 00:19:12,885 --> 00:19:15,986
 You learned about value types versus reference types, right?
+你学习了值类型和引用类型，对吧？
 
 387
 00:19:16,055 --> 00:19:18,655
 The card, which is a struct, a value type that gets copied
+Card，它是一个结构体，一个值类型，当你把它丢到其他地方
 
 388
 00:19:18,724 --> 00:19:21,525
 when you throw it around. So when we put them in the array
+它会被拷贝。所以当我们把它们放到数组里时
 
 389
 00:19:21,594 --> 00:19:23,961
 there, we made the copy by just putting it in twice.
+我们通过放置两次来完成这次拷贝的操作
 
 390
 00:19:24,029 --> 00:19:25,729
 And they copied it each time you put it in there,
+并且每次你把它放到那里都会拷贝
 
 391
 00:19:25,798 --> 00:19:28,265
 remember that? You learned about initializers,
+记得么？你学习了构造器
 
 392
 00:19:28,334 --> 00:19:31,001
-we had initializers both for
+we had initializers both for Card 
+对于 Card 和
 
 393
-00:19:31,069 --> 00:19:32,469
-for concentration, they each did different things to get
+00:19:32,069 --> 00:19: 32,469
+and for Concentration
+Concentration来说
 
 394
 00:19:32,470 --> 00:19:33,870
-card and
-
+they each did different things to get
+我们都实现了构造器，它们每个都做了不同的事情来
+    
 395
 00:19:33,940 --> 00:19:36,741
-themselves an initializer. We didn't initializer for
+themselves an initializer. We didn't do initializer for
+让自己被初始化。  我们并没有对我们的 UIViewController 实现构造器
 
 396
 00:19:36,809 --> 00:19:40,278
 our UI view controller and we probably never will.
+而且我们大概永远都不会这么做
 
 397
 00:19:40,346 --> 00:19:44,548
 UI view controllers initialization is messy. Okay,
+UIViewController 的构造过程是混乱的
 
 398
 00:19:44,617 --> 00:19:47,585
 so we try at all possible not to use init for our view
+所以我们尝试尽可能地不要对我们的试图控制器
 
 399
 00:19:47,653 --> 00:19:50,154
 controller. And I explained that in your homework
+使用 init 方法。而且我在你们的家庭作业里解释了这件事
 
 400
 00:19:50,223 --> 00:19:53,557
 that's going out today, you can read about it. You learned
+它会在今天发布，你们可以阅读相关内容。你们学习了
 
 401
 00:19:53,625 --> 00:19:56,327
 about static methods like get unique identifier, static
+关于静态方法的知识，比如获取唯一识别码的方法，还有静态
 
 402
 00:19:56,395 --> 00:19:58,829
 vars like the identifier factory that we've created
+变量，比如我们创建的识别码工厂
 
 403
 00:19:58,898 --> 00:20:01,698
 there. You learned about lazy properties like game, which
+你们学习了惰性属性，比如 game 变量
 
 404
 00:20:01,767 --> 00:20:05,736
 depended on another property, and so it couldn't initialize.
+它依赖于另一个属性以至于它不能被初始化
 
 405
 00:20:05,804 --> 00:20:07,838
 We just made it lazy so that it wouldn't actually
+我们只是懒加载它所以它不会
 
 406
 00:20:07,907 --> 00:20:09,606
 initialize until someone asked for it,
+被初始化直到某人要求它这么做
 
 407
 00:20:09,675 --> 00:20:12,776
 which would of course be after the thing is all initialized.
+而这件事当然会在一切都被初始化之后发生
 
 408
 00:20:12,845 --> 00:20:15,946
 You learned about for in loops, which in Swift only
+你们学习了 for 循环，它在 Swift 中
 
 409
 00:20:16,015 --> 00:20:19,183
 work by iterating over what's called a sequence.
+只通过迭代序列工作
 
 410
 00:20:19,252 --> 00:20:21,852
 And we learned that countable range is a sequence, right?
+我们学习了 countableRange 是一个序列，对吧？
 
 411
 00:20:21,921 --> 00:20:24,421
 0..< than whatever is a countable range,
+0..< 是一个 countableRange
 
 412
 00:20:24,490 --> 00:20:26,923
 that's a sequence. But also array is a sequence,
+它是一个序列。而且数组也是一个序列
 
 413
 00:20:26,992 --> 00:20:28,893
 and string is a sequence of characters.
+String 是字符的序列
 
 414
 00:20:28,961 --> 00:20:31,862
 A lot of things are sequences, you can for in over them.
+很多事物都是序列，你可以对它们进行 for 循环
 
 415
 00:20:31,931 --> 00:20:34,464
 We're gonna talk about what it means to be a sequence
+之后我们将会讨论成为一个序列意味着什么
 
 416
 00:20:34,533 --> 00:20:37,734
 little later, probably on Wednesday. You learned about
+大概是在周三。你们学习了
 
 417
 00:20:37,803 --> 00:20:40,637
 dictionary. Of course our emoji were in a dictionary.
+字典。当然我们的 emoji 是在一个字典里
 
 418
 00:20:40,706 --> 00:20:41,839
 We learned about type conversion.
+我们学习了类型转换
 
 419
 00:20:41,908 --> 00:20:45,342
 We convert types by creating a new thing. And using an init
+我们通过创建一个新的事物来转换类型
 
 420
 00:20:45,411 --> 00:20:49,480
 with the old thing like uint 32 of an int makes a uint,
+通过一个 UInt32 来创建一个 init 方法，这个 UInt32 则是通过
 
 421
 00:20:49,548 --> 00:20:53,016
 convert into a uint 32. And of course, you learned a lot
+一个 Int 转变而来。 当然，你们学习了很多
 
 422
 00:20:53,085 --> 00:20:55,852
 about optionals which I'm sure are all still new to you and
+关于可选类型的只是，我确定它对你们来说还十分陌生
 
 423
 00:20:55,921 --> 00:20:58,522
 I'm gonna talk a lot today about optionals and how they
+我会在今天讨论很多关于可选类型的内容，它们是如何
 
 424
 00:20:58,591 --> 00:21:01,058
 really work. And what's really going on with optionals, okay?
+工作的，它们到底发生了什么，好么？
 
 425
 00:21:01,126 --> 00:21:02,759
 So that's your review of week one.
+这就是你们的第一周回顾
 
 426
 00:21:02,828 --> 00:21:04,995
 If for some of these, if you don't feel like you understand
+对于一部分内容来说，如果你感到你还没明白这些内容
 
 427
 00:21:05,063 --> 00:21:08,799
 these, probably haven't done your homework yet, then you
+你们可能还没有做完家庭作业
 
 428
 00:21:08,868 --> 00:21:11,402
 won't understand this, very important. Okay, the first two
+那么你不会理解它，这是非常重要的。好的，在这里
 
 429
 00:21:11,470 --> 00:21:13,804
 things I'm gonna talk about here are just a little quick
+我要讨论的前两个事情仅仅是两件
 
 430
 00:21:13,873 --> 00:21:17,741
 minor things, asides. I mentioned doing a for
+小事。我提到过用浮点数 
 
 431
 00:21:17,810 --> 00:21:22,279
 loop over floats. So this for i = 0.5, i < 15.25 whatever,
+做 for 循环。比如 for i = 0.5，i < 15.25
 
 432
 00:21:22,348 --> 00:21:26,083
 that's something you might see in C. You can't do that
+这是你可能会在 C 语言中看到的东西。你不可以
 
 433
 00:21:26,151 --> 00:21:28,919
 in Swift, okay? Swift doesn't have, it only has for in,
+在 Swift 中这么做，好么？Swift 只有 for in
 
 434
 00:21:28,988 --> 00:21:32,589
 that's all it has. But how do we create a countable range or
+这是它拥有的全部。但是我们该如何创建一个 CountableRange 或者
 
 435
 00:21:32,658 --> 00:21:36,026
 some kind of sequence of those floats because 0.5...15.25,
+类似的浮点数序列？因为 0.5...15.25
 
 436
 00:21:36,094 --> 00:21:40,163
 that's actually legal to say, but
+事实上这么说是合法的，但是
 
 437
 00:21:40,232 --> 00:21:44,134
 that's only a range in Swift not a countable range. And
+在 Swift 中它只是一个 Range 而不是 CountableRange
 
 438
 00:21:44,203 --> 00:21:47,071
 that's because we don't know what to count by there,
+这是因为我们不知道间隔数是多少
 
 439
 00:21:47,140 --> 00:21:49,739
 so it can't create a countable range. So
+所以它没办法创建一个 CountableRange
 
 440
 00:21:49,808 --> 00:21:52,977
 the way we do that is using a global function called stride.
+我们实现它的方法就是使用一个叫做 stride 的全局函数
 
 441
 00:21:54,547 --> 00:21:58,114
 Stride has form, through or from and
+Stride 有 from，through 或者 from，to
 
 442
 00:21:58,183 --> 00:22:00,784
 to depending on whether you are gonna include the last
+关键词，依赖于你是否要包含最后一个
 
 443
 00:22:00,852 --> 00:22:04,588
 thing, and a by tells you what it strides by. Stride is
+事物，还有一个 by 关键词告诉你每一步的跨度是多少。Stride
 
 444
 00:22:04,656 --> 00:22:08,492
 function that creates a countable range. Countable
+是一个创建 CountableRange 的函数。
 
 445
 00:22:08,561 --> 00:22:11,461
 range is a generic type like array is a generic type.
+CountableRange 是一个泛型正如数组是一个泛型
 
 446
 00:22:11,530 --> 00:22:13,296
 It can count over not just ints,
+它不仅能够在整数间计数
 
 447
 00:22:13,365 --> 00:22:15,932
 it could count over floats, it could even count over indexes
+还能够计数浮点数，它甚至可以计数
 
 448
 00:22:16,001 --> 00:22:18,535
 into a string, all kinds of things it can count over.
+字符串的索引，所有种类的事物它都可以计数
 
 449
 00:22:18,604 --> 00:22:22,172
 And this stride knows how to create a countable range,
+Stride 了解如何创建一个 CountableRange
 
 450
 00:22:22,241 --> 00:22:25,476
 in this case a closed countable range because I did
+在这个例子里是一个 ClosedCountableRange 因为
 
 451
 00:22:25,545 --> 00:22:28,345
 through 15.25, not to 15.25.
+我写的是 through 15.25 而不是 to 15.25
 
 452
 00:22:28,414 --> 00:22:31,581
 It creates one that goes over floats and knows to step by
+它创建了一个知道以 0.3 为幅度跨越的浮点数区间，
 
 453
 00:22:31,650 --> 00:22:34,951
 three, 0.3 there. So that's how you do floating point.
+所以它就是你该如何处理浮点数的方法
 
 454
 00:22:35,020 --> 00:22:37,020
 And you don't have to do that for your homework or anything,
+你没有必要在你的家庭昨夜里这么做
 
 455
 00:22:37,089 --> 00:22:38,555
 but I just wanted to be complete about how we do
+我只是想要完整的讲述我们该如何处理
 
 456
 00:22:38,624 --> 00:22:41,892
 a countable range for floats. All right, tuples.
+浮点数的 CountableRange。元组
 
 457
 00:22:41,961 --> 00:22:45,262
 I try to fit everything into Concentration that I can,
+我尽力尝试把一切都纳入 Concentration 中去
 
 458
 00:22:45,331 --> 00:22:48,332
 an example of everything. But I couldn't figure out
+一个包含一切的例子。但是我没法想出
 
 459
 00:22:48,400 --> 00:22:51,101
 how to fit a tuple in even though tuple is a very simple
+如何把元组融入进去，即使元组是一个非常
 
 460
 00:22:51,170 --> 00:22:55,572
 little data structure. And all that tuple is, essentially,,
+简单的数据结构。元组的一切，基本上
 
 461
 00:22:55,641 --> 00:22:59,943
 like a mini struct that has no methods or vars or anything.
+就像一个迷你的没有方法，变量的结构体	
 
 462
 00:23:00,012 --> 00:23:04,114
 Just has values in it. So it's kind of like struct in other
+在里面只有值。所以它有点像其他语言中的结构体
 
 463
 00:23:04,183 --> 00:23:06,784
 languages, like C structs. They don't have methods or
+比如 C 语言结构体。它们没有方法
 
 464
 00:23:06,852 --> 00:23:08,719
 vars or anything, or they kind of have vars,
+变量或其他东西，或者说它们在某种程度上拥有变量
 
 465
 00:23:08,788 --> 00:23:10,554
 they have the data stores and that's it.
+它们有储存的数据，那就是它了
 
 466
 00:23:10,623 --> 00:23:12,956
 So but the tuple is super lightweight and
+但是元组是非常轻量的
 
 467
 00:23:13,025 --> 00:23:15,392
 you kinda define everything in line.
+你可以整齐地定义任何事物
 
 468
 00:23:15,461 --> 00:23:19,296
 So here's what a tuple looks like. Here's a tuple x. x,
+这是一个元组看起来的样子。这是一个元组 x
 
 469
 00:23:19,365 --> 00:23:23,734
 is up here, is of type tuple. And this tuple has three
+x 的类型是元组。这个元组里有三个
 
 470
 00:23:23,802 --> 00:23:26,437
 things in it. A string, an int, and a double. And
+部分。一个 String，一个 int，一个 double
 
 471
 00:23:26,505 --> 00:23:29,839
 I set its value by just saying equals parentheses,
+通过 = （三个值）
 
 472
 00:23:29,908 --> 00:23:33,544
 the three things, okay, the three values. Now, what's
+来给它赋值。现在
 
 473
 00:23:33,612 --> 00:23:37,214
 kinda cool about a tuple, as a lightweight struct kinda
+关于元组，一个轻量的数据结构来说，酷的事情是
 
 474
 00:23:37,283 --> 00:23:41,451
 thing, is that the names of the elements is very flexible.
+其元素的名称是非常灵活的
 
 475
 00:23:41,520 --> 00:23:44,855
 You can define the names when you get the values, like this,
+你能够在当你获得值的时候定义名称，像这样子
 
 476
 00:23:44,924 --> 00:23:49,092
 let parentheses word number value equal x. And
+let（word，number，value）= x
 
 477
 00:23:49,161 --> 00:23:52,062
 that actually assigns each of the values of x to the three
+它们实际上把 x 的每个值都赋给了
 
 478
 00:23:52,131 --> 00:23:55,833
 variables word, number and value. Okay? So I'm kind of
+word，number，value 三个变量，好么？
 
 479
 00:23:55,901 --> 00:23:59,603
 giving these struct elements names as I grab them out, or
+有点像当我揪出这些元素的时候给了它们名字
 
 480
 00:23:59,672 --> 00:24:02,506
 we can do the other way around. When I define x,
+或者我们可以用另一宗方式来做。当我定义 x 的时候
 
 481
 00:24:02,574 --> 00:24:05,042
 I can say x is a tuple that has a string and
+我可以写 x 是一个有着 String
 
 482
 00:24:05,110 --> 00:24:09,045
-Internet double called winv. Then,
+Int and double called w i and v. Then,
+Int 和 double 的元组，它们分别称为 w i 和 v
+
 
 483
 00:24:09,114 --> 00:24:13,484
 when I have x in my hands, I can get w,
+当我拥有 x 在手上的时候，我可以
 
 484
 00:24:13,552 --> 00:24:16,186
 i and v with using, using this dot notation,
+通过使用点语法来获得 w i 和 v 的值
 
 485
 00:24:16,255 --> 00:24:20,057
 kind of like it's a var almost in a struct, x.w, x.i, x.v.
+它有点像是一个结构体中的变量，x.w，x.i，x.v
 
 486
 00:24:20,125 --> 00:24:23,026
 See, so now I'm declaring the names when I declare
+所以现在当我声明变量的时候，我就在声明名称
 
 487
 00:24:23,095 --> 00:24:27,131
 the thing. But, and even if you do this, you can still
+但是即使你这么做，你仍可以
 
 488
 00:24:27,199 --> 00:24:29,766
 redeclare the names to be something else by saying, let
+重新声明这些名字，通过写
 
 489
 00:24:29,835 --> 00:24:33,904
 word num val = x, it'll crate those three local variables so
+let（word，num，val）= x，它会创建这三个局部变量
 
 490
 00:24:33,972 --> 00:24:37,273
 super flexible on the naming of those three things.
+所以命名这三个事物是非常灵活的
 
 491
 00:24:37,342 --> 00:24:39,943
 Usually when we crate a tuple we want to use the second way
+通常当我们创建一个元组的时候，我们想要用第二种方法
 
 492
 00:24:40,012 --> 00:24:43,146
 the x : i : v way although we probably would not use x,
+x：i：v，即使我们可能不会使用 x
 
 493
 00:24:43,215 --> 00:24:45,615
 i and v those are terrible names that is just my
+i 和 v，这些是糟糕的名字，那是因为
 
 494
 00:24:45,684 --> 00:24:47,350
 slide only has so much space.
+我的幻灯片横向的只有这么多空间
 
 495
 00:24:47,419 --> 00:24:49,386
 Horizontally, probably word, number or
+大概 word，number 和 value
 
 496
 00:24:49,455 --> 00:24:51,789
 value would have been better names. Usually we do that, and
+会是更好的名字。通常我们这样做
 
 497
 00:24:51,858 --> 00:24:53,457
 that's mostly because of documentation,
+是因为文档需求
 
 498
 00:24:53,526 --> 00:24:56,226
 we want people to know what those three things are. If we
+我们想要人们了解那三个东西是什么
 
 499
 00:24:56,295 --> 00:24:59,163
 just declare it like x at the very top there, string, int,
+如果我们仅仅声明它，像上面的那个 x 那样，String，Int
 
 500
 00:24:59,231 --> 00:25:01,865
 double, people are like, hm, what are those three things?
+Double，人们会说，这些东西到底是什么？
 
 501
 00:25:01,933 --> 00:25:03,266
 So, what's a tuple good for? Well,
+所以，元组的优点是什么？
 
 502
 00:25:03,335 --> 00:25:06,336
 it's good any time you wanna group some stuff together
+对于任何时候你想要把一些事物组织在一起，它是非常好的
 
 503
 00:25:06,404 --> 00:25:08,205
 that's really lightweight, it doesn't have any methods or
+它是非常轻量的，它没有任何方法或者
 
 504
 00:25:08,274 --> 00:25:10,974
 anything associated with it. It's also very good for
+关联的东西。对一个函数返回多个值来说
 
 505
 00:25:11,042 --> 00:25:14,945
 returning multiple values from a function. A function of
+它也是非常好的。
 
 506
 00:25:15,014 --> 00:25:17,781
 Swift can only return a single thing, but
+一个 Swift 函数只能返回一个单独的事物
 
 507
 00:25:17,850 --> 00:25:21,251
 that thing could be a tuple, and now you can return as many
+但是它可以是一个元组，现在你就可以返回尽可能多的
 
 508
 00:25:21,319 --> 00:25:24,821
 things as you want, okay? So if I had a function getSize,
+事物，好么？所以如果我有一个函数 getSize
 
 509
 00:25:24,890 --> 00:25:28,158
 get's a person's size, their height and their weight.
+获得一个人的尺寸，身高和体重
 
 510
 00:25:28,227 --> 00:25:32,229
 Let's say I can return a tuple with weight and height, and
+我可以返回一个包含体重和身高的元组
 
 511
 00:25:32,298 --> 00:25:34,898
 so when I got it back I just x.weight or
+所以当我得到返回值的时候，我只需要 x.weight
 
 512
 00:25:34,966 --> 00:25:38,902
 even just getSize.weight or getSize.height, access
+甚至只需要 getSize.weight 或者 getSize.height
 
 513
 00:25:38,970 --> 00:25:42,773
 it directly. So that's what tuples, is I didn't make you
+直接获取它。所以这就是元组，我没有在你们的
 
 514
 00:25:42,841 --> 00:25:45,109
 read about it tuple in your first reading assignment but
+第一个阅读作业中让你们阅读元组
 
 515
 00:25:45,177 --> 00:25:46,376
 you'll be reading about it in your next one.
+但是你会在下一个作业里阅读它的内容
 
 516
 00:25:46,445 --> 00:25:48,178
 it's very simple, it's exactly what it seems,
+它是非常简单的，它完全是它看起来的样子
 
 517
 00:25:48,247 --> 00:25:50,981
-there;s nothing magical here, there's no hidden things, it's
+there's nothing magical here, there's no hidden things, it's
+这里没有魔法，没有隐藏的内容
 
 518
 00:25:51,049 --> 00:25:56,120
 just a simple little struct, yeah? Sorry? Do they support
+它就是一个简单的小结构。抱歉？>> 它们支持索引么？
 
 519
 00:25:57,523 --> 00:25:59,589
 indexing? Do tuples support indexing, you mean like,
+>> 元组支持索引么，你的意思是，像
 
 520
 00:25:59,658 --> 00:26:04,194
 get thing number 1, or get thing number 2? Not really,
+得到第一个元素，第二个元素？算不上这样
 
 521
 00:26:04,262 --> 00:26:06,730
 and we wouldn't really wanna do it that way. If we really
+我们并不十分想要用这种方式做。如果我们十分
 
 522
 00:26:06,798 --> 00:26:09,299
 had something we'd index, we'd wanna use an array there,
+需要被索引的事物，我们会在那里使用一个数组
 
 523
 00:26:09,368 --> 00:26:12,369
 because, you know what I'm saying? It would obfuscate
+因为，你知道我在讲什么么？它会混淆
 
 524
 00:26:12,438 --> 00:26:14,204
 what's going on. The whole great thing about tuples,
+现在进行的事情。关于元组，所有美妙的地方在于
 
 525
 00:26:14,273 --> 00:26:16,740
 you can name each one and let people know what they are, so.
+你可以命名每一个元素让人们知道它们是什么，所以你懂的
 
 526
 00:26:18,477 --> 00:26:21,111
 All right, now, okay, that was it for
+好的，这就是那些小知识
 
 527
 00:26:21,180 --> 00:26:23,813
 little things, now we're back to something very important.
+现在我们返回一些非常重要的事情
 
 528
 00:26:23,882 --> 00:26:27,651
 This is a big thing. This is computed properties.
+这是一个重要的事情。它是演算属性
 
 529
 00:26:27,720 --> 00:26:30,888
 So all the properties that you saw in Concentration,
+你在 Concentration 中看到的所有属性
 
 530
 00:26:30,956 --> 00:26:34,057
 were stored properties. They were just normal vars
+都是演算属性。它们就是正常的变量
 
 531
 00:26:34,126 --> 00:26:36,126
 like you're used to in another languages, right?
+就像你在其他语言中用的那些一样，好么？
 
 532
 00:26:36,195 --> 00:26:39,429
 Like this var foo: Double, that's a double precision
+像这个变量 foo: Double，它是一个双精度
 
 533
 00:26:39,498 --> 00:26:42,332
 floating point number, and it's just stored in memory.
+浮点数，它只是储存在内存中
 
 534
 00:26:42,400 --> 00:26:45,536
 It's stored with whatever struct or class it's part of.
+它储存在任何它属于的结构体或类里面
 
 535
 00:26:45,604 --> 00:26:48,405
 But it is possible to declare foo like this,
+但是也可以像这样子声明 foo
 
 536
 00:26:48,474 --> 00:26:53,410
 foo Double open curly brace, get with the curly brace, set,
+for: Double { get {} 
 
 537
 00:26:53,478 --> 00:26:55,445
-with some curly brace.
+with some curly brace
+set {} }.
 
 538
 00:26:55,514 --> 00:26:59,316
 In that case, foo is never stored anywhere, instead,
+在这个例子中，foo 从没有被储存，相反
 
 539
 00:26:59,385 --> 00:27:00,751
 every time someone asks for
+每次人们请求 foo 的时候
 
 540
 00:27:00,820 --> 00:27:05,255
 foo, it gets calculated with the code inside get. And
+它被 get 中的代码所计算
 
 541
 00:27:05,324 --> 00:27:07,624
 every time someone sets the value of foo,
+每次人们设置 foo 的值
 
 542
 00:27:07,692 --> 00:27:13,196
 this code that's in here inside set gets executed.
+在 set 里面的代码得到执行
 
 543
 00:27:13,265 --> 00:27:14,531
 Okay, so I got a little pointer here. So
+好的，我现在有了一个小的指示器
 
 544
 00:27:14,600 --> 00:27:17,801
 this code gets executed when you set, this code up here
+这行代码当你设置 foo 的值时得到执行，这行代码当你
 
 545
 00:27:17,870 --> 00:27:21,070
 gets executed when you get. Instead of it being stored
+获取 foo 的值时得到执行。而不是被储存在某个地方
 
 546
 00:27:21,139 --> 00:27:25,942
 somewhere. Now, the set by the way, that set(newValue) part,
+顺便说一下，set（newValue）部分
 
 547
 00:27:26,011 --> 00:27:28,478
 that's optional. So you can have computed properties
+是可选择的。所以你可以拥有只有 get 部分的
 
 548
 00:27:28,547 --> 00:27:32,215
 that are only get, call those read only computed properties.
+演算属性，成为只读演算属性
 
 549
 00:27:32,284 --> 00:27:34,618
 You can't have ones that are only set,
+你无法拥有只有 set 的演算属性
 
 550
 00:27:34,687 --> 00:27:36,920
 you can have get only but not set only.
+你可以只拥有 get 但不能只拥有 set
 
 551
 00:27:36,988 --> 00:27:40,523
 If you have set only make a function set whatever.
+如果你要只拥有 set，把它做成一个函数或任意其他东西
 
 552
 00:27:40,592 --> 00:27:44,894
 You wouldn't use a var like that. Okay, so why a computed
+你不会像那样子使用一个变量。所以为什么演算属性
 
 553
 00:27:44,963 --> 00:27:49,065
 properties important? What do you use them for?
+如此重要？我们用它来做什么？
 
 554
 00:27:49,134 --> 00:27:51,835
 Well, a lot of times you have something that is perceived as
+很多很多次，你有一些被看作是结构体或者类的属性的东西
 
 555
 00:27:51,904 --> 00:27:56,940
 a property of your struct or class that actually is derived
+它们实际上源自你的结构体的
 
 556
 00:27:57,008 --> 00:28:00,510
 from other state inside of your struct. And when you have
+其他状态。当你遇到这种情况时
 
 557
 00:28:00,578 --> 00:28:03,313
 that situation, you do not want to have a stored property
+你不希望拥有一个寄存属性
 
 558
 00:28:03,382 --> 00:28:04,881
 because you don't want to have the same
+因为你不想在两个不同的变量里
 
 559
 00:28:04,950 --> 00:28:09,886
 information in two different vars. Because they can get
+储存着相同的信息。因为它们会
 
 560
 00:28:09,955 --> 00:28:11,755
 out of sync, all kinds of problems happens, so
+无法同步，还有各种各样的问题发生，
 
 561
 00:28:11,824 --> 00:28:14,257
 you one way or the other wants to derive itself
+你的某一个变量会想从另一个中推导出自身
 
 562
 00:28:14,326 --> 00:28:17,761
 from the other one. Here's an incredibly good example
+这里是一个非常好的例子
 
 563
 00:28:17,829 --> 00:28:21,765
 indexOfOneAndOnlyFaceUpCard in concentration.
+Concentration 中的 indexOfOneAndOnlyFaceUpCard 
 
 564
 00:28:21,833 --> 00:28:26,736
 That is easily derived by looking at the cards. So
+它可以轻松的通过观察卡片得到
 
 565
 00:28:26,805 --> 00:28:30,373
 you really, we'll really kind of bad to have made that
+所以让它成为一个寄存属性对我们来说是不太好的
 
 566
 00:28:30,442 --> 00:28:33,143
 a stored property, becauase we have to keep that thing
+因为我们不得不保持它
 
 567
 00:28:33,211 --> 00:28:37,146
 exactly in sync with the face up state of all the cards.
+与所有卡片正面朝上的状态完全同步
 
 568
 00:28:37,215 --> 00:28:41,184
 That's really error prone way to design. So, we could
+那是一个非常糟糕的设计方式。所以我们可以试着想象
 
 569
 00:28:41,253 --> 00:28:44,654
 imagine doing, implementing indexOfOneAndOnlyFaceUpCard as
+实现 indexOfOneAndOnlyFaceUpCard 成为一个
 
 570
 00:28:44,723 --> 00:28:45,822
 computed property
+演算属性
 
 571
 00:28:45,891 --> 00:28:48,591
 with the get just looks at all the cards. And if you'll
+它的 get 用来观察所有的卡片。如果你
 
 572
 00:28:48,660 --> 00:28:51,862
 only find one FaceUpCard it returns that index, otherwise
+只发现一张正面向上的卡片，它返回那个索引，否则
 
 573
 00:28:51,930 --> 00:28:56,332
 it it returns nil. And the set just looked to that index,
+它返回 nil。set 查看那个缩影
 
 574
 00:28:56,401 --> 00:28:59,035
 make sure that card face up and all the rest will face
+确认那张卡片为正面朝上而其他卡片正面朝下
 
 575
 00:28:59,104 --> 00:29:03,940
 down, you see? So, we're just using this computed property
+看到了么？本质上我们正使用这个演算属性
 
 576
 00:29:04,009 --> 00:29:07,678
 to essentially provide this conceptual property,
+来提供这个概念上的属性
 
 577
 00:29:07,747 --> 00:29:09,546
 which is the indexOfOneAndOnlyFaceUpCard,
+也就是 indexOfOneAndOnlyFaceUpCard
 
 578
 00:29:09,615 --> 00:29:11,982
 that is the property of our game, but
+它是我们游戏的一个属性
 
 579
 00:29:12,050 --> 00:29:14,885
 it's computed from the other one. Everyone get what
+但是它从另一个属性计算而来。所有人都
 
 580
 00:29:14,953 --> 00:29:18,354
 I'm saying there? Okay, so let's go to Concentration and
+理解我在说什么么？好的，让我们去到 Concentration
 
 581
 00:29:18,423 --> 00:29:20,290
 make this change, see what this would look like
+进行这个修改，看看如果使用一个演算属性的话，就像
 
 582
 00:29:20,358 --> 00:29:22,426
 if you used a computed property here like we
+起初我们本应就这么做
 
 583
 00:29:22,495 --> 00:29:25,228
 should've in the first place, all right?
+它会是什么样子，好么？
 
 584
 00:29:25,297 --> 00:29:30,700
-So let's go back here to X code,
+So let's go back here to Xcode,
+我们回到 Xcode
 
 585  
-
 00:29:30,769 --> 00:29:33,971
-here we go spring our code back up, get rid of that.
+here we go bring our code back up, get rid of that.
+把我们的代码拿回来，摆脱掉它
 
 586
 00:29:34,039 --> 00:29:38,208
 Let's go, oops, let's go to concentration, that's where
+让我们去到 Concentration，我们代码所在
 
 587
 00:29:38,277 --> 00:29:41,811
 this is all right? So everyone recognize this code, right?
+的地方，好么？每个人都认得出这些代码，对么？
 
 588
 00:29:41,880 --> 00:29:43,680
 This is our entire concentration,
+这是我们完整的 concentration
 
 589
 00:29:43,748 --> 00:29:45,882
 pretty efficient code as is but it's actually gonna look
+已经是足够有效率的代码了，但是它会看起来更好
 
 590
 00:29:45,951 --> 00:29:49,586
 even better once we do this as you'll see. So we're here,
+一旦我们实现这个功能，你马上就会看到
 
 591
 00:29:49,655 --> 00:29:51,354
-we have index and one only FaceUpCard. So
+we have index of one and only FaceUpCard. So
+我们有 indexOfOneAndOnyFaceUpCard
 
 592
 00:29:51,423 --> 00:29:54,557
 I'm gonna make it computed by putting these curly braces in,
+我要把它写成演算属性，通过放置这些大括号
 
 593
 00:29:54,626 --> 00:29:57,827
 as soon as I do that, now it's a computed property. Actually,
+我一完成它，它就变成了一个演算属性
 
 594
 00:29:57,896 --> 00:30:00,330
 before we do that, let me show you even simpler case of this
+事实上，在我们做之前，让我给你们展示一个更简单的例子
 
 595
 00:30:00,399 --> 00:30:04,401
 just to kinda get you warmed up on computed property.
+仅仅是让你们熟悉一下演算属性
 
 596
 00:30:04,469 --> 00:30:07,804
 Sometimes, you have just a simple calculation like this.
+有时候，你有一个像这样子的简单计算
 
 597
 00:30:07,873 --> 00:30:11,040
 The number of pairs of cards which are calculated from
+numberOfPairsOfCard，它由 cardButtons
 
 598
 00:30:11,109 --> 00:30:14,444
 the card buttons, all right? There might be other times
+计算出来。可能在我们的 ViewController 里还有其他时候
 
 599
 00:30:14,513 --> 00:30:17,013
 inside our view controller, we wanna know this number,
+我们想要知道这个数字
 
 600
 00:30:17,082 --> 00:30:19,949
 how many pairs of cards do we have. So
+我们拥有多少对卡片。所以
 
 601
 00:30:20,018 --> 00:30:23,787
 that's kind of a property and is derived from this data. So
+它是一种属性，并且通过这个数据推导出来
 
 602
 00:30:23,856 --> 00:30:25,789
 I'm gonna take this out of here and
+所以我要把它拿出来而且
 
 603
 00:30:25,857 --> 00:30:30,127
 have number of pairs of cards be a property.
+把 numberOfPairsOfCard 写成一个属性
 
 604
 00:30:30,195 --> 00:30:35,766
 It's gonna be a new var numberOfPairsOfCards, and
+它会是一个新的变量 numberOfPairsOfCard
 
 605
 00:30:35,834 --> 00:30:39,870
 it's gonna be of type Int, and it's gonna be computed, so
+它的类型是 Int，它是一个演算属性
 
 606
 00:30:39,938 --> 00:30:43,339
 I'm gonna have a get. It's gonna be read only, so
+我会拥有一个 get，它会是只读的，所以
 
 607
 00:30:43,408 --> 00:30:45,976
 I'm gonna return this. It's not gonna have a set,
+我会返回这个，它不会有一个 set
 
 608
 00:30:46,044 --> 00:30:49,112
 there's no, there's not gonna be any set right here. And
+这里没有，也不会再有任何的 set
 
 609
 00:30:49,181 --> 00:30:52,950
 voila I've created a simple computed property that's read
+我已经创建一个简单的只读的演算属性
 
 610
 00:30:53,018 --> 00:30:56,119
 only. By the way if you have a read only property,
+顺便说如果你有一个只读属性
 
 611
 00:30:56,187 --> 00:31:00,456
 you do not actually have to have the word get there. So
+实际上你不必须在这里写 get 关键词
 
 612
 00:31:00,525 --> 00:31:01,190
 a read only property
+所以一个只读属性
 
 613
 00:31:01,259 --> 00:31:04,094
 can look like that. Only if you only have a get,
+可以是这个样子。只有你仅有一个 get 的时候可以这么做
 
 614
 00:31:04,162 --> 00:31:07,663
 if you have a set can't do that. So this is a super
+如果你有一个 set 不能这么做。所以这是一个非常
 
 615
 00:31:07,732 --> 00:31:10,567
 simple little one. So now let's go back over here and
+简单的演算属性。现在让我们返回这里
 
 616
 00:31:10,635 --> 00:31:12,436
 do the little more complicated one over here.
+完成这个稍微复杂的演算属性
 
 617
 00:31:12,504 --> 00:31:16,840
 This one does have a get and it also has a set. And
+这个属性既有一个 get 也有一个 set
 
 618
 00:31:16,909 --> 00:31:20,577
 set right here, I put in the slide that has newValue.
+set 就在这里，我放到幻灯片里的那个有一个 newValue
 
 619
 00:31:20,646 --> 00:31:23,146
 This is just gonna be the local variable inside here
+这只是里面一个局部变量
 
 620
 00:31:23,215 --> 00:31:25,482
 that contains the new value that someone set,
+包含着某个人设置的新的数值
 
 621
 00:31:25,551 --> 00:31:29,018
 indexOfTheOneAndOnlyFaceUpCard two. A lot of times we don't
+第二个 indexOfTheOneAndOnlyFaceUpCard。大部分时候
 
 622
 00:31:29,087 --> 00:31:31,421
 put anything there, if you do that,
+我们在这里不放任何东西，如果你这么做了
 
 623
 00:31:31,490 --> 00:31:34,858
 it defaults to newValue. That's the name of the locals,
+它的默认值就是 newValue。它是那个局部变量的名字
 
 624
 00:31:34,926 --> 00:31:36,960
 there's a special variable in here called newValue.
+这里有一个特殊的变量叫做 newValue
 
 625
 00:31:37,028 --> 00:31:39,562
 But if you wanted to call it something like index,
+但是如果你想称呼它，比如 index
 
 626
 00:31:39,631 --> 00:31:42,632
 you could do that, it's totally up to you,
+你可以那么做，这完全取决于你
 
 627
 00:31:42,701 --> 00:31:46,936
 a lot of times we just say use newValue though. Okay,
+不过大部分时候我们都使用 newValue
 
 628
 00:31:47,005 --> 00:31:50,173
 so getting the index what do we have to do
+至于获取 index 的值，我们必须这么做
 
 629
 00:31:50,241 --> 00:31:53,110
-to calculate the index of code. So I'm just gonna
+to calculate the index of faceup card. So I'm just gonna
+来计算正面朝上卡片的索引。我要
 
 630
 00:31:53,178 --> 00:31:56,346
-write the little code and have a little look of variable,
+write the little code and have a little localvariable,
+写一小段代码，得到一个局部变量
 
 631
 00:31:56,415 --> 00:32:00,417
 say foundIndex which is gonna be an optional Int. So
+叫做 foundIndex，它会是一个可选类型的 Int
 
 632
 00:32:00,485 --> 00:32:03,453
 I'm gonna look through all the face cards and
+我会遍历所有的卡片
 
 633
 00:32:03,522 --> 00:32:05,622
 see if I can find one that's gonna be the one I found.
+查看是否能找到我翻开的那张卡片
 
 634
 00:32:05,691 --> 00:32:07,490
-So I'm gonna use a for loop here and
+So I'm gonna use a for loop here 
+所以我要使用一个 for 循环
 
 635
 00:32:07,559 --> 00:32:10,227
 go through all the cards.indicises, all right?
+遍历所有的 cards.indices
 
 636
 00:32:10,295 --> 00:32:15,398
 I'm gonna look at each card, and if that card is FaceUp.
+我会查看每一张卡牌，如果那张卡牌是正面朝上的
 
 637
 00:32:15,467 --> 00:32:17,667
 So I found the FaceUp card, whoo-hoo.
+我就找到了它
 
 638
 00:32:17,735 --> 00:32:20,870
 I'm gonna say, if foundOne is nil, in other words,
+如果 foundOne 是 nil，换句话说
 
 639
 00:32:20,939 --> 00:32:24,041
 I haven't found the card yet and this is my first one.
+我便没能找到那张卡片，那么这就是我的第一张卡片
 
 640
 00:32:24,109 --> 00:32:28,211
 Then I'm gonna set not foundOne, what is it called,
+不是 foundOne，它被叫做
 
 641
 00:32:28,280 --> 00:32:32,849
 foundIndex = index, all right? So here I'm just saying if I
+foundIndex = index，好么？所以这里我写的是
 
 642
 00:32:32,918 --> 00:32:35,985
 just found my first one let's remember it.
+如果我找到了我的第一张卡片，让我们记住它
 
 643
 00:32:36,054 --> 00:32:39,522
 Otherwise, if foundIndex is not nil that means this is
+否则，如果 foundIndex 不是 nil，它意味着
 
 644
 00:32:39,591 --> 00:32:41,958
 the second FaceUpCard that I found.
+这是我找到的第二张正面朝上的卡片
 
 645
 00:32:42,027 --> 00:32:44,494
 Cuz I already found one and I found another one, so
+因为我已经找到了一张并且找到了另一张
 
 646
 00:32:44,563 --> 00:32:47,431
 here I am just gonna to return nil. Because if there's two
+所以这里我会返回 nil。因为如果这里有两张
 
 647
 00:32:47,499 --> 00:32:49,900
 FaceUpCards then obviously the index of the one and
+正面朝上的卡片，那么显然 indexOfOneAndOnlyFaceUpCard
 
 648
 00:32:49,968 --> 00:32:53,270
 only FaceUpCard is nil, there's no such thing. And
+是 nil，这里没有这样的东西。
 
 649
 00:32:53,339 --> 00:32:55,371
 if I make it all the way through this for
+如果我完成了整个 for 循环的路径
 
 650
 00:32:55,440 --> 00:32:58,708
 loop I'm just gonna return the foundIndex, which is either
+我会返回 foundIndex，它要么
 
 651
 00:32:58,776 --> 00:33:01,211
 going to have been set to the one card I found or
+被设定成了我找到的那张卡片或者
 
 652
 00:33:01,280 --> 00:33:03,680
 it'll still be nil from this declaration.
+仍然是 nil，通过这个声明来说的话
 
 653
 00:33:03,748 --> 00:33:05,682
 Remember that optionals always get
+还记得可选类型在声明的时候总是自动
 
 654
 00:33:05,750 --> 00:33:09,051
 this free equals nil when they're declared, right? So it
+获得这个缺省值，对吧？所以
 
 655
 00:33:09,120 --> 00:33:12,222
 starts out nil and if I never found one, it'll still be nil,
+它以 nil 开始，如果我没有找到一张卡片，它将仍是 nil
 
 656
 00:33:12,291 --> 00:33:15,692
 which is right cuz that means there'll be no FaceUpCards.
+这是正确的因为它意味着这里没有正面朝上的卡片
 
 657
 00:33:15,761 --> 00:33:18,395
 We're gonna understand this simple code right here,
+我们将理解这里的这块简单的代码
 
 658
 00:33:18,464 --> 00:33:20,730
 how about the set case? On the set case,
+至于 set 的情况呢？在 set 例子中
 
 659
 00:33:20,799 --> 00:33:22,198
 I'm just gonna loop through all the cards and
+我要遍历所有的卡片
 
 660
 00:33:22,267 --> 00:33:26,236
 turn all face down except for this one that they just set it
+把它们全部翻到背面，除了这张，它刚刚
 
 661
 00:33:26,304 --> 00:33:29,338
 to, which is gonna be new value, all right? So I'm just
+被设置成了 newValue，对么？
 
 662
 00:33:29,407 --> 00:33:33,243
 gonna go through my cards for index in cards.indices.
+我要遍历我的卡片，for index in cards.indices
 
 663
 00:33:33,312 --> 00:33:36,412
 Great way to go iterate through this countable
+这是一个很棒的方式来迭代这个包含
 
 664
 00:33:36,481 --> 00:33:39,348
 range of all the indexes in my array. I'm gonna say,
+数组里所有索引的 CountableRange。我会写
 
 665
 00:33:39,417 --> 00:33:45,756
 cards.index.isFaceUp = false,
+cards.index.isFaceUp = false
 
 666
 00:33:45,824 --> 00:33:50,327
 for most cards. But in case the index here,
+对于大部分卡片来说。但是对于这个索引来说
 
 667
 00:33:50,395 --> 00:33:54,264
 this index equals the new value of this, then I'm gonna
+它等于 newValue，
 
 668
 00:33:54,332 --> 00:33:59,369
 set it to true. Okay, so here this is an expression
+我把它设置为 true。好的，这里是一个表达式
 
 669
 00:33:59,438 --> 00:34:03,874
 that's true if someone said indexOfTheOneAndOnlyFaceUpCard
+如果某个人说 indexOfTheOneAndOnlyFaceUpCard 等于
 
 670
 00:34:03,942 --> 00:34:07,210
 equals whatever. If this is the whatever they said,
+无论什么 ，如果这是 indexOfTheOneAndOnlyFaceUpCard 的值
 
 671
 00:34:07,279 --> 00:34:10,547
 then we're gonna have this be true if the card's face up,
+那么我们会让它是 true，如果卡片正面朝上的话
 
 672
 00:34:10,615 --> 00:34:13,549
 o therwise this will always be false. Everybody got this
+否则它会一直是 false。每个人都理解了
 
 673
 00:34:13,618 --> 00:34:17,553
 little code right there? Come through with that? All right,
+这一小段代码么？能够理解它么？好的
 
 674
 00:34:17,622 --> 00:34:21,391
 that's it. Okay, now the indexOfTheOneAndOnlyFaceUpCard
+这就是它了。现在 indexOfTheOneAndOnlyFaceUpCard
 
 675
 00:34:21,459 --> 00:34:22,859
 is computed like this,
+就像这样子被计算了
 
 676
 00:34:22,927 --> 00:34:26,329
 from the card, we do not need to take responsibility for
+我们没有必要负责去做一些像
 
 677
 00:34:26,398 --> 00:34:30,233
 doing things like setting it to nil here. This is the case
+把它设为 nil 之类的事情。这是一个例子
 
 678
 00:34:30,302 --> 00:34:33,136
 where we found two cards, we got two cards that we're
+在这里我们找到了两张卡片，我们有两张要尝试匹配
 
 679
 00:34:33,204 --> 00:34:36,273
 trying to match, well, obviously there's two cards.
+的卡片，很明显这里是两张卡片
 
 680
 00:34:36,341 --> 00:34:38,474
 So we had to set the indexOfTheOneAndOnlyFaceUpCard
+所以我们不得不设置 indexOfTheOneAndOnlyFaceUpCard
 
 681
 00:34:38,543 --> 00:34:40,744
 to nil cuz there were two. But we don't have to do that
+为 nil 因为这里有两张。但是我们现在再也不必这么做了
 
 682
 00:34:40,812 --> 00:34:42,912
 anymore, because it's always computing that,
+因为它总是会计算它的值
 
 683
 00:34:42,981 --> 00:34:45,749
 every time we ask, it goes and looks at the card. And
+每一次我们请求，它去到程序里查看卡片
 
 684
 00:34:45,817 --> 00:34:49,418
 even better than that is this case down here. Okay,
+比这更好的是下面这个例子
 
 685
 00:34:49,487 --> 00:34:51,520
 this case down here, we are setting the
+下面这个例子里，我们正在设置
 
 686
 00:34:51,589 --> 00:34:53,523
 indexOfTheOneAndOnlyFaceupCard to
+indexOfTheOneAndOnlyFaceUpCard 为
 
 687
 00:34:53,592 --> 00:34:56,259
 be the index. That's because this was the case where there
+index。那是因为在这种情况下
 
 688
 00:34:56,328 --> 00:34:57,894
 were already two or there were none,
+已经有了两张卡片或者没有卡片正面朝上
 
 689
 00:34:57,963 --> 00:35:01,364
 and now we turn those faceDown and do this new one.
+我们把它们翻转朝下然后进行新的选择
 
 690
 00:35:01,433 --> 00:35:04,734
 So we're already setting this and it does all of this.
+我们已经设置过它了，程序做了所有的事情
 
 691
 00:35:04,802 --> 00:35:07,470
 Setting this thing to something already turns all
+设置它为某个值已经把所有其他的卡片
 
 692
 00:35:07,539 --> 00:35:11,641
 the other cards faceDown. And already sets that card faceUp,
+翻到了背面。而且已经设置那张卡片朝上
 
 693
 00:35:11,709 --> 00:35:16,178
 so we don't need any of that code. So you see how making
+所以我们不需要这里任何的代码。所以你看
 
 694
 00:35:16,247 --> 00:35:20,083
 the computed property makes this code much simpler and
+演算属性令我们的代码多么的简洁和直接
 
 695
 00:35:20,152 --> 00:35:23,819
 straightforward. Cuz it really gets at the heart of what's
+因为它完全接触到了正在发生的事情的核心
 
 696
 00:35:23,888 --> 00:35:26,656
 going on. I'm just setting the indexOfTheOneAndOnlyFaceUpCard
+我只需要设置 indexOfTheOneAndOnlyFaceUpCard 的值
 
 697
 00:35:26,725 --> 00:35:27,223
 to this index
+为这个
 
 698
 00:35:27,292 --> 00:35:28,191
 that I just clicked on or
+我点击的 index
+
 
 699
 00:35:28,260 --> 00:35:30,727
 I'm just turning this card faceUp. And the next time
+我正把这张卡片翻到正面。下一次某人
 
 700
 00:35:30,795 --> 00:35:34,063
 someone asks for the indexOfTheOneAndOnlyFaceUpCard
+请求 indexOfTheOneAndOnlyFaceUpCard 的时候
 
 701
 00:35:34,132 --> 00:35:36,466
 it's gonna do the right thing, right?
+它就会是正确的事情，对么？
 
 702
 00:35:36,535 --> 00:35:39,302
