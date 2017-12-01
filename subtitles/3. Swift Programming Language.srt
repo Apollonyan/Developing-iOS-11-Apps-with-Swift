@@ -3508,398 +3508,498 @@ it's gonna do the right thing, right?
 702
 00:35:36,535 --> 00:35:39,302
 So let's go and run, make sure we didn't break
+让我们运行程序，确保我们在把它创建成一个演算属性
 
 703
 00:35:39,371 --> 00:35:43,306
 anything making this into a computed property. Here we go,
+过程中没有打破任何东西。让我们开始吧
 
 704
 00:35:43,374 --> 00:35:46,009
 hopefully we can still match, yeap, that matches,
+希望我们仍然可以匹配，好的，它匹配了
 
 705
 00:35:46,077 --> 00:35:48,645
 and the matching is working, and the mismatching is also
+匹配程序正在工作，不匹配程序也在
 
 706
 00:35:48,714 --> 00:35:52,982
 working. Really cool computed properties,
+工作。演算属性真的很酷
 
 707
 00:35:53,050 --> 00:35:55,718
 you're gonna see computed properties everywhere in iOS,
+你将会在 iOS 的每个地方看到演算属性的身影
 
 708
 00:35:55,787 --> 00:36:01,223
 they get very common, yeah. >> [INAUDIBLE]
+它们是非常常见的
 
 709
 00:36:01,292 --> 00:36:02,258
 >> Okay great question, so
+>> 好的，非常棒的问题。所以
 
 710
 00:36:02,326 --> 00:36:04,995
 when would I reuse this var versus
+什么时候我改重新使用这个变量而不是
 
 711
 00:36:05,063 --> 00:36:07,664
 having two methods, one which get's the index and
+用两个方法，一个得到 index 的值
 
 712
 00:36:07,732 --> 00:36:09,833
 one really [INAUDIBLE] and one that sets it.
+一个设置 index 的值
 
 713
 00:36:09,901 --> 00:36:14,003
 Okay, it's all about whether it's perceived as property.
+好的，它只和是否它被理解成一个属性有关
 
 714
 00:36:14,072 --> 00:36:17,807
 This index in effect is perceived by us as programmers
+这个 index 实际上被我们程序员视为
 
 715
 00:36:17,875 --> 00:36:20,710
 it's a property right? It's, it's a property of the game
+一个属性，对么？它是翻牌游戏的一个属性
 
 716
 00:36:20,779 --> 00:36:22,379
 is the index on the face of the card, so
+它是 indexOfOneAndOnlyFaceUpCard
 
 717
 00:36:22,447 --> 00:36:27,049
 that's what you would do here. If another way of kind of
+所以这是你要在这里做的事情。另一种决定的方法是
 
 718
 00:36:27,118 --> 00:36:32,021
 deciding is if the set or the get really does a lot of work.
+是否 set 和 get 的确做了很多的工作
 
 719
 00:36:32,090 --> 00:36:35,158
 Like it's really crunching on something,
+比如它的确处理了很多事情
 
 720
 00:36:35,227 --> 00:36:36,826
 you might wanna make that a function.
+你可能想把它做成一个函数
 
 721
 00:36:36,895 --> 00:36:38,628
 Just so the people don't think, oh it's a lightweight
+那样子的话，人们就不会认为，它是一个轻量
 
 722
 00:36:38,696 --> 00:36:41,731
 little property that I can get. Now, this might seem like
+的我能够获取的属性。现在，它可能看起来
 
 723
 00:36:41,800 --> 00:36:43,966
 a lot of work but it's actually very very simple.
+做了很多的工作但是实际上非常非常简单
 
 724
 00:36:44,035 --> 00:36:46,703
 And then later in the lecture, probably on Wednesday,
+之后可能在周三的课堂上
 
 725
 00:36:46,771 --> 00:36:50,073
 I'm gonna show you an even much simpler version of this.
+我会展示给你们一个更简单的版本
 
 726
 00:36:50,141 --> 00:36:51,775
 When we learn a little bit more about Swift.
+当我们学习更多一点 Swift 的内容后
 
 727
 00:36:51,843 --> 00:36:53,676
 But it really is not that much work it's just looking at
+不过它真的不是那么多的工作，它只是查找
 
 728
 00:36:53,745 --> 00:36:56,412
 another data structure. But if you were doing a lot of work
+另一个数据结构。但是如果你正在做很多的工作
 
 729
 00:36:56,481 --> 00:36:58,114
 then you probably want to do set and
+那么你可能想要做 set 和 get 
 
 730
 00:36:58,182 --> 00:37:01,651
 get to make it clear. But otherwise if it is
+来让它清晰。否则的话如果他是一个变量
+
 
 731
 00:37:01,720 --> 00:37:06,322
 a var if it seems like a var make it a var. Good question.
+如果它看起来是一个变量就让它成为一个变量。非常好的问题。
 
 732
 00:37:06,391 --> 00:37:09,892
 Alright where is my, here it is, keynote,
+好的，这里是我的 keynote
 
 733
 00:37:09,961 --> 00:37:13,897
 lets go back here, back to our slides. All right,
+让我们返回这里，返回我们的幻灯片。好的
 
 734
 00:37:13,965 --> 00:37:17,199
 so the next thing we're gonna talk about is here,
+我们要讨论的下一件事情就在这里
 
 735
 00:37:17,268 --> 00:37:20,303
 is another topic something we knew, access control. Okay, so
+它是我们所了解的另一个主题，访问控制
 
 736
 00:37:20,372 --> 00:37:23,372
 what is access control? So, how many people have worked on
+什么是访问控制？有多少人工作过一个项目
 
 737
 00:37:23,441 --> 00:37:27,243
 a project, an object oriented program project of more
+一个面向对象编程的包含多余一打类的项目？
 
 738
 00:37:27,312 --> 00:37:31,147
 than a dozen classes? Okay, like two or
+好的，像是两三个
 
 739
 00:37:31,216 --> 00:37:35,284
 three of you, four maybe, so, not very many of you. Okay,
+同学，四个可能，总之并不是非常多
 
 740
 00:37:35,353 --> 00:37:37,853
 well when you're working on a very small project like that,
+当你从事一个像它一样的小项目的时候
 
 741
 00:37:37,922 --> 00:37:40,056
 you can call any method in any class, whatever,
+你可以随意地在任何类里调用任何方法
 
 742
 00:37:40,124 --> 00:37:42,224
 you're probably the only programmer working on it.
+你可能是工作的唯一的程序员
 
 743
 00:37:42,293 --> 00:37:44,627
 Or maybe you're working out with a buddy, and so
+或者你和一个好朋友一起从事
 
 744
 00:37:44,695 --> 00:37:47,229
 you can talk to each other. Okay, but now imagine
+所以你们可以互相交谈。但是想象
 
 745
 00:37:47,298 --> 00:37:50,967
 that you're working for Google. Or Facebook, or Apple,
+你为 Google 工作，或者 Facebook 或者 Apple
 
 746
 00:37:51,035 --> 00:37:54,471
 or something like that, and this is kind of ridiculous.
+等其他差不多的大公司，那这就有点荒唐了
 
 747
 00:37:54,539 --> 00:37:57,273
 But let's say you're working on concentration there. And
+你正从事于翻牌游戏这个项目
 
 748
 00:37:57,342 --> 00:37:59,942
 there's a whole another group in another building that does
+这里有另外一整个团队在另一幢建筑里从事
 
 749
 00:38:00,011 --> 00:38:03,546
 game design and they write the model. And
+游戏设计并且它们编码模型
 
 750
 00:38:03,615 --> 00:38:05,848
 you are just the UI team for IOS,
+你仅仅为 iOS 的 UI 团队工作
 
 751
 00:38:05,917 --> 00:38:08,050
 until you're only writing the view controller.
+知道你正在编码视图控制器
 
 752
 00:38:08,119 --> 00:38:11,054
 Okay, well now, you don't wanna be calling each others
+好的，现在你不想只是混乱地互相调用
 
 753
 00:38:11,122 --> 00:38:13,656
 code just willy-nilly. Calling any old method like
+代码。调用任何老旧的方法，比如你不会想
 
 754
 00:38:13,724 --> 00:38:16,225
 you wouldn't want your view controller cal someone like
+要你的视图控制器调用
 
 755
 00:38:16,294 --> 00:38:17,761
 indexOfOneAndOnlyFaceUpCard.
+indexOfOneAndOnlyFaceUpCard
 
 756
 00:38:17,829 --> 00:38:20,363
 If those guys are like they got rid of that method
+如果某些人摆脱了那个方法到
 
 757
 00:38:20,431 --> 00:38:23,566
 into the next month, and now your code broke. Now,
+下一个月，那么你的代码就会崩溃
 
 758
 00:38:23,634 --> 00:38:26,236
 there are some methods that you have to be able to call
+现在，这里有一些方法你一定能够去调用
 
 759
 00:38:26,304 --> 00:38:29,172
 over there and their code, and we're gonna make it clear
+我们将会通过使用访问控制来弄清楚
 
 760
 00:38:29,241 --> 00:38:31,541
 which ones of those are using access control.
+哪些代码可以被我们调用
 
 761
 00:38:31,610 --> 00:38:35,244
-So access control about having keyword that we're gonna put
+So access control is about having keyword that we're gonna put
+所以访问控制是关于拥有我们可以放到 API 中的关键词
 
 762
 00:38:35,313 --> 00:38:37,981
-into our API, put it on the methods and bars,
+into our API, put it on the methods and vars,
+把它放到方法和变量上
 
 763
 00:38:38,049 --> 00:38:41,684
 it says to other groups that we're programming with, yes,
+它对其他小组说我们正在编码它
 
 764
 00:38:41,753 --> 00:38:45,088
 you are allowed to call this, I promise not to break this
+你被允许调用这个，我保证它不会让你程序崩溃
 
 765
 00:38:45,156 --> 00:38:48,892
 on you. It also tells them how to use your thing because
+它也告诉他们如何使用你的东西因为
 
 766
 00:38:48,960 --> 00:38:51,794
 the ones they're allowed to call or the ones they should
+他们被允许调用的东西或者他们应该正在使用的东西
 
 767
 00:38:51,863 --> 00:38:54,997
 be using to use your concentration game or
+是为了使用你的翻牌游戏
 
 768
 00:38:55,066 --> 00:38:57,300
 whatever. So what are these keywords?
+所以这些关键词是什么？
 
 769
 00:38:57,368 --> 00:39:01,237
 Well the first one is called internal. These are keywords
+第一个叫做 internal（内部的）。这些是关键词你可以放到
 
 770
 00:39:01,306 --> 00:39:04,541
 you put in front of vars and funcs. Or even classes and
+变量和函数前面，或者甚至是类和
 
 771
 00:39:04,609 --> 00:39:07,176
 structs, you can make entire classes and structs,
+结构体前面，你可以对整个类和结构体
 
 772
 00:39:07,245 --> 00:39:10,813
 have their access controlled. So the default internal,
+进行访问控制。所以默认的 internal
 
 773
 00:39:10,881 --> 00:39:12,682
 this one we never actually type in
+实际上我们没来没敲过这个关键词
 
 774
 00:39:12,751 --> 00:39:15,485
 because it's the default. So all of the methods and
+因为它是默认的。所以我们现在在翻牌游戏里完成的
 
 775
 00:39:15,554 --> 00:39:17,653
 vars that we've done so far in Concentration are all
+所有方法和变量都是
 
 776
 00:39:17,722 --> 00:39:20,656
 internal. Now what does internal Access Control mean?
+internal。internal 在访问控制中意味着什么呢？
 
 777
 00:39:20,725 --> 00:39:26,061
 It means anyone in your app, any object, any code anywhere
+它意味着在你的应用中的任何人，任何对象，任何代码
 
 778
 00:39:26,130 --> 00:39:29,665
-can call that method or access that bar. So it's pretty much
+can call that method or access that var. So it's pretty much
+都可以调用这个方法或者访问这个变量。所以它在你的应用里是
 
 779
 00:39:29,734 --> 00:39:33,335
 unlimited control inside your app. Now as we start talking
+非常不受限的一种控制。现在当我们谈论
 
 780
 00:39:33,404 --> 00:39:35,772
 about access control, we have to realise there's always two
+访问控制的时候，我们不得不意识到这里总有两种
 
 781
 00:39:35,841 --> 00:39:39,442
 kinds of programming, there's writing an app,
+编程类型，一种是编写应用
 
 782
 00:39:39,510 --> 00:39:42,445
 then there's writing a framework. Like Apple does,
+一种是编写框架，像 Apple 做的
 
 783
 00:39:42,514 --> 00:39:46,582
 UI kit, okay? That's framework. A lot more access
+UIKit，好么？那是框架。如果你在编写框架的时候
 
 784
 00:39:46,651 --> 00:39:49,285
 control issues if you're writing a framework. So
+会有更多的访问控制事项
 
 785
 00:39:49,354 --> 00:39:51,120
 I'm gonna tell you what the things are for
+所以我要告诉你对于编写一个框架来说
 
 786
 00:39:51,188 --> 00:39:53,789
 writing a framework but, We're not gonna really pay much
+访问控制是什么，但是我们并不会花费太多
 
 787
 00:39:53,858 --> 00:39:55,625
 attention to them because we are only going to learn to
+注意力到上面，因为我们将只学习如何
 
 788
 00:39:55,694 --> 00:39:59,228
 write apps in this course. So internal means everything in
+编写应用。所以 internal 意味着你的应用
 
 789
 00:39:59,296 --> 00:40:02,699
 your app, or in your framework is, can access this code.
+或者你的框架里的任何事物可以访问这块代码
 
 790
 00:40:02,767 --> 00:40:05,000
 So it's pretty much almost unlimited inside
+所以它在你的框架里是非常不受限制的
 
 791
 00:40:05,069 --> 00:40:08,671
 your Apple framework. Then there's the three privates.
+之后这里有三种 private（私有的）
 
 792
 00:40:08,740 --> 00:40:10,473
 These are very important, these are the ones you're
+它们是非常重要的，它们是你会一直
 
 793
 00:40:10,542 --> 00:40:14,143
 gonna be using all the time. One is just private,
+使用的。一个就叫 private
 
 794
 00:40:14,212 --> 00:40:17,313
 that means its internal implementation to this object,
+它意味着这个对象的内部实现
 
 795
 00:40:17,381 --> 00:40:22,384
 no other objects can call it. This is a good one to set,
+没有其他的对象可以调用它。对于赋值来说是非常好的
 
 796
 00:40:22,453 --> 00:40:25,722
 it keeps someone in the other group at Google and the other
+它让在 Google 的和其他建筑的小组远离
 
 797
 00:40:25,790 --> 00:40:28,858
 building from accessing that code. Because you're
+访问那块代码。因为
 
 798
 00:40:28,927 --> 00:40:31,527
 keeping it private, it's your private implementation.
+你已经为它保持了私有化，这是你的私有实现
 
 799
 00:40:31,596 --> 00:40:35,164
 Private set is almost exactly the same, it's only for vars,
+private（set）大致上是一样的，它只针对变量
 
 800
 00:40:35,232 --> 00:40:39,201
 it means that setting this var is private, but getting it
+它意味着赋值这个变量是私有的，但是访问它
 
 801
 00:40:39,270 --> 00:40:43,639
