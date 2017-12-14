@@ -39,7 +39,7 @@ struct Resource: CustomStringConvertible {
     let url: String
     let summary: String?
     
-    init(title: String, rawType: String, url: String, summary: String?) {
+    init?(title: String, rawType: String, url: String, summary: String?) {
         self.url = url
         
         if rawType.contains("video") {
@@ -67,7 +67,8 @@ struct Resource: CustomStringConvertible {
             // Lecture 9 Demo Code: Smashtag -> index: 9, title: Lecture 9 Demo Code: Smashtag
             parts = [title.components(separatedBy: " ")[1], title]
         }
-        self.index = Int(parts[0])!
+        guard parts.count > 1, let index = Int(parts[0]) else { return nil }
+        self.index = index
         self.title = parts[1]
         
         self.summary = summary == title ? nil : summary?.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -141,7 +142,11 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
         case "summary":
             isParsingSummary = false
         case "entry":
-            resources.append(Resource(title: title!, rawType: type!, url: url!, summary: summary))
+            if let res = Resource(title: title!, rawType: type!, url: url!, summary: summary) {
+                resources.append(res)
+            } else {
+                debugPrint("Skipped \(title ?? "Titleless") at \(url ?? "URLess")")
+            }
             title = nil
             isParsingTitle = false
             type = nil

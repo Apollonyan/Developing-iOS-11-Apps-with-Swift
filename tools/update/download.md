@@ -14,6 +14,8 @@
 10. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/1d/45/43/1d4543d6-2ed9-55d1-6cf1-1929b5319c10/311-695518005627000002-10_10_25_17_prores_CS193p_1080p_3mb_cc.m4v">Multithreading and Autolayout</a></summary>Paul Hegarty covers multithreading and then demonstrates with a multithreaded Cassini. He then introduces autolayout.</details>
 11. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/c8/4b/a1/c84ba1c1-d1b1-8cb3-8083-0cba3ea3013e/335-5035465745252410791-11_10_30_17_prores_CS193p_1080p_3mb_cc.m4v">Drag and Drop, Table View, and Collection View</a></summary>Paul Hegarty lectures about drag and drop – transferring information around within and between apps – and demonstrates applying it in a demonstration of EmojiArt. He then introduces UITableView and UICollectionView.</details>
 12. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/d1/b4/67/d1b467d2-b5fc-f2e3-4b5f-8c431659db66/303-5025198319972677062-12_11_01_17_prores_CS193p_1080p_3mb_cc.m4v">Drag and Drop, Table View, Collection View, and Text Field</a></summary>Paul Hegarty continues his demo of EmojiArt. He then covers editable text input control with UITextField.</details>
+13. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/d2/e4/c4/d2e4c497-670f-6b43-c919-6ec42e4481a9/312-9097236878835223246-13_11_06_17_prores_CS193p_1080p_3mb_cc.m4v">Persistence and Documents</a></summary>Paul Hegarty continues his demo of Emoji Art where he implements UITextField to add more Emoji. He then introduces persistence.</details>
+14. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/0b/fe/9f/0bfe9fe6-faae-0470-a9b0-81c1908cf484/305-1366423083051400424-14_11_08_17_prores_1_CS193p_1080p_3mb_cc.m4v">Persistence and Documents Demo</a></summary>Paul Hegarty extends his coverage of Documents. He then does a demonstration of using Codable to create a JSON representation, storing it in the filesystem then letting UIDocument store it instead, and then using UIDocumentBrowserViewController to choose/create/rename/move documents.</details>
 
 # 课程讲义 / Slides
 
@@ -29,6 +31,8 @@
 10. [Lecture 10 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/d2/d2/6b/d2d26bfc-0528-265c-6c60-90ec126e6ee5/322-6515997048783028736-CS193P_F17_Lecture_10.pdf)
 11. [Lecture 11 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/90/9f/cf/909fcfbf-7e6a-6722-fe59-27429115ff6b/317-8823617114003497609-CS193P_F17_Lecture_11.pdf)
 12. [Lecture 12 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/40/1e/67/401e6721-4436-fb80-2ca1-9d5378b2101e/306-4082649130340532415-CS193P_F17_Lecture_12.pdf)
+13. [Lecture 13 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic122/v4/b6/6b/ae/b66bae2e-4eaa-0b2f-ec1e-f056af95bde1/323-4247208383177102782-CS193P_F17_Lecture_13.pdf)
+14. [Lecture 14 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/fa/71/a4/fa71a463-d836-f2d2-005d-e00ca2d84b48/322-5794459892624250293-CS193P_F17_Lecture_14.pdf)
 
 # 阅读作业 / Readings
 
@@ -43,5 +47,6 @@
 3. [Graphical Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/34/b1/5e34b154-8ffd-ee18-2df3-16d50177b8cc/309-1475895300459033080-CS193P_F17_Assignment_3.pdf)
 4. [Animated Set](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5e/89/9f/5e899f5d-19e7-aa34-6ca7-93a1e645eefc/309-2441628197055099936-CS193P_F17_Assignment_4.pdf)
 5. [Image Gallery](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/22/c3/00/22c30013-28dd-41eb-e104-a4594ec95dad/308-8518403617003934463-CS193P_F17_Assignment_5.pdf)
+6. [Persistent Image Gallery](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5a/46/19/5a4619d5-bee0-1379-e204-731912cea353/307-9138746427331321981-CS193P_F17_Assignment_6.pdf)
 
 <details><summary></summary><script type="text/javascript"> window.onload = function () { document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials"; } </script></details>
