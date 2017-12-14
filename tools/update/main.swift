@@ -106,6 +106,8 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
     var url: String?
     var summary: String?
     var isParsingSummary = false
+    var totalSkipped = 0
+    var total = 0
     
     func parser(_ parser: XMLParser, didStartElement elementName: String, namespaceURI: String?, qualifiedName qName: String?, attributes attributeDict: [String : String] = [:]) {
         switch elementName {
@@ -142,10 +144,12 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
         case "summary":
             isParsingSummary = false
         case "entry":
+            total += 1
             if let res = Resource(title: title!, rawType: type!, url: url!, summary: summary) {
                 resources.append(res)
             } else {
-                debugPrint("Skipped \(title ?? "Titleless") at \(url ?? "URLess")")
+                totalSkipped += 1
+                debugPrint("Skipped \(title ?? "Titleless")")
             }
             title = nil
             isParsingTitle = false
@@ -173,7 +177,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
                 + "\(sorted[index].reduce("") { "\($0)\($1)\n" })\n"
         }
         
-        out += "<details><summary></summary><script type=\"text/javascript\"> window.onload = function () { document.getElementsByClassName(\"project-name\")[0].innerHTML = \"下载列表 / Course Materials\"; } </script></details>\n"
+        out += "<details><summary>已收录 \(total-totalSkipped)/\(total) Entries</summary><script type=\"text/javascript\"> window.onload = function () { document.getElementsByClassName(\"project-name\")[0].innerHTML = \"下载列表 / Course Materials\"; } </script></details>\n"
         
         let cwd = CommandLine.arguments.first { $0.contains(#file) } ?? FileManager.default.currentDirectoryPath
         let url = URL(fileURLWithPath: cwd).deletingLastPathComponent().appendingPathComponent("download.md")

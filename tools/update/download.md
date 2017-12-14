@@ -49,4 +49,4 @@
 5. [Image Gallery](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/22/c3/00/22c30013-28dd-41eb-e104-a4594ec95dad/308-8518403617003934463-CS193P_F17_Assignment_5.pdf)
 6. [Persistent Image Gallery](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5a/46/19/5a4619d5-bee0-1379-e204-731912cea353/307-9138746427331321981-CS193P_F17_Assignment_6.pdf)
 
-<details><summary></summary><script type="text/javascript"> window.onload = function () { document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials"; } </script></details>
+<details><summary>已收录 37/38 Entries</summary><script type="text/javascript"> window.onload = function () { document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials"; } </script></details>
