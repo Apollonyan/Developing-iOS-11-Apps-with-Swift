@@ -4285,343 +4285,427 @@ the problem here is that you must have at least
 1017
 00:51:45,169 --> 00:51:49,604
 one pair of cards. Okay? So, you see how I'm, I'm using
-一对卡片。好吧？
+一对卡片。好吧？你看到我是怎么使用
 
 1018
 00:51:49,673 --> 00:51:53,476
-a search here to kinda protect my API against improper use.
+assert here to kinda protect my API against improper use.
+断言来保护我的 API 不被错误地使用
 
 1019
 00:51:53,544 --> 00:52:00,282
 Question back there? Yeah? >> Sorry when you,
+后面同学有什么问题？>> [学生提问]
 
 1020
 00:52:00,351 --> 00:52:01,616
 Sorry when you- >> When would you set init
+>> 能重复你的问题么？>> 你什么时候会让 init
 
 1021
 00:52:01,685 --> 00:52:02,250
 as private? >> Oh, so
+是 private 的呢？>> 哦
 
 1022
 00:52:02,319 --> 00:52:07,122
 the question is when would I set my init as private, okay.
+这个同学问我什么时候会有私有的构造器
 
 1023
 00:52:07,191 --> 00:52:10,826
 Well, you might have a complicated object that
+举个例子，你可能会有一个复杂的对象
 
 1024
 00:52:10,895 --> 00:52:14,062
 only creates instances of itself. For example,
+只允许它自己构造实例，通过比如
 
 1025
 00:52:14,131 --> 00:52:16,030
 with static methods or something like that.
+static 的静态方法一类的来实现
 
 1026
 00:52:16,099 --> 00:52:18,600
-Or you might have multiple in it. Some of which you'll allow
+Or you might have multiple inits. Some of which you'll allow
+或者你有多个 init。有些你允许
 
 1027
 00:52:18,669 --> 00:52:21,537
 other people to call. But some of which you call internally
+其他人调用，而有些只是你内部使用的
 
 1028
 00:52:21,605 --> 00:52:24,906
 to create, okay. You might even have public ones that is
+你甚至可能有公开的构造器
 
 1029
 00:52:24,975 --> 00:52:27,409
 part of their implementation called the private ones. Okay,
+会调用私有的构造器来实现
 
 1030
 00:52:27,477 --> 00:52:30,312
 cuz inits can call each other which we'll talk about on
+因为构造器可以调用另一个构造器。这个我们会在
 
 1031
 00:52:30,381 --> 00:52:34,149
 Wednesday. So that's why you might have some private. Okay,
+星期三讲。这就是为什么你的某些构造器可以是私有的
 
 1032
 00:52:34,218 --> 00:52:36,451
 everybody cool with access control and
+大家都对访问权限和断言没问题了吧？
 
 1033
 00:52:36,520 --> 00:52:40,922
 assertions? All right, back to the slides.
+好，我们接着讲幻灯片
 
 1034
 00:52:40,991 --> 00:52:45,127
 Where are we? Here, okay. Cool one, all right extensions. So
+我们讲到哪里了来着？这里，这个很厉害，extension
 
 1035
 00:52:45,195 --> 00:52:49,732
 extensions are super powerful. They're kind of like
+扩展非常强大，它就像一种武器
 
 1036
 00:52:49,800 --> 00:52:52,367
 a weapon you'll want to be careful when you're wielding,
+当你使用的时候需要额外小心
 
 1037
 00:52:52,436 --> 00:52:56,004
 because you can go crazy with them. And what an extension
+因为你可能会走火入魔。在 extension 里
 
 1038
 00:52:56,073 --> 00:53:01,176
 allows you to do is add vars and functions to other classes
+你可以给其他的类添加变量和方法
 
 1039
 00:53:01,245 --> 00:53:03,378
 even if you don't have the code to those classes.
+即使你没有那个类的源代码也能做到
 
 1040
 00:53:03,447 --> 00:53:06,681
 Even if there in another frame work like UI Kits or something
+即使那个类属于另一个如 UIKit 一类的框架
 
 1041
 00:53:06,750 --> 00:53:10,753
-like that. So you can add bars and methods to it. You can add
+like that. So you can add vars and methods to it. You can add
+你都可以向它添加变量和方法。你可以添加
 
 1042
 00:53:10,821 --> 00:53:14,389
 it to UI Button. You can add it UI View Controller.
+到 UIButton 里，可以添加给 UIViewController
 
 1043
 00:53:14,458 --> 00:53:17,459
 Anything you want. Okay? So this is a very, very, very
+任何你想要的类，知道了吧？所以这是个非常非常
 
 1044
 00:53:17,528 --> 00:53:21,296
-powerful feature. And really I'm sure what's swimming about
+powerful feature. And really I'm sure what's swimming in your mind about
+非常强大的功能。我确信能猜到你们脑袋里想的
 
 1045
 00:53:21,364 --> 00:53:23,865
-the cap, possibilities is nothing compared to the actual
+the possibilities is nothing compared to the actual
+各种可能性只是实际能实现的微不足道
 
 1046
 00:53:23,934 --> 00:53:26,702
 possibilities because there are other data structures that
+的一部分，因为还有很多数据结构
 
 1047
 00:53:26,770 --> 00:53:30,105
 we haven't even talked about that adding an extension to
+我们还没有讲到，但给它们添加扩展
 
 1048
 00:53:30,173 --> 00:53:33,141
 really is powerful and we'll get to that by end of
+是真的很实用，我们会在星期三
 
 1049
 00:53:33,210 --> 00:53:38,213
 Wednesday as well. The basic line of it is, is very simple.
+下课之前讲。要添加扩展很简单
 
 1050
 00:53:38,281 --> 00:53:40,949
 You just use the keyword extension and the name of
+你只需要用关键字 extension 然后数据类型的名字
 
 1051
 00:53:41,018 --> 00:53:44,319
-the structor class you wanna add a var property to and
+the struct or class you wanna add a var property to and
+就是你想要添加变量的结构体或类的名字
 
 1052
 00:53:44,388 --> 00:53:46,554
 then just put the thing you want in there.
+然后在大括号里写你要扩展的内容
 
 1053
 00:53:46,623 --> 00:53:51,560
-Now, it has one very some serious restriction which is
+Now, it has one very some serious restriction which is 
+但是有一个限制是
 
 1054
 00:53:51,629 --> 00:53:56,331
 that it can have no storage. This extension, this code that
+扩展没有存储空间。作为扩展，这些代码
 
 1055
 00:53:56,400 --> 00:53:59,300
 you're extending this other thing, it can have no vars
+扩展了另一个数据类型，它是不能扩展
 
 1056
 00:53:59,369 --> 00:54:01,270
 that are storage. It could have vars that are computed.
+存储属性的。但它可以添加计算属性
 
 1057
 00:54:01,338 --> 00:54:04,373
 But it can't have any vars with storage. So
+但任何存储属性都不行
 
 1058
 00:54:04,441 --> 00:54:07,676
 that does restrict the kind of thing that you can
+这肯定会限制你们想添加的
 
 1059
 00:54:07,745 --> 00:54:11,013
 add to a function. Okay, but you kinda turn out that
+某些功能。但其实
 
 1060
 00:54:11,081 --> 00:54:14,149
 restriction is actually a good restriction. It's not like
+这个限制是很正确的，并不是说
 
 1061
 00:54:14,217 --> 00:54:16,952
 the too bad they could invent it with storage. You
+它们水平太差实现不了。你
 
 1062
 00:54:17,020 --> 00:54:19,354
 actually don't want storage, and you will see as we
+其实并不会想要有存储，而且你会从我们
 
 1063
 00:54:19,423 --> 00:54:22,690
 go along why that is. So, this feature as you might imagine
+之后讲的领悟到为什么。正如你所想的，这个功能
 
 1064
 00:54:22,759 --> 00:54:26,728
 is easily abused and the number one ways to get abuse,
+经常被滥用，而其中最常见的情况是
 
 1065
 00:54:26,797 --> 00:54:29,598
 and I encourage you not to abuse at this way is you do
+我建议你也不要这样做，那就是
 
 1066
 00:54:29,667 --> 00:54:33,835
-not want to add a bar or a func to class that doesn't
+not want to add a var or a func to class that doesn't
+你不应该添加一个变量或方法到某个类
 
 1067
 00:54:33,904 --> 00:54:38,840
 make sense for that class. It's a real temptation for
+但对于那个类来说是毫不相关的。最吸引人的
 
 1068
 00:54:38,909 --> 00:54:43,578
-example for an init or string to add a function that has to
+example for an Int or String to add a function that has to
+是比如扩展 Int 或 String，添加一个
 
 1069
 00:54:43,647 --> 00:54:47,916
 do with concentration. Some concentration specific method
+只为了翻牌游戏而存在的方法
 
 1070
 00:54:47,984 --> 00:54:50,719
 you're adding to string cuz it'll clean up your code or
+好让你的代码更简洁或者
 
 1071
 00:54:50,788 --> 00:54:53,689
 look nice or whatever But you really don't wanna do that.
+看起来更好看，但是你不应该这样做
 
 1072
 00:54:53,757 --> 00:54:56,658
 The only method and functions you wanna add to string or
+你想给 String 添加的方法和变量
 
 1073
 00:54:56,727 --> 00:54:59,962
-methods that make string about a class. They make it a better
+methods that make string a better class. They make it a better
+应该是为了让 String 成为一个更好的字符串
 
 1074
 00:55:00,030 --> 00:55:03,398
 string not they make it knows about concentration. Now,
+而不是为了让它了解翻牌游戏
 
 1075
 00:55:03,467 --> 00:55:06,134
-it's probably possible to add string masses to make it
+it's probably possible to add string methods to make it
+虽然可以添加方法给字符串来让它
 
 1076
 00:55:06,203 --> 00:55:08,503
 know about concentrations that nothing really wrong with it.
+了解翻牌游戏，这也不是什么错误的做法
 
 1077
 00:55:08,572 --> 00:55:10,405
 It's just kind of bad design. Okay so
+但并不是很好的设计。所以
 
 1078
 00:55:10,474 --> 00:55:14,209
 this extension's feature like I said is very powerful,
+就像我说的扩展是很强大的功能
 
 1079
 00:55:14,277 --> 00:55:17,979
 since you're just beginning here, you can think of it at
+但你们才刚开始学，你目前可以把它当作
 
 1080
 00:55:18,048 --> 00:55:21,783
 the beginning as just a way to add utility, functions and
+只是一种方法来添加实用工具，方法
 
 1081
 00:55:21,852 --> 00:55:24,419
 things like that to clean up your code.
+和其他东西来整理你的代码
 
 1082
 00:55:24,488 --> 00:55:27,622
 Okay, that the first level of learning about extensions so
+这就是我们对 extension 的简单认识
 
 1083
 00:55:27,691 --> 00:55:29,925
 I am going to show you how we could do that for
+我会给你们展示我们如何扩展
 
 1084
 00:55:29,994 --> 00:55:33,862
 example in Concentration. So let's go to concentration and
+比如我们的翻牌游戏，那我们回到翻牌游戏
 
 1085
 00:55:33,930 --> 00:55:37,298
 use an extension to add something interesting and
+使用扩展来添加有趣的东西
 
 1086
 00:55:37,367 --> 00:55:41,202
 what interesting thing we are going to do is we are going to
+我们要做的有趣的事情是
 
 1087
 00:55:41,271 --> 00:55:43,805
 go to our view controller over here and
+到 ViewController 里
 
 1088
 00:55:43,874 --> 00:55:47,876
 look at this code right here which is kind of messy.
+然后看看这有些乱的代码
 
 1089
 00:55:47,945 --> 00:55:50,245
 Right here. Okay? What is messy about this code?
+就这个，为什么说它很乱呢？
 
 1090
 00:55:50,314 --> 00:55:55,150
 Well. Okay. All I really wanna do is remove a random emoji.
+因为我想要做的只是随机移除一个表情
 
 1091
 00:55:55,219 --> 00:55:57,051
 And you have to have a whole other line of code.
+但却为此多写了一行代码
 
 1092
 00:55:57,120 --> 00:56:02,457
 And that line of code has this horrendous amount of. Changing
+而且这行代码还很复杂，转换
 
 1093
 00:56:02,526 --> 00:56:06,328
 from unsigned ints to regular ints and all that stuff.
+无符号整数和整数这些乱七八糟的
 
 1094
 00:56:06,396 --> 00:56:08,930
 So it just really looks bad, and it's hard to read,
+看起来很不好看，而且很难读
 
 1095
 00:56:08,999 --> 00:56:10,865
 it's hard to understand what is going in here.
+而且很难理解到底发生了什么
 
 1096
 00:56:10,934 --> 00:56:13,502
 I'm having to do so many type conversions, stuff like that.
+我需要太多的类型转换等
 
 1097
 00:56:13,570 --> 00:56:18,006
 It's awful, okay? Really what I'd like to do is generate
+非常糟糕是吧？我想要的只是生成
 
 1098
 00:56:18,075 --> 00:56:24,146
 a random number and put it right here. So what if int,
+一个随机数然后放到这里。如果整数
 
 1099
 00:56:24,215 --> 00:56:27,916
 the type int, had a var which gave me a random
+Int 类型有个变量可以给我随机的某个
 
 1100
 00:56:27,984 --> 00:56:31,319
 integer? Okay, that's a very int thing, nothing to
+整数该多好？这确实和整数相关
 
 1101
 00:56:31,388 --> 00:56:33,822
 do with concentration, it's just int thing.
+和翻牌游戏无关，只是整数的功能
 
 1102
 00:56:33,891 --> 00:56:38,126
