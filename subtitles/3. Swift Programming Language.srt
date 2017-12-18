@@ -4710,294 +4710,367 @@ do with concentration, it's just int thing.
 1102
 00:56:33,891 --> 00:56:38,126
 It gives me a random integer. So we're going to extend int
+它就给我一个随机的整数，所以我们要扩展 Int
 
 1103
 00:56:38,195 --> 00:56:42,263
 to give back a random integer. Specifically, we're gonna make
+来随机返回某个整数。更具体实现是
 
 1104
 00:56:42,332 --> 00:56:44,799
 it so that when you ask an int please give me a random
+我们要去请某个整数返回这个随机整数
 
 1105
 00:56:44,868 --> 00:56:47,436
 integer it gives a random integer between 0 and that
+那个随机数会在零到它本身之间
 
 1106
 00:56:47,504 --> 00:56:51,840
 int. Okay, so if I say five, I can even say, I'm gonna be
+比如我用 5，我还能够用
 
 1107
 00:56:51,909 --> 00:56:55,143
 able to say here let x equal five dot random integer.
+let x = 5.随机整数
 
 1108
 00:56:55,212 --> 00:56:58,580
 And I'm gonna call this thing arc4random, this var.
+我把这个随机整数变量叫 arc4random
 
 1109
 00:56:58,649 --> 00:57:01,349
 Because I'm gonna use arc4random to generate it and
+因为我是用 arc4random 生成它的
 
 1110
 00:57:01,418 --> 00:57:03,919
 people know the semantics of arc4random which is
+而且大家都知道 arc4random
 
 1111
 00:57:03,988 --> 00:57:04,786
 a random a number
+就是随机数
 
 1112
 00:57:04,854 --> 00:57:08,523
 between 0 and another number. So this is, I'm gonna make
+0 到另一个数之间的随机数。我会让
 
 1113
 00:57:08,592 --> 00:57:13,428
 it so this will work and that will give me 0, 1, 2, 3, or 4.
+这段代码通过编译，而且返回 0, 1, 2, 3, 4 中的一个
 
 1114
 00:57:13,496 --> 00:57:18,634
 So how do I do that? Extension int and then in here
+那我要怎么做呢？ extension Int 然后
 
 1115
 00:57:18,702 --> 00:57:24,306
 I put this var arc4random. I have to say what type it is,
+把 var arc4random 放在里面。我必须要声名它的类型
 
 1116
 00:57:24,374 --> 00:57:27,175
 it's also gonna be an int. It could could be a string or
+它也是 Int 类型的。扩展里的变量也可以是 String 
 
 1117
 00:57:27,244 --> 00:57:29,411
 whatever but it's also gonna be an int. And
+或是其他的类型，但这个是 Int 类型的
 
 1118
 00:57:29,479 --> 00:57:33,014
 I'm essentially gonna return all this mess right here. So
+它最终返回的就是所有这里这些乱七八糟的
 
 1119
 00:57:33,083 --> 00:57:37,819
 I'm just gonna cut that out of there. I'm gonna return this.
+我就把它剪切然后粘贴到 return 后面
 
 1120
 00:57:37,888 --> 00:57:40,622
 But it's not a random number between 0 and
+但这里就不是 0..<emojiChoices.count
 
 1121
 00:57:40,691 --> 00:57:44,526
 emojiChoices.count, it's a random order between 0 and
+之间的随机数了，应该是 0 到
 
 1122
 00:57:44,595 --> 00:57:50,665
 what? Yes, whoa, I wish I could give extra credit or
+是什么？没错，我希望我能够给附加分或者
 
 1123
 00:57:50,734 --> 00:57:53,201
 like Mehran, throwing some candy out there or
+像 Mehran（斯坦福 CS106A 的教授）一样扔糖给你
 
 1124
 00:57:53,270 --> 00:57:56,337
 something because yes absolutely, it's between 0 and
+因为没错，它应该是 0 到
 
 1125
 00:57:56,406 --> 00:58:01,443
 self. Because this is a var in int. And so self is the int
+self 之间。因为这是 Int 到属性，所以 self 就是
 
 1126
 00:58:01,512 --> 00:58:06,514
 you sent it to. Which is really kind of cool. So now,
+你访问这个属性的整数。这还蛮有趣的
 
 1127
 00:58:06,583 --> 00:58:09,784
 since int can do this, all we need to do right here is we
+现在 Int 有了这个属性，我们这里需要做的就是
 
 1128
 00:58:09,853 --> 00:58:13,789
 don't need any of this junk up here. Instead of randomIndex,
+我们可以不要这些乱七八糟的 randomIndex
 
 1129
 00:58:13,857 --> 00:58:17,993
 we're just gonna say emojiChoices.count.arc4random.
+我们只用写 emojiChoices.count.arc4random
 
 1130
 00:58:18,062 --> 00:58:22,664
 Okay, so, that cleaned up our code a lot. Now,
+这样我们就让代码整洁了许多
 
 1131
 00:58:22,733 --> 00:58:25,467
 if we were to do something like this, and we wanted to
+如果我们写了这段代码，而我们想要
 
 1132
 00:58:25,536 --> 00:58:28,803
 be really good programmers, we'd look at this and say, hm,
+做优秀的程序员，我们看了这个应该想
 
 1133
 00:58:28,872 --> 00:58:30,905
 what if self is 0? Eh, this is not gonna work,
+如果 self 是 0 怎么办？这个就不行了
 
 1134
 00:58:30,974 --> 00:58:32,674
-cuz arc4rando_uniform doesn't work, but
+cuz arc4random_uniform doesn't work, but
+因为 arc4random_uniform 不接受 0。那
 
 1135
 00:58:32,743 --> 00:58:35,744
 what if self is negative? Actually, if self were
+如果 self 是负数怎么办？事实上如果 self
 
 1136
 00:58:35,812 --> 00:58:38,513
 negative, maybe I could do a random number between 0 and
+是负数的话，我应该可以随机选择 0 到
 
 1137
 00:58:38,582 --> 00:58:42,684
 that negative number. So, I might decide, I'm gonna say if
+那个那个负数之间的整数。所以我决定判断
 
 1138
 00:58:42,753 --> 00:58:46,955
 self is greater than 0, then I'll do this.
+如果 self 大于 0，我们就用这段代码
 
 1139
 00:58:47,024 --> 00:58:52,026
 Else if self is less than 0, then I'm gonna almost do this.
+否则如果 self 小于 0，那代码基本不变
 
 1140
 00:58:52,095 --> 00:58:56,865
 What I'm gonna do, is I'm gonna say return minus this,
+我要做的就是返回负的这个
 
 1141
 00:58:56,934 --> 00:59:00,202
 the absolute value of myself. Okay,
+上限用 abs 取 self 的绝对值
 
 1142
 00:59:00,270 --> 00:59:04,339
 abs is just a global function. But I could also just say
+这个 abs 就是个全局函数，但我也可以用
 
 1143
 00:59:04,408 --> 00:59:06,675
 minus self cuz I checked to see if it's negative.
+-self 因为我已经知道它是负数了
 
 1144
 00:59:06,743 --> 00:59:10,345
 Or else if self is 0, which would be the else case here,
+否则如果 self 是 0，也就是最后的 else 分支
 
 1145
 00:59:10,414 --> 00:59:12,580
 then maybe I'll just return 0. So if you say, 0,
+我就可以直接返回 0。如果你用 0.arc4random
 
 1146
 00:59:12,649 --> 00:59:15,950
 give me a random number, it gives you a 0. So here I've
+来获取一个随机数，它就会返回 0。这样我
 
 1147
 00:59:16,019 --> 00:59:19,887
 made it that this never crashes. This doesn't have to
+就保证它绝对不会让程序崩溃了，这个也不必要是
 
 1148
 00:59:19,956 --> 00:59:23,825
 be an optional int and it gives a reasonable response.
+可选的整数，同时返回的也是合理的结果
 
 1149
 00:59:23,894 --> 00:59:26,995
-See, and that's pretty good when you add bars and
+See, and that's pretty good. When you add vars and
+看，这挺不错的。当你添加变量
 
 1150
 00:59:27,063 --> 00:59:30,632
-functions to any class. Now you can just via extensions,
+functions to any class, not even just extensions,
+或者函数到任何类型的时候，不只是在扩展里
 
 1151
 00:59:30,700 --> 00:59:34,302
 you want them to have good semantics, sensible semantics.
+你应该让他们有好的，合理的语义
 
 1152
 00:59:34,371 --> 00:59:36,905
 And you don't generally don't want them to crash which is
+而且一般你也不希望它容易让程序崩溃
 
 1153
 00:59:36,974 --> 00:59:38,607
 what this would have done otherwise.
+也就是我们之前一行代码的实现
 
 1154
 00:59:38,675 --> 00:59:40,942
 If you sent it to -3.
+比如你通过 -3 访问的话
 
 1155
 00:59:41,011 --> 00:59:45,346
 Everyone see how this makes our code a lot more readable.
+大家看到扩展让我们的程序更加易读了吗？
 
 1156
 00:59:45,415 --> 00:59:48,083
 And how we added something that was sensible for int.
+以及我们是如何给 Int 添加了合理的功能？
 
 1157
 00:59:49,953 --> 00:59:53,755
 All right, that's it, let's get back to our slides again.
+好，这就是扩展，让我们继续讲幻灯片
 
 1158
 00:59:55,659 --> 00:59:58,960
-Here is our for enum. Okay, optionals,
+Here is arc4random. Okay, optionals,
+这是我们刚讲的 arc4random，接着讲可选类型
 
 1159
 00:59:59,029 --> 01:00:03,832
 the dreaded word optionals. So I told you last
+听起来很吓人的 Optional。我上周
 
 1160
 01:00:03,901 --> 01:00:06,701
 week that an optional is just a regular old type in Swift.
+说 Optional 在 Swift 里就是个普通的类型
 
 1161
 01:00:06,770 --> 01:00:07,969
 In fact it's a enum,
+事实上它是个 enum
 
 1162
 01:00:08,037 --> 01:00:11,539
 an enumeration. So let's learn about enum because enum is
+枚举类型。我们先来学习下 enum，因为
 
 1163
 01:00:11,608 --> 01:00:13,909
 another thing I wasn't able to work it into concentration,
+另一个我没法加到翻牌游戏的就是枚举
 
 1164
 01:00:13,977 --> 01:00:17,045
 although I am gonna work it into next week's demo. Okay,
+索然我下周的演示里会用到
 
 1165
 01:00:17,114 --> 01:00:19,981
 our drawing demo. But I want to explain what it is so
+我们演示绘画的程序。但我想先解释它是什么
 
 1166
 01:00:20,050 --> 01:00:22,751
 that I can explain what optionals are a little better.
+这样我就能更好地把可选类型解释清楚
 
 1167
 01:00:22,820 --> 01:00:25,753
 So an enum is just like an enum in other languages.
+enum 和其他语言的枚举类型是一样的
 
 1168
 01:00:25,822 --> 01:00:28,156
 It's a data type, just like struct is a type or
+就是种数据类型，就像 struct 是一种类型
 
 1169
 01:00:28,225 --> 01:00:29,824
 class is a type, enum is a type.
+class 也是种类型一样，enum 也是种类型
 
 1170
 01:00:29,893 --> 01:00:32,828
 Exactly the same, you can use it in exactly the same places.
+都是数据类型，可以在同样的地方使用
 
 1171
 01:00:32,896 --> 01:00:37,899
 It's just that it has only discrete values. Here's
+只不过区别就是枚举类型包含了所有不同的可能性
 
 1172
 01:00:37,968 --> 01:00:40,701
 a FastFoodMenuItem enum, it can only be hamburger, fries,
+枚举 FastFoodMenuItem，快餐店的菜单上只会有汉堡，薯条
 
 1173
 01:00:40,770 --> 01:00:43,471
 drink, or cookie. That's it, it can't be anything else
+饮料或是饼干，就这些，不能是其他任何的东西
 
 1174
 01:00:43,540 --> 01:00:45,172
 besides one of those four things, so
+只能是这四种中的一种
 
 1175
 01:00:45,241 --> 01:00:50,645

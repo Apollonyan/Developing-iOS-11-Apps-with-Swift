@@ -3852,7 +3852,7 @@ cases. This is a UTI. Like public.json is a UTI or
 
 963
 00:50:29,960 --> 00:50:35,030
-edu.standford.cs193.emojiart could be a UTI.
+edu.stanford.cs193.emojiart could be a UTI.
 
 964
 00:50:35,099 --> 00:50:36,998
