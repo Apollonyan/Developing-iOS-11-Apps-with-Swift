@@ -5075,514 +5075,642 @@ besides one of those four things, so
 1175
 01:00:45,241 --> 01:00:50,645
 that's what an enum is. Enums are value types, like structs,
+这就是枚举。枚举也是值类型，和结构体一样
 
 1176
 01:00:50,714 --> 01:00:55,783
 they get copied as you pass them around. Now enums in
+当你把它四处传递的时候会被拷贝
 
 1177
 01:00:55,852 --> 01:01:00,488
 Swift little bit more powerful then your typical enum because
+在 Swift 里的枚举比其他语言的枚举更厉害
 
 1178
 01:01:00,556 --> 01:01:05,026
 each case can also have what's called associated data, or
+因为每个 case 还能有与之关联的数据
 
 1179
 01:01:05,094 --> 01:01:08,296
 an associated value. So in my fast food item one my
+叫作关联值。比如我 FastFoodMenuItem 里的
 
 1180
 01:01:08,365 --> 01:01:10,565
 hamburgers have the number of patties,
+hamburger 的关联值就是 numberOfPatties
 
 1181
 01:01:10,634 --> 01:01:12,400
 is it a double burger or a triple or
+汉堡的肉饼是双层的还是三层的还是
 
 1182
 01:01:12,469 --> 01:01:15,303
 a single? The fries has the size of the fries,
+只有一层？fries 的关联值是薯条的大小
 
 1183
 01:01:15,371 --> 01:01:18,773
 a large fry, or a small. And I've even used another enum,
+大号还是小号。这里我用了另一个枚举
 
 1184
 01:01:18,842 --> 01:01:20,842
 you see down here at the bottom.
+就是下面你看到的这个
 
 1185
 01:01:20,911 --> 01:01:24,245
 I have another, oops, my thing work here. There it is.
+我有另一个，让我把它鼠标聚焦在这里
 
 1186
 01:01:24,314 --> 01:01:29,250
 This is not very good. Okay, we got it. There it is. So
+这个并不是很容易操作。好，终于，就这个
 
 1187
 01:01:29,319 --> 01:01:32,153
 I can use another enum there to do the size of it and
+所以我可以用另一个枚举表示它的大小
 
 1188
 01:01:32,222 --> 01:01:37,058
 then drink. It has two pieces of associated data.
+然后 drink 有关联值是两个数据构成的
 
 1189
 01:01:37,127 --> 01:01:39,160
 Okay, let's see if we can get this working for that.
+让我来试试能不能好好聚焦
 
 1190
 01:01:39,229 --> 01:01:41,062
 And if you look at its two pieces of associated data,
+你看这关联值的两部分
 
 1191
 01:01:41,130 --> 01:01:42,097
 look at the first one.
+这第一个
 
 1192
 01:01:42,165 --> 01:01:45,499
 That string, it has no name. These other ones have names,
+那个 String 没有名字，其他的都有
 
 1193
 01:01:45,568 --> 01:01:47,969
 like number of patties, size, this one has no name for
+像 numberOfPatties 和 size，但饮料的第一个
 
 1194
 01:01:48,038 --> 01:01:50,705
 the first one, it does have a name for the second one.
+没有名字，虽然它第二个是有名字的
 
 1195
 01:01:50,774 --> 01:01:53,374
 First the strings and then an int. Now the names here don't
+一个是 String 一个是 Int。但这个名字并
 
 1196
 01:01:53,443 --> 01:01:56,544
 matter that much because when we extract this information,
+不是那么重要，因为当我们提取这个信息的时候
 
 1197
 01:01:56,613 --> 01:01:59,246
 we're gonna be able to give it our own name anyway,
+我们总是要给它另取一个名字的
 
 1198
 01:01:59,315 --> 01:02:02,350
 kind of like tuples. In fact, these look a lot like tuples,
+就像元组一样。关联值其实和元组很像
 
 1199
 01:02:02,419 --> 01:02:04,552
 don't they? These little associated datas,
+不是吗？这些关联值
 
 1200
 01:02:04,620 --> 01:02:07,055
 they're kind of like tuples because you can have as many
+它们挺像元组的，因为你可以有任意数量
 
 1201
 01:02:07,124 --> 01:02:08,990
 of them as you want, you specify the type,
+的数据，你指定它们的类型
 
 1202
 01:02:09,059 --> 01:02:11,093
 they have names, they're super simple, and
+它们可以有名字，非常简单
 
 1203
 01:02:11,161 --> 01:02:14,095
 they look very much like tuples. So, anyway,
+看起来和元组很像。所以
 
 1204
 01:02:14,164 --> 01:02:16,697
 so this is what it looks like to declare an enum with
+这就是声明带有关联值的枚举
 
 1205
 01:02:16,766 --> 01:02:20,334
 associated data. Now, how do you assign an enum?
+的方法。那你怎么赋值一个枚举呢？
 
 1206
 01:02:20,403 --> 01:02:23,071
 So here is two variables, one called menu item,
+这里有两个变量，一个是 menuItem
 
 1207
 01:02:23,140 --> 01:02:25,840
 one called other item. They are of type FastFoodMenuItem,
+另一个叫 otherItem，都是 FastFoodMenuItem
 
 1208
 01:02:25,909 --> 01:02:28,876
 that's their type. And so I set them just by saying
+这是它们的类型。然后我给它们赋值就用
 
 1209
 01:02:28,945 --> 01:02:31,779
 FastFoodMenuItem dot the case I want.
+FastFoodMenuItem.我想要的 case
 
 1210
 01:02:31,848 --> 01:02:37,118
 And if it has associated data, I have to provide it.
+如果那种情况有关联值，那我也需要相应地提供
 
 1211
 01:02:37,187 --> 01:02:42,057
 So the only time you can set the associated data of an enum
+唯一我能指定枚举的关联值的时候
 
 1212
 01:02:42,125 --> 01:02:45,226
 is when you assign it. That's the only time. Okay,
+就是在赋值的时候，这是唯一一次机会
 
 1213
 01:02:45,294 --> 01:02:48,062
 you can't go back later and change this to be a triple,
+你不能之后又回来然后把双层汉堡改成三层的
 
 1214
 01:02:48,131 --> 01:02:51,032
 because this is fundamentally a double burger.
+因为它已经就是个双层汉堡了
 
 1215
 01:02:51,101 --> 01:02:53,634
 That's what it is. And it's never, if it changed, it would
+它就是它，不会再变了。如果关联值发生了改变
 
 1216
 01:02:53,703 --> 01:02:56,871
 change into a completely different thing. All right, so
+它就会变成一个完全不同的东西。好
 
 1217
 01:02:56,940 --> 01:03:01,008
 you don't change the patties, got that? All right, so, when
+所以你不能更改关联值，知道了吗？好
 
 1218
 01:03:01,077 --> 01:03:04,980
 you're setting these values by the way of course you can use
+当你在设置这些值的时候，当然你可以用
 
 1219
 01:03:05,048 --> 01:03:08,683
 type inference, but only on one side of that equals. So
+类型推导，但只能在等号的某一侧使用
 
 1220
 01:03:08,752 --> 01:03:12,354
 you could say menuItem equals FastFoodMenuItem.hamburger.
+你可以说 menuItem = FastFoodMenuItem.hamburger
 
 1221
 01:03:12,422 --> 01:03:15,089
 Which was what was on the previous slide, or
+也就是和之前那页一样的写法，或者
 
 1222
 01:03:15,158 --> 01:03:18,626
 you could say otherItem of type FastFoodMenuItem equals
+说 FastFoodMenuItem 类型的 otherItem
 
 1223
 01:03:18,695 --> 01:03:19,727
 .cookie. You see,
+是 .cookie。看
 
 1224
 01:03:19,796 --> 01:03:21,996
 I've just basically moved the type to the other side. But
+我基本上就是把类型移到了另一边
 
 1225
 01:03:22,065 --> 01:03:25,966
 you can't say yet another item equals .cookie. Swift doesn't
+但你不能说 otherItem = .cookie，因为 Swift 没有
 
 1226
 01:03:26,035 --> 01:03:29,337
 know enough there to infer the type on the other side. There
+得到足够的信息来推导等号右边是什么类型的
 
 1227
 01:03:29,406 --> 01:03:31,505
 could be other enums with .cookie in it, for example,
+可能有其他的枚举也有 .cookie，比如
 
 1228
 01:03:31,574 --> 01:03:33,775
 that you might add later. And then all of a sudden your code
+你可能之后会添加这么一个，那么立刻你的代码
 
 1229
 01:03:33,844 --> 01:03:35,309
 won't compile because it doesn't know. So
+就肯定编译不了了，因为 Swift 不知道选哪个
 
 1230
 01:03:35,378 --> 01:03:38,680
 it just says from the start, I don't know what that is.
+所以 Swift 决定从一开始就说不知道是什么类型
 
 1231
 01:03:39,783 --> 01:03:42,350
 Now how do you check what an enum is?
+那你要如何判断枚举是哪种情况呢？
 
 1232
 01:03:42,419 --> 01:03:44,953
 You do not use equals. So you don't say,
+你不用 == 判断，你不用写
 
 1233
 01:03:45,021 --> 01:03:49,523
 if this menu item equals a hamburger then whatever, okay,
+if menuItem == .hamburger 那就怎样怎样
 
 1234
 01:03:49,592 --> 01:03:53,328
 you do not use equals, you use switch. Again, other languages
+你不用 == 判断，应该用 switch。同样的，其他语言
 
 1235
 01:03:53,397 --> 01:03:56,097
 have switch. Switch is more powerful in Swift.
+也有 switch，但 Swift 里的 switch 更强大
 
 1236
 01:03:56,166 --> 01:03:58,900
 This is the basic use of switch right here, where I'm
+这里的只是 switch 的基本用法，我只是
 
 1237
 01:03:58,968 --> 01:04:02,137
 just looking at every possible case that it could be, and
+逐一判断了所有可能的情况
 
 1238
 01:04:02,205 --> 01:04:03,938
 if it's that case, I do a little bit of code.
+如果是这种情况，那我就运行这段代码
 
 1239
 01:04:04,007 --> 01:04:07,041
 So here I'm just printing out what the various cases are so
+这里我只是打印出了是什么情况
 
 1240
 01:04:07,110 --> 01:04:09,043
 if it's hamburgers, for example,
+比如如果是汉堡的话
 
 1241
 01:04:09,112 --> 01:04:11,379
 you can see that I'm printing burger.
+你看到我打印的就是汉堡的英文
 
 1242
 01:04:11,448 --> 01:04:14,249
 Notice that I'm ignoring the associated data here which is
+注意我这里忽略了关联值，这是
 
 1243
 01:04:14,317 --> 01:04:15,249
 perfectly fine.
+完全没问题的
 
 1244
 01:04:15,318 --> 01:04:17,886
 You're allowed to completely ignore the associated data
+你可以完全忽略关联值
 
 1245
 01:04:17,955 --> 01:04:21,555
 when you're checking the state with switch. Now
+当你用 switch 语句判断的时候是可以的
 
 1246
 01:04:21,624 --> 01:04:25,326
 switch requires you to address every single case. You are not
+注意 switch 语句要求你穷举所有的情况，你不能
 
 1247
 01:04:25,395 --> 01:04:28,463
 allowed to look at only two of the cases. But, of course,
+只是判断其中的两种，但当然
 
 1248
 01:04:28,531 --> 01:04:34,068
 it's got something that can help you with that. Oh yes,
+Swift 提供了帮你解决这个问题的方法
 
 1249
 01:04:34,137 --> 01:04:37,605
-by the way, you see I've taken away the FastFoodMenuItem.,
+by the way, you see I've taken away the FastFoodMenuItem
+顺便一提，你看到我把 FastFoodMenuItem 省略了
 
 1250
 01:04:37,674 --> 01:04:40,775
 in front of hamburger, fries, drink, and coke. Becuase swift
+只剩下 .hamburger, .fries, .drink 和 .coke
 
 1251
 01:04:40,843 --> 01:04:43,077
 can infer that, you're switching on a menu item, so
+因为这个 Swift 是可以推导的，你 switch 的是 menuItem
 
 1252
 01:04:43,146 --> 01:04:45,280
 it knows this is a FastFoodMenuItem, so
+Swift 知道那是个 FastFoodMenuItem，所以
 
 1253
 01:04:45,348 --> 01:04:49,317
 you can take those away. All right, so if you have one of
+你可以省略这个。好，如果你这里有个
 
 1254
 01:04:49,385 --> 01:04:52,287
 the cases, and you don't wanna do anything, you can just
+case 决定什么也不做，那你可以
 
 1255
 01:04:52,356 --> 01:04:55,890
 break. Break means break out of this switch. So
+用 break，也就是跳出 switch
 
 1256
 01:04:55,958 --> 01:04:58,626
 that's a way to do nothing in this case. So, right here,
+这就是什么也不做的方法。这里的这个
 
 1257
 01:04:58,694 --> 01:05:01,062
 this code, we print nothing because the hamburger case,
+这段代码不会打印任何内容，因为在是 .hamburger 时
 
 1258
 01:05:01,130 --> 01:05:03,698
 the menu item is a hamburger with two patties, and
+menuItem 是双层的汉堡
 
 1259
 01:05:03,767 --> 01:05:04,999
 that hamburger case does nothing, so
+是汉堡情况下的代码什么也不做
 
 1260
 01:05:05,068 --> 01:05:08,636
 we'll just break out and do nothing. Similarly,
+我们直接 break 跳出 switch。类似的
 
 1261
 01:05:08,705 --> 01:05:12,306
 if you want to do something for all the rest of the cases,
+如果你希望让剩余的情况都做某件事情
 
 1262
 01:05:12,375 --> 01:05:13,841
 like here I only want to do something for
+比如我只想要在是汉堡或是薯条的情况下
 
 1263
 01:05:13,910 --> 01:05:16,977
 hamburger and fries. Actually I do nothing for hamburger and
+做某些事情，更准确的说是汉堡我什么也不做
 
 1264
 01:05:17,046 --> 01:05:18,079
 I do something for fries.
+是薯条我做另外的事情
 
 1265
 01:05:18,147 --> 01:05:20,949
 In all other cases, I just want to print other, then you
+其他所有的情况我都打印说是其他
 
 1266
 01:05:21,017 --> 01:05:24,919
 can use default instead of case whatever. Now in switch,
+那你就可以用 default 来代替其他的情况。switch
 
 1267
 01:05:24,987 --> 01:05:29,424
 you can switch any type, you can even switch on a string.
+可以用来判断任何类型，你甚至可以 switch 字符串
 
 1268
 01:05:29,492 --> 01:05:32,426
 But if you switch on a string, you'd have to have case A,
+但如果你要判断 String 的话，你需要判断 case "A":
 
 1269
 01:05:32,495 --> 01:05:35,029
 case B, case C, case AA, case AB, you see what I mean?
+case "B", "C", "AA", "AB": 等等。知道我什么意思了吗？
 
 1270
 01:05:35,098 --> 01:05:37,165
 You'd have to have every case in the world.
+你需要列举所有可能存在的字符串
 
 1271
 01:05:37,234 --> 01:05:40,502
-So of course you're going to use default ion a string case
+So of course you're going to use default in a string case
+所以肯定你需要在 switch 字符串的时候用 default
 
 1272
 01:05:40,570 --> 01:05:41,836
 switch case the couple
+你 switch 里列举一些
 
 1273
 01:05:41,904 --> 01:05:45,306
 ones you wanna case, then you would default the rest. So
+你想要的情况，然后其他的就用 default 处理
 
 1274
 01:05:45,375 --> 01:05:50,778
-default is a must even for enums we use it quite a bit,
+default is a must. Even for enums we use it quite a bit,
+所以字符串必须用 default。有的时候枚举我们也会用到
 
 1275
 01:05:50,847 --> 01:05:53,948
 all right? So that's break an enum. So
+听懂了吧？这就是 break 和枚举
 
 1276
 01:05:54,017 --> 01:05:58,753
 if this were a cookie then it would print other. All right,
+这里如果是 .cookie 的话，那就会打印 other
 
 1277
 01:05:58,822 --> 01:06:01,455
 multiple lines, I just wanted to make clear that, multiple
+接着是多行代码。我只是想澄清
 
 1278
 01:06:01,524 --> 01:06:03,724
 lines of code are allowed, it doesn't have to be one line.
+每个 case 里是可以有多行代码的，不一定只有一行
 
 1279
 01:06:03,793 --> 01:06:05,025
 That was just cuz I'm on slides here,
+之前只有一行是因为我在讲幻灯片
 
 1280
 01:06:05,094 --> 01:06:06,661
 I'm trying to make everything fit, and
+我希望能装下所有的内容
 
 1281
 01:06:06,730 --> 01:06:10,265
 there's no fall through. So in this case, I've got fries,
+还有，每个 case 并不会贯穿到下一个，比如这里
 
 1282
 01:06:10,333 --> 01:06:12,166
 you see up there at the top, fries,
+你看上面的 .fries
 
 1283
 01:06:12,234 --> 01:06:13,701
 large fries there. And
+它是 .large，大号的薯条
 
 1284
 01:06:13,770 --> 01:06:18,039
 so this code would print out yummy fires and that's it. So
+所以这段代码会打印 yummy fries，然后就完了
 
 1285
 01:06:18,107 --> 01:06:20,007
 I have multiple lines of code in there under fries,
+我 .fries 的 case 里有多行代码
 
 1286
 01:06:20,076 --> 01:06:22,977
 two lines of code, and it does not fall through and do drink,
+两行代码，而且它也不会贯穿到 .drink 里去
 
 1287
 01:06:23,046 --> 01:06:26,080
 like in other languages. In C, things fall through, in switch
+像 C 这些其他语言就会贯穿到 .drink
 
 1288
 01:06:26,149 --> 01:06:28,116
 but they don't fall through here. There is a keyword
+Swift 里并不会。但有一个关键字
 
 1289
 01:06:28,184 --> 01:06:30,585
 called fallthrough that would let you fall through, but
+叫 fallthrough 可以让你贯穿到下一个 case
 
 1290
 01:06:30,653 --> 01:06:36,591
-by default it doesn't. By the way that it inferred
+by default it doesn't. By the way, the same way that it inferred
+但默认是不会的。顺便一提，就像推导
 
 1291
 01:06:36,660 --> 01:06:40,561
 the type all along in here, it can for that type as well.
+switch 里每个 case 的类型一样，Swift 也推到了它的类型
 
 1292
 01:06:40,630 --> 01:06:45,066
 I don't have to say size,fries size enum.large,
+我并不需要用 size: FryOrderSize.large
 
 1293
 01:06:45,135 --> 01:06:47,902
 I can just say, .large because it knows that the associated
+我可以直接用 .large，因为 Swift 知道薯条的
 
 1294
 01:06:47,971 --> 01:06:53,274
 data of fries is s fries size enum. Okay,
+关联值是 FryOrderSize 这个枚举
 
 1295
 01:06:53,342 --> 01:06:57,778
 now, what if I want to get the associated data. So I do,
+那如果我现在想要得到关联值怎么办呢？
 
 1296
 01:06:57,847 --> 01:07:00,815
 I am interested in it. We do that with switch as well,
+我很感兴趣。这个我们也可以用 switch
 
 1297
 01:07:00,883 --> 01:07:05,319
 we just do this little let business. See the little lets.
+我们只需要加上些 let，看到这里的 let 了吗？
 
 1298
 01:07:05,388 --> 01:07:07,789
 In all the cases that you want this associated data,
+对于所有你想要关联值的 case
 
 1299
 01:07:07,858 --> 01:07:09,190
 you don't have to do it in all cases, but
+你并不需要每个 case 都这样做
 
 1300
 01:07:09,258 --> 01:07:11,326
 in the ones you want it? You just say, open parentheses,
+但对于你想要的，你在括号里面就用
 
 1301
 01:07:11,394 --> 01:07:15,229
 let and a name of a little local variable for
+let 和你给关联值取得作为本地变量的名字
 
 1302
 01:07:15,298 --> 01:07:18,265
 each of the associated pieces of data. Now,
+对于每个关联值都这样做
 
 1303
 01:07:18,334 --> 01:07:21,702
