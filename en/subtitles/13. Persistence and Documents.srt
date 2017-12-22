@@ -1,0 +1,7227 @@
+﻿1
+00:00:00,401 --> 00:00:04,636
+[MUSIC]                         
+
+2
+00:00:04,705 --> 00:00:09,174
+>> Stanford University.         
+>> All right, welcome to        
+
+3
+00:00:09,242 --> 00:00:13,245
+lecture number 13 Stanford      
+CS193P fall of 2017 and         
+
+4
+00:00:13,314 --> 00:00:16,014
+18. So we have a very which     
+demo today, I've actually kind  
+
+5
+00:00:16,082 --> 00:00:18,316
+of compressed it ciz I really   
+need to get to the slides,      
+
+6
+00:00:18,385 --> 00:00:21,753
+very important topic which      
+is persistance. And so          
+
+7
+00:00:21,822 --> 00:00:23,155
+let me just dive                
+right into that demo,           
+
+8
+00:00:23,224 --> 00:00:25,257
+and then we'll get to           
+persistence right after that.   
+
+9
+00:00:25,326 --> 00:00:28,460
+So the demo here is I'm         
+gonna take our emoji art and    
+
+10
+00:00:28,528 --> 00:00:31,597
+add a little way to make        
+a text field appear             
+
+11
+00:00:31,665 --> 00:00:36,201
+up in our little collection     
+view that slides around, so     
+
+12
+00:00:36,270 --> 00:00:40,672
+we can add more emoji to that   
+little sliding thing. So        
+
+13
+00:00:40,741 --> 00:00:44,209
+how are we going to do that?    
+Well to make this go quicker,   
+
+14
+00:00:44,278 --> 00:00:47,145
+here's our emoji as we          
+left it off last time. But      
+
+15
+00:00:47,213 --> 00:00:50,115
+I've made a couple of little    
+changes here. I've added two    
+
+16
+00:00:50,184 --> 00:00:51,683
+collection view cells.          
+You see them right here,        
+
+17
+00:00:51,751 --> 00:00:53,919
+this one with the plus button.  
+This is just a UI button,       
+
+18
+00:00:53,988 --> 00:00:56,755
+right here and then this one    
+has got a UI text field.        
+
+19
+00:00:56,824 --> 00:00:57,756
+That's what this little,        
+
+20
+00:00:57,824 --> 00:00:59,757
+I don't know if you can see     
+the light gray in there, but    
+
+21
+00:00:59,826 --> 00:01:00,993
+this is a text                  
+field inside here.              
+
+22
+00:01:01,061 --> 00:01:04,029
+That's the only thing that's    
+in these new cells, and each    
+
+23
+00:01:04,097 --> 00:01:06,264
+of these cells, of course,      
+I gave it an identifier.        
+
+24
+00:01:06,333 --> 00:01:08,567
+This one's called               
+an AddEmojiButtonCell,          
+
+25
+00:01:08,636 --> 00:01:13,471
+and this one's called           
+a EmojiInputCell.               
+
+26
+00:01:13,540 --> 00:01:16,574
+This cell is just a standard    
+UI collection view cell.        
+
+27
+00:01:16,643 --> 00:01:20,078
+So if I look at it right here,  
+you can see that its class is   
+
+28
+00:01:20,146 --> 00:01:23,415
+just UI collection view cell.   
+But this one is a special       
+
+29
+00:01:23,483 --> 00:01:26,985
+text field collection view      
+cell. A subclass of collection  
+
+30
+00:01:27,054 --> 00:01:29,721
+view cell that handles this     
+text field a little bit.        
+
+31
+00:01:29,790 --> 00:01:31,656
+And so we're gonna go take a    
+look at the code from that and  
+
+32
+00:01:31,725 --> 00:01:34,726
+actually add a little bit of    
+extra code to that, cuz I want  
+
+33
+00:01:34,795 --> 00:01:38,230
+to show you just a kind of      
+a trickier way to do things.    
+
+34
+00:01:38,298 --> 00:01:40,765
+That's not tricky, but it's     
+a really valuable way that,     
+
+35
+00:01:40,834 --> 00:01:42,234
+that's a little bit advanced,   
+so                              
+
+36
+00:01:42,303 --> 00:01:45,537
+I wanted to make sure you       
+learn that. All right, so       
+
+37
+00:01:45,606 --> 00:01:48,740
+I have these two new cells.     
+Let's take a look at this code  
+
+38
+00:01:48,809 --> 00:01:52,844
+for the text field, collection  
+view cell, that is right here,  
+
+39
+00:01:52,913 --> 00:01:55,580
+it's a very very simple cell,   
+it just has an outlet           
+
+40
+00:01:55,649 --> 00:01:57,649
+to that text field              
+you saw right there.            
+
+41
+00:01:57,717 --> 00:01:59,184
+Now notice when                 
+my outlet is set,               
+
+42
+00:01:59,252 --> 00:02:02,153
+I immediately set that          
+outlet's delegate to my, me,    
+
+43
+00:02:02,222 --> 00:02:04,723
+myself. And                     
+I'm a UITextFieldDelegate.      
+
+44
+00:02:04,791 --> 00:02:07,192
+Okay remember the slides        
+from last time. And             
+
+45
+00:02:07,260 --> 00:02:09,694
+so I only implemented one       
+delegate method here which is   
+
+46
+00:02:09,763 --> 00:02:12,397
+textfieldShouldReturn and       
+what it does, when you press    
+
+47
+00:02:12,466 --> 00:02:15,367
+the return key on               
+the keyboard, it resigns first  
+
+48
+00:02:15,435 --> 00:02:17,368
+responder, which means it       
+stops using the keyboard. And   
+
+49
+00:02:17,437 --> 00:02:20,138
+the keyboard disappears. So if  
+you don't do this little thing  
+
+50
+00:02:20,206 --> 00:02:21,873
+right here, then when you       
+press Return on the keyboard,   
+
+51
+00:02:21,942 --> 00:02:24,242
+the keyboard stays up. Okay     
+and the cursor keeps blinking.  
+
+52
+00:02:24,311 --> 00:02:26,478
+Here it caused it to go away.   
+
+53
+00:02:26,547 --> 00:02:27,846
+And we're gonna add another     
+
+54
+00:02:27,915 --> 00:02:32,283
+delicate method here            
+in a second. So now,            
+
+55
+00:02:32,352 --> 00:02:34,318
+remember that I have these      
+two cells right here, right?    
+
+56
+00:02:34,387 --> 00:02:38,290
+The emoji button one and then   
+the input cell right there. So  
+
+57
+00:02:38,358 --> 00:02:40,892
+now, let's go back to our       
+emoji art controller code and   
+
+58
+00:02:40,961 --> 00:02:44,563
+look how I dealt with this,     
+how I put this in the UI.       
+
+59
+00:02:44,631 --> 00:02:47,532
+Well, first of all that         
+little plus button,             
+
+60
+00:02:47,601 --> 00:02:50,702
+it uses target action to send   
+this message to my controller.  
+
+61
+00:02:50,771 --> 00:02:52,671
+Now notice it's sending it      
+directly to the controller.     
+
+62
+00:02:52,740 --> 00:02:54,472
+If I had multiple of            
+those plus buttons,             
+
+63
+00:02:54,541 --> 00:02:56,241
+they'd all be sending           
+this message.                   
+
+64
+00:02:56,309 --> 00:02:59,911
+But luckily I only have one     
+so, this is perfectly fine.     
+
+65
+00:02:59,980 --> 00:03:02,647
+Remember that a lot of times    
+if we have something in         
+
+66
+00:03:02,716 --> 00:03:03,982
+a collection in                 
+bureau table view and           
+
+67
+00:03:04,051 --> 00:03:04,849
+it's sending target action,     
+
+68
+00:03:04,918 --> 00:03:07,719
+we have it send it to a custom  
+cell, right? Because we want    
+
+69
+00:03:07,788 --> 00:03:10,755
+each one to receive a special   
+thing, but, here we can have    
+
+70
+00:03:10,824 --> 00:03:13,758
+things send it through the      
+controller. Now all of this     
+
+71
+00:03:13,827 --> 00:03:17,829
+that plus button does is that   
+it turns this adding emoji on.  
+
+72
+00:03:17,898 --> 00:03:20,865
+Because we're in the process    
+of addingEmoji after you press  
+
+73
+00:03:20,934 --> 00:03:24,002
+that button. And                
+then it reloads section zero.   
+
+74
+00:03:24,071 --> 00:03:27,105
+Now I have decided that I'm     
+gonna put that plus button and  
+
+75
+00:03:27,173 --> 00:03:29,841
+the text field name in          
+a different section from all    
+
+76
+00:03:29,910 --> 00:03:32,144
+the rest. Remember Collection   
+Views, like Table Views,        
+
+77
+00:03:32,212 --> 00:03:33,244
+they have sections, so          
+
+78
+00:03:33,313 --> 00:03:35,413
+I'm gonna have section zero is  
+gonna be the plus button or     
+
+79
+00:03:35,482 --> 00:03:38,049
+the text field, depending on    
+whether I'm addingEmoji at      
+
+80
+00:03:38,118 --> 00:03:40,885
+the time and then section       
+one is gonna be all mine.       
+
+81
+00:03:40,954 --> 00:03:43,855
+Emoji as I'm used to it today.  
+So how do we implement that?    
+
+82
+00:03:43,924 --> 00:03:46,357
+Well, we have to say we         
+have two sections now,          
+
+83
+00:03:46,426 --> 00:03:49,327
+instead of just one section.    
+And when we get the number      
+
+84
+00:03:49,396 --> 00:03:50,729
+of items in a section here,     
+
+85
+00:03:50,797 --> 00:03:53,665
+we have to look at the section  
+and see if it's section 0,      
+
+86
+00:03:53,733 --> 00:03:56,634
+then we have 1, either the      
+plus button or the text field,  
+
+87
+00:03:56,703 --> 00:03:59,070
+or we have the number of        
+emojis if it's our old,         
+
+88
+00:03:59,139 --> 00:04:01,940
+the old thing we used to have   
+where it's all those emojis     
+
+89
+00:04:02,009 --> 00:04:05,143
+going across. Then we have to   
+change our cell for item at.    
+
+90
+00:04:05,212 --> 00:04:07,645
+This is the thing that gets     
+a cell for a given thing.       
+
+91
+00:04:07,714 --> 00:04:09,213
+So look at this                 
+section as well. So             
+
+92
+00:04:09,282 --> 00:04:12,650
+this is what this code used to  
+look like and I just put it in  
+
+93
+00:04:12,719 --> 00:04:16,221
+an if the section is one then   
+do what we were doing before.   
+
+94
+00:04:16,290 --> 00:04:19,291
+Otherwise if the section        
+is zero, then if I'm adding     
+
+95
+00:04:19,359 --> 00:04:22,393
+emoji, I'm gonna put that       
+text field in there. And        
+
+96
+00:04:22,462 --> 00:04:26,064
+if i'm not adding emoji, I'm    
+gonna put the button in there.  
+
+97
+00:04:26,132 --> 00:04:27,515
+the text field are going to     
+be exchanging places right?     
+
+98
+00:04:27,516 --> 00:04:28,899
+So the button and               
+
+99
+00:04:28,969 --> 00:04:31,002
+You press the button,           
+it's going to change and        
+
+100
+00:04:31,070 --> 00:04:33,304
+switch to the text field        
+because I'm gonna set this      
+
+101
+00:04:33,373 --> 00:04:36,407
+adding emoji to true and then   
+I'm gonna reload my section.    
+
+102
+00:04:36,476 --> 00:04:39,110
+And that's gonna cause all of   
+this to get called again and    
+
+103
+00:04:39,179 --> 00:04:41,879
+it's gonna switch back and      
+forth. So I'm gonna have to     
+
+104
+00:04:41,948 --> 00:04:46,184
+put some code in here, when     
+I switch to the text field      
+
+105
+00:04:46,252 --> 00:04:48,553
+to get the text out, and we're  
+gonna talk about that. But      
+
+106
+00:04:48,621 --> 00:04:50,855
+before that, let me show you    
+a couple other things I did.    
+
+107
+00:04:50,924 --> 00:04:53,758
+One is I want the text field,   
+when it's there, to be very     
+
+108
+00:04:53,827 --> 00:04:57,662
+wide. I don't want it to be     
+tiny like all the other cells.  
+
+109
+00:04:57,731 --> 00:04:59,063
+I want it to be a wide cell,    
+so                              
+
+110
+00:04:59,132 --> 00:05:02,066
+I overrode this method here. A  
+collection view layout method   
+
+111
+00:05:02,135 --> 00:05:05,369
+called size for                 
+item at index path.             
+
+112
+00:05:05,438 --> 00:05:08,673
+And you return a size for       
+an item at that path. Well,     
+
+113
+00:05:08,742 --> 00:05:12,043
+if I'm adding emoji and we're   
+talking about section zero,     
+
+114
+00:05:12,112 --> 00:05:14,413
+then I'm going for              
+wide buttons, otherwise,        
+
+115
+00:05:14,481 --> 00:05:17,181
+I'm doing the standard size     
+I had before, and yes,          
+
+116
+00:05:17,250 --> 00:05:19,850
+these are blue numbers, they    
+shouldn't be here. I should be  
+
+117
+00:05:19,919 --> 00:05:23,321
+calculating this based on the   
+size of the font that the user  
+
+118
+00:05:23,390 --> 00:05:26,024
+chose and the accessibility     
+slider, all that, but we don't  
+
+119
+00:05:26,093 --> 00:05:29,227
+have time for all that so I'm   
+using blue numbers here. And    
+
+120
+00:05:29,296 --> 00:05:32,730
+then another one I overrode     
+here is will display cell.      
+
+121
+00:05:32,799 --> 00:05:34,398
+That's another cool             
+little delegate method          
+
+122
+00:05:34,467 --> 00:05:35,500
+in collection view.             
+
+123
+00:05:35,569 --> 00:05:37,602
+This is called right            
+before it displays a cell.      
+
+124
+00:05:37,671 --> 00:05:40,771
+And here what I do is if I'm    
+displaying the input cell,      
+
+125
+00:05:40,840 --> 00:05:43,307
+that little text field one,     
+I make it become the first      
+
+126
+00:05:43,376 --> 00:05:46,244
+responder. That way when        
+the text field comes up,        
+
+127
+00:05:46,313 --> 00:05:50,481
+the keyboard comes up.          
+See why I'm doing that? So      
+
+128
+00:05:50,550 --> 00:05:53,652
+will display cell. Another      
+fun collection do you think?    
+
+129
+00:05:53,720 --> 00:05:55,620
+I only had to do another        
+couple other small things.      
+
+130
+00:05:55,689 --> 00:05:59,624
+I disabled dragging here        
+if we're editing the emoji.     
+
+131
+00:05:59,693 --> 00:06:02,827
+If we're typing a new emoji, I  
+don't let the dragging happen   
+
+132
+00:06:02,896 --> 00:06:05,096
+because it just                 
+messes things up                
+
+133
+00:06:05,165 --> 00:06:07,465
+to try to be swapping things    
+around at the same time.        
+
+134
+00:06:07,534 --> 00:06:10,034
+That we're adding stuff, so     
+I took that out of there.       
+
+135
+00:06:10,103 --> 00:06:16,374
+I also don't allow dropping,    
+where's my drop code here?      
+
+136
+00:06:16,443 --> 00:06:20,211
+DropProposal, where is that?    
+I can't find any in here,       
+
+137
+00:06:20,280 --> 00:06:24,715
+here it is. So I don't allow    
+when you're, repositioning      
+
+138
+00:06:24,784 --> 00:06:27,619
+the collection items,           
+right, the little emojis.       
+
+139
+00:06:27,688 --> 00:06:31,022
+I don't allow putting it        
+into section 0. That's where    
+
+140
+00:06:31,091 --> 00:06:33,825
+the plus button is. I don't     
+wanna drop smiley face for      
+
+141
+00:06:33,893 --> 00:06:37,395
+the bike into where the plus    
+button is, that section. So     
+
+142
+00:06:37,464 --> 00:06:39,964
+I just say here that            
+if the index path               
+
+143
+00:06:40,033 --> 00:06:43,534
+is section one, then I'll do    
+this thing where I'll copy or   
+
+144
+00:06:43,603 --> 00:06:46,671
+move the emoji. Otherwise, I'm  
+gonna say the drop proposal is  
+
+145
+00:06:46,739 --> 00:06:49,541
+cancelled, which means I        
+can't drop there. Everyone      
+
+146
+00:06:49,609 --> 00:06:52,410
+cool with that? So that's all   
+the code that I did. Now,       
+
+147
+00:06:52,479 --> 00:06:55,347
+the last thing, let's run and   
+see what this looks like here.  
+
+148
+00:06:57,250 --> 00:07:01,753
+Here's our UI. So, here's our   
+thing that we have so I can     
+
+149
+00:07:01,821 --> 00:07:04,523
+move things around. There's     
+the plus button on the left.    
+
+150
+00:07:05,792 --> 00:07:08,793
+Oops. If I press that plus      
+button, you see it gets         
+
+151
+00:07:08,862 --> 00:07:13,097
+replaced with the text field.   
+And I can bring up my           
+
+152
+00:07:13,166 --> 00:07:16,968
+keyboard here and start typing  
+in, some, I don't know,         
+
+153
+00:07:17,036 --> 00:07:19,904
+what do we got here some        
+shoes and hats and stuff.       
+
+154
+00:07:19,973 --> 00:07:23,240
+And typing these things in.     
+Now if I press the return key,  
+
+155
+00:07:23,309 --> 00:07:25,944
+my keyboard is gonna go away    
+cuz I implemented that one      
+
+156
+00:07:26,013 --> 00:07:28,879
+text delegate method.           
+see how it went away? But it's  
+
+157
+00:07:28,948 --> 00:07:31,382
+not adding the emoji, because   
+I have not put any code         
+
+158
+00:07:31,451 --> 00:07:34,219
+in here that actually takes     
+what I typed in there. And      
+
+159
+00:07:34,287 --> 00:07:39,657
+adds it to my scrolling list.   
+So how am I gonna do that?      
+
+160
+00:07:39,726 --> 00:07:42,393
+Well that is the trick.         
+Let's go take a look.           
+
+161
+00:07:42,462 --> 00:07:46,297
+And we want to essentially,     
+in our text field right here,   
+
+162
+00:07:46,366 --> 00:07:50,435
+when the text field resigns     
+being first responder, right,   
+
+163
+00:07:50,503 --> 00:07:53,071
+when it stops showing           
+the text field. Then we want    
+
+164
+00:07:53,139 --> 00:07:55,106
+to put that in. So of course,   
+we're gonna use this            
+
+165
+00:07:56,843 --> 00:08:02,080
+delegate method I talked about  
+called TextFieldDidEndEditing.  
+
+166
+00:08:02,149 --> 00:08:07,318
+Editing, editing. There it is.  
+And when this happens,          
+
+167
+00:08:07,387 --> 00:08:10,154
+I wanna talk back to my         
+collection view basically and   
+
+168
+00:08:10,223 --> 00:08:13,691
+say add the emoji that          
+was in my text field. But       
+
+169
+00:08:13,760 --> 00:08:16,995
+how do I talk back to my        
+collection view here?           
+
+170
+00:08:17,063 --> 00:08:19,497
+The collection view cells       
+don't really have a pointer to  
+
+171
+00:08:19,565 --> 00:08:21,199
+their collection view.          
+
+172
+00:08:21,268 --> 00:08:23,668
+So, it's an interesting         
+problem to solve, and           
+
+173
+00:08:23,737 --> 00:08:25,537
+I'm actually gonna solve it.    
+A lot of people would solve it  
+
+174
+00:08:25,605 --> 00:08:27,772
+by trying to go find            
+the collection here and         
+
+175
+00:08:27,841 --> 00:08:29,574
+talk to it or                   
+something like that. But        
+
+176
+00:08:29,643 --> 00:08:33,277
+an actually a much easier way   
+to do this with closures. So    
+
+177
+00:08:33,346 --> 00:08:38,049
+I'm create a var, public var    
+in the cell called resignation  
+
+178
+00:08:38,117 --> 00:08:42,120
+handler. And it's just going    
+to be a closure, a function     
+
+179
+00:08:42,188 --> 00:08:44,455
+that takes no arguments and     
+returns no arguments.           
+
+180
+00:08:44,524 --> 00:08:48,460
+In fact I'm even going to make  
+this an optional function so    
+
+181
+00:08:48,528 --> 00:08:51,296
+that it can be nill,            
+doesn't have to be set.         
+
+182
+00:08:51,364 --> 00:08:53,831
+And when text field editing     
+happens I'm just gonna          
+
+183
+00:08:53,900 --> 00:08:57,601
+call this thing, resignation    
+handler. Might be nil so        
+
+184
+00:08:57,670 --> 00:09:00,605
+I'll optional chain it and      
+call it. So I'm just calling    
+
+185
+00:09:00,674 --> 00:09:04,709
+that function. Now, anyone who  
+is interested, when my text     
+
+186
+00:09:04,778 --> 00:09:08,280
+fields resigns can just set     
+this closure to something. And  
+
+187
+00:09:08,348 --> 00:09:10,849
+that's exactly what             
+we're gonna do back here        
+
+188
+00:09:10,917 --> 00:09:14,886
+in our controller.              
+Where we load up our cell,      
+
+189
+00:09:14,955 --> 00:09:17,888
+which is right here. If we're   
+doing the emoji input cell,     
+
+190
+00:09:17,957 --> 00:09:19,490
+which is the thing              
+with the text fill.             
+
+191
+00:09:19,559 --> 00:09:23,962
+I'm just gonna say if I can     
+let input cell equal this cell  
+
+192
+00:09:24,030 --> 00:09:28,632
+as a text field collection      
+cell, which is collection view  
+
+193
+00:09:28,701 --> 00:09:33,171
+cell which is that cell that    
+has that text field in it.      
+
+194
+00:09:33,239 --> 00:09:37,642
+Then I'm gonna set the input    
+cells, resignation handler,     
+
+195
+00:09:37,710 --> 00:09:41,112
+resignation handler.            
+Now, I'm just going to set it   
+
+196
+00:09:41,181 --> 00:09:44,082
+to be some closure that does    
+what I want when that text      
+
+197
+00:09:44,151 --> 00:09:46,818
+field resigns to the first      
+responder. Well, what do I      
+
+198
+00:09:46,886 --> 00:09:49,487
+want to do? I want to take      
+the emoji out of it and         
+
+199
+00:09:49,556 --> 00:09:52,089
+put into my list, of course.    
+So, let's just do that.         
+
+200
+00:09:52,158 --> 00:09:55,293
+I'm gonna set my, well, first,  
+I'm going to say, if I can let  
+
+201
+00:09:55,362 --> 00:10:00,698
+text equal the input cells      
+text fields text, so            
+
+202
+00:10:00,767 --> 00:10:02,867
+if you can get some             
+text out of there.              
+
+203
+00:10:02,936 --> 00:10:04,802
+Then I am just going            
+to have my emojis,              
+
+204
+00:10:04,871 --> 00:10:07,839
+remember that's my model right  
+here? That's the thing that,    
+
+205
+00:10:07,907 --> 00:10:10,308
+oops, where is it?              
+Shows all the emojis here,      
+
+206
+00:10:10,377 --> 00:10:13,678
+I'm just going to add to that   
+thing I'm just gonna say my     
+
+207
+00:10:13,747 --> 00:10:17,181
+emojis equals, that text        
+that was in the text field.     
+
+208
+00:10:17,250 --> 00:10:19,950
+And I'm gonna map them, all     
+the characters in there to be   
+
+209
+00:10:20,019 --> 00:10:24,556
+strings, so that I have an      
+array of strings, right? And    
+
+210
+00:10:24,624 --> 00:10:26,691
+I'm gonna add that to           
+what's already there.           
+
+211
+00:10:26,760 --> 00:10:30,327
+So that's emojis just are the   
+emojis we already have. And     
+
+212
+00:10:30,396 --> 00:10:32,062
+I'm even going to do a little   
+trick where I'm going to        
+
+213
+00:10:32,131 --> 00:10:36,133
+uniquify them, uniquified.      
+This is just a little thing     
+
+214
+00:10:36,202 --> 00:10:38,703
+that I put in that utilities    
+thing which takes an array and  
+
+215
+00:10:38,772 --> 00:10:40,671
+makes sure all                  
+the items are unique.           
+
+216
+00:10:40,740 --> 00:10:43,040
+Because I don't want to         
+have multiple smiley faces,     
+
+217
+00:10:43,109 --> 00:10:46,877
+multiple bikes, whatever. Now   
+of course I get this of, hey    
+
+218
+00:10:46,946 --> 00:10:50,682
+you are using self implicitly   
+here, you should put self dot.  
+
+219
+00:10:50,750 --> 00:10:53,718
+And every time you do that,     
+you're gonna pause and          
+
+220
+00:10:53,787 --> 00:10:56,287
+say hmm, does this              
+create a memory cycle or        
+
+221
+00:10:56,356 --> 00:10:59,223
+is this perhaps causing         
+a multithreaded issue?          
+
+222
+00:10:59,292 --> 00:11:01,426
+Well there's no multi           
+threading issue problem here.   
+
+223
+00:11:01,494 --> 00:11:04,261
+Cuz we we don't have a problem  
+with cells being scrolled       
+
+224
+00:11:04,330 --> 00:11:07,431
+off and scrolled back on like   
+you have in your homework. But  
+
+225
+00:11:07,500 --> 00:11:11,202
+there is a memory cycle here.   
+You see how                     
+
+226
+00:11:11,271 --> 00:11:13,704
+there's a memory cycle because  
+self is the collection,         
+
+227
+00:11:13,773 --> 00:11:14,639
+is our selfish                  
+view-controller.                
+
+228
+00:11:14,708 --> 00:11:16,640
+And we point to our             
+collection view.                
+
+229
+00:11:16,709 --> 00:11:20,111
+Our collection view points to   
+its cells, of course. Its cell  
+
+230
+00:11:20,180 --> 00:11:23,648
+points to this closure.         
+And this closure points back    
+
+231
+00:11:23,717 --> 00:11:26,651
+to ourself. So it's going       
+around and round. So            
+
+232
+00:11:26,720 --> 00:11:30,455
+we have to break this           
+with weak self. And             
+
+233
+00:11:30,524 --> 00:11:33,824
+then make all our selfs         
+here be question mark.          
+
+234
+00:11:33,893 --> 00:11:37,495
+This is a self also. It can be  
+self exclamation point because  
+
+235
+00:11:37,563 --> 00:11:40,231
+we won't get there if this      
+is nil. So, that's good,        
+
+236
+00:11:40,300 --> 00:11:42,466
+but there's actually            
+another one in here.            
+
+237
+00:11:42,535 --> 00:11:44,869
+Sometimes, just because         
+it tells you about self,        
+
+238
+00:11:44,938 --> 00:11:46,704
+doesn't mean there might        
+not be other ones in there.     
+
+239
+00:11:46,773 --> 00:11:50,441
+And there is another one, it's  
+this. This var is the input     
+
+240
+00:11:50,510 --> 00:11:52,877
+cell and I'm using it           
+inside this closure,            
+
+241
+00:11:52,945 --> 00:11:55,546
+which will capture it.          
+And yet it is pointing          
+
+242
+00:11:55,615 --> 00:11:59,117
+back to the closure through     
+its resignation handler,        
+
+243
+00:11:59,185 --> 00:12:01,552
+so this has to be               
+broken as well.                 
+
+244
+00:12:01,621 --> 00:12:06,857
+Now this one we can broke,      
+break, with unowned because     
+
+245
+00:12:06,926 --> 00:12:10,995
+we know we would never be in    
+this closure executing it,      
+
+246
+00:12:11,063 --> 00:12:15,165
+if this were nil. Because by    
+definition, we're executing     
+
+247
+00:12:15,234 --> 00:12:18,603
+its resignationHandler, so we   
+can use unowned, in this case,  
+
+248
+00:12:18,671 --> 00:12:21,973
+to do that. And what else do    
+we need to do here? Well, we    
+
+249
+00:12:22,042 --> 00:12:25,376
+just need to stop saying that   
+we are adding emoji, because    
+
+250
+00:12:25,445 --> 00:12:28,612
+we're not, right, we've         
+finished adding emoji here.     
+
+251
+00:12:28,681 --> 00:12:32,917
+And then, we're gonna have to   
+ask our emoji collection view   
+
+252
+00:12:32,986 --> 00:12:36,287
+to reload data.                 
+Why do we need to reload data?  
+
+253
+00:12:36,356 --> 00:12:38,656
+Cuz we just added               
+emoji to our model and          
+
+254
+00:12:38,725 --> 00:12:42,393
+anytime you change the model    
+you need to update your table.  
+
+255
+00:12:42,461 --> 00:12:44,228
+So I'm gonna reload and         
+cause it to go back,            
+
+256
+00:12:44,297 --> 00:12:47,031
+look at my new model,           
+call all those functions,       
+
+257
+00:12:47,099 --> 00:12:50,468
+all these functions right       
+here, reload everything.        
+
+258
+00:12:50,537 --> 00:12:52,837
+It's also gonna nicely          
+reload section zero and         
+
+259
+00:12:52,905 --> 00:12:56,774
+put the button back because     
+I set this back to false. So    
+
+260
+00:12:56,843 --> 00:12:58,409
+let's see all of                
+this in action.                 
+
+261
+00:13:06,385 --> 00:13:09,053
+Here we go. So,                 
+we've got this, we can still    
+
+262
+00:13:09,121 --> 00:13:12,556
+scroll around, normally. We     
+can reposition these things.    
+
+263
+00:13:12,625 --> 00:13:14,625
+It won't let us put             
+it in section 0,                
+
+264
+00:13:14,694 --> 00:13:18,062
+that's good. We hit plus It     
+brings up the text field.       
+
+265
+00:13:18,131 --> 00:13:19,363
+It reloaded that section and    
+
+266
+00:13:19,432 --> 00:13:22,467
+put the text field because we   
+are adding a module right now.  
+
+267
+00:13:22,535 --> 00:13:26,804
+Can bring up my keyboard        
+down here, let's put some       
+
+268
+00:13:26,872 --> 00:13:29,373
+sea creatures in here.          
+I'm just gonna do that. Now,    
+
+269
+00:13:29,442 --> 00:13:32,677
+I'm gonna hit return which      
+gonna dismiss my keyboard       
+
+270
+00:13:32,745 --> 00:13:35,013
+because of that resign first    
+responder that put in there.    
+
+271
+00:13:35,081 --> 00:13:36,480
+And since that's                
+gonna end editing,              
+
+272
+00:13:36,549 --> 00:13:41,485
+it's gonna add this emoji to    
+our list. See that? Their       
+
+273
+00:13:41,554 --> 00:13:44,822
+they are at the beginning. And  
+we can do the same thing here.  
+
+274
+00:13:44,891 --> 00:13:46,757
+Maybe I will add,               
+I don't know,                   
+
+275
+00:13:46,826 --> 00:13:49,626
+some farm animals here.         
+And this time I'm not           
+
+276
+00:13:49,695 --> 00:13:52,229
+gonna return, I'm actually      
+going to dismiss my keyboard    
+
+277
+00:13:52,298 --> 00:13:54,431
+by pressing the thing in        
+the lower right corner.         
+
+278
+00:13:54,500 --> 00:13:56,734
+You see that thing, that says   
+keyboard go away. Ready,        
+
+279
+00:13:56,803 --> 00:14:01,972
+boom and now it added those.    
+So that' it,                    
+
+280
+00:14:02,041 --> 00:14:05,542
+that's text field. Sorry we     
+had to rush, kinda rush that,   
+
+281
+00:14:05,611 --> 00:14:08,379
+but we, again, we got a lot of  
+other stuff to cover. And I'll  
+
+282
+00:14:08,447 --> 00:14:10,815
+be posting this code, so you    
+can look at it in detail and    
+
+283
+00:14:10,884 --> 00:14:12,549
+see. I showed you all           
+the changes we made,            
+
+284
+00:14:12,618 --> 00:14:14,351
+I just didn't                   
+type them all in,               
+
+285
+00:14:14,420 --> 00:14:20,491
+as we went along. All right,    
+back to the slides right here.  
+
+286
+00:14:20,559 --> 00:14:23,160
+Let's get to our main topic     
+today, which is persistence.    
+
+287
+00:14:23,229 --> 00:14:26,764
+By persistence, I mean making   
+things stick around, right?     
+
+288
+00:14:26,833 --> 00:14:29,333
+The user inputs some stuff,     
+they create an emoji art        
+
+289
+00:14:29,402 --> 00:14:31,836
+document or something like      
+that. And you, of course,       
+
+290
+00:14:31,904 --> 00:14:33,771
+want those things to stay       
+around you don't want them to   
+
+291
+00:14:33,840 --> 00:14:36,040
+disappear every time you run    
+the app. Which is the case in   
+
+292
+00:14:36,108 --> 00:14:38,042
+your homework and the case      
+of emoji art right now,         
+
+293
+00:14:38,111 --> 00:14:40,545
+which is kinda useless.         
+So there's a lot of ways to     
+
+294
+00:14:40,614 --> 00:14:42,313
+make things persistent          
+as you can see so               
+
+295
+00:14:42,382 --> 00:14:44,982
+let's dive right in and         
+talk about all of them.         
+
+296
+00:14:45,051 --> 00:14:47,885
+Now,some of them I'm only       
+gonna cover a little bit and    
+
+297
+00:14:47,953 --> 00:14:50,888
+some of them I'm gonna cover    
+in depth. The first one here    
+
+298
+00:14:50,956 --> 00:14:54,525
+is UserDefault, now this        
+one is super duper simple,      
+
+299
+00:14:54,594 --> 00:14:58,329
+it's kind like the dictionary   
+that persists, right?           
+
+300
+00:14:58,398 --> 00:15:00,698
+You put things in this          
+dictionary with keys and        
+
+301
+00:15:00,767 --> 00:15:03,200
+values and when you run         
+your app the next time,         
+
+302
+00:15:03,269 --> 00:15:07,671
+they're still there. The only   
+restriction on that though,     
+
+303
+00:15:07,740 --> 00:15:10,207
+is that the only things you     
+can put in this dictionary      
+
+304
+00:15:10,276 --> 00:15:12,910
+thing is property lists.        
+
+305
+00:15:12,979 --> 00:15:14,912
+Okay now a property             
+list is not a type, or          
+
+306
+00:15:14,981 --> 00:15:17,582
+anything like that,             
+it's just a concept.            
+
+307
+00:15:17,650 --> 00:15:19,817
+A property list is              
+any combination,                
+
+308
+00:15:19,886 --> 00:15:23,520
+any data structure, that is     
+any combination of only array,  
+
+309
+00:15:23,589 --> 00:15:27,158
+dictionary, string, date,       
+data or a number like bloat,    
+
+310
+00:15:27,227 --> 00:15:30,361
+hint or double. Okay that's     
+what we call a property list.   
+
+311
+00:15:30,430 --> 00:15:33,030
+And that's the only thing       
+you can put in this little      
+
+312
+00:15:33,099 --> 00:15:36,067
+lightweight database called     
+UserDefaults, all right?        
+
+313
+00:15:36,135 --> 00:15:39,037
+So what does the API look       
+like, to put things in there?   
+
+314
+00:15:39,105 --> 00:15:42,639
+Very simple, it's got two       
+main methods here, set,         
+
+315
+00:15:42,708 --> 00:15:46,244
+with a property list as         
+the argument for a key.         
+
+316
+00:15:46,312 --> 00:15:50,648
+And then object for a key       
+that returns a property list.   
+
+317
+00:15:50,717 --> 00:15:52,649
+The reason that's an NE right   
+there is that there's really    
+
+318
+00:15:52,718 --> 00:15:55,453
+no other type that would        
+represent a Property List, and  
+
+319
+00:15:55,522 --> 00:15:57,121
+this is an Objective-C API.     
+
+320
+00:15:57,190 --> 00:16:01,826
+But that NE has to be a thing   
+that is a Property List. So     
+
+321
+00:16:01,895 --> 00:16:04,362
+it could be an int. It could    
+be an array of strings.         
+
+322
+00:16:04,430 --> 00:16:06,531
+It could be a dictionary        
+whose keys are strings and      
+
+323
+00:16:06,599 --> 00:16:08,733
+whose values                    
+are arrays of doubles.          
+
+324
+00:16:08,801 --> 00:16:11,502
+Those would all be considered   
+property lists. But             
+
+325
+00:16:11,571 --> 00:16:15,572
+an array of CG float?           
+Not a property list,            
+
+326
+00:16:15,641 --> 00:16:21,445
+because a CG float is not       
+a property list. All right,     
+
+327
+00:16:21,514 --> 00:16:23,213
+so how do you read and          
+write this stuff?               
+
+328
+00:16:23,282 --> 00:16:25,449
+How do you access this? How do  
+you call those methods? Well,   
+
+329
+00:16:25,517 --> 00:16:29,419
+we don't actually create a      
+different UserDefaults thing.   
+
+330
+00:16:29,488 --> 00:16:32,156
+You can, but we don't usually   
+do that. We instead used        
+
+331
+00:16:32,225 --> 00:16:34,925
+a shared one we get by saying   
+UserDefaults.standard.          
+
+332
+00:16:34,994 --> 00:16:39,063
+Standard is a static bar in     
+the user's evolved class, and   
+
+333
+00:16:39,131 --> 00:16:42,533
+it returns to this shared       
+UserDefaults thing. And         
+
+334
+00:16:42,601 --> 00:16:45,769
+then we just set call set on    
+it to set values, and we can    
+
+335
+00:16:45,838 --> 00:16:50,774
+call object uptight or forKey   
+rather, to get things back.     
+
+336
+00:16:50,843 --> 00:16:52,476
+And so here's a bunch           
+of examples of sets.            
+
+337
+00:16:52,545 --> 00:16:53,844
+Notice I can just set a float,  
+
+338
+00:16:53,913 --> 00:16:54,745
+because that's                  
+a property list.                
+
+339
+00:16:54,814 --> 00:16:57,281
+I can set an array of ints,     
+that's a property list.         
+
+340
+00:16:57,350 --> 00:16:59,717
+I can also set nil,             
+because it's an Any?, and       
+
+341
+00:16:59,785 --> 00:17:02,787
+that means clear                
+out any value for               
+
+342
+00:17:02,855 --> 00:17:08,626
+this key. And there's some      
+convenience methods for         
+
+343
+00:17:08,694 --> 00:17:11,328
+getting things out, right,      
+cuz if you do object for        
+
+344
+00:17:11,397 --> 00:17:14,731
+key, what type are you gonna    
+get back? An any, which means   
+
+345
+00:17:14,800 --> 00:17:18,503
+you're gonna have to use as to  
+turn it into something. Well,   
+
+346
+00:17:18,571 --> 00:17:20,405
+to save you that they           
+have some methods and           
+
+347
+00:17:20,473 --> 00:17:23,207
+they're like double forKey,     
+array forKey and                
+
+348
+00:17:23,275 --> 00:17:26,944
+those will return you that      
+type. Now, for example,         
+
+349
+00:17:27,013 --> 00:17:30,248
+double forKey, if the thing     
+in there is not a double,       
+
+350
+00:17:30,316 --> 00:17:33,117
+it's just gonna return 0.       
+Cuz it's not a question mark,   
+
+351
+00:17:33,186 --> 00:17:36,254
+unfortunately, it's             
+just double. And                
+
+352
+00:17:36,322 --> 00:17:39,056
+similarly, an array forKey,     
+if the thing in there,          
+
+353
+00:17:39,124 --> 00:17:41,792
+if that key is not an array,    
+it's gonna return nil,          
+
+354
+00:17:41,861 --> 00:17:44,594
+because that is an optional     
+array. So these little things,  
+
+355
+00:17:44,663 --> 00:17:45,996
+these conveniences              
+try to help you but             
+
+356
+00:17:46,065 --> 00:17:47,832
+they're only gonna help         
+you as much as they can.        
+
+357
+00:17:47,901 --> 00:17:50,033
+If you put the wrong types      
+in there, obviously,            
+
+358
+00:17:50,102 --> 00:17:53,504
+they can't do the right thing.  
+When am I ever gonna use this   
+
+359
+00:17:53,573 --> 00:17:55,640
+thing?                          
+This thing is really only for   
+
+360
+00:17:55,708 --> 00:17:59,010
+lightweight stuff like          
+settings, preferences,          
+
+361
+00:17:59,078 --> 00:18:01,278
+that kinda stuff. You           
+wouldn't store documents or     
+
+362
+00:18:01,347 --> 00:18:05,082
+any kind of serious user data   
+in there with user defaults.    
+
+363
+00:18:05,151 --> 00:18:08,318
+Now saving the database,        
+the database is autosaved for   
+
+364
+00:18:08,387 --> 00:18:10,988
+you. So you really don't have   
+to save it. But sometimes you   
+
+365
+00:18:11,056 --> 00:18:13,524
+want to, most notably when      
+you're in debugging and         
+
+366
+00:18:13,593 --> 00:18:15,560
+you're hitting stop in          
+the debugger all the time.      
+
+367
+00:18:15,628 --> 00:18:18,528
+Sometimes you'll stop it        
+before it gets a chance to      
+
+368
+00:18:18,597 --> 00:18:20,431
+save. So                        
+if you wanna explicitly save,   
+
+369
+00:18:20,500 --> 00:18:23,133
+you can use this method         
+synchronize, which will save    
+
+370
+00:18:23,202 --> 00:18:25,303
+it. It returns a bool whether   
+it was successful, although I   
+
+371
+00:18:25,371 --> 00:18:27,204
+don't know what you're gonna    
+do if it wasn't successful.     
+
+372
+00:18:27,272 --> 00:18:28,772
+I guess try again               
+in a little bit.                
+
+373
+00:18:28,841 --> 00:18:32,242
+But we usually don't look at    
+the return value of this.       
+
+374
+00:18:32,311 --> 00:18:34,979
+We just say synchronize. So     
+a lot of times people will put  
+
+375
+00:18:35,047 --> 00:18:37,214
+synchronize in there because    
+they're doing the debugger,     
+
+376
+00:18:37,283 --> 00:18:38,882
+and they're hitting             
+stop all the time,              
+
+377
+00:18:38,951 --> 00:18:41,452
+and it didn't save them, and    
+then they run it again. So      
+
+378
+00:18:41,521 --> 00:18:42,787
+you can feel free to            
+do that if you want.            
+
+379
+00:18:42,855 --> 00:18:46,858
+It's pretty lightweight to do   
+synchronize. All right, so      
+
+380
+00:18:46,926 --> 00:18:49,927
+that's the first one.           
+The second way to make          
+
+381
+00:18:49,996 --> 00:18:53,564
+things persistent is called     
+archiving. So the problem with  
+
+382
+00:18:53,633 --> 00:18:56,099
+user defaults, first of all,    
+only small things.              
+
+383
+00:18:56,168 --> 00:18:59,236
+Second of all, has to be        
+property lists. What if I have  
+
+384
+00:18:59,304 --> 00:19:03,173
+some data structure that I      
+wanna store, that's big and or  
+
+385
+00:19:03,242 --> 00:19:06,943
+has things other than property  
+lists in it. And to do that     
+
+386
+00:19:07,012 --> 00:19:10,247
+I'm gonna use archiving.        
+Now there's two mechanisms for  
+
+387
+00:19:10,316 --> 00:19:14,451
+archiving, an old way,          
+and a new for iOS 11 way.       
+
+388
+00:19:14,520 --> 00:19:17,154
+And of course, I'm gonna talk   
+in detail about the new for     
+
+389
+00:19:17,223 --> 00:19:19,857
+iOS 11 way, because the old     
+way obviously wasn't good       
+
+390
+00:19:19,926 --> 00:19:22,593
+enough. They came up            
+with a new one in iOS 11.       
+
+391
+00:19:22,661 --> 00:19:24,461
+But they're very,               
+very similar in some ways.      
+
+392
+00:19:24,530 --> 00:19:26,831
+It's just that the new way      
+is a lot more automatic, and    
+
+393
+00:19:26,899 --> 00:19:29,933
+a lot less code to write.       
+So let's talk about these two   
+
+394
+00:19:30,002 --> 00:19:32,536
+ways. The old way               
+is called NS Coder.             
+
+395
+00:19:32,605 --> 00:19:35,639
+So NS Coder is a protocol. And  
+
+396
+00:19:35,708 --> 00:19:39,677
+essentially NS Coder boils      
+down to having every single     
+
+397
+00:19:39,746 --> 00:19:43,947
+object in the object graph      
+that you want to save, or       
+
+398
+00:19:44,016 --> 00:19:47,717
+whatever, make persistent,      
+implement these two things.     
+
+399
+00:19:47,786 --> 00:19:49,987
+A function called               
+encode with a coder.            
+
+400
+00:19:50,056 --> 00:19:53,323
+So that NS coder kind of        
+like is a dictionary thing,     
+
+401
+00:19:53,392 --> 00:19:56,394
+you can set values in there.    
+And then init from coder.       
+
+402
+00:19:56,462 --> 00:19:58,729
+It's gonna potentially give     
+you that dictionary back and    
+
+403
+00:19:58,798 --> 00:20:02,199
+you gotta initialize the        
+object. So it's very simple.    
+
+404
+00:20:02,268 --> 00:20:05,102
+You're just gonna have encode   
+sent to every single object in  
+
+405
+00:20:05,170 --> 00:20:08,038
+the object graph. And it's      
+gonna put itself like in a big  
+
+406
+00:20:08,107 --> 00:20:10,374
+dictionary. And then when you   
+wanna bring it back to life,    
+
+407
+00:20:10,443 --> 00:20:13,110
+you start telling init          
+with the coder and              
+
+408
+00:20:13,179 --> 00:20:15,112
+they all have to                
+initialize themselves.          
+
+409
+00:20:15,181 --> 00:20:19,683
+This is how storyboards         
+are saved. So view Controller,  
+
+410
+00:20:19,752 --> 00:20:22,653
+UI View, UI Label Button,       
+all of them implement           
+
+411
+00:20:22,722 --> 00:20:26,089
+both of these things in code    
+and init from coder. And        
+
+412
+00:20:26,158 --> 00:20:28,759
+somebody went to a painstaking  
+amount of work to implement     
+
+413
+00:20:28,828 --> 00:20:31,028
+that for every possible thing   
+that can be in a storyboard.    
+
+414
+00:20:31,097 --> 00:20:34,465
+It's amazing how much work      
+that actually took. So          
+
+415
+00:20:34,533 --> 00:20:37,467
+that's great, you have this     
+encoding, encoding and          
+
+416
+00:20:37,536 --> 00:20:39,503
+decoding ability.               
+What do you do with it?         
+
+417
+00:20:39,571 --> 00:20:42,172
+Well, what you almost always    
+do with it is you turn this     
+
+418
+00:20:42,241 --> 00:20:46,476
+thing into a data. Remember     
+our friend data, bag of bits,   
+
+419
+00:20:46,545 --> 00:20:49,146
+that little struct? You turn    
+into a data, and then you       
+
+420
+00:20:49,214 --> 00:20:50,680
+can store a data                
+in a file system.               
+
+421
+00:20:50,749 --> 00:20:51,882
+Cuz as you're gonna learn,      
+
+422
+00:20:51,951 --> 00:20:54,552
+that's how we interact with     
+the file system. We store and   
+
+423
+00:20:54,620 --> 00:20:58,923
+read datas. So how do you take  
+a big object graph, where       
+
+424
+00:20:58,991 --> 00:21:01,191
+every single object in there    
+implements these two things,    
+
+425
+00:21:01,260 --> 00:21:04,395
+and turn it into a data? You    
+do it with the class NS keyed   
+
+426
+00:21:04,463 --> 00:21:08,131
+archiver. So NS keyed archiver  
+just takes an object that       
+
+427
+00:21:08,200 --> 00:21:10,934
+it and everything it points to  
+implements these two things,    
+
+428
+00:21:11,003 --> 00:21:14,338
+and it gives you back a data    
+that has taken the whole        
+
+429
+00:21:14,407 --> 00:21:17,074
+object graph, and               
+collected it up into a data.    
+
+430
+00:21:17,143 --> 00:21:20,143
+And similarly, if you give      
+it back a data like that,       
+
+431
+00:21:20,212 --> 00:21:21,612
+to NS keyed unarchiver,         
+
+432
+00:21:21,681 --> 00:21:25,182
+the unarchiver then it will     
+turn it back into the objects   
+
+433
+00:21:25,250 --> 00:21:27,751
+by calling that init.           
+Is everyone cool with how we    
+
+434
+00:21:27,820 --> 00:21:30,654
+do that? This is a lot of work  
+to make this mechanism work     
+
+435
+00:21:30,722 --> 00:21:32,522
+because you've gotta implement  
+those two things for            
+
+436
+00:21:32,591 --> 00:21:34,624
+every single object in there.   
+So                              
+
+437
+00:21:34,693 --> 00:21:36,660
+let's talk about the new way,   
+which is quite similar.         
+
+438
+00:21:36,729 --> 00:21:39,730
+It's called Codable.            
+And Codable is a protocol,      
+
+439
+00:21:39,798 --> 00:21:43,366
+it's actually two protocols,    
+D-Codable and N-Codable. And    
+
+440
+00:21:43,435 --> 00:21:46,937
+it works the same kind of way.  
+You still have init and         
+
+441
+00:21:47,006 --> 00:21:48,339
+you still have                  
+an encode thing.                
+
+442
+00:21:48,407 --> 00:21:51,275
+The difference is Swift and     
+the runtime, and, and           
+
+443
+00:21:51,343 --> 00:21:54,445
+the foundation will implement   
+those two methods for you,      
+
+444
+00:21:54,513 --> 00:21:57,547
+almost all the time. It just    
+kind of implements them for     
+
+445
+00:21:57,616 --> 00:21:59,283
+free, so                        
+you don't have to do anything.  
+
+446
+00:21:59,352 --> 00:22:02,920
+So as long as you are using     
+kind of basic types in Swift,   
+
+447
+00:22:02,989 --> 00:22:05,222
+including all the things        
+that you see on this slide,     
+
+448
+00:22:05,291 --> 00:22:07,891
+it just all magically works.    
+So                              
+
+449
+00:22:07,960 --> 00:22:11,562
+I'm gonna show you both how we  
+then take an object graph and   
+
+450
+00:22:11,631 --> 00:22:13,264
+turn it into a data             
+with this mechanism,            
+
+451
+00:22:13,332 --> 00:22:15,732
+which is slightly different     
+than the key archiver thing.    
+
+452
+00:22:15,801 --> 00:22:17,701
+And I'm also gonna show you     
+what it looks like to make      
+
+453
+00:22:17,770 --> 00:22:21,004
+something Codable, cuz to make  
+it to do this, it has to be     
+
+454
+00:22:21,073 --> 00:22:23,139
+Codable. It has to implement    
+Codable. So let's look at       
+
+455
+00:22:23,208 --> 00:22:26,210
+those. First let's look at how  
+we turn it into a data. Here,   
+
+456
+00:22:26,278 --> 00:22:29,346
+instead of turning it into      
+just an arbitrary blob of data  
+
+457
+00:22:29,415 --> 00:22:32,449
+that we don't know what it is,  
+we actually encode it to        
+
+458
+00:22:32,518 --> 00:22:36,019
+a known format like JSON.       
+Everyone know what JSON is?     
+
+459
+00:22:36,088 --> 00:22:38,221
+It's essentially just           
+like this text format for       
+
+460
+00:22:38,290 --> 00:22:40,925
+describing things on the        
+Internet, passing data around.  
+
+461
+00:22:40,993 --> 00:22:44,561
+And so JSON is a well-known     
+format, and we can turn that    
+
+462
+00:22:44,630 --> 00:22:47,365
+big object graph into           
+a description of it,            
+
+463
+00:22:47,433 --> 00:22:50,667
+that is JSON, amazingly.        
+And there's another             
+
+464
+00:22:50,736 --> 00:22:53,770
+encoder that can do this,       
+that does property list, so.    
+
+465
+00:22:53,839 --> 00:22:56,073
+This whole thing I was telling  
+you about UserDefaults,         
+
+466
+00:22:56,142 --> 00:22:58,575
+where everything's an array of  
+strings or dates or numbers,    
+
+467
+00:22:58,644 --> 00:23:00,711
+you can also turn it            
+into something like that.       
+
+468
+00:23:00,779 --> 00:23:03,713
+Those are the two encoders      
+that come with iOS. And         
+
+469
+00:23:03,782 --> 00:23:04,848
+how do you do this? Well,       
+
+470
+00:23:04,917 --> 00:23:08,151
+you just have your              
+object that's of mytype,        
+
+471
+00:23:08,220 --> 00:23:11,922
+some type that you define.      
+That type has to be Codable.    
+
+472
+00:23:11,990 --> 00:23:14,591
+And as long as it's Codable     
+and everything that it wants    
+
+473
+00:23:14,660 --> 00:23:18,061
+to be archived inside of it is  
+Codable, then you can say JSON  
+
+474
+00:23:18,130 --> 00:23:22,899
+data equals try to JSON         
+encode that object. And it's    
+
+475
+00:23:22,968 --> 00:23:25,468
+gonna give you back a data      
+blob, and in that data blob     
+
+476
+00:23:25,537 --> 00:23:29,206
+is a JSON representation of     
+your entire object graph,       
+
+477
+00:23:29,274 --> 00:23:33,143
+which is pretty incredible.     
+Now notice this does throw,     
+
+478
+00:23:33,212 --> 00:23:36,146
+it's unlikely to throw when     
+you're encoding, but it could   
+
+479
+00:23:36,215 --> 00:23:39,383
+possibly have something where   
+first, I don't know why, but    
+
+480
+00:23:39,452 --> 00:23:43,153
+it couldn't encode it,          
+it's possible it could throw.   
+
+481
+00:23:43,222 --> 00:23:45,956
+By the way, if you have         
+a data Blob that's JSON,        
+
+482
+00:23:46,025 --> 00:23:49,292
+you might wanna look at it      
+as a string. With JSON it's     
+
+483
+00:23:49,361 --> 00:23:52,929
+always encoded as utf8. That's  
+the string encoding it uses.    
+
+484
+00:23:52,998 --> 00:23:55,666
+So you can always just take     
+a data Blob like jsonData and   
+
+485
+00:23:55,735 --> 00:23:58,669
+from that previous line there   
+and create a string with it.    
+
+486
+00:23:58,737 --> 00:24:00,938
+And all that string needs to    
+know is what's the encoding?    
+
+487
+00:24:01,007 --> 00:24:06,677
+You say it's .utf8. Which       
+is Unicode 8bit encoding.       
+
+488
+00:24:06,746 --> 00:24:09,546
+All right, now, what if you     
+have a JSON representation of   
+
+489
+00:24:09,615 --> 00:24:10,881
+your whole object graph and     
+
+490
+00:24:10,950 --> 00:24:13,116
+you wanna create your           
+object graph out of it?         
+
+491
+00:24:13,185 --> 00:24:16,520
+Well you just use a JSON        
+decoder and say decode.         
+
+492
+00:24:16,588 --> 00:24:20,024
+Well then all you have to do    
+here is specify The class or    
+
+493
+00:24:20,092 --> 00:24:22,625
+struct of the top level         
+thing in that JSON,             
+
+494
+00:24:22,694 --> 00:24:26,396
+represented by that JSON. And   
+give it the JSON data blob and  
+
+495
+00:24:26,465 --> 00:24:28,865
+it will decode it.              
+Now this also throws and        
+
+496
+00:24:28,934 --> 00:24:31,769
+this is more likely to throw.   
+Maybe your JSON data is         
+
+497
+00:24:31,837 --> 00:24:35,639
+corrupted or malformed or       
+something like that. And        
+
+498
+00:24:35,708 --> 00:24:38,175
+it quite possible to make       
+this all work, where you're     
+
+499
+00:24:38,243 --> 00:24:41,144
+using some standard JSON from   
+some website out there and      
+
+500
+00:24:41,213 --> 00:24:43,780
+you're converting it to         
+objects in your code.           
+
+501
+00:24:43,849 --> 00:24:45,582
+Where you make it do            
+a one to one mapping.           
+
+502
+00:24:45,651 --> 00:24:48,686
+And so maybe the website you    
+went to had an error and        
+
+503
+00:24:48,754 --> 00:24:52,856
+they generated bad JSON or      
+something, so this could throw  
+
+504
+00:24:52,924 --> 00:24:55,626
+here. And let's talk, we'll     
+talk a little about that in     
+
+505
+00:24:55,694 --> 00:24:58,862
+a second and what to do         
+with that thing throwing.       
+
+506
+00:24:58,931 --> 00:25:03,133
+Notice that JSON is the         
+opposite of "strongly typed".   
+
+507
+00:25:03,202 --> 00:25:07,237
+Like a date in JSON is just a   
+string in some format, right?   
+
+508
+00:25:07,306 --> 00:25:11,041
+There's no such concept as      
+a date type in JSON. So this    
+
+509
+00:25:11,109 --> 00:25:14,444
+decoder is quite configurable,  
+so you can specify things       
+
+510
+00:25:14,513 --> 00:25:18,615
+like, what is the strategy to   
+decode what should be a date?   
+
+511
+00:25:18,683 --> 00:25:20,166
+what format are dates stored    
+in in this JSON file? So you    
+
+512
+00:25:20,167 --> 00:25:21,650
+In other words,                 
+
+513
+00:25:21,720 --> 00:25:25,055
+can specify those kinda things  
+to configure the decoder to be  
+
+514
+00:25:25,124 --> 00:25:29,325
+able to figure out this JSON    
+representation. All right,      
+
+515
+00:25:29,394 --> 00:25:32,429
+now I talked about throwing     
+errors. Here, for example,      
+
+516
+00:25:32,498 --> 00:25:36,232
+I'm catching a error that       
+was thrown by this decoder.     
+
+517
+00:25:36,301 --> 00:25:38,101
+And the reason I'm showing      
+this actually is not because    
+
+518
+00:25:38,170 --> 00:25:40,404
+you're going to do this.        
+You're unlikely to actually     
+
+519
+00:25:40,472 --> 00:25:43,173
+catch these decoding errors     
+and do anything about them.     
+
+520
+00:25:43,242 --> 00:25:45,409
+Unless maybe you're debugging   
+your own JSON format,           
+
+521
+00:25:45,478 --> 00:25:47,744
+you wanna see where you made    
+a mistake or something.         
+
+522
+00:25:47,813 --> 00:25:50,147
+But I wanted to show you here   
+what it looks like to catch     
+
+523
+00:25:50,215 --> 00:25:54,951
+an error that is thrown that's  
+an enum. Cuz remember that      
+
+524
+00:25:55,020 --> 00:25:58,154
+anything can be thrown. You     
+can throw any kind of thing as  
+
+525
+00:25:58,223 --> 00:26:00,557
+an error. All it has to do is   
+implement the protocol error,   
+
+526
+00:26:00,625 --> 00:26:03,493
+which is really nothing,        
+so you can throw anything.      
+
+527
+00:26:03,562 --> 00:26:06,529
+So a lot of times things will   
+throw an enum. And when they    
+
+528
+00:26:06,598 --> 00:26:09,366
+throw the enum, you can do the  
+same thing we do with switch,   
+
+529
+00:26:09,435 --> 00:26:11,468
+which is to grab                
+the associated values out.      
+
+530
+00:26:11,536 --> 00:26:15,739
+So you see how that really      
+works great for errors, right?  
+
+531
+00:26:15,808 --> 00:26:18,007
+So you're catching the key      
+not found error and             
+
+532
+00:26:18,076 --> 00:26:19,376
+you're grabbing                 
+the associated value,           
+
+533
+00:26:19,444 --> 00:26:23,279
+which is, one of which is       
+the key that was not found. So  
+
+534
+00:26:23,348 --> 00:26:25,816
+this is a common thing to do,   
+is to throw an enum and         
+
+535
+00:26:25,885 --> 00:26:28,084
+then in your catch you          
+just catch the cases and        
+
+536
+00:26:28,153 --> 00:26:31,956
+you're allowed to do this same  
+kind of grab the associated     
+
+537
+00:26:32,024 --> 00:26:37,194
+value as you can do             
+with switch. All right,         
+
+538
+00:26:37,263 --> 00:26:39,896
+so let's look at an example of  
+making something be codable.    
+
+539
+00:26:39,965 --> 00:26:42,399
+So I've got my struct           
+MyType here. And                
+
+540
+00:26:42,468 --> 00:26:44,367
+it's got a date in it,          
+a string, and                   
+
+541
+00:26:44,436 --> 00:26:46,837
+then it's got some other bar    
+which is some other type        
+
+542
+00:26:46,906 --> 00:26:49,372
+not shown here.                 
+And to make it codable,         
+
+543
+00:26:49,441 --> 00:26:53,743
+all I have to do is say colon   
+codable. If I say that it's     
+
+544
+00:26:53,812 --> 00:26:58,215
+codable, then it is codable.    
+Unless it or something inside   
+
+545
+00:26:58,284 --> 00:27:01,484
+of it can't be coded            
+automatically by swift. So      
+
+546
+00:27:01,553 --> 00:27:03,921
+it's not one of those things    
+that I showed you on the first  
+
+547
+00:27:03,989 --> 00:27:07,157
+slide there. So here,           
+date is definitely codable,     
+
+548
+00:27:07,225 --> 00:27:08,892
+string is codable,              
+and presumably,                 
+
+549
+00:27:08,961 --> 00:27:12,462
+some other type has made        
+itself codable as well. And     
+
+550
+00:27:12,531 --> 00:27:15,666
+so, this thing is now codable,  
+and that's all I have to do.    
+
+551
+00:27:15,734 --> 00:27:18,301
+A lot easier that implementing  
+init and encode for             
+
+552
+00:27:18,370 --> 00:27:21,438
+every single object in there.   
+We just say it's codable, and   
+
+553
+00:27:21,507 --> 00:27:24,274
+it is. And the JSON that would  
+be generated from using that    
+
+554
+00:27:24,343 --> 00:27:26,710
+JSON encoder would look         
+something like this, right?     
+
+555
+00:27:26,778 --> 00:27:29,846
+someDate, which is the same     
+name as the var, colon, and     
+
+556
+00:27:29,915 --> 00:27:32,949
+then the date in some encoding  
+strategy that we decide.        
+
+557
+00:27:33,018 --> 00:27:36,486
+And then "someString" :         
+"Hello", and then "other" :     
+
+558
+00:27:36,555 --> 00:27:40,156
+<whatever SomeOtherType looks   
+like in JSON> looks like would  
+
+559
+00:27:40,225 --> 00:27:44,194
+be embedded in there, you see?  
+And so it can be recursively    
+
+560
+00:27:44,263 --> 00:27:48,965
+going down.                     
+Now we might not want the JSON  
+
+561
+00:27:49,034 --> 00:27:52,702
+to look exactly like this, so   
+can we tune this? Yeah we can,  
+
+562
+00:27:52,771 --> 00:27:57,007
+look at this. In JSON, for      
+example, the keys usually       
+
+563
+00:27:57,075 --> 00:28:00,443
+don't have camel case, you      
+know like some capital D data   
+
+564
+00:28:00,512 --> 00:28:03,513
+like we do for our variables.   
+Usually the keys are,           
+
+565
+00:28:03,582 --> 00:28:07,183
+the words are separate with     
+underbar like "som_date". So    
+
+566
+00:28:07,252 --> 00:28:10,787
+we can easily change the keys   
+that are generated when we use  
+
+567
+00:28:10,856 --> 00:28:15,158
+that JSON coder by adding a     
+private enum called CodingKeys  
+
+568
+00:28:15,227 --> 00:28:17,327
+which is a string-type enum.    
+And                             
+
+569
+00:28:17,396 --> 00:28:19,830
+it has to implement             
+a protocol coding key. And      
+
+570
+00:28:19,899 --> 00:28:22,799
+all it does is has a case,      
+it's an enum, right?            
+
+571
+00:28:22,868 --> 00:28:25,168
+Has a case for every var        
+that we want encoded.           
+
+572
+00:28:25,237 --> 00:28:26,870
+So if we have a var we          
+don't want encoded,             
+
+573
+00:28:26,939 --> 00:28:28,672
+just don't put that             
+case there. And                 
+
+574
+00:28:28,741 --> 00:28:30,340
+if you have a var that          
+you do want encoded, but        
+
+575
+00:28:30,409 --> 00:28:33,510
+you want it to change the key,  
+just say equals the key you     
+
+576
+00:28:33,578 --> 00:28:36,946
+want. So here I've said case    
+someDate = "som_date", so       
+
+577
+00:28:37,015 --> 00:28:40,550
+now in the JSON it's gonna say  
+som_date equals, instead of     
+
+578
+00:28:40,619 --> 00:28:43,687
+someDate. And notice I didn't   
+put someString case in there    
+
+579
+00:28:43,756 --> 00:28:46,490
+at all, so someString is not    
+even gonna be put in the JSON.  
+
+580
+00:28:48,427 --> 00:28:50,894
+So this is a really cool,       
+simple way to                   
+
+581
+00:28:50,963 --> 00:28:55,065
+customize the JSON that you     
+generate from your type. Now,   
+
+582
+00:28:55,134 --> 00:28:57,400
+I'm not even gonna really       
+talk about this, but            
+
+583
+00:28:57,469 --> 00:29:01,537
+you can implement init from     
+decoder. The thing that         
+
+584
+00:29:01,606 --> 00:29:05,641
+actually pulls the thing out    
+of the jJSON. If you want       
+
+585
+00:29:05,710 --> 00:29:08,411
+to do some validation or some   
+kind of complicated thing, or   
+
+586
+00:29:08,480 --> 00:29:12,282
+if for example you have a type  
+that swift can't encode.        
+
+587
+00:29:12,351 --> 00:29:15,418
+Some new type that you          
+invented that's not made up of  
+
+588
+00:29:15,487 --> 00:29:18,188
+other types that swift can      
+encode and you wanna do it,     
+
+589
+00:29:18,257 --> 00:29:20,490
+you can do it. I just put       
+this here as kind of,           
+
+590
+00:29:20,558 --> 00:29:23,426
+so you can look at it later     
+to see how you do it.           
+
+591
+00:29:23,495 --> 00:29:25,561
+There's a container in          
+the decoder and you get it and  
+
+592
+00:29:25,630 --> 00:29:28,431
+it's got keys and values that   
+looks like a dictionary. It's   
+
+593
+00:29:28,500 --> 00:29:32,402
+not that hard. One thing is     
+when you're decoding a class,   
+
+594
+00:29:32,471 --> 00:29:34,838
+you have to be here for         
+the call supe_init, right?      
+
+595
+00:29:34,907 --> 00:29:37,073
+Cuz you're decoding,            
+you have to implement init.     
+
+596
+00:29:37,142 --> 00:29:39,575
+So you gotta call supe_init.    
+But don't call supe_init        
+
+597
+00:29:39,644 --> 00:29:42,546
+with the same decoder that was  
+sent to you. Decoder was sent   
+
+598
+00:29:42,614 --> 00:29:46,283
+to you is for decoding your     
+vars. You want to send this     
+
+599
+00:29:46,351 --> 00:29:49,153
+thing from the container        
+called superDecoder.            
+
+600
+00:29:49,221 --> 00:29:52,889
+As the decoder of your          
+superclasses bars. And          
+
+601
+00:29:52,958 --> 00:29:56,860
+then of course, you could also  
+implement encoding to encode    
+
+602
+00:29:56,929 --> 00:29:59,496
+random types that aren't        
+part of the swifting.           
+
+603
+00:29:59,564 --> 00:30:00,864
+Again, I'm not                  
+gonna go over this.             
+
+604
+00:30:00,933 --> 00:30:01,832
+You won't have to               
+do any of this for              
+
+605
+00:30:01,900 --> 00:30:04,734
+your homework of course.        
+But for your final project      
+
+606
+00:30:04,803 --> 00:30:07,571
+at least you know this can be   
+done, is to implement encode    
+
+607
+00:30:07,639 --> 00:30:11,040
+and init for yourself.          
+All right, so that's it for     
+
+608
+00:30:11,109 --> 00:30:14,177
+archiving. Archiving, the       
+whole point is we take some     
+
+609
+00:30:14,246 --> 00:30:17,413
+object graphed of swift stuff   
+and we turn it into a data.     
+
+610
+00:30:17,482 --> 00:30:18,915
+And the data is either          
+gonna be JSON or                
+
+611
+00:30:18,984 --> 00:30:21,217
+property list format.           
+So we have a data,              
+
+612
+00:30:21,286 --> 00:30:24,487
+now we wanna store that         
+data in the file system.        
+
+613
+00:30:24,556 --> 00:30:25,588
+We're gonna put it in a file.   
+
+614
+00:30:25,657 --> 00:30:29,426
+It's just a normal file.        
+Remember that iOS is Unix. And  
+
+615
+00:30:29,495 --> 00:30:32,929
+so we have a unix filesystem    
+underneath of course and        
+
+616
+00:30:32,998 --> 00:30:36,500
+starts at slash any other       
+of the unix file system and     
+
+617
+00:30:36,568 --> 00:30:39,502
+all we need to do to store our  
+data blog is just write it      
+
+618
+00:30:39,571 --> 00:30:43,740
+to a file. So how do we access  
+this unix file system in iOS?   
+
+619
+00:30:43,809 --> 00:30:45,909
+Well, the most                  
+important thing to              
+
+620
+00:30:45,977 --> 00:30:48,712
+understand is that the only     
+part of Unix file system you    
+
+621
+00:30:48,780 --> 00:30:53,116
+can access is your sand box.    
+Your sandbox is this little     
+
+622
+00:30:53,184 --> 00:30:55,418
+enclosed space. It's the only   
+place you can write.            
+
+623
+00:30:55,487 --> 00:30:57,887
+You can't write into any        
+system files anywhere.          
+
+624
+00:30:57,956 --> 00:30:59,889
+You can't write into any        
+other app's information.        
+
+625
+00:30:59,958 --> 00:31:02,692
+You can only write in your      
+sandbox. Why does iOS           
+
+626
+00:31:02,761 --> 00:31:07,731
+restrict you to a sandbox.      
+Well, three main reasons.       
+
+627
+00:31:07,799 --> 00:31:12,636
+One, Security. Because we want  
+to make sure that no other      
+
+628
+00:31:12,704 --> 00:31:16,473
+app can come along and break    
+your app somehow, make it so    
+
+629
+00:31:16,542 --> 00:31:19,810
+that your app doesn't work.     
+Privacy,                        
+
+630
+00:31:19,878 --> 00:31:21,845
+you're collecting user          
+information, whatever,          
+
+631
+00:31:21,914 --> 00:31:24,080
+you don't want other malicious  
+apps to be looking in there     
+
+632
+00:31:24,149 --> 00:31:26,983
+and getting that information.   
+And an underrated one is        
+
+633
+00:31:27,052 --> 00:31:30,954
+cleanup. You wanna be able to   
+clean up when the user says,    
+
+634
+00:31:31,022 --> 00:31:34,090
+I don't want this app anymore.  
+If you have everything in       
+
+635
+00:31:34,159 --> 00:31:36,426
+a sandbox, you can delete that  
+sandbox, and now everything     
+
+636
+00:31:36,494 --> 00:31:39,595
+that app has ever done is       
+gone. So, there's the clean-up  
+
+637
+00:31:39,664 --> 00:31:43,666
+part of it. So, Access in the   
+Unix file system is all about   
+
+638
+00:31:43,735 --> 00:31:47,103
+finding a starting point in     
+this sandbox. And there's       
+
+639
+00:31:47,172 --> 00:31:49,939
+a few starting points that      
+you can find. For example,      
+
+640
+00:31:50,008 --> 00:31:52,675
+there is your application       
+directory in the sandbox.       
+
+641
+00:31:52,744 --> 00:31:56,179
+This has your executable, all   
+your storyboards, JPEG files,   
+
+642
+00:31:56,248 --> 00:31:58,148
+your image assets,              
+all those things.               
+
+643
+00:31:58,216 --> 00:32:02,486
+This part of your sandbox,      
+you can get a Unix path to it.  
+
+644
+00:32:02,554 --> 00:32:04,654
+But it's completely             
+not writeable.                  
+
+645
+00:32:04,723 --> 00:32:07,323
+You cannot write to any of      
+this. You can only read it.     
+
+646
+00:32:07,392 --> 00:32:09,125
+If there was something you      
+needed to write in there,       
+
+647
+00:32:09,194 --> 00:32:12,229
+like let's say you pass some    
+initial database or something,  
+
+648
+00:32:12,297 --> 00:32:13,463
+you would have to               
+copy it out into                
+
+649
+00:32:13,531 --> 00:32:15,866
+one of the other places         
+in your sandbox, and            
+
+650
+00:32:15,934 --> 00:32:19,069
+edit it from there.             
+Another place in your sandbox,  
+
+651
+00:32:19,138 --> 00:32:21,771
+really important,               
+is the Documents directory.     
+
+652
+00:32:21,840 --> 00:32:25,041
+This is where you store stuff   
+that the user perceives         
+
+653
+00:32:25,110 --> 00:32:27,177
+as their data in                
+document form.                  
+
+654
+00:32:27,245 --> 00:32:30,146
+And the reason it's important   
+that it be user-perceived       
+
+655
+00:32:30,215 --> 00:32:33,083
+as a document is because this   
+directory, what's in there,     
+
+656
+00:32:33,152 --> 00:32:36,253
+is gonna be visible in          
+the files app in iOS 11.        
+
+657
+00:32:36,321 --> 00:32:39,756
+I don't know if you all have    
+seen iOS 11, played with it     
+
+658
+00:32:39,825 --> 00:32:42,559
+much. There's a new app in      
+there, Files, and it shows      
+
+659
+00:32:42,627 --> 00:32:45,362
+you all the files in all the    
+Document directories of all     
+
+660
+00:32:45,430 --> 00:32:48,598
+the apps. So don't put things   
+in the Documents directory      
+
+661
+00:32:48,666 --> 00:32:52,502
+unless they're perceived        
+as documents by the user.       
+
+662
+00:32:52,570 --> 00:32:54,704
+There's also applications       
+support. That's where you can   
+
+663
+00:32:54,773 --> 00:32:58,174
+put the stuff that the user     
+creates that's not a document,  
+
+664
+00:32:58,243 --> 00:33:00,610
+because that's not gonna        
+show up in Files. And           
+
+665
+00:33:00,679 --> 00:33:01,911
+then there's other              
+directories,                    
+
+666
+00:33:01,980 --> 00:33:03,914
+about a dozen other ones.       
+One of them, for example,       
+
+667
+00:33:03,982 --> 00:33:06,183
+is Caches directory. That's     
+where you can put temporary     
+
+668
+00:33:06,251 --> 00:33:09,052
+stuff that can be deleted at    
+any other time, at any time,    
+
+669
+00:33:09,121 --> 00:33:12,022
+and recreated. For example, in  
+your homework for this week,    
+
+670
+00:33:12,090 --> 00:33:14,190
+I'm gonna ask you to take       
+your image galleries and        
+
+671
+00:33:14,259 --> 00:33:18,161
+cache those images. So that     
+when people drag stuff in and   
+
+672
+00:33:18,229 --> 00:33:19,262
+then they start                 
+scrolling around,               
+
+673
+00:33:19,331 --> 00:33:20,463
+instead of constantly           
+going back and                  
+
+674
+00:33:20,531 --> 00:33:21,798
+fetching those                  
+things all the time,            
+
+675
+00:33:21,867 --> 00:33:23,299
+you cache them in               
+the file system. Well,          
+
+676
+00:33:23,368 --> 00:33:26,035
+you're gonna wanna put that in  
+the Caches directory because    
+
+677
+00:33:26,104 --> 00:33:28,905
+it won't count against your     
+app in terms of disk space      
+
+678
+00:33:28,973 --> 00:33:31,541
+usage, and you can always just  
+re-fetch it again if you,       
+
+679
+00:33:31,610 --> 00:33:35,312
+if the cache gets blown away.   
+
+680
+00:33:35,380 --> 00:33:37,313
+All right, so, you need to get  
+paths to all these things.      
+
+681
+00:33:37,382 --> 00:33:40,450
+So how do you get a path to     
+these special directories, and  
+
+682
+00:33:40,518 --> 00:33:44,220
+then start building on it       
+to build your own paths.        
+
+683
+00:33:44,289 --> 00:33:46,622
+Well the first thing to         
+understand is that all          
+
+684
+00:33:46,691 --> 00:33:48,591
+the access to the file system   
+is gonna happen through         
+
+685
+00:33:48,660 --> 00:33:51,695
+two classes, or two, two        
+objects. They're not classes,   
+
+686
+00:33:51,764 --> 00:33:54,230
+they're struct.                 
+But one is FileManager,         
+
+687
+00:33:54,299 --> 00:33:57,466
+and the other one is URL. And   
+you've already learned about    
+
+688
+00:33:57,535 --> 00:34:01,137
+URL because we've used URLs     
+to the network resources,       
+
+689
+00:34:01,205 --> 00:34:03,840
+HTTP resources, and things      
+like that. Well, you can also   
+
+690
+00:34:03,908 --> 00:34:06,742
+have URLs to local resources,   
+things on your disk.            
+
+691
+00:34:06,811 --> 00:34:09,078
+And our URL is                  
+essentially just a path,        
+
+692
+00:34:09,147 --> 00:34:13,216
+a Unix path to the file.        
+So the,                         
+
+693
+00:34:13,284 --> 00:34:16,552
+what you're gonna do before     
+you do anything is find one     
+
+694
+00:34:16,621 --> 00:34:19,556
+of these sandbox directories,   
+cuz you cannot only write and   
+
+695
+00:34:19,625 --> 00:34:21,524
+read from those sandbox         
+directories. So                 
+
+696
+00:34:21,593 --> 00:34:26,362
+there's really two methods      
+to get a sandbox URL, and       
+
+697
+00:34:26,431 --> 00:34:28,498
+I'm going to show you one of    
+them here, which is, I kind of  
+
+698
+00:34:28,567 --> 00:34:31,701
+prefer. I'll actually show the  
+other one maybe in the demo.    
+
+699
+00:34:31,769 --> 00:34:35,605
+It's a FileManager method, and  
+the FileManager is kind of      
+
+700
+00:34:35,674 --> 00:34:38,274
+like user default in that       
+we use a shared one called      
+
+701
+00:34:38,343 --> 00:34:40,977
+default. Although sometimes     
+we would actually wanna         
+
+702
+00:34:41,046 --> 00:34:43,713
+create a different FileManager  
+by saying FileManager           
+
+703
+00:34:43,782 --> 00:34:45,515
+open parentheses closed         
+parentheses, right? Just        
+
+704
+00:34:45,584 --> 00:34:47,583
+calling its initializer, which  
+takes no argument, and I'll     
+
+705
+00:34:47,652 --> 00:34:50,786
+talk about when we'd wanna do   
+that a little bit later here.   
+
+706
+00:34:50,855 --> 00:34:54,524
+So this one is called URL for   
+directory in DomainMask,        
+
+707
+00:34:54,592 --> 00:34:59,162
+appropriate for create. So      
+let's look at these arguments.  
+
+708
+00:34:59,231 --> 00:35:02,331
+The for directory is the        
+sandbox directory you want.     
+
+709
+00:35:02,400 --> 00:35:05,067
+Like the documentDirectory,     
+the cachesDirectory,            
+
+710
+00:35:05,136 --> 00:35:06,970
+the                             
+applicationSupportDirectory.    
+
+711
+00:35:07,038 --> 00:35:08,671
+That's there and                
+
+712
+00:35:08,740 --> 00:35:12,242
+it's specified via              
+an enum here. And               
+
+713
+00:35:12,310 --> 00:35:14,110
+I show you some examples of     
+what they are at the bottom.    
+
+714
+00:35:14,179 --> 00:35:16,879
+You can obviously go look       
+it up in the documentation,     
+
+715
+00:35:16,948 --> 00:35:19,749
+what's available there.         
+In domainMask, is always        
+
+716
+00:35:19,818 --> 00:35:23,185
+.userDomainMask on iOS because  
+we have the sandbox, and        
+
+717
+00:35:23,254 --> 00:35:25,155
+we can only look                
+in the sandbox.                 
+
+718
+00:35:25,223 --> 00:35:28,992
+On MacOS it could be            
+a shared network domain.        
+
+719
+00:35:29,060 --> 00:35:31,327
+It could be the systems         
+shared domain center, but       
+
+720
+00:35:31,396 --> 00:35:34,263
+on iOS it's always              
+userDomainMask right there.     
+
+721
+00:35:34,332 --> 00:35:37,266
+Appropriate for just, you're    
+always gonna set that to nil.   
+
+722
+00:35:37,335 --> 00:35:39,502
+That's basically if you're      
+gonna replace a file,           
+
+723
+00:35:39,571 --> 00:35:41,905
+you want to specify the URL of  
+what you're gonna replace so    
+
+724
+00:35:41,973 --> 00:35:44,840
+you can make sure it's on       
+the same volume as the,         
+
+725
+00:35:44,909 --> 00:35:48,545
+the URL you are getting.        
+Again, kind of not meaningful   
+
+726
+00:35:48,613 --> 00:35:51,213
+in iOS most of the time, so     
+that's usually just nil. And    
+
+727
+00:35:51,282 --> 00:35:52,616
+then create is                  
+an important one.               
+
+728
+00:35:52,684 --> 00:35:55,251
+That says whether you're        
+gonna create that sandbox,      
+
+729
+00:35:55,320 --> 00:35:56,386
+special sandbox directory,      
+
+730
+00:35:56,455 --> 00:35:59,055
+cuz not all of them exist       
+when your app is created.       
+
+731
+00:35:59,123 --> 00:36:01,424
+Like applicationSupport does    
+not exist, so you'll have to    
+
+732
+00:36:01,493 --> 00:36:03,459
+make sure you say create:       
+true, right there. Doesn't      
+
+733
+00:36:03,528 --> 00:36:05,428
+hurt to say create: true,       
+I think documentDirectory       
+
+734
+00:36:05,496 --> 00:36:08,397
+actually is already created     
+for you, but, can't hurt. So    
+
+735
+00:36:08,466 --> 00:36:12,068
+this is how you get a URL, you  
+see the return value is a URL,  
+
+736
+00:36:12,136 --> 00:36:14,738
+into the sandbox. Now that you  
+have a URL in the sandbox,      
+
+737
+00:36:14,806 --> 00:36:17,607
+now you can start writing       
+files. And the way you do that  
+
+738
+00:36:17,675 --> 00:36:21,478
+is by using the URL method      
+appendingPathComponent.         
+
+739
+00:36:21,547 --> 00:36:24,213
+So adds a directory or          
+the name of a file              
+
+740
+00:36:24,282 --> 00:36:27,217
+onto the end of that URL, you   
+can even add file extensions.   
+
+741
+00:36:27,285 --> 00:36:28,317
+It's perfectly legal,           
+by the way,                     
+
+742
+00:36:28,386 --> 00:36:32,689
+to say appendingPathComponent   
+food.jpg, you don't have to     
+
+743
+00:36:32,757 --> 00:36:34,357
+do the extension with           
+a separate call there.          
+
+744
+00:36:34,426 --> 00:36:37,460
+But anyway, you're gonna use    
+that to build a URL that        
+
+745
+00:36:37,529 --> 00:36:40,663
+extends past the sandbox, and   
+it can have directories and     
+
+746
+00:36:40,731 --> 00:36:43,833
+stuff. You can,                 
+once you have URL,              
+
+747
+00:36:43,901 --> 00:36:47,069
+you can find out about things   
+like, is it a FileURL, or       
+
+748
+00:36:47,138 --> 00:36:50,806
+is it an HTTP URL? You can get  
+things like the right date.     
+
+749
+00:36:50,875 --> 00:36:54,144
+Is this a directory?            
+How big is this file?           
+
+750
+00:36:54,213 --> 00:36:57,714
+From this method,               
+resourceValues in URL.          
+
+751
+00:36:57,782 --> 00:37:00,683
+And resourceValues for keys     
+takes a bunch of keys, like     
+
+752
+00:37:00,752 --> 00:37:03,385
+file size and stuff like that,  
+and goes and looks it up in     
+
+753
+00:37:03,454 --> 00:37:06,555
+the file system and returns a   
+dictionary with those keys and  
+
+754
+00:37:06,624 --> 00:37:09,391
+the value it found. That's why  
+the value is Any right there.   
+
+755
+00:37:09,460 --> 00:37:13,363
+It could be a number, it could  
+be a string, things like that.  
+
+756
+00:37:13,431 --> 00:37:15,799
+So you can find out a lot       
+about your files there.         
+
+757
+00:37:17,235 --> 00:37:18,835
+How do you read and             
+write files?                    
+
+758
+00:37:18,904 --> 00:37:21,738
+We do that with data.           
+And you've already seen this,   
+
+759
+00:37:21,806 --> 00:37:26,075
+actually. We used data to       
+read a file off the internet,   
+
+760
+00:37:26,144 --> 00:37:29,078
+with an HTTP URL. Of course     
+you can do that with a FileURL  
+
+761
+00:37:29,147 --> 00:37:32,582
+as well. We did not use         
+the options when we did it,     
+
+762
+00:37:32,651 --> 00:37:34,083
+because we used                 
+the default options,            
+
+763
+00:37:34,152 --> 00:37:36,753
+which you mostly will. But      
+there are some read options     
+
+764
+00:37:36,822 --> 00:37:38,921
+you can go look at.             
+And to write files,             
+
+765
+00:37:38,990 --> 00:37:41,724
+you're going to send this       
+to data, write(to url.          
+
+766
+00:37:41,792 --> 00:37:45,061
+And it also has options you     
+can look at as well. So that    
+
+767
+00:37:45,129 --> 00:37:48,197
+is how we read and and write    
+to the file system. We have     
+
+768
+00:37:48,266 --> 00:37:51,401
+a data, probably one we got by  
+archiving the thing to JSON or  
+
+769
+00:37:51,469 --> 00:37:54,137
+whatever with their archiver,   
+and we just read and            
+
+770
+00:37:54,206 --> 00:37:57,606
+write with these two methods    
+from the file system. So        
+
+771
+00:37:57,675 --> 00:37:59,909
+you can see it's all about      
+just getting the right URL,     
+
+772
+00:37:59,978 --> 00:38:00,877
+and then it's easy to read and  
+
+773
+00:38:00,946 --> 00:38:04,213
+write. I want to talk           
+a little bit more about         
+
+774
+00:38:04,282 --> 00:38:07,484
+FileManager. You can do a lot   
+of other things besides just    
+
+775
+00:38:07,552 --> 00:38:09,385
+give you a URL of               
+something in the sandbox.       
+
+776
+00:38:09,454 --> 00:38:12,355
+For example, it can tell you    
+whether a file exists, on,      
+
+777
+00:38:12,423 --> 00:38:15,658
+in the file system.             
+It can move files, copy files,  
+
+778
+00:38:15,726 --> 00:38:19,028
+create directories, enumerate   
+directories, delete files,      
+
+779
+00:38:19,097 --> 00:38:20,897
+all that stuff,                 
+all in FileManager.             
+
+780
+00:38:20,966 --> 00:38:23,433
+FileManager has probably        
+a hundred methods in it for     
+
+781
+00:38:23,502 --> 00:38:26,936
+doing all that. FileManager     
+also has a delegate. And        
+
+782
+00:38:27,005 --> 00:38:30,206
+that delegate, almost all of    
+the methods are, should this.   
+
+783
+00:38:30,275 --> 00:38:33,142
+Should I allow opening this     
+file? Should I allow you        
+
+784
+00:38:33,211 --> 00:38:35,044
+to move this file. They're      
+kind of should things, so       
+
+785
+00:38:35,113 --> 00:38:37,546
+a delegate can control whether  
+the FileManager is allowed to   
+
+786
+00:38:37,615 --> 00:38:41,917
+do things. That and the fact    
+that FileManager is thread      
+
+787
+00:38:41,986 --> 00:38:45,254
+safe, but only within one       
+instance of the FileManager.    
+
+788
+00:38:45,323 --> 00:38:47,757
+So if you have a FileManager    
+on another thread besides       
+
+789
+00:38:47,826 --> 00:38:49,592
+the main thread,                
+it's thread safe but            
+
+790
+00:38:49,661 --> 00:38:52,862
+only if that FileManager        
+was created on that thread.     
+
+791
+00:38:52,931 --> 00:38:55,731
+And the filemanager.default     
+that I showed you before,       
+
+792
+00:38:55,800 --> 00:38:57,967
+that's the main thread one.     
+So you don't want to use        
+
+793
+00:38:58,036 --> 00:39:00,470
+filemanager.default in any      
+of the thread, but the main     
+
+794
+00:39:00,538 --> 00:39:04,006
+thread. And of course, if       
+you're gonna set a delegate on  
+
+795
+00:39:04,075 --> 00:39:06,175
+the FileManager, you probably   
+don't want to set the delegate  
+
+796
+00:39:06,244 --> 00:39:09,178
+of filemanager.default. That's  
+kind of a shared FileManager    
+
+797
+00:39:09,247 --> 00:39:11,948
+everybody's using in            
+the main thread. So             
+
+798
+00:39:12,016 --> 00:39:15,384
+you probably want to create     
+a FileManager in that case.     
+
+799
+00:39:15,453 --> 00:39:18,421
+Multiple FileManagers know how  
+to not step on each others'     
+
+800
+00:39:18,490 --> 00:39:22,758
+toes. All right? So we've       
+learned the simple little       
+
+801
+00:39:22,827 --> 00:39:25,929
+database, which was             
+the user default thing          
+
+802
+00:39:25,997 --> 00:39:28,197
+where we could store property   
+lists for, that's just for      
+
+803
+00:39:28,266 --> 00:39:31,767
+settings and stuff like that.   
+Then we learned about how to    
+
+804
+00:39:31,836 --> 00:39:34,570
+do archiving, much more         
+powerful. We can store other    
+
+805
+00:39:34,639 --> 00:39:37,006
+things and Swift will mostly    
+just do the code for us,        
+
+806
+00:39:37,075 --> 00:39:40,843
+but sometimes we can get        
+involved if we want. And        
+
+807
+00:39:40,912 --> 00:39:44,080
+it generates datas, then we     
+learn how to take those datas,  
+
+808
+00:39:44,148 --> 00:39:46,782
+with JSON or whatever in them,  
+and store them in the file      
+
+809
+00:39:46,851 --> 00:39:49,852
+system, using FileManager and   
+URL. Now I'm gonna talk about   
+
+810
+00:39:49,921 --> 00:39:53,022
+the next persistence thing      
+which is core data. So          
+
+811
+00:39:53,091 --> 00:39:54,290
+core data is if you have        
+
+812
+00:39:54,359 --> 00:39:57,159
+a large amount of data and      
+you need to search over it.     
+
+813
+00:39:57,228 --> 00:39:59,228
+In other words,                 
+you need a database.            
+
+814
+00:39:59,297 --> 00:40:03,566
+So core data is essentially a   
+SQL database. With an objected  
+
+815
+00:40:03,635 --> 00:40:06,902
+oriented API. So you            
+interact with this database.    
+
+816
+00:40:06,971 --> 00:40:10,272
+It looks like Swift objects,    
+but behind the scene those      
+
+817
+00:40:10,341 --> 00:40:13,343
+Swift objects are actually in   
+a database, a SQL database.     
+
+818
+00:40:13,411 --> 00:40:14,811
+Now Core Data is                
+very powerful and               
+
+819
+00:40:14,879 --> 00:40:17,480
+can actually have back ends     
+that are different than SQL,    
+
+820
+00:40:17,549 --> 00:40:21,951
+but for the most part we use    
+SQL back end for Core Data. So  
+
+821
+00:40:22,020 --> 00:40:24,987
+that's what Core Data is,       
+it's very efficient,            
+
+822
+00:40:25,056 --> 00:40:27,189
+beautifully object oriented.    
+
+823
+00:40:27,258 --> 00:40:28,358
+Now, I cannot,                  
+
+824
+00:40:28,426 --> 00:40:30,593
+I don't have time in this       
+quarter to talk about it, but   
+
+825
+00:40:30,662 --> 00:40:33,796
+luckily, I spent a whole        
+week on it last quarter. So     
+
+826
+00:40:33,865 --> 00:40:37,032
+you can go and look on iTunes   
+U and see two lectures on it,   
+
+827
+00:40:37,101 --> 00:40:38,267
+it hasn't really                
+changed that much for           
+
+828
+00:40:38,336 --> 00:40:41,103
+iOS 11, so it'll all be good.   
+This is a great                 
+
+829
+00:40:41,172 --> 00:40:43,739
+not covered in lecture feature  
+for your final project,         
+
+830
+00:40:43,808 --> 00:40:46,042
+because I'm not really gonna    
+cover it in this lecture.       
+
+831
+00:40:46,111 --> 00:40:47,943
+I'm gonna kinda give you        
+an overview of it. But          
+
+832
+00:40:48,012 --> 00:40:48,944
+you can easily go back and      
+
+833
+00:40:49,013 --> 00:40:50,446
+watch my last lecture and,      
+boom,                           
+
+834
+00:40:50,515 --> 00:40:52,548
+learn all about it and          
+be ready to go. So              
+
+835
+00:40:52,617 --> 00:40:55,251
+all I'm gonna do here is        
+a brief overview of it.         
+
+836
+00:40:55,320 --> 00:40:56,886
+If you want a detailed          
+of Core Data, and               
+
+837
+00:40:56,954 --> 00:40:59,522
+it is a great feature to        
+do for your final project,      
+
+838
+00:40:59,591 --> 00:41:03,493
+believe me. Go check            
+that iTunes U. All right,       
+
+839
+00:41:03,561 --> 00:41:07,263
+so it's a way of having this    
+object-oriented programming     
+
+840
+00:41:07,331 --> 00:41:11,266
+layer with the back end SQL.    
+How do we do that, how do we    
+
+841
+00:41:11,335 --> 00:41:14,770
+match those two things up?      
+Well we actually have a tool    
+
+842
+00:41:14,839 --> 00:41:18,207
+in Xcode which is a visual      
+mapper. You build all your      
+
+843
+00:41:18,276 --> 00:41:21,611
+objects and all their vars      
+essentially in this mapper.     
+
+844
+00:41:21,680 --> 00:41:23,946
+And the mapper is used to       
+figure out how to do that       
+
+845
+00:41:24,015 --> 00:41:27,783
+mapping forward for you, and    
+it just happens automatically.  
+
+846
+00:41:27,852 --> 00:41:30,252
+So if any of you who know       
+about databases, databases      
+
+847
+00:41:30,321 --> 00:41:33,890
+have tables. They have rows in  
+the tables that are records,    
+
+848
+00:41:33,959 --> 00:41:36,059
+they have columns               
+which are the fields.           
+
+849
+00:41:36,127 --> 00:41:38,061
+That's still happening          
+behind the scenes, but          
+
+850
+00:41:38,129 --> 00:41:40,263
+you don't see any of that       
+when you're programming,        
+
+851
+00:41:40,331 --> 00:41:42,331
+because you're using            
+an object-oriented API.         
+
+852
+00:41:42,400 --> 00:41:45,401
+So this is what the Visual      
+Mapper looks like, right,       
+
+853
+00:41:45,470 --> 00:41:48,738
+it's in Xcode here. And here    
+I have a couple objects here,   
+
+854
+00:41:48,807 --> 00:41:50,773
+a tweet and a twitter user.     
+
+855
+00:41:50,842 --> 00:41:53,042
+And those are going to map      
+to objects in my code and       
+
+856
+00:41:53,111 --> 00:41:55,811
+tables in the database. And     
+then we've got the fields like  
+
+857
+00:41:55,880 --> 00:41:57,380
+the tweet's got                 
+a created date,                 
+
+858
+00:41:57,448 --> 00:42:01,017
+a unique identifier of the      
+tweet, the text of the tweet.   
+
+859
+00:42:01,085 --> 00:42:03,819
+And its even got a var which    
+is the tweeter which points     
+
+860
+00:42:03,888 --> 00:42:06,723
+over to the twitter user and    
+on the twitter user side,       
+
+861
+00:42:06,791 --> 00:42:10,059
+it's got a var called tweets.   
+Which is gonna point back,      
+
+862
+00:42:10,127 --> 00:42:14,229
+which is actually a set         
+of tweet objects. So            
+
+863
+00:42:14,298 --> 00:42:17,332
+this mapping is being used      
+by Core Data on both sides.     
+
+864
+00:42:17,401 --> 00:42:18,467
+On the object side to make      
+
+865
+00:42:18,536 --> 00:42:20,002
+all of these things             
+look like objects, and          
+
+866
+00:42:20,071 --> 00:42:21,537
+on the other side to            
+build the tables and            
+
+867
+00:42:21,606 --> 00:42:25,775
+rows in the database. So        
+let's at how we, what it kind   
+
+868
+00:42:25,844 --> 00:42:27,943
+of looks like to do this        
+in code so you get an idea.     
+
+869
+00:42:28,012 --> 00:42:30,112
+Again, I'm not trying to teach  
+you how to do Core Data here.   
+
+870
+00:42:30,181 --> 00:42:32,581
+This is to kind of give you     
+an idea of what it looks like.  
+
+871
+00:42:32,650 --> 00:42:34,684
+The most important thing about  
+core data to understand,        
+
+872
+00:42:34,753 --> 00:42:37,219
+is that we access all           
+of it from a code using         
+
+873
+00:42:37,288 --> 00:42:41,190
+an NSManagedObjectContext.      
+So this context is key and      
+
+874
+00:42:41,259 --> 00:42:43,693
+there's two ways to             
+get this context. One,          
+
+875
+00:42:43,762 --> 00:42:45,261
+you know how when we            
+created our project?            
+
+876
+00:42:45,330 --> 00:42:46,662
+There was that little           
+switch there, that said,        
+
+877
+00:42:46,731 --> 00:42:49,899
+use core data, you remember     
+that? So you can flip that on   
+
+878
+00:42:49,968 --> 00:42:53,335
+and then you'll get a method    
+in your app delegate, which we  
+
+879
+00:42:53,404 --> 00:42:55,304
+haven't talked about. We'll     
+talk about that next week,      
+
+880
+00:42:55,373 --> 00:42:57,340
+that is giving                  
+you the context.                
+
+881
+00:42:57,409 --> 00:42:59,041
+It's actually a var that        
+gives you the context.          
+
+882
+00:42:59,110 --> 00:43:02,078
+So that's one way, another      
+way is to create a subclass,    
+
+883
+00:43:02,146 --> 00:43:04,947
+it's use a subclass of          
+UIDocument, which I'm gonna     
+
+884
+00:43:05,015 --> 00:43:09,385
+talk about later today. Which   
+will give you the context,      
+
+885
+00:43:09,453 --> 00:43:12,488
+and UIDocument is a way of      
+abstracting a document.         
+
+886
+00:43:12,556 --> 00:43:14,523
+So that's a way of looking      
+at your entire database,        
+
+887
+00:43:14,592 --> 00:43:18,527
+as just like one big document.  
+It could be a huge document     
+
+888
+00:43:18,596 --> 00:43:21,230
+cuz those databases             
+can be big. But                 
+
+889
+00:43:21,299 --> 00:43:23,099
+those are the two ways          
+to get a context.               
+
+890
+00:43:23,167 --> 00:43:25,768
+Once you have a two,            
+a context in your hand,         
+
+891
+00:43:25,836 --> 00:43:28,604
+now you can start doing all     
+this access in the database     
+
+892
+00:43:28,672 --> 00:43:30,940
+looking like an object. And     
+here's what this looks like.    
+
+893
+00:43:31,008 --> 00:43:35,344
+So here, for example, I'm       
+creating a tweet. And the only  
+
+894
+00:43:35,412 --> 00:43:38,314
+argument to the initializer     
+there is the context,           
+
+895
+00:43:38,382 --> 00:43:40,817
+which tells, is basically       
+the database to put it in. But  
+
+896
+00:43:40,885 --> 00:43:42,785
+then if I want to set           
+the text of the tweet,          
+
+897
+00:43:42,854 --> 00:43:45,221
+I just say tweet.text,          
+it looks just like Swift,       
+
+898
+00:43:45,289 --> 00:43:49,058
+tweet.created equals a date.    
+Yeah I can even create Joe,     
+
+899
+00:43:49,126 --> 00:43:51,927
+a twitter user in the same      
+context as the tweet and        
+
+900
+00:43:51,996 --> 00:43:56,899
+say tweet.tweeter = Joe. I can  
+even go tweet.tweeter.name =    
+
+901
+00:43:56,967 --> 00:44:00,702
+"Joe Schmo" in other words      
+use Swift notation to go        
+
+902
+00:44:00,771 --> 00:44:03,672
+through objects that            
+I'm linked to. So               
+
+903
+00:44:03,741 --> 00:44:08,377
+it really looks just exactly    
+like Swift. And I can also      
+
+904
+00:44:08,446 --> 00:44:12,181
+delete objects by just asking   
+the context to delete them.     
+
+905
+00:44:12,250 --> 00:44:15,050
+Changes that I made             
+are actually autosaved if       
+
+906
+00:44:15,119 --> 00:44:18,587
+I use that UIDocument approach  
+to getting the context.         
+
+907
+00:44:18,656 --> 00:44:21,357
+But if I used the Use Core      
+Data switch to do it,           
+
+908
+00:44:21,425 --> 00:44:24,360
+then I have to save it. The     
+only thing about the save is    
+
+909
+00:44:24,428 --> 00:44:25,994
+it can throw.                   
+As you can imagine,             
+
+910
+00:44:26,063 --> 00:44:28,364
+if I'm saving this stuff        
+out to the SQL database,        
+
+911
+00:44:28,433 --> 00:44:30,966
+I could get SQL errors or some  
+kind of file system full or     
+
+912
+00:44:31,035 --> 00:44:34,203
+things like that. So I have to  
+catch the errors, if I'm not    
+
+913
+00:44:34,271 --> 00:44:37,907
+gonna do the UIDocument based   
+auto-saving. Now how about      
+
+914
+00:44:37,976 --> 00:44:41,143
+searching for objects, tweets   
+and twitter users in there.     
+
+915
+00:44:41,212 --> 00:44:42,912
+So here I'm gonna search for    
+
+916
+00:44:42,981 --> 00:44:47,050
+some twitter users that have    
+tweeted in the last 24 hours.   
+
+917
+00:44:47,118 --> 00:44:49,418
+So first, I asked               
+the TwitterUser class for       
+
+918
+00:44:49,487 --> 00:44:51,987
+a fetch request. You see        
+the first line there where I'm  
+
+919
+00:44:52,056 --> 00:44:54,089
+saying                          
+TwitterUser.fetchRequest?       
+
+920
+00:44:54,158 --> 00:44:57,093
+Then this fetch request,        
+I set a predicate on it, see,   
+
+921
+00:44:57,162 --> 00:44:59,962
+NSPredicate format?             
+And predicate is a way of       
+
+922
+00:45:00,031 --> 00:45:04,299
+specifying the search you want  
+in text. It's not quite like    
+
+923
+00:45:04,368 --> 00:45:08,971
+SQL, but it's very English      
+oriented. So here I want any    
+
+924
+00:45:09,040 --> 00:45:13,809
+tweets that were created        
+after 24 hours ago. Okay        
+
+925
+00:45:13,877 --> 00:45:16,478
+cuz yesterday is a var I made   
+on the previous line which      
+
+926
+00:45:16,547 --> 00:45:21,350
+is timeIntervalSinceNow         
+minus 24 hours. So              
+
+927
+00:45:21,418 --> 00:45:22,651
+I've described my               
+search that way.                
+
+928
+00:45:22,720 --> 00:45:26,755
+I also can describe how I want  
+the result sorted. Here I'm     
+
+929
+00:45:26,824 --> 00:45:30,225
+gonna sort them by the name     
+of the TwitterUser. And         
+
+930
+00:45:30,294 --> 00:45:33,796
+then I just asked the context   
+please go fetch those things    
+
+931
+00:45:33,864 --> 00:45:37,533
+that match that. And it gives   
+me back an array of those       
+
+932
+00:45:37,602 --> 00:45:40,402
+things, as we might expect.     
+And if none, if nothing         
+
+933
+00:45:40,471 --> 00:45:43,739
+matches then I'll get an empty  
+array. If there was an error,   
+
+934
+00:45:43,807 --> 00:45:46,775
+like maybe my predicate         
+had a syntax error I said,      
+
+935
+00:45:46,844 --> 00:45:50,646
+like any twoots got created     
+by, then this is gonna throw.   
+
+936
+00:45:50,715 --> 00:45:53,282
+And I'll have to catch it and   
+figure that out.                
+
+937
+00:45:53,350 --> 00:45:55,651
+But otherwise it returns        
+in array of objects.            
+
+938
+00:45:55,720 --> 00:45:58,220
+So it's really easy to query    
+the database too, and it's      
+
+939
+00:45:58,289 --> 00:46:00,823
+using SQL to do that search so  
+it's super efficient.           
+
+940
+00:46:00,891 --> 00:46:04,794
+And it's, even large values     
+coming back, it's efficient     
+
+941
+00:46:04,862 --> 00:46:07,363
+about that as well. I can't     
+talk about how it does that,    
+
+942
+00:46:07,432 --> 00:46:10,032
+but it's also very efficient    
+even if huge things are,        
+
+943
+00:46:10,101 --> 00:46:13,803
+are returned. And               
+Core Data can do so much more.  
+
+944
+00:46:13,872 --> 00:46:15,338
+It has great support for        
+multithreading,                 
+
+945
+00:46:15,406 --> 00:46:17,773
+it has a very close             
+integration with UITableView,   
+
+946
+00:46:17,842 --> 00:46:18,641
+as you can imagine.             
+
+947
+00:46:18,710 --> 00:46:21,010
+You, you know, often might      
+want the information from       
+
+948
+00:46:21,079 --> 00:46:23,812
+the database to appear in a     
+table. You can even set it up   
+
+949
+00:46:23,881 --> 00:46:27,016
+so a table is always showing    
+the result of a fetch request,  
+
+950
+00:46:27,084 --> 00:46:29,151
+even if the database            
+changes from underneath.        
+
+951
+00:46:29,219 --> 00:46:31,621
+It just automatically           
+updates the table, and auto,    
+
+952
+00:46:31,689 --> 00:46:33,656
+you don£t have to do            
+anything in your code.          
+
+953
+00:46:33,725 --> 00:46:36,358
+Just say what fetch request     
+you want associated with        
+
+954
+00:46:36,427 --> 00:46:39,128
+the table. It does              
+lots of good databasey,         
+
+955
+00:46:39,196 --> 00:46:42,799
+things like optimistic locking  
+and rolling back changes.       
+
+956
+00:46:42,867 --> 00:46:46,468
+You can do undo redo            
+really easily with this,        
+
+957
+00:46:46,537 --> 00:46:49,905
+with the Core Data. And so I,   
+
+958
+00:46:49,973 --> 00:46:51,874
+I can't cover any of that,      
+but I just wanted to give you   
+
+959
+00:46:51,943 --> 00:46:53,709
+a kind of an idea of            
+what Core Data can do,          
+
+960
+00:46:53,778 --> 00:46:56,645
+cuz it's a very powerful        
+framework in iOS. So check out  
+
+961
+00:46:56,713 --> 00:47:00,316
+my last quarter's iTunes U to   
+figure out how to do that.      
+
+962
+00:47:00,385 --> 00:47:03,452
+I do a full demo the whole      
+deal. All right, so             
+
+963
+00:47:03,521 --> 00:47:06,688
+next topic is also something    
+I can't talk about this week.   
+
+964
+00:47:06,757 --> 00:47:10,559
+But I also did a week on this   
+the quarter before that.        
+
+965
+00:47:10,628 --> 00:47:12,361
+So if you go back               
+one more iTunes U,              
+
+966
+00:47:12,429 --> 00:47:14,997
+instead of Core Data that       
+quarter I did Cloud Kit,        
+
+967
+00:47:15,065 --> 00:47:17,866
+and instead of either of them   
+this quarter we'£e doing        
+
+968
+00:47:17,935 --> 00:47:19,602
+the document browser. So        
+
+969
+00:47:19,670 --> 00:47:22,137
+every quarter I like to spend   
+a week on persistence, and      
+
+970
+00:47:22,206 --> 00:47:25,374
+I kind of do a different thing  
+each quarter. This quarter I'm  
+
+971
+00:47:25,443 --> 00:47:29,344
+doing document, two quarters    
+ago I did Cloud Kit. So         
+
+972
+00:47:29,413 --> 00:47:32,548
+what is Cloud Kit?              
+Cloud Kit is a database also,   
+
+973
+00:47:32,617 --> 00:47:35,384
+in the same way that Core Data  
+is, but it's not a SQL          
+
+974
+00:47:35,452 --> 00:47:38,253
+database. It's a very simple    
+database, it just has           
+
+975
+00:47:38,322 --> 00:47:40,823
+kind of objects and the         
+properties in those objects.    
+
+976
+00:47:40,892 --> 00:47:43,592
+And you can query on them, but  
+they're simple queries. And     
+
+977
+00:47:43,660 --> 00:47:46,963
+relationships between things    
+have to be pretty simple and    
+
+978
+00:47:47,031 --> 00:47:50,165
+straightforward. But            
+what's incredible about it is,  
+
+979
+00:47:50,234 --> 00:47:53,135
+it's on the network. So         
+this is a network database, so  
+
+980
+00:47:53,204 --> 00:47:56,238
+Core Data, you can have your    
+database file on the network.   
+
+981
+00:47:56,306 --> 00:47:59,007
+But when you start accessing    
+it, it has to bring the file    
+
+982
+00:47:59,076 --> 00:48:01,476
+down to your local machine      
+Cuz it's a local SQL.           
+
+983
+00:48:01,545 --> 00:48:04,046
+Database thing                  
+whereas Cloud Kit               
+
+984
+00:48:04,115 --> 00:48:06,315
+actually when you make          
+a request to search for         
+
+985
+00:48:06,384 --> 00:48:09,351
+something, it does it over      
+the Internet to iCloud and      
+
+986
+00:48:09,419 --> 00:48:12,822
+says search that database and   
+send the results back. So       
+
+987
+00:48:12,890 --> 00:48:17,326
+Cloud Kit's API is completely   
+asynchronous, right,            
+
+988
+00:48:17,395 --> 00:48:19,528
+you make requests and then      
+you provide a closure, and      
+
+989
+00:48:19,597 --> 00:48:22,531
+it calls you back later when    
+it's got the result. So         
+
+990
+00:48:22,600 --> 00:48:25,167
+this requires a certain         
+thoughtfulness                  
+
+991
+00:48:25,236 --> 00:48:27,769
+in programming when             
+things can take a long          
+
+992
+00:48:27,838 --> 00:48:30,472
+time like that, okay. You've    
+already seen this a little bit  
+
+993
+00:48:30,541 --> 00:48:33,475
+with multi-threading in your    
+homework, hopefully, but        
+
+994
+00:48:33,544 --> 00:48:36,578
+it's kinda amplified in         
+Cloud Kit. Now it's not,        
+
+995
+00:48:36,647 --> 00:48:39,180
+it's not bad, it just requires  
+you to think in a certain way   
+
+996
+00:48:39,249 --> 00:48:41,383
+as you're programming. So       
+
+997
+00:48:41,452 --> 00:48:42,985
+the important components        
+of Cloud Kit,                   
+
+998
+00:48:43,053 --> 00:48:45,454
+you got record types,           
+that's kind of like classes.    
+
+999
+00:48:45,523 --> 00:48:48,357
+You've got fields,              
+that's like a var in class,     
+
+1000
+00:48:48,426 --> 00:48:51,560
+record, that's an instance of   
+a class. A reference, that's    
+
+1001
+00:48:51,629 --> 00:48:55,197
+like a pointer to another       
+class, you got databases and    
+
+1002
+00:48:55,266 --> 00:48:58,033
+zones inside databases. You've  
+got containers that contain     
+
+1003
+00:48:58,102 --> 00:49:01,503
+databases. You've got queries,  
+that's like a fetch request,    
+
+1004
+00:49:01,572 --> 00:49:04,373
+a little bit in Core Data.      
+It's actually quite similar     
+
+1005
+00:49:04,442 --> 00:49:05,774
+to a fetch request              
+in Core Data. And               
+
+1006
+00:49:05,843 --> 00:49:09,244
+then you've got subscriptions   
+which are a fantastic feature.  
+
+1007
+00:49:09,313 --> 00:49:12,747
+That's, you make a query, and   
+you give it to the server, and  
+
+1008
+00:49:12,816 --> 00:49:14,984
+you say anytime                 
+the database changes,           
+
+1009
+00:49:15,052 --> 00:49:17,019
+such that this                  
+query would change,             
+
+1010
+00:49:17,088 --> 00:49:20,222
+send me a push notification.    
+Do you all know what a push...  
+
+1011
+00:49:20,291 --> 00:49:23,592
+who knows what a push           
+notification is? So             
+
+1012
+00:49:23,661 --> 00:49:27,162
+not everyone, but most people.  
+So a push notification is just  
+
+1013
+00:49:27,231 --> 00:49:29,899
+something that comes to your    
+app, and it'll even wake        
+
+1014
+00:49:29,967 --> 00:49:33,002
+your app up and say, whoa,      
+some information has arrived.   
+
+1015
+00:49:33,070 --> 00:49:35,071
+And that is one of the          
+coolest, if not the coolest,    
+
+1016
+00:49:35,139 --> 00:49:37,672
+feature in Cloud Kit,           
+is that you'll get notified     
+
+1017
+00:49:37,741 --> 00:49:39,909
+when the database changes in    
+a way that you care about.      
+
+1018
+00:49:39,977 --> 00:49:42,978
+Those are called                
+subscriptions. But              
+
+1019
+00:49:43,046 --> 00:49:44,646
+you're gonna see, I'm gonna     
+show you some code for          
+
+1020
+00:49:44,715 --> 00:49:47,749
+Cloud Kit. It's not like Core   
+Data in that it doesn't look    
+
+1021
+00:49:47,818 --> 00:49:49,301
+like Swift in the code. You've  
+got more function calls and     
+
+1022
+00:49:49,302 --> 00:49:50,785
+as much just                    
+
+1023
+00:49:50,854 --> 00:49:54,223
+stuff. Now to use Cloud Kit,    
+you have to turn on iCloud.     
+
+1024
+00:49:54,292 --> 00:49:56,591
+And you do this, like a lot of  
+things you have to turn on,     
+
+1025
+00:49:56,660 --> 00:49:58,660
+like push notifications and     
+other things,                   
+
+1026
+00:49:58,729 --> 00:50:01,797
+in the Capabilities section     
+of your project settings.       
+
+1027
+00:50:01,865 --> 00:50:03,832
+So you're gonna go there        
+to Capabilities, and            
+
+1028
+00:50:03,901 --> 00:50:07,569
+you're gonna flip this          
+switch for iCloud ON. And       
+
+1029
+00:50:07,638 --> 00:50:10,338
+then you're gonna turn on this  
+little Cloud Kit switch down    
+
+1030
+00:50:10,407 --> 00:50:12,808
+here, and that's gonna          
+enable that capability for      
+
+1031
+00:50:12,877 --> 00:50:14,977
+you to use Cloud Kit.           
+If you don't turn this on,      
+
+1032
+00:50:15,045 --> 00:50:17,212
+you won't be able to use it.    
+And when you do that,           
+
+1033
+00:50:17,281 --> 00:50:19,848
+there's gonna be this little    
+button down at the bottom       
+
+1034
+00:50:19,917 --> 00:50:22,651
+called Cloud Kit Dashboard.     
+This Cloud Kit Dashboard,       
+
+1035
+00:50:22,720 --> 00:50:25,253
+let's press it and              
+see what it looks like.         
+
+1036
+00:50:25,322 --> 00:50:27,489
+It's gonna go to this place on  
+the Web, where it's gonna show  
+
+1037
+00:50:27,558 --> 00:50:30,726
+you your database schema.       
+So all your record types,       
+
+1038
+00:50:30,795 --> 00:50:33,061
+and all the little fields       
+in it, not just that, but       
+
+1039
+00:50:33,130 --> 00:50:36,565
+the actual data. Which it's     
+not that useful once you ship   
+
+1040
+00:50:36,634 --> 00:50:38,767
+your app because you're gonna   
+have thousands of users         
+
+1041
+00:50:38,835 --> 00:50:40,869
+generating so much data         
+you can't even look at it.      
+
+1042
+00:50:40,938 --> 00:50:43,005
+But in development,             
+it's really great,              
+
+1043
+00:50:43,074 --> 00:50:45,708
+because you create a object     
+and you can go look at it and   
+
+1044
+00:50:45,776 --> 00:50:48,410
+make sure it got in there and   
+it's got the right data or      
+
+1045
+00:50:48,479 --> 00:50:53,014
+whatever. So this dashboard is  
+how you kind of work on your    
+
+1046
+00:50:53,083 --> 00:50:57,519
+schema. It's not quite          
+like the Core Data schema       
+
+1047
+00:50:57,588 --> 00:51:02,057
+editor thing. Because in Cloud  
+Kit, different than Core Data,  
+
+1048
+00:51:02,126 --> 00:51:03,859
+it builds the schema            
+as you go.                      
+
+1049
+00:51:03,927 --> 00:51:07,729
+As soon as you, if you say      
+create an object of this name,  
+
+1050
+00:51:07,798 --> 00:51:11,433
+it'll just go create it. It's,  
+it's gonna do it on the fly,    
+
+1051
+00:51:11,502 --> 00:51:14,269
+you don't have to go and        
+pre-build your schema like you  
+
+1052
+00:51:14,338 --> 00:51:17,473
+do in Core Data. That's what    
+this is talking about, dynamic  
+
+1053
+00:51:17,541 --> 00:51:19,842
+schema creation. And this only  
+works during development,       
+
+1054
+00:51:19,911 --> 00:51:22,277
+obviously. Once you ship        
+it to your users, then          
+
+1055
+00:51:22,346 --> 00:51:26,548
+it's not gonna create classes   
+and fields on the fly as you    
+
+1056
+00:51:26,616 --> 00:51:28,717
+access them. But you're in      
+development, it's really nice,  
+
+1057
+00:51:28,786 --> 00:51:31,353
+it's really easy, to just       
+start writing code, and have    
+
+1058
+00:51:31,422 --> 00:51:34,990
+it start building the database  
+that would match that code.     
+
+1059
+00:51:35,059 --> 00:51:36,725
+All right, so here's what       
+the code looks like. You're     
+
+1060
+00:51:36,794 --> 00:51:39,594
+gonna see it doesn't look       
+like as nice as Core Data.      
+
+1061
+00:51:39,663 --> 00:51:42,330
+So you have to get a database,  
+so usually,                     
+
+1062
+00:51:42,399 --> 00:51:45,267
+you're gonna use the public or  
+private cloud database.         
+
+1063
+00:51:45,336 --> 00:51:48,737
+Then to create a tweet, you     
+see you're gonna say CKRecord,  
+
+1064
+00:51:48,805 --> 00:51:51,907
+CK is Cloud Kit. CKRecord with  
+the name Tweet which would      
+
+1065
+00:51:51,975 --> 00:51:55,077
+automatically add that table    
+to the database if it didn't    
+
+1066
+00:51:55,146 --> 00:51:58,180
+exist. Then you're gonna        
+say tweet subquote              
+
+1067
+00:51:58,249 --> 00:52:01,750
+text = the text. And then to    
+have a tweeter you have to say  
+
+1068
+00:52:01,819 --> 00:52:05,520
+CKRecord TwitterUser. And       
+then say tweet sub tweeter =    
+
+1069
+00:52:05,589 --> 00:52:10,058
+CKReference to record tweeter   
+with the action delete this     
+
+1070
+00:52:10,127 --> 00:52:12,861
+thing if the thing it's in      
+gets deleted. So you see,       
+
+1071
+00:52:12,930 --> 00:52:14,530
+it's more verbose and not,      
+
+1072
+00:52:14,598 --> 00:52:18,233
+doesn't look like Swift, to     
+be doing all this stuff. And    
+
+1073
+00:52:18,302 --> 00:52:20,802
+of course things like saving    
+are asynchronous, right.        
+
+1074
+00:52:20,871 --> 00:52:22,938
+So here I wanna save this       
+tweet in the database.          
+
+1075
+00:52:23,007 --> 00:52:25,874
+Well, it's going to, I have     
+to provide this closure,        
+
+1076
+00:52:25,943 --> 00:52:28,477
+and it's gonna call me          
+back once it's finished or      
+
+1077
+00:52:28,545 --> 00:52:32,480
+if there were an error. Now     
+this networking programming,    
+
+1078
+00:52:32,549 --> 00:52:35,350
+always a lot of error           
+handling. And so                
+
+1079
+00:52:35,419 --> 00:52:37,753
+if you guys haven't done        
+networking programming,         
+
+1080
+00:52:37,822 --> 00:52:40,455
+get used to it, there are 29    
+different errors in Cloud Kit   
+
+1081
+00:52:40,524 --> 00:52:44,459
+error. And not all of them can  
+happen on every operation, but  
+
+1082
+00:52:44,528 --> 00:52:47,796
+a lot of them can. For          
+example, I've shown the error   
+
+1083
+00:52:47,865 --> 00:52:50,598
+here NotAuthenticated.          
+Because since it's Cloud Kit,   
+
+1084
+00:52:50,667 --> 00:52:53,068
+if the user's not logged in     
+to iCloud on their device,      
+
+1085
+00:52:53,136 --> 00:52:55,070
+then it's not going to          
+know who they are, so           
+
+1086
+00:52:55,139 --> 00:52:57,406
+it's not gonna work.            
+So you could get that error.    
+
+1087
+00:52:57,475 --> 00:53:00,842
+You can get network timeouts,   
+all kinds of stuff. So          
+
+1088
+00:53:00,911 --> 00:53:04,246
+that's just a different way of  
+program, you have to kind of    
+
+1089
+00:53:04,315 --> 00:53:07,349
+get used to it,                 
+this asynchronous programming.  
+
+1090
+00:53:07,418 --> 00:53:10,385
+Here's what a query looks       
+like. This is the analog of     
+
+1091
+00:53:10,454 --> 00:53:14,089
+the fetch request.              
+You still use NSPredicate. So   
+
+1092
+00:53:14,158 --> 00:53:17,259
+like text contains              
+some searchString or            
+
+1093
+00:53:17,328 --> 00:53:21,329
+whatever. But the predicates    
+can't be quite as complicated   
+
+1094
+00:53:21,398 --> 00:53:24,399
+as in Core Data. They have      
+to be fairly straightforward    
+
+1095
+00:53:24,468 --> 00:53:26,635
+predicates. But                 
+then you create a CKQuery,      
+
+1096
+00:53:26,704 --> 00:53:29,137
+which is a Cloud Kit query,     
+and then you say perform, and   
+
+1097
+00:53:29,206 --> 00:53:32,173
+of course it's asynchronous.    
+So you provide a closure, and   
+
+1098
+00:53:32,242 --> 00:53:35,511
+it calls you back with the      
+results of doing that query.    
+
+1099
+00:53:35,579 --> 00:53:38,180
+So that's what querying,        
+querying looks like.            
+
+1100
+00:53:38,249 --> 00:53:41,717
+Again, pretty simple,           
+but asynchronous and            
+
+1101
+00:53:41,785 --> 00:53:45,353
+not as powerful as Core Data.   
+Standing queries or             
+
+1102
+00:53:45,422 --> 00:53:48,356
+subscriptions, I can't really   
+show you what that code looks   
+
+1103
+00:53:48,425 --> 00:53:51,526
+like because I haven't taught   
+you push notifications.         
+
+1104
+00:53:51,595 --> 00:53:53,895
+Push notifications              
+are not that difficult.         
+
+1105
+00:53:53,964 --> 00:53:57,599
+There's a whole framework for   
+it called UserNotifications.    
+
+1106
+00:53:57,668 --> 00:53:59,668
+But it doesn't make sense for   
+me to show you what it          
+
+1107
+00:53:59,737 --> 00:54:01,804
+looks like when I               
+haven't taught you that.        
+
+1108
+00:54:01,872 --> 00:54:04,806
+So we'll put that off til       
+later. Maybe I'll try and show  
+
+1109
+00:54:04,875 --> 00:54:08,543
+an example of a Cloud Kit,      
+push notification happening,    
+
+1110
+00:54:08,612 --> 00:54:13,248
+when we cover that.             
+All right, now, next topic.     
+
+1111
+00:54:13,316 --> 00:54:16,885
+So this is the topic that I     
+am gonna spend this week on,    
+
+1112
+00:54:16,954 --> 00:54:19,555
+which is document-based apps.   
+So                              
+
+1113
+00:54:19,623 --> 00:54:23,325
+this is persistence when the    
+thing that you're persisting    
+
+1114
+00:54:23,394 --> 00:54:26,561
+is perceived by                 
+the user as a document.         
+
+1115
+00:54:26,630 --> 00:54:30,532
+For example, emoji art.         
+I create a beautiful emoji art  
+
+1116
+00:54:30,601 --> 00:54:34,903
+document, put my ghost and      
+my bike in there, my bees.      
+
+1117
+00:54:34,972 --> 00:54:37,972
+And then I wanted to save like  
+a document, and then the user   
+
+1118
+00:54:38,041 --> 00:54:41,042
+is gonna go create a different  
+one with some other image and   
+
+1119
+00:54:41,111 --> 00:54:42,477
+some other stuff in there.      
+
+1120
+00:54:42,546 --> 00:54:44,045
+And they wanna save that        
+as a different document.        
+
+1121
+00:54:44,114 --> 00:54:45,914
+So they, you see how they       
+viewed them as documents.       
+
+1122
+00:54:45,982 --> 00:54:47,849
+Same thing with your            
+image gallery homework.         
+
+1123
+00:54:47,918 --> 00:54:49,751
+You have a gallery of           
+images that you built, and      
+
+1124
+00:54:49,819 --> 00:54:52,287
+then maybe you wanna have       
+a different gallery of images   
+
+1125
+00:54:52,356 --> 00:54:52,954
+that are related in             
+
+1126
+00:54:53,023 --> 00:54:56,191
+some other way. Those           
+are perceived as documents. So  
+
+1127
+00:54:56,260 --> 00:55:00,728
+we're gonna talk about a        
+mechanism that iOS API has for  
+
+1128
+00:55:00,797 --> 00:55:04,632
+storing things of document      
+that is fantastic. It takes     
+
+1129
+00:55:04,701 --> 00:55:07,903
+care of absolutely everything   
+you wanna do with a document,   
+
+1130
+00:55:07,971 --> 00:55:08,703
+and you have to hard,           
+
+1131
+00:55:08,772 --> 00:55:12,841
+do hardly any work to make it   
+work. All you have to do is     
+
+1132
+00:55:12,909 --> 00:55:16,177
+actually convert your model     
+into a data and back.           
+
+1133
+00:55:16,246 --> 00:55:20,381
+And that's it, and it manages   
+absolutely everything else. So  
+
+1134
+00:55:20,450 --> 00:55:22,050
+when I say it manages           
+everything else,                
+
+1135
+00:55:22,118 --> 00:55:26,754
+what do I mean? Well, opening,  
+writing, reading, closing       
+
+1136
+00:55:26,823 --> 00:55:31,126
+document files asynchronously   
+is all handled by UIDocument.   
+
+1137
+00:55:31,195 --> 00:55:36,297
+Now why do I want my documents  
+opened, say, asynchronously?    
+
+1138
+00:55:36,366 --> 00:55:39,534
+Why do I care? My documents     
+aren't big, it's not gonna      
+
+1139
+00:55:39,603 --> 00:55:41,269
+take that much time to write    
+them to the file system,        
+
+1140
+00:55:41,338 --> 00:55:45,840
+who cares? Well, UIDocument     
+supports saving your files in   
+
+1141
+00:55:45,909 --> 00:55:51,646
+iCloud drive. On the network,   
+and that could be slower. So,   
+
+1142
+00:55:51,715 --> 00:55:54,415
+if you had to write the code    
+to save them to iCloud drive,   
+
+1143
+00:55:54,484 --> 00:55:57,185
+you'd be very sad indeed,       
+because you'd have to do all    
+
+1144
+00:55:57,254 --> 00:56:00,054
+that networking code to figure  
+out how did I get this thing    
+
+1145
+00:56:00,123 --> 00:56:02,523
+over the network? Did it fail?  
+Is it the network?              
+
+1146
+00:56:02,592 --> 00:56:04,292
+Whereas, this way               
+you use UIDocument,             
+
+1147
+00:56:04,361 --> 00:56:07,495
+you just say save. It'll just   
+call you back when it's done.   
+
+1148
+00:56:07,564 --> 00:56:09,465
+It's all asynchronous,          
+it's awesome.                   
+
+1149
+00:56:11,034 --> 00:56:14,135
+It also will auto save          
+your document. And, again,      
+
+1150
+00:56:14,204 --> 00:56:16,871
+I told you one of the ways to   
+get a context for your core     
+
+1151
+00:56:16,940 --> 00:56:19,841
+data is to create a UI managed  
+documents, it's called,         
+
+1152
+00:56:19,910 --> 00:56:23,044
+which is a subclass UIDocument  
+for core data databases, and    
+
+1153
+00:56:23,113 --> 00:56:25,547
+it will autosave it. Well the   
+same thing happened for yours.  
+
+1154
+00:56:25,616 --> 00:56:27,682
+Your documents can just         
+be automatically saved,         
+
+1155
+00:56:27,751 --> 00:56:29,651
+you don't even have             
+to save them. And               
+
+1156
+00:56:29,720 --> 00:56:32,487
+the most important thing        
+about UIDocument is that        
+
+1157
+00:56:32,556 --> 00:56:36,391
+it integrates with iOS          
+11's Files app, and             
+
+1158
+00:56:36,460 --> 00:56:38,059
+the document browser.           
+And we're gonna see,            
+
+1159
+00:56:38,128 --> 00:56:41,029
+if we get to it today,          
+which hopefully we will,        
+
+1160
+00:56:41,098 --> 00:56:44,666
+what that means cuz it means    
+a lot, it's very powerful. So   
+
+1161
+00:56:44,735 --> 00:56:47,969
+what do you need to do          
+to make UIDocument work?        
+
+1162
+00:56:48,038 --> 00:56:51,240
+You want to have UIDocument.    
+Well I'm gonna assume you       
+
+1163
+00:56:51,308 --> 00:56:54,275
+already have an MVC that        
+displays your document and      
+
+1164
+00:56:54,344 --> 00:56:57,546
+that it has some var or vars    
+that are its model, right.      
+
+1165
+00:56:57,615 --> 00:56:59,447
+This is MVC,                    
+of course it's got a model.     
+
+1166
+00:56:59,516 --> 00:57:02,483
+So like in emoji art we         
+don't have our model yet        
+
+1167
+00:57:02,552 --> 00:57:05,887
+in emoji art, but imagine I     
+had some var of type emoji      
+
+1168
+00:57:05,956 --> 00:57:09,524
+art, which was the model for    
+what I'm showing. It would      
+
+1169
+00:57:09,593 --> 00:57:12,427
+have the URL of the image, and  
+it would have all the emoji,    
+
+1170
+00:57:12,495 --> 00:57:15,163
+and where they were, and        
+the size they were, right?      
+
+1171
+00:57:15,232 --> 00:57:17,032
+That would be                   
+the model of the thing.         
+
+1172
+00:57:17,100 --> 00:57:20,201
+So I'm gonna assume I start     
+there. So all you need to do    
+
+1173
+00:57:20,270 --> 00:57:23,572
+to turn your app into working   
+with UIDocument is to be able   
+
+1174
+00:57:23,640 --> 00:57:28,176
+to convert that model to a      
+data, and convert from a data   
+
+1175
+00:57:28,245 --> 00:57:30,312
+back to the model.              
+Well, earlier in this lecture,  
+
+1176
+00:57:30,380 --> 00:57:32,447
+didn't I just show you          
+exactly how to do that with     
+
+1177
+00:57:32,516 --> 00:57:36,017
+the archiver? Really easy.      
+So you could use JSON format    
+
+1178
+00:57:36,086 --> 00:57:38,654
+as the file format of           
+your document, and              
+
+1179
+00:57:38,722 --> 00:57:42,023
+just use the archiving to turn  
+your model back and forth       
+
+1180
+00:57:42,092 --> 00:57:44,859
+between the data, and that's    
+really all you have to do.      
+
+1181
+00:57:44,928 --> 00:57:47,095
+The only other thing            
+you might wanna do Is           
+
+1182
+00:57:47,163 --> 00:57:49,998
+tell the UIDocument whenever    
+your document changes,          
+
+1183
+00:57:50,067 --> 00:57:52,568
+like if you drag a new          
+emoji in or whatever, and       
+
+1184
+00:57:52,636 --> 00:57:54,903
+then it'll autosave.            
+Cuz you have to tell it that,   
+
+1185
+00:57:54,972 --> 00:57:56,871
+otherwise it doesn't            
+know when to autosave.          
+
+1186
+00:57:56,940 --> 00:57:59,207
+But that is literally           
+called one function,            
+
+1187
+00:57:59,275 --> 00:58:03,010
+my document changed, and it'll  
+figure it out from there.       
+
+1188
+00:58:03,079 --> 00:58:05,213
+That's it, that's all you have  
+to do to make UIDocument work.  
+
+1189
+00:58:05,282 --> 00:58:09,317
+Really implement two methods,   
+get and set my model as         
+
+1190
+00:58:09,385 --> 00:58:14,489
+a data. So how do we do that?   
+We subclass UIDocument and      
+
+1191
+00:58:14,558 --> 00:58:17,592
+we override two methods, the    
+one that creates the data and   
+
+1192
+00:58:17,661 --> 00:58:21,229
+one gets our model from the     
+data. Now we're almost always   
+
+1193
+00:58:21,298 --> 00:58:25,133
+going to want to add a var      
+in our UIDocument subclass,     
+
+1194
+00:58:25,202 --> 00:58:28,469
+which is the model. The model   
+that we're going to be          
+
+1195
+00:58:28,538 --> 00:58:30,372
+the converting to and           
+from a data. So,                
+
+1196
+00:58:30,440 --> 00:58:32,307
+here if I had                   
+an EmojiArtDocument             
+
+1197
+00:58:32,376 --> 00:58:35,676
+subclassing UIdocument, I'm     
+adding a var called EmojiArt,   
+
+1198
+00:58:35,745 --> 00:58:36,812
+which is of type EmojiArt.      
+
+1199
+00:58:36,880 --> 00:58:40,115
+That's presumably the type      
+of the model that               
+
+1200
+00:58:40,184 --> 00:58:44,453
+I have in my EmojiArtDocument.  
+Now there are other methods     
+
+1201
+00:58:44,521 --> 00:58:46,721
+you can override in UIDocument  
+that do some things.            
+
+1202
+00:58:46,790 --> 00:58:48,857
+I'll even talk about one of     
+them towards the end. But       
+
+1203
+00:58:48,926 --> 00:58:52,427
+the main two things you         
+wanna do is the reading and     
+
+1204
+00:58:52,495 --> 00:58:54,729
+writing of the data. And the    
+only thing you have to do to    
+
+1205
+00:58:54,798 --> 00:58:59,401
+create the UIDocument is        
+specify the URL it's at.        
+
+1206
+00:58:59,470 --> 00:59:03,305
+So the only initializer         
+that exists for                 
+
+1207
+00:59:03,373 --> 00:59:05,473
+UIDocument, it                  
+takes one argument,             
+
+1208
+00:59:05,542 --> 00:59:08,776
+as you can see it in yellow     
+right there, fileURL, and       
+
+1209
+00:59:08,845 --> 00:59:12,146
+that is gonna be the URL        
+of the document. Now I'm        
+
+1210
+00:59:12,215 --> 00:59:15,583
+gonna show you later that this  
+URL might be given to you and   
+
+1211
+00:59:15,652 --> 00:59:19,921
+might be an iCloud drive,       
+and you might not even care.    
+
+1212
+00:59:19,990 --> 00:59:23,424
+But you also could, of course,  
+create a URL somewhere          
+
+1213
+00:59:23,493 --> 00:59:26,494
+presumably in the documents     
+directory of your sandbox, and  
+
+1214
+00:59:26,563 --> 00:59:30,832
+create your own document if     
+you want. But actually, in iOS  
+
+1215
+00:59:30,901 --> 00:59:35,603
+11, usually we let the files    
+app mechanism give us the URL.  
+
+1216
+00:59:35,672 --> 00:59:37,806
+The user goes to where they     
+want the file to be, and        
+
+1217
+00:59:37,874 --> 00:59:40,141
+they say create document,       
+and it gives us URL, and        
+
+1218
+00:59:40,210 --> 00:59:42,244
+we just call this to            
+create our UIDocument.          
+
+1219
+00:59:43,847 --> 00:59:46,014
+Now once we've created          
+our UIDocument,                 
+
+1220
+00:59:46,083 --> 00:59:48,783
+we're gonna set that var        
+that I defined at the top of    
+
+1221
+00:59:48,852 --> 00:59:51,653
+the screen there. We're gonna   
+set that model in there and     
+
+1222
+00:59:51,721 --> 00:59:53,554
+then UIDocument's gonna         
+take it from there.             
+
+1223
+00:59:53,623 --> 00:59:54,889
+It's gonna read and             
+write the file and              
+
+1224
+00:59:54,958 --> 00:59:57,992
+everything. All right, so how   
+about doing this conversion     
+
+1225
+00:59:58,061 --> 01:00:01,830
+from emojiArt to data and       
+from data to emojiArt. So       
+
+1226
+01:00:01,899 --> 01:00:04,599
+here's the two methods. This    
+is the one that converts your   
+
+1227
+01:00:04,668 --> 01:00:08,570
+model into a data, it's called  
+contents for type, okay.        
+
+1228
+01:00:08,639 --> 01:00:10,839
+It does throw, You could        
+throw. If you have a problem    
+
+1229
+01:00:10,907 --> 01:00:13,507
+converting your emojiArt to     
+a Data, you could throw. And    
+
+1230
+01:00:13,576 --> 01:00:17,212
+I'll show you where that thing  
+gets thrown to. And notice it   
+
+1231
+01:00:17,280 --> 01:00:20,215
+returns an Any. You would       
+think that would return a Data  
+
+1232
+01:00:20,284 --> 01:00:22,450
+right there, but it returns an  
+Any because you can actually    
+
+1233
+01:00:22,519 --> 01:00:26,754
+also represent your document    
+as a directory full of files.   
+
+1234
+01:00:26,823 --> 01:00:29,257
+That's called a FileWrapper.    
+But                             
+
+1235
+01:00:29,326 --> 01:00:32,160
+we're just gonna talk about     
+the Data way of doing it.       
+
+1236
+01:00:32,229 --> 01:00:33,762
+If you wanna do the             
+FileWrapper way, you'll have    
+
+1237
+01:00:33,831 --> 01:00:35,730
+to look up the documentation    
+for file wrappers.              
+
+1238
+01:00:35,799 --> 01:00:37,532
+It's not that hard,             
+but it's a little more          
+
+1239
+01:00:37,601 --> 01:00:40,368
+complicated than just turning   
+it into a Data blob. And        
+
+1240
+01:00:40,437 --> 01:00:42,738
+so how am I gonna               
+implement this method?          
+
+1241
+01:00:42,806 --> 01:00:44,739
+Real easy, I'm gonna use        
+that archiving stuff, and       
+
+1242
+01:00:44,808 --> 01:00:47,241
+use a JSON encoder or           
+something right here, and       
+
+1243
+01:00:47,310 --> 01:00:50,411
+create a Data object. And       
+I just return it, that's it.    
+
+1244
+01:00:50,480 --> 01:00:53,748
+So this often is a one liner,   
+this contents for type. Now     
+
+1245
+01:00:53,817 --> 01:00:56,985
+that type that you see right    
+there, yeah I already said you  
+
+1246
+01:00:57,053 --> 01:00:59,387
+could throw there. So the type  
+that's passed along there,      
+
+1247
+01:00:59,456 --> 01:01:03,658
+that's a UTI, a universal       
+type identifier. And            
+
+1248
+01:01:03,727 --> 01:01:05,493
+I'm gonna talk a little         
+bit about what that is          
+
+1249
+01:01:05,562 --> 01:01:09,464
+in a few slides.                
+This is not a type like .jpeg.  
+
+1250
+01:01:09,532 --> 01:01:12,434
+This is a type like             
+public.json, which would        
+
+1251
+01:01:12,502 --> 01:01:16,538
+be a JSON file, or public.img,  
+it's an image file. That's      
+
+1252
+01:01:16,607 --> 01:01:18,573
+the kind of thing that's        
+gonna be in that type name.     
+
+1253
+01:01:18,642 --> 01:01:21,509
+Usually you don't care because  
+usually your UIDocument only    
+
+1254
+01:01:21,578 --> 01:01:25,013
+opens one kind of file anyway,  
+like an emojiArt document, so   
+
+1255
+01:01:25,082 --> 01:01:27,215
+you don't even care what        
+that type is. But you might     
+
+1256
+01:01:27,284 --> 01:01:30,118
+be a UIDocument that can be     
+in different formats and then   
+
+1257
+01:01:30,186 --> 01:01:33,755
+maybe you care. Alright, how    
+about the other way around?     
+
+1258
+01:01:33,824 --> 01:01:35,890
+You've got a data,              
+that's handed to you,           
+
+1259
+01:01:35,959 --> 01:01:37,792
+you gotta turn                  
+into your model.                
+
+1260
+01:01:37,861 --> 01:01:42,229
+Again you're probably going     
+to use that JSON Decoder, and   
+
+1261
+01:01:42,298 --> 01:01:47,001
+take the data and turn it back  
+into an emoji art. And again,   
+
+1262
+01:01:47,070 --> 01:01:50,738
+it's got the types there, load  
+from contents of type, that's   
+
+1263
+01:01:50,807 --> 01:01:54,041
+UTI. This one throws as well.   
+This one you're more likely to  
+
+1264
+01:01:54,110 --> 01:01:57,579
+throw, because here you're      
+being given a JSON thing or     
+
+1265
+01:01:57,647 --> 01:02:00,749
+a Data blob, and you're         
+turning into EmojiArt. It       
+
+1266
+01:02:00,817 --> 01:02:03,385
+might be corrupted, it might    
+not be in the right format,     
+
+1267
+01:02:03,453 --> 01:02:07,021
+something's wrong with it,      
+so you might throw here.        
+
+1268
+01:02:07,090 --> 01:02:09,758
+And, in fact, that's all you    
+need to do is implement those   
+
+1269
+01:02:09,826 --> 01:02:12,294
+two methods. And now you        
+can use all the methods in      
+
+1270
+01:02:12,362 --> 01:02:15,863
+UIDocument like open,           
+which opens your documents.     
+
+1271
+01:02:15,932 --> 01:02:19,501
+And it's asynchronous, so you   
+provide it a closure there,     
+
+1272
+01:02:19,569 --> 01:02:21,536
+and it even tells you whether   
+you successfully did it or      
+
+1273
+01:02:21,605 --> 01:02:24,205
+not. If it doesn't              
+successfully open it, you're    
+
+1274
+01:02:24,273 --> 01:02:26,241
+gonna be looking at this thing  
+called documentState, and       
+
+1275
+01:02:26,309 --> 01:02:28,676
+I'm gonna talk about that       
+in a second, all right.         
+
+1276
+01:02:28,745 --> 01:02:30,611
+So that's how you open          
+a document. And you do have to  
+
+1277
+01:02:30,680 --> 01:02:33,447
+open your UIDocument before     
+you can use it, of course,      
+
+1278
+01:02:33,516 --> 01:02:35,349
+because UIDocument wants        
+to go and get the file,         
+
+1279
+01:02:35,418 --> 01:02:36,851
+and get the data,               
+and stuff like that.            
+
+1280
+01:02:36,920 --> 01:02:40,055
+Call the method that converts   
+it into an emoji art or         
+
+1281
+01:02:40,123 --> 01:02:43,358
+whatever, but                   
+you do have to open your file.  
+
+1282
+01:02:43,427 --> 01:02:46,627
+You can save your file          
+explicitly or you can just do   
+
+1283
+01:02:46,696 --> 01:02:49,264
+auto saving. If you do auto     
+saving, this is the method you  
+
+1284
+01:02:49,332 --> 01:02:52,968
+have to call to tell your       
+UIDocument I've changed.        
+
+1285
+01:02:53,036 --> 01:02:57,571
+UpdateChangeCount(.done).       
+Another way, by the way, to do  
+
+1286
+01:02:57,640 --> 01:03:01,709
+this is to use the undoManager  
+of UIDocument. Unfortunately,   
+
+1287
+01:03:01,778 --> 01:03:04,112
+I don't have time to teach      
+you about doing undo.           
+
+1288
+01:03:04,181 --> 01:03:05,180
+undoManager is a really         
+
+1289
+01:03:05,248 --> 01:03:08,049
+cool little class where every   
+time you do an operation,       
+
+1290
+01:03:08,118 --> 01:03:09,784
+like drag a new emoji in or     
+
+1291
+01:03:09,853 --> 01:03:12,186
+resize it,                      
+you go to the undoManager and   
+
+1292
+01:03:12,255 --> 01:03:15,056
+say, I just did this operation  
+and here's a closure for        
+
+1293
+01:03:15,125 --> 01:03:20,127
+how to undo it. And then, it    
+automatically does Undo/Redo,   
+
+1294
+01:03:20,196 --> 01:03:22,464
+and just pulls those closures   
+out so you can undo and         
+
+1295
+01:03:22,532 --> 01:03:25,299
+then redo, go back and forth.   
+And of course, if you use       
+
+1296
+01:03:25,368 --> 01:03:28,670
+the UIDocument's undoManager    
+to do that, then it will know   
+
+1297
+01:03:28,738 --> 01:03:31,739
+that the document has changed   
+when you do these Undo and      
+
+1298
+01:03:31,808 --> 01:03:37,045
+Redo things. So that's another  
+way to use the undoManager.     
+
+1299
+01:03:37,114 --> 01:03:39,780
+If you wanna explicitly save,   
+there is a save.                
+
+1300
+01:03:39,849 --> 01:03:42,383
+The save one is not like open,  
+it actually has a couple        
+
+1301
+01:03:42,452 --> 01:03:46,755
+arguments here. The reason      
+you have save to URL is for     
+
+1302
+01:03:46,823 --> 01:03:50,291
+save as. Because of course      
+a document knows its own URL,   
+
+1303
+01:03:50,360 --> 01:03:52,527
+that was specified in           
+its initialize, or              
+
+1304
+01:03:52,595 --> 01:03:56,464
+the file URL. So save to URL    
+allows you to save it off to    
+
+1305
+01:03:56,532 --> 01:03:59,100
+another URL like save as.       
+And then that for               
+
+1306
+01:03:59,169 --> 01:04:01,703
+document save operation,        
+unfortunately when you save,    
+
+1307
+01:04:01,772 --> 01:04:04,272
+you have to know whether        
+this is the initial document    
+
+1308
+01:04:04,341 --> 01:04:07,274
+creation save Or whether        
+it's a subsequent safe.         
+
+1309
+01:04:07,343 --> 01:04:09,010
+You have to tell                
+the system that.                
+
+1310
+01:04:09,079 --> 01:04:11,612
+I'm not sure why it makes you   
+do that versus it going out     
+
+1311
+01:04:11,681 --> 01:04:14,382
+and figuring it out, I think    
+it's just for flexibility.      
+
+1312
+01:04:14,451 --> 01:04:17,585
+Cuz it can save into so many    
+different kinds of containers.  
+
+1313
+01:04:17,654 --> 01:04:21,055
+iCloud drive, your local file   
+system, it can even save into   
+
+1314
+01:04:21,124 --> 01:04:25,126
+things like Box. So maybe some  
+of them don't allow it to ask   
+
+1315
+01:04:25,194 --> 01:04:28,630
+the question of whether the     
+file exists or not, I'm not     
+
+1316
+01:04:28,698 --> 01:04:31,899
+exactly sure why it does that.  
+But when you say it,            
+
+1317
+01:04:31,968 --> 01:04:35,636
+you do have to know whether     
+you're creating it or not.      
+
+1318
+01:04:35,705 --> 01:04:37,404
+When you're done                
+with your document,             
+
+1319
+01:04:37,473 --> 01:04:40,408
+you're gonna want to close it.  
+Of course, the big thing this   
+
+1320
+01:04:40,477 --> 01:04:43,545
+does is save it, if it's got    
+any outstanding changes.        
+
+1321
+01:04:43,613 --> 01:04:46,381
+And again, if it fails closing  
+it, you're gonna have this      
+
+1322
+01:04:46,450 --> 01:04:48,950
+document state thing. So        
+what is, what I keep saying,    
+
+1323
+01:04:49,019 --> 01:04:50,852
+look at the document            
+state if things fail,           
+
+1324
+01:04:50,921 --> 01:04:53,822
+what is that about? Well,       
+let's look at the document      
+
+1325
+01:04:53,890 --> 01:04:56,324
+state, the document state       
+is a var in UIDocument.         
+
+1326
+01:04:56,393 --> 01:04:58,827
+You can look at it and          
+see how your document's doing.  
+
+1327
+01:04:58,895 --> 01:05:01,829
+Here's some of the values,      
+normal, that means your         
+
+1328
+01:05:01,898 --> 01:05:05,166
+document is ready to use. Just  
+do whatever you want with it,   
+
+1329
+01:05:05,234 --> 01:05:07,601
+that's the normal state.        
+There's also closed,            
+
+1330
+01:05:07,670 --> 01:05:10,838
+that means either you haven't   
+opened it or you tried to open  
+
+1331
+01:05:10,907 --> 01:05:13,808
+it and it failed, and it's      
+still in the closed state.      
+
+1332
+01:05:13,877 --> 01:05:18,279
+There's savingError, which      
+is you tried to save it and     
+
+1333
+01:05:18,348 --> 01:05:22,183
+it failed. There's also         
+editingDisabled, and that is    
+
+1334
+01:05:22,251 --> 01:05:25,586
+a method on UIDocument,         
+which is disable editing.       
+
+1335
+01:05:25,655 --> 01:05:28,023
+And why would you ever want     
+to disable editing? Well, for   
+
+1336
+01:05:28,091 --> 01:05:30,958
+example, the core data          
+document, UIManagedDocument.    
+
+1337
+01:05:31,027 --> 01:05:33,962
+It disables editing when        
+it's doing some sort of         
+
+1338
+01:05:34,031 --> 01:05:36,865
+a SQL operation to update       
+the database. Now it            
+
+1339
+01:05:36,933 --> 01:05:40,068
+only happens for a microsecond  
+that it's disabled.             
+
+1340
+01:05:40,136 --> 01:05:43,071
+But essentially when you set    
+editingDisabled as the state    
+
+1341
+01:05:43,139 --> 01:05:46,040
+of your document. You just      
+would not want to allow users   
+
+1342
+01:05:46,109 --> 01:05:48,342
+to drag new emoji in,           
+or resize anything.             
+
+1343
+01:05:48,411 --> 01:05:50,945
+Not really an issue in          
+something like emoji art,       
+
+1344
+01:05:51,014 --> 01:05:53,981
+where it's very simple. But     
+it can be an issue in the core  
+
+1345
+01:05:54,050 --> 01:05:57,518
+data, or some other more        
+complicated storage mechanism.  
+
+1346
+01:05:57,587 --> 01:05:59,620
+Then there's                    
+the progressAvailable state.    
+
+1347
+01:05:59,689 --> 01:06:02,223
+That means you did              
+open on a document, and         
+
+1348
+01:06:02,292 --> 01:06:06,027
+the document is huge, and it's  
+downloading it from iCloud or   
+
+1349
+01:06:06,096 --> 01:06:09,163
+something. And this will        
+tell you that progress,         
+
+1350
+01:06:09,232 --> 01:06:11,666
+it will be the progress         
+bar in the UIDocument,          
+
+1351
+01:06:11,734 --> 01:06:13,434
+will tell you how               
+far along it is.                
+
+1352
+01:06:13,503 --> 01:06:16,604
+And it will stay in this state  
+until it's fully downloaded,    
+
+1353
+01:06:16,673 --> 01:06:21,409
+and then it will move to open,  
+or normal rather. And finally,  
+
+1354
+01:06:21,478 --> 01:06:24,345
+there's inConflict, which       
+is a very fascinating one.      
+
+1355
+01:06:24,413 --> 01:06:27,915
+Since the document can be       
+stored in a network container,  
+
+1356
+01:06:27,984 --> 01:06:31,352
+it might get saved somewhere    
+that had network access at      
+
+1357
+01:06:31,421 --> 01:06:34,255
+the time. And then start        
+editing in another place that   
+
+1358
+01:06:34,324 --> 01:06:37,325
+didn't have network access, or  
+vice versa. Resulting in two    
+
+1359
+01:06:37,393 --> 01:06:40,694
+versions of the app finally     
+getting saved up to iCloud.     
+
+1360
+01:06:40,763 --> 01:06:43,931
+And now you have two versions   
+that might be conflicting, and  
+
+1361
+01:06:44,000 --> 01:06:45,299
+that's what this is about.      
+
+1362
+01:06:45,368 --> 01:06:48,536
+Now, you're not gonna deal      
+with this in your app.          
+
+1363
+01:06:48,605 --> 01:06:51,039
+You're probably gonna take the  
+default behavior, which is,     
+
+1364
+01:06:51,108 --> 01:06:53,140
+it uses the one with            
+the most recent file date.      
+
+1365
+01:06:53,209 --> 01:06:56,544
+Whichever one was written       
+most recently, it uses. But     
+
+1366
+01:06:56,613 --> 01:06:59,113
+if you want to resolve the      
+difference, and you want to     
+
+1367
+01:06:59,182 --> 01:07:01,950
+notice this and resolve it,     
+you can use this NSFileVersion  
+
+1368
+01:07:02,018 --> 01:07:05,052
+static method here. And get     
+all the different versions,     
+
+1369
+01:07:05,121 --> 01:07:07,088
+and look at                     
+the differences of them.        
+
+1370
+01:07:07,157 --> 01:07:09,524
+And maybe offer the user        
+some choices, whatever,         
+
+1371
+01:07:09,592 --> 01:07:12,260
+that'd be up to you.            
+But for things like emoji art,  
+
+1372
+01:07:12,328 --> 01:07:15,396
+you're probably fine with       
+just always taking the latest   
+
+1373
+01:07:15,465 --> 01:07:17,932
+version, whichever              
+one was saved latest.           
+
+1374
+01:07:19,869 --> 01:07:23,304
+DocumentState as var can also   
+be observed in the same way     
+
+1375
+01:07:23,372 --> 01:07:26,674
+that the keyboard observing     
+can happen. Remember, I told    
+
+1376
+01:07:26,742 --> 01:07:28,943
+you that there was a way you    
+could like tell the system,     
+
+1377
+01:07:29,012 --> 01:07:31,512
+hey, if the keyboard comes up,  
+tell me about it, right?        
+
+1378
+01:07:31,581 --> 01:07:34,315
+That's called a notification,   
+same thing here. You can say,   
+
+1379
+01:07:34,384 --> 01:07:36,650
+hey, if my document state       
+changes, tell me about it,      
+
+1380
+01:07:36,719 --> 01:07:39,220
+and it would tell you that.     
+I'm going to tell you how       
+
+1381
+01:07:39,289 --> 01:07:42,223
+to do this next week when we    
+talk about notifications,       
+
+1382
+01:07:42,292 --> 01:07:45,727
+and I'll mention document       
+state and keyboard. And show    
+
+1383
+01:07:45,795 --> 01:07:51,232
+you what a code looks like to   
+watch your document state.      
+
+1384
+01:07:51,301 --> 01:07:54,802
+Finally I'm gonna talk about    
+a cool little extra method you  
+
+1385
+01:07:54,871 --> 01:07:57,672
+can override in UIDocument      
+to put a thumbnail image.       
+
+1386
+01:07:57,740 --> 01:08:01,742
+Instead of your documents       
+icon. By default,               
+
+1387
+01:08:01,811 --> 01:08:04,244
+when you look at your           
+documents in the files app or   
+
+1388
+01:08:04,313 --> 01:08:07,749
+whatever, they'll have icons,   
+right? Whatever the file type   
+
+1389
+01:08:07,817 --> 01:08:10,518
+icon, the jpg file icon,        
+whatever that is. Or            
+
+1390
+01:08:10,587 --> 01:08:13,821
+if you have an emoji art type   
+of file, which we are gonna     
+
+1391
+01:08:13,889 --> 01:08:18,059
+talk about, on Wednesday,       
+it would show that icon.        
+
+1392
+01:08:18,127 --> 01:08:19,494
+But you can also say,           
+
+1393
+01:08:19,563 --> 01:08:22,563
+when the user sees my           
+file in the file system,        
+
+1394
+01:08:22,632 --> 01:08:26,601
+actually use this thumbnail     
+image of it as its icon.        
+
+1395
+01:08:26,670 --> 01:08:29,003
+This is a really powerful       
+way to make it easier for       
+
+1396
+01:08:29,072 --> 01:08:31,305
+users to find which             
+document they want.             
+
+1397
+01:08:31,374 --> 01:08:34,108
+Because imagine emoji art,      
+you do some nice art, and       
+
+1398
+01:08:34,177 --> 01:08:37,278
+it makes a little thumbnail of  
+it. So you can actually see     
+
+1399
+01:08:37,347 --> 01:08:39,947
+the document before you         
+open it in the file system,     
+
+1400
+01:08:40,016 --> 01:08:42,883
+it's like the icon of           
+the document. And to do that,   
+
+1401
+01:08:42,952 --> 01:08:46,287
+all you have to do is override  
+this UIDocument method,         
+
+1402
+01:08:46,356 --> 01:08:48,856
+called File Attributes          
+to Write to URL for             
+
+1403
+01:08:48,925 --> 01:08:52,660
+Operation. This is normally     
+just going to return            
+
+1404
+01:08:52,729 --> 01:08:56,531
+a dictionary of the file        
+attributes like, is this file   
+
+1405
+01:08:56,599 --> 01:08:59,634
+hidden? Things like that,       
+but you can override it,        
+
+1406
+01:08:59,702 --> 01:09:02,803
+get the super file attributes   
+it would normally return.       
+
+1407
+01:09:02,872 --> 01:09:06,507
+And then add this very special  
+dictionary item called          
+
+1408
+01:09:06,576 --> 01:09:10,778
+URLResourceKey.thumbnailDicti-  
+onaryKey. And the value of it   
+
+1409
+01:09:10,846 --> 01:09:14,415
+actually is another             
+dictionary. With the key being  
+
+1410
+01:09:14,484 --> 01:09:19,620
+ThumbnailDictionaryItem.NSThu-  
+mbnail1024x1024SizeKey. And     
+
+1411
+01:09:19,689 --> 01:09:24,759
+the value is a UIImage. So you  
+add this to the dictionary,     
+
+1412
+01:09:24,828 --> 01:09:27,929
+if you have a UIImage to be     
+the thumbnail, and return it.   
+
+1413
+01:09:27,997 --> 01:09:31,766
+Now, it says there              
+NSThumbnail1024x1024, but       
+
+1414
+01:09:31,835 --> 01:09:34,402
+it actually can be any size.    
+
+1415
+01:09:34,471 --> 01:09:37,105
+It seems to me that if          
+the size gets too small,        
+
+1416
+01:09:37,173 --> 01:09:40,040
+then it will start using        
+the icon for the file. So       
+
+1417
+01:09:40,109 --> 01:09:43,411
+it can't be too small, and I'm  
+not sure what too small is,     
+
+1418
+01:09:43,479 --> 01:09:46,513
+probably has something to do    
+with how big the icon image     
+
+1419
+01:09:46,582 --> 01:09:49,050
+is. Maybe if it gets smaller    
+than the icon image,            
+
+1420
+01:09:49,119 --> 01:09:50,718
+I'm really not sure             
+how it chooses.                 
+
+1421
+01:09:50,787 --> 01:09:53,654
+But, as long as the image       
+is decent sized,                
+
+1422
+01:09:53,723 --> 01:09:56,323
+and I don't know if             
+there's a limit too             
+
+1423
+01:09:56,392 --> 01:09:59,060
+big. But you probably wouldn't  
+want to waste your time         
+
+1424
+01:09:59,129 --> 01:10:01,228
+creating anything               
+bigger than 1024x1024,          
+
+1425
+01:10:01,297 --> 01:10:04,832
+cuz it's gonna be a thumbnail.  
+It's gonna be small showing in  
+
+1426
+01:10:04,901 --> 01:10:08,802
+the files app or whatever,      
+you can return it, so           
+
+1427
+01:10:08,871 --> 01:10:13,174
+we'll do this in the demo       
+on Wednesday as well.           
+
+1428
+01:10:13,242 --> 01:10:15,442
+So there's some other           
+things in UIDocument,           
+
+1429
+01:10:15,511 --> 01:10:17,845
+like localizedName.             
+It will look at the URL, and    
+
+1430
+01:10:17,913 --> 01:10:20,748
+get the name at the end of      
+the URL, and things like that.  
+
+1431
+01:10:20,817 --> 01:10:23,684
+You can find out if you have    
+any unsaved changes currently,  
+
+1432
+01:10:23,753 --> 01:10:25,953
+you can get the date that       
+a file was last saved,          
+
+1433
+01:10:26,021 --> 01:10:28,555
+you can even do userActivity.   
+Which is this thing where       
+
+1434
+01:10:28,624 --> 01:10:30,624
+you start working on            
+something on one device and     
+
+1435
+01:10:30,693 --> 01:10:32,092
+then you go continue            
+on another.                     
+
+1436
+01:10:32,161 --> 01:10:36,396
+And you'll be exactly where     
+you were before. So we're out   
+
+1437
+01:10:36,465 --> 01:10:39,166
+of time today, I did have one   
+more topic, which we'll start   
+
+1438
+01:10:39,235 --> 01:10:42,437
+off Wednesday. Which is the     
+UIDocumentBrowserViewControl-   
+
+1439
+01:10:42,505 --> 01:10:46,507
+ler. Which is an awesome way    
+to give a very powerful user    
+
+1440
+01:10:46,576 --> 01:10:51,446
+interface for your user inside  
+your own app. To create files,  
+
+1441
+01:10:51,514 --> 01:10:55,149
+move files, delete files,       
+put them in folders, you know,  
+
+1442
+01:10:55,218 --> 01:10:58,118
+drag them from iCloud drive     
+to your local hard disk.        
+
+1443
+01:10:58,187 --> 01:11:01,455
+All this stuff, you get this    
+powerful UI, very little work   
+
+1444
+01:11:01,524 --> 01:11:04,659
+on your part as long as you     
+have the UIDocument based app.  
+
+1445
+01:11:04,727 --> 01:11:06,828
+So, we'll start off Wednesday,  
+I'll tell you about that.       
+
+1446
+01:11:06,896 --> 01:11:09,997
+And then I'll dive into         
+converting emoji art to be      
+
+1447
+01:11:10,065 --> 01:11:13,434
+a UIDocument based app that     
+uses all of this cool UI and    
+
+1448
+01:11:13,503 --> 01:11:16,504
+all that stuff. Friday, no      
+more sections, so there's no    
+
+1449
+01:11:16,572 --> 01:11:19,207
+Friday section. Next week,      
+I'll be talking about, alerts,  
+
+1450
+01:11:19,275 --> 01:11:21,809
+notifications, I mentioned      
+that, applications lifecycle,   
+
+1451
+01:11:21,878 --> 01:11:24,912
+that app delegate thing.        
+And some more about segues,     
+
+1452
+01:11:24,981 --> 01:11:27,748
+more segues that we haven't     
+talked about as yet.            
+
+1453
+01:11:27,817 --> 01:11:31,986
+So that's all what we're        
+doing next time, all right?     
+
+1454
+01:11:32,054 --> 01:11:35,656
+I will see you then.            
+>> For more, please visit us,   
+
+1455
+01:11:35,724 --> 01:11:37,458
+at stanford.edu.                
+

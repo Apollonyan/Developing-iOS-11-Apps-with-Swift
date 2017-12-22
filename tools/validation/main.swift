@@ -9,10 +9,10 @@ import Foundation
 guard let file = CommandLine.arguments.first(where: { $0.hasSuffix(".srt") }) else { fatalError("参数未指定 srt 字幕文件") }
 guard let contents = try? String(contentsOfFile: file) else { fatalError("无法读取 \(file)") }
 var lines = contents.components(separatedBy: "\n")
+let toTrim = CharacterSet(charactersIn: "，。").union(.whitespacesAndNewlines)
 for i in lines.indices {
-    let line = lines[i]
-    if line.utf8.count > 100 { print("第 \(i + 1) 行过长: \(line)") }
-    lines[i] = line.trimmingCharacters(in: CharacterSet(charactersIn: "，。").union(.whitespacesAndNewlines))
+    lines[i] = lines[i].trimmingCharacters(in: toTrim)
+    if lines[i].utf8.count > 100 { fputs("第 \(i + 1) 行过长: \(lines[i])\n", __stderrp) }
 }
 try! lines.joined(separator: "\n").write(toFile: file, atomically: true, encoding: .utf8)
 print("已保存至 \(file)")

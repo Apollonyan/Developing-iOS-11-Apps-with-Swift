@@ -5084,1147 +5084,1432 @@ the problem here is that you must have at least
 1017
 00:51:45,169 --> 00:51:49,604
 one pair of cards. Okay? So, you see how I'm, I'm using
-一对卡片。好吧？
+一对卡片。好吧？你看到我是怎么使用
 
 1018
 00:51:49,673 --> 00:51:53,476
-a search here to kinda protect my API against improper use.
+assert here to kinda protect my API against improper use.
+断言来保护我的 API 不被错误地使用
 
 1019
 00:51:53,544 --> 00:52:00,282
 Question back there? Yeah? >> Sorry when you,
+后面同学有什么问题？>> [学生提问]
 
 1020
 00:52:00,351 --> 00:52:01,616
 Sorry when you- >> When would you set init
+>> 能重复你的问题么？>> 你什么时候会让 init
 
 1021
 00:52:01,685 --> 00:52:02,250
 as private? >> Oh, so
+是 private 的呢？>> 哦
 
 1022
 00:52:02,319 --> 00:52:07,122
 the question is when would I set my init as private, okay.
+这个同学问我什么时候会有私有的构造器
 
 1023
 00:52:07,191 --> 00:52:10,826
 Well, you might have a complicated object that
+举个例子，你可能会有一个复杂的对象
 
 1024
 00:52:10,895 --> 00:52:14,062
 only creates instances of itself. For example,
+只允许它自己构造实例，通过比如
 
 1025
 00:52:14,131 --> 00:52:16,030
 with static methods or something like that.
+static 的静态方法一类的来实现
 
 1026
 00:52:16,099 --> 00:52:18,600
-Or you might have multiple in it. Some of which you'll allow
+Or you might have multiple inits. Some of which you'll allow
+或者你有多个 init。有些你允许
 
 1027
 00:52:18,669 --> 00:52:21,537
 other people to call. But some of which you call internally
+其他人调用，而有些只是你内部使用的
 
 1028
 00:52:21,605 --> 00:52:24,906
 to create, okay. You might even have public ones that is
+你甚至可能有公开的构造器
 
 1029
 00:52:24,975 --> 00:52:27,409
 part of their implementation called the private ones. Okay,
+会调用私有的构造器来实现
 
 1030
 00:52:27,477 --> 00:52:30,312
 cuz inits can call each other which we'll talk about on
+因为构造器可以调用另一个构造器。这个我们会在
 
 1031
 00:52:30,381 --> 00:52:34,149
 Wednesday. So that's why you might have some private. Okay,
+星期三讲。这就是为什么你的某些构造器可以是私有的
 
 1032
 00:52:34,218 --> 00:52:36,451
 everybody cool with access control and
+大家都对访问权限和断言没问题了吧？
 
 1033
 00:52:36,520 --> 00:52:40,922
 assertions? All right, back to the slides.
+好，我们接着讲幻灯片
 
 1034
 00:52:40,991 --> 00:52:45,127
 Where are we? Here, okay. Cool one, all right extensions. So
+我们讲到哪里了来着？这里，这个很厉害，extension
 
 1035
 00:52:45,195 --> 00:52:49,732
 extensions are super powerful. They're kind of like
+扩展非常强大，它就像一种武器
 
 1036
 00:52:49,800 --> 00:52:52,367
 a weapon you'll want to be careful when you're wielding,
+当你使用的时候需要额外小心
 
 1037
 00:52:52,436 --> 00:52:56,004
 because you can go crazy with them. And what an extension
+因为你可能会走火入魔。在 extension 里
 
 1038
 00:52:56,073 --> 00:53:01,176
 allows you to do is add vars and functions to other classes
+你可以给其他的类添加变量和方法
 
 1039
 00:53:01,245 --> 00:53:03,378
 even if you don't have the code to those classes.
+即使你没有那个类的源代码也能做到
 
 1040
 00:53:03,447 --> 00:53:06,681
 Even if there in another frame work like UI Kits or something
+即使那个类属于另一个如 UIKit 一类的框架
 
 1041
 00:53:06,750 --> 00:53:10,753
-like that. So you can add bars and methods to it. You can add
+like that. So you can add vars and methods to it. You can add
+你都可以向它添加变量和方法。你可以添加
 
 1042
 00:53:10,821 --> 00:53:14,389
 it to UI Button. You can add it UI View Controller.
+到 UIButton 里，可以添加给 UIViewController
 
 1043
 00:53:14,458 --> 00:53:17,459
 Anything you want. Okay? So this is a very, very, very
+任何你想要的类，知道了吧？所以这是个非常非常
 
 1044
 00:53:17,528 --> 00:53:21,296
-powerful feature. And really I'm sure what's swimming about
+powerful feature. And really I'm sure what's swimming in your mind about
+非常强大的功能。我确信能猜到你们脑袋里想的
 
 1045
 00:53:21,364 --> 00:53:23,865
-the cap, possibilities is nothing compared to the actual
+the possibilities is nothing compared to the actual
+各种可能性只是实际能实现的微不足道
 
 1046
 00:53:23,934 --> 00:53:26,702
 possibilities because there are other data structures that
+的一部分，因为还有很多数据结构
 
 1047
 00:53:26,770 --> 00:53:30,105
 we haven't even talked about that adding an extension to
+我们还没有讲到，但给它们添加扩展
 
 1048
 00:53:30,173 --> 00:53:33,141
 really is powerful and we'll get to that by end of
+是真的很实用，我们会在星期三
 
 1049
 00:53:33,210 --> 00:53:38,213
 Wednesday as well. The basic line of it is, is very simple.
+下课之前讲。要添加扩展很简单
 
 1050
 00:53:38,281 --> 00:53:40,949
 You just use the keyword extension and the name of
+你只需要用关键字 extension 然后数据类型的名字
 
 1051
 00:53:41,018 --> 00:53:44,319
-the structor class you wanna add a var property to and
+the struct or class you wanna add a var property to and
+就是你想要添加变量的结构体或类的名字
 
 1052
 00:53:44,388 --> 00:53:46,554
 then just put the thing you want in there.
+然后在大括号里写你要扩展的内容
 
 1053
 00:53:46,623 --> 00:53:51,560
-Now, it has one very some serious restriction which is
+Now, it has one very some serious restriction which is 
+但是有一个限制是
 
 1054
 00:53:51,629 --> 00:53:56,331
 that it can have no storage. This extension, this code that
+扩展没有存储空间。作为扩展，这些代码
 
 1055
 00:53:56,400 --> 00:53:59,300
 you're extending this other thing, it can have no vars
+扩展了另一个数据类型，它是不能扩展
 
 1056
 00:53:59,369 --> 00:54:01,270
 that are storage. It could have vars that are computed.
+存储属性的。但它可以添加计算属性
 
 1057
 00:54:01,338 --> 00:54:04,373
 But it can't have any vars with storage. So
+但任何存储属性都不行
 
 1058
 00:54:04,441 --> 00:54:07,676
 that does restrict the kind of thing that you can
+这肯定会限制你们想添加的
 
 1059
 00:54:07,745 --> 00:54:11,013
 add to a function. Okay, but you kinda turn out that
+某些功能。但其实
 
 1060
 00:54:11,081 --> 00:54:14,149
 restriction is actually a good restriction. It's not like
+这个限制是很正确的，并不是说
 
 1061
 00:54:14,217 --> 00:54:16,952
 the too bad they could invent it with storage. You
+它们水平太差实现不了。你
 
 1062
 00:54:17,020 --> 00:54:19,354
 actually don't want storage, and you will see as we
+其实并不会想要有存储，而且你会从我们
 
 1063
 00:54:19,423 --> 00:54:22,690
 go along why that is. So, this feature as you might imagine
+之后讲的领悟到为什么。正如你所想的，这个功能
 
 1064
 00:54:22,759 --> 00:54:26,728
 is easily abused and the number one ways to get abuse,
+经常被滥用，而其中最常见的情况是
 
 1065
 00:54:26,797 --> 00:54:29,598
 and I encourage you not to abuse at this way is you do
+我建议你也不要这样做，那就是
 
 1066
 00:54:29,667 --> 00:54:33,835
-not want to add a bar or a func to class that doesn't
+not want to add a var or a func to class that doesn't
+你不应该添加一个变量或方法到某个类
 
 1067
 00:54:33,904 --> 00:54:38,840
 make sense for that class. It's a real temptation for
+但对于那个类来说是毫不相关的。最吸引人的
 
 1068
 00:54:38,909 --> 00:54:43,578
-example for an init or string to add a function that has to
+example for an Int or String to add a function that has to
+是比如扩展 Int 或 String，添加一个
 
 1069
 00:54:43,647 --> 00:54:47,916
 do with concentration. Some concentration specific method
+只为了翻牌游戏而存在的方法
 
 1070
 00:54:47,984 --> 00:54:50,719
 you're adding to string cuz it'll clean up your code or
+好让你的代码更简洁或者
 
 1071
 00:54:50,788 --> 00:54:53,689
 look nice or whatever But you really don't wanna do that.
+看起来更好看，但是你不应该这样做
 
 1072
 00:54:53,757 --> 00:54:56,658
 The only method and functions you wanna add to string or
+你想给 String 添加的方法和变量
 
 1073
 00:54:56,727 --> 00:54:59,962
-methods that make string about a class. They make it a better
+methods that make string a better class. They make it a better
+应该是为了让 String 成为一个更好的字符串
 
 1074
 00:55:00,030 --> 00:55:03,398
 string not they make it knows about concentration. Now,
+而不是为了让它了解翻牌游戏
 
 1075
 00:55:03,467 --> 00:55:06,134
-it's probably possible to add string masses to make it
+it's probably possible to add string methods to make it
+虽然可以添加方法给字符串来让它
 
 1076
 00:55:06,203 --> 00:55:08,503
 know about concentrations that nothing really wrong with it.
+了解翻牌游戏，这也不是什么错误的做法
 
 1077
 00:55:08,572 --> 00:55:10,405
 It's just kind of bad design. Okay so
+但并不是很好的设计。所以
 
 1078
 00:55:10,474 --> 00:55:14,209
 this extension's feature like I said is very powerful,
+就像我说的扩展是很强大的功能
 
 1079
 00:55:14,277 --> 00:55:17,979
 since you're just beginning here, you can think of it at
+但你们才刚开始学，你目前可以把它当作
 
 1080
 00:55:18,048 --> 00:55:21,783
 the beginning as just a way to add utility, functions and
+只是一种方法来添加实用工具，方法
 
 1081
 00:55:21,852 --> 00:55:24,419
 things like that to clean up your code.
+和其他东西来整理你的代码
 
 1082
 00:55:24,488 --> 00:55:27,622
 Okay, that the first level of learning about extensions so
+这就是我们对 extension 的简单认识
 
 1083
 00:55:27,691 --> 00:55:29,925
 I am going to show you how we could do that for
+我会给你们展示我们如何扩展
 
 1084
 00:55:29,994 --> 00:55:33,862
 example in Concentration. So let's go to concentration and
+比如我们的翻牌游戏，那我们回到翻牌游戏
 
 1085
 00:55:33,930 --> 00:55:37,298
 use an extension to add something interesting and
+使用扩展来添加有趣的东西
 
 1086
 00:55:37,367 --> 00:55:41,202
 what interesting thing we are going to do is we are going to
+我们要做的有趣的事情是
 
 1087
 00:55:41,271 --> 00:55:43,805
 go to our view controller over here and
+到 ViewController 里
 
 1088
 00:55:43,874 --> 00:55:47,876
 look at this code right here which is kind of messy.
+然后看看这有些乱的代码
 
 1089
 00:55:47,945 --> 00:55:50,245
 Right here. Okay? What is messy about this code?
+就这个，为什么说它很乱呢？
 
 1090
 00:55:50,314 --> 00:55:55,150
 Well. Okay. All I really wanna do is remove a random emoji.
+因为我想要做的只是随机移除一个表情
 
 1091
 00:55:55,219 --> 00:55:57,051
 And you have to have a whole other line of code.
+但却为此多写了一行代码
 
 1092
 00:55:57,120 --> 00:56:02,457
 And that line of code has this horrendous amount of. Changing
+而且这行代码还很复杂，转换
 
 1093
 00:56:02,526 --> 00:56:06,328
 from unsigned ints to regular ints and all that stuff.
+无符号整数和整数这些乱七八糟的
 
 1094
 00:56:06,396 --> 00:56:08,930
 So it just really looks bad, and it's hard to read,
+看起来很不好看，而且很难读
 
 1095
 00:56:08,999 --> 00:56:10,865
 it's hard to understand what is going in here.
+而且很难理解到底发生了什么
 
 1096
 00:56:10,934 --> 00:56:13,502
 I'm having to do so many type conversions, stuff like that.
+我需要太多的类型转换等
 
 1097
 00:56:13,570 --> 00:56:18,006
 It's awful, okay? Really what I'd like to do is generate
+非常糟糕是吧？我想要的只是生成
 
 1098
 00:56:18,075 --> 00:56:24,146
 a random number and put it right here. So what if int,
+一个随机数然后放到这里。如果整数
 
 1099
 00:56:24,215 --> 00:56:27,916
 the type int, had a var which gave me a random
+Int 类型有个变量可以给我随机的某个
 
 1100
 00:56:27,984 --> 00:56:31,319
 integer? Okay, that's a very int thing, nothing to
+整数该多好？这确实和整数相关
 
 1101
 00:56:31,388 --> 00:56:33,822
 do with concentration, it's just int thing.
+和翻牌游戏无关，只是整数的功能
 
 1102
 00:56:33,891 --> 00:56:38,126
 It gives me a random integer. So we're going to extend int
+它就给我一个随机的整数，所以我们要扩展 Int
 
 1103
 00:56:38,195 --> 00:56:42,263
 to give back a random integer. Specifically, we're gonna make
+来随机返回某个整数。更具体实现是
 
 1104
 00:56:42,332 --> 00:56:44,799
 it so that when you ask an int please give me a random
+我们要去请某个整数返回这个随机整数
 
 1105
 00:56:44,868 --> 00:56:47,436
 integer it gives a random integer between 0 and that
+那个随机数会在零到它本身之间
 
 1106
 00:56:47,504 --> 00:56:51,840
 int. Okay, so if I say five, I can even say, I'm gonna be
+比如我用 5，我还能够用
 
 1107
 00:56:51,909 --> 00:56:55,143
 able to say here let x equal five dot random integer.
+let x = 5.随机整数
 
 1108
 00:56:55,212 --> 00:56:58,580
 And I'm gonna call this thing arc4random, this var.
+我把这个随机整数变量叫 arc4random
 
 1109
 00:56:58,649 --> 00:57:01,349
 Because I'm gonna use arc4random to generate it and
+因为我是用 arc4random 生成它的
 
 1110
 00:57:01,418 --> 00:57:03,919
 people know the semantics of arc4random which is
+而且大家都知道 arc4random
 
 1111
 00:57:03,988 --> 00:57:04,786
 a random a number
+就是随机数
 
 1112
 00:57:04,854 --> 00:57:08,523
 between 0 and another number. So this is, I'm gonna make
+0 到另一个数之间的随机数。我会让
 
 1113
 00:57:08,592 --> 00:57:13,428
 it so this will work and that will give me 0, 1, 2, 3, or 4.
+这段代码通过编译，而且返回 0, 1, 2, 3, 4 中的一个
 
 1114
 00:57:13,496 --> 00:57:18,634
 So how do I do that? Extension int and then in here
+那我要怎么做呢？ extension Int 然后
 
 1115
 00:57:18,702 --> 00:57:24,306
 I put this var arc4random. I have to say what type it is,
+把 var arc4random 放在里面。我必须要声名它的类型
 
 1116
 00:57:24,374 --> 00:57:27,175
 it's also gonna be an int. It could could be a string or
+它也是 Int 类型的。扩展里的变量也可以是 String 
 
 1117
 00:57:27,244 --> 00:57:29,411
 whatever but it's also gonna be an int. And
+或是其他的类型，但这个是 Int 类型的
 
 1118
 00:57:29,479 --> 00:57:33,014
 I'm essentially gonna return all this mess right here. So
+它最终返回的就是所有这里这些乱七八糟的
 
 1119
 00:57:33,083 --> 00:57:37,819
 I'm just gonna cut that out of there. I'm gonna return this.
+我就把它剪切然后粘贴到 return 后面
 
 1120
 00:57:37,888 --> 00:57:40,622
 But it's not a random number between 0 and
+但这里就不是 0..<emojiChoices.count
 
 1121
 00:57:40,691 --> 00:57:44,526
 emojiChoices.count, it's a random order between 0 and
+之间的随机数了，应该是 0 到
 
 1122
 00:57:44,595 --> 00:57:50,665
 what? Yes, whoa, I wish I could give extra credit or
+是什么？没错，我希望我能够给附加分或者
 
 1123
 00:57:50,734 --> 00:57:53,201
 like Mehran, throwing some candy out there or
+像 Mehran（斯坦福 CS106A 的教授）一样扔糖给你
 
 1124
 00:57:53,270 --> 00:57:56,337
 something because yes absolutely, it's between 0 and
+因为没错，它应该是 0 到
 
 1125
 00:57:56,406 --> 00:58:01,443
 self. Because this is a var in int. And so self is the int
+self 之间。因为这是 Int 到属性，所以 self 就是
 
 1126
 00:58:01,512 --> 00:58:06,514
 you sent it to. Which is really kind of cool. So now,
+你访问这个属性的整数。这还蛮有趣的
 
 1127
 00:58:06,583 --> 00:58:09,784
 since int can do this, all we need to do right here is we
+现在 Int 有了这个属性，我们这里需要做的就是
 
 1128
 00:58:09,853 --> 00:58:13,789
 don't need any of this junk up here. Instead of randomIndex,
+我们可以不要这些乱七八糟的 randomIndex
 
 1129
 00:58:13,857 --> 00:58:17,993
 we're just gonna say emojiChoices.count.arc4random.
+我们只用写 emojiChoices.count.arc4random
 
 1130
 00:58:18,062 --> 00:58:22,664
 Okay, so, that cleaned up our code a lot. Now,
+这样我们就让代码整洁了许多
 
 1131
 00:58:22,733 --> 00:58:25,467
 if we were to do something like this, and we wanted to
+如果我们写了这段代码，而我们想要
 
 1132
 00:58:25,536 --> 00:58:28,803
 be really good programmers, we'd look at this and say, hm,
+做优秀的程序员，我们看了这个应该想
 
 1133
 00:58:28,872 --> 00:58:30,905
 what if self is 0? Eh, this is not gonna work,
+如果 self 是 0 怎么办？这个就不行了
 
 1134
 00:58:30,974 --> 00:58:32,674
-cuz arc4rando_uniform doesn't work, but
+cuz arc4random_uniform doesn't work, but
+因为 arc4random_uniform 不接受 0。那
 
 1135
 00:58:32,743 --> 00:58:35,744
 what if self is negative? Actually, if self were
+如果 self 是负数怎么办？事实上如果 self
 
 1136
 00:58:35,812 --> 00:58:38,513
 negative, maybe I could do a random number between 0 and
+是负数的话，我应该可以随机选择 0 到
 
 1137
 00:58:38,582 --> 00:58:42,684
 that negative number. So, I might decide, I'm gonna say if
+那个那个负数之间的整数。所以我决定判断
 
 1138
 00:58:42,753 --> 00:58:46,955
 self is greater than 0, then I'll do this.
+如果 self 大于 0，我们就用这段代码
 
 1139
 00:58:47,024 --> 00:58:52,026
 Else if self is less than 0, then I'm gonna almost do this.
+否则如果 self 小于 0，那代码基本不变
 
 1140
 00:58:52,095 --> 00:58:56,865
 What I'm gonna do, is I'm gonna say return minus this,
+我要做的就是返回负的这个
 
 1141
 00:58:56,934 --> 00:59:00,202
 the absolute value of myself. Okay,
+上限用 abs 取 self 的绝对值
 
 1142
 00:59:00,270 --> 00:59:04,339
 abs is just a global function. But I could also just say
+这个 abs 就是个全局函数，但我也可以用
 
 1143
 00:59:04,408 --> 00:59:06,675
 minus self cuz I checked to see if it's negative.
+-self 因为我已经知道它是负数了
 
 1144
 00:59:06,743 --> 00:59:10,345
 Or else if self is 0, which would be the else case here,
+否则如果 self 是 0，也就是最后的 else 分支
 
 1145
 00:59:10,414 --> 00:59:12,580
 then maybe I'll just return 0. So if you say, 0,
+我就可以直接返回 0。如果你用 0.arc4random
 
 1146
 00:59:12,649 --> 00:59:15,950
 give me a random number, it gives you a 0. So here I've
+来获取一个随机数，它就会返回 0。这样我
 
 1147
 00:59:16,019 --> 00:59:19,887
 made it that this never crashes. This doesn't have to
+就保证它绝对不会让程序崩溃了，这个也不必要是
 
 1148
 00:59:19,956 --> 00:59:23,825
 be an optional int and it gives a reasonable response.
+可选的整数，同时返回的也是合理的结果
 
 1149
 00:59:23,894 --> 00:59:26,995
-See, and that's pretty good when you add bars and
+See, and that's pretty good. When you add vars and
+看，这挺不错的。当你添加变量
 
 1150
 00:59:27,063 --> 00:59:30,632
-functions to any class. Now you can just via extensions,
+functions to any class, not even just extensions,
+或者函数到任何类型的时候，不只是在扩展里
 
 1151
 00:59:30,700 --> 00:59:34,302
 you want them to have good semantics, sensible semantics.
+你应该让他们有好的，合理的语义
 
 1152
 00:59:34,371 --> 00:59:36,905
 And you don't generally don't want them to crash which is
+而且一般你也不希望它容易让程序崩溃
 
 1153
 00:59:36,974 --> 00:59:38,607
 what this would have done otherwise.
+也就是我们之前一行代码的实现
 
 1154
 00:59:38,675 --> 00:59:40,942
 If you sent it to -3.
+比如你通过 -3 访问的话
 
 1155
 00:59:41,011 --> 00:59:45,346
 Everyone see how this makes our code a lot more readable.
+大家看到扩展让我们的程序更加易读了吗？
 
 1156
 00:59:45,415 --> 00:59:48,083
 And how we added something that was sensible for int.
+以及我们是如何给 Int 添加了合理的功能？
 
 1157
 00:59:49,953 --> 00:59:53,755
 All right, that's it, let's get back to our slides again.
+好，这就是扩展，让我们继续讲幻灯片
 
 1158
 00:59:55,659 --> 00:59:58,960
-Here is our for enum. Okay, optionals,
+Here is arc4random. Okay, optionals,
+这是我们刚讲的 arc4random，接着讲可选类型
 
 1159
 00:59:59,029 --> 01:00:03,832
 the dreaded word optionals. So I told you last
+听起来很吓人的 Optional。我上周
 
 1160
 01:00:03,901 --> 01:00:06,701
 week that an optional is just a regular old type in Swift.
+说 Optional 在 Swift 里就是个普通的类型
 
 1161
 01:00:06,770 --> 01:00:07,969
 In fact it's a enum,
+事实上它是个 enum
 
 1162
 01:00:08,037 --> 01:00:11,539
 an enumeration. So let's learn about enum because enum is
+枚举类型。我们先来学习下 enum，因为
 
 1163
 01:00:11,608 --> 01:00:13,909
 another thing I wasn't able to work it into concentration,
+另一个我没法加到翻牌游戏的就是枚举
 
 1164
 01:00:13,977 --> 01:00:17,045
 although I am gonna work it into next week's demo. Okay,
+索然我下周的演示里会用到
 
 1165
 01:00:17,114 --> 01:00:19,981
 our drawing demo. But I want to explain what it is so
+我们演示绘画的程序。但我想先解释它是什么
 
 1166
 01:00:20,050 --> 01:00:22,751
 that I can explain what optionals are a little better.
+这样我就能更好地把可选类型解释清楚
 
 1167
 01:00:22,820 --> 01:00:25,753
 So an enum is just like an enum in other languages.
+enum 和其他语言的枚举类型是一样的
 
 1168
 01:00:25,822 --> 01:00:28,156
 It's a data type, just like struct is a type or
+就是种数据类型，就像 struct 是一种类型
 
 1169
 01:00:28,225 --> 01:00:29,824
 class is a type, enum is a type.
+class 也是种类型一样，enum 也是种类型
 
 1170
 01:00:29,893 --> 01:00:32,828
 Exactly the same, you can use it in exactly the same places.
+都是数据类型，可以在同样的地方使用
 
 1171
 01:00:32,896 --> 01:00:37,899
 It's just that it has only discrete values. Here's
+只不过区别就是枚举类型包含了所有不同的可能性
 
 1172
 01:00:37,968 --> 01:00:40,701
 a FastFoodMenuItem enum, it can only be hamburger, fries,
+枚举 FastFoodMenuItem，快餐店的菜单上只会有汉堡，薯条
 
 1173
 01:00:40,770 --> 01:00:43,471
 drink, or cookie. That's it, it can't be anything else
+饮料或是饼干，就这些，不能是其他任何的东西
 
 1174
 01:00:43,540 --> 01:00:45,172
 besides one of those four things, so
+只能是这四种中的一种
 
 1175
 01:00:45,241 --> 01:00:50,645
 that's what an enum is. Enums are value types, like structs,
+这就是枚举。枚举也是值类型，和结构体一样
 
 1176
 01:00:50,714 --> 01:00:55,783
 they get copied as you pass them around. Now enums in
+当你把它四处传递的时候会被拷贝
 
 1177
 01:00:55,852 --> 01:01:00,488
 Swift little bit more powerful then your typical enum because
+在 Swift 里的枚举比其他语言的枚举更厉害
 
 1178
 01:01:00,556 --> 01:01:05,026
 each case can also have what's called associated data, or
+因为每个 case 还能有与之关联的数据
 
 1179
 01:01:05,094 --> 01:01:08,296
 an associated value. So in my fast food item one my
+叫作关联值。比如我 FastFoodMenuItem 里的
 
 1180
 01:01:08,365 --> 01:01:10,565
 hamburgers have the number of patties,
+hamburger 的关联值就是 numberOfPatties
 
 1181
 01:01:10,634 --> 01:01:12,400
 is it a double burger or a triple or
+汉堡的肉饼是双层的还是三层的还是
 
 1182
 01:01:12,469 --> 01:01:15,303
 a single? The fries has the size of the fries,
+只有一层？fries 的关联值是薯条的大小
 
 1183
 01:01:15,371 --> 01:01:18,773
 a large fry, or a small. And I've even used another enum,
+大号还是小号。这里我用了另一个枚举
 
 1184
 01:01:18,842 --> 01:01:20,842
 you see down here at the bottom.
+就是下面你看到的这个
 
 1185
 01:01:20,911 --> 01:01:24,245
 I have another, oops, my thing work here. There it is.
+我有另一个，让我把它鼠标聚焦在这里
 
 1186
 01:01:24,314 --> 01:01:29,250
 This is not very good. Okay, we got it. There it is. So
+这个并不是很容易操作。好，终于，就这个
 
 1187
 01:01:29,319 --> 01:01:32,153
 I can use another enum there to do the size of it and
+所以我可以用另一个枚举表示它的大小
 
 1188
 01:01:32,222 --> 01:01:37,058
 then drink. It has two pieces of associated data.
+然后 drink 有关联值是两个数据构成的
 
 1189
 01:01:37,127 --> 01:01:39,160
 Okay, let's see if we can get this working for that.
+让我来试试能不能好好聚焦
 
 1190
 01:01:39,229 --> 01:01:41,062
 And if you look at its two pieces of associated data,
+你看这关联值的两部分
 
 1191
 01:01:41,130 --> 01:01:42,097
 look at the first one.
+这第一个
 
 1192
 01:01:42,165 --> 01:01:45,499
 That string, it has no name. These other ones have names,
+那个 String 没有名字，其他的都有
 
 1193
 01:01:45,568 --> 01:01:47,969
 like number of patties, size, this one has no name for
+像 numberOfPatties 和 size，但饮料的第一个
 
 1194
 01:01:48,038 --> 01:01:50,705
 the first one, it does have a name for the second one.
+没有名字，虽然它第二个是有名字的
 
 1195
 01:01:50,774 --> 01:01:53,374
 First the strings and then an int. Now the names here don't
+一个是 String 一个是 Int。但这个名字并
 
 1196
 01:01:53,443 --> 01:01:56,544
 matter that much because when we extract this information,
+不是那么重要，因为当我们提取这个信息的时候
 
 1197
 01:01:56,613 --> 01:01:59,246
 we're gonna be able to give it our own name anyway,
+我们总是要给它另取一个名字的
 
 1198
 01:01:59,315 --> 01:02:02,350
 kind of like tuples. In fact, these look a lot like tuples,
+就像元组一样。关联值其实和元组很像
 
 1199
 01:02:02,419 --> 01:02:04,552
 don't they? These little associated datas,
+不是吗？这些关联值
 
 1200
 01:02:04,620 --> 01:02:07,055
 they're kind of like tuples because you can have as many
+它们挺像元组的，因为你可以有任意数量
 
 1201
 01:02:07,124 --> 01:02:08,990
 of them as you want, you specify the type,
+的数据，你指定它们的类型
 
 1202
 01:02:09,059 --> 01:02:11,093
 they have names, they're super simple, and
+它们可以有名字，非常简单
 
 1203
 01:02:11,161 --> 01:02:14,095
 they look very much like tuples. So, anyway,
+看起来和元组很像。所以
 
 1204
 01:02:14,164 --> 01:02:16,697
 so this is what it looks like to declare an enum with
+这就是声明带有关联值的枚举
 
 1205
 01:02:16,766 --> 01:02:20,334
 associated data. Now, how do you assign an enum?
+的方法。那你怎么赋值一个枚举呢？
 
 1206
 01:02:20,403 --> 01:02:23,071
 So here is two variables, one called menu item,
+这里有两个变量，一个是 menuItem
 
 1207
 01:02:23,140 --> 01:02:25,840
 one called other item. They are of type FastFoodMenuItem,
+另一个叫 otherItem，都是 FastFoodMenuItem
 
 1208
 01:02:25,909 --> 01:02:28,876
 that's their type. And so I set them just by saying
+这是它们的类型。然后我给它们赋值就用
 
 1209
 01:02:28,945 --> 01:02:31,779
 FastFoodMenuItem dot the case I want.
+FastFoodMenuItem.我想要的 case
 
 1210
 01:02:31,848 --> 01:02:37,118
 And if it has associated data, I have to provide it.
+如果那种情况有关联值，那我也需要相应地提供
 
 1211
 01:02:37,187 --> 01:02:42,057
 So the only time you can set the associated data of an enum
+唯一我能指定枚举的关联值的时候
 
 1212
 01:02:42,125 --> 01:02:45,226
 is when you assign it. That's the only time. Okay,
+就是在赋值的时候，这是唯一一次机会
 
 1213
 01:02:45,294 --> 01:02:48,062
 you can't go back later and change this to be a triple,
+你不能之后又回来然后把双层汉堡改成三层的
 
 1214
 01:02:48,131 --> 01:02:51,032
 because this is fundamentally a double burger.
+因为它已经就是个双层汉堡了
 
 1215
 01:02:51,101 --> 01:02:53,634
 That's what it is. And it's never, if it changed, it would
+它就是它，不会再变了。如果关联值发生了改变
 
 1216
 01:02:53,703 --> 01:02:56,871
 change into a completely different thing. All right, so
+它就会变成一个完全不同的东西。好
 
 1217
 01:02:56,940 --> 01:03:01,008
 you don't change the patties, got that? All right, so, when
+所以你不能更改关联值，知道了吗？好
 
 1218
 01:03:01,077 --> 01:03:04,980
 you're setting these values by the way of course you can use
+当你在设置这些值的时候，当然你可以用
 
 1219
 01:03:05,048 --> 01:03:08,683
 type inference, but only on one side of that equals. So
+类型推导，但只能在等号的某一侧使用
 
 1220
 01:03:08,752 --> 01:03:12,354
 you could say menuItem equals FastFoodMenuItem.hamburger.
+你可以说 menuItem = FastFoodMenuItem.hamburger
 
 1221
 01:03:12,422 --> 01:03:15,089
 Which was what was on the previous slide, or
+也就是和之前那页一样的写法，或者
 
 1222
 01:03:15,158 --> 01:03:18,626
 you could say otherItem of type FastFoodMenuItem equals
+说 FastFoodMenuItem 类型的 otherItem
 
 1223
 01:03:18,695 --> 01:03:19,727
 .cookie. You see,
+是 .cookie。看
 
 1224
 01:03:19,796 --> 01:03:21,996
 I've just basically moved the type to the other side. But
+我基本上就是把类型移到了另一边
 
 1225
 01:03:22,065 --> 01:03:25,966
 you can't say yet another item equals .cookie. Swift doesn't
+但你不能说 otherItem = .cookie，因为 Swift 没有
 
 1226
 01:03:26,035 --> 01:03:29,337
 know enough there to infer the type on the other side. There
+得到足够的信息来推导等号右边是什么类型的
 
 1227
 01:03:29,406 --> 01:03:31,505
 could be other enums with .cookie in it, for example,
+可能有其他的枚举也有 .cookie，比如
 
 1228
 01:03:31,574 --> 01:03:33,775
 that you might add later. And then all of a sudden your code
+你可能之后会添加这么一个，那么立刻你的代码
 
 1229
 01:03:33,844 --> 01:03:35,309
 won't compile because it doesn't know. So
+就肯定编译不了了，因为 Swift 不知道选哪个
 
 1230
 01:03:35,378 --> 01:03:38,680
 it just says from the start, I don't know what that is.
+所以 Swift 决定从一开始就说不知道是什么类型
 
 1231
 01:03:39,783 --> 01:03:42,350
 Now how do you check what an enum is?
+那你要如何判断枚举是哪种情况呢？
 
 1232
 01:03:42,419 --> 01:03:44,953
 You do not use equals. So you don't say,
+你不用 == 判断，你不用写
 
 1233
 01:03:45,021 --> 01:03:49,523
 if this menu item equals a hamburger then whatever, okay,
+if menuItem == .hamburger 那就怎样怎样
 
 1234
 01:03:49,592 --> 01:03:53,328
 you do not use equals, you use switch. Again, other languages
+你不用 == 判断，应该用 switch。同样的，其他语言
 
 1235
 01:03:53,397 --> 01:03:56,097
 have switch. Switch is more powerful in Swift.
+也有 switch，但 Swift 里的 switch 更强大
 
 1236
 01:03:56,166 --> 01:03:58,900
 This is the basic use of switch right here, where I'm
+这里的只是 switch 的基本用法，我只是
 
 1237
 01:03:58,968 --> 01:04:02,137
 just looking at every possible case that it could be, and
+逐一判断了所有可能的情况
 
 1238
 01:04:02,205 --> 01:04:03,938
 if it's that case, I do a little bit of code.
+如果是这种情况，那我就运行这段代码
 
 1239
 01:04:04,007 --> 01:04:07,041
 So here I'm just printing out what the various cases are so
+这里我只是打印出了是什么情况
 
 1240
 01:04:07,110 --> 01:04:09,043
 if it's hamburgers, for example,
+比如如果是汉堡的话
 
 1241
 01:04:09,112 --> 01:04:11,379
 you can see that I'm printing burger.
+你看到我打印的就是汉堡的英文
 
 1242
 01:04:11,448 --> 01:04:14,249
 Notice that I'm ignoring the associated data here which is
+注意我这里忽略了关联值，这是
 
 1243
 01:04:14,317 --> 01:04:15,249
 perfectly fine.
+完全没问题的
 
 1244
 01:04:15,318 --> 01:04:17,886
 You're allowed to completely ignore the associated data
+你可以完全忽略关联值
 
 1245
 01:04:17,955 --> 01:04:21,555
 when you're checking the state with switch. Now
+当你用 switch 语句判断的时候是可以的
 
 1246
 01:04:21,624 --> 01:04:25,326
 switch requires you to address every single case. You are not
+注意 switch 语句要求你穷举所有的情况，你不能
 
 1247
 01:04:25,395 --> 01:04:28,463
 allowed to look at only two of the cases. But, of course,
+只是判断其中的两种，但当然
 
 1248
 01:04:28,531 --> 01:04:34,068
 it's got something that can help you with that. Oh yes,
+Swift 提供了帮你解决这个问题的方法
 
 1249
 01:04:34,137 --> 01:04:37,605
-by the way, you see I've taken away the FastFoodMenuItem.,
+by the way, you see I've taken away the FastFoodMenuItem
+顺便一提，你看到我把 FastFoodMenuItem 省略了
 
 1250
 01:04:37,674 --> 01:04:40,775
 in front of hamburger, fries, drink, and coke. Becuase swift
+只剩下 .hamburger, .fries, .drink 和 .coke
 
 1251
 01:04:40,843 --> 01:04:43,077
 can infer that, you're switching on a menu item, so
+因为这个 Swift 是可以推导的，你 switch 的是 menuItem
 
 1252
 01:04:43,146 --> 01:04:45,280
 it knows this is a FastFoodMenuItem, so
+Swift 知道那是个 FastFoodMenuItem，所以
 
 1253
 01:04:45,348 --> 01:04:49,317
 you can take those away. All right, so if you have one of
+你可以省略这个。好，如果你这里有个
 
 1254
 01:04:49,385 --> 01:04:52,287
 the cases, and you don't wanna do anything, you can just
+case 决定什么也不做，那你可以
 
 1255
 01:04:52,356 --> 01:04:55,890
 break. Break means break out of this switch. So
+用 break，也就是跳出 switch
 
 1256
 01:04:55,958 --> 01:04:58,626
 that's a way to do nothing in this case. So, right here,
+这就是什么也不做的方法。这里的这个
 
 1257
 01:04:58,694 --> 01:05:01,062
 this code, we print nothing because the hamburger case,
+这段代码不会打印任何内容，因为在是 .hamburger 时
 
 1258
 01:05:01,130 --> 01:05:03,698
 the menu item is a hamburger with two patties, and
+menuItem 是双层的汉堡
 
 1259
 01:05:03,767 --> 01:05:04,999
 that hamburger case does nothing, so
+是汉堡情况下的代码什么也不做
 
 1260
 01:05:05,068 --> 01:05:08,636
 we'll just break out and do nothing. Similarly,
+我们直接 break 跳出 switch。类似的
 
 1261
 01:05:08,705 --> 01:05:12,306
 if you want to do something for all the rest of the cases,
+如果你希望让剩余的情况都做某件事情
 
 1262
 01:05:12,375 --> 01:05:13,841
 like here I only want to do something for
+比如我只想要在是汉堡或是薯条的情况下
 
 1263
 01:05:13,910 --> 01:05:16,977
 hamburger and fries. Actually I do nothing for hamburger and
+做某些事情，更准确的说是汉堡我什么也不做
 
 1264
 01:05:17,046 --> 01:05:18,079
 I do something for fries.
+是薯条我做另外的事情
 
 1265
 01:05:18,147 --> 01:05:20,949
 In all other cases, I just want to print other, then you
+其他所有的情况我都打印说是其他
 
 1266
 01:05:21,017 --> 01:05:24,919
 can use default instead of case whatever. Now in switch,
+那你就可以用 default 来代替其他的情况。switch
 
 1267
 01:05:24,987 --> 01:05:29,424
 you can switch any type, you can even switch on a string.
+可以用来判断任何类型，你甚至可以 switch 字符串
 
 1268
 01:05:29,492 --> 01:05:32,426
 But if you switch on a string, you'd have to have case A,
+但如果你要判断 String 的话，你需要判断 case "A":
 
 1269
 01:05:32,495 --> 01:05:35,029
 case B, case C, case AA, case AB, you see what I mean?
+case "B", "C", "AA", "AB": 等等。知道我什么意思了吗？
 
 1270
 01:05:35,098 --> 01:05:37,165
 You'd have to have every case in the world.
+你需要列举所有可能存在的字符串
 
 1271
 01:05:37,234 --> 01:05:40,502
-So of course you're going to use default ion a string case
+So of course you're going to use default in a string case
+所以肯定你需要在 switch 字符串的时候用 default
 
 1272
 01:05:40,570 --> 01:05:41,836
 switch case the couple
+你 switch 里列举一些
 
 1273
 01:05:41,904 --> 01:05:45,306
 ones you wanna case, then you would default the rest. So
+你想要的情况，然后其他的就用 default 处理
 
 1274
 01:05:45,375 --> 01:05:50,778
-default is a must even for enums we use it quite a bit,
+default is a must. Even for enums we use it quite a bit,
+所以字符串必须用 default。有的时候枚举我们也会用到
 
 1275
 01:05:50,847 --> 01:05:53,948
 all right? So that's break an enum. So
+听懂了吧？这就是 break 和枚举
 
 1276
 01:05:54,017 --> 01:05:58,753
 if this were a cookie then it would print other. All right,
+这里如果是 .cookie 的话，那就会打印 other
 
 1277
 01:05:58,822 --> 01:06:01,455
 multiple lines, I just wanted to make clear that, multiple
+接着是多行代码。我只是想澄清
 
 1278
 01:06:01,524 --> 01:06:03,724
 lines of code are allowed, it doesn't have to be one line.
+每个 case 里是可以有多行代码的，不一定只有一行
 
 1279
 01:06:03,793 --> 01:06:05,025
 That was just cuz I'm on slides here,
+之前只有一行是因为我在讲幻灯片
 
 1280
 01:06:05,094 --> 01:06:06,661
 I'm trying to make everything fit, and
+我希望能装下所有的内容
 
 1281
 01:06:06,730 --> 01:06:10,265
 there's no fall through. So in this case, I've got fries,
+还有，每个 case 并不会贯穿到下一个，比如这里
 
 1282
 01:06:10,333 --> 01:06:12,166
 you see up there at the top, fries,
+你看上面的 .fries
 
 1283
 01:06:12,234 --> 01:06:13,701
 large fries there. And
+它是 .large，大号的薯条
 
 1284
 01:06:13,770 --> 01:06:18,039
 so this code would print out yummy fires and that's it. So
+所以这段代码会打印 yummy fries，然后就完了
 
 1285
 01:06:18,107 --> 01:06:20,007
 I have multiple lines of code in there under fries,
+我 .fries 的 case 里有多行代码
 
 1286
 01:06:20,076 --> 01:06:22,977
 two lines of code, and it does not fall through and do drink,
+两行代码，而且它也不会贯穿到 .drink 里去
 
 1287
 01:06:23,046 --> 01:06:26,080
 like in other languages. In C, things fall through, in switch
+像 C 这些其他语言就会贯穿到 .drink
 
 1288
 01:06:26,149 --> 01:06:28,116
 but they don't fall through here. There is a keyword
+Swift 里并不会。但有一个关键字
 
 1289
 01:06:28,184 --> 01:06:30,585
 called fallthrough that would let you fall through, but
+叫 fallthrough 可以让你贯穿到下一个 case
 
 1290
 01:06:30,653 --> 01:06:36,591
-by default it doesn't. By the way that it inferred
+by default it doesn't. By the way, the same way that it inferred
+但默认是不会的。顺便一提，就像推导
 
 1291
 01:06:36,660 --> 01:06:40,561
 the type all along in here, it can for that type as well.
+switch 里每个 case 的类型一样，Swift 也推到了它的类型
 
 1292
 01:06:40,630 --> 01:06:45,066
 I don't have to say size,fries size enum.large,
+我并不需要用 size: FryOrderSize.large
 
 1293
 01:06:45,135 --> 01:06:47,902
 I can just say, .large because it knows that the associated
+我可以直接用 .large，因为 Swift 知道薯条的
 
 1294
 01:06:47,971 --> 01:06:53,274
 data of fries is s fries size enum. Okay,
+关联值是 FryOrderSize 这个枚举
 
 1295
 01:06:53,342 --> 01:06:57,778
 now, what if I want to get the associated data. So I do,
+那如果我现在想要得到关联值怎么办呢？
 
 1296
 01:06:57,847 --> 01:07:00,815
 I am interested in it. We do that with switch as well,
+我很感兴趣。这个我们也可以用 switch
 
 1297
 01:07:00,883 --> 01:07:05,319
 we just do this little let business. See the little lets.
+我们只需要加上些 let，看到这里的 let 了吗？
 
 1298
 01:07:05,388 --> 01:07:07,789
 In all the cases that you want this associated data,
+对于所有你想要关联值的 case
 
 1299
 01:07:07,858 --> 01:07:09,190
 you don't have to do it in all cases, but
+你并不需要每个 case 都这样做
 
 1300
 01:07:09,258 --> 01:07:11,326
 in the ones you want it? You just say, open parentheses,
+但对于你想要的，你在括号里面就用
 
 1301
 01:07:11,394 --> 01:07:15,229
 let and a name of a little local variable for
+let 和你给关联值取得作为本地变量的名字
 
 1302
 01:07:15,298 --> 01:07:18,265
 each of the associated pieces of data. Now,
+对于每个关联值都这样做
 
 1303
 01:07:18,334 --> 01:07:21,702

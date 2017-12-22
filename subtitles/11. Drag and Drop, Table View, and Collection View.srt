@@ -1,0 +1,6428 @@
+1
+00:00:00,401 --> 00:00:04,403
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,471 --> 00:00:07,639
+Stanford University. >> Well,
+>> 斯坦福大学 >> 好
+
+3
+00:00:07,708 --> 00:00:11,843
+welcome to lecture number 11 of Stanford CS193P,
+欢迎来到斯坦福 CS193P 的第十一节课
+
+4
+00:00:11,912 --> 00:00:16,381
+this is fall of 2017 quarter. And today, we have two huge
+现在是 2017 年秋季学期。今天我们有两个很重要的
+
+5
+00:00:16,450 --> 00:00:19,584
+topics to talk about. The first one is drag and drop,
+
+6
+00:00:19,653 --> 00:00:22,153
+which is a way of sharing information between apps,
+
+7
+00:00:22,222 --> 00:00:24,422
+especially important with iOS 11.
+
+8
+00:00:24,491 --> 00:00:27,726
+Because on the iPad, there's quite a great multitasking
+
+9
+00:00:27,794 --> 00:00:30,929
+ability to have two apps on screen at the same time. And
+
+10
+00:00:30,997 --> 00:00:33,431
+nice, nice to be able to drag and drop between them. And
+
+11
+00:00:33,500 --> 00:00:37,102
+then we're gonna talk about TableView and CollectionView,
+
+12
+00:00:37,170 --> 00:00:40,439
+definitely a big step up in complexity of what I've been
+
+13
+00:00:40,507 --> 00:00:44,109
+teaching you so far, but I think you're ready for it. So
+
+14
+00:00:44,178 --> 00:00:47,045
+drag and drop, what is drag and drop about?
+
+15
+00:00:47,114 --> 00:00:50,682
+It's very simple, you literally just press and hold,
+
+16
+00:00:50,751 --> 00:00:54,452
+which we call a long press on iOS, on something that could
+
+17
+00:00:54,521 --> 00:00:58,257
+be dragged and start moving. And when you do, the operating
+
+18
+00:00:58,325 --> 00:01:01,660
+system, iOS, is going to let you drag that thing around.
+
+19
+00:01:01,729 --> 00:01:04,496
+And then you can drag it over things that might receive it
+
+20
+00:01:04,564 --> 00:01:07,332
+and let go, and it drops them in there, simple as that.
+
+21
+00:01:07,401 --> 00:01:10,035
+You've seen drag and drop on the desktop all the time,
+
+22
+00:01:10,104 --> 00:01:11,869
+so now we have it with multitasking.
+
+23
+00:01:11,938 --> 00:01:14,973
+What's really incredible about the way they did drag and drop
+
+24
+00:01:15,042 --> 00:01:17,876
+is that while you're dragging and dropping, and you're
+
+25
+00:01:17,944 --> 00:01:20,745
+dragging thing around, you can use your other finger and
+
+26
+00:01:20,814 --> 00:01:24,115
+still completely use your UI however you want. So drag and
+
+27
+00:01:24,184 --> 00:01:27,452
+drop does not interfere with the operation of your iPad at
+
+28
+00:01:27,520 --> 00:01:30,288
+all. Which is quite amazing cuz you can be in the middle
+
+29
+00:01:30,357 --> 00:01:32,824
+of a drag and say, well, actually I need to navigate to
+
+30
+00:01:32,893 --> 00:01:35,260
+this other part of my app to drop that and it'll work. And
+
+31
+00:01:35,328 --> 00:01:37,662
+it's kind of the value of having multi-touch
+
+32
+00:01:37,731 --> 00:01:40,632
+multi-fingers. You can also be in the middle of a drag and
+
+33
+00:01:40,701 --> 00:01:42,801
+say, hm, I wanna drag these other things too.
+
+34
+00:01:42,869 --> 00:01:45,604
+And just tap on other things, it'll add it to the drag.
+
+35
+00:01:45,672 --> 00:01:48,506
+So they really use the multi-fingers or multi-touch
+
+36
+00:01:48,575 --> 00:01:52,644
+to great effect with drag and drop. So how do we implement
+
+37
+00:01:52,713 --> 00:01:54,780
+drag and drop? What do we do in our code if we wanna
+
+38
+00:01:54,848 --> 00:01:59,117
+participate in drag and drop? The real gateway to making
+
+39
+00:01:59,185 --> 00:02:02,353
+this work is through these things called interactions. So
+
+40
+00:02:02,422 --> 00:02:05,190
+drag and a drop is a view thing, it's a UI view thing.
+
+41
+00:02:05,259 --> 00:02:08,527
+In the same way that gestures are kind of a UI view thing,
+
+42
+00:02:08,595 --> 00:02:10,228
+you can sort of think of drag and
+
+43
+00:02:10,297 --> 00:02:13,898
+drop as just another really powerful gesture if you want.
+
+44
+00:02:13,967 --> 00:02:16,868
+But you don't enable drag and drop by adding a gesture
+
+45
+00:02:16,937 --> 00:02:20,872
+recognizer, instead you do it by adding a dropInteraction or
+
+46
+00:02:20,941 --> 00:02:23,474
+a dragInteraction. But it looks
+
+47
+00:02:23,543 --> 00:02:26,578
+almost exactly the same as adding a gesture recognizer.
+
+48
+00:02:26,646 --> 00:02:29,747
+UI view just has this method called addInteraction,
+
+49
+00:02:29,816 --> 00:02:31,315
+and it takes either a drag or
+
+50
+00:02:31,384 --> 00:02:33,384
+a drop interaction that you create. And
+
+51
+00:02:33,453 --> 00:02:36,221
+the drag or drop interaction is created really easily.
+
+52
+00:02:36,289 --> 00:02:39,157
+It just has one argument to its initializer,
+
+53
+00:02:39,226 --> 00:02:42,093
+which is a delegate. And then, what's gonna happen is,
+
+54
+00:02:42,162 --> 00:02:45,697
+when a drag or a drop or both, you can have a view be both,
+
+55
+00:02:45,766 --> 00:02:48,533
+starts the Delegator's gonna start receiving some messages.
+
+56
+00:02:48,602 --> 00:02:50,668
+And you have to respond to those messages,
+
+57
+00:02:50,737 --> 00:02:52,737
+that are sent to it if you wanna participate, and
+
+58
+00:02:52,806 --> 00:02:54,906
+those messages are really easy to respond to.
+
+59
+00:02:54,975 --> 00:02:55,841
+So let's take a look at that,
+
+60
+00:02:55,909 --> 00:02:59,344
+let's first look at being a drag person, a view that has
+
+61
+00:02:59,412 --> 00:03:03,348
+something in you that you want to drag into other apps.
+
+62
+00:03:03,417 --> 00:03:06,952
+If you want to register that dragInteraction on your view,
+
+63
+00:03:07,020 --> 00:03:09,955
+then when the user does that long press and
+
+64
+00:03:10,024 --> 00:03:12,357
+move, which looks like a drag, you know,
+
+65
+00:03:12,426 --> 00:03:15,927
+for drag with drag and drop, you're gonna get this message,
+
+66
+00:03:15,996 --> 00:03:19,464
+DragInteraction, itemsForBeginning. And
+
+67
+00:03:19,533 --> 00:03:22,734
+this is really simple. You're just gonna return an array of
+
+68
+00:03:22,802 --> 00:03:26,471
+the items you are willing to have dragged from your view.
+
+69
+00:03:26,540 --> 00:03:30,308
+So what does a drag item look like? Well a drag item really
+
+70
+00:03:30,377 --> 00:03:32,744
+only has one important thing, which is,
+
+71
+00:03:32,813 --> 00:03:36,113
+what's called an itemProvider. Now an itemProvider is just
+
+72
+00:03:36,182 --> 00:03:39,184
+something that can provide the data that's gonna be dragged.
+
+73
+00:03:39,253 --> 00:03:41,753
+And you might ask, well how come the drag item just
+
+74
+00:03:41,821 --> 00:03:44,722
+doesn't have the data? The thing you want to drag.
+
+75
+00:03:44,791 --> 00:03:47,425
+And the reason is it might be expensive for
+
+76
+00:03:47,494 --> 00:03:50,361
+you to create that data. Maybe it's an image or
+
+77
+00:03:50,430 --> 00:03:53,531
+something you have to load up for some reason or
+
+78
+00:03:53,600 --> 00:03:58,002
+do something else. So drag and drop is incredibly completely
+
+79
+00:03:58,071 --> 00:04:00,939
+asynchronous. You start that drag and
+
+80
+00:04:01,008 --> 00:04:03,641
+it's really lightweight and it's dragging around and
+
+81
+00:04:03,710 --> 00:04:06,511
+almost nothing is happening as this happens. But then,
+
+82
+00:04:06,579 --> 00:04:09,381
+when the drop happens, then if you're an item provider,
+
+83
+00:04:09,450 --> 00:04:12,384
+you have to actually, give the data out.
+
+84
+00:04:12,452 --> 00:04:15,020
+Even if that takes a certain amount of time.
+
+85
+00:04:15,089 --> 00:04:16,821
+So that's why we've added itemProviders.
+
+86
+00:04:16,890 --> 00:04:19,624
+Now luckily, there's a lot of built-in itemProviders.
+
+87
+00:04:19,693 --> 00:04:23,194
+Classes that already exist in iOS that are itemPoviders like
+
+88
+00:04:23,263 --> 00:04:26,698
+NSAttributedString. So you can drag, pick up pieces of text
+
+89
+00:04:26,766 --> 00:04:29,834
+and they'll drag around with their fonts and everything.
+
+90
+00:04:29,903 --> 00:04:33,971
+There's also NSString, which is text without the fonts.
+
+91
+00:04:34,040 --> 00:04:35,706
+UIImage of course. You can pick up and
+
+92
+00:04:35,775 --> 00:04:39,177
+drag UIImages around. NSURL, that's a really nice one.
+
+93
+00:04:39,246 --> 00:04:41,780
+You go onto a web page, you pickup a URL and drop it.
+
+94
+00:04:41,848 --> 00:04:44,582
+Maybe it's a reference to an article or a URL for
+
+95
+00:04:44,651 --> 00:04:46,485
+an image like we're gonna have in the demo that we're gonna
+
+96
+00:04:46,553 --> 00:04:50,589
+build, etc. UIColor, MapItem, a contact from the address
+
+97
+00:04:50,657 --> 00:04:53,058
+book, lot of things you can pickup and move.
+
+98
+00:04:53,126 --> 00:04:56,695
+These are all itemProviders. So to create a drag item you
+
+99
+00:04:56,764 --> 00:04:58,763
+just create them with NSItemProvider and
+
+100
+00:04:58,832 --> 00:05:01,399
+provide the object that is going to provide the data.
+
+101
+00:05:01,468 --> 00:05:04,535
+Now of course you could write your own item Provider that
+
+102
+00:05:04,604 --> 00:05:07,539
+provides your own kind of data, but you know, most of
+
+103
+00:05:07,608 --> 00:05:11,009
+time your just gonna use these nice pre-made ones. There's
+
+104
+00:05:11,077 --> 00:05:14,579
+one other thing in a dragItem, which is for local drags.
+
+105
+00:05:14,648 --> 00:05:17,916
+Drag and drop can work within an app and between apps.
+
+106
+00:05:17,984 --> 00:05:20,985
+It only works between apps on iPad, because you can only
+
+107
+00:05:21,054 --> 00:05:23,521
+get two apps on screen at the same time in iPad.
+
+108
+00:05:23,590 --> 00:05:27,158
+But on the iPhone and iPad, you can do it inside the app.
+
+109
+00:05:27,226 --> 00:05:30,128
+And if you're drag and drop inside the app, then you can
+
+110
+00:05:30,196 --> 00:05:33,197
+kind of short circuit all this itemProvider business and
+
+111
+00:05:33,266 --> 00:05:36,167
+just use this little var, localObject in your dragItem
+
+112
+00:05:36,235 --> 00:05:39,404
+and that'll just mean you're dragging this local object.
+
+113
+00:05:39,473 --> 00:05:42,574
+And that local object can be anything, it's of type any, so
+
+114
+00:05:42,643 --> 00:05:45,576
+you can put anything you want there and drag, use drag and
+
+115
+00:05:45,645 --> 00:05:49,047
+drop to drag anything in your app from one place to another.
+
+116
+00:05:49,115 --> 00:05:50,582
+So that's getting a drag started,
+
+117
+00:05:50,651 --> 00:05:52,984
+you just got to provide this items for beginning array and
+
+118
+00:05:53,053 --> 00:05:57,889
+that's it. If in the middle of a drag, someone uses another
+
+119
+00:05:57,957 --> 00:06:02,160
+finger to pick on something else that they want to drag.
+
+120
+00:06:02,229 --> 00:06:05,096
+Then you're gonna get this message itemsForAddingTo,
+
+121
+00:06:05,165 --> 00:06:09,600
+this session. And all you have to do there, provide
+
+122
+00:06:09,669 --> 00:06:12,537
+an array of drag items. Often that array of dragItems
+
+123
+00:06:12,605 --> 00:06:14,939
+would just be one dragItem or it could be empty in
+
+124
+00:06:15,008 --> 00:06:16,975
+neither items for beginning or items for
+
+125
+00:06:17,043 --> 00:06:19,243
+adding two if you return an empty array here,
+
+126
+00:06:19,312 --> 00:06:22,981
+it means I don't have anything to drag. Thank for asking. So
+
+127
+00:06:23,050 --> 00:06:26,184
+it's really easy to just not participate if you don't want
+
+128
+00:06:26,253 --> 00:06:29,587
+to. So that makes the drag start and that's it.
+
+129
+00:06:29,656 --> 00:06:32,857
+That's all you have to do to be a drag source. Now,
+
+130
+00:06:32,926 --> 00:06:36,661
+what about accepting a drop. So now you're on the other
+
+131
+00:06:36,729 --> 00:06:38,163
+side of the drop. Someone dropped it on you.
+
+132
+00:06:38,231 --> 00:06:40,431
+Well, this is kind of a multi-step process.
+
+133
+00:06:40,500 --> 00:06:42,833
+The first one is you're gonna get this message sent to you.
+
+134
+00:06:42,902 --> 00:06:45,470
+Again, this is if you add interaction,
+
+135
+00:06:45,539 --> 00:06:47,572
+UIDropInteraction to UIView.
+
+136
+00:06:47,640 --> 00:06:50,908
+You're gonna get this message when a drag starts heading
+
+137
+00:06:50,977 --> 00:06:54,845
+your way, which is canHandle. Drop interaction canHandle.
+
+138
+00:06:54,914 --> 00:06:57,616
+And you're gonna get this session thing and it returns
+
+139
+00:06:57,684 --> 00:07:01,653
+a Bool which is whether you can handle a drag like that.
+
+140
+00:07:01,722 --> 00:07:04,422
+So what is a drag like that mean? Well you have to look at
+
+141
+00:07:04,491 --> 00:07:07,625
+this session that it passed you there, that UIDragSession.
+
+142
+00:07:07,694 --> 00:07:10,195
+And you usually aren't gonna call one method in there which
+
+143
+00:07:10,263 --> 00:07:14,732
+is canLoadObjects(ofClass. You're gonna ask that session.
+
+144
+00:07:14,801 --> 00:07:16,868
+Well can you provide an NSString?
+
+145
+00:07:16,937 --> 00:07:20,905
+If so, I'm in. Can you provide a UIImage? I'm in.
+
+146
+00:07:20,973 --> 00:07:24,442
+Or if not, can't provide the things you're interested in,
+
+147
+00:07:24,511 --> 00:07:27,378
+then you just return false from this canHandle session
+
+148
+00:07:27,447 --> 00:07:31,483
+and it won't bother you anymore during this drag. So
+
+149
+00:07:31,551 --> 00:07:34,686
+that's to get it started. Now if you were to say yes, I
+
+150
+00:07:34,754 --> 00:07:38,289
+can load objects of that type. Then you're going to start
+
+151
+00:07:38,358 --> 00:07:42,026
+getting this sessionDidUpdate message sent to you. Again,
+
+152
+00:07:42,095 --> 00:07:43,829
+this is gonna pass that session to you again.
+
+153
+00:07:43,897 --> 00:07:45,597
+And the session might have changed a little,
+
+154
+00:07:45,665 --> 00:07:47,465
+cuz maybe the finger has moved a little bit and so
+
+155
+00:07:47,533 --> 00:07:49,434
+maybe that changes your decision about whether you
+
+156
+00:07:49,502 --> 00:07:52,036
+want to accept this drop. But what you return from
+
+157
+00:07:52,105 --> 00:07:55,907
+sessionDidUpdate is a UIDropProposal.
+
+158
+00:07:55,976 --> 00:07:59,477
+Now this is your proposal as drop receiver. For
+
+159
+00:07:59,546 --> 00:08:01,612
+what you're willing to do with this Drop, and there's really
+
+160
+00:08:01,681 --> 00:08:04,615
+only three things you can do. You can have a Drop Proposal
+
+161
+00:08:04,684 --> 00:08:08,853
+which is cancel, which is to say, I propose cancelling this
+
+162
+00:08:08,922 --> 00:08:10,921
+Drop if you want to try and Drop it right where you
+
+163
+00:08:10,990 --> 00:08:15,059
+are now because I don't accept it there. And the Drag,
+
+164
+00:08:15,128 --> 00:08:17,495
+we'll have a little icon that appears on it, which is like,
+
+165
+00:08:17,564 --> 00:08:19,464
+you know, a red circle with a line through it, saying,
+
+166
+00:08:19,533 --> 00:08:23,000
+no, you can't drop here. Then there's Copy and Move.
+
+167
+00:08:23,069 --> 00:08:26,170
+Copy and move is a proposal that says, yes, I propose,
+
+168
+00:08:26,239 --> 00:08:30,508
+I will receive this drop and I will either copy the item or
+
+169
+00:08:30,576 --> 00:08:34,412
+move it. Now, copy is most often which you're going to do
+
+170
+00:08:34,481 --> 00:08:36,580
+here. Move would only make sense for
+
+171
+00:08:36,649 --> 00:08:39,784
+a drag within your app. Because you're gonna be moving
+
+172
+00:08:39,853 --> 00:08:42,487
+it from wherever it was, it won't be there anymore and
+
+173
+00:08:42,556 --> 00:08:43,688
+now it's gonna be at the new place,
+
+174
+00:08:43,757 --> 00:08:45,322
+that can only happen within your own app.
+
+175
+00:08:45,391 --> 00:08:48,059
+So move is only inside your own app if you're actually
+
+176
+00:08:48,127 --> 00:08:50,995
+moving the thing, rather than, copying and making a copy
+
+177
+00:08:51,064 --> 00:08:52,530
+of it. If someone's dragging from outside,
+
+178
+00:08:52,598 --> 00:08:55,266
+you'll always gonna be copying it. So that's it, you just
+
+179
+00:08:55,335 --> 00:08:58,803
+have to say, cancel, move, or copy each time you are asked
+
+180
+00:08:58,871 --> 00:09:01,873
+about this. By the way, you can look at the session and
+
+181
+00:09:01,942 --> 00:09:04,942
+find out where the finger is in your view,
+
+182
+00:09:05,011 --> 00:09:07,412
+by asking the session the location in the view.
+
+183
+00:09:07,481 --> 00:09:09,580
+So some places in your view maybe looks up to drop,
+
+184
+00:09:09,649 --> 00:09:12,350
+in some place not, all right.
+
+185
+00:09:12,418 --> 00:09:15,686
+So that's super simple, and so this proposal is kind of
+
+186
+00:09:15,755 --> 00:09:18,789
+a contract to accept the drop, if it were to be dropped at
+
+187
+00:09:18,858 --> 00:09:22,794
+this location. And so if you do accept it, then,
+
+188
+00:09:22,862 --> 00:09:26,264
+like if you don't say, dot cancel there in your proposal,
+
+189
+00:09:26,332 --> 00:09:29,734
+then you'll get performDrop when the finger Is released,
+
+190
+00:09:29,803 --> 00:09:32,370
+and the drop happens. Now, perform drop,
+
+191
+00:09:32,439 --> 00:09:34,772
+you're gonna get that session back again. Here,
+
+192
+00:09:34,841 --> 00:09:37,041
+you're almost always only gonna call one method,
+
+193
+00:09:37,110 --> 00:09:41,546
+which is loadObjects ofClass.
+
+194
+00:09:41,615 --> 00:09:43,848
+So we saw all ready the can load object class.
+
+195
+00:09:43,917 --> 00:09:45,850
+Now, we have the actual load objects of class.
+
+196
+00:09:45,919 --> 00:09:47,552
+Now this is an awesome little method.
+
+197
+00:09:47,620 --> 00:09:50,688
+This is one of the ways they made drop, drag and drop, so
+
+198
+00:09:50,757 --> 00:09:54,159
+simple, the implement without, with all that asynchrony, but
+
+199
+00:09:54,227 --> 00:09:56,827
+without a lot of difficulty in your app, which is,
+
+200
+00:09:56,896 --> 00:10:00,164
+you just call load objects of class. You specify
+
+201
+00:10:00,233 --> 00:10:02,399
+the class you're willing to receive from the drop, so
+
+202
+00:10:02,468 --> 00:10:04,335
+like attributed string or a color, or
+
+203
+00:10:04,404 --> 00:10:07,572
+a URL or image, whatever. Presumably, the things you
+
+204
+00:10:07,641 --> 00:10:11,209
+said you would accept earlier on, and it will go and
+
+205
+00:10:11,277 --> 00:10:14,378
+get that data asynchronously on another thread. And
+
+206
+00:10:14,447 --> 00:10:16,681
+when it gets all from the drag source,
+
+207
+00:10:16,749 --> 00:10:19,751
+it will call the closure you provide with the first
+
+208
+00:10:19,819 --> 00:10:23,754
+armament being an array of those things. So in this case,
+
+209
+00:10:23,823 --> 00:10:27,458
+I'm saying, load objects of class in a distributed string,
+
+210
+00:10:27,527 --> 00:10:30,628
+so it's gonna call that closure with the The Strings
+
+211
+00:10:30,697 --> 00:10:34,165
+to being an array of and as attribute to string. Now, it's
+
+212
+00:10:34,234 --> 00:10:37,602
+actually an array of something that implements the provider
+
+213
+00:10:37,670 --> 00:10:40,572
+protocol, so you're gonna have to cast it with AS.
+
+214
+00:10:40,640 --> 00:10:43,141
+But this is essentially array of those MS attributes and
+
+215
+00:10:43,209 --> 00:10:44,375
+strengths. Similarly,
+
+216
+00:10:44,444 --> 00:10:47,044
+you could do UIImage.self and all of that. By the way that
+
+217
+00:10:47,113 --> 00:10:49,180
+NSAttributeString.self that's the way
+
+218
+00:10:49,249 --> 00:10:52,316
+you specify the class in it's attributed string,
+
+219
+00:10:52,385 --> 00:10:54,319
+if you wanna pass it as an argument to the function.
+
+220
+00:10:54,387 --> 00:10:57,722
+We haven't seen that before but that's all you do.
+
+221
+00:10:57,791 --> 00:11:01,825
+And, this closure is sent to you and implemented
+
+222
+00:11:01,894 --> 00:11:04,862
+on the main queue, so you can feel free to do IU stuff here.
+
+223
+00:11:04,931 --> 00:11:07,531
+You don't have to dispatch the main queue if you don't want
+
+224
+00:11:07,600 --> 00:11:10,534
+to, and so it's really, really super convenient,
+
+225
+00:11:10,603 --> 00:11:12,570
+to do whatever you want. And you know,
+
+226
+00:11:12,639 --> 00:11:15,106
+you accept this drop, and it might take a little while for
+
+227
+00:11:15,175 --> 00:11:16,975
+this information to appear, but when it does,
+
+228
+00:11:17,043 --> 00:11:20,344
+you just have the code right here automatically executed.
+
+229
+00:11:20,413 --> 00:11:22,347
+And you can do load objects of class,
+
+230
+00:11:22,415 --> 00:11:24,582
+multiple different classes in the same drop.
+
+231
+00:11:24,651 --> 00:11:26,984
+We're going to do that in the demo for example.
+
+232
+00:11:27,053 --> 00:11:29,354
+We're only going to accept drags that are images, but
+
+233
+00:11:29,422 --> 00:11:32,022
+that also have a URL for the image, so we're looking for
+
+234
+00:11:32,091 --> 00:11:35,059
+two pieces of data in the same drag, a URL and an image. And
+
+235
+00:11:35,128 --> 00:11:39,196
+we will be doing loadObjects of class both of URL and
+
+236
+00:11:39,265 --> 00:11:42,700
+of the UI image, perfectly legal. They'll,
+
+237
+00:11:42,769 --> 00:11:44,168
+they'll both be happening asynchronously,
+
+238
+00:11:44,237 --> 00:11:45,770
+you don't know which one's gonna finish first.
+
+239
+00:11:45,838 --> 00:11:47,238
+But you've gotta write your code so
+
+240
+00:11:47,307 --> 00:11:49,940
+it doesn't matter. But that's all you need to do,
+
+241
+00:11:50,009 --> 00:11:52,476
+and that's all you usually do in performDrop, or
+
+242
+00:11:52,545 --> 00:11:54,145
+you're not really gonna do much else,
+
+243
+00:11:54,214 --> 00:11:58,983
+it's just get that data to start coming your way. So
+
+244
+00:11:59,052 --> 00:12:02,921
+I did drag and drop, super duper simple to implement.
+
+245
+00:12:02,989 --> 00:12:06,290
+So we're gonna do a little demo of it, so you can see it
+
+246
+00:12:06,359 --> 00:12:09,861
+in action, and I'm going to do this on the actual iPad and
+
+247
+00:12:09,929 --> 00:12:13,097
+I think we figured a way to get this on the screen that
+
+248
+00:12:13,166 --> 00:12:15,199
+will make everybody happy here.
+
+249
+00:12:15,268 --> 00:12:17,468
+So the way I'm gonna do this,
+
+250
+00:12:17,537 --> 00:12:21,739
+is I'm going to use Quick Time, so here's Quick Time,
+
+251
+00:12:21,808 --> 00:12:26,911
+it's just showing my ipad. Let's hide others here, so
+
+252
+00:12:26,980 --> 00:12:30,514
+this is just showing my iPad, so this app that we're gonna
+
+253
+00:12:30,583 --> 00:12:34,151
+build, we're actually gonna build this over the course of
+
+254
+00:12:34,220 --> 00:12:38,323
+this week, and next. It's called, Emoji Art. And
+
+255
+00:12:38,391 --> 00:12:42,393
+it lets you build a nice little artistic painting,
+
+256
+00:12:42,462 --> 00:12:46,297
+if you wanna think of it that, by using emoji.
+
+257
+00:12:46,365 --> 00:12:48,900
+So we love emoji in this class, as you know,
+
+258
+00:12:48,969 --> 00:12:51,536
+this is Emoji 101. And so how does this thing work?
+
+259
+00:12:51,604 --> 00:12:54,605
+Well, it uses multitasking, both to drag and drop
+
+260
+00:12:54,674 --> 00:12:57,909
+the emoji. And also to go find an image to be the background.
+
+261
+00:12:57,978 --> 00:12:58,776
+So let's see how that works.
+
+262
+00:12:58,844 --> 00:13:01,980
+So if you haven't seen the multitasking UI in iPad,
+
+263
+00:13:02,048 --> 00:13:05,016
+you just swipe up from the bottom. And when you do,
+
+264
+00:13:05,084 --> 00:13:07,951
+you can see all of your apps if you swipe all the way up,
+
+265
+00:13:08,020 --> 00:13:10,054
+you can also pick your favorite apps.
+
+266
+00:13:10,123 --> 00:13:12,589
+I just picked the one on the right there, which is this
+
+267
+00:13:12,658 --> 00:13:16,927
+one. And if you want, you can swipe up to bring this up. And
+
+268
+00:13:16,996 --> 00:13:18,195
+you can take a second app,
+
+269
+00:13:18,264 --> 00:13:21,032
+I'm gonna do Safari here. And you can pick it up and
+
+270
+00:13:21,101 --> 00:13:25,069
+drag it, and actually have it be side by side. So now I've
+
+271
+00:13:25,137 --> 00:13:27,472
+got both of these apps, running at the same time,
+
+272
+00:13:27,540 --> 00:13:29,473
+side by side. I got Google up on the right.
+
+273
+00:13:29,542 --> 00:13:32,543
+So I'm going to use Safari here to to find a nice
+
+274
+00:13:32,612 --> 00:13:36,447
+background image for the picture. So I'm gonna draw.
+
+275
+00:13:36,515 --> 00:13:39,817
+Let's draw something nice. How about countryside cartoon,
+
+276
+00:13:39,886 --> 00:13:42,553
+I think of some pretty cool images, yeah,
+
+277
+00:13:42,622 --> 00:13:46,123
+here's some images. We'll view these images. So
+
+278
+00:13:46,192 --> 00:13:47,825
+here they are. So I can kind of scroll through
+
+279
+00:13:47,894 --> 00:13:51,596
+on the net here trying to find some image that I like,
+
+280
+00:13:51,664 --> 00:13:52,997
+I don't really like much of these,
+
+281
+00:13:53,066 --> 00:13:57,902
+let's see. What do we got? Yeah, maybe something like,
+
+282
+00:13:57,971 --> 00:14:02,440
+how about this one right here. So I'm just gonna press and
+
+283
+00:14:02,509 --> 00:14:04,508
+hold, look what happens when I press and hold,
+
+284
+00:14:04,577 --> 00:14:06,411
+you see I'm picking this up, I can drag and drop.
+
+285
+00:14:06,479 --> 00:14:11,415
+And when I drag over into my view over here, and drop it.
+
+286
+00:14:11,484 --> 00:14:16,153
+Woo hoo, that image appeared in my app. And we're gonna do
+
+287
+00:14:16,222 --> 00:14:19,123
+that part of it today. That's the demo we're gonna do today.
+
+288
+00:14:19,192 --> 00:14:22,926
+Now, this app also has on the left here a table view
+
+289
+00:14:22,995 --> 00:14:23,794
+with the documents.
+
+290
+00:14:23,863 --> 00:14:26,330
+So I'm currently working on Untitled document here. I can
+
+291
+00:14:26,399 --> 00:14:29,367
+add new documents by pressing plus. Or go back to my
+
+292
+00:14:29,435 --> 00:14:34,204
+document here. I can also drag these emojis from the top,
+
+293
+00:14:34,273 --> 00:14:36,807
+down. So I'm gonna pick the bee here. I'm pressing and
+
+294
+00:14:36,876 --> 00:14:39,377
+holding. Look, I'm doing drag and drop again. Notice, I can
+
+295
+00:14:39,445 --> 00:14:43,347
+use it to re-position the bee in this thing at the top.
+
+296
+00:14:43,416 --> 00:14:46,651
+This thing at the top is called a collection view. And
+
+297
+00:14:46,720 --> 00:14:49,587
+that's, so we're gonna see both table view and
+
+298
+00:14:49,655 --> 00:14:52,390
+collection view in this app that we're gonna build. And
+
+299
+00:14:52,458 --> 00:14:57,327
+I can also pick up the bee and drag him down here into my
+
+300
+00:14:57,396 --> 00:15:01,031
+emoji art document. I could get a couple of bees here.
+
+301
+00:15:01,100 --> 00:15:02,900
+I can select the bees and
+
+302
+00:15:02,969 --> 00:15:07,304
+make them smaller, let's say, have a bunch of bees there.
+
+303
+00:15:07,373 --> 00:15:12,410
+Maybe someone rode their bike out here. Smaller, maybe
+
+304
+00:15:12,478 --> 00:15:16,881
+an apple fell off this tree. We can zoom in, for example,
+
+305
+00:15:16,949 --> 00:15:19,884
+really close here to maybe make this apple really small.
+
+306
+00:15:19,953 --> 00:15:23,354
+It didn't fall far from this tree right here.
+
+307
+00:15:23,423 --> 00:15:24,889
+We can zoom back out. So
+
+308
+00:15:24,958 --> 00:15:27,692
+basically, we can build ourselves a nice image here
+
+309
+00:15:27,760 --> 00:15:30,294
+with our emoji art editor. So that's what we're going to
+
+310
+00:15:30,363 --> 00:15:32,563
+build. We can also do things like add more emoji. So
+
+311
+00:15:32,631 --> 00:15:35,733
+we click on here to add more emoji, I can bring up emoji,
+
+312
+00:15:35,801 --> 00:15:39,069
+and I don't know, put some farm animals here, or I can't
+
+313
+00:15:39,138 --> 00:15:43,073
+even, right here isn't a farm animal, right? Add those, and
+
+314
+00:15:43,142 --> 00:15:47,512
+just put these into my row, so I've got it right there and
+
+315
+00:15:47,580 --> 00:15:50,915
+I could pull this out. So that's what we're gonna build.
+
+316
+00:15:50,984 --> 00:15:52,817
+Pretty cool app, lots of pieces to do it.
+
+317
+00:15:52,886 --> 00:15:55,385
+We're gonna start out by building this thing where we
+
+318
+00:15:55,454 --> 00:15:59,023
+can pick up an image and drop it in here, right? So we pick
+
+319
+00:15:59,092 --> 00:16:02,727
+up this, and we can even replace the image we have or
+
+320
+00:16:02,795 --> 00:16:07,097
+whatever. So, how are we going to do this? All right, so
+
+321
+00:16:07,166 --> 00:16:12,035
+we're gonna create a brand new Xcode project. Single view app
+
+322
+00:16:12,104 --> 00:16:17,475
+as always, we're going to call it EmojiArt, all right.
+
+323
+00:16:17,544 --> 00:16:21,779
+Where we put all of our apps of course, here it is.
+
+324
+00:16:21,847 --> 00:16:24,815
+I'm going to go and clean up a little bit here and
+
+325
+00:16:24,884 --> 00:16:27,785
+move these things out of the way as I want to do,
+
+326
+00:16:27,854 --> 00:16:29,753
+put that in supporting files so
+
+327
+00:16:29,822 --> 00:16:34,191
+that we can see exactly the files we are working on.
+
+328
+00:16:34,260 --> 00:16:38,462
+I'm gonna delete this generic controller, that was given to
+
+329
+00:16:38,531 --> 00:16:41,431
+me and just move that into the trash. Here's my storyboard
+
+330
+00:16:41,500 --> 00:16:46,937
+right here, of course we need our own custom controller and
+
+331
+00:16:47,006 --> 00:16:50,340
+our own custom view actually for that emoji view.
+
+332
+00:16:50,409 --> 00:16:52,343
+So I'm gonna create those right off the bat, okay so?
+
+333
+00:16:52,412 --> 00:16:55,346
+I'm gonna create my, a new file, which is going to be
+
+334
+00:16:55,415 --> 00:17:00,451
+a custom UIViewController, UIViewController and
+
+335
+00:17:00,519 --> 00:17:05,022
+I'm gonna call it my EmojiArtViewController.
+
+336
+00:17:05,090 --> 00:17:07,024
+This is gonna be the main view controller of that
+
+337
+00:17:07,025 --> 00:17:08,959
+There it is.
+
+338
+00:17:09,028 --> 00:17:11,829
+thing that does all the stuff that we're just talking about
+
+339
+00:17:11,897 --> 00:17:14,999
+right there. I'll go to my story board and make sure that
+
+340
+00:17:15,067 --> 00:17:17,668
+I remember to set this thing's identity to that, so
+
+341
+00:17:17,737 --> 00:17:19,637
+we'll go to the identity inspector and
+
+342
+00:17:19,706 --> 00:17:23,274
+make this be an EmojiArtView controller. Right there.
+
+343
+00:17:23,343 --> 00:17:26,510
+I'm gonna do all this stuff on iPad since this is gonna be
+
+344
+00:17:26,579 --> 00:17:30,280
+an iPad only app, right? It relies on drag and drop, so
+
+345
+00:17:30,349 --> 00:17:32,850
+it's an iPad only app. Actually,
+
+346
+00:17:32,919 --> 00:17:35,119
+let's see if we can make it landscape. I think it'll
+
+347
+00:17:35,188 --> 00:17:39,089
+fit a little better as we're doing stuff here. So
+
+348
+00:17:39,158 --> 00:17:44,295
+here is our nice UI. Now we need a custom UI view to,
+
+349
+00:17:44,363 --> 00:17:46,597
+except all those drag and drops and then view and
+
+350
+00:17:46,665 --> 00:17:50,701
+all that stuff. So let's go and do that. New file again,
+
+351
+00:17:50,769 --> 00:17:54,472
+and this one is gonna be a custom subclass of UIView and
+
+352
+00:17:54,540 --> 00:18:03,480
+we'll call it EmojiArtView. Here's our EmojiArtView and
+
+353
+00:18:03,549 --> 00:18:06,150
+we're gonna, right off the bat, go and implement this.
+
+354
+00:18:06,219 --> 00:18:08,519
+I'm gonna start by just doing the background image.
+
+355
+00:18:08,588 --> 00:18:11,722
+So I'm gonna have a var here called background,
+
+356
+00:18:11,791 --> 00:18:15,159
+groundImage, which is gonna be a UIImage.
+
+357
+00:18:15,228 --> 00:18:16,360
+And whenever you set it,
+
+358
+00:18:16,428 --> 00:18:19,530
+I'm going to make sure to call set needs display.
+
+359
+00:18:21,133 --> 00:18:23,533
+Because I need to call my dra_rect I'm gonna use this
+
+360
+00:18:23,602 --> 00:18:26,704
+background image to draw my background in dra_rect.
+
+361
+00:18:26,772 --> 00:18:30,975
+So here's dra_rect, I'm just gonna say backgroundImage,
+
+362
+00:18:31,044 --> 00:18:35,412
+please draw yourself in my bounds. So
+
+363
+00:18:35,481 --> 00:18:40,317
+world's simplest draw, drawing an UI view here.
+
+364
+00:18:40,386 --> 00:18:41,718
+And that's all its gonna do for now.
+
+365
+00:18:41,787 --> 00:18:43,754
+Eventually, its gonna do more. Its gonna draw all those
+
+366
+00:18:43,822 --> 00:18:45,856
+little emojis that I'm gonna drop in here of course. But
+
+367
+00:18:45,925 --> 00:18:50,861
+for now, its just a background image only. Let's go ahead and
+
+368
+00:18:50,930 --> 00:18:53,397
+build our UI in our story board here.
+
+369
+00:18:53,466 --> 00:18:56,166
+I'm gonna actually do something, you'll see why I'm
+
+370
+00:18:56,235 --> 00:18:59,637
+gonna do this later. But I'm gonna create just a generic UI
+
+371
+00:18:59,705 --> 00:19:04,375
+view here to be my drop zone, okay, UIview.
+
+372
+00:19:04,443 --> 00:19:07,277
+Where is it? Here we go. This is generic UIV.
+
+373
+00:19:07,346 --> 00:19:10,147
+I'm not even going to create a sub class, submit or anything.
+
+374
+00:19:10,215 --> 00:19:13,317
+All it's gonna do this fuse only have one responsibility
+
+375
+00:19:13,385 --> 00:19:16,320
+which is to accept the drops of the image and
+
+376
+00:19:16,389 --> 00:19:19,323
+set that image. And add EmojiArtView, I just created.
+
+377
+00:19:19,391 --> 00:19:24,662
+So we go up here with this guy. All the way to the edges,
+
+378
+00:19:24,730 --> 00:19:26,296
+actually let's just use the pin to do that.
+
+379
+00:19:26,365 --> 00:19:29,733
+We'll go over here and say, hook up to all the edges.
+
+380
+00:19:29,802 --> 00:19:31,234
+My favorite constraint things,
+
+381
+00:19:31,303 --> 00:19:32,503
+I'll just put all zero's over here and
+
+382
+00:19:32,571 --> 00:19:35,505
+say add constraints. Let's double check our constraints,
+
+383
+00:19:35,574 --> 00:19:36,540
+we always want to do that and
+
+384
+00:19:36,608 --> 00:19:39,109
+make sure they did the right thing. Bloop, it looks good
+
+385
+00:19:39,178 --> 00:19:42,413
+right and put all the edges up to the safe area looking good.
+
+386
+00:19:42,482 --> 00:19:44,514
+And so that we can see this view clearly,
+
+387
+00:19:44,583 --> 00:19:47,784
+I'm gonna give it a little bit of background color, not much,
+
+388
+00:19:47,853 --> 00:19:50,955
+instead of white I'll make it like a really light grey here,
+
+389
+00:19:51,024 --> 00:19:52,556
+yeah like that. Can you all.
+
+390
+00:19:52,625 --> 00:19:55,493
+Yeah. You can see. Its just light touch of light grey,
+
+391
+00:19:55,561 --> 00:19:59,329
+so we can identify this is our drop zone view. And
+
+392
+00:19:59,398 --> 00:20:01,865
+then I'm gonna put in EmojiArtView inside of it.
+
+393
+00:20:01,934 --> 00:20:04,368
+So let's go do that, we know how to add a custom view,
+
+394
+00:20:04,437 --> 00:20:06,904
+is add another generic view. But this one,
+
+395
+00:20:06,972 --> 00:20:09,339
+we're gonna go to our identity inspector here, and
+
+396
+00:20:09,408 --> 00:20:12,443
+change to be an EmojiArtView. This is how we make this be
+
+397
+00:20:12,512 --> 00:20:16,446
+an EmojiArtView, as opposed to being just a generic UIView.
+
+398
+00:20:16,515 --> 00:20:20,284
+This one, also I'm going to use the my favorite little
+
+399
+00:20:20,352 --> 00:20:23,420
+constraint maker. Bleep. Smash it. So it's now jammed up
+
+400
+00:20:23,489 --> 00:20:25,389
+retaliated. So now we've added the emoji view and
+
+401
+00:20:25,458 --> 00:20:28,159
+let's go ahead and put outlets to both of those things.
+
+402
+00:20:28,227 --> 00:20:31,562
+So I'm gonna go over here and create outlets both
+
+403
+00:20:31,631 --> 00:20:35,800
+to the drop zone and to that emoji view. So it's kinda hard
+
+404
+00:20:35,868 --> 00:20:39,136
+to get act those two things as the right on top of each
+
+405
+00:20:39,205 --> 00:20:41,605
+other. So again we're gonna use the document outline.
+
+406
+00:20:41,674 --> 00:20:44,608
+The document online is fantastic for getting app
+
+407
+00:20:44,677 --> 00:20:46,510
+things that are hard to get at. There is another way,
+
+408
+00:20:46,579 --> 00:20:49,713
+I'll remind you Control-Shift and click,
+
+409
+00:20:49,782 --> 00:20:52,249
+Control-Shift click brings up a menu and
+
+410
+00:20:52,318 --> 00:20:55,252
+you can pick the things that are underneath the mouse even
+
+411
+00:20:55,321 --> 00:20:58,288
+if they're inside each other, right? But I tend to prefer to
+
+412
+00:20:58,357 --> 00:21:01,192
+use the document outline cuz it's just clearer when I'm
+
+413
+00:21:01,260 --> 00:21:06,096
+doing here. So this top level view is our drop zone, so
+
+414
+00:21:06,165 --> 00:21:08,899
+I'm gonna create a outlet to that by just dragging from
+
+415
+00:21:08,968 --> 00:21:12,002
+the document outline into our view controller,
+
+416
+00:21:12,071 --> 00:21:14,671
+actually before I do that, let's go over here and
+
+417
+00:21:14,740 --> 00:21:17,641
+clean out this code in here. So
+
+418
+00:21:17,710 --> 00:21:21,078
+that it's a clearer, oops not to clean up that much.
+
+419
+00:21:21,147 --> 00:21:24,648
+How about this much? So I usually do that, but I
+
+420
+00:21:24,717 --> 00:21:29,086
+didn't do it here. But so this is my EmojiArtView controller,
+
+421
+00:21:29,155 --> 00:21:32,056
+right here you recognize that? So let's go ahead and create
+
+422
+00:21:32,124 --> 00:21:35,859
+the drop, drop zone outlet. I'll call this drop zone and
+
+423
+00:21:35,928 --> 00:21:38,496
+again this is just a generic UI view that I'm going to
+
+424
+00:21:38,564 --> 00:21:41,765
+register that drop interaction with. And then let's also
+
+425
+00:21:41,834 --> 00:21:44,802
+create an outlet to our EmojiArtView, that's just so
+
+426
+00:21:44,871 --> 00:21:47,104
+I can set its background image when I want to.
+
+427
+00:21:47,172 --> 00:21:50,774
+So, EmojiArtView. Now, you might ask the question,
+
+428
+00:21:50,843 --> 00:21:53,977
+why didn't I just make the EmojiArtView be
+
+429
+00:21:54,046 --> 00:21:57,248
+the drop zone? Why do I have this separate,
+
+430
+00:21:57,316 --> 00:22:00,650
+drop zone thing? Well, that's because two reasons. One.
+
+431
+00:22:00,719 --> 00:22:04,121
+I need to keep track of at the controller level what's
+
+432
+00:22:04,189 --> 00:22:06,991
+dropped in. Cuz I'm actually going to remember the URL of
+
+433
+00:22:07,059 --> 00:22:09,993
+what's dropped in. And all of the keeping track of
+
+434
+00:22:10,062 --> 00:22:11,861
+the document, which we're going to do next week,
+
+435
+00:22:11,930 --> 00:22:13,196
+has to happen at the controller level.
+
+436
+00:22:13,265 --> 00:22:16,099
+We don't want the view doing that. And secondly, sometimes
+
+437
+00:22:16,168 --> 00:22:19,369
+I'm gonna eventually put this view in a scroll view and it
+
+438
+00:22:19,438 --> 00:22:22,606
+might be small. It might not be filling the space anymore.
+
+439
+00:22:22,675 --> 00:22:24,775
+And so I want the dropZone to be as big as possible,
+
+440
+00:22:24,843 --> 00:22:28,279
+so that when I drop stuff in, boom, it always works. So
+
+441
+00:22:28,347 --> 00:22:29,346
+that's why I made those separate.
+
+442
+00:22:29,415 --> 00:22:31,548
+But it's not really that big of a deal,
+
+443
+00:22:31,617 --> 00:22:34,217
+not really that much of a requirement to do it.
+
+444
+00:22:34,286 --> 00:22:36,420
+I didn't want you to think there's some special reason,
+
+445
+00:22:36,488 --> 00:22:39,957
+like you have to make your dropZone be a separate,
+
+446
+00:22:40,026 --> 00:22:43,360
+generic view. You don't have to. All right, so
+
+447
+00:22:43,429 --> 00:22:46,530
+right off the bat, you might dropZone is set up for me.
+
+448
+00:22:46,599 --> 00:22:48,965
+I am going to add that interaction.
+
+449
+00:22:49,034 --> 00:22:51,335
+So I'm just gonna say dropZone, Oops!
+
+450
+00:22:51,403 --> 00:22:54,738
+dropZone.addInteraction(UIDro- pInteraction),
+
+451
+00:22:54,807 --> 00:22:57,808
+because I am trying to receive the drop of that
+
+452
+00:22:57,877 --> 00:23:00,811
+thing and all that we have to do provide here
+
+453
+00:23:00,880 --> 00:23:03,413
+is a delegate. And, so I'm gonna make the delegate be
+
+454
+00:23:03,482 --> 00:23:06,349
+myself. So the controller is the one who's going to handle
+
+455
+00:23:06,418 --> 00:23:09,253
+the drop delegate methods and of course, we're gonna have to
+
+456
+00:23:09,321 --> 00:23:13,157
+say that we are a UIDropInteractionDelegate,
+
+457
+00:23:13,226 --> 00:23:15,092
+for that to work. All right,
+
+458
+00:23:15,160 --> 00:23:17,294
+now all the methods in here they're Objective-C methods,
+
+459
+00:23:17,363 --> 00:23:19,964
+they all happen to be optional. So I implement this
+
+460
+00:23:20,032 --> 00:23:21,798
+but of course, I don't actually do anything,
+
+461
+00:23:21,867 --> 00:23:24,401
+I'm kinda surprised they didn't make at least it can
+
+462
+00:23:24,470 --> 00:23:28,472
+handle be required but they've decided not to do that.
+
+463
+00:23:28,541 --> 00:23:32,075
+So that's all we need to do, to make this drop work though
+
+464
+00:23:32,144 --> 00:23:34,844
+is do canHandle and then when the session updates and
+
+465
+00:23:34,913 --> 00:23:37,014
+the perform drop we have to do those three things to make it
+
+466
+00:23:37,082 --> 00:23:42,552
+work. So let's do that. We got the canHandle, that's this
+
+467
+00:23:42,621 --> 00:23:47,024
+one, dropInteraction canHandle session. So inside here,
+
+468
+00:23:47,092 --> 00:23:51,862
+I only want drags that have an image and also a URL for
+
+469
+00:23:51,930 --> 00:23:56,266
+that image. So I'm gonna say, return only through if the
+
+470
+00:23:56,335 --> 00:24:01,238
+session.canLoadObjects(ofCl- ass- NSURL.
+
+471
+00:24:01,306 --> 00:24:04,408
+Notice that NSURL, this whole thing is Objective-C
+
+472
+00:24:04,477 --> 00:24:08,011
+compatible, and in Swift it's called URL, it is a struct.
+
+473
+00:24:08,080 --> 00:24:11,081
+And in Objective-C it's NSURL,
+
+474
+00:24:11,150 --> 00:24:13,917
+it's a class. Now, those two things are automatically
+
+475
+00:24:13,986 --> 00:24:17,187
+bridged to each other, so you can always add one to
+
+476
+00:24:17,256 --> 00:24:19,890
+the other. But here you just, this is one of the few places
+
+477
+00:24:19,959 --> 00:24:23,627
+in Objective-C where you have to use an Objective-C thing.
+
+478
+00:24:23,696 --> 00:24:25,563
+That's because we're specifying the class here,
+
+479
+00:24:25,631 --> 00:24:28,198
+the actual class all right. We're not taking
+
+480
+00:24:28,267 --> 00:24:31,402
+instance where Swift can kind of figure out what you want.
+
+481
+00:24:31,470 --> 00:24:34,805
+It's the actual class NSURL or talking about here.
+
+482
+00:24:34,873 --> 00:24:38,742
+And we want this session, to say it canLoadObjects
+
+483
+00:24:38,810 --> 00:24:43,480
+ofClass: UIImage. So I want both the URL and
+
+484
+00:24:43,549 --> 00:24:45,582
+the image. Or I'm not interested in the drag.
+
+485
+00:24:45,651 --> 00:24:47,751
+So if you drag an attributed string on me right now.
+
+486
+00:24:47,820 --> 00:24:50,521
+I don't care. In fact, I'm only interested
+
+487
+00:24:50,589 --> 00:24:53,189
+if you can drag something that's both an image and
+
+488
+00:24:53,258 --> 00:24:56,960
+the URL for the image. Maybe that URL.
+
+489
+00:24:57,029 --> 00:24:59,262
+Maybe you would drag something that's an image and a URL and
+
+490
+00:24:59,331 --> 00:25:02,299
+it's not a URL of that image but we're gonna find that out.
+
+491
+00:25:02,368 --> 00:25:06,103
+You're gonna see here pretty quick. All right,
+
+492
+00:25:06,172 --> 00:25:08,738
+so that's saying that we can handle a drag like that.
+
+493
+00:25:08,807 --> 00:25:10,740
+So this is basically just saying, if you're not
+
+494
+00:25:10,809 --> 00:25:13,777
+that kind of drag then don't even talk to me. So if it
+
+495
+00:25:13,846 --> 00:25:15,980
+is that kind of drag then it's going to talk to us and
+
+496
+00:25:16,048 --> 00:25:19,816
+it's going to do this update session. Okay,
+
+497
+00:25:19,885 --> 00:25:22,986
+this one right here. Session did update, you see that? And
+
+498
+00:25:23,054 --> 00:25:26,657
+all we need to do hear is return our drop proposal. And
+
+499
+00:25:26,725 --> 00:25:29,593
+so I'm happy to have something like that dropped anywhere
+
+500
+00:25:29,661 --> 00:25:32,095
+inside of my little grey dropZone.
+
+501
+00:25:32,164 --> 00:25:34,398
+So I'm gonna return, oops. No there,
+
+502
+00:25:34,467 --> 00:25:39,336
+I think right there, return UIDropProposal and
+
+503
+00:25:39,405 --> 00:25:42,205
+the contractor here is operation,
+
+504
+00:25:42,274 --> 00:25:46,610
+operation. Ad the operation I'm gonna return is .copy
+
+505
+00:25:46,679 --> 00:25:49,813
+because this is always being dragged from outside my app so
+
+506
+00:25:49,882 --> 00:25:51,882
+it's always gonna be coping in. And
+
+507
+00:25:51,951 --> 00:25:53,350
+there's no reason I would ever cancel it.
+
+508
+00:25:53,418 --> 00:25:57,287
+I'm always happy to accept a new image. All right, now if
+
+509
+00:25:57,356 --> 00:26:02,259
+someone let's go of the finger I'm gonna get perform drop. So
+
+510
+00:26:02,327 --> 00:26:04,961
+here's the perform drop one. And in here like I said all
+
+511
+00:26:05,030 --> 00:26:07,264
+I'm gonna do is go tell the drag and
+
+512
+00:26:07,332 --> 00:26:10,033
+drop system, let that guy know I want the data and
+
+513
+00:26:10,102 --> 00:26:13,336
+give it to, and then call this closure. So I'm going to have
+
+514
+00:26:13,405 --> 00:26:18,308
+sessions.loadobjectsofclass and
+
+515
+00:26:18,377 --> 00:26:21,411
+I want the NSURL ones. And
+
+516
+00:26:21,479 --> 00:26:26,149
+here is the completion handler that gives me the NSURLs,
+
+517
+00:26:26,218 --> 00:26:28,952
+all right? So this is, the complete handler means it's
+
+518
+00:26:29,021 --> 00:26:30,954
+going to get called when it's completed going and
+
+519
+00:26:31,022 --> 00:26:32,289
+getting the data. And
+
+520
+00:26:32,357 --> 00:26:36,893
+then I also wanna load the objects for UI image and
+
+521
+00:26:36,962 --> 00:26:41,598
+give me the images. Now, what are we gonna do with this
+
+522
+00:26:41,667 --> 00:26:45,469
+URL on this image? Eventually I need to hold on to that URL
+
+523
+00:26:45,538 --> 00:26:47,671
+because I'm going to create a document which is
+
+524
+00:26:47,740 --> 00:26:48,906
+a emoji art document and
+
+525
+00:26:48,974 --> 00:26:52,475
+its background is gonna be a URL. Because I don't want to
+
+526
+00:26:52,544 --> 00:26:55,245
+store that huge image with all my documents. I am just going
+
+527
+00:26:55,314 --> 00:26:56,947
+to store the url and any time I display the document.
+
+528
+00:26:57,016 --> 00:27:00,050
+I will go get the image off the network.
+
+529
+00:27:00,119 --> 00:27:02,485
+Now my documents won't work if there's no network. But eh,
+
+530
+00:27:02,554 --> 00:27:05,355
+it's a design decision. So how am I going to do this?
+
+531
+00:27:05,424 --> 00:27:08,424
+Well, to make this go a little quicker in here.
+
+532
+00:27:08,493 --> 00:27:11,928
+I actually created a little bit of utility code which
+
+533
+00:27:11,997 --> 00:27:13,964
+you will of course be free to look at,
+
+534
+00:27:14,033 --> 00:27:17,500
+at your leisure. We'll take a quick glance at it. And this
+
+535
+00:27:17,569 --> 00:27:21,671
+utility code right here has a class called ImageFetcher. And
+
+536
+00:27:21,740 --> 00:27:25,875
+all ImageFetcher does is it takes a URL, goes and fetches
+
+537
+00:27:25,944 --> 00:27:29,479
+the image, make sure it is an image. And when it's sure it's
+
+538
+00:27:29,548 --> 00:27:32,049
+got an image it calls you back with a handler that you get
+
+539
+00:27:32,117 --> 00:27:34,618
+to it. So it's just kind of this a synchronize check and
+
+540
+00:27:34,687 --> 00:27:36,853
+make sure this is actually an image. And
+
+541
+00:27:36,922 --> 00:27:40,123
+it has this other cool feature where it has a back up image
+
+542
+00:27:40,192 --> 00:27:41,358
+so if I go out and
+
+543
+00:27:41,426 --> 00:27:44,294
+fetch the URL and get it back and that's not the URL of
+
+544
+00:27:44,363 --> 00:27:46,396
+an image. Then it uses the backup image and
+
+545
+00:27:46,464 --> 00:27:49,466
+creates an URL for that and local URL in the file system
+
+546
+00:27:49,535 --> 00:27:51,601
+and then gives you that URL. So it's kind of a back up and
+
+547
+00:27:51,670 --> 00:27:54,338
+that's exactly what I want here. Cuz I wanna go fetch
+
+548
+00:27:54,406 --> 00:27:57,541
+that image like of the country side. And if I can get it.
+
+549
+00:27:57,609 --> 00:28:00,310
+I'll use that URL. But if I can't, I want the image that
+
+550
+00:28:00,379 --> 00:28:03,847
+was being dragged instead. And I'll create a local URL to it.
+
+551
+00:28:03,916 --> 00:28:05,716
+So that's all imageFetcher does.
+
+552
+00:28:05,784 --> 00:28:08,652
+And to use it is super easy. I'm just gonna create
+
+553
+00:28:08,721 --> 00:28:13,256
+a var imageFetcher which is gonna be a type image fetcher.
+
+554
+00:28:13,325 --> 00:28:16,459
+I'm gonna make it be an implicitly unwrapped option.
+
+555
+00:28:16,528 --> 00:28:20,897
+It truly only going to be active during this, while
+
+556
+00:28:20,966 --> 00:28:23,633
+we're waiting for these things to come back, and so I'm going
+
+557
+00:28:23,702 --> 00:28:27,371
+to create it. Image fetcher equals an image fetcher.
+
+558
+00:28:27,439 --> 00:28:31,275
+It takes no arguments except for a closure to call back.
+
+559
+00:28:31,343 --> 00:28:34,778
+And this closure calls back with the URL. Did it fetched
+
+560
+00:28:34,847 --> 00:28:37,947
+and the image to use, either the actual image it fetched or
+
+561
+00:28:38,016 --> 00:28:41,384
+the backup image if you provided one. And
+
+562
+00:28:41,453 --> 00:28:44,554
+inside here, I can do whatever I want with the URL and image,
+
+563
+00:28:44,623 --> 00:28:48,492
+but I am not on the main queue here. This guy,
+
+564
+00:28:48,560 --> 00:28:50,360
+when he comes back after fetching that thing,
+
+565
+00:28:50,428 --> 00:28:54,298
+it's not on the main queue, so I have to dispatch queue.
+
+566
+00:28:55,934 --> 00:29:00,136
+Back to the main queue here with Dispatch async. Now,
+
+567
+00:29:00,205 --> 00:29:06,476
+I can, for example set my EmojiArtView.backgroundImage
+
+568
+00:29:06,545 --> 00:29:09,146
+to that image. So, I am not really looking at the URL yet,
+
+569
+00:29:09,215 --> 00:29:10,647
+because I am not really saving the documents.
+
+570
+00:29:10,716 --> 00:29:11,881
+So, I am just ignoring that,
+
+571
+00:29:11,950 --> 00:29:13,182
+I am just setting the backgroundImage
+
+572
+00:29:13,251 --> 00:29:16,686
+to the image that I fetched from that URL. All right.
+
+573
+00:29:16,755 --> 00:29:19,756
+So how do I fetch it? Well in load objects right here,
+
+574
+00:29:19,825 --> 00:29:23,827
+I just say image, self.imageFetcher,
+
+575
+00:29:23,895 --> 00:29:27,096
+fetch that url. Okay that's what the imageFetcher does,
+
+576
+00:29:27,165 --> 00:29:30,366
+it fetches that URL and then I say to the imageFetcher here,
+
+577
+00:29:30,435 --> 00:29:35,238
+use as backup this image. Now this notice
+
+578
+00:29:35,307 --> 00:29:39,810
+is NSURLs. So a drag can have multiple URLs remember?
+
+579
+00:29:39,878 --> 00:29:42,412
+I can start a drag and then tap on some more things and
+
+580
+00:29:42,481 --> 00:29:44,615
+I'm dragging a whole bunch of things. So
+
+581
+00:29:44,683 --> 00:29:46,617
+how do I get the url I want? Well, I 'm just gonna
+
+582
+00:29:46,685 --> 00:29:48,385
+grab the first one hang in and say,
+
+583
+00:29:48,454 --> 00:29:54,891
+if I can let url = nsurls.first as a URL.
+
+584
+00:29:54,960 --> 00:29:58,695
+Cuz I wanted that Swift URL then I will go fetch it.
+
+585
+00:29:58,764 --> 00:30:02,733
+And similarly down here if I can let image equal the images
+
+586
+00:30:02,801 --> 00:30:07,670
+that I got. The first one as a UI image then I'll do it.
+
+587
+00:30:07,739 --> 00:30:11,541
+And remember I have to do it as here Not just because
+
+588
+00:30:11,610 --> 00:30:14,678
+this is NSUrl and I want URL. I know you say,
+
+589
+00:30:14,747 --> 00:30:17,147
+even we have to do it here when this is our UIImage,
+
+590
+00:30:17,216 --> 00:30:21,852
+because the type of this array is NS item providers.
+
+591
+00:30:21,920 --> 00:30:24,821
+Right? So we have to convert them to the actual commander
+
+592
+00:30:24,890 --> 00:30:27,624
+provider that we're expecting here. And of course, for
+
+593
+00:30:27,693 --> 00:30:30,593
+some reason that doesn't work it as question mark, so
+
+594
+00:30:30,662 --> 00:30:32,562
+it will crash, just do nothing in here.
+
+595
+00:30:32,630 --> 00:30:34,163
+And that's one thing about drag and
+
+596
+00:30:34,232 --> 00:30:37,501
+drop is, if you drag and drop and you can't get the data or
+
+597
+00:30:37,569 --> 00:30:40,303
+whatever just nothing happens. For the user it's was just
+
+598
+00:30:40,372 --> 00:30:42,639
+an experience of, I dropped that name it didn't work.
+
+599
+00:30:42,708 --> 00:30:44,641
+Maybe they'll either try it again or go try drag and
+
+600
+00:30:44,710 --> 00:30:47,911
+drop something else. So it's kind of a quiet kind
+
+601
+00:30:47,980 --> 00:30:50,780
+of not a noisy system where it's putting a lot of alerts.
+
+602
+00:30:50,849 --> 00:30:52,148
+Drop failed all this and
+
+603
+00:30:52,217 --> 00:30:53,583
+that's very disturbing to the users,
+
+604
+00:30:53,652 --> 00:30:59,155
+users will quickly move on, if a drop doesn't work. So that's
+
+605
+00:30:59,224 --> 00:31:01,658
+it. That's all we need to do here to make this drag and
+
+606
+00:31:01,727 --> 00:31:05,295
+drop works, so let's go run this version over on our iPad
+
+607
+00:31:05,364 --> 00:31:10,901
+over here. So, let me bring this up, click Time.
+
+608
+00:31:10,969 --> 00:31:15,372
+So here's our iPad. Here it is. Not much of a UI yet but
+
+609
+00:31:15,441 --> 00:31:18,975
+this is it. This big white area is my emoji art view.
+
+610
+00:31:19,044 --> 00:31:22,211
+I'm going to do the same thing I did before. Go down here,
+
+611
+00:31:22,280 --> 00:31:27,350
+grab Safari, bring it up here get them both on screen.
+
+612
+00:31:27,419 --> 00:31:28,885
+This time lets look for something else,
+
+613
+00:31:28,954 --> 00:31:32,321
+lets look at Stanford images maybe.
+
+614
+00:31:32,390 --> 00:31:35,926
+See what we can find here. I see a lot of images there.
+
+615
+00:31:35,995 --> 00:31:37,560
+Let's grab some of these and see what we find.
+
+616
+00:31:37,629 --> 00:31:39,428
+How about this one right here. I'm going to drag this.
+
+617
+00:31:39,497 --> 00:31:42,465
+Notice the green plus? You see the green plus? That's become,
+
+618
+00:31:42,534 --> 00:31:45,268
+because we returned that UI drop operation copy.
+
+619
+00:31:45,336 --> 00:31:49,072
+That's what the green plus means. I let go, woohoo.
+
+620
+00:31:49,141 --> 00:31:51,307
+Dropped it in. It's showing it. Let's try another one.
+
+621
+00:31:51,376 --> 00:31:55,511
+Let's try this one right here. This one is bigger. Look how
+
+622
+00:31:55,580 --> 00:31:59,382
+long it's taking to load here. It's fetching this URL,
+
+623
+00:31:59,451 --> 00:32:03,820
+gaining the data, asynchronous and finally One in there, but
+
+624
+00:32:03,888 --> 00:32:08,191
+it, how big the data is will decide how long it loads. So
+
+625
+00:32:08,260 --> 00:32:10,593
+that one is a low resolution. You can see it's very grainy,
+
+626
+00:32:10,662 --> 00:32:12,128
+the other one was higher resolution so
+
+627
+00:32:12,197 --> 00:32:14,931
+let's see if we can find a really high resolution one,
+
+628
+00:32:15,000 --> 00:32:16,750
+The problem with showing these demos in Stanford is gigabit
+
+629
+00:32:16,751 --> 00:32:18,501
+now with me.
+
+630
+00:32:18,570 --> 00:32:20,036
+everything is super fast but if you do this on any other
+
+631
+00:32:20,037 --> 00:32:21,503
+Ethernet and
+
+632
+00:32:21,573 --> 00:32:23,907
+network, these things take a little time.
+
+633
+00:32:23,975 --> 00:32:25,775
+Now if we're really doing this out for real,
+
+634
+00:32:25,844 --> 00:32:29,212
+we'd probably put the spinning wheel there. Because we're we,
+
+635
+00:32:29,280 --> 00:32:32,849
+as soon as we get that drop, perform drop, we know we've
+
+636
+00:32:32,918 --> 00:32:34,984
+gone off to fetch that. So put the spinning wheel there and
+
+637
+00:32:35,053 --> 00:32:37,654
+see what happens before it turns.
+
+638
+00:32:37,723 --> 00:32:40,656
+That gives our user a better idea of what's going on.
+
+639
+00:32:40,725 --> 00:32:44,861
+Pretty cool? So that was step one of building our app.
+
+640
+00:32:44,930 --> 00:32:46,996
+We're making quite a lot of progress. The next thing
+
+641
+00:32:47,065 --> 00:32:50,066
+we wanna do is that table view on the left and the collection
+
+642
+00:32:50,134 --> 00:32:53,302
+view on the top. So I'm gonna go back to the slides and
+
+643
+00:32:53,371 --> 00:32:55,472
+talk to you about those topics.
+
+644
+00:32:59,578 --> 00:33:02,012
+Let's go over here to slides and
+
+645
+00:33:02,080 --> 00:33:06,783
+talk about these. All right, table view and
+
+646
+00:33:06,851 --> 00:33:09,585
+collection views. So what are table view and
+
+647
+00:33:09,654 --> 00:33:12,255
+collection view? You've seen these things all over IOS.
+
+648
+00:33:12,324 --> 00:33:14,457
+You actually know what they are already.
+
+649
+00:33:14,526 --> 00:33:17,927
+They're UIScrollView subclasses that are used to
+
+650
+00:33:17,996 --> 00:33:21,130
+provide unbound access to unbounded amounts of
+
+651
+00:33:21,199 --> 00:33:24,167
+information. And it displayed them, they each display them
+
+652
+00:33:24,235 --> 00:33:25,469
+a slightly different way. A table
+
+653
+00:33:25,537 --> 00:33:28,638
+view displays the information as a big long list.
+
+654
+00:33:28,706 --> 00:33:30,774
+The list might be divided into sections, but
+
+655
+00:33:30,842 --> 00:33:32,041
+it's a big long list.
+
+656
+00:33:32,110 --> 00:33:35,278
+Collection view, presents it in a configurable way,
+
+657
+00:33:35,347 --> 00:33:39,649
+almost any two-dimensional way. Now by default, the way
+
+658
+00:33:39,718 --> 00:33:43,086
+it presents it is called flow layout. And flow layout,
+
+659
+00:33:43,155 --> 00:33:46,156
+you wanna think of this being just like text, right?
+
+660
+00:33:46,224 --> 00:33:48,525
+If you have text, it flows across from left to right and
+
+661
+00:33:48,594 --> 00:33:50,760
+when it runs out of space, it goes to the next line.
+
+662
+00:33:50,829 --> 00:33:53,130
+And then it flows some more and next line.
+
+663
+00:33:53,198 --> 00:33:56,232
+That's how a collection view by default lays out.
+
+664
+00:33:56,301 --> 00:33:58,201
+You give it a bunch of items to lay out,
+
+665
+00:33:58,269 --> 00:34:01,270
+they might be of different sizes, whatever and it'll just
+
+666
+00:34:01,339 --> 00:34:04,374
+start laying them out and then wrapping to the next line. And
+
+667
+00:34:04,443 --> 00:34:07,577
+in the, it'll even justify, you know how text is justified
+
+668
+00:34:07,646 --> 00:34:10,714
+on both sides, it will do that as well if you want.
+
+669
+00:34:10,782 --> 00:34:11,848
+So that's how a flow layout works.
+
+670
+00:34:11,917 --> 00:34:14,684
+Now, I say collection view is arbitrary, like people have
+
+671
+00:34:14,752 --> 00:34:17,453
+written layouts for collection view they're like a fan of
+
+672
+00:34:17,522 --> 00:34:20,423
+cards, all right. And you pick a card and it's no problem,
+
+673
+00:34:20,492 --> 00:34:23,393
+it's quite easy to actually write a layout like that.
+
+674
+00:34:23,462 --> 00:34:25,028
+But I'm not gonna talk about any of that
+
+675
+00:34:25,096 --> 00:34:26,095
+custom layout writing,
+
+676
+00:34:26,164 --> 00:34:28,364
+we're gonna do only flow layout which is the default.
+
+677
+00:34:28,433 --> 00:34:30,666
+You don't have to do anything to turn that layout on,
+
+678
+00:34:30,735 --> 00:34:33,036
+it's just the layout that comes with collection view.
+
+679
+00:34:33,104 --> 00:34:34,170
+So that's all I'm gonna focus on.
+
+680
+00:34:34,239 --> 00:34:36,339
+But I do want you to know that there's a way that you could
+
+681
+00:34:36,408 --> 00:34:39,676
+write your own layout, that's not flow layout. And have your
+
+682
+00:34:39,745 --> 00:34:42,479
+collection view present things in some other way. So
+
+683
+00:34:42,547 --> 00:34:44,780
+that's what table view and collection view are. They're,
+
+684
+00:34:44,849 --> 00:34:46,649
+I'm going to talked about them together because
+
+685
+00:34:46,718 --> 00:34:48,050
+their API, in other words,
+
+686
+00:34:48,119 --> 00:34:51,187
+the programming interface you use, very similar,
+
+687
+00:34:51,256 --> 00:34:55,458
+almost identical. Really the only difference is we're
+
+688
+00:34:55,527 --> 00:34:59,095
+talking rows versus arbitrary items that are being flowed or
+
+689
+00:34:59,164 --> 00:35:03,232
+otherwise layed out in 2D, all right. So UITableView, just in
+
+690
+00:35:03,301 --> 00:35:05,334
+case you're not understanding which thing I'm talking about.
+
+691
+00:35:05,403 --> 00:35:08,137
+I know you've seen it., it's just a big long list like
+
+692
+00:35:08,206 --> 00:35:10,072
+this. The list can be super simple.
+
+693
+00:35:10,141 --> 00:35:12,842
+I've got a list of food here, it's just listed out. Or
+
+694
+00:35:12,911 --> 00:35:15,478
+a list can be divided into sections. So
+
+695
+00:35:15,547 --> 00:35:18,047
+I've got junk food, fruits, dessert, vegetable.
+
+696
+00:35:18,116 --> 00:35:20,583
+I divided the list into sections. So
+
+697
+00:35:20,652 --> 00:35:23,886
+those are sections in a table view, and it can show a little
+
+698
+00:35:23,955 --> 00:35:27,023
+bit of simple ancillary information kind of for free,
+
+699
+00:35:27,092 --> 00:35:29,693
+like here I've got a little image of the food.
+
+700
+00:35:29,761 --> 00:35:32,662
+You can probably barely see. Yeah, you can see it there.
+
+701
+00:35:32,731 --> 00:35:35,531
+And, it has four different ways,
+
+702
+00:35:35,600 --> 00:35:38,200
+to present the simple information. One is this,
+
+703
+00:35:38,269 --> 00:35:41,805
+called subtitle style where the ancillary information,
+
+704
+00:35:41,873 --> 00:35:44,106
+it appears right below the main information.
+
+705
+00:35:44,175 --> 00:35:45,741
+This is left detail,
+
+706
+00:35:45,810 --> 00:35:48,411
+everything over on the left, here's right detail where
+
+707
+00:35:48,480 --> 00:35:50,013
+the ancillary information is on the right. And
+
+708
+00:35:50,081 --> 00:35:52,982
+the main stuff on the left, or there's basic style where
+
+709
+00:35:53,051 --> 00:35:54,951
+you don't see the ancillary information.
+
+710
+00:35:55,019 --> 00:35:57,153
+So these four styles are kind of built into table view,
+
+711
+00:35:57,222 --> 00:36:00,489
+you kind of get them for free, but it also has a very
+
+712
+00:36:00,558 --> 00:36:04,160
+powerful style called custom style. And a custom style
+
+713
+00:36:04,229 --> 00:36:08,064
+look, the rows can be anything you want. In fact, this UI,
+
+714
+00:36:08,133 --> 00:36:11,034
+you just build it in your storyboard using auto layout
+
+715
+00:36:11,102 --> 00:36:14,970
+and all those things to build whatever kind UI you want.
+
+716
+00:36:15,039 --> 00:36:19,041
+Now, collection view, all cells are custom. Collection
+
+717
+00:36:19,110 --> 00:36:22,778
+view does not have those four simple ones. All right.,
+
+718
+00:36:22,847 --> 00:36:25,248
+so this is what, how these things can look,
+
+719
+00:36:25,316 --> 00:36:29,051
+how table view can look. So collection view, sorry, and,
+
+720
+00:36:29,120 --> 00:36:32,889
+in table view, the rows can be grouped together in addition
+
+721
+00:36:32,957 --> 00:36:35,758
+to being sections. They can also be, the sections can be
+
+722
+00:36:35,827 --> 00:36:38,561
+made to look kinda like they're grouped. You probably
+
+723
+00:36:38,630 --> 00:36:42,365
+notice this UI. It's from the settings app in iOS. We almost
+
+724
+00:36:42,433 --> 00:36:46,035
+always only use this group style like this when the data
+
+725
+00:36:46,103 --> 00:36:49,005
+in the table is static. In other words, it's not showing
+
+726
+00:36:49,073 --> 00:36:51,241
+arbitrary information like a list of foods that might be
+
+727
+00:36:51,310 --> 00:36:53,309
+changing over time, it's showing fixed things.
+
+728
+00:36:53,378 --> 00:36:56,379
+Like here, the accessibility settings, those never change,
+
+729
+00:36:56,448 --> 00:36:59,815
+they are fixed, right? So that's the only time we use
+
+730
+00:36:59,884 --> 00:37:02,719
+this group style otherwise, it's in what called plain
+
+731
+00:37:02,787 --> 00:37:05,488
+style, that's all things I was just showing you. So
+
+732
+00:37:05,557 --> 00:37:08,591
+collection view, like I say, it kinda flowing like tech so
+
+733
+00:37:08,660 --> 00:37:11,127
+here I've got these foods with an image of them.
+
+734
+00:37:11,195 --> 00:37:13,963
+And it's kinda flowing from line to line, happens to be
+
+735
+00:37:14,032 --> 00:37:17,033
+all the same size so there's three per line, but there's no
+
+736
+00:37:17,102 --> 00:37:19,369
+rows here. This might, you might look at this and
+
+737
+00:37:19,438 --> 00:37:20,970
+say, it's just like table, you got rows.
+
+738
+00:37:21,038 --> 00:37:22,071
+No, there's not rows,
+
+739
+00:37:22,139 --> 00:37:24,541
+these items just happen to be flowing from line to line,
+
+740
+00:37:24,609 --> 00:37:27,611
+they're lining up in rows. If they were different sizes,
+
+741
+00:37:27,679 --> 00:37:30,613
+they wouldn't look quite so rowed there. And
+
+742
+00:37:30,681 --> 00:37:36,920
+you could also have sections in collection views as well.
+
+743
+00:37:36,988 --> 00:37:39,655
+So collection utility both have this concept of dividing
+
+744
+00:37:39,724 --> 00:37:44,393
+the information up into sections. All right. So that's
+
+745
+00:37:44,462 --> 00:37:47,730
+what they look like. How do you get one into your app? And
+
+746
+00:37:47,799 --> 00:37:50,066
+you drag it out, of course, from the object pallet, right.
+
+747
+00:37:50,134 --> 00:37:52,602
+Table view or collection view, drag it out.
+
+748
+00:37:52,670 --> 00:37:56,172
+There's also prepackaged MVCs if your entire view,
+
+749
+00:37:56,240 --> 00:37:59,175
+so your entire self.view of your MVC is going
+
+750
+00:37:59,244 --> 00:38:02,912
+to be a table view, you are gonna wanna use the table view
+
+751
+00:38:02,980 --> 00:38:06,115
+controller that you can drag out. It's like dragging out
+
+752
+00:38:06,184 --> 00:38:08,284
+a view controller. You drag out table view controller and
+
+753
+00:38:08,353 --> 00:38:10,353
+boom, you'll get one, it will all be prewired up and
+
+754
+00:38:10,422 --> 00:38:12,288
+you'll have the table view in there and all that,
+
+755
+00:38:12,357 --> 00:38:14,857
+same thing with the collection view controller. So this is
+
+756
+00:38:14,926 --> 00:38:18,561
+kind of a convenience thing and, but I do recommend if you
+
+757
+00:38:18,630 --> 00:38:22,131
+ever do have an MVC that the entire view is a table view or
+
+758
+00:38:22,200 --> 00:38:25,401
+a collection view use these convenience things,
+
+759
+00:38:25,470 --> 00:38:27,737
+they are convenient. So
+
+760
+00:38:27,806 --> 00:38:30,473
+the most important thing to understand in the API or
+
+761
+00:38:30,542 --> 00:38:33,276
+using these things is where does the data come from?
+
+762
+00:38:33,344 --> 00:38:36,445
+How do I get the data into my table and and
+
+763
+00:38:36,514 --> 00:38:40,149
+we know that from my MVC talk, views are not allowed to own
+
+764
+00:38:40,218 --> 00:38:43,886
+their data. So we can't have a var in table view which is,
+
+765
+00:38:43,955 --> 00:38:46,689
+here's the data. We can't just give it the data.
+
+766
+00:38:46,758 --> 00:38:50,559
+The table view has to ask for the data. So it asks for
+
+767
+00:38:50,628 --> 00:38:53,629
+the data in the same way as delegation.
+
+768
+00:38:53,698 --> 00:38:56,065
+There's gonna be a var, it's called dataSource.
+
+769
+00:38:56,134 --> 00:38:58,167
+Both table view and collection view have this.
+
+770
+00:38:58,236 --> 00:39:02,371
+And that data source is, it's type is a protocol, and
+
+771
+00:39:02,440 --> 00:39:05,341
+in that protocol is a bunch of methods that ask for the data.
+
+772
+00:39:05,410 --> 00:39:08,244
+Give me that data. They're just constantly asking for
+
+773
+00:39:08,313 --> 00:39:10,713
+the data, that's how they get their data.
+
+774
+00:39:10,782 --> 00:39:13,349
+And we're gonna talk about the important methods are in that
+
+775
+00:39:13,418 --> 00:39:14,951
+data source protocol in a moment, so
+
+776
+00:39:15,019 --> 00:39:17,420
+then you're gonna understand how to load up your table or
+
+777
+00:39:17,488 --> 00:39:20,823
+your collection view. Now table and collection view also
+
+778
+00:39:20,892 --> 00:39:23,593
+have a delegate, that's a different var.
+
+779
+00:39:23,661 --> 00:39:26,762
+And that controls how the data is displayed.
+
+780
+00:39:26,831 --> 00:39:28,431
+Like how the collection view and
+
+781
+00:39:28,500 --> 00:39:31,467
+the table view are configured not what's it's displaying.
+
+782
+00:39:31,536 --> 00:39:33,736
+Not the actual data, just kind of the how.
+
+783
+00:39:33,804 --> 00:39:37,840
+All right, so you set these two vars to your controller,
+
+784
+00:39:37,909 --> 00:39:42,278
+99.99% of the time, if you drag out those pre-package
+
+785
+00:39:42,346 --> 00:39:46,582
+ones, this vars gets automatically set for you. But
+
+786
+00:39:46,651 --> 00:39:49,218
+the bottom line is that your controller is gonna be
+
+787
+00:39:49,287 --> 00:39:54,357
+answering all these, give me the data questions. All right?
+
+788
+00:39:54,426 --> 00:39:59,094
+So, this give me the data protocols have many
+
+789
+00:39:59,163 --> 00:40:01,697
+methods in them, surprisingly. You would think it would
+
+790
+00:40:01,766 --> 00:40:03,532
+not be that much, but it's actually, I think,
+
+791
+00:40:03,601 --> 00:40:07,170
+over a dozen maybe even 15 or more. But there's three super
+
+792
+00:40:07,238 --> 00:40:09,739
+important ones. The three main give me the data ones and
+
+793
+00:40:09,808 --> 00:40:11,608
+we're gonna talk about those three. And they're pretty much
+
+794
+00:40:11,676 --> 00:40:15,010
+the same in both, I'm going to talk about, mostly about
+
+795
+00:40:15,079 --> 00:40:17,012
+the table view ones, which are pretty much identical to
+
+796
+00:40:17,081 --> 00:40:20,015
+the collection view. And here they are. In Table View,
+
+797
+00:40:20,084 --> 00:40:23,453
+in Collection View, they both have number of sections.
+
+798
+00:40:23,522 --> 00:40:25,054
+I told you that the information can be divided
+
+799
+00:40:25,123 --> 00:40:26,823
+into sections, so of course, it wants to know,
+
+800
+00:40:26,892 --> 00:40:28,091
+how many sections are there?
+
+801
+00:40:28,160 --> 00:40:30,092
+Often times the answer is, one. In fact,
+
+802
+00:40:30,161 --> 00:40:33,329
+if you don't implement this method, that'll be the answer,
+
+803
+00:40:33,398 --> 00:40:35,631
+one section. Everything's in one big section.
+
+804
+00:40:35,700 --> 00:40:40,470
+All right? Second one is okay, how many rows in each section?
+
+805
+00:40:40,538 --> 00:40:42,037
+So it's just gonna ask you for every section,
+
+806
+00:40:42,106 --> 00:40:43,940
+how many rows in this section? How many rows in this section?
+
+807
+00:40:44,008 --> 00:40:46,742
+Or in the collection view section, how many items are in
+
+808
+00:40:46,811 --> 00:40:49,278
+this section. That's the next question I'm gonna ask you. So
+
+809
+00:40:49,347 --> 00:40:52,148
+these two make obvious sense. Then there's the biggie,
+
+810
+00:40:53,250 --> 00:40:56,552
+is getting the data in each row or
+
+811
+00:40:56,621 --> 00:41:01,223
+for each item. Now, this one is quite flexible because
+
+812
+00:41:01,292 --> 00:41:03,159
+the data you're gonna present in your table view or
+
+813
+00:41:03,227 --> 00:41:06,329
+collection view might be quite complicated, and so
+
+814
+00:41:06,397 --> 00:41:09,598
+we're gonna talk about this method in great detail here.
+
+815
+00:41:09,667 --> 00:41:12,368
+But notice the argument there though that green type index
+
+816
+00:41:12,437 --> 00:41:16,672
+path. Index Path is just a little tiny little structure
+
+817
+00:41:16,741 --> 00:41:20,042
+that contains the section and the row, or the section and
+
+818
+00:41:20,111 --> 00:41:23,045
+the item. So it's just a way to combine the row,
+
+819
+00:41:23,114 --> 00:41:26,149
+section and row, so that the Collection View and
+
+820
+00:41:26,217 --> 00:41:28,484
+Table View can ask you very simply,
+
+821
+00:41:28,552 --> 00:41:31,820
+give me the data for this section and row, it gives you
+
+822
+00:41:31,889 --> 00:41:34,824
+an Index Path. So, nothing special about an Index Path,
+
+823
+00:41:34,893 --> 00:41:37,593
+it literally just has bars, row, item, and section,
+
+824
+00:41:37,662 --> 00:41:40,262
+those are the only bars which you're gonna use.
+
+825
+00:41:40,331 --> 00:41:42,231
+When you use Index Path in this class,
+
+826
+00:41:42,300 --> 00:41:45,868
+super simple. All right, so let's dive into cell for
+
+827
+00:41:45,936 --> 00:41:48,837
+row in index path, I'm gonna do the table view one,
+
+828
+00:41:48,906 --> 00:41:51,874
+like I say, but this is the same for collection view,
+
+829
+00:41:51,942 --> 00:41:55,878
+it's just called cell for item at index path. So,
+
+830
+00:41:55,947 --> 00:42:00,717
+this method is going to return a UI view.
+
+831
+00:42:00,785 --> 00:42:03,018
+You see that red thing, UI table view cell?
+
+832
+00:42:03,087 --> 00:42:04,920
+That is a subclass of UI view.
+
+833
+00:42:04,989 --> 00:42:08,090
+This is the view that's gonna be used to draw the row, or
+
+834
+00:42:08,159 --> 00:42:11,060
+the item in a collection view. See, super duper simple,
+
+835
+00:42:11,128 --> 00:42:14,897
+right? But it's a little bit a complexity here because of
+
+836
+00:42:14,966 --> 00:42:18,167
+this first line of code, this is always gonna be pretty much
+
+837
+00:42:18,236 --> 00:42:21,404
+the first line of code in your cell for row at method, which
+
+838
+00:42:21,472 --> 00:42:24,340
+is dequeue reusable cell with identifier for index path.
+
+839
+00:42:24,408 --> 00:42:27,409
+Now, what the heck does all that mean? Dequeue reusable
+
+840
+00:42:27,478 --> 00:42:29,912
+cell with identifier, so let's break down that line and
+
+841
+00:42:29,981 --> 00:42:33,216
+understand what's going on there. First of all,
+
+842
+00:42:33,284 --> 00:42:37,119
+let's understand reuse. If I had a table view with 10,000
+
+843
+00:42:37,188 --> 00:42:41,491
+things in it, let's say, all the songs in my iPod library.
+
+844
+00:42:41,559 --> 00:42:45,294
+10,000 of them in there, and I had 10,000 views, each of
+
+845
+00:42:45,362 --> 00:42:48,597
+which might have, well, you know, the album cover, art,
+
+846
+00:42:48,666 --> 00:42:51,667
+and let's say, imagine that would just be ridiculously
+
+847
+00:42:51,735 --> 00:42:55,705
+inefficient, 10,000 UI views, all populated, no way. So
+
+848
+00:42:55,773 --> 00:42:58,974
+the table view actually only creates these UI table view
+
+849
+00:42:59,043 --> 00:43:02,611
+cells for the visible rows. And as you scroll through and
+
+850
+00:43:02,680 --> 00:43:04,947
+they fly off the top, it reuses them,
+
+851
+00:43:05,016 --> 00:43:07,416
+puts some on the bottom. So it's constantly
+
+852
+00:43:07,485 --> 00:43:10,519
+reusing these views as you scroll through your data.
+
+853
+00:43:10,588 --> 00:43:12,354
+Which makes sort of perfect sense, right, for efficiency.
+
+854
+00:43:12,423 --> 00:43:14,724
+That's exactly what you wanna do.
+
+855
+00:43:14,792 --> 00:43:18,727
+So when things fly off the top, no longer in view,
+
+856
+00:43:18,796 --> 00:43:22,064
+this cell that was displaying them, the UITableView cell,
+
+857
+00:43:22,133 --> 00:43:25,568
+which is a UIView, it goes into a reuse pool, and
+
+858
+00:43:25,636 --> 00:43:27,769
+you get things out of that with that method,
+
+859
+00:43:27,838 --> 00:43:31,574
+dequeReusable whatever. Right? It gives you a cell out of it,
+
+860
+00:43:31,642 --> 00:43:34,710
+but what if that pool of reusable things is empty,
+
+861
+00:43:34,779 --> 00:43:38,147
+like, let's say, your table just came on screen.
+
+862
+00:43:38,216 --> 00:43:39,915
+Well, obviously, there's none in there. So
+
+863
+00:43:39,984 --> 00:43:44,420
+then what happens. Where, when you can dequeue reusable cell,
+
+864
+00:43:44,488 --> 00:43:46,889
+you still get a cell where does it come from? Well,
+
+865
+00:43:46,958 --> 00:43:49,792
+the answer is, it's created by copying
+
+866
+00:43:49,860 --> 00:43:53,763
+a prototype that you create in your storyboard. So
+
+867
+00:43:53,832 --> 00:43:57,767
+you're gonna build this cell with all the labels and
+
+868
+00:43:57,835 --> 00:44:00,803
+buttons and images that you want. Build it right there,
+
+869
+00:44:00,872 --> 00:44:03,939
+using auto layout in your story board, and then it's
+
+870
+00:44:04,008 --> 00:44:06,843
+going to make copies of that every time it needs one,
+
+871
+00:44:06,911 --> 00:44:10,813
+and it can't reuse one. So that's how this is gonna work,
+
+872
+00:44:10,881 --> 00:44:13,783
+and here's an example of it, so this is a screenshot from
+
+873
+00:44:13,852 --> 00:44:16,385
+my storyboard. This is like the top of my table view
+
+874
+00:44:16,454 --> 00:44:19,322
+controller right here. I've got two cells here,
+
+875
+00:44:19,390 --> 00:44:23,325
+two prototypes. The first one is just a basic cell. And
+
+876
+00:44:23,394 --> 00:44:25,661
+the second one is that complicated one I showed you,
+
+877
+00:44:25,730 --> 00:44:28,630
+that's got the image in the category, the food, and
+
+878
+00:44:28,699 --> 00:44:31,633
+the name of the food, and some details about the food.
+
+879
+00:44:31,702 --> 00:44:35,004
+Etcetera, okay so these are two separate prototypes in
+
+880
+00:44:35,073 --> 00:44:39,375
+here and for each of them, I'm going to set their style and
+
+881
+00:44:39,444 --> 00:44:41,343
+also give them an identifier.
+
+882
+00:44:41,412 --> 00:44:44,180
+You see how the top one has the identifier food cell.
+
+883
+00:44:44,249 --> 00:44:46,782
+The bottom I gave the identifier, custom food cell.
+
+884
+00:44:46,851 --> 00:44:49,852
+So this is just a string that you're gonna use to identify
+
+885
+00:44:49,921 --> 00:44:53,022
+which cell you want when you're dequeuing
+
+886
+00:44:53,091 --> 00:44:57,326
+a reusable cell. So dequeuers of the cell will never reuse
+
+887
+00:44:57,394 --> 00:44:58,527
+one of the wrong type.
+
+888
+00:44:58,596 --> 00:45:01,130
+You told me you're gonna reuse one of the type you want, and
+
+889
+00:45:01,199 --> 00:45:03,699
+if there are none to reuse, it'll make one by copying what
+
+890
+00:45:03,767 --> 00:45:07,236
+you see here. All the views in there, the image view and
+
+891
+00:45:07,305 --> 00:45:09,338
+the text views are all be copied, for
+
+892
+00:45:09,407 --> 00:45:14,510
+you to make another row. So now you understand this yellow
+
+893
+00:45:14,579 --> 00:45:17,346
+line, right? Dequeue reuseable cell with identifier,
+
+894
+00:45:17,415 --> 00:45:19,682
+that's like food cell or custom food cell,
+
+895
+00:45:19,750 --> 00:45:22,285
+says which of the prototypes you want. And of course for
+
+896
+00:45:22,353 --> 00:45:24,820
+index path is the index path we're at because we're going
+
+897
+00:45:24,889 --> 00:45:30,326
+to be asked to create something for that index path.
+
+898
+00:45:30,395 --> 00:45:36,265
+Got that? All right. The fact that these cells are reused,
+
+899
+00:45:36,334 --> 00:45:39,869
+notice red, the fact that these cells are reused, has
+
+900
+00:45:39,937 --> 00:45:43,238
+big implications from multi threading. Because you might
+
+901
+00:45:43,307 --> 00:45:47,976
+have an image in your row and you have to go fetch it,
+
+902
+00:45:48,045 --> 00:45:51,213
+so you fire off some fetching thing on another thread
+
+903
+00:45:51,282 --> 00:45:52,414
+to go get something off the internet,
+
+904
+00:45:52,483 --> 00:45:55,284
+it's taking a long time. Meanwhile, the user flicks and
+
+905
+00:45:55,353 --> 00:45:58,354
+scrolls that cell away and it gets reused. And
+
+906
+00:45:58,423 --> 00:46:01,090
+now it's showing something else, and then here comes
+
+907
+00:46:01,158 --> 00:46:03,725
+the image back. Well, if you're not careful you'll
+
+908
+00:46:03,794 --> 00:46:07,763
+splash that image from the other cell into the new one.
+
+909
+00:46:07,832 --> 00:46:10,532
+Do you see why you're gonna do that? So when that image comes
+
+910
+00:46:10,601 --> 00:46:13,803
+back, you gotta make sure, is this cell still showing
+
+911
+00:46:13,871 --> 00:46:16,772
+the thing that I made that request for? We this is,
+
+912
+00:46:16,840 --> 00:46:19,274
+we talked about this, all the time with multi threading,
+
+913
+00:46:19,343 --> 00:46:21,744
+when it comes back, you gotta check to make sure the world
+
+914
+00:46:21,812 --> 00:46:24,013
+is still what you thought. This really happens a lot with
+
+915
+00:46:24,081 --> 00:46:26,448
+these cells because they're constantly flying around and
+
+916
+00:46:26,517 --> 00:46:31,620
+get reused. All right? So now that we know about this,
+
+917
+00:46:31,689 --> 00:46:34,924
+we, sometimes we'll have a line like this in our thing,
+
+918
+00:46:34,993 --> 00:46:38,126
+which is let the prototype, which is a string here,
+
+919
+00:46:38,195 --> 00:46:41,096
+equal some decisions, some code that makes a decision,
+
+920
+00:46:41,165 --> 00:46:43,799
+either food cell or custom food cell.
+
+921
+00:46:43,868 --> 00:46:47,503
+So that decision right there, it might be made on what index
+
+922
+00:46:47,572 --> 00:46:50,305
+path you will have, like, which section it's in, or
+
+923
+00:46:50,374 --> 00:46:53,308
+maybe it's based on the data that's going there,
+
+924
+00:46:53,377 --> 00:46:54,777
+like, maybe some fruits.
+
+925
+00:46:54,845 --> 00:46:57,646
+We have detailed information about and some foods,
+
+926
+00:46:57,714 --> 00:47:00,082
+we have detailed information about, some foods we don't,
+
+927
+00:47:00,150 --> 00:47:01,750
+right? So we're gonna use the detailed one,
+
+928
+00:47:01,819 --> 00:47:04,186
+custom food cell, when we have the information and food cell,
+
+929
+00:47:04,255 --> 00:47:06,922
+when we don't. You see how we can just decide right here,
+
+930
+00:47:06,991 --> 00:47:09,491
+which one is appropriate, and then we dequeue that one to
+
+931
+00:47:09,560 --> 00:47:14,830
+get the right cell. All right, now we've got the cell.
+
+932
+00:47:14,899 --> 00:47:17,065
+It's a table view cell, UITableView cell,
+
+933
+00:47:17,134 --> 00:47:20,569
+okay, that got dequeued. How can we configure the cell
+
+934
+00:47:20,638 --> 00:47:23,772
+to have the data in it? Okay, well that depends on whether
+
+935
+00:47:23,841 --> 00:47:26,341
+it's one of these basic four, like, subtitle, left detail,
+
+936
+00:47:26,410 --> 00:47:29,412
+right detail, or basic or whether it's a custom cell,
+
+937
+00:47:29,480 --> 00:47:31,713
+like the one with the apple image and all that. So
+
+938
+00:47:31,782 --> 00:47:36,251
+let's look at the basic ones. That one, basically TableViews
+
+939
+00:47:36,320 --> 00:47:39,321
+cell has a couple of outlets on it called, text label,
+
+940
+00:47:39,390 --> 00:47:42,758
+a detail text label that you can just set. For
+
+941
+00:47:42,826 --> 00:47:45,360
+the defaults, it also has another one called ImageView,
+
+942
+00:47:45,429 --> 00:47:46,962
+a little image can appear on the left
+
+943
+00:47:47,031 --> 00:47:49,498
+of the cell. So if that's good enough for you,
+
+944
+00:47:49,567 --> 00:47:53,702
+then you can just use those outlets and you're good to go.
+
+945
+00:47:53,771 --> 00:47:56,038
+So you just set it. This is just a, UITableView
+
+946
+00:47:56,107 --> 00:47:59,074
+cell is just a view, it happens to have outlets,
+
+947
+00:47:59,143 --> 00:48:01,043
+it's a view with outlets, and we're gonna talk about that in
+
+948
+00:48:01,112 --> 00:48:02,912
+a second cuz we've never seen views with outlets,
+
+949
+00:48:02,980 --> 00:48:06,481
+only controllers without outlets up until now. But
+
+950
+00:48:06,550 --> 00:48:08,784
+if that's not good enough and you need something complicated
+
+951
+00:48:08,853 --> 00:48:12,321
+like that detail apple cell that we had right there,
+
+952
+00:48:12,390 --> 00:48:15,591
+then you're gonna have to make a custom subclass
+
+953
+00:48:15,659 --> 00:48:18,727
+of UI table view cell. And let's see why and
+
+954
+00:48:18,796 --> 00:48:22,831
+how we do that. So, we have this custom cell right there,
+
+955
+00:48:22,900 --> 00:48:25,601
+we clearly need outlets to it, right?
+
+956
+00:48:25,670 --> 00:48:26,802
+Otherwise how are we gonna set those?
+
+957
+00:48:26,871 --> 00:48:29,137
+We gotta have outlets, and so you might think, well,
+
+958
+00:48:29,206 --> 00:48:31,673
+I'm just going to put that in my table view controller like
+
+959
+00:48:31,742 --> 00:48:34,209
+I always do, right? My subclass of my controller, but
+
+960
+00:48:34,278 --> 00:48:36,712
+we can't do that, and do you see why we can't do that?
+
+961
+00:48:36,780 --> 00:48:39,215
+Because there could be 100 of these cells. This is
+
+962
+00:48:39,283 --> 00:48:41,950
+a prototype we're copying, we can't have one outlet
+
+963
+00:48:42,019 --> 00:48:44,820
+which one wins? They can't, you know what I'm saying, and
+
+964
+00:48:44,889 --> 00:48:47,890
+these could be arrays I guess like an outward collection,
+
+965
+00:48:47,958 --> 00:48:49,274
+that's not, that wouldn't make any sense either, because
+
+966
+00:48:49,275 --> 00:48:50,591
+but that but
+
+967
+00:48:50,661 --> 00:48:53,228
+those things are constantly being reused, that array would
+
+968
+00:48:53,297 --> 00:48:55,230
+be going crazy as people. So we can't do that,
+
+969
+00:48:55,299 --> 00:48:57,399
+we cannot use our controller as a place for outlet. So for
+
+970
+00:48:57,468 --> 00:49:00,335
+the first time we're actually gonna put outlets in a view,
+
+971
+00:49:00,404 --> 00:49:03,872
+and this view has to be a subclass of UITableViewCell,
+
+972
+00:49:03,941 --> 00:49:08,010
+that thing that the cellForItemAt returns. So
+
+973
+00:49:08,079 --> 00:49:10,779
+you're gonna make a subclass of it, MyTableViewCell,
+
+974
+00:49:10,848 --> 00:49:12,981
+and you're gonna put the outlets in there.
+
+975
+00:49:13,050 --> 00:49:15,818
+So each row, is gonna have it's own TableViewCell, and
+
+976
+00:49:15,886 --> 00:49:18,387
+each table cell's gonna have its own outlets. Even
+
+977
+00:49:18,455 --> 00:49:20,923
+the basic and subtitle ones have their own outlets text
+
+978
+00:49:20,992 --> 00:49:23,525
+label, detail text label, and image view, right? But
+
+979
+00:49:23,594 --> 00:49:25,594
+yours can have whatever outlets you want,
+
+980
+00:49:25,662 --> 00:49:28,129
+because you're just gonna, this is gonna be a class
+
+981
+00:49:28,198 --> 00:49:31,366
+you're gonna write. Now, don't forget,
+
+982
+00:49:31,435 --> 00:49:34,603
+when you create a custom UITableViewCell subclass you
+
+983
+00:49:34,672 --> 00:49:37,439
+gotta go the identity inspector with the little
+
+984
+00:49:37,508 --> 00:49:40,776
+prototypes row there selected, and set the identity,
+
+985
+00:49:40,845 --> 00:49:43,746
+cuz by default it'll be class UITableViewCell,
+
+986
+00:49:43,814 --> 00:49:47,082
+so you have to change it to be class MyTVC, or whatever,
+
+987
+00:49:47,151 --> 00:49:48,951
+my table view cell. Again,
+
+988
+00:49:49,019 --> 00:49:51,186
+just like you set the class for the controllers and for
+
+989
+00:49:51,255 --> 00:49:54,289
+the views, you also do the same thing for the cells.
+
+990
+00:49:54,358 --> 00:49:57,192
+All right and that's it. So it's not that hard actually
+
+991
+00:49:57,261 --> 00:49:59,895
+the only thing is back in cellForRowAt, if we wanna
+
+992
+00:49:59,964 --> 00:50:02,965
+access those outlets, we have to cast the cell that comes
+
+993
+00:50:03,033 --> 00:50:06,135
+back from dequeueReusableCell with identifier, cuz that
+
+994
+00:50:06,203 --> 00:50:10,239
+comes back. That's a class UITableViewCell so it doesn't
+
+995
+00:50:10,307 --> 00:50:14,143
+know about my outlets, so I have to cast it to be MyTVC.
+
+996
+00:50:14,211 --> 00:50:18,280
+Now, I've got this local variable myTVC, my TVCell,
+
+997
+00:50:18,349 --> 00:50:22,150
+which is cast, and I can do things like TVC.name and
+
+998
+00:50:22,219 --> 00:50:26,288
+TVC.emoji. Those outlets that I had, and I can set them to
+
+999
+00:50:26,356 --> 00:50:28,857
+be myData. Notice that myData, I have these,
+
+1000
+00:50:28,926 --> 00:50:31,794
+I've created functions in my controller called food at
+
+1001
+00:50:31,862 --> 00:50:34,362
+indexPath, an emoji at indexPath. This is a common
+
+1002
+00:50:34,431 --> 00:50:36,999
+thing you wanna do, which is basically I have functions
+
+1003
+00:50:37,068 --> 00:50:41,269
+that take in indexPath and go look in your model. So
+
+1004
+00:50:41,338 --> 00:50:47,009
+that you can easily just drop them in here when asked.
+
+1005
+00:50:47,077 --> 00:50:49,844
+So that's it. That's how you load up cells.
+
+1006
+00:50:49,913 --> 00:50:52,881
+In collection view, you always have to do it this way,
+
+1007
+00:50:52,950 --> 00:50:55,184
+collection view has no basic or sub-title,
+
+1008
+00:50:55,252 --> 00:50:57,720
+and in table view, any time you have anything more than
+
+1009
+00:50:57,788 --> 00:50:59,521
+just the simple cells you have to do it this way,
+
+1010
+00:50:59,590 --> 00:51:03,259
+but it's done exactly the same way in the both collection and
+
+1011
+00:51:03,327 --> 00:51:05,827
+table view. Now,
+
+1012
+00:51:05,896 --> 00:51:09,665
+take a breath from this and talk about static table views.
+
+1013
+00:51:09,733 --> 00:51:13,068
+So, sometimes a table, we only use it to lay out our UI,
+
+1014
+00:51:13,136 --> 00:51:16,472
+we're not actually using it as a place to have arbitrary
+
+1015
+00:51:16,541 --> 00:51:19,408
+amounts of data, it has a fixed amount of data.
+
+1016
+00:51:19,477 --> 00:51:21,943
+Usually this is something like a settings app,
+
+1017
+00:51:22,012 --> 00:51:25,247
+or a preferences table in our app, where everything is
+
+1018
+00:51:25,315 --> 00:51:27,983
+fixed, and we're just using it to group things and
+
+1019
+00:51:28,051 --> 00:51:31,653
+layout things in nice rows. So, when we do that we don't
+
+1020
+00:51:31,722 --> 00:51:34,589
+have to do any of this stuff. Number of rows and sections,
+
+1021
+00:51:34,658 --> 00:51:38,360
+nah, none of that. Self of row at, because we just do it all
+
+1022
+00:51:38,429 --> 00:51:41,496
+directly in our storyboard, and we can wire the things in
+
+1023
+00:51:41,565 --> 00:51:43,999
+the rows directly to your controller, why?
+
+1024
+00:51:44,067 --> 00:51:47,069
+Because there's only one of everything. This is not
+
+1025
+00:51:47,137 --> 00:51:49,571
+a prototype that gets copied, because it's static.
+
+1026
+00:51:49,639 --> 00:51:50,672
+The data is static, so
+
+1027
+00:51:50,741 --> 00:51:53,642
+we can just go directly to our controller in this case.
+
+1028
+00:51:53,710 --> 00:51:57,179
+It's quite easy, and so this is not uncommon to use this,
+
+1029
+00:51:57,247 --> 00:52:00,515
+and the way you do this, kind of make a table into this,
+
+1030
+00:52:00,584 --> 00:52:03,318
+is you go, click on the table in storyboard and
+
+1031
+00:52:03,387 --> 00:52:05,487
+change its content, right there,
+
+1032
+00:52:05,555 --> 00:52:09,124
+to static cells. By default it'll be dynamic prototypes,
+
+1033
+00:52:09,193 --> 00:52:11,860
+but you're gonna set it to static cell, and by the way,
+
+1034
+00:52:11,928 --> 00:52:14,462
+the style there's almost always grouped. Remember I
+
+1035
+00:52:14,531 --> 00:52:16,931
+showed you that grouped style like it's in the settings app?
+
+1036
+00:52:17,000 --> 00:52:19,234
+That's pretty much what you're gonna use when you have static
+
+1037
+00:52:19,303 --> 00:52:23,372
+cells. That's what looks the best when static. Then you go
+
+1038
+00:52:23,440 --> 00:52:27,075
+into the document outline. This is a little obscure, but
+
+1039
+00:52:27,144 --> 00:52:29,911
+don't forget this piece. You go to the document outline and
+
+1040
+00:52:29,980 --> 00:52:33,649
+you'll find the sections there, these static sections,
+
+1041
+00:52:33,718 --> 00:52:35,917
+and you can go to each section. First of all, you can
+
+1042
+00:52:35,986 --> 00:52:38,486
+create more sections by just inspecting the table view, and
+
+1043
+00:52:38,555 --> 00:52:40,655
+say how many sections you want. But then when you find
+
+1044
+00:52:40,724 --> 00:52:42,891
+the section of the document outline, you click on them and
+
+1045
+00:52:42,960 --> 00:52:44,759
+inspect the section, and you can add rows to it,
+
+1046
+00:52:44,828 --> 00:52:46,028
+cuz a lot of people are like,
+
+1047
+00:52:46,096 --> 00:52:47,329
+how do I add a row to this section?
+
+1048
+00:52:47,397 --> 00:52:48,263
+I can't figure it out.
+
+1049
+00:52:48,332 --> 00:52:50,799
+That's how you do it, document outline, click on the section,
+
+1050
+00:52:50,868 --> 00:52:54,069
+inspector, hit the number of rows you want. And
+
+1051
+00:52:54,137 --> 00:52:56,037
+then you just start dragging in labels, and
+
+1052
+00:52:56,106 --> 00:52:59,174
+buttons, and switches, whatever you wanna do, and
+
+1053
+00:52:59,243 --> 00:53:02,343
+control dragging them right to your controller. Cuz it's just
+
+1054
+00:53:02,412 --> 00:53:05,447
+a way to lay those things out. So that's a totally different
+
+1055
+00:53:05,515 --> 00:53:08,784
+kind of table view we call static table view. All right,
+
+1056
+00:53:08,853 --> 00:53:11,353
+how about segueing from a table view.
+
+1057
+00:53:11,422 --> 00:53:13,555
+So I want to click on a row and have it segue.
+
+1058
+00:53:13,624 --> 00:53:16,091
+Well this is absolutely exactly straightforward as you
+
+1059
+00:53:16,160 --> 00:53:19,628
+might think until we get to prepare for segue.
+
+1060
+00:53:19,696 --> 00:53:23,331
+I also wanna talk about this Detail Disclosure Accessory.
+
+1061
+00:53:23,400 --> 00:53:25,567
+So if you inspect your table view cell, and
+
+1062
+00:53:25,635 --> 00:53:28,269
+you go over to the inspector, and under accessory,
+
+1063
+00:53:28,338 --> 00:53:31,440
+you choose detail disclosure, you'll get that little i with
+
+1064
+00:53:31,508 --> 00:53:35,277
+the circle around it. And you can segue from it or
+
+1065
+00:53:35,346 --> 00:53:38,079
+from the row. So if someone clicks on the row it'll do one
+
+1066
+00:53:38,148 --> 00:53:39,815
+segue, if they click on this little thing,
+
+1067
+00:53:39,883 --> 00:53:42,117
+it'll do a different segue, and why would you want this?
+
+1068
+00:53:42,185 --> 00:53:45,387
+Well, let's say this is our emoji art document list and
+
+1069
+00:53:45,456 --> 00:53:48,356
+clicking on the row is obviously gonna bring up that
+
+1070
+00:53:48,425 --> 00:53:49,625
+emoji art document,
+
+1071
+00:53:49,693 --> 00:53:53,228
+maybe clicking on the little i segues to a different MVC,
+
+1072
+00:53:53,297 --> 00:53:56,297
+which lets us maybe change the name of the document,
+
+1073
+00:53:56,366 --> 00:53:59,868
+who authored it, when it was, see when it was last created.
+
+1074
+00:53:59,937 --> 00:54:01,469
+You see what I mean, kind of informative,
+
+1075
+00:54:01,538 --> 00:54:02,771
+information about the document.
+
+1076
+00:54:02,840 --> 00:54:05,073
+So you can have both of those things segue and
+
+1077
+00:54:05,142 --> 00:54:08,577
+going on. And, but you make the segue the same way,
+
+1078
+00:54:08,646 --> 00:54:11,646
+you control drag from the row, and yes you can control drag
+
+1079
+00:54:11,715 --> 00:54:15,384
+from a prototype row. This works for prototypes as well
+
+1080
+00:54:15,452 --> 00:54:18,320
+as for static. So, you just control drag, and
+
+1081
+00:54:18,389 --> 00:54:21,456
+when you let go, you can see that you can set the segue for
+
+1082
+00:54:21,525 --> 00:54:24,159
+your main row, and you can also set the segue for
+
+1083
+00:54:24,227 --> 00:54:27,195
+that little button, that little accessory button,
+
+1084
+00:54:27,264 --> 00:54:30,032
+that little i with a circle around it. So,
+
+1085
+00:54:30,101 --> 00:54:32,934
+that just sets up normal segue, or possibly two
+
+1086
+00:54:33,003 --> 00:54:36,038
+segues if you have that little i, and then you inspect it.
+
+1087
+00:54:36,106 --> 00:54:38,039
+You set it's identifier, like we normally do.
+
+1088
+00:54:38,108 --> 00:54:41,309
+I'm gonna call this my ABC segue, and then you prepare,
+
+1089
+00:54:41,378 --> 00:54:44,546
+and that's where it gets interesting in the table view,
+
+1090
+00:54:44,615 --> 00:54:47,816
+because if you're segueing from a prototype, you gotta
+
+1091
+00:54:47,884 --> 00:54:51,619
+know which row that is when the segue actually happens.
+
+1092
+00:54:51,688 --> 00:54:54,055
+Here's how we do that. Here's prepare for segue.
+
+1093
+00:54:54,124 --> 00:54:57,592
+The key to this is the sender argument to prepare for segue,
+
+1094
+00:54:57,661 --> 00:55:00,763
+which remember that was like button, if we clicked on
+
+1095
+00:55:00,831 --> 00:55:03,799
+a button to segue, well, if you click on a row it's
+
+1096
+00:55:03,868 --> 00:55:07,035
+the UITableViewCell. So you need to figure out,
+
+1097
+00:55:07,104 --> 00:55:09,871
+from the UITableViewCell, which index path is this so
+
+1098
+00:55:09,940 --> 00:55:12,407
+that you can go get the right model data to prepare
+
+1099
+00:55:12,476 --> 00:55:15,310
+the thing you're going to. And so the way you do that
+
+1100
+00:55:15,379 --> 00:55:19,080
+is you first cast it to be a UITableViewCell, or a subclass
+
+1101
+00:55:19,149 --> 00:55:22,618
+of it if you have a subclass of UITableViewCell right here.
+
+1102
+00:55:22,687 --> 00:55:25,253
+Then you call this very important method,
+
+1103
+00:55:25,322 --> 00:55:28,656
+in table view, called indexPath(for: cell), and
+
+1104
+00:55:28,725 --> 00:55:32,460
+it will return an index path, i.e., the row end section for
+
+1105
+00:55:32,529 --> 00:55:36,731
+that given cell. Notice that you can't pass an any to this,
+
+1106
+00:55:36,800 --> 00:55:39,301
+or you can't say indexPath for sender,
+
+1107
+00:55:39,369 --> 00:55:42,771
+you have to have cast it first to be a UITableViewCell or
+
+1108
+00:55:42,840 --> 00:55:45,574
+subclass thereof. Once you get the indexPath,
+
+1109
+00:55:45,643 --> 00:55:48,243
+then you can go ahead and do your normal thing where
+
+1110
+00:55:48,312 --> 00:55:51,413
+you get the destination as the MVC you're segueing to, and
+
+1111
+00:55:51,482 --> 00:55:53,581
+then you get from your model somewhere,
+
+1112
+00:55:53,650 --> 00:55:56,618
+you get the data based on the section and row, and then you
+
+1113
+00:55:56,687 --> 00:56:00,322
+assign it to the public API of the MVC you're segueing to. So
+
+1114
+00:56:00,391 --> 00:56:02,891
+that's the magic of segueing, the sender's gonna be
+
+1115
+00:56:02,959 --> 00:56:04,993
+TableViewCell, you need to go indexPath for
+
+1116
+00:56:05,062 --> 00:56:08,596
+cell to find out which indexPath, then you can segue.
+
+1117
+00:56:08,665 --> 00:56:11,266
+What about segueing from a collection view item.
+
+1118
+00:56:12,302 --> 00:56:13,268
+So in a collection view item,
+
+1119
+00:56:13,337 --> 00:56:17,139
+this is actually best done with target action, kind of.
+
+1120
+00:56:17,207 --> 00:56:21,309
+A collection view's delegate has a method in it which is
+
+1121
+00:56:21,378 --> 00:56:24,946
+called every time an item gets touched on. It's called
+
+1122
+00:56:25,015 --> 00:56:28,783
+CollectionVewDidSelectItemAtI- ndexPath. All right, and
+
+1123
+00:56:28,852 --> 00:56:33,221
+from here use perform segue and then prepare normally.
+
+1124
+00:56:33,290 --> 00:56:35,323
+Now, when you do perform segue from here,
+
+1125
+00:56:35,392 --> 00:56:38,961
+probably the sender that any you're gonna specify something
+
+1126
+00:56:39,029 --> 00:56:42,898
+that makes sense to you and use that in the prepare. So
+
+1127
+00:56:42,966 --> 00:56:47,168
+that's the way to segue from cells in a collection view.
+
+1128
+00:56:47,237 --> 00:56:48,336
+You could use that same strategy for
+
+1129
+00:56:48,405 --> 00:56:49,771
+UI table view, by the way.
+
+1130
+00:56:49,840 --> 00:56:52,307
+There's no reason not to use the exact same thing. In fact
+
+1131
+00:56:52,376 --> 00:56:55,943
+some people do table view once by implementing table views
+
+1132
+00:56:56,012 --> 00:56:59,514
+did select row and index path and passing the index path as
+
+1133
+00:56:59,583 --> 00:57:02,517
+the Emmy. Okay? So now you've got the index path. You don't
+
+1134
+00:57:02,586 --> 00:57:04,720
+even have to do any of that index path for cell business.
+
+1135
+00:57:04,788 --> 00:57:06,755
+That's perfectly reasonable too, to do that if you want.
+
+1136
+00:57:08,491 --> 00:57:10,492
+All right, something to think about with these table and
+
+1137
+00:57:10,560 --> 00:57:13,228
+collection views is, what happens if your model changes,
+
+1138
+00:57:13,297 --> 00:57:15,097
+right? You've got this table,
+
+1139
+00:57:15,165 --> 00:57:17,332
+you're showing all your songs in your iPod,
+
+1140
+00:57:17,401 --> 00:57:22,504
+and then you add a song somehow. It's gotta update. Or
+
+1141
+00:57:22,572 --> 00:57:24,906
+a new food gets discovered or something and
+
+1142
+00:57:24,975 --> 00:57:27,175
+our food list has to change. So what do you do?
+
+1143
+00:57:27,243 --> 00:57:30,178
+Well, there is a method in table view and collection view
+
+1144
+00:57:30,247 --> 00:57:33,014
+called reload data. That will cause all of those methods,
+
+1145
+00:57:33,083 --> 00:57:35,184
+number of rows and section, number of section,
+
+1146
+00:57:35,252 --> 00:57:37,218
+the table view. Give me the table view cell,
+
+1147
+00:57:37,287 --> 00:57:40,021
+it will call them all again. For all the visible cells, and
+
+1148
+00:57:40,090 --> 00:57:42,056
+go get a new table of cells, reload your whole table,
+
+1149
+00:57:42,125 --> 00:57:44,492
+basically. It's a little heavy handed.
+
+1150
+00:57:44,561 --> 00:57:46,360
+It's not too bad, because actually,
+
+1151
+00:57:46,429 --> 00:57:49,264
+only in a call that get me the cellForRow and IndexPath name,
+
+1152
+00:57:49,332 --> 00:57:52,033
+it's only gonna call that for the visible cells, so it's
+
+1153
+00:57:52,102 --> 00:57:55,336
+not too bad, actually. But there are finer grained like
+
+1154
+00:57:55,405 --> 00:57:59,407
+reloadRows at IndexPaths that gives an array of index paths,
+
+1155
+00:57:59,476 --> 00:58:02,977
+and you can reload just those rows. And collection view has
+
+1156
+00:58:03,046 --> 00:58:05,947
+similar things. It's not, you know, it's not so bad to do
+
+1157
+00:58:06,016 --> 00:58:08,483
+a reload data, but you do have to think about the fact that
+
+1158
+00:58:08,551 --> 00:58:11,186
+if your model changes, you gotta update your table.
+
+1159
+00:58:11,254 --> 00:58:12,687
+You don't really want your data or
+
+1160
+00:58:12,756 --> 00:58:14,956
+your collection to get out of sync with your model for
+
+1161
+00:58:15,025 --> 00:58:18,493
+very long. You want them to stay in sync.
+
+1162
+00:58:18,562 --> 00:58:20,462
+How about the height of the rows?
+
+1163
+00:58:20,530 --> 00:58:23,465
+How do we determine the height of these rows? Well,
+
+1164
+00:58:23,534 --> 00:58:25,367
+there's three ways really per table view rows.
+
+1165
+00:58:25,435 --> 00:58:28,870
+One is a var in table view called rowHeight.
+
+1166
+00:58:28,939 --> 00:58:31,406
+Now this is also settable in the storyboard, this just
+
+1167
+00:58:31,475 --> 00:58:33,474
+fixes the rows. They're always gonna be that height.
+
+1168
+00:58:33,543 --> 00:58:36,778
+And that works for the basic rows and things like that.
+
+1169
+00:58:36,846 --> 00:58:40,882
+Second one is setting the row height using auto-layout.
+
+1170
+00:58:40,951 --> 00:58:42,917
+Okay so you got a complicated thing and
+
+1171
+00:58:42,986 --> 00:58:45,687
+maybe sometimes there's a fruit has a lot of detail
+
+1172
+00:58:45,755 --> 00:58:47,689
+information. So the cell needs to be big and
+
+1173
+00:58:47,758 --> 00:58:49,291
+sometimes the fruit has very little and
+
+1174
+00:58:49,359 --> 00:58:52,227
+the cell will be small. So you setup your autolay layout
+
+1175
+00:58:52,295 --> 00:58:56,230
+properly, so that it's pushing out on a generic view. So
+
+1176
+00:58:56,299 --> 00:58:59,634
+you're gonna put a generic UI view as the top level view in
+
+1177
+00:58:59,703 --> 00:59:02,770
+your row, and then put all your stuff inside and
+
+1178
+00:59:02,839 --> 00:59:05,673
+then have constraints that push that thing out,
+
+1179
+00:59:05,742 --> 00:59:09,644
+push that generic view out. And then have the generic view
+
+1180
+00:59:09,713 --> 00:59:12,714
+pinned to the edges of the row.
+
+1181
+00:59:12,783 --> 00:59:15,216
+And if you do that, then table view will
+
+1182
+00:59:15,285 --> 00:59:17,652
+be able to come along, auto layout that thing,
+
+1183
+00:59:17,721 --> 00:59:22,390
+and it'll know what size it has to be. So to do that
+
+1184
+00:59:22,459 --> 00:59:25,360
+you set the rowHeight instead of to a number you set it to
+
+1185
+00:59:25,429 --> 00:59:28,396
+UITableViewAutomaticDimension that's a special
+
+1186
+00:59:28,464 --> 00:59:31,299
+value that let it node to go do that out of the lab thing
+
+1187
+00:59:31,368 --> 00:59:34,335
+as you can imagine that's quite expensive.
+
+1188
+00:59:34,404 --> 00:59:38,674
+You're not gonna do it 10,000 times for your iPad library.
+
+1189
+00:59:38,742 --> 00:59:41,476
+So you also wanna set an estimatedRowHeight.
+
+1190
+00:59:41,545 --> 00:59:44,011
+And the estimatedRowHeight just tells table view for
+
+1191
+00:59:44,080 --> 00:59:45,647
+the cells that aren't on screen,
+
+1192
+00:59:45,716 --> 00:59:48,816
+assume they are this big. Don't go auto layout
+
+1193
+00:59:48,885 --> 00:59:51,719
+them. So that's something to consider. Another way you
+
+1194
+00:59:51,788 --> 00:59:54,256
+can set the height is by implementing this method table
+
+1195
+00:59:54,324 --> 00:59:58,726
+view heightForRowAt indexPath. And then this return
+
+1196
+00:59:58,795 --> 01:00:01,596
+the height for the row with that index. Now if you can
+
+1197
+01:00:01,664 --> 01:00:04,132
+much more efficiently calculate the height without
+
+1198
+01:00:04,201 --> 01:00:05,800
+doing all the auto lay out stuff,
+
+1199
+01:00:05,869 --> 01:00:08,336
+then this is a great one for you to do.
+
+1200
+01:00:08,404 --> 01:00:10,372
+Maybe you know the certain cells are one height and
+
+1201
+01:00:10,440 --> 01:00:11,872
+certain tells another height and that's it,
+
+1202
+01:00:11,941 --> 01:00:12,774
+just one of these two and
+
+1203
+01:00:12,843 --> 01:00:15,309
+you can return which one it is, all right?
+
+1204
+01:00:15,378 --> 01:00:17,278
+Or maybe all your cells are the same height and
+
+1205
+01:00:17,347 --> 01:00:19,814
+it's just more convenient to calculate it and return it
+
+1206
+01:00:19,883 --> 01:00:23,151
+here, that's perfectly fine. Collection view has a similar
+
+1207
+01:00:23,220 --> 01:00:26,088
+thing. The only thing about collection view is one,
+
+1208
+01:00:26,156 --> 01:00:28,489
+which is size for item at, because remember,
+
+1209
+01:00:28,558 --> 01:00:31,660
+these items are rectangles in a collection view, not rows,
+
+1210
+01:00:31,729 --> 01:00:34,328
+they don't have a height, they're rectangles.
+
+1211
+01:00:34,397 --> 01:00:37,065
+The only thing about that is notice this extra little
+
+1212
+01:00:37,134 --> 01:00:39,600
+argument there besides sizeForItemAt is layout
+
+1213
+01:00:39,669 --> 01:00:42,003
+collectionViewLayout right there.
+
+1214
+01:00:42,072 --> 01:00:45,173
+That's the magic thing that's doing the flow layout,
+
+1215
+01:00:45,242 --> 01:00:48,743
+by default. But if you provide a collectionViewLayout,
+
+1216
+01:00:48,812 --> 01:00:50,779
+you can do other kinds of layouts. But for
+
+1217
+01:00:50,847 --> 01:00:54,249
+your purposes in this class, leads beginning using this.
+
+1218
+01:00:54,317 --> 01:00:57,552
+That's always going to be a UI collection to flow layout,
+
+1219
+01:00:57,621 --> 01:00:59,220
+which does the flowing.
+
+1220
+01:00:59,289 --> 01:01:00,889
+That's why there's that extra argument here for that one.
+
+1221
+01:01:03,160 --> 01:01:06,961
+How about those headers? To put the headers in there,
+
+1222
+01:01:07,030 --> 01:01:10,431
+you know, like junk food and then desserts and fruits, and
+
+1223
+01:01:10,500 --> 01:01:13,335
+vegetables. Those headers in table view is super easy,
+
+1224
+01:01:13,403 --> 01:01:14,970
+you just implement this method, table view,
+
+1225
+01:01:15,038 --> 01:01:17,505
+title for header section, it returns a string, and
+
+1226
+01:01:17,574 --> 01:01:19,574
+just puts it in there. Couldn't be easier.
+
+1227
+01:01:19,643 --> 01:01:22,343
+There is actually another one that returns the UI view, so
+
+1228
+01:01:22,412 --> 01:01:24,278
+you can actually have your headers be UI views
+
+1229
+01:01:24,347 --> 01:01:28,249
+with anything you want in there. Take collection view,
+
+1230
+01:01:28,318 --> 01:01:31,686
+much more difficult. Much more difficult to do section
+
+1231
+01:01:31,755 --> 01:01:34,623
+headers and table view in collection view. And that's
+
+1232
+01:01:34,691 --> 01:01:38,693
+because collection view, their header views are reusable.
+
+1233
+01:01:38,762 --> 01:01:41,463
+Just like the cells are. And I guess this decision was made,
+
+1234
+01:01:41,531 --> 01:01:43,598
+because you could imagine collection views had a lot of
+
+1235
+01:01:43,667 --> 01:01:45,634
+sections. Where as a table, it's unlikely
+
+1236
+01:01:45,702 --> 01:01:47,669
+you're gonna have a table with thousand sections.
+
+1237
+01:01:47,737 --> 01:01:49,437
+Collection view, maybe you could have a lot.
+
+1238
+01:01:49,506 --> 01:01:51,906
+I'm not sure why they decided to do it this way, but
+
+1239
+01:01:51,975 --> 01:01:56,611
+they did. It plays out very similar to
+
+1240
+01:01:56,680 --> 01:02:00,682
+using the cells. What you do to enable your headers
+
+1241
+01:02:00,750 --> 01:02:03,218
+is you inspect your collection view and click the button
+
+1242
+01:02:03,286 --> 01:02:05,753
+section header or section footer and then a little thing
+
+1243
+01:02:05,822 --> 01:02:08,322
+will appear in your storyboard that you can go drag things
+
+1244
+01:02:08,391 --> 01:02:10,358
+into. That little thing is a prototype and
+
+1245
+01:02:10,427 --> 01:02:12,728
+it's gonna be repeated for every section header.
+
+1246
+01:02:14,197 --> 01:02:15,663
+You can put anything you want in there, though, but
+
+1247
+01:02:15,732 --> 01:02:17,432
+you're gonna have to create this subclass.
+
+1248
+01:02:17,501 --> 01:02:20,434
+The subclass is of something called UIReusable,
+
+1249
+01:02:20,503 --> 01:02:23,504
+UICollectionReusableView instead of UITableView cell or
+
+1250
+01:02:23,573 --> 01:02:25,173
+UICollectionView cell. So
+
+1251
+01:02:25,242 --> 01:02:27,409
+you're gonna sub close up put your outlets in there.
+
+1252
+01:02:27,477 --> 01:02:29,844
+And then you're gonna implement this method,
+
+1253
+01:02:29,912 --> 01:02:32,914
+viewForSupplementaryElementOf- Kind which is kind of like
+
+1254
+01:02:32,983 --> 01:02:36,117
+self row at index path but just for the headers. And
+
+1255
+01:02:36,186 --> 01:02:39,353
+inside there you're gonna use another deque method,
+
+1256
+01:02:39,422 --> 01:02:42,490
+this one's called dequeReusbaleSupplementaryVie-
+
+1257
+01:02:42,559 --> 01:02:44,926
+wOfKind with identifier for index path.
+
+1258
+01:02:44,995 --> 01:02:47,695
+And that's going to make a copy of that prototype and
+
+1259
+01:02:47,764 --> 01:02:50,498
+reuse them as they scroll around on screen. So
+
+1260
+01:02:50,567 --> 01:02:53,001
+I'm just giving you, you understand the general brush,
+
+1261
+01:02:53,069 --> 01:02:55,403
+but if you actually wanna have headers you're gonna have
+
+1262
+01:02:55,472 --> 01:02:57,773
+to go figure this all out, headers and footers,
+
+1263
+01:02:57,841 --> 01:03:00,675
+that's for collection view only. All right,
+
+1264
+01:03:00,743 --> 01:03:02,677
+there are a billion other methods,
+
+1265
+01:03:02,745 --> 01:03:05,513
+dozens of other methods in these classes, these are very
+
+1266
+01:03:05,582 --> 01:03:09,718
+large sophisticated classes. You can swipe to delete rows,
+
+1267
+01:03:09,786 --> 01:03:13,955
+you can move the rows around until you can scroll around,
+
+1268
+01:03:14,024 --> 01:03:16,258
+scroll to a certain row. I mean, there's so
+
+1269
+01:03:16,326 --> 01:03:18,726
+much in there, it's hardly to even get started on.
+
+1270
+01:03:18,795 --> 01:03:21,462
+So this is the kind of thing like everything on this class.
+
+1271
+01:03:21,531 --> 01:03:24,032
+I'm just getting you started and you're gonna have to look
+
+1272
+01:03:24,101 --> 01:03:25,900
+at documentation for these things to see,
+
+1273
+01:03:25,969 --> 01:03:28,002
+ooh, what can I do? Read the introduction.
+
+1274
+01:03:28,071 --> 01:03:29,403
+I think I said this in the beginning and
+
+1275
+01:03:29,472 --> 01:03:31,907
+I haven't re-emphasized enough. For all these classes,
+
+1276
+01:03:31,975 --> 01:03:34,241
+read the text at the beginning, the overview.
+
+1277
+01:03:34,310 --> 01:03:38,179
+It'll give you an idea of what these things can do and
+
+1278
+01:03:38,248 --> 01:03:42,050
+what they're capable of etc. So when I was making these
+
+1279
+01:03:42,118 --> 01:03:44,819
+slides, I actually created that little fruit thing,
+
+1280
+01:03:44,888 --> 01:03:46,887
+right? When the little thing, and so I decided,
+
+1281
+01:03:46,956 --> 01:03:49,657
+you know, I'm just gonna give you that code. The code that I
+
+1282
+01:03:49,726 --> 01:03:51,726
+used to actually create the screenshot.
+
+1283
+01:03:51,795 --> 01:03:53,494
+So I'm gonna post that code.
+
+1284
+01:03:53,563 --> 01:03:55,596
+And it's just two things, a table view and
+
+1285
+01:03:55,665 --> 01:03:57,731
+a collection view that shows you the fruit.
+
+1286
+01:03:57,800 --> 01:04:01,068
+And so you can get an idea for simple stuff, how to do that.
+
+1287
+01:04:01,137 --> 01:04:04,172
+But I'm also gonna do a huge demo, which is emoji art.
+
+1288
+01:04:04,241 --> 01:04:06,341
+Cuz you noticed that emoji art both a table view and
+
+1289
+01:04:06,410 --> 01:04:09,310
+a collection view. So we're gonna do that. And
+
+1290
+01:04:09,379 --> 01:04:12,914
+today we're going to start by doing the Table View. And then
+
+1291
+01:04:12,982 --> 01:04:15,583
+on Wednesday we'll continue and do the Collection View.
+
+1292
+01:04:15,651 --> 01:04:17,285
+And the Collection View is cool because you notice
+
+1293
+01:04:17,353 --> 01:04:18,787
+the Collection View has drag and drop in it.
+
+1294
+01:04:18,855 --> 01:04:20,955
+And there's special support in Collection View and
+
+1295
+01:04:21,024 --> 01:04:22,690
+Table View for drag and drop, as well.
+
+1296
+01:04:22,759 --> 01:04:25,826
+So we'll bring those two things together. I won't get
+
+1297
+01:04:25,895 --> 01:04:29,063
+back to the slides. So just to let you know what's coming up
+
+1298
+01:04:29,132 --> 01:04:31,899
+on Wednesday, in addition to doing the Collection View and
+
+1299
+01:04:31,968 --> 01:04:34,702
+Table View Emoji Art, we're also gonna do Text Field.
+
+1300
+01:04:34,771 --> 01:04:37,672
+I don't think I showed you. Yeah, I showed you the feature
+
+1301
+01:04:37,740 --> 01:04:39,841
+in there where you can add more emoji, right?
+
+1302
+01:04:39,909 --> 01:04:41,876
+So there was a little text field that appeared there, so
+
+1303
+01:04:41,944 --> 01:04:44,245
+I'm gonna show you how to do that.
+
+1304
+01:04:44,314 --> 01:04:47,148
+We're done with Friday sections for this quarter.
+
+1305
+01:04:47,216 --> 01:04:49,650
+The three we had were great, and but that's enough.
+
+1306
+01:04:49,719 --> 01:04:52,253
+And then next week, I will be talking about your
+
+1307
+01:04:52,321 --> 01:04:57,224
+requirements for your final projects. And then more iOS.
+
+1308
+01:04:57,293 --> 01:04:59,728
+Give me more, needs more iOS, so we'll be doing that.
+
+1309
+01:05:02,532 --> 01:05:06,600
+Back to our emoji art right here. And
+
+1310
+01:05:06,669 --> 01:05:08,570
+what are we gonna do? So we're gonna do that tableView.
+
+1311
+01:05:08,638 --> 01:05:11,205
+So let, let's throw that tableView thing in there,
+
+1312
+01:05:11,274 --> 01:05:16,244
+and let me, I don't know where I was here. Yeah, here we go.
+
+1313
+01:05:18,181 --> 01:05:21,382
+So the tableView is part of a split view, right?
+
+1314
+01:05:21,451 --> 01:05:23,784
+It, it slid out from the side.
+
+1315
+01:05:23,853 --> 01:05:26,520
+So I'm just gonna go right to my storyboard right here,
+
+1316
+01:05:26,589 --> 01:05:30,591
+and put that split view in there. Okay, so as I always
+
+1317
+01:05:30,660 --> 01:05:33,094
+recommend, zoom out when you put split viewing,
+
+1318
+01:05:33,163 --> 01:05:36,330
+cuz it gives you all of this kind of default things.
+
+1319
+01:05:36,399 --> 01:05:39,634
+So I'm gonna search here for split view. Here it is.
+
+1320
+01:05:39,702 --> 01:05:41,435
+So here's my split view controller.
+
+1321
+01:05:41,504 --> 01:05:44,672
+You can drag it out here, give me all this stuff. And
+
+1322
+01:05:44,741 --> 01:05:47,442
+I'm going to delete all of it. So I'm gonna get rid of that,
+
+1323
+01:05:47,511 --> 01:05:49,544
+I'm gonna get rid of that, and get rid of that.
+
+1324
+01:05:49,613 --> 01:05:51,045
+So here's my split view.
+
+1325
+01:05:51,113 --> 01:05:54,049
+I'm gonna make it be the entry point by moving the little
+
+1326
+01:05:54,117 --> 01:05:57,752
+arrow. This is my emoji art view controller.
+
+1327
+01:05:57,820 --> 01:06:00,454
+It's the detail, right? It's obviously the detail.
+
+1328
+01:06:00,523 --> 01:06:03,090
+The master is clearly choosing which one I want,
+
+1329
+01:06:03,159 --> 01:06:06,794
+which document I want. So I'm gonna control drag over here
+
+1330
+01:06:06,863 --> 01:06:10,131
+to set this up as the detail right there. All right, so
+
+1331
+01:06:10,200 --> 01:06:12,666
+now how are we gonna make that tableView master? Well,
+
+1332
+01:06:12,735 --> 01:06:16,671
+notice that that tableView was all tableView, right? That MVC
+
+1333
+01:06:16,739 --> 01:06:18,940
+was all tableView. I didn't have any other UI in there,
+
+1334
+01:06:19,008 --> 01:06:20,641
+just the list of the documents. So
+
+1335
+01:06:20,710 --> 01:06:24,879
+I'm going to use the tableView pre-packaged controller here.
+
+1336
+01:06:24,948 --> 01:06:26,747
+See, here's tableView, just the view,
+
+1337
+01:06:26,816 --> 01:06:28,650
+and here's tableView, the controller.
+
+1338
+01:06:28,718 --> 01:06:31,452
+So I'm gonna drag this out. It makes a controller right
+
+1339
+01:06:31,520 --> 01:06:34,789
+there. I'm gonna embed this in a navigation controller.
+
+1340
+01:06:34,857 --> 01:06:36,857
+And you might say, why do I need to do that?
+
+1341
+01:06:36,926 --> 01:06:40,494
+This is an iPad only app. But there is actually one case on
+
+1342
+01:06:40,563 --> 01:06:45,266
+iPad only where you will get a navigation controller here,
+
+1343
+01:06:45,335 --> 01:06:48,869
+which is, you're in portrait. You have another app side by
+
+1344
+01:06:48,938 --> 01:06:52,373
+side like we had Safari. It jams up the thing so
+
+1345
+01:06:52,442 --> 01:06:56,144
+much that it turns that master thing into a navigation
+
+1346
+01:06:56,212 --> 01:06:58,813
+controller. Which was a really a cool decision on Apple's
+
+1347
+01:06:58,881 --> 01:07:01,682
+part, since you're mostly learned to build this kind of
+
+1348
+01:07:01,751 --> 01:07:05,419
+hybrid split view navigation control thing anyway. So
+
+1349
+01:07:05,488 --> 01:07:07,688
+we are gonna do it. So let's select this one and
+
+1350
+01:07:07,757 --> 01:07:11,392
+go embed in Navigation Controller. And
+
+1351
+01:07:11,460 --> 01:07:13,928
+then this combination of this Navigation Controller and
+
+1352
+01:07:13,996 --> 01:07:18,933
+our little emoji art document chooser, is going to
+
+1353
+01:07:19,002 --> 01:07:22,970
+be our master. So I'm gonna go over here and Ctrl drag to
+
+1354
+01:07:23,039 --> 01:07:27,775
+make this my master. Now I'm going to have this tableView.
+
+1355
+01:07:27,843 --> 01:07:30,978
+Right now, its identity is UITableViewController,
+
+1356
+01:07:31,047 --> 01:07:34,715
+generic UITableViewController. So I'm gonna create a subclass
+
+1357
+01:07:34,784 --> 01:07:37,819
+of UITableViewController to control this table.
+
+1358
+01:07:37,887 --> 01:07:42,156
+So I'm gonna go File > New. This time when I create coco
+
+1359
+01:07:42,225 --> 01:07:45,192
+touch class, it's gonna be a subclass of
+
+1360
+01:07:45,261 --> 01:07:48,462
+UITableViewController I'm gonna call it my
+
+1361
+01:07:48,531 --> 01:07:53,033
+EmojiArtDocument, Document, TableViewController.
+
+1362
+01:07:53,102 --> 01:07:57,505
+Nice long name there. And this controller is the thing that's
+
+1363
+01:07:57,574 --> 01:08:01,175
+going to control this tableView right here. So
+
+1364
+01:08:01,244 --> 01:08:03,945
+let's go and select this and check its identity to be
+
+1365
+01:08:04,014 --> 01:08:07,115
+Emoji Art Document Table View Controller. Now I'll be
+
+1366
+01:08:07,183 --> 01:08:11,085
+able to do all my magical delegate things. And in fact,
+
+1367
+01:08:11,154 --> 01:08:14,655
+if you look at this code, whoo! It gives you a lot of
+
+1368
+01:08:14,724 --> 01:08:18,226
+commented out code that has to do with being a tableView.
+
+1369
+01:08:18,295 --> 01:08:19,460
+I created it as a subclass of UITableViewController.
+
+1370
+01:08:19,461 --> 01:08:20,626
+Cuz you know,
+
+1371
+01:08:20,696 --> 01:08:22,129
+So it knows it needs all these things.
+
+1372
+01:08:22,198 --> 01:08:25,333
+So I'm gonna delete the ones we're not gonna use like
+
+1373
+01:08:25,401 --> 01:08:28,803
+our view controller life cycle methods. Recognize these?
+
+1374
+01:08:28,871 --> 01:08:32,140
+Whoo, number of sections, number of rows, cellForRowAt.
+
+1375
+01:08:32,208 --> 01:08:34,576
+Right up front, these are the most important ones.
+
+1376
+01:08:34,644 --> 01:08:39,480
+These are the UITableViewDataSource methods,
+
+1377
+01:08:39,549 --> 01:08:44,118
+source methods here. So we want to implement these to
+
+1378
+01:08:44,187 --> 01:08:47,654
+make this thing work. Now as with any view controller,
+
+1379
+01:08:47,723 --> 01:08:51,526
+or any MVC we create, we wanna think about what is its model?
+
+1380
+01:08:51,594 --> 01:08:53,628
+This is the world's easiest model.
+
+1381
+01:08:53,696 --> 01:08:56,464
+It's just a list of the emoji art documents.
+
+1382
+01:08:56,533 --> 01:08:58,632
+So I'm gonna make that be a list of strings. So
+
+1383
+01:08:58,701 --> 01:09:04,539
+this is var emojiArtDocuments, and it is a list of strings.
+
+1384
+01:09:04,607 --> 01:09:06,640
+And we're even, even gonna start it out with some.
+
+1385
+01:09:06,709 --> 01:09:11,512
+Document one, document two, and document three.
+
+1386
+01:09:11,581 --> 01:09:14,548
+Now of course, as our app progresses, we're gonna be
+
+1387
+01:09:14,617 --> 01:09:17,385
+allowing new documents to be added, etc. But I'm gonna
+
+1388
+01:09:17,453 --> 01:09:19,086
+start with three documents, cuz we're just trying
+
+1389
+01:09:19,155 --> 01:09:20,855
+to learn a little bit about how tableView works here.
+
+1390
+01:09:20,924 --> 01:09:22,724
+So that's my model. So this,
+
+1391
+01:09:22,792 --> 01:09:26,960
+this table is gonna display this model. Well, this model
+
+1392
+01:09:27,029 --> 01:09:30,197
+doesn't have enough stuff in it to have sections, but
+
+1393
+01:09:30,266 --> 01:09:34,468
+you could imagine it would. What if I had recently created
+
+1394
+01:09:34,537 --> 01:09:37,238
+documents, recently deleted, other kinds of sections?
+
+1395
+01:09:37,307 --> 01:09:38,873
+I could have sections of documents, but
+
+1396
+01:09:38,942 --> 01:09:41,842
+I'm not going to. So I'm only gonna have one section.
+
+1397
+01:09:41,911 --> 01:09:44,678
+Definitely wanna get rid of this warning right here,
+
+1398
+01:09:44,747 --> 01:09:48,916
+because I've completed that. Then here is number of rows in
+
+1399
+01:09:48,985 --> 01:09:51,919
+section. Well, I only have one section, so
+
+1400
+01:09:51,987 --> 01:09:53,254
+I don't have to check the section.
+
+1401
+01:09:53,323 --> 01:09:55,689
+I don't have to say if section equals zero, then something.
+
+1402
+01:09:55,758 --> 01:09:56,424
+If section equals one or
+
+1403
+01:09:56,493 --> 01:09:58,726
+whatever. So here, it's only one section.
+
+1404
+01:09:58,795 --> 01:10:02,330
+I'm just gonna return emojiArtDocuments.count.
+
+1405
+01:10:02,398 --> 01:10:06,266
+That's how many rows are in the only section I have, is
+
+1406
+01:10:06,335 --> 01:10:10,337
+however many documents I have. And then we got this guy right
+
+1407
+01:10:10,406 --> 01:10:13,474
+here to dequeueReusableCell. And remember,
+
+1408
+01:10:13,542 --> 01:10:15,743
+there's really a couple of things to dequeueReusableCell.
+
+1409
+01:10:15,812 --> 01:10:18,312
+First, we have to figure out what kind of cell we're gonna
+
+1410
+01:10:18,381 --> 01:10:20,047
+use. And here I only have the names,
+
+1411
+01:10:20,116 --> 01:10:21,516
+so I'm just gonna use the basic cell.
+
+1412
+01:10:21,584 --> 01:10:24,518
+We'll see how to do a subclass of cell on Wednesday, but
+
+1413
+01:10:24,587 --> 01:10:26,687
+here, it's just gonna the basic cell.
+
+1414
+01:10:26,756 --> 01:10:29,657
+So I'm gonna go back to my storyboard here.
+
+1415
+01:10:29,725 --> 01:10:32,694
+Okay, here we go. Notice that it starts out,
+
+1416
+01:10:32,762 --> 01:10:35,329
+it just has one prototype cell, but if I want more
+
+1417
+01:10:35,398 --> 01:10:38,833
+prototype cells, all I have to do is click on the tableView.
+
+1418
+01:10:38,901 --> 01:10:41,436
+Inspect the tableView itself. You can always tell what's
+
+1419
+01:10:41,504 --> 01:10:43,838
+being inspected by the first word in the inspector there.
+
+1420
+01:10:43,906 --> 01:10:45,973
+And I just go here, see prototype cells one.
+
+1421
+01:10:46,042 --> 01:10:49,310
+I say, I want two, three, four. And, you know,
+
+1422
+01:10:49,379 --> 01:10:51,345
+maybe this is a custom cell,
+
+1423
+01:10:51,414 --> 01:10:53,380
+and I wanna add a label to it.
+
+1424
+01:10:53,449 --> 01:10:56,117
+All right, drag this label out, put this in here,
+
+1425
+01:10:56,186 --> 01:10:59,120
+do auto layout, control drag, all that stuff.
+
+1426
+01:10:59,188 --> 01:11:02,723
+I can build whatever UI I want in here. But if I do that,
+
+1427
+01:11:02,792 --> 01:11:05,526
+I'm gonna have to make a custom subclass of UITableView
+
+1428
+01:11:05,595 --> 01:11:08,729
+cell to have outlets to all this stuff. But I'm not gonna
+
+1429
+01:11:08,798 --> 01:11:11,298
+do any of that, yet. So I'm just gonna have this one.
+
+1430
+01:11:11,367 --> 01:11:14,435
+So I'm gonna go back here to my Table View, and
+
+1431
+01:11:14,504 --> 01:11:18,172
+say, Table View. Sometimes it's hard to click on
+
+1432
+01:11:18,241 --> 01:11:19,874
+the controller versus the Table View
+
+1433
+01:11:19,942 --> 01:11:20,775
+versus the cell.
+
+1434
+01:11:20,843 --> 01:11:23,911
+Don't forget about Shift+Click is a good way to do it. Or
+
+1435
+01:11:23,979 --> 01:11:26,713
+you can always resort over here to your document outline.
+
+1436
+01:11:26,782 --> 01:11:29,817
+So I'm gonna go back down to just one cell right there.
+
+1437
+01:11:29,885 --> 01:11:32,686
+By the way, here's where we said static versus dynamic.
+
+1438
+01:11:32,755 --> 01:11:35,256
+All right, so I have this one. I'm gonna have it be a basic
+
+1439
+01:11:35,325 --> 01:11:37,958
+cell. I don't even have enough information to be a subtitle
+
+1440
+01:11:38,027 --> 01:11:40,061
+cell. I don't have any detailed text information.
+
+1441
+01:11:40,130 --> 01:11:41,228
+I just have the name of it.
+
+1442
+01:11:41,297 --> 01:11:42,997
+So that's all I'm going to do, have this basic cell.
+
+1443
+01:11:43,066 --> 01:11:45,032
+But it's gotta have a reuse identifier,
+
+1444
+01:11:45,101 --> 01:11:47,869
+because we've gotta, when we create the initial ones,
+
+1445
+01:11:47,937 --> 01:11:51,639
+it's gotta know what prototype to copy. So I'm gonna call
+
+1446
+01:11:51,707 --> 01:11:56,710
+this my document cell. Cuz that's what, it's a cell that
+
+1447
+01:11:56,779 --> 01:12:01,515
+represents a document right there. And so that's good.
+
+1448
+01:12:01,584 --> 01:12:05,920
+So let's go back to our code right here. And now we
+
+1449
+01:12:05,989 --> 01:12:10,857
+can de- queue ReusableCell of the identifier DocumentCell.
+
+1450
+01:12:10,926 --> 01:12:14,228
+It's the only kind we have, so that's, we can clearly just do
+
+1451
+01:12:14,297 --> 01:12:17,164
+that. And the cell that comes back is gonna be of type
+
+1452
+01:12:17,233 --> 01:12:20,934
+UITableViewCell. And we know that it has this nice outlet,
+
+1453
+01:12:21,003 --> 01:12:23,237
+basically, called UITextLabel.
+
+1454
+01:12:23,305 --> 01:12:25,339
+Which they made optional, which is kinda strange,
+
+1455
+01:12:25,407 --> 01:12:27,574
+they didn't make it implicitly unwrapped optional.
+
+1456
+01:12:27,643 --> 01:12:29,911
+So you have to do that question mark there.
+
+1457
+01:12:29,979 --> 01:12:32,646
+Anyway the text, and now we have to go to our model, and
+
+1458
+01:12:32,715 --> 01:12:35,049
+get the information. And we have to do that for
+
+1459
+01:12:35,118 --> 01:12:37,752
+this index path, this section and row. Well the section is
+
+1460
+01:12:37,820 --> 01:12:40,154
+always going to be zero cuz I only have one section. So
+
+1461
+01:12:40,223 --> 01:12:44,492
+I'm just going to use the row and say give me my
+
+1462
+01:12:44,561 --> 01:12:49,563
+emojiArtDocument at the indexPath.row. So I'm
+
+1463
+01:12:49,632 --> 01:12:53,567
+just getting out of my model for that row, the information.
+
+1464
+01:12:53,636 --> 01:12:56,504
+That's all you need to do to make this work. So
+
+1465
+01:12:56,572 --> 01:13:02,309
+let's go see this in action. This, all right here we go.
+
+1466
+01:13:02,378 --> 01:13:05,346
+And sure enough, here it is. It came out on the left here.
+
+1467
+01:13:05,415 --> 01:13:10,084
+Oops, you can see it there. But, let me make this a little
+
+1468
+01:13:10,152 --> 01:13:12,853
+easier to see, let's hide others. There we go. So
+
+1469
+01:13:12,922 --> 01:13:16,690
+this is on the left and I can select them over here. You can
+
+1470
+01:13:16,759 --> 01:13:19,526
+see I'm selecting one, two, three. Now it would be really
+
+1471
+01:13:19,595 --> 01:13:22,729
+cool over here to be able to add new documents, right?
+
+1472
+01:13:22,798 --> 01:13:24,198
+So how would I add new documents?
+
+1473
+01:13:24,266 --> 01:13:25,266
+That turns out to be really easy.
+
+1474
+01:13:25,334 --> 01:13:29,103
+I'm just gonna put up on the top of, right above the top
+
+1475
+01:13:29,172 --> 01:13:31,739
+row here. On the right, I'm gonna put a little Add button.
+
+1476
+01:13:31,807 --> 01:13:34,708
+And when you click it, it's gonna add a new document. So
+
+1477
+01:13:34,777 --> 01:13:39,846
+let's go do that. Here we go. And I'm gonna do that in my
+
+1478
+01:13:39,915 --> 01:13:44,451
+storyboard of course. Now this is a key thing to wake up for,
+
+1479
+01:13:44,520 --> 01:13:47,822
+which is, when we add buttons to these top
+
+1480
+01:13:47,890 --> 01:13:50,257
+areas of a navigation controller right here,
+
+1481
+01:13:50,325 --> 01:13:53,327
+we don't add regular buttons. So we don't go over here.
+
+1482
+01:13:53,395 --> 01:13:56,564
+If I search for a button, you'll see there's this
+
+1483
+01:13:56,632 --> 01:13:59,700
+button, we do not do this. It'll let you do it, but
+
+1484
+01:13:59,769 --> 01:14:02,837
+don't do it, it's this that you want, a bar button.
+
+1485
+01:14:02,906 --> 01:14:04,672
+Cuz it's in a little navigation bar at the top,
+
+1486
+01:14:04,741 --> 01:14:08,242
+that's the button that you want. You get all kind of
+
+1487
+01:14:08,311 --> 01:14:12,245
+messed up if you use the wrong button there. So we got this
+
+1488
+01:14:12,314 --> 01:14:15,115
+button and I'm inspecting the button right here on the top.
+
+1489
+01:14:15,184 --> 01:14:19,420
+There is some predefined buttons like a camera button
+
+1490
+01:14:19,488 --> 01:14:22,122
+right there or a, what do we got,
+
+1491
+01:14:22,191 --> 01:14:24,925
+let's Save, a Save button.
+
+1492
+01:14:24,994 --> 01:14:27,727
+That's is just a word and there's also Add, and
+
+1493
+01:14:27,796 --> 01:14:29,162
+Add happens to be a plus.
+
+1494
+01:14:29,231 --> 01:14:32,266
+And I strongly recommend using one of these pre-defined ones,
+
+1495
+01:14:32,334 --> 01:14:35,403
+if it describes what you're doing. Because usually you'd
+
+1496
+01:14:35,471 --> 01:14:38,472
+be used to that icon or that image doing what you expect
+
+1497
+01:14:38,541 --> 01:14:42,142
+right there. Now this is just a normal bar button and
+
+1498
+01:14:42,211 --> 01:14:47,314
+we can just Ctrl drag to it to create an outlet,
+
+1499
+01:14:47,383 --> 01:14:52,319
+so let's do that. So here's my controller on the right and
+
+1500
+01:14:52,388 --> 01:14:54,287
+here's the button. So where do we put this.
+
+1501
+01:14:54,356 --> 01:14:56,824
+Let's put this right below our UI tableView data source
+
+1502
+01:14:56,892 --> 01:14:58,025
+methods right here. So
+
+1503
+01:14:58,093 --> 01:15:00,894
+I'm control dragging from the plus down here.
+
+1504
+01:15:00,963 --> 01:15:04,431
+It's going to be an action. I'm gonna call it newEmojiArt,
+
+1505
+01:15:04,500 --> 01:15:07,234
+that's what it does, it creates a new Emoji art.
+
+1506
+01:15:07,303 --> 01:15:09,536
+And I'm gonna have the argument not be typed any,
+
+1507
+01:15:09,605 --> 01:15:10,571
+it's gonna be typed.
+
+1508
+01:15:10,640 --> 01:15:12,874
+Bar button knows that you can have no argument here,
+
+1509
+01:15:12,942 --> 01:15:15,109
+which is kind of interesting for bar buttons.
+
+1510
+01:15:15,177 --> 01:15:19,212
+You have to have the argument unlike a regular button, I
+
+1511
+01:15:19,281 --> 01:15:22,082
+don't know. So now that we've hooked that up, all we have to
+
+1512
+01:15:22,151 --> 01:15:26,754
+do is make this code right here, create a new document.
+
+1513
+01:15:26,823 --> 01:15:30,691
+Well that's really, really easy. We're just gonna say
+
+1514
+01:15:30,759 --> 01:15:35,629
+emojiArtDocument. I'm gonna do += and add another array
+
+1515
+01:15:35,697 --> 01:15:39,767
+to it, += to an array you have to have another array. But
+
+1516
+01:15:39,835 --> 01:15:42,436
+it's only gonna have one thing in it, which is Untitled.
+
+1517
+01:15:42,504 --> 01:15:45,339
+That's what I'm gonna call my new document. But actually
+
+1518
+01:15:45,408 --> 01:15:47,441
+what if I already have something called Untitled?
+
+1519
+01:15:47,510 --> 01:15:50,444
+I don't wanna add two documents to Untitled, so
+
+1520
+01:15:50,512 --> 01:15:53,580
+I'm gonna use this little utility that I created,
+
+1521
+01:15:53,649 --> 01:15:55,849
+called madeUniquewithRespectTo.
+
+1522
+01:15:55,918 --> 01:15:58,686
+And it takes another array, looks in that array and
+
+1523
+01:15:58,754 --> 01:16:01,321
+make sure that it creates something unique.
+
+1524
+01:16:01,390 --> 01:16:03,423
+So in this case we'll do Untitled 1, Untitled 2,
+
+1525
+01:16:03,492 --> 01:16:06,594
+Untitled 3, until it find something unique. And so I'm
+
+1526
+01:16:06,662 --> 01:16:10,631
+gonna do that withRespectTo the other emojiArtDocuments.
+
+1527
+01:16:10,699 --> 01:16:11,932
+So these little thing madeUnique,
+
+1528
+01:16:12,001 --> 01:16:14,068
+is in that same utility place where the image factor was, so
+
+1529
+01:16:14,136 --> 01:16:15,869
+you can go and look at that later. It's very,
+
+1530
+01:16:15,938 --> 01:16:19,539
+very straightforward. Now this is not enough.
+
+1531
+01:16:19,608 --> 01:16:22,976
+I've changed my model here, now what do I need to do?
+
+1532
+01:16:23,045 --> 01:16:24,411
+>> [INAUDIBLE]
+
+1533
+01:16:24,480 --> 01:16:25,612
+>> Update the table, yeah.
+
+1534
+01:16:25,681 --> 01:16:28,248
+If I don't update the table, I'm gonna be out of sync.
+
+1535
+01:16:28,317 --> 01:16:29,183
+So how do I update the table?
+
+1536
+01:16:29,252 --> 01:16:31,351
+I'm just gonna do tableView.reloadData.
+
+1537
+01:16:31,420 --> 01:16:34,020
+I don't have a lot of data in there and it's not expensive
+
+1538
+01:16:34,089 --> 01:16:38,125
+to reload it, so let's just go ahead and reload the data, and
+
+1539
+01:16:38,194 --> 01:16:42,263
+run. All right, so here we go. Let's, okay,
+
+1540
+01:16:42,331 --> 01:16:45,099
+we can still select here, let's go plus, untitled, yeah.
+
+1541
+01:16:45,167 --> 01:16:48,135
+Plus, plus, plus, plus, woo hoo! No, I got carried away,
+
+1542
+01:16:48,203 --> 01:16:51,571
+I did it too many. Now let's delete. No, I can't delete,
+
+1543
+01:16:51,640 --> 01:16:54,341
+I wanna swipe to delete, everyone knows about swipe to
+
+1544
+01:16:54,410 --> 01:16:56,610
+delete. How come I cannot swipe to delete? Well,
+
+1545
+01:16:56,679 --> 01:17:00,013
+turns you have to obviously get involved with delete,
+
+1546
+01:17:00,082 --> 01:17:02,550
+because when you delete, it's not just delete in the row,
+
+1547
+01:17:02,618 --> 01:17:05,719
+it's updating your model to be deleted as well. So
+
+1548
+01:17:05,788 --> 01:17:09,123
+let's go do that as well. Let's go back here and
+
+1549
+01:17:09,191 --> 01:17:11,758
+the very next things that are coming out have to do with
+
+1550
+01:17:11,827 --> 01:17:15,763
+this. This one is, canEditRow at indexPath.
+
+1551
+01:17:15,831 --> 01:17:18,399
+That's saying whether you're allowed to delete this row.
+
+1552
+01:17:18,468 --> 01:17:21,368
+Now the default is yes, so you actually don't
+
+1553
+01:17:21,437 --> 01:17:24,137
+have to implement this, if you allow all rows to be deleted.
+
+1554
+01:17:24,206 --> 01:17:27,975
+This is only a way to prevent deletion from happening here.
+
+1555
+01:17:28,044 --> 01:17:29,443
+So we're gonna allow all our rows to
+
+1556
+01:17:29,512 --> 01:17:31,945
+be deleted, so I'm not even gonna uncomment this out, but
+
+1557
+01:17:32,014 --> 01:17:34,014
+then why is delete not working? Okay,
+
+1558
+01:17:34,082 --> 01:17:34,948
+if that's the default?
+
+1559
+01:17:35,017 --> 01:17:37,217
+Well because you also have to implement this method.
+
+1560
+01:17:37,286 --> 01:17:38,852
+Commit editingStyle,
+
+1561
+01:17:38,921 --> 01:17:42,422
+the editingStyle is either delete or insert. You have
+
+1562
+01:17:42,491 --> 01:17:46,793
+to commit that, that means commit it to your model. And
+
+1563
+01:17:46,862 --> 01:17:49,263
+so this is really easy to do, it just has an if delete or
+
+1564
+01:17:49,331 --> 01:17:52,532
+an if insert. This insert is a kind of UITableView UI for
+
+1565
+01:17:52,601 --> 01:17:55,569
+adding, we don't need that cuz we have our Plus button.
+
+1566
+01:17:55,638 --> 01:17:57,271
+So I don't really have to do anything here,
+
+1567
+01:17:57,339 --> 01:17:59,673
+I'm just gonna to delete. And even notice it says,
+
+1568
+01:17:59,741 --> 01:18:02,342
+delete the row from the data source, in other words from
+
+1569
+01:18:02,411 --> 01:18:04,311
+your model. So how do I delete it here?
+
+1570
+01:18:04,380 --> 01:18:08,849
+I'm just gonna say emojiArtDocuments.remove(at:
+
+1571
+01:18:08,918 --> 01:18:13,587
+the indexPath.row). And then I'm gonna update the table to
+
+1572
+01:18:13,656 --> 01:18:16,724
+do that. I will tell you right now, you, all of you,
+
+1573
+01:18:16,792 --> 01:18:19,793
+when you're doing your final projects, you will mess this
+
+1574
+01:18:19,862 --> 01:18:25,032
+up. Because these two things have to be perfectly in sync.
+
+1575
+01:18:25,101 --> 01:18:27,667
+If you do not have these perfectly in sync, you will
+
+1576
+01:18:27,736 --> 01:18:31,071
+get a crash when this happens. And it'll say something like,
+
+1577
+01:18:31,139 --> 01:18:34,007
+number of rows in the table did not match when I went to
+
+1578
+01:18:34,076 --> 01:18:36,176
+go update the rows. Okay, in other words,
+
+1579
+01:18:36,244 --> 01:18:38,913
+it's saying your model and your table don't match up. So
+
+1580
+01:18:38,981 --> 01:18:39,913
+it's easy to get them out of sync.
+
+1581
+01:18:39,982 --> 01:18:42,616
+This is a simple case where it's not easy to get out
+
+1582
+01:18:42,685 --> 01:18:44,084
+of sync, right? We move within the model,
+
+1583
+01:18:44,153 --> 01:18:46,953
+we delete the rows from the table. But, this is using
+
+1584
+01:18:47,022 --> 01:18:50,457
+delete rows instead of reload data, for example. There
+
+1585
+01:18:50,525 --> 01:18:52,959
+are other ways of deleting the rows and moving them, etc.
+
+1586
+01:18:53,028 --> 01:18:58,132
+Updating them, you might do the wrong thing depending
+
+1587
+01:18:58,201 --> 01:19:02,403
+on how you're updating your model there.
+
+1588
+01:19:02,471 --> 01:19:05,806
+So now we should be able to swipe to delete. Here's our
+
+1589
+01:19:05,875 --> 01:19:09,309
+table with One, Two, Three, plus, plus, plus, swipe, okay,
+
+1590
+01:19:09,378 --> 01:19:12,412
+to delete, and gone. Also, I don't know if this is new for
+
+1591
+01:19:12,481 --> 01:19:16,182
+iOS 11, you can actually swipe all the way across and delete,
+
+1592
+01:19:16,251 --> 01:19:20,354
+in one motion, whoop! Whoops, I didn't go far enough. If you
+
+1593
+01:19:20,422 --> 01:19:24,357
+swipe all the way to the edge, it will delete. And if you
+
+1594
+01:19:24,426 --> 01:19:29,363
+only do partial way then you get to Confirm button. So
+
+1595
+01:19:29,432 --> 01:19:31,464
+that's all of the time we have, perfect timing.
+
+1596
+01:19:31,533 --> 01:19:34,034
+That's it pretty much it for our table view. Now like I
+
+1597
+01:19:34,103 --> 01:19:36,937
+say, we are not going to get to the part where we actually
+
+1598
+01:19:37,006 --> 01:19:39,506
+have document storing until next week. Cuz I got to
+
+1599
+01:19:39,574 --> 01:19:42,009
+teach you a little bit of how we make things persistent
+
+1600
+01:19:42,077 --> 01:19:44,945
+in IOS on the disc, to can store things on the disc. But
+
+1601
+01:19:45,013 --> 01:19:48,848
+we will on Wednesday do our whole UI with the collection
+
+1602
+01:19:48,917 --> 01:19:51,151
+view and dragging and dropping to add more things, and
+
+1603
+01:19:51,220 --> 01:19:53,220
+putting a text field in the upper left to add more emoji.
+
+1604
+01:19:53,288 --> 01:19:55,523
+All that stuff, we're gonna do that on Wednesday.
+
+1605
+01:19:56,692 --> 01:19:58,458
+So I'll see you then. >> For
+
+1606
+01:19:58,527 --> 01:20:07,934
+more, please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu

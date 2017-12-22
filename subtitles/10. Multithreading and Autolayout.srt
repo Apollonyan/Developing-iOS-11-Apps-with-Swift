@@ -1,0 +1,5912 @@
+1
+00:00:00,401 --> 00:00:04,703
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,772 --> 00:00:09,475
+Stanford University. >> All right, well,
+斯坦福大学 >> 好
+
+3
+00:00:09,543 --> 00:00:13,578
+welcome to Stanford CS193P, this is Fall of 2017,
+欢迎来到斯坦福 2017 年秋季学期 CS193P
+
+4
+00:00:13,647 --> 00:00:17,249
+I think this is lecture number 10. And we have two very
+
+5
+00:00:17,317 --> 00:00:21,453
+important topics today. The first is multithreading and
+
+6
+00:00:21,522 --> 00:00:25,457
+the second is autolayout size classes. So let's talk about
+
+7
+00:00:25,525 --> 00:00:29,161
+multithreading first. Multithreading is all about,
+
+8
+00:00:29,230 --> 00:00:32,197
+for the purposes of this lecture anyway, keeping long
+
+9
+00:00:32,266 --> 00:00:36,034
+running things off of the main queue where the UI runs. And
+
+10
+00:00:36,103 --> 00:00:38,703
+that's because we want the UI to be incredibly responsive.
+
+11
+00:00:38,772 --> 00:00:41,639
+When someone touches down, we wanna immediately respond
+
+12
+00:00:41,708 --> 00:00:45,277
+to their touch and not be having our app freeze.
+
+13
+00:00:45,346 --> 00:00:48,613
+It's just death to have your app freeze, even for one
+
+14
+00:00:48,682 --> 00:00:51,416
+second is an eternity for your app to just be not responding
+
+15
+00:00:51,484 --> 00:00:54,953
+at all. So multithreading is a much bigger topic.
+
+16
+00:00:55,021 --> 00:00:56,688
+You can do a lot of other stuff with multithreading. But
+
+17
+00:00:56,756 --> 00:00:59,558
+we're gonna focus on trying to get long running things.
+
+18
+00:00:59,627 --> 00:01:03,828
+Things that might block off onto other threads. Now,
+
+19
+00:01:03,897 --> 00:01:09,167
+the way that multithreading works in iOS is using queues.
+
+20
+00:01:09,236 --> 00:01:11,836
+So I'm using queue in the sense of like
+
+21
+00:01:11,905 --> 00:01:13,504
+you go to the movies and you stand in line,
+
+22
+00:01:13,573 --> 00:01:15,240
+that's a queue, right? And
+
+23
+00:01:15,308 --> 00:01:19,278
+what's in the queues in iOS multithreading is blocks of
+
+24
+00:01:19,346 --> 00:01:23,147
+code, almost always closures that you put in this queue.
+
+25
+00:01:23,216 --> 00:01:25,750
+And so you got these queues, there's multiple different
+
+26
+00:01:25,819 --> 00:01:29,188
+kinds of queues. And the system then comes along and
+
+27
+00:01:29,256 --> 00:01:32,958
+it has threads. Threads are threads of execution.
+
+28
+00:01:33,027 --> 00:01:36,027
+They're essentially opportunities to run code.
+
+29
+00:01:36,096 --> 00:01:40,131
+And it can run them kind of in parallel. I actually guess
+
+30
+00:01:40,200 --> 00:01:43,235
+if you had a multiprocessor, or a multi-core processor,
+
+31
+00:01:43,304 --> 00:01:45,971
+it could actually run things in parallel. But
+
+32
+00:01:46,039 --> 00:01:48,540
+even if you had a single-core, single thread of execution
+
+33
+00:01:48,608 --> 00:01:51,109
+processor, the operating system knows how to share
+
+34
+00:01:51,177 --> 00:01:54,346
+that time up in tiny little increments between all
+
+35
+00:01:54,414 --> 00:01:59,084
+of these threads of execution. So the OS comes along and
+
+36
+00:01:59,153 --> 00:02:01,719
+takes things off the queue, the next person in line,
+
+37
+00:02:01,788 --> 00:02:05,123
+the next closure in line, takes it off and it runs it.
+
+38
+00:02:05,192 --> 00:02:07,659
+So that's how we do queues. And there's two kinds of
+
+39
+00:02:07,727 --> 00:02:12,196
+queues. We have serial queues, which is iOS comes along,
+
+40
+00:02:12,265 --> 00:02:14,933
+takes something off the queue and then as soon as that
+
+41
+00:02:15,001 --> 00:02:17,436
+thing has run to completion then it goes back and
+
+42
+00:02:17,504 --> 00:02:20,172
+gets another one off that queue, that's called a serial
+
+43
+00:02:20,240 --> 00:02:22,707
+queue. Then there's also concurrent queues.
+
+44
+00:02:22,776 --> 00:02:25,177
+Where iOS comes along and it grabs something off the queue
+
+45
+00:02:25,245 --> 00:02:27,578
+and it starts it running and maybe it has another thread
+
+46
+00:02:27,647 --> 00:02:28,813
+that it can use and it goes and
+
+47
+00:02:28,882 --> 00:02:31,383
+grabs another thing before the other one is even finished,
+
+48
+00:02:31,451 --> 00:02:33,952
+and maybe another. And so it might have two or three or
+
+49
+00:02:34,021 --> 00:02:36,455
+four or ten things running off of the same queue all
+
+50
+00:02:36,523 --> 00:02:39,391
+at the same time. That's called a concurrent queue.
+
+51
+00:02:39,459 --> 00:02:41,893
+So we're gonna talk about both of those kinds of queues.
+
+52
+00:02:41,962 --> 00:02:43,895
+Cuz we're gonna use both of those kinds of queues
+
+53
+00:02:43,964 --> 00:02:46,998
+to accomplish what we want. And what we want is for
+
+54
+00:02:47,067 --> 00:02:48,834
+the UI to be unblocked.
+
+55
+00:02:48,903 --> 00:02:53,671
+And the UI runs on a single serial queue,
+
+56
+00:02:53,740 --> 00:02:57,976
+called the main queue. And not only does the UI run on this,
+
+57
+00:02:58,045 --> 00:03:02,080
+it's the only queue that can have blocks of code put on it
+
+58
+00:03:02,148 --> 00:03:06,418
+that do UI things. So we keep all of our UI stuff here.
+
+59
+00:03:06,486 --> 00:03:08,787
+That way we don't have to worry about multithreaded UI,
+
+60
+00:03:08,856 --> 00:03:11,422
+where we got two different threads of execution both
+
+61
+00:03:11,491 --> 00:03:13,358
+trying to draw into the same space or whatever.
+
+62
+00:03:13,427 --> 00:03:15,226
+We never have to worry about that in iOS because
+
+63
+00:03:15,295 --> 00:03:19,765
+all drawing, all UI activity happens on this one queue.
+
+64
+00:03:19,833 --> 00:03:22,968
+And since it's a serial queue, it all happens on a single
+
+65
+00:03:23,036 --> 00:03:26,505
+thread. So you never have to worry about multithreaded UI
+
+66
+00:03:26,573 --> 00:03:30,509
+activity going on. Now, the way they make queue works is
+
+67
+00:03:30,577 --> 00:03:33,278
+it mostly sits there waiting for a touch event to happen.
+
+68
+00:03:33,346 --> 00:03:35,513
+And when the touch event happens, it processes it,
+
+69
+00:03:35,582 --> 00:03:38,049
+figures out what code to run, runs your code, and then goes
+
+70
+00:03:38,118 --> 00:03:40,785
+back into this quiet state, waiting for another touch.
+
+71
+00:03:40,854 --> 00:03:43,354
+Well, when it's in the quiet state, it could also pull
+
+72
+00:03:43,423 --> 00:03:46,358
+something off the main queue and run it. So you can put
+
+73
+00:03:46,426 --> 00:03:49,961
+things onto the main queue, blocks of code, and it will
+
+74
+00:03:50,029 --> 00:03:54,132
+run in the UI thread, the main queue, the main thread. So
+
+75
+00:03:54,201 --> 00:03:57,502
+our goal is to get everything else off the main queue.
+
+76
+00:03:57,571 --> 00:03:59,971
+And anything else is gonna take a long time or
+
+77
+00:04:00,040 --> 00:04:01,473
+certainly is gonna block waiting for
+
+78
+00:04:01,541 --> 00:04:02,740
+the network or something like that,
+
+79
+00:04:02,809 --> 00:04:05,943
+we definitely want that off the main queue. So where do we
+
+80
+00:04:06,012 --> 00:04:09,414
+put those things? Well, we put those in global queues.
+
+81
+00:04:09,483 --> 00:04:11,983
+Now, there's actually you can create your own queue to do
+
+82
+00:04:12,052 --> 00:04:15,319
+that, but we're gonna use one of these four global queues.
+
+83
+00:04:15,388 --> 00:04:18,122
+And these are concurrent queues that you can throw your
+
+84
+00:04:18,191 --> 00:04:21,593
+code on and the system will just come along and run them.
+
+85
+00:04:21,661 --> 00:04:24,196
+And there's really no restriction there about what
+
+86
+00:04:24,264 --> 00:04:27,131
+you can put in there. It's just, it can't be UI code. But
+
+87
+00:04:27,200 --> 00:04:29,333
+you can do other stuff all you want. So
+
+88
+00:04:29,402 --> 00:04:31,870
+let's talk about those queues. How do you get the main queue?
+
+89
+00:04:31,938 --> 00:04:33,538
+How do you get a hold of it? Well,
+
+90
+00:04:33,607 --> 00:04:36,974
+there is a struct or class called DispatchQueue and it
+
+91
+00:04:37,043 --> 00:04:40,878
+has a static var called main, that gives you the main queue.
+
+92
+00:04:40,947 --> 00:04:42,180
+So now you have the main queue,
+
+93
+00:04:42,248 --> 00:04:44,583
+you're ready to go, and I'm gonna talk to you soon about
+
+94
+00:04:44,651 --> 00:04:46,718
+how you put a block of code into the queue, right?
+
+95
+00:04:46,787 --> 00:04:50,154
+Put it at the end of the line, waiting to run.
+
+96
+00:04:50,223 --> 00:04:53,725
+The global queues are a little more expressive.
+
+97
+00:04:53,794 --> 00:04:56,027
+There's not just one of them, there's four different
+
+98
+00:04:56,096 --> 00:04:59,230
+kinds here that we're going to talk about. And the four of
+
+99
+00:04:59,299 --> 00:05:03,068
+them are different based on their quality of service.
+
+100
+00:05:03,136 --> 00:05:06,070
+That's what this QOS that you see referenced here.
+
+101
+00:05:06,139 --> 00:05:09,106
+The quality of service tells you what kind of thing,
+
+102
+00:05:09,175 --> 00:05:12,277
+what kind of activity the blocks that you're gonna put
+
+103
+00:05:12,345 --> 00:05:15,079
+on there are doing. So let's look at the four. The first
+
+104
+00:05:15,148 --> 00:05:18,950
+one is userInteractive. This is a very rare one to use.
+
+105
+00:05:19,019 --> 00:05:22,987
+This means that the user is in the middle of like dragging or
+
+106
+00:05:23,056 --> 00:05:25,757
+pinching or something and you wanna do something
+
+107
+00:05:25,826 --> 00:05:27,859
+off the main queue that has to happen so
+
+108
+00:05:27,927 --> 00:05:30,929
+fast that it can get back to the main queue in the middle
+
+109
+00:05:30,997 --> 00:05:33,698
+of that drag. So we're talking about highly interactive,
+
+110
+00:05:33,767 --> 00:05:36,233
+tiny little pieces of work that you might wanna
+
+111
+00:05:36,302 --> 00:05:37,201
+throw off the main queue.
+
+112
+00:05:37,270 --> 00:05:40,972
+The reason this is unusual to use is because it's really so
+
+113
+00:05:41,041 --> 00:05:42,607
+tiny and executes so quickly,
+
+114
+00:05:42,675 --> 00:05:45,644
+you could probably do it on the main queue.
+
+115
+00:05:45,712 --> 00:05:48,313
+You're probably waiting for it anyway on the main queue.
+
+116
+00:05:48,381 --> 00:05:51,249
+So user interactive much more readily used.
+
+117
+00:05:51,318 --> 00:05:55,019
+The most common one to use is the next one, userInitiated.
+
+118
+00:05:55,088 --> 00:05:57,989
+So now this is something that might take a very long time or
+
+119
+00:05:58,057 --> 00:05:59,224
+it might take couple of seconds, or
+
+120
+00:05:59,292 --> 00:06:01,325
+it maybe take a few milliseconds, you don't know.
+
+121
+00:06:01,394 --> 00:06:04,129
+But the point about it is the user has asked for
+
+122
+00:06:04,198 --> 00:06:06,598
+it right now. They touched on a button.
+
+123
+00:06:06,667 --> 00:06:08,699
+They swiped somewhere and they are asking for
+
+124
+00:06:08,768 --> 00:06:11,803
+something to happen. So it was initiated by the user.
+
+125
+00:06:11,872 --> 00:06:15,406
+So they expect you to be done as soon as possible. So
+
+126
+00:06:15,475 --> 00:06:17,575
+you are running this in the background.
+
+127
+00:06:17,644 --> 00:06:19,076
+It's not happening in the main thread,
+
+128
+00:06:19,145 --> 00:06:20,811
+but you're trying to do it as soon as possible.
+
+129
+00:06:20,880 --> 00:06:24,215
+So this is a very high priority queue.
+
+130
+00:06:24,284 --> 00:06:26,751
+iOS is going to be pulling things off that queue and
+
+131
+00:06:26,820 --> 00:06:29,387
+running them in threads that have very high priority
+
+132
+00:06:29,456 --> 00:06:31,622
+because the user's asked for it right now.
+
+133
+00:06:31,691 --> 00:06:34,626
+The other two, background and utility. So background things
+
+134
+00:06:34,694 --> 00:06:38,129
+are things the user hasn't asked for right away but
+
+135
+00:06:38,198 --> 00:06:41,232
+they're kinda things that they expect to be done fairly soon
+
+136
+00:06:41,301 --> 00:06:44,302
+or when you have time kind of a thing.
+
+137
+00:06:44,371 --> 00:06:46,237
+And then utility ones are even lower priority,
+
+138
+00:06:46,305 --> 00:06:49,807
+those are things that your app wants to do as part of its
+
+139
+00:06:49,876 --> 00:06:52,143
+architecture. For example, you have a big database and
+
+140
+00:06:52,212 --> 00:06:55,213
+maybe every week or so or every certain amount of data
+
+141
+00:06:55,282 --> 00:06:58,316
+in the database, you wanna go clean it up to remove though
+
+142
+00:06:58,384 --> 00:07:00,651
+out the database. So that's just utility operations, so
+
+143
+00:07:00,720 --> 00:07:03,154
+that will run at very low priority. So
+
+144
+00:07:03,223 --> 00:07:06,924
+you pick the global key you want based on the quality
+
+145
+00:07:06,993 --> 00:07:10,094
+of service you want that queue to receive.
+
+146
+00:07:10,163 --> 00:07:11,863
+So you have a queue now.
+
+147
+00:07:11,932 --> 00:07:14,399
+Either the main queue or one of these background concurrent
+
+148
+00:07:14,468 --> 00:07:16,034
+queues with a certain quality of service.
+
+149
+00:07:16,103 --> 00:07:19,271
+How do you put a block of code onto that queue?
+
+150
+00:07:19,339 --> 00:07:22,974
+Put it in line to, to get run at some point. Well,
+
+151
+00:07:23,043 --> 00:07:27,111
+you do it with one of these two functions, async or sync.
+
+152
+00:07:27,180 --> 00:07:28,813
+Each of them take one argument.
+
+153
+00:07:28,881 --> 00:07:32,017
+That argument is a block, a closure. Takes no arguments,
+
+154
+00:07:32,085 --> 00:07:34,819
+return no arguments. It returns no values. So
+
+155
+00:07:34,888 --> 00:07:37,489
+it's just as basic a block as you can be.
+
+156
+00:07:37,557 --> 00:07:40,224
+And what it does is it puts that block on the queue that
+
+157
+00:07:40,293 --> 00:07:43,462
+you're sending it to. Now, the difference between async and
+
+158
+00:07:43,530 --> 00:07:45,496
+sync is that async puts it on the queue and
+
+159
+00:07:45,565 --> 00:07:48,432
+returns immediately, and then just goes on to the next line
+
+160
+00:07:48,501 --> 00:07:51,802
+of code you have. So now it's in the queue and someone
+
+161
+00:07:51,871 --> 00:07:53,971
+eventually will go pull it off the queue and run it but
+
+162
+00:07:54,040 --> 00:07:57,041
+you return immediately. Sync, it puts it on the queue and
+
+163
+00:07:57,110 --> 00:08:01,045
+blocks. Waiting for someone to take it off a queue and
+
+164
+00:08:01,114 --> 00:08:03,047
+run it and for it to complete.
+
+165
+00:08:03,116 --> 00:08:07,385
+So you would never do sync on the main queue, right?
+
+166
+00:08:07,453 --> 00:08:09,554
+Cuz we never wanna block the main queue. But
+
+167
+00:08:09,623 --> 00:08:12,624
+you might do sync on a non-main queue, in fact,
+
+168
+00:08:12,692 --> 00:08:15,327
+you might do sync waiting for the main queue
+
+169
+00:08:15,395 --> 00:08:19,263
+to finish something, when you're on another queue.
+
+170
+00:08:19,332 --> 00:08:22,099
+But mostly we're using async here cuz we don't really care.
+
+171
+00:08:22,168 --> 00:08:23,601
+async is short for asynchronous.
+
+172
+00:08:23,669 --> 00:08:25,102
+We don't really care when it runs,
+
+173
+00:08:25,171 --> 00:08:26,738
+we just want it to run whenever it can run.
+
+174
+00:08:26,807 --> 00:08:29,340
+So that's it. So that's really all there is to
+
+175
+00:08:29,409 --> 00:08:31,642
+multithreading, believe it or not. It just leads to
+
+176
+00:08:31,711 --> 00:08:34,612
+a little bit of interesting programming, which you're
+
+177
+00:08:34,681 --> 00:08:37,482
+gonna see here, and the things you have to be careful with.
+
+178
+00:08:37,551 --> 00:08:39,984
+Now I'm not gonna talk about this, but you can create your
+
+179
+00:08:40,053 --> 00:08:42,953
+own queues by just calling DispatchQueue's initializer,
+
+180
+00:08:43,022 --> 00:08:46,257
+which has this label argument. That label just shows up
+
+181
+00:08:46,326 --> 00:08:49,461
+in the debugger so you can see which queue you're on.
+
+182
+00:08:49,530 --> 00:08:51,262
+The debugger's full support for queues,
+
+183
+00:08:51,331 --> 00:08:55,867
+it'll show you what thread everything is on. And
+
+184
+00:08:55,936 --> 00:08:59,937
+you can also do a lot of other things with multithreading,
+
+185
+00:09:00,006 --> 00:09:03,808
+like protecting critical sections in your code or
+
+186
+00:09:03,877 --> 00:09:06,644
+doing synchronous dispatch or locking between things.
+
+187
+00:09:06,713 --> 00:09:08,379
+You can do all that stuff, I'm not gonna talk about any of
+
+188
+00:09:08,447 --> 00:09:10,114
+that. I'm just gonna talk about how we're gonna use that
+
+189
+00:09:10,183 --> 00:09:12,583
+main queue and those background queues to keep
+
+190
+00:09:12,652 --> 00:09:16,754
+things off the main queue. There's a whole other API to
+
+191
+00:09:16,823 --> 00:09:19,958
+this besides the DispatchQueue API I'm gonna show you.
+
+192
+00:09:20,026 --> 00:09:23,194
+OperationQueue and Operation are the two classes involved
+
+193
+00:09:23,263 --> 00:09:26,030
+there. And those would be used if you're doing
+
+194
+00:09:26,099 --> 00:09:28,733
+some huge mathematical equation
+
+195
+00:09:28,801 --> 00:09:31,435
+that has a lot of parallel processing that you could do.
+
+196
+00:09:31,504 --> 00:09:34,205
+But a lot of the parallel pieces depend on each other.
+
+197
+00:09:34,274 --> 00:09:37,074
+Because Operation allows you to set up dependencies.
+
+198
+00:09:37,143 --> 00:09:39,510
+This little block code depends on this one running first. But
+
+199
+00:09:39,579 --> 00:09:42,413
+I'm gonna start these all off and just wait until the ones
+
+200
+00:09:42,482 --> 00:09:44,382
+that depend get finished. Do you see what I'm saying?
+
+201
+00:09:44,451 --> 00:09:45,550
+All this dependency management.
+
+202
+00:09:45,618 --> 00:09:47,284
+I'm not gonna talk about any of that either.
+
+203
+00:09:47,353 --> 00:09:51,222
+But you get that by using the object-oriented OperationQueue
+
+204
+00:09:51,290 --> 00:09:54,091
+and Operation APIs. In this class we're just gonna
+
+205
+00:09:54,160 --> 00:09:57,395
+use DispatchQueue, okay. DispatchQueue is part of what
+
+206
+00:09:57,463 --> 00:10:01,165
+we call grand central dispatch because we're dispatching
+
+207
+00:10:01,234 --> 00:10:04,836
+these blocks of code onto these queues. All right, so
+
+208
+00:10:04,904 --> 00:10:08,139
+where else are you gonna encounter multithreading?
+
+209
+00:10:08,207 --> 00:10:10,875
+In addition to do your old multithreading like you'll see
+
+210
+00:10:10,943 --> 00:10:13,478
+in the demo that I'm gonna do today, you also might have
+
+211
+00:10:13,547 --> 00:10:17,615
+iOS API that takes blocks as arguments. And when it
+
+212
+00:10:17,684 --> 00:10:20,451
+runs those blocks, like when it finishes doing something or
+
+213
+00:10:20,519 --> 00:10:23,821
+it encounters an error, it runs those blocks off the main
+
+214
+00:10:23,890 --> 00:10:26,825
+queue. And when you call that API in iOS, you've gotta
+
+215
+00:10:26,893 --> 00:10:31,162
+really be careful that in the blocks you give to iOS for
+
+216
+00:10:31,231 --> 00:10:33,765
+it to run when it's done, don't have any UI in there.
+
+217
+00:10:33,833 --> 00:10:36,468
+Or if you do have UI, dispatch it back to the main queue.
+
+218
+00:10:38,004 --> 00:10:40,838
+Because you can only do UI stuff on the main queue. So
+
+219
+00:10:40,907 --> 00:10:43,374
+let's see what it looks like to call an iOS API,
+
+220
+00:10:43,443 --> 00:10:45,343
+like this that takes a block.
+
+221
+00:10:45,411 --> 00:10:50,648
+So here is an iOS API called URLSession. This is used for
+
+222
+00:10:50,717 --> 00:10:54,051
+fetching stuff from URLs over the network.
+
+223
+00:10:54,120 --> 00:10:57,222
+We already saw in our demo on Monday how we did that with
+
+224
+00:10:57,290 --> 00:11:00,658
+the data object. But that was kind of a dumb thing, you
+
+225
+00:11:00,726 --> 00:11:04,795
+can't get any HTTP response out of it. The errors,
+
+226
+00:11:04,864 --> 00:11:08,032
+you have to handle them kinda funny. This is much more
+
+227
+00:11:08,101 --> 00:11:10,735
+sophisticated way to request something on the network,
+
+228
+00:11:10,803 --> 00:11:15,039
+URLSession. As a very simple API, you just create
+
+229
+00:11:15,108 --> 00:11:18,242
+a URLSession with a certain configuration. The great thing
+
+230
+00:11:18,311 --> 00:11:21,079
+about URLSession is you can do things like I want my timeout
+
+231
+00:11:21,147 --> 00:11:24,048
+to be five seconds, for example. You can't do that
+
+232
+00:11:24,117 --> 00:11:26,016
+with the data thing, it's got some built-in time.
+
+233
+00:11:26,085 --> 00:11:28,819
+Out here you can specify how long you wanna wait before
+
+234
+00:11:28,888 --> 00:11:30,755
+you time out on the network or whatever. So
+
+235
+00:11:30,824 --> 00:11:32,757
+you create your session with some configuration,
+
+236
+00:11:32,825 --> 00:11:34,592
+usually the default configuration.
+
+237
+00:11:34,661 --> 00:11:37,294
+Now all you need to do to make it go fetch something
+
+238
+00:11:37,363 --> 00:11:38,763
+is create a URL and
+
+239
+00:11:38,832 --> 00:11:42,266
+call the function on the session called dataTask with
+
+240
+00:11:42,335 --> 00:11:46,104
+URL. A dataTask with URL creates what's called a data
+
+241
+00:11:46,172 --> 00:11:48,406
+task, a task to go get some data.
+
+242
+00:11:48,475 --> 00:11:51,342
+And it starts out paused, and then you're gonna say,
+
+243
+00:11:51,411 --> 00:11:54,245
+the very next line you almost always say resume, and
+
+244
+00:11:54,313 --> 00:11:57,882
+that starts it going. Now notice that dataTask with URL
+
+245
+00:11:57,950 --> 00:12:00,818
+function takes another argument. I'm using trailing
+
+246
+00:12:00,887 --> 00:12:02,987
+closure notation to put it outside the parentheses, but
+
+247
+00:12:03,056 --> 00:12:05,656
+it's just an argument to dataTask there.
+
+248
+00:12:05,725 --> 00:12:09,727
+And that argument is a closure that this URL thing is gonna
+
+249
+00:12:09,796 --> 00:12:13,564
+call, URLSession is gonna call when it gets the data.
+
+250
+00:12:13,632 --> 00:12:16,066
+And you can see the closure actually takes the data that
+
+251
+00:12:16,135 --> 00:12:19,537
+it gets as an argument, which makes sense. Also response and
+
+252
+00:12:19,606 --> 00:12:23,241
+error which is HTTP response and any error that might come
+
+253
+00:12:23,309 --> 00:12:26,077
+along in there, okay. So don't worry too much about that.
+
+254
+00:12:26,145 --> 00:12:28,246
+But the bottom line is you give it a closure.
+
+255
+00:12:28,315 --> 00:12:31,749
+Now the interesting thing about this closure is it's
+
+256
+00:12:31,817 --> 00:12:36,653
+executed off the main queue. So if you wanna do UI things
+
+257
+00:12:36,722 --> 00:12:39,057
+in there, which you might well wanna do because you wanna do
+
+258
+00:12:39,125 --> 00:12:41,625
+something with the data you got back, put it in the UI.
+
+259
+00:12:41,694 --> 00:12:44,295
+Can you do it in there? And the answer is, no, you cannot,
+
+260
+00:12:44,364 --> 00:12:49,967
+because you cannot do UI stuff off the main queue. But
+
+261
+00:12:50,036 --> 00:12:52,770
+what if I need to do UI stuff? How do I do it?
+
+262
+00:12:52,839 --> 00:12:56,207
+Well, you're just going to dispatch back to the main
+
+263
+00:12:56,276 --> 00:12:59,410
+queue in there. DispatchQueue.main,
+
+264
+00:12:59,479 --> 00:13:03,714
+get the main queue, async, put a closure on that queue, and
+
+265
+00:13:03,783 --> 00:13:08,085
+you do your UI stuff in there. Now this all it looks almost
+
+266
+00:13:08,154 --> 00:13:10,587
+too good to be true it's so easy, right? But there's
+
+267
+00:13:10,656 --> 00:13:13,624
+a little bit to think it about here in terms of timing.
+
+268
+00:13:13,693 --> 00:13:15,559
+So I'm gonna walk you through the timing of this code.
+
+269
+00:13:15,628 --> 00:13:18,095
+This is the exact same code with just some labels on
+
+270
+00:13:18,164 --> 00:13:19,096
+the lines here. And
+
+271
+00:13:19,165 --> 00:13:21,466
+we're gonna go through this step by step how this happens.
+
+272
+00:13:21,534 --> 00:13:25,336
+First, line a executes., of course, we're starting to do
+
+273
+00:13:25,405 --> 00:13:29,607
+this URLSession request. Then line b where we create this
+
+274
+00:13:29,676 --> 00:13:32,876
+dataTask, this line b returns immediately.
+
+275
+00:13:32,945 --> 00:13:35,313
+It immediately creates the dataTask and
+
+276
+00:13:35,382 --> 00:13:37,148
+grabs that closure and hold on to it for
+
+277
+00:13:37,216 --> 00:13:40,317
+a second and starts the task paused. So that's the second
+
+278
+00:13:40,386 --> 00:13:45,155
+line that executes. Then line g. Because of the fact line b
+
+279
+00:13:45,224 --> 00:13:48,393
+returned immediately of course line g executes next, and you
+
+280
+00:13:48,461 --> 00:13:52,263
+say, resume. That starts that task fetching the URL over
+
+281
+00:13:52,331 --> 00:13:56,600
+the network in the background, not in the main queue. So
+
+282
+00:13:56,669 --> 00:14:01,738
+the next line that executes is line h.
+
+283
+00:14:01,807 --> 00:14:05,242
+Because resume just instantly starts in the background, but
+
+284
+00:14:05,311 --> 00:14:07,378
+line h continues in the foreground and
+
+285
+00:14:07,446 --> 00:14:11,882
+runs. What do you think the next line that executes is?
+
+286
+00:14:11,951 --> 00:14:15,653
+Well, about five seconds or five hours or five minutes or
+
+287
+00:14:15,722 --> 00:14:18,455
+whatever later, line c will execute.
+
+288
+00:14:18,524 --> 00:14:23,026
+This happens when the data comes back from the URL. So
+
+289
+00:14:23,095 --> 00:14:24,395
+now I'm doing something with the data,
+
+290
+00:14:24,464 --> 00:14:27,798
+processing it, looking at it, we're doing whatever I want.
+
+291
+00:14:27,867 --> 00:14:31,001
+Then line d executes because I need to do some UI work.
+
+292
+00:14:31,070 --> 00:14:35,139
+So I dispatch a closure that says do UI stuff here onto
+
+293
+00:14:35,208 --> 00:14:37,842
+the main queue, and it gets in line to run on the main queue.
+
+294
+00:14:37,910 --> 00:14:39,009
+But the main queue might be busy or
+
+295
+00:14:39,078 --> 00:14:41,713
+there might be other things on the main queue ahead of this
+
+296
+00:14:41,781 --> 00:14:44,415
+closure. So this is not gonna execute immediately.
+
+297
+00:14:44,483 --> 00:14:47,885
+Instead, line f will execute immediately. So notice that
+
+298
+00:14:47,954 --> 00:14:53,357
+line e has still not run, but line f has. What happens next?
+
+299
+00:14:53,426 --> 00:14:57,928
+Finally, line e runs whenever the main queue is quiet and
+
+300
+00:14:57,997 --> 00:15:00,698
+ready to do it. And all the other closures that were ahead
+
+301
+00:15:00,767 --> 00:15:03,801
+of it in line run. Then e runs, okay.
+
+302
+00:15:03,870 --> 00:15:07,071
+So do you see how what's happening with what runs when?
+
+303
+00:15:07,139 --> 00:15:09,773
+So the code makes it look like the stuff will run top to
+
+304
+00:15:09,842 --> 00:15:12,309
+bottom, but it doesn't. It runs a little out of order
+
+305
+00:15:12,378 --> 00:15:16,113
+there because it's happening in a background thread.
+
+306
+00:15:16,182 --> 00:15:19,983
+All right, so the summary is that it goes a b g h c d f e,
+
+307
+00:15:20,052 --> 00:15:24,288
+but this is only the most likely order
+
+308
+00:15:24,357 --> 00:15:25,823
+because this is threads.
+
+309
+00:15:25,892 --> 00:15:27,558
+Things are happening simultaneously.
+
+310
+00:15:27,627 --> 00:15:30,494
+It is possible, believe it or not, that line e,
+
+311
+00:15:30,563 --> 00:15:34,165
+the UI stuff, could actually run before line f.
+
+312
+00:15:34,234 --> 00:15:36,234
+It's possible that it dispatches to the main queue,
+
+313
+00:15:36,303 --> 00:15:37,635
+and the main queue immediately grabs it.
+
+314
+00:15:37,703 --> 00:15:39,103
+The main queue is a very high priority queue.
+
+315
+00:15:39,172 --> 00:15:40,805
+Maybe it immediately grabs it and
+
+316
+00:15:40,874 --> 00:15:43,440
+starts running it before f has a chance to even run.
+
+317
+00:15:43,509 --> 00:15:45,009
+And if you have a single processor,
+
+318
+00:15:45,078 --> 00:15:49,346
+that would definitely be possible. So that's the most
+
+319
+00:15:49,415 --> 00:15:51,882
+important thing to understand about multithreading is its
+
+320
+00:15:51,951 --> 00:15:53,350
+kind of asynchronous nature, and
+
+321
+00:15:53,419 --> 00:15:55,520
+that will take some getting used to, believe me.
+
+322
+00:15:55,588 --> 00:15:58,055
+All right, so the demo I'm gonna do of multithreading is
+
+323
+00:15:58,123 --> 00:16:00,725
+we're gonna take Cassini and we're gonna enhance its user
+
+324
+00:16:00,793 --> 00:16:05,263
+interface a little bit. And then we are going to,
+
+325
+00:16:05,331 --> 00:16:08,966
+where is Cassini? Do I have Cassini up here? Yeah, I do.
+
+326
+00:16:09,034 --> 00:16:11,602
+Let's just hide that. Whoops, not mess with that.
+
+327
+00:16:11,670 --> 00:16:16,441
+Let's just go like this. All right, so here's Cassini. So
+
+328
+00:16:16,509 --> 00:16:19,109
+right now, Cassini just displays this image,
+
+329
+00:16:19,178 --> 00:16:23,380
+this demo URL that we made right here. So I'm going to
+
+330
+00:16:23,449 --> 00:16:26,550
+comment that out and instead, I'm going to build
+
+331
+00:16:26,619 --> 00:16:29,120
+some UI to use my ImageViewController as
+
+332
+00:16:29,189 --> 00:16:30,988
+a generic image viewing MVC.
+
+333
+00:16:31,057 --> 00:16:33,890
+I'm gonna add another MVC similar to like we did with
+
+334
+00:16:33,959 --> 00:16:38,195
+the themes, when we chose the themes. This MVC is gonna pick
+
+335
+00:16:38,264 --> 00:16:41,265
+which Cassini image I wanna look at. I have some
+
+336
+00:16:41,334 --> 00:16:44,668
+Cassini images which I'll show you the URLs for in a second,
+
+337
+00:16:44,737 --> 00:16:49,172
+that were taken related to the Cassini probe to Saturn. And I
+
+338
+00:16:49,241 --> 00:16:53,510
+want to look at them onscreen. So let's start by doing our UI
+
+339
+00:16:53,579 --> 00:16:57,281
+first. So let's just go all UI here. So here's our UI,
+
+340
+00:16:57,350 --> 00:17:01,918
+our existing, kinda generic image-viewing MVC.
+
+341
+00:17:01,987 --> 00:17:05,122
+And I'm gonna go down here and create a new view controller.
+
+342
+00:17:05,191 --> 00:17:08,726
+Just drag it out here. Course, view controllers all need to
+
+343
+00:17:08,795 --> 00:17:13,464
+have their own subclass. So I will create a new subclass.
+
+344
+00:17:13,533 --> 00:17:18,302
+I'm going to call this my CassiniViewController.
+
+345
+00:17:18,370 --> 00:17:20,804
+I'm going to make sure I put it in the right place,
+
+346
+00:17:20,873 --> 00:17:24,175
+not at the project level. All right,
+
+347
+00:17:24,244 --> 00:17:26,877
+so here it is. I'm going to select it and
+
+348
+00:17:26,946 --> 00:17:30,214
+make sure I go to my identity inspector over here and
+
+349
+00:17:30,283 --> 00:17:33,951
+change its identity to be ImageViewController.
+
+350
+00:17:34,020 --> 00:17:36,320
+I'm going to have it be the place I enter.
+
+351
+00:17:37,524 --> 00:17:38,422
+Let's actually go ahead and
+
+352
+00:17:38,490 --> 00:17:41,358
+build our whole UI. In fact, let's make this both on iPad
+
+353
+00:17:41,427 --> 00:17:43,727
+and on iPhone. So I'm going to take this guy and
+
+354
+00:17:43,796 --> 00:17:46,097
+I'm going to embed it in a navigation controller.
+
+355
+00:17:46,165 --> 00:17:47,932
+I'm going to take this view controller right here.
+
+356
+00:17:48,001 --> 00:17:51,102
+Embed it, Embed in Navigation Controller.
+
+357
+00:17:51,170 --> 00:17:54,605
+And then I'm going to take this whole thing, right here,
+
+358
+00:17:54,674 --> 00:17:57,341
+and make this be the master of a split view. And
+
+359
+00:17:57,410 --> 00:18:00,644
+this is going to be my detail. So let's zoom way out here and
+
+360
+00:18:00,713 --> 00:18:06,183
+grab a Split View Controller. This out, as usual, our
+
+361
+00:18:06,251 --> 00:18:09,286
+Split View Controller brings out the document outline and
+
+362
+00:18:09,355 --> 00:18:13,424
+has all this extra stuff here. Whoops, we don't need any of
+
+363
+00:18:13,492 --> 00:18:16,460
+this extra stuff, so let's delete that. Then we'll
+
+364
+00:18:16,528 --> 00:18:21,832
+zoom back in. Grab our Split View Controller here.
+
+365
+00:18:21,900 --> 00:18:25,536
+Let's make the Split View Controller be where we enter.
+
+366
+00:18:25,605 --> 00:18:30,574
+All right, let's make this be our master. Let's grab this
+
+367
+00:18:30,643 --> 00:18:36,047
+and bring it down here and make it be our detail. So
+
+368
+00:18:36,115 --> 00:18:38,282
+we've set this up. Hopefully, you're used to doing this.
+
+369
+00:18:38,351 --> 00:18:39,650
+You're doing this in your homework,
+
+370
+00:18:39,719 --> 00:18:43,320
+pretty straightforward. So now we got a UI that will pretty
+
+371
+00:18:43,389 --> 00:18:45,623
+much work on both devices.
+
+372
+00:18:45,692 --> 00:18:48,459
+Both Split View on iPad and
+
+373
+00:18:48,528 --> 00:18:52,363
+then also it will work on an iPhone.
+
+374
+00:18:52,431 --> 00:18:56,400
+So we need to prepare this imagery controller right here.
+
+375
+00:18:56,469 --> 00:18:58,969
+And we need to have or sorry, prepare this one. Then we need
+
+376
+00:18:59,038 --> 00:19:01,905
+some UI in this one to choose the Cassini image.
+
+377
+00:19:01,974 --> 00:19:05,075
+So I'm gonna do the same kind of silly thing I did before,
+
+378
+00:19:05,144 --> 00:19:08,946
+but not quite as silly as it was the last time. Which is to
+
+379
+00:19:09,015 --> 00:19:12,082
+put three buttons in here. So I have three Cassini images,
+
+380
+00:19:12,151 --> 00:19:13,884
+so I'm gonna have three buttons.
+
+381
+00:19:13,953 --> 00:19:17,888
+Let's go ahead and make them big font here.
+
+382
+00:19:17,957 --> 00:19:21,291
+40 points seems to be my favorite size font. And
+
+383
+00:19:21,360 --> 00:19:25,329
+the three images I have a image of Cassini itself, and
+
+384
+00:19:25,397 --> 00:19:29,566
+then I have an image of Earth, and
+
+385
+00:19:29,635 --> 00:19:34,505
+then I have an image of Saturn. Okay.
+
+386
+00:19:34,574 --> 00:19:38,476
+Oops, not Satrun, Saturn. Okay cuz Cassini is a probe going
+
+387
+00:19:38,544 --> 00:19:41,879
+from Earth to Saturn. And I'll do a little review.
+
+388
+00:19:41,948 --> 00:19:45,616
+We're gonna to embed this in the stack view. I'm gonna make
+
+389
+00:19:45,684 --> 00:19:49,420
+it fill, I'm going to make them be the same size buttons.
+
+390
+00:19:49,489 --> 00:19:52,622
+I'm gonna set the standard spacing here.
+
+391
+00:19:52,691 --> 00:19:56,160
+Let's go ahead and put this in the middle. I'll go ahead and
+
+392
+00:19:56,228 --> 00:19:59,696
+control+drag to make this always be centered vertically
+
+393
+00:19:59,765 --> 00:20:03,500
+and horizontally. You can see it's a little off-center from
+
+394
+00:20:03,569 --> 00:20:05,603
+there. So I'm gonna go over to my document outline,
+
+395
+00:20:05,671 --> 00:20:09,139
+which is where we resolve all auto layout issues,
+
+396
+00:20:09,208 --> 00:20:11,542
+with this button up here. I'll click on that.
+
+397
+00:20:11,611 --> 00:20:13,877
+Here's all my problems. It's just this one problem.
+
+398
+00:20:13,946 --> 00:20:16,513
+This thing's not positioned where it should be.
+
+399
+00:20:16,582 --> 00:20:18,749
+I'm gonna click the little triangle and fix it,
+
+400
+00:20:18,817 --> 00:20:21,218
+either by updating my frames or updating my constraints.
+
+401
+00:20:21,287 --> 00:20:23,387
+In this case, my constraints are right but
+
+402
+00:20:23,455 --> 00:20:25,756
+the frame is wrong, so I will fix the misplacement.
+
+403
+00:20:25,825 --> 00:20:28,425
+It moved it, no more auto layout issues.
+
+404
+00:20:28,494 --> 00:20:32,562
+We have a great UI there. It's a quick review of auto layout.
+
+405
+00:20:32,631 --> 00:20:35,066
+I'm gonna try and review auto layout as much as I can,
+
+406
+00:20:35,134 --> 00:20:37,868
+because there's a lot to auto layout. All right, so
+
+407
+00:20:37,937 --> 00:20:41,772
+now we're going to set up some segues from our master here to
+
+408
+00:20:41,841 --> 00:20:46,143
+our detail and I'm gonna do this one a little differently.
+
+409
+00:20:46,212 --> 00:20:48,579
+Before, remember before, I had one kind of segue,
+
+410
+00:20:48,647 --> 00:20:51,749
+one identifier and then I looked back the button title.
+
+411
+00:20:51,817 --> 00:20:53,651
+And I said, that's kinda bad code,
+
+412
+00:20:53,719 --> 00:20:56,153
+because what if those button titles were in French?
+
+413
+00:20:56,221 --> 00:20:57,354
+And then it's like so
+
+414
+00:20:57,423 --> 00:20:59,456
+I'm gonna do this a little bit different way. The real way
+
+415
+00:20:59,525 --> 00:21:02,092
+I would do this probably is I'd use a table view.
+
+416
+00:21:02,160 --> 00:21:06,129
+Which is this extensible table list of things. And then I
+
+417
+00:21:06,198 --> 00:21:09,433
+could both add more things and also, I could easily find out
+
+418
+00:21:09,502 --> 00:21:11,969
+which one was picked by its index into the role of table,
+
+419
+00:21:12,038 --> 00:21:14,071
+but I haven't taught you table view yet. So
+
+420
+00:21:14,139 --> 00:21:17,408
+that's why we're using these button solutions. All right,
+
+421
+00:21:17,476 --> 00:21:20,377
+so I'm going to create a segue from Cassini down to here.
+
+422
+00:21:20,446 --> 00:21:21,745
+It's going to show detail
+
+423
+00:21:21,814 --> 00:21:24,548
+because we're in a split view. Same thing with Earth.
+
+424
+00:21:24,617 --> 00:21:27,918
+Show detail. And with Saturn, show detail.
+
+425
+00:21:27,986 --> 00:21:30,954
+But instead of having them all have the same identifier,
+
+426
+00:21:31,023 --> 00:21:33,357
+I'm gonna give them each a different identifier,
+
+427
+00:21:33,425 --> 00:21:36,894
+which is which image to open. That way if I change
+
+428
+00:21:36,963 --> 00:21:39,797
+the language here, they'll all still open the proper image.
+
+429
+00:21:39,866 --> 00:21:42,265
+So here, this one is the Cassini one, right? So
+
+430
+00:21:42,334 --> 00:21:45,936
+I'm gonna have its identifier just be Cassini. And then this
+
+431
+00:21:46,005 --> 00:21:49,840
+one is the Earth one, so we'll have its identifier be Earth.
+
+432
+00:21:49,909 --> 00:21:53,743
+And this one is Saturn, so we'll have this be Saturn.
+
+433
+00:21:53,812 --> 00:21:55,746
+So I am just setting the identifier of these segues, so
+
+434
+00:21:55,815 --> 00:21:59,650
+I know which one to show. A little bit better,
+
+435
+00:21:59,718 --> 00:22:05,355
+more kind of accurate way to do that. But now, of course,
+
+436
+00:22:05,424 --> 00:22:08,626
+we need to prepare our generic Image View Controller,
+
+437
+00:22:08,694 --> 00:22:12,062
+set its model, its public model which is that image URL.
+
+438
+00:22:12,130 --> 00:22:14,565
+So let's go look at our CassiniViewController code
+
+439
+00:22:14,633 --> 00:22:17,801
+right here. We'll clean out all the junk. These are view
+
+440
+00:22:17,870 --> 00:22:19,736
+controller lifecycle methods, hopefully you recognize.
+
+441
+00:22:19,805 --> 00:22:23,507
+We'll get rid of those. Let's uncomment out our navigation
+
+442
+00:22:24,643 --> 00:22:27,478
+stuff here and do our prepare for
+
+443
+00:22:27,547 --> 00:22:29,846
+segue. So how am I gonna prepare for the segue?
+
+444
+00:22:29,915 --> 00:22:32,750
+Well, I need to look at the identifier to see which image
+
+445
+00:22:32,818 --> 00:22:36,486
+I'm gonna show. So let's say, if we can let identifier =
+
+446
+00:22:36,555 --> 00:22:40,558
+the segue's identifier, in other words, it's not nil.
+
+447
+00:22:40,626 --> 00:22:43,127
+Then I'm just gonna see if I can get a URL.
+
+448
+00:22:43,196 --> 00:22:45,896
+Here's my demo URLs. I showed you this before,
+
+449
+00:22:45,964 --> 00:22:49,432
+but let's show it again. See I have this dictionary here,
+
+450
+00:22:49,501 --> 00:22:52,770
+this NASA dictionary that has strings as the keys and
+
+451
+00:22:52,838 --> 00:22:56,107
+URLs as the values. And so for each one, Cassini,
+
+452
+00:22:56,175 --> 00:22:58,641
+I have a little URL. For Earth, I have a URL.
+
+453
+00:22:58,710 --> 00:22:59,710
+For Saturn, I have a URL.
+
+454
+00:22:59,778 --> 00:23:03,080
+So I'm just gonna look up in this dictionary to see if I
+
+455
+00:23:03,148 --> 00:23:06,716
+can find the name of the identifier. And if I can,
+
+456
+00:23:06,785 --> 00:23:11,054
+then I know I have an image to show. So let's do that.
+
+457
+00:23:11,123 --> 00:23:15,092
+I'm just going to say, oops, not identifer,
+
+458
+00:23:15,161 --> 00:23:19,596
+identifier, fier, fier. Fier! Okay.
+
+459
+00:23:19,665 --> 00:23:24,701
+So here I'm going to say, if I can let the URL equal my demo
+
+460
+00:23:24,770 --> 00:23:30,607
+URLs.NASA sub the identifier. Okay so
+
+461
+00:23:30,676 --> 00:23:33,711
+if that comes back true, I was able to get an image and so
+
+462
+00:23:33,779 --> 00:23:36,847
+now I can do a segue to a image showing view controller,
+
+463
+00:23:36,916 --> 00:23:39,783
+which is my Image View Controller I built in the last
+
+464
+00:23:39,852 --> 00:23:44,154
+lecture. So I'm gonna say if can let imageVC =
+
+465
+00:23:44,223 --> 00:23:49,159
+segue.destination as? An ImageViewController then I can
+
+466
+00:23:49,228 --> 00:23:52,763
+set the ImageViewController's public API.
+
+467
+00:23:52,832 --> 00:23:54,464
+Let's remind ourselves what that is.
+
+468
+00:23:54,533 --> 00:23:57,167
+Here's the ImageVewController that we worked on last time.
+
+469
+00:23:57,235 --> 00:24:01,004
+Its public API was this. ImageURL sets the URL you
+
+470
+00:24:01,073 --> 00:24:05,842
+want, so we're gonna set that. Public API imageURL equal to
+
+471
+00:24:05,911 --> 00:24:09,947
+the URL. I'm also going to set the title of this thing.
+
+472
+00:24:10,015 --> 00:24:12,483
+And here I am going to use the Button title.
+
+473
+00:24:12,552 --> 00:24:16,086
+Sender as UI button. If it's in fact a button,
+
+474
+00:24:16,155 --> 00:24:20,190
+get its current title. Now is this bad? This was not so
+
+475
+00:24:20,259 --> 00:24:23,527
+bad because here I'm setting the title of that destination
+
+476
+00:24:23,595 --> 00:24:25,862
+image view controller to be the same as the title of the
+
+477
+00:24:25,931 --> 00:24:28,531
+button. Well then presumably the button is localized to the
+
+478
+00:24:28,600 --> 00:24:32,102
+local language, so I'm putting button title now in the title.
+
+479
+00:24:32,171 --> 00:24:36,674
+It's not so bad. This one's not bad because we're talking
+
+480
+00:24:36,742 --> 00:24:39,142
+about UI elements that have been localized in both cases
+
+481
+00:24:39,211 --> 00:24:43,547
+right there. So that's all we really need to do to prepare,
+
+482
+00:24:43,615 --> 00:24:45,449
+let's go ahead and run and see if this works.
+
+483
+00:24:45,517 --> 00:24:49,686
+We'll run this on the iPhone here, and hopefully when we
+
+484
+00:24:49,755 --> 00:24:53,023
+click on one of those buttons it will go out and
+
+485
+00:24:53,092 --> 00:24:57,061
+hopefully the network will work today and it will fetch
+
+486
+00:24:57,129 --> 00:25:00,430
+those images. Now those images are quite large, so
+
+487
+00:25:00,499 --> 00:25:06,569
+it might take a while to do. Right, so here we go. It comes
+
+488
+00:25:06,638 --> 00:25:09,306
+up showing the detail, right, we didn't put the little split
+
+489
+00:25:09,374 --> 00:25:11,274
+view trick in there to make it collapse the thing.
+
+490
+00:25:11,343 --> 00:25:14,178
+So let's go back here, here we go, here's our UI, Cassini,
+
+491
+00:25:14,246 --> 00:25:19,416
+Earth and Saturn. Let's try Cassini. It didn't work. So
+
+492
+00:25:19,484 --> 00:25:21,017
+why did this not work?
+
+493
+00:25:21,086 --> 00:25:28,058
+Let's go >> [INAUDIBLE]
+
+494
+00:25:28,127 --> 00:25:28,826
+>> Sorry I missed,
+
+495
+00:25:28,894 --> 00:25:31,495
+did something in the story board let's go back and look.
+
+496
+00:25:31,564 --> 00:25:33,463
+I love it when the students are on top of it.
+
+497
+00:25:33,532 --> 00:25:37,500
+So what did I do here? >> [INAUDIBLE]
+
+498
+00:25:37,569 --> 00:25:39,603
+>> This one right here? Yeah,
+
+499
+00:25:39,671 --> 00:25:43,941
+that's interesting, yeah. So when I set the identity of
+
+500
+00:25:44,010 --> 00:25:47,044
+this right here, I accidentally set it to image
+
+501
+00:25:47,112 --> 00:25:50,046
+view controller, it should be a Cassini view controller.
+
+502
+00:25:50,115 --> 00:25:51,715
+Where is my Cassini view controller, there it is.
+
+503
+00:25:51,784 --> 00:25:52,849
+Good catch right there. Could,
+
+504
+00:25:52,918 --> 00:25:55,385
+probably could have looked at that for five minutes.
+
+505
+00:25:55,454 --> 00:25:58,455
+All right, so yeah. So I accidentally, after I made it,
+
+506
+00:25:58,524 --> 00:26:00,757
+I picked the wrong one, so here we go. And
+
+507
+00:26:00,826 --> 00:26:02,225
+that's a common thing to do actually,
+
+508
+00:26:02,294 --> 00:26:05,095
+to either forget to set this guy's identity or to set it to
+
+509
+00:26:05,164 --> 00:26:08,198
+something wrong. So why did that make this not work?
+
+510
+00:26:08,267 --> 00:26:11,668
+Well, because this prepare right here was not getting
+
+511
+00:26:11,736 --> 00:26:14,571
+called because that was not a CassiniViewController but
+
+512
+00:26:14,640 --> 00:26:23,280
+now it is, so let's try it again. Okay so here we go,
+
+513
+00:26:23,349 --> 00:26:27,284
+go back, let's try. Cassini. Hopefully, it doesn't seem to
+
+514
+00:26:27,352 --> 00:26:32,822
+be working. No! It crashed. Okay now, it crashes.
+
+515
+00:26:32,891 --> 00:26:35,458
+We hate crashes but hopefully we're getting comfortable with
+
+516
+00:26:35,527 --> 00:26:38,661
+looking at why crashes happen especially looking here at our
+
+517
+00:26:38,730 --> 00:26:41,064
+back trace. So let's look and see what happened here.
+
+518
+00:26:41,132 --> 00:26:44,267
+Why did this crash? Well we're crashing in our image view
+
+519
+00:26:44,336 --> 00:26:46,470
+controller right, there's our image view controller.
+
+520
+00:26:46,538 --> 00:26:49,506
+Where we set the image. This is where we set the image to
+
+521
+00:26:49,574 --> 00:26:52,876
+something, we size to fit, and then we adjust the content
+
+522
+00:26:52,945 --> 00:26:57,247
+area of our scrollView, right? But no, something's nil,
+
+523
+00:26:57,316 --> 00:27:00,617
+here. Well we know the imageView can't be nil because
+
+524
+00:27:00,686 --> 00:27:03,420
+we set it right off the bat to be in imageView,
+
+525
+00:27:03,489 --> 00:27:05,088
+so it must be that this scrollView is nil.
+
+526
+00:27:05,157 --> 00:27:08,892
+Let's see. Self, here's my self down here. Yeah,
+
+527
+00:27:08,961 --> 00:27:12,095
+sure enough self scrollView is nil. Well,
+
+528
+00:27:12,163 --> 00:27:15,732
+let's go back up the trace here and see what's happening.
+
+529
+00:27:15,801 --> 00:27:18,202
+This is happening because someone set our public API,
+
+530
+00:27:18,270 --> 00:27:21,104
+that makes sense. And we're setting the image to nil to
+
+531
+00:27:21,173 --> 00:27:24,975
+clear out any old image. And then where was that call from?
+
+532
+00:27:25,043 --> 00:27:29,312
+Prepare for segue, yeah. Okay any time you have a crash,
+
+533
+00:27:29,381 --> 00:27:31,481
+something's nil, and you were in your prepare for
+
+534
+00:27:31,550 --> 00:27:35,351
+segue you're gonna go, oops. I have an outlet and
+
+535
+00:27:35,420 --> 00:27:37,421
+it was not set because that's what happens right?
+
+536
+00:27:37,489 --> 00:27:40,056
+Prepare happens before your outlets are set and so
+
+537
+00:27:40,125 --> 00:27:42,893
+when we look up here, this is an outlet. Scroll view is
+
+538
+00:27:42,961 --> 00:27:45,962
+an outlet, right here, and it's not yet been set because
+
+539
+00:27:46,031 --> 00:27:48,298
+we're preparing. So what's a good fix for this?
+
+540
+00:27:48,366 --> 00:27:51,902
+How about we just optional chain. That makes it so
+
+541
+00:27:51,970 --> 00:27:54,504
+that this line will be ignored if scroll view is nil, and
+
+542
+00:27:54,573 --> 00:27:57,040
+that's okay because all that's happening here is that we're
+
+543
+00:27:57,109 --> 00:27:59,342
+trying to set the image to new anyway. But
+
+544
+00:27:59,411 --> 00:28:02,345
+since we're just preparing, it's going to start out nil so
+
+545
+00:28:02,414 --> 00:28:04,614
+it won't hurt anything to do that. So
+
+546
+00:28:04,683 --> 00:28:09,253
+here's what we want to do that. Simple fix to it. So
+
+547
+00:28:09,321 --> 00:28:11,855
+I obviously left that in there again so we could do
+
+548
+00:28:11,924 --> 00:28:15,692
+this again because I know you guys run into this crash and
+
+549
+00:28:15,760 --> 00:28:20,730
+you want to make sure you're comfortable with diagnosing
+
+550
+00:28:20,799 --> 00:28:23,200
+it. So lets go back, lets try again now. Cassini,
+
+551
+00:28:24,737 --> 00:28:28,504
+it doesn't seem like it works. Wait, it did work. So
+
+552
+00:28:28,573 --> 00:28:32,109
+what happened there. So let's see, is this my Cassini image?
+
+553
+00:28:32,178 --> 00:28:33,843
+Yeah, look at that. There's the Cassini probe,
+
+554
+00:28:33,912 --> 00:28:35,579
+right there. So let's try another one.
+
+555
+00:28:35,647 --> 00:28:39,616
+Let's go try Earth. No, it didn't work. Well, let's go to
+
+556
+00:28:39,685 --> 00:28:42,585
+landscape. How come it's not going to landscape here?
+
+557
+00:28:42,654 --> 00:28:45,689
+Forget it, let's go back. But the back button doesn't work,
+
+558
+00:28:45,758 --> 00:28:49,893
+what's going on here? So you see how my UI was stuck there.
+
+559
+00:28:49,962 --> 00:28:52,762
+I was trying to do back, I was trying to rotate.
+
+560
+00:28:52,831 --> 00:28:55,898
+My UI was just blank, not doing anything.
+
+561
+00:28:55,967 --> 00:28:59,002
+My UI is completely and utterly stuck.
+
+562
+00:28:59,071 --> 00:29:02,372
+No matter where I touch. Even if I rotate, nothing happened.
+
+563
+00:29:02,441 --> 00:29:04,708
+Well this is a horrendous experience for
+
+564
+00:29:04,777 --> 00:29:07,143
+your user. This is the kind of experience that will cause
+
+565
+00:29:07,212 --> 00:29:10,180
+your user to go and delete app.
+
+566
+00:29:10,248 --> 00:29:14,017
+Because you cannot have your UI freezing up like that, so
+
+567
+00:29:14,085 --> 00:29:15,718
+that's why we have multi-threaded,
+
+568
+00:29:15,787 --> 00:29:18,388
+that's such an important piece of the kind of app development
+
+569
+00:29:18,457 --> 00:29:24,461
+we do in IOS. So let's go in here and see if we can
+
+570
+00:29:24,530 --> 00:29:27,297
+fix this with multithreading. So how are we gonna do that?
+
+571
+00:29:27,366 --> 00:29:30,266
+We're gonna go back to my image view controller,
+
+572
+00:29:30,335 --> 00:29:32,903
+this is the thing that's hanging. In fact,
+
+573
+00:29:32,971 --> 00:29:38,075
+it's this line of code right here that is hanging my app,
+
+574
+00:29:38,143 --> 00:29:41,144
+right? This is why I'm trying to go out on the Internet,
+
+575
+00:29:41,213 --> 00:29:43,747
+get that Cassini or Earth URL and it's big and
+
+576
+00:29:43,816 --> 00:29:46,783
+even on our fast Stanford network it's taking a long
+
+577
+00:29:46,851 --> 00:29:50,487
+time to come over. So the line of code is not returning.
+
+578
+00:29:50,555 --> 00:29:53,123
+So I cannot have this line of code executing on the main
+
+579
+00:29:53,192 --> 00:29:56,025
+queue, which is where all my code pretty much runs unless I
+
+580
+00:29:56,094 --> 00:29:57,894
+specifically put it somewhere else or
+
+581
+00:29:57,963 --> 00:30:01,264
+unless I use some iOS API that puts it somewhere else.
+
+582
+00:30:01,332 --> 00:30:04,634
+All right, so how do I get this off the main queue? Well,
+
+583
+00:30:04,703 --> 00:30:08,605
+I just use this dispatch Queue, main queue and
+
+584
+00:30:08,673 --> 00:30:13,276
+then use the async func to put a closure onto the queue.
+
+585
+00:30:13,344 --> 00:30:15,078
+So this is gonna take this code and
+
+586
+00:30:15,147 --> 00:30:17,080
+run it, run it on a different queue.
+
+587
+00:30:17,149 --> 00:30:19,348
+Now, I don't wanna run this on the main queue though,
+
+588
+00:30:19,417 --> 00:30:22,085
+I wanna run it on one of those quality of service queues. So
+
+589
+00:30:22,154 --> 00:30:27,524
+how do I do that? I'm gonna go global queue, and the argument
+
+590
+00:30:27,592 --> 00:30:32,162
+I want to it is quality of service. Not q, q, o,s,
+
+591
+00:30:32,231 --> 00:30:36,199
+quality of service. And the one I want is user initiated.
+
+592
+00:30:36,268 --> 00:30:41,138
+Because the user did just ask me to do something, right? So
+
+593
+00:30:41,206 --> 00:30:43,940
+I'm going to put it on the queue that gives me that good
+
+594
+00:30:44,009 --> 00:30:46,810
+quality of service that I want from something initiated. And
+
+595
+00:30:46,879 --> 00:30:47,644
+what am I gonna do here?
+
+596
+00:30:47,713 --> 00:30:50,080
+Well, I'm just gonna do this, right here. And
+
+597
+00:30:50,149 --> 00:30:53,283
+I'm just gonna put this right there, go do that. And
+
+598
+00:30:53,352 --> 00:30:56,586
+this will immediately stop my app from blocking like that,
+
+599
+00:30:56,654 --> 00:30:59,790
+because it's going to be doing this network fetch on some
+
+600
+00:30:59,858 --> 00:31:03,093
+other queue. Now see, it's complaining here,
+
+601
+00:31:03,161 --> 00:31:06,896
+cuz of course this is now inside of a closure. So
+
+602
+00:31:06,965 --> 00:31:10,467
+I have to do self like that. Now every time I do this,
+
+603
+00:31:10,535 --> 00:31:13,036
+what did I tell you to do? Check to see if you have
+
+604
+00:31:13,105 --> 00:31:16,573
+a memory cycle, right? And we don't have one here
+
+605
+00:31:16,642 --> 00:31:20,343
+because self does not have a pointer to this closure.
+
+606
+00:31:20,412 --> 00:31:22,979
+There's no pointer inside self that points to this closure,
+
+607
+00:31:23,048 --> 00:31:27,384
+so there's no cycle. However, with multithreading, when you
+
+608
+00:31:27,452 --> 00:31:29,820
+do the self., you have to think of another thing.
+
+609
+00:31:31,323 --> 00:31:35,325
+Which is, what happens if the code before this line that has
+
+610
+00:31:35,394 --> 00:31:38,595
+this elf takes a long time to execute? So
+
+611
+00:31:38,664 --> 00:31:41,831
+long that this view controller doesn't even wanna be
+
+612
+00:31:41,900 --> 00:31:45,435
+here anymore? Can't you imagine that easily happening?
+
+613
+00:31:45,504 --> 00:31:48,405
+Someone clicks to go get an image, the image is taking
+
+614
+00:31:48,474 --> 00:31:50,273
+five minutes to come along, they're like, forget it,
+
+615
+00:31:50,342 --> 00:31:54,578
+and they click somewhere else. Go back, or something.
+
+616
+00:31:54,646 --> 00:31:57,446
+Now that view controller, that requested that image? It's
+
+617
+00:31:57,515 --> 00:32:00,850
+meaningless. It has no value. It should not be in the heap.
+
+618
+00:32:00,919 --> 00:32:06,189
+But if being kept in the heap by this closure. Do you see?
+
+619
+00:32:06,257 --> 00:32:08,691
+Because I have a reference to self in this closure,
+
+620
+00:32:08,760 --> 00:32:10,760
+this view controller, my image view controller,
+
+621
+00:32:10,829 --> 00:32:13,863
+is being kept in the heap for as long as that
+
+622
+00:32:13,932 --> 00:32:17,134
+image request is outstanding. So, this is a case where
+
+623
+00:32:17,202 --> 00:32:21,004
+I want to do weak self here, okay.
+
+624
+00:32:21,073 --> 00:32:24,574
+Not having anything to do with memory cycles but
+
+625
+00:32:24,643 --> 00:32:28,044
+having to do with the fact that I don't want self held
+
+626
+00:32:28,113 --> 00:32:30,781
+in the heap by this closure if this closure takes so
+
+627
+00:32:30,849 --> 00:32:33,417
+long to run, that the user doesn't care about self
+
+628
+00:32:33,485 --> 00:32:36,219
+anymore, then I don't care about self anymore. So,
+
+629
+00:32:36,288 --> 00:32:40,423
+by definition I want it to be weak. Any question about
+
+630
+00:32:40,492 --> 00:32:43,260
+that? So, that's just another thing you need to do when you
+
+631
+00:32:43,328 --> 00:32:47,730
+type that self dot because, so after I warned you about
+
+632
+00:32:47,799 --> 00:32:50,533
+this inside enclosure, if you're doing multi threaded,
+
+633
+00:32:50,602 --> 00:32:53,569
+think about whether things wanna be weak here or
+
+634
+00:32:53,638 --> 00:32:58,642
+whether you really wanna hold things in the heap. All right,
+
+635
+00:32:58,710 --> 00:33:01,444
+so this is good, but this is not gonna work either.
+
+636
+00:33:01,513 --> 00:33:03,546
+While this will stop my UI from blocking,
+
+637
+00:33:03,615 --> 00:33:06,816
+it will probably screw up my UI. Probably cause my UI
+
+638
+00:33:06,884 --> 00:33:09,719
+to draw all funny, or get completely wedged. And why is
+
+639
+00:33:09,788 --> 00:33:14,157
+that? Because of this line of code. Here I'm setting image,
+
+640
+00:33:14,225 --> 00:33:17,494
+which is this thing right here. And if you look at
+
+641
+00:33:17,563 --> 00:33:21,197
+the setting of image, it sets a UIImageView's image,
+
+642
+00:33:21,266 --> 00:33:25,068
+that's a UI think. It sized to fit that UIImageView thing,
+
+643
+00:33:25,137 --> 00:33:27,971
+that's a UI thing. It sets a scrollView's content
+
+644
+00:33:28,040 --> 00:33:30,306
+area to a certain size, that's a UI thing.
+
+645
+00:33:30,375 --> 00:33:33,543
+I'm doing all kinds of Ui stuff when I set this image.
+
+646
+00:33:33,611 --> 00:33:38,047
+So, I can't do this on the queue that I put this code on.
+
+647
+00:33:38,116 --> 00:33:41,984
+This global queue is not a UI queue, I can't do it there.
+
+648
+00:33:42,053 --> 00:33:45,555
+So, what I have to do here is to
+
+649
+00:33:45,623 --> 00:33:50,459
+DispatchQueue.main.async this code
+
+650
+00:33:50,528 --> 00:33:55,665
+back to the main queue. Now, it's gonna get in line and
+
+651
+00:33:55,733 --> 00:33:58,000
+run on the main queue when the main queue is quiet.
+
+652
+00:33:58,069 --> 00:34:03,406
+See that, so this is cool this railway,
+
+653
+00:34:03,474 --> 00:34:04,874
+they can see this code is awesome,
+
+654
+00:34:04,943 --> 00:34:06,710
+this is like the easiest multi threading code you can
+
+655
+00:34:06,778 --> 00:34:10,113
+possibly write. But you do understand that this stuff is
+
+656
+00:34:10,181 --> 00:34:15,151
+happening perhaps a minute after this line of code right?
+
+657
+00:34:15,220 --> 00:34:16,986
+Okay because we're putting on another queue it might be
+
+658
+00:34:17,055 --> 00:34:20,423
+blocking on the network. Now, that leads us to another one
+
+659
+00:34:20,492 --> 00:34:24,026
+last thing we need to do here which is what happens if we
+
+660
+00:34:24,095 --> 00:34:28,031
+request this thing? And not through our UI, but
+
+661
+00:34:28,099 --> 00:34:32,335
+some UI someone calls this image URL and sets it to
+
+662
+00:34:32,404 --> 00:34:38,007
+something else. They set this image URL to something
+
+663
+00:34:38,076 --> 00:34:41,644
+else, and we go to fetch that image. What happens when this
+
+664
+00:34:41,713 --> 00:34:45,782
+image comes back? We don't care about it. We're off on,
+
+665
+00:34:45,850 --> 00:34:48,151
+we're working on a new image. So,
+
+666
+00:34:48,220 --> 00:34:51,955
+when this comes back, we need to check to make sure
+
+667
+00:34:52,023 --> 00:34:56,259
+that our current image URL is the URL we requested here.
+
+668
+00:34:56,328 --> 00:35:01,397
+And we can easily do that by just saying URL equals our
+
+669
+00:35:01,466 --> 00:35:06,035
+image URL. This is week so we got. So,
+
+670
+00:35:06,104 --> 00:35:09,372
+here I'm just checking after this maybe takes five minutes
+
+671
+00:35:09,440 --> 00:35:13,042
+I'm checking to see if that URL is the one I asked for.
+
+672
+00:35:13,111 --> 00:35:15,244
+Because if it's not I don't care about it anymore in this
+
+673
+00:35:15,313 --> 00:35:18,882
+class. Do you see? So, this is what I'm talking about where
+
+674
+00:35:18,950 --> 00:35:20,317
+when you're doing multithreading you have to
+
+675
+00:35:20,385 --> 00:35:21,685
+think about the timing of things,
+
+676
+00:35:21,753 --> 00:35:23,586
+things might take a while and they come back
+
+677
+00:35:23,655 --> 00:35:26,789
+things might be different than they were when you left. So
+
+678
+00:35:26,858 --> 00:35:29,925
+this is a great little piece of code to really understand,
+
+679
+00:35:29,994 --> 00:35:32,795
+cuz it covers a lot of ground, from the weak self, and
+
+680
+00:35:32,864 --> 00:35:35,865
+checking this, and dispatching back to the main queue,
+
+681
+00:35:35,934 --> 00:35:38,101
+getting one of these background queues.
+
+682
+00:35:38,170 --> 00:35:39,936
+Really make sure you understand
+
+683
+00:35:40,005 --> 00:35:42,538
+this little piece of code right here. All right, so
+
+684
+00:35:42,607 --> 00:35:48,378
+let's run and see if this has indeed fixed our nice UI to be
+
+685
+00:35:48,447 --> 00:35:52,449
+responsive. Here we go let's try it again. Let's go Earth.
+
+686
+00:35:52,517 --> 00:35:54,950
+And can we go back? Woo hoo, look at that! I can go back,
+
+687
+00:35:55,019 --> 00:35:59,789
+and now I want Cassini. Here comes Cassini and Earth is
+
+688
+00:35:59,858 --> 00:36:03,025
+still probably being requested and here comes Earth. Ugh, and
+
+689
+00:36:03,094 --> 00:36:05,127
+it didn't do anything. That's great, it just dropped it on
+
+690
+00:36:05,196 --> 00:36:06,829
+the ground because we don't care about Earth anymore.
+
+691
+00:36:06,898 --> 00:36:10,399
+I changed my mind. So here's Cassini, that's great, right?
+
+692
+00:36:10,468 --> 00:36:14,603
+I can rotate, we can go back. Let's pick Earth.
+
+693
+00:36:14,672 --> 00:36:17,707
+Now while I'm waiting for Earth, I could rotate. My UI
+
+694
+00:36:17,776 --> 00:36:19,742
+is completely responsive. I could go back and
+
+695
+00:36:19,811 --> 00:36:20,910
+choose something else. Let's go ahead and
+
+696
+00:36:20,979 --> 00:36:25,915
+let Earth arrive, so Earth is a big image. There it is.
+
+697
+00:36:25,984 --> 00:36:31,387
+Earth seems to be a picture of people, somehow, maybe
+
+698
+00:36:31,456 --> 00:36:35,925
+we'll zoom out a little bit, it's the Earth. So this is
+
+699
+00:36:35,994 --> 00:36:38,528
+a picture of Earth made up of a lot of little people looking
+
+700
+00:36:38,597 --> 00:36:41,231
+up and saying hello to Cassini and that's what this one is.
+
+701
+00:36:41,299 --> 00:36:43,332
+And, similarly they have a similar
+
+702
+00:36:43,401 --> 00:36:46,569
+kind of construction with Saturn here. But
+
+703
+00:36:46,637 --> 00:36:50,106
+you can see that our UI's just dramatically improved by
+
+704
+00:36:50,175 --> 00:36:53,143
+putting that stuff on the other thread there.
+
+705
+00:36:56,981 --> 00:37:01,651
+All right? But our UI's still not that great
+
+706
+00:37:01,720 --> 00:37:05,488
+because watch. What's happening right now?
+
+707
+00:37:05,557 --> 00:37:09,191
+The user has no idea. They wanted the Earth Image and
+
+708
+00:37:09,260 --> 00:37:11,861
+it's not here. They're like, I guess there's no Earth image,
+
+709
+00:37:11,930 --> 00:37:15,098
+you know? They click back. We need to give them some
+
+710
+00:37:15,166 --> 00:37:18,834
+feedback that we are off getting their Earth thing.
+
+711
+00:37:18,903 --> 00:37:22,872
+We need something to let them know, yeah, I'm working on it.
+
+712
+00:37:22,941 --> 00:37:24,040
+Even though you can hit back,
+
+713
+00:37:24,108 --> 00:37:26,476
+you can stay here and you can see your Earth image. So,
+
+714
+00:37:26,544 --> 00:37:27,843
+how are we gonna do that? We're gonna do that with
+
+715
+00:37:27,912 --> 00:37:30,513
+a little spinner. Called an activity indicator.
+
+716
+00:37:30,582 --> 00:37:33,349
+It's just a little spinning view. And
+
+717
+00:37:33,418 --> 00:37:35,718
+this is a good one to show you for another reason too.
+
+718
+00:37:35,787 --> 00:37:38,121
+Which is that it can sometimes get a little crowded trying to
+
+719
+00:37:38,190 --> 00:37:40,523
+build the UI you want, especially when things go all
+
+720
+00:37:40,592 --> 00:37:43,226
+the way to the edges like this scroll view. So
+
+721
+00:37:43,295 --> 00:37:47,030
+this spinner, you can search for it, activity, it's called
+
+722
+00:37:47,099 --> 00:37:49,232
+UI Activity Indicator View. See it right here?
+
+723
+00:37:49,300 --> 00:37:54,003
+I'm gonna drag this out and try to put in the centre of
+
+724
+00:37:54,071 --> 00:37:58,340
+my image view right here. Now, this did a very bad thing,
+
+725
+00:37:58,409 --> 00:38:01,444
+okay. You can't tell, it looks like it's just fine, but
+
+726
+00:38:01,513 --> 00:38:03,813
+it's bad. But the way you can find out and
+
+727
+00:38:03,881 --> 00:38:06,449
+see the badness is going to your document outline.
+
+728
+00:38:06,518 --> 00:38:09,452
+If we go to document outline and try to find this indicator
+
+729
+00:38:09,520 --> 00:38:12,722
+right here, you see it? Look what happened to it,
+
+730
+00:38:12,791 --> 00:38:15,792
+it was made a sub view of the scroll view.
+
+731
+00:38:15,860 --> 00:38:17,894
+Okay any time you drag a view in it gets made
+
+732
+00:38:17,963 --> 00:38:20,596
+a sub view of the thing you drop it on. And we don't want
+
+733
+00:38:20,665 --> 00:38:23,465
+that, cuz we don't want this scroll view scrolling thing to
+
+734
+00:38:23,534 --> 00:38:26,836
+be in the content area of the scroll view. That's what a sub
+
+735
+00:38:26,905 --> 00:38:28,871
+view of a scroll view means interface builder the content
+
+736
+00:38:28,940 --> 00:38:32,008
+area. We want it to kinda sit on top and luckily it's
+
+737
+00:38:32,076 --> 00:38:35,278
+super easy to pull it out on top in the document outline.
+
+738
+00:38:35,347 --> 00:38:37,547
+It's very difficult to pull it out on top over here.
+
+739
+00:38:37,616 --> 00:38:39,715
+But here we can just lift it up and
+
+740
+00:38:39,784 --> 00:38:42,251
+put it, actually that puts it behind, and
+
+741
+00:38:42,320 --> 00:38:45,087
+here we can put it in front. So, now it is not
+
+742
+00:38:45,156 --> 00:38:48,824
+a sub view of the scroll view, it is in front of it,
+
+743
+00:38:48,893 --> 00:38:52,228
+sitting in front of it. Now we also want it to be centered,
+
+744
+00:38:52,297 --> 00:38:53,729
+but not centered in the scroll view,
+
+745
+00:38:53,798 --> 00:38:58,801
+we want to be centered in the super view of the whole MVC.
+
+746
+00:38:58,869 --> 00:38:59,702
+So how can we do that?
+
+747
+00:38:59,771 --> 00:39:02,438
+I mean, my God it's gonna be impossible, control drag.
+
+748
+00:39:02,507 --> 00:39:05,141
+How do I find the edge without hitting the scroll view?
+
+749
+00:39:05,210 --> 00:39:07,510
+It constantly wants the scroll view right there.
+
+750
+00:39:07,578 --> 00:39:11,114
+Well, we can control drag in here.
+
+751
+00:39:11,183 --> 00:39:14,617
+Look at that, then control drag up to here and
+
+752
+00:39:14,686 --> 00:39:16,519
+say we wanted to be standard, horizontally and
+
+753
+00:39:16,588 --> 00:39:18,554
+vertically in the safe are.
+
+754
+00:39:18,623 --> 00:39:21,223
+We got a little displacement there, no problem,
+
+755
+00:39:21,292 --> 00:39:25,794
+we'll fix that, update frames. We put it in the middle. So
+
+756
+00:39:25,863 --> 00:39:29,065
+control dragging inside the document outline is a very
+
+757
+00:39:29,134 --> 00:39:33,335
+good way to get at things that are hard to C. Now, another
+
+758
+00:39:33,404 --> 00:39:36,072
+thing we wanna do is this is very tiny little control.
+
+759
+00:39:36,140 --> 00:39:38,641
+I wanna a bigger one. It turns out there's a bigger one,
+
+760
+00:39:38,710 --> 00:39:41,277
+this large white one. Although I don't want it white cuz this
+
+761
+00:39:41,346 --> 00:39:42,812
+is gonna be white on white.
+
+762
+00:39:42,880 --> 00:39:45,114
+So I'm gonna pick a different color, let's make it blue,
+
+763
+00:39:45,183 --> 00:39:49,952
+let's say. So I've got this nice spinner right here. This
+
+764
+00:39:50,021 --> 00:39:52,655
+spinner by the way, you can either start it out animating
+
+765
+00:39:52,724 --> 00:39:55,525
+or turn it on when you want, which we're going to do.
+
+766
+00:39:55,593 --> 00:39:58,093
+Also you can have the spinner automatically hide itself
+
+767
+00:39:58,162 --> 00:40:01,097
+when it's not spinning. And then when it is spinning,
+
+768
+00:40:01,166 --> 00:40:04,633
+it shows itself so we want that too. So let's go turn
+
+769
+00:40:04,702 --> 00:40:06,870
+this thing on and off, let's go turn the spinner on and
+
+770
+00:40:06,938 --> 00:40:08,838
+off. Where do we want to turn, first of all,
+
+771
+00:40:08,906 --> 00:40:10,172
+we need an outlet to it of course,
+
+772
+00:40:10,241 --> 00:40:11,307
+we're gonna talk to it so,
+
+773
+00:40:11,376 --> 00:40:12,675
+let's put that out there right here.
+
+774
+00:40:12,744 --> 00:40:15,678
+I'm just gonna Ctrl+drag, normal outlet.
+
+775
+00:40:15,747 --> 00:40:16,846
+I'll call it my spinner,
+
+776
+00:40:16,914 --> 00:40:20,183
+that's what I'd like to call my activity indicator there.
+
+777
+00:40:20,251 --> 00:40:23,119
+So here it is, and we just need to turn this thing on and
+
+778
+00:40:23,188 --> 00:40:25,889
+turn it off. Well, the place we need to turn it on is right
+
+779
+00:40:25,957 --> 00:40:28,391
+before we do this really long expensive operation.
+
+780
+00:40:28,460 --> 00:40:31,326
+So I'm gonna write say here, spinner.startAnimating.
+
+781
+00:40:31,395 --> 00:40:34,496
+That's how you turn it on. And where do I wanna turn it off?
+
+782
+00:40:34,565 --> 00:40:38,601
+Well, you might think I wanna turn it off in here. But
+
+783
+00:40:38,670 --> 00:40:40,803
+again, thinking about multithreaded,
+
+784
+00:40:40,872 --> 00:40:43,973
+really I don't wanna do that, because what if another image
+
+785
+00:40:44,042 --> 00:40:46,543
+request goes out, and I'm waiting on it?
+
+786
+00:40:46,611 --> 00:40:48,778
+I still want the spinner to keep spinning. Really,
+
+787
+00:40:48,846 --> 00:40:51,881
+I want this spinner to stop spinning whenever the image
+
+788
+00:40:51,950 --> 00:40:56,251
+actually gets set. So any time we actually set our image to
+
+789
+00:40:56,320 --> 00:40:59,889
+something inside here. Then I want to stop my animating. So,
+
+790
+00:40:59,958 --> 00:41:03,393
+I'm just gonna say spinner and I'm also going to be careful
+
+791
+00:41:03,461 --> 00:41:07,897
+here of people preparing, getting me. stopAnimating, so
+
+792
+00:41:07,966 --> 00:41:12,001
+this is a reliable place to stop animating. So once I put
+
+793
+00:41:12,070 --> 00:41:14,970
+an image here, I clearly don't want that thing spinning
+
+794
+00:41:15,039 --> 00:41:16,906
+anymore. All right, so let's see what that looks like.
+
+795
+00:41:25,216 --> 00:41:27,883
+So we didn't request anything, so there's no spinner. Let's
+
+796
+00:41:27,952 --> 00:41:30,953
+go here to ask for Cassini, it's spinning you see, and
+
+797
+00:41:31,022 --> 00:41:33,622
+as soon as Cassini arrives, it stops spinning.
+
+798
+00:41:33,691 --> 00:41:39,061
+If we zoom down you'll see that it is not there.
+
+799
+00:41:39,130 --> 00:41:43,032
+It's hard to see in this background but it's not there.
+
+800
+00:41:43,100 --> 00:41:45,768
+And let's just quickly make sure this is all working on
+
+801
+00:41:45,836 --> 00:41:49,138
+iPad. Let's go up here, iPad and run it on there.
+
+802
+00:41:55,246 --> 00:41:58,147
+It's kind of especially cute on iPad when you click this,
+
+803
+00:41:58,216 --> 00:42:00,883
+if you don't have a spinner there, it's just really
+
+804
+00:42:00,951 --> 00:42:08,491
+unclear what the heck is going on here. All right, Earth.
+
+805
+00:42:16,000 --> 00:42:18,600
+And while this is spinning, we could change our minds and
+
+806
+00:42:18,669 --> 00:42:20,302
+go to Cassini. Okay, and now it starts.
+
+807
+00:42:20,371 --> 00:42:21,838
+Now this is a new ViewController and
+
+808
+00:42:21,907 --> 00:42:23,672
+it starts again, and now we have Cassini.
+
+809
+00:42:23,741 --> 00:42:26,809
+Now one thing that's kind of a bummer here is when we're on
+
+810
+00:42:26,878 --> 00:42:29,778
+the iPhone, remember we took the title of the button.
+
+811
+00:42:29,847 --> 00:42:31,480
+And we put it on the top, and there was a title.
+
+812
+00:42:31,549 --> 00:42:35,385
+But notice on the iPad, there's no title here, where
+
+813
+00:42:35,453 --> 00:42:39,822
+the detail is? The detail has no title on the top,
+
+814
+00:42:39,891 --> 00:42:41,957
+it's just kind of up, to the upper left and of course,
+
+815
+00:42:42,026 --> 00:42:44,693
+it's kinda ugly actually. So I'd really love to put a title
+
+816
+00:42:44,762 --> 00:42:47,730
+over here just like I have a title right here. So how can I
+
+817
+00:42:47,798 --> 00:42:50,767
+do that? Well, it actually turns out to be quite easy to
+
+818
+00:42:50,835 --> 00:42:54,537
+do that. I'm just going to take my detail right here, and
+
+819
+00:42:54,606 --> 00:42:59,175
+I'm gonna embed it In a NavigationController.
+
+820
+00:42:59,244 --> 00:43:00,709
+So I'm putting this in a NavigationController,
+
+821
+00:43:00,778 --> 00:43:03,246
+not because I'm doing any navigation down there.
+
+822
+00:43:03,314 --> 00:43:05,748
+The navigation I'm doing is all controlled by this one,
+
+823
+00:43:05,816 --> 00:43:08,884
+but just because I want the thing to have a title.
+
+824
+00:43:08,953 --> 00:43:11,587
+Now let's see, does that work? Okay, let's run it and
+
+825
+00:43:11,656 --> 00:43:17,393
+see if that works. All right,
+
+826
+00:43:17,462 --> 00:43:20,830
+here we go, Cassini, uh-oh, no.
+
+827
+00:43:20,899 --> 00:43:23,232
+It's not working, I'm not even getting my spinner anymore,
+
+828
+00:43:23,300 --> 00:43:26,836
+that broke it. It put a title up here, but it broke it.
+
+829
+00:43:26,904 --> 00:43:30,106
+Now why did that break our code? Well, let's look at our
+
+830
+00:43:30,175 --> 00:43:33,476
+code and we'll see pretty obviously why it broke it.
+
+831
+00:43:33,545 --> 00:43:36,446
+In our prepare for segue, what did we do? We look at
+
+832
+00:43:36,514 --> 00:43:39,081
+the segue's destination which is the detail.
+
+833
+00:43:39,149 --> 00:43:41,917
+And we check to see if it's an ImageViewController, but
+
+834
+00:43:41,986 --> 00:43:43,719
+it's not an ImageViewController,
+
+835
+00:43:43,787 --> 00:43:48,524
+now is it? Right, if we go back to our story board, this
+
+836
+00:43:48,593 --> 00:43:52,995
+destination of these segues is a NavigationController.
+
+837
+00:43:53,064 --> 00:43:56,098
+Not an ImageController, it's a NavigationController. So
+
+838
+00:43:56,166 --> 00:43:59,669
+that line of code is failing, right? This line of code,
+
+839
+00:43:59,737 --> 00:44:02,471
+this imageVC = destination as ImageViewController,
+
+840
+00:44:02,540 --> 00:44:05,541
+not true anymore. Because our ImageView, our destination is
+
+841
+00:44:05,610 --> 00:44:08,477
+a NavigationController. So we can check that though. Let's
+
+842
+00:44:08,546 --> 00:44:11,781
+just go set our destination here equal to the segue's
+
+843
+00:44:11,849 --> 00:44:14,133
+But I'm gonna say, if I can let navcon = destination as
+
+844
+00:44:14,134 --> 00:44:16,418
+destination.
+
+845
+00:44:16,487 --> 00:44:21,357
+a UINavigationController. Then I'm gonna let my destination =
+
+846
+00:44:21,425 --> 00:44:25,194
+navcon.visibleViewController, which might be nil.
+
+847
+00:44:25,262 --> 00:44:29,298
+In which case, then I'll go ahead and return the navcon.
+
+848
+00:44:29,367 --> 00:44:32,235
+And then here I'm gonna use destination, and so this
+
+849
+00:44:32,303 --> 00:44:35,504
+is going to basically unwrap the NavigationController and
+
+850
+00:44:35,573 --> 00:44:38,040
+get its visible ViewController. This would
+
+851
+00:44:38,109 --> 00:44:40,609
+still work if there weren't a NavigationController there.
+
+852
+00:44:40,678 --> 00:44:42,911
+Because then this line of code would not happen,
+
+853
+00:44:42,980 --> 00:44:45,280
+and we'd just be saying segue destination here.
+
+854
+00:44:45,349 --> 00:44:53,822
+So let's see if that works. Here we go, Cassini, look,
+
+855
+00:44:53,891 --> 00:44:55,491
+we got the title, we got the spinner,
+
+856
+00:44:55,559 --> 00:44:58,527
+woo-hoo, it's working! Okay, Earth, quit to title,
+
+857
+00:44:58,596 --> 00:45:02,731
+spinning. All right, now this is very common to wanna do to
+
+858
+00:45:02,800 --> 00:45:04,834
+put your detail in a NavigationController.
+
+859
+00:45:04,902 --> 00:45:07,235
+And you have to do this little indirection.
+
+860
+00:45:07,304 --> 00:45:10,873
+A lot of times what 'll do is create a little extension to
+
+861
+00:45:10,942 --> 00:45:17,280
+UIViewController. I call, it's a little var I call content,
+
+862
+00:45:17,348 --> 00:45:20,115
+which is the content of the UIViewController, which for
+
+863
+00:45:20,184 --> 00:45:25,521
+most ViewControllers is just itself. But if it's a navcon,
+
+864
+00:45:25,589 --> 00:45:27,689
+if we have to do this little doohickey here,
+
+865
+00:45:27,758 --> 00:45:29,391
+then it will return its visible ViewController.
+
+866
+00:45:29,460 --> 00:45:31,526
+So I'm gonna say if I can let myself
+
+867
+00:45:31,595 --> 00:45:33,663
+be a NavigationController.
+
+868
+00:45:33,731 --> 00:45:38,801
+Then I'm going to return my visibleViewController,
+
+869
+00:45:38,869 --> 00:45:42,438
+or if that's nil then I'll return myself. And if I'm not
+
+870
+00:45:42,506 --> 00:45:46,475
+a navcon then I'll just return myself. So content just is
+
+871
+00:45:46,544 --> 00:45:49,812
+the viewController itself, or if it's a NavigationController
+
+872
+00:45:49,881 --> 00:45:52,648
+it's the contents of the NavigationController.
+
+873
+00:45:52,717 --> 00:45:54,149
+You could also do this with a TabBarController.
+
+874
+00:45:54,218 --> 00:45:57,019
+You can have an else, if it's a TabBarController, then show
+
+875
+00:45:57,088 --> 00:45:58,821
+me the ViewController that is the current tab, you could do
+
+876
+00:45:58,889 --> 00:46:02,758
+the same thing. So here I don't need to do this anymore,
+
+877
+00:46:02,827 --> 00:46:06,094
+I can just say segue.destination.contents,
+
+878
+00:46:06,163 --> 00:46:09,498
+right? And this is going to give me what I want.
+
+879
+00:46:09,567 --> 00:46:12,267
+See how this cleans up this code really nicely? So you'll
+
+880
+00:46:12,336 --> 00:46:15,705
+often wanna have an extension like this when you have, when
+
+881
+00:46:15,773 --> 00:46:19,308
+your detail might be wrapped in the NavigationController.
+
+882
+00:46:24,782 --> 00:46:28,250
+Cassini, works perfectly there, all right yes?
+
+883
+00:46:28,319 --> 00:46:30,986
+>> [INAUDIBLE]
+
+884
+00:46:31,055 --> 00:46:36,525
+URL to a URL [INAUDIBLE]
+
+885
+00:46:36,594 --> 00:46:38,060
+URL.
+
+886
+00:46:38,129 --> 00:46:40,662
+>> Yeah, right here.
+
+887
+00:46:40,731 --> 00:46:43,832
+>> So where is the URL then is
+
+888
+00:46:43,901 --> 00:46:48,537
+it the [INAUDIBLE] say if like the URL-
+
+889
+00:46:48,606 --> 00:46:49,771
+>> Yeah.
+
+890
+00:46:49,840 --> 00:46:53,175
+>> But how does that would
+
+891
+00:46:53,243 --> 00:46:56,511
+define [INAUDIBLE] >> Okay so
+
+892
+00:46:56,580 --> 00:47:00,949
+by letting url = imageURL we're creating a local
+
+893
+00:47:01,018 --> 00:47:03,185
+variable called url.
+
+894
+00:47:03,253 --> 00:47:06,188
+It's a local variable local to this function, and
+
+895
+00:47:06,257 --> 00:47:11,760
+its value is the imageURL. Now this closure right here and
+
+896
+00:47:11,829 --> 00:47:16,699
+this closure for that matter. Closures always capture
+
+897
+00:47:16,767 --> 00:47:20,903
+the local variables around them when they need them. And
+
+898
+00:47:20,972 --> 00:47:24,473
+since we're referencing url inside these closures, it got
+
+899
+00:47:24,541 --> 00:47:28,110
+captured. So it hold on to this, even for five minutes or
+
+900
+00:47:28,179 --> 00:47:30,546
+however long this takes. It holds it in the heap
+
+901
+00:47:30,615 --> 00:47:34,383
+as long as this closure lives, it holds on to it. But
+
+902
+00:47:34,452 --> 00:47:37,453
+it still stays set to what it was before.
+
+903
+00:47:37,521 --> 00:47:40,222
+If in the meantime while five minutes is happening,
+
+904
+00:47:40,291 --> 00:47:42,557
+this changes, that doesn't change this,
+
+905
+00:47:42,626 --> 00:47:46,361
+because this is a local copy, right? It's a local variable,
+
+906
+00:47:46,430 --> 00:47:48,497
+it's a copy of this thing. >> But
+
+907
+00:47:48,566 --> 00:47:51,333
+how does that have a value just because you say,
+
+908
+00:47:51,402 --> 00:47:56,071
+isn't it like a root instance. Well, okay.
+
+909
+00:47:56,140 --> 00:47:59,174
+So, image URL, I don't know whether URL is a value type or
+
+910
+00:47:59,243 --> 00:48:00,176
+a reference type,
+
+911
+00:48:00,244 --> 00:48:03,545
+it wouldn't matter here. But let's say it's a value type.
+
+912
+00:48:03,614 --> 00:48:07,082
+If it's a value type then we know this copied it. And
+
+913
+00:48:07,151 --> 00:48:08,584
+then when we say equals, equals,
+
+914
+00:48:08,653 --> 00:48:11,654
+it means that URL would have to implement equatable,
+
+915
+00:48:11,722 --> 00:48:16,125
+which it, certainly it does. If this is a reference type,
+
+916
+00:48:16,194 --> 00:48:18,727
+then it's just grabbing a pointer to that thing and
+
+917
+00:48:18,796 --> 00:48:20,763
+then here we're comparing the pointers. So
+
+918
+00:48:20,831 --> 00:48:23,665
+either way, it's going to make sure that if it's changed,
+
+919
+00:48:23,734 --> 00:48:29,238
+we know. Good question, though. All right,
+
+920
+00:48:29,306 --> 00:48:35,177
+let's get back to our slides here. Let's talk about
+
+921
+00:48:35,245 --> 00:48:37,980
+our other very important topic today, which is more about
+
+922
+00:48:38,048 --> 00:48:40,616
+Autolayouts. I'm gonna do a quick review about a layout,
+
+923
+00:48:40,685 --> 00:48:42,351
+just to make sure you understand what you
+
+924
+00:48:42,420 --> 00:48:44,920
+understand. Here is kind of some of
+
+925
+00:48:44,989 --> 00:48:46,722
+the things we've seen with Autolayout so
+
+926
+00:48:46,790 --> 00:48:49,892
+far. We know to use the dashed blue lines to try to tell
+
+927
+00:48:49,960 --> 00:48:52,861
+Xcode what we mean, right? Put things in the centre, put
+
+928
+00:48:52,930 --> 00:48:55,498
+things on their edges by the dashed blue lines. And then we
+
+929
+00:48:55,566 --> 00:48:57,967
+can do we reset to suggested constraints, remember,
+
+930
+00:48:58,035 --> 00:49:00,502
+in lower right corner which will try to make constraints
+
+931
+00:49:00,571 --> 00:49:03,205
+that make the blue lines make sense, but we know it doesn't
+
+932
+00:49:03,274 --> 00:49:05,874
+really work more and about 50% of the time. So
+
+933
+00:49:05,943 --> 00:49:08,710
+then, we learned how to control drag to the edges or
+
+934
+00:49:08,779 --> 00:49:11,313
+the other views and then set equal,
+
+935
+00:49:11,382 --> 00:49:14,983
+set the widths or aspect ratio or the edges to be the same or
+
+936
+00:49:15,052 --> 00:49:18,187
+whatever. We know that we can go to the size inspector and
+
+937
+00:49:18,255 --> 00:49:20,823
+look at all the constraints that are constraining
+
+938
+00:49:20,891 --> 00:49:22,991
+a certain view just by clicking on the view.
+
+939
+00:49:23,060 --> 00:49:25,728
+Looking in the size. In fact we can even edit simple things
+
+940
+00:49:25,796 --> 00:49:27,863
+about the constraints right there in the size inspector,
+
+941
+00:49:27,932 --> 00:49:30,332
+like constant values or things like that.
+
+942
+00:49:30,401 --> 00:49:33,936
+We also, if we can get at it in the interface where we can
+
+943
+00:49:34,005 --> 00:49:37,073
+click on a constraint and open up the inspector and
+
+944
+00:49:37,141 --> 00:49:40,742
+inspect detailed information about the constraint.
+
+945
+00:49:40,811 --> 00:49:43,545
+We also know about the pin menu in the lower right that
+
+946
+00:49:43,614 --> 00:49:45,614
+let's you set some constraints like, but
+
+947
+00:49:45,682 --> 00:49:48,583
+this hooking it to the edges and things like that.
+
+948
+00:49:48,652 --> 00:49:50,419
+There's also an arrange button right there by the way,
+
+949
+00:49:50,487 --> 00:49:51,620
+I didn't show you but is similar,
+
+950
+00:49:51,688 --> 00:49:55,157
+lets you line up front edges and things like that. And we
+
+951
+00:49:55,226 --> 00:49:57,826
+also learned that the document outline is the awesome
+
+952
+00:49:57,895 --> 00:49:59,962
+place to go to really look our constraints and
+
+953
+00:50:00,031 --> 00:50:02,097
+details, cuz it list every constraint as a line item,
+
+954
+00:50:02,166 --> 00:50:05,133
+it's also where the special place do you click to resolve
+
+955
+00:50:05,202 --> 00:50:06,335
+problem with your constraints
+
+956
+00:50:06,403 --> 00:50:09,004
+is. So the document outline is just fundamental to using
+
+957
+00:50:09,073 --> 00:50:12,474
+Autolayout. So we know all that stuff. Understand that
+
+958
+00:50:12,543 --> 00:50:15,844
+mastering Autolayout takes the experience.
+
+959
+00:50:15,912 --> 00:50:18,113
+You don't just have someone tell you all these things or
+
+960
+00:50:18,182 --> 00:50:18,981
+even show them to you and
+
+961
+00:50:19,049 --> 00:50:21,784
+it's like, now I'm on MAC I can do auto layer now.
+
+962
+00:50:21,852 --> 00:50:24,887
+You have to have laid out a lot of things and understood
+
+963
+00:50:24,955 --> 00:50:28,056
+the conflicts that arise and what the limitation are and
+
+964
+00:50:28,125 --> 00:50:31,093
+all that. It's really a fantastic system auto layout,
+
+965
+00:50:31,161 --> 00:50:33,995
+very powerful, but it does take some experience to master
+
+966
+00:50:34,064 --> 00:50:35,797
+or so, don't get too frustrated.
+
+967
+00:50:35,866 --> 00:50:37,333
+Luckily, you're definitely gonna have more assignments
+
+968
+00:50:37,402 --> 00:50:38,634
+where you're gonna have to do Autolayout,
+
+969
+00:50:38,702 --> 00:50:41,536
+and your final project you definitely wanna do Autolayout
+
+970
+00:50:41,605 --> 00:50:46,108
+so you would get some of that experience. It is possible to
+
+971
+00:50:46,177 --> 00:50:49,544
+do all this Autolayout stuff from code and now it's not we
+
+972
+00:50:49,613 --> 00:50:52,981
+have controlled dragging a lot not in interface, but actually
+
+973
+00:50:53,050 --> 00:50:56,485
+light code to do all of this. And I'm not gonna teach any of
+
+974
+00:50:56,554 --> 00:50:59,388
+that unfortunately If you want to learn a little bit about
+
+975
+00:50:59,457 --> 00:51:02,891
+that, you can start by going to UI views documentation and
+
+976
+00:51:02,960 --> 00:51:04,960
+search for "anchor" and "autolayout".
+
+977
+00:51:05,029 --> 00:51:07,762
+Those are the two main sets of API, there's a ton of
+
+978
+00:51:07,831 --> 00:51:10,399
+API there and then there's also just documentation. How
+
+979
+00:51:10,467 --> 00:51:13,001
+to do the autolayout system. You can read through all of
+
+980
+00:51:13,070 --> 00:51:15,504
+that if you really want to get to be a master of autolayout
+
+981
+00:51:15,573 --> 00:51:18,073
+from code. It's not necessarily that difficult,
+
+982
+00:51:18,142 --> 00:51:20,909
+but to really truly understand requires understanding auto
+
+983
+00:51:20,978 --> 00:51:25,881
+layout and how it's working to do it from code. All right,
+
+984
+00:51:25,949 --> 00:51:29,184
+having said all that auto layout is sometimes just
+
+985
+00:51:29,253 --> 00:51:32,521
+not enough. The autolayout you know so far is just not
+
+986
+00:51:32,590 --> 00:51:35,758
+enough. Sometime when you rotate your device,
+
+987
+00:51:35,826 --> 00:51:38,661
+your geometry changes so dramatically there's just
+
+988
+00:51:38,729 --> 00:51:40,962
+no way to control drag to make things happen.
+
+989
+00:51:41,031 --> 00:51:44,266
+For example, in concentration. We know that
+
+990
+00:51:44,334 --> 00:51:46,601
+concentration with a lot of buttons looks great but
+
+991
+00:51:46,670 --> 00:51:49,338
+in portrait. All the buttons look square but then when you
+
+992
+00:51:49,406 --> 00:51:51,272
+go to landscape the buttons are all smashed down.
+
+993
+00:51:51,341 --> 00:51:54,777
+There's barely enough room to say flips 27 at the bottom and
+
+994
+00:51:54,846 --> 00:51:56,211
+it just really gets smashed.
+
+995
+00:51:56,279 --> 00:51:59,047
+It really would be great if when I switched to landscape
+
+996
+00:51:59,116 --> 00:52:02,417
+if I had 20 buttons, let's say, it went 5 across and
+
+997
+00:52:02,486 --> 00:52:04,820
+4 down. Maybe it moves that flips then
+
+998
+00:52:04,889 --> 00:52:07,523
+off to the side. That will be a much better landscape but
+
+999
+00:52:07,591 --> 00:52:10,058
+no amount of control dragging to the edges is gonna make
+
+1000
+00:52:10,127 --> 00:52:13,028
+that happen. Right, it just can't be done.
+
+1001
+00:52:13,096 --> 00:52:16,164
+Just, you can not constrain the view enough
+
+1002
+00:52:16,233 --> 00:52:20,169
+to make them relay themselves out like that on rotation. So
+
+1003
+00:52:20,238 --> 00:52:24,573
+what's the solution to that? Size classes. Now,
+
+1004
+00:52:24,641 --> 00:52:28,510
+Apple made their, I think, a great decision that when you
+
+1005
+00:52:28,579 --> 00:52:32,313
+rotate to landscape versus portrait, instead of their
+
+1006
+00:52:32,382 --> 00:52:36,752
+reporting to you, here's your new dimensions, figure it out,
+
+1007
+00:52:36,821 --> 00:52:40,622
+they just simplified it down to two and only two values for
+
+1008
+00:52:40,690 --> 00:52:45,494
+your horizontal and vertical size. You are either compact
+
+1009
+00:52:45,563 --> 00:52:48,797
+or regular size in width and height, and
+
+1010
+00:52:48,866 --> 00:52:52,201
+that's it. They are going to report that to you and there's
+
+1011
+00:52:52,269 --> 00:52:54,569
+a whole system for letting you know when that changes and
+
+1012
+00:52:54,638 --> 00:52:55,571
+then you build your UI so
+
+1013
+00:52:55,639 --> 00:52:57,573
+it looks good when it's compact vertically.
+
+1014
+00:52:57,642 --> 00:52:59,274
+It looks good when it's compact horizontally.
+
+1015
+00:52:59,343 --> 00:53:00,675
+It looks good when it's regular vertical.
+
+1016
+00:53:00,744 --> 00:53:03,779
+And it looks good when it's regular. Vertical and
+
+1017
+00:53:03,848 --> 00:53:05,346
+horizontal, right?
+
+1018
+00:53:05,415 --> 00:53:08,984
+So that simplifies the system dramatically, and you're gonna
+
+1019
+00:53:09,052 --> 00:53:13,088
+see that it works in the vast majority of situations. So
+
+1020
+00:53:13,157 --> 00:53:15,357
+let's talk about this whole size class thing and
+
+1021
+00:53:15,426 --> 00:53:16,658
+how it works. First of all,
+
+1022
+00:53:16,727 --> 00:53:19,394
+you have to understand what the devices,
+
+1023
+00:53:19,463 --> 00:53:21,730
+what size classes the devices are in. For
+
+1024
+00:53:21,799 --> 00:53:27,002
+example, iPhones are compact in width and regular in height
+
+1025
+00:53:27,071 --> 00:53:31,740
+when they're in portrait. When you rotate an iPhone,
+
+1026
+00:53:31,809 --> 00:53:34,809
+not an iPhone+, a regular iPhone, when you rotate it,
+
+1027
+00:53:34,878 --> 00:53:38,514
+now it is considered compact in both directions,
+
+1028
+00:53:38,582 --> 00:53:40,082
+which a little counter intuitive. You would think,
+
+1029
+00:53:40,150 --> 00:53:42,984
+well, now it's regular in width, but no, it's considered
+
+1030
+00:53:43,053 --> 00:53:46,154
+compact in width and it's amazing how often that turns
+
+1031
+00:53:46,223 --> 00:53:48,690
+out to be exactly what you want, all right?
+
+1032
+00:53:48,759 --> 00:53:52,060
+And you'll see that to be the case. Now iPhone Pluses
+
+1033
+00:53:52,129 --> 00:53:55,230
+are different. iPhone Pluses are still compact in width and
+
+1034
+00:53:55,298 --> 00:53:57,932
+regular in height in portrait, but
+
+1035
+00:53:58,001 --> 00:53:59,134
+when you turn them to landscape,
+
+1036
+00:53:59,202 --> 00:54:03,005
+now they are regular in width and compact in height. So
+
+1037
+00:54:03,073 --> 00:54:07,542
+iPhone pluses are different than regular iPhones in that
+
+1038
+00:54:07,611 --> 00:54:11,446
+way. iPads are regular width and regular height.
+
+1039
+00:54:11,515 --> 00:54:14,549
+Portrait or landscape doesn't matter they're always regular
+
+1040
+00:54:14,618 --> 00:54:17,453
+in both which you can imagine they're big, iPads are huge.
+
+1041
+00:54:17,521 --> 00:54:20,989
+However, notice that an MVC that is in the master
+
+1042
+00:54:21,058 --> 00:54:23,759
+of the split view is compact in width,
+
+1043
+00:54:23,827 --> 00:54:28,029
+even though it's on an iPad, it's still compact in width
+
+1044
+00:54:28,098 --> 00:54:32,634
+and regular in height. So it's not just the device you're on
+
+1045
+00:54:32,703 --> 00:54:35,237
+that says what environment your MVC is in,
+
+1046
+00:54:35,306 --> 00:54:40,976
+it might be the MVC situation that it's in. So, and
+
+1047
+00:54:41,044 --> 00:54:43,945
+that's why we don't look at things like am I on an iPad?
+
+1048
+00:54:44,014 --> 00:54:46,114
+Because then I'd have to say, am I an iPad and
+
+1049
+00:54:46,183 --> 00:54:50,085
+am I in split view? We just ask, am I compact or
+
+1050
+00:54:50,153 --> 00:54:52,620
+am I regular in my width and height? And then we react to
+
+1051
+00:54:52,689 --> 00:54:57,359
+that. So here are all the devices in a little grid for
+
+1052
+00:54:57,428 --> 00:55:00,095
+that and let me show you what an app.
+
+1053
+00:55:00,163 --> 00:55:02,764
+So here's an app like a calculator similar to our
+
+1054
+00:55:02,833 --> 00:55:05,500
+concentration calculator has a lot of buttons and
+
+1055
+00:55:05,569 --> 00:55:07,970
+maybe it will look better with five across and
+
+1056
+00:55:08,038 --> 00:55:11,106
+four down in the two cases where the compact tight, see?
+
+1057
+00:55:11,174 --> 00:55:13,675
+Whether there's compact width or regular width, it still
+
+1058
+00:55:13,744 --> 00:55:16,411
+looks better to have only four high on your compact height.
+
+1059
+00:55:16,480 --> 00:55:17,479
+And when it's regular height,
+
+1060
+00:55:17,548 --> 00:55:19,347
+it always look better to have five high.
+
+1061
+00:55:19,416 --> 00:55:20,982
+Maybe even more would be better, but
+
+1062
+00:55:21,051 --> 00:55:23,785
+it always looks better to have five than four.
+
+1063
+00:55:23,854 --> 00:55:25,787
+So this is what we're going to do in the demo, we're going to
+
+1064
+00:55:25,855 --> 00:55:28,924
+do concentration the same kind of way as this calculator.
+
+1065
+00:55:28,992 --> 00:55:34,029
+Okay, now we have, we know the size class we're in.
+
+1066
+00:55:34,098 --> 00:55:38,734
+We always know that as our MVC is doing its business.
+
+1067
+00:55:38,803 --> 00:55:41,536
+What can we do based on that knowledge? Well,
+
+1068
+00:55:41,605 --> 00:55:46,742
+one thing we can do is vary a lot of view properties like
+
+1069
+00:55:46,810 --> 00:55:50,345
+the fonts on a UI label for example, a background color
+
+1070
+00:55:50,414 --> 00:55:54,316
+even whether a view is hidden or not, even whether a view is
+
+1071
+00:55:54,385 --> 00:55:58,119
+even in the view hierarchy can be controlled by size class.
+
+1072
+00:55:58,188 --> 00:56:00,656
+So if you're a compact height, maybe you have a view that's
+
+1073
+00:56:00,725 --> 00:56:02,991
+just completely hidden in compact height.
+
+1074
+00:56:03,060 --> 00:56:04,993
+Maybe it only appears in regular height.
+
+1075
+00:56:05,061 --> 00:56:09,097
+That's perfectly controllable using your size class. But
+
+1076
+00:56:09,165 --> 00:56:12,634
+more importantly and the most powerful thing you can do
+
+1077
+00:56:12,703 --> 00:56:17,706
+is have your constraints be tied to your size class.
+
+1078
+00:56:17,774 --> 00:56:21,543
+Okay because remember what puts anything on screen in any
+
+1079
+00:56:21,612 --> 00:56:24,379
+place? Well it's just the constraints, right.
+
+1080
+00:56:24,448 --> 00:56:27,515
+The constraints are what constrains a view
+
+1081
+00:56:27,584 --> 00:56:30,752
+to being in a certain space in autolayout. Well if you can
+
+1082
+00:56:30,821 --> 00:56:34,789
+control those constraints using the size class.
+
+1083
+00:56:34,858 --> 00:56:38,293
+Then you can make those views move around to different spots
+
+1084
+00:56:38,362 --> 00:56:39,561
+depending on your size class.
+
+1085
+00:56:39,630 --> 00:56:42,630
+Like go five by four instead of going four by five. Or
+
+1086
+00:56:42,699 --> 00:56:45,801
+moving the little flip label off to the side. So
+
+1087
+00:56:45,869 --> 00:56:48,303
+constraints, being able to control constraints with your
+
+1088
+00:56:48,371 --> 00:56:50,973
+size class is really the power of this size class stuff.
+
+1089
+00:56:52,075 --> 00:56:52,807
+Now the cool thing, by the way,
+
+1090
+00:56:52,876 --> 00:56:54,008
+is InterfaceBuilder has support for
+
+1091
+00:56:54,077 --> 00:56:55,377
+doing all of this graphically.
+
+1092
+00:56:55,446 --> 00:56:56,844
+So you don't even have to do this in your code.
+
+1093
+00:56:56,913 --> 00:56:59,781
+You can do it all graphically. Now it is possible to find out
+
+1094
+00:56:59,850 --> 00:57:02,150
+what your size class is in code.
+
+1095
+00:57:02,218 --> 00:57:04,652
+For example, if you wanna know your horizontalSizeClass,
+
+1096
+00:57:04,721 --> 00:57:07,188
+whether you're compact or regular horizontally,
+
+1097
+00:57:07,257 --> 00:57:10,358
+you just call this method. You access this object
+
+1098
+00:57:10,427 --> 00:57:12,294
+that's in your view controller called trait collection.
+
+1099
+00:57:12,363 --> 00:57:13,862
+It's a collection of all your traits and
+
+1100
+00:57:13,931 --> 00:57:16,632
+one of your traits is your horizontal size class.
+
+1101
+00:57:16,700 --> 00:57:19,167
+You can get back into enum. It's either compact or
+
+1102
+00:57:19,236 --> 00:57:22,504
+regular. I suppose it could be unspecified but it wouldn't
+
+1103
+00:57:22,572 --> 00:57:27,309
+actually be that while you were running. Again, it's rare
+
+1104
+00:57:27,377 --> 00:57:29,978
+to do this. We're gonna do this all in InterfaceBuilder,
+
+1105
+00:57:30,047 --> 00:57:32,580
+and so that's something that's all visual, so
+
+1106
+00:57:32,649 --> 00:57:34,149
+I'm gonna have to show you to it in a demo.
+
+1107
+00:57:34,217 --> 00:57:36,884
+This is one place where a demo is worth 1 billion words.
+
+1108
+00:57:36,953 --> 00:57:40,255
+To try and explain it without a demo, be almost impossible.
+
+1109
+00:57:40,324 --> 00:57:44,225
+And so I'm not gonna get back to the slide so let me just
+
+1110
+00:57:44,294 --> 00:57:46,528
+summarize here that we do have a Friday section.
+
+1111
+00:57:46,596 --> 00:57:49,698
+Please come to it on Friday it's about Instruments which
+
+1112
+00:57:49,767 --> 00:57:51,667
+is a performance analysis tool.
+
+1113
+00:57:51,735 --> 00:57:54,235
+And especially when you're doing the multithreaded stuff.
+
+1114
+00:57:54,304 --> 00:57:58,540
+You wanna know what's taking a long time to execute, right?
+
+1115
+00:57:58,608 --> 00:58:00,742
+So that you can put it off in another thread.
+
+1116
+00:58:00,811 --> 00:58:02,778
+Sometimes it's obvious when it's a network blocking thing,
+
+1117
+00:58:02,846 --> 00:58:05,447
+but other times you have stuff that you're computing that
+
+1118
+00:58:05,516 --> 00:58:08,316
+actually turns out to be taking a lot time. So using
+
+1119
+00:58:08,385 --> 00:58:11,252
+instruments to find out what that is will save you a lot of
+
+1120
+00:58:11,321 --> 00:58:14,389
+putting stuff on other threads that doesn't need to be. Only
+
+1121
+00:58:14,458 --> 00:58:17,926
+the stuff that needs to be. And you all know Donald Knuth,
+
+1122
+00:58:17,994 --> 00:58:19,994
+right? Don't prematurely optimize.
+
+1123
+00:58:20,063 --> 00:58:22,798
+Don't obfuscate your code to make it run faster,
+
+1124
+00:58:22,866 --> 00:58:25,233
+unless you're sure that's actually what's running slow.
+
+1125
+00:58:25,301 --> 00:58:29,371
+Well, you need instruments to know that. Next week,
+
+1126
+00:58:29,439 --> 00:58:30,772
+we'll dive into some more topics,
+
+1127
+00:58:30,841 --> 00:58:32,373
+Table View, Collection View, Drag and
+
+1128
+00:58:32,442 --> 00:58:36,778
+Drop, stuff like that. All right,
+
+1129
+00:58:36,847 --> 00:58:40,916
+so, let's go and do our concentration.
+
+1130
+00:58:40,984 --> 00:58:44,018
+So here is concentration. It's exactly where we left off,
+
+1131
+00:58:44,087 --> 00:58:46,922
+except for two changes. One change I made is I turned off
+
+1132
+00:58:46,990 --> 00:58:51,025
+all the view controller life cycle logging, because if we
+
+1133
+00:58:51,094 --> 00:58:54,162
+need the console, I want to be clear, so you can see things.
+
+1134
+00:58:54,231 --> 00:58:55,664
+Cuz I don't think we'll need the console, but, hey,
+
+1135
+00:58:55,733 --> 00:58:58,834
+you never know. Tech and I added more buttons,
+
+1136
+00:58:58,902 --> 00:59:01,403
+this used to have 12, so I just added a couple more rows
+
+1137
+00:59:01,472 --> 00:59:02,470
+of buttons here, so there's 20.
+
+1138
+00:59:02,539 --> 00:59:06,141
+So, let's see, what it looks like now with those two
+
+1139
+00:59:06,209 --> 00:59:08,076
+very minor changes, I haven't changed any of the code or
+
+1140
+00:59:08,145 --> 00:59:11,880
+anything like that. All right, so here we go, so
+
+1141
+00:59:11,949 --> 00:59:16,484
+lets do sports, working like a charm, okay. Looks good. And
+
+1142
+00:59:16,553 --> 00:59:20,555
+of course, that's not so good.
+
+1143
+00:59:20,624 --> 00:59:24,225
+I added those more buttons, but it caused the flip count.
+
+1144
+00:59:24,294 --> 00:59:27,695
+The flip count is at the bottom here it flips eight,
+
+1145
+00:59:27,764 --> 00:59:30,865
+it got pushed completely off. And look at the buttons,
+
+1146
+00:59:30,934 --> 00:59:33,402
+they're barely big enough to hold the emoji anymore.
+
+1147
+00:59:33,470 --> 00:59:36,003
+Also there are ugly buttons, they are really flat.
+
+1148
+00:59:36,072 --> 00:59:37,772
+A lot of blank space on the size,
+
+1149
+00:59:37,841 --> 00:59:41,910
+this UI looks terrible. So we're gonna fix this UI and
+
+1150
+00:59:41,978 --> 00:59:45,313
+by doing two things. One, we're gonna do five across and
+
+1151
+00:59:45,382 --> 00:59:48,950
+four down only in landscape because back here,
+
+1152
+00:59:49,018 --> 00:59:51,586
+we like these nice square buttons here. We wouldn't want
+
+1153
+00:59:51,654 --> 00:59:54,789
+to switch to five across and four here and then we start
+
+1154
+00:59:54,858 --> 00:59:56,925
+looking bad here. So that's one thing we're gonna do.
+
+1155
+00:59:56,993 --> 01:00:00,328
+And the other thing is we're gonna move this Flips thing.
+
+1156
+01:00:00,397 --> 01:00:03,564
+In landscape to be over to the side here, over on the side.
+
+1157
+01:00:03,633 --> 01:00:04,465
+This will help the buttons be
+
+1158
+01:00:04,534 --> 01:00:07,401
+even more square and use the space more efficiently on
+
+1159
+01:00:07,470 --> 01:00:10,671
+this side. So those are the two things we're gonna do,
+
+1160
+01:00:10,740 --> 01:00:12,940
+all right? So how do we do this?
+
+1161
+01:00:13,009 --> 01:00:15,210
+How are we gonna do this? Well, we need a strategy for
+
+1162
+01:00:15,279 --> 01:00:18,580
+doing all this. And my strategy is going, and
+
+1163
+01:00:18,649 --> 01:00:20,782
+remember, we didn't really, haven't looked at this a lot.
+
+1164
+01:00:20,851 --> 01:00:22,884
+But remember, you can look at all your devices down here,
+
+1165
+01:00:22,953 --> 01:00:25,687
+including whether they're in landscape or portrait.
+
+1166
+01:00:25,756 --> 01:00:28,623
+So here I'm looking at this thing in landscape. And here's
+
+1167
+01:00:28,692 --> 01:00:30,926
+where my problem is, it's four across and five down.
+
+1168
+01:00:30,994 --> 01:00:33,595
+I want it to be five across and four down. So
+
+1169
+01:00:33,664 --> 01:00:36,431
+my strategy is gonna be, I'm actually gonna add four
+
+1170
+01:00:36,499 --> 01:00:40,601
+buttons here. And then when I'm in landscape, I'm gonna
+
+1171
+01:00:40,670 --> 01:00:45,507
+hide these four buttons. And when I'm back in portrait,
+
+1172
+01:00:45,575 --> 01:00:48,609
+I'll hide the new buttons I added. So I'm actually
+
+1173
+01:00:48,678 --> 01:00:51,946
+gonna have 24 buttons but 4 of them will be hidden in one or
+
+1174
+01:00:52,015 --> 01:00:54,616
+the other. See that strategy? So this is only,
+
+1175
+01:00:54,685 --> 01:00:56,718
+this is one strategy for doing it. It's a simple strategy.
+
+1176
+01:00:56,786 --> 01:00:59,620
+So we're gonna start with a simple strategy, all right?
+
+1177
+01:00:59,689 --> 01:01:01,423
+Now to do that, so you can see what I'm doing a little more.
+
+1178
+01:01:01,424 --> 01:01:03,158
+So lets do that.
+
+1179
+01:01:03,227 --> 01:01:06,627
+See this little constraint right here? This is
+
+1180
+01:01:06,696 --> 01:01:09,330
+the constraint that's holding this to this right edge.
+
+1181
+01:01:09,399 --> 01:01:12,400
+I'm going to delete this constraint just temporarily
+
+1182
+01:01:12,468 --> 01:01:16,404
+here so it makes some space for me to work. So I'm just
+
+1183
+01:01:16,472 --> 01:01:19,106
+gonna delete that and so it's not pinned to that edge so
+
+1184
+01:01:19,175 --> 01:01:22,343
+it moved over. Now I'm going to add these four buttons.
+
+1185
+01:01:22,412 --> 01:01:24,312
+Remember, I said I'm gonna put four buttons on the side. So
+
+1186
+01:01:24,381 --> 01:01:27,214
+I'm just gonna copy and paste one of the existing buttons.
+
+1187
+01:01:27,283 --> 01:01:29,483
+In fact, I'll paste it four times. And
+
+1188
+01:01:29,552 --> 01:01:33,054
+I'm gonna select all of them. I'm gonna go down here to our
+
+1189
+01:01:33,123 --> 01:01:36,424
+embed, and make a stack view out of it. I'm going to
+
+1190
+01:01:36,493 --> 01:01:40,094
+inspect that stack view. Give it some spacing.
+
+1191
+01:01:40,163 --> 01:01:42,297
+I don't want it to be leaning. I want it to be filled.
+
+1192
+01:01:42,366 --> 01:01:43,632
+All right, and I want it to be filled equally.
+
+1193
+01:01:43,700 --> 01:01:46,767
+I want all the buttons to be the same height, all right?
+
+1194
+01:01:46,836 --> 01:01:48,536
+make sure that we wire it up to our card buttons array.
+
+1195
+01:01:48,537 --> 01:01:50,237
+Let's go ahead and
+
+1196
+01:01:50,307 --> 01:01:55,142
+So let's do that. Control drag, there's one and
+
+1197
+01:01:55,211 --> 01:01:59,313
+there's two and there is three,
+
+1198
+01:01:59,382 --> 01:02:05,253
+let me up a little bit, sorry and there is four,
+
+1199
+01:02:05,321 --> 01:02:09,991
+okay. So we've got inner card buttons, now we want these
+
+1200
+01:02:10,059 --> 01:02:13,495
+four to join the party. Okay I want them to join here so
+
+1201
+01:02:13,563 --> 01:02:16,597
+I'm going to select, both of these stack views, and
+
+1202
+01:02:16,666 --> 01:02:22,270
+I'm going to embed them in a stack view. We'll go ahead and
+
+1203
+01:02:22,339 --> 01:02:24,939
+put some spacing in there, so we can see a little better.
+
+1204
+01:02:25,008 --> 01:02:26,574
+Here, I don't want them aligned on the bottom,
+
+1205
+01:02:26,642 --> 01:02:31,278
+I want them to fill, however, I do not one fill equally.
+
+1206
+01:02:31,347 --> 01:02:33,081
+why I don't want fill equally? That would make this one stack
+
+1207
+01:02:33,082 --> 01:02:34,816
+Do you see
+
+1208
+01:02:34,885 --> 01:02:38,420
+view, the same width as this whole big stack view. So
+
+1209
+01:02:38,488 --> 01:02:40,889
+that wouldn't be really wide and those will be small but
+
+1210
+01:02:40,958 --> 01:02:43,925
+I do want this stack view to be the same width
+
+1211
+01:02:43,993 --> 01:02:47,262
+as all of these. So how am I gonna do that. Well,
+
+1212
+01:02:47,331 --> 01:02:50,531
+I'm going to control drag from this stack view
+
+1213
+01:02:50,600 --> 01:02:54,369
+to one of these buttons over here. And say please make them
+
+1214
+01:02:54,438 --> 01:02:57,905
+equal widths and that's perfectly legal to do that,
+
+1215
+01:02:57,974 --> 01:03:01,276
+to have one view and just say please always be constrained.
+
+1216
+01:03:01,344 --> 01:03:03,811
+These are all constraints, constrain yourself
+
+1217
+01:03:03,880 --> 01:03:06,514
+to be the same width as this one over here. Okay and
+
+1218
+01:03:06,583 --> 01:03:10,018
+that's gonna ensure that even as this get wider that that
+
+1219
+01:03:10,087 --> 01:03:12,854
+row will always be same width as all of the other rows in
+
+1220
+01:03:12,923 --> 01:03:17,358
+here. So I've created this new stack view right here. This
+
+1221
+01:03:17,427 --> 01:03:21,128
+stack view has no constraints, right? If we look over here,
+
+1222
+01:03:21,197 --> 01:03:24,632
+there are no constraints on it cuz I just created it. And so
+
+1223
+01:03:24,701 --> 01:03:31,305
+I really want it to zoom out to be constrained to the edges
+
+1224
+01:03:31,374 --> 01:03:33,841
+here. What I really want is I want it to constrain to
+
+1225
+01:03:33,910 --> 01:03:34,843
+the top up here and
+
+1226
+01:03:34,911 --> 01:03:37,679
+to all the safe areas on the other three edges. So
+
+1227
+01:03:37,747 --> 01:03:40,848
+I'm gonna try the pin again. Remember this pin over here?
+
+1228
+01:03:40,917 --> 01:03:44,752
+So I'm just gonna try putting an eight point pin and
+
+1229
+01:03:44,821 --> 01:03:46,687
+it's gonna do that to nearest neighbor.
+
+1230
+01:03:46,756 --> 01:03:48,923
+I'm hoping it's gonna pick the right nearest neighbor,
+
+1231
+01:03:48,992 --> 01:03:53,194
+all in all sides. Let's see what it does. Well,
+
+1232
+01:03:53,263 --> 01:03:55,764
+maybe that worked. It's close. Let's look.
+
+1233
+01:03:55,832 --> 01:03:59,500
+It picked the top space to superview. I don't want that.
+
+1234
+01:03:59,569 --> 01:04:02,470
+I wanted this safe area there. Then trailing the safe area.
+
+1235
+01:04:02,539 --> 01:04:05,673
+Yeah, leaving the safe area bottom to the flip count.
+
+1236
+01:04:05,742 --> 01:04:07,375
+Whoo! This thing did pretty well, but
+
+1237
+01:04:07,444 --> 01:04:08,910
+of course this superview thing is wrong.
+
+1238
+01:04:08,979 --> 01:04:10,578
+So let's remind ourselves how we fix that.
+
+1239
+01:04:10,647 --> 01:04:12,013
+We go to our document outline.
+
+1240
+01:04:12,082 --> 01:04:13,381
+Let's find it, it's right here.
+
+1241
+01:04:13,449 --> 01:04:16,818
+Stack, stack view top to the top of the view plus 8. And
+
+1242
+01:04:16,886 --> 01:04:19,787
+remember, we don't want that to the superview. We want it
+
+1243
+01:04:19,856 --> 01:04:24,726
+here to the safe area. So now we've got this set back up.
+
+1244
+01:04:24,795 --> 01:04:27,662
+Now the problem here is we have all 24 buttons
+
+1245
+01:04:27,730 --> 01:04:31,099
+showing right here. See all 24 buttons? That's no good.
+
+1246
+01:04:31,167 --> 01:04:34,902
+So I don't want these four buttons showing in landscape.
+
+1247
+01:04:34,971 --> 01:04:38,273
+So how do I do that? I'm just gonna pick this stack view,
+
+1248
+01:04:38,341 --> 01:04:41,743
+and I'm gonna make it disappear in landscape, but
+
+1249
+01:04:41,812 --> 01:04:43,078
+not in landscape.
+
+1250
+01:04:43,146 --> 01:04:46,981
+It's gonna disappear when I'm in a compact vertical size
+
+1251
+01:04:47,049 --> 01:04:52,854
+class. Which is only iPhones in landscape, it turns out.
+
+1252
+01:04:52,923 --> 01:04:56,024
+So how do we do that? Well, if we inspect this stack view,
+
+1253
+01:04:56,092 --> 01:04:57,592
+I'm just going to the normal attributes and
+
+1254
+01:04:57,660 --> 01:05:00,628
+spectrum over here. Look at all these little plus signs.
+
+1255
+01:05:00,697 --> 01:05:02,297
+You see these plus signs here?
+
+1256
+01:05:02,366 --> 01:05:03,998
+Plus, plus, plus, and you go down here,
+
+1257
+01:05:04,067 --> 01:05:08,269
+plus. These are all attributes of the selected thing,
+
+1258
+01:05:08,338 --> 01:05:10,604
+that can be varied by size class.
+
+1259
+01:05:10,673 --> 01:05:14,775
+So it's not just whether it's hidden or not, which is what I
+
+1260
+01:05:14,844 --> 01:05:18,012
+want right here. You see it's hidden right here. That's got
+
+1261
+01:05:18,080 --> 01:05:21,115
+a plus. But also things like the background color. Or for
+
+1262
+01:05:21,184 --> 01:05:24,318
+the stack view, even the alignment, the distribution,
+
+1263
+01:05:24,387 --> 01:05:27,321
+you can have this change when you go to a different class
+
+1264
+01:05:27,390 --> 01:05:30,491
+size. It's pretty darn cool. So we're gonna do a simple one
+
+1265
+01:05:30,560 --> 01:05:33,394
+which is hidden. And the way you vary is you just press
+
+1266
+01:05:33,463 --> 01:05:36,431
+the plus. And when the press the plus, it says,
+
+1267
+01:05:36,500 --> 01:05:39,400
+you wanna vary hidden based on the size class. Well,
+
+1268
+01:05:39,469 --> 01:05:42,537
+what size class would you like to vary for? Well, in my case,
+
+1269
+01:05:42,605 --> 01:05:44,472
+it's compact height. I don't care about the width.
+
+1270
+01:05:44,540 --> 01:05:47,608
+So I'm going to set Width to Any. Any width is fine. But
+
+1271
+01:05:47,677 --> 01:05:51,112
+height, compact, yes. I want a compact variation. This gamut,
+
+1272
+01:05:51,181 --> 01:05:55,850
+by the way, you vary based on the color capabilities
+
+1273
+01:05:55,919 --> 01:05:58,652
+of the device you're on. We're not doing that. It's really
+
+1274
+01:05:58,721 --> 01:06:01,556
+not a layout thing per se, but it still can be varied. And so
+
+1275
+01:06:01,624 --> 01:06:03,691
+I'm gonna hit Add Variation. And watch what happens right
+
+1276
+01:06:03,759 --> 01:06:07,028
+over here when I hit Add Variation. See, we've got
+
+1277
+01:06:07,097 --> 01:06:09,263
+a new hidden. We have this hidden and another hidden.
+
+1278
+01:06:09,332 --> 01:06:14,135
+This one is HC, which stands for height compact. And
+
+1279
+01:06:14,204 --> 01:06:17,271
+right now it's not hidden in height compact, but
+
+1280
+01:06:17,340 --> 01:06:22,243
+if I turn this on, woo hoo! See, it hid that entire
+
+1281
+01:06:22,312 --> 01:06:26,581
+stack view, cuz I'm in compact height right now. And if I go
+
+1282
+01:06:26,650 --> 01:06:31,118
+back over here to my portrait mode, you can see that it's
+
+1283
+01:06:31,187 --> 01:06:35,089
+not hidden. It's still there. See four across, five down.
+
+1284
+01:06:35,158 --> 01:06:39,360
+It's still there. But now I want this one to be hidden. So
+
+1285
+01:06:39,429 --> 01:06:43,097
+l am gonna click on this stack view, select the whole stack
+
+1286
+01:06:43,166 --> 01:06:47,601
+view here, if l can. No, it's hard to, well, let me zoom in
+
+1287
+01:06:47,670 --> 01:06:52,173
+a little. Selecting this whole stack view.
+
+1288
+01:06:52,242 --> 01:06:55,176
+And here l'm gonna do the same thing. l'm in portrait mode
+
+1289
+01:06:55,244 --> 01:06:57,946
+right here, l'm gonna add another variance.
+
+1290
+01:06:58,014 --> 01:07:02,083
+This is a variance for any width and regular height. And
+
+1291
+01:07:02,151 --> 01:07:06,955
+in that case, this one is hidden. So voila,
+
+1292
+01:07:07,023 --> 01:07:10,458
+look at that, four wide, five high, and over here,
+
+1293
+01:07:11,861 --> 01:07:17,132
+five wide and four high. Let's see if this works.
+
+1294
+01:07:17,200 --> 01:07:19,567
+It's not quite gonna work, but it's gonna be close.
+
+1295
+01:07:24,374 --> 01:07:26,841
+All right, so here we go. Let's go to Sports.
+
+1296
+01:07:26,909 --> 01:07:29,344
+Look at that, five wide and four high. Excellent,
+
+1297
+01:07:29,412 --> 01:07:32,914
+let's pick some things here like this. Now let's rotate.
+
+1298
+01:07:32,983 --> 01:07:36,550
+Whoop, looking good, let's pick something down here.
+
+1299
+01:07:36,619 --> 01:07:43,591
+Rotate, oops, what happened to those? See that? They're gone.
+
+1300
+01:07:43,660 --> 01:07:47,161
+I picked two that were in this row that got hidden. So
+
+1301
+01:07:47,230 --> 01:07:50,464
+it makes perfect sense when we went over they got hidden. So
+
+1302
+01:07:50,533 --> 01:07:53,534
+how am I gonna fix that? Well, this is kinda of a clunky UI,
+
+1303
+01:07:53,603 --> 01:07:56,503
+because we're using these outlet collection to gather
+
+1304
+01:07:56,572 --> 01:07:58,372
+all these cards. But one trick I could
+
+1305
+01:07:58,441 --> 01:08:00,407
+do really easily is go back to my code here for
+
+1306
+01:08:00,476 --> 01:08:02,610
+the concentration View Controller. And
+
+1307
+01:08:02,679 --> 01:08:05,279
+just everywhere that I'm doing cardButtons, looking at
+
+1308
+01:08:05,348 --> 01:08:07,981
+the cardButtons, instead of looking at all 24 cardButtons,
+
+1309
+01:08:08,050 --> 01:08:10,484
+I'm only gonna look at the 20 that are visible at any given
+
+1310
+01:08:10,553 --> 01:08:13,420
+time. So I'm gonna create a little private var here called
+
+1311
+01:08:13,489 --> 01:08:19,193
+visibleCardButtons. It's gonna be an array of UIButtons also.
+
+1312
+01:08:19,262 --> 01:08:22,530
+In fact, it's even going to be implicitly unwrapped, and it's
+
+1313
+01:08:22,598 --> 01:08:25,566
+gonna be computed. I'm just gonna return my cardButtons,
+
+1314
+01:08:25,635 --> 01:08:28,769
+if they've been set. And I'm gonna filter them by
+
+1315
+01:08:28,838 --> 01:08:31,873
+the buttons superview being visible.
+
+1316
+01:08:31,942 --> 01:08:33,807
+Because if the button's superview is visible,
+
+1317
+01:08:33,876 --> 01:08:35,009
+then it's visible, right?
+
+1318
+01:08:35,078 --> 01:08:39,848
+So I'm gonna say !$0.superview!.isHidden.
+
+1319
+01:08:40,950 --> 01:08:42,984
+So these are the visible hard buttons.
+
+1320
+01:08:43,053 --> 01:08:45,453
+This is a little fragile to do this, but
+
+1321
+01:08:45,522 --> 01:08:48,756
+we know that all our buttons are in stacked views, so
+
+1322
+01:08:48,824 --> 01:08:51,025
+this is okay. Probably could find a much better way
+
+1323
+01:08:51,094 --> 01:08:53,093
+to calculate whether it's actually on screen or not.
+
+1324
+01:08:53,162 --> 01:08:56,864
+But anyway, and I'm just gonna now replace everywhere that I
+
+1325
+01:08:56,933 --> 01:09:00,034
+use cardButtons with visibleCardButtons, so here,
+
+1326
+01:09:00,102 --> 01:09:02,870
+and here, and here. I'm just finding and replacing here.
+
+1327
+01:09:02,939 --> 01:09:08,376
+Paste. So now that's going to fix this problem, I hope.
+
+1328
+01:09:08,445 --> 01:09:13,480
+Let's find out. All right, it's worked again.
+
+1329
+01:09:13,549 --> 01:09:16,884
+All right, let's go down here. These are the ones in danger.
+
+1330
+01:09:16,952 --> 01:09:22,357
+Let's try, woo hoo, no. How could this not have worked?
+
+1331
+01:09:22,425 --> 01:09:26,493
+That code was infallible. Well, here's the problem here,
+
+1332
+01:09:26,562 --> 01:09:29,864
+when I switch back and forth, all those views get
+
+1333
+01:09:29,933 --> 01:09:32,666
+relaid out, right, layout of views happens.
+
+1334
+01:09:32,735 --> 01:09:37,038
+But nothing ever causes them to get re, out, reset out for
+
+1335
+01:09:37,106 --> 01:09:40,274
+my model. So they've all still got the buttons from
+
+1336
+01:09:40,343 --> 01:09:42,977
+what they were before. So what I need to do is every time I
+
+1337
+01:09:43,046 --> 01:09:45,146
+relay out my subviews like this I
+
+1338
+01:09:45,215 --> 01:09:48,415
+need to update my view from a model. Well, guess who comes
+
+1339
+01:09:48,484 --> 01:09:52,886
+to the rescue here? It's view controller life cycle, right?
+
+1340
+01:09:52,955 --> 01:09:56,190
+viewDidLayoutSubviews in vieweDidLayoutSubviews.
+
+1341
+01:09:56,259 --> 01:09:58,927
+I'm just gonna do update my view from my model.
+
+1342
+01:10:08,437 --> 01:10:10,538
+We got Sports. Now we have these done, oops,
+
+1343
+01:10:10,606 --> 01:10:13,608
+it's the other way around, so we go this way. Looks work
+
+1344
+01:10:13,676 --> 01:10:15,876
+we're good. Now we can get these offending ones and
+
+1345
+01:10:15,945 --> 01:10:18,479
+they're there. Now they're in random places, because we're
+
+1346
+01:10:18,547 --> 01:10:22,116
+using this outlay collection, but at least it's working.
+
+1347
+01:10:22,185 --> 01:10:25,653
+Now what about the problem of where's our face,
+
+1348
+01:10:25,722 --> 01:10:28,623
+our flips number? There's no flips there.
+
+1349
+01:10:28,692 --> 01:10:30,691
+Gotta push down below the tab bar down there.
+
+1350
+01:10:30,760 --> 01:10:32,393
+How are we gonna fix that? All right,
+
+1351
+01:10:32,461 --> 01:10:34,729
+we're gonna fix that in a different way just to show you
+
+1352
+01:10:34,797 --> 01:10:37,665
+there are other ways to do these things. What we're gonna
+
+1353
+01:10:37,734 --> 01:10:41,402
+do is we're gonna move this Flips things up here.
+
+1354
+01:10:41,470 --> 01:10:43,771
+Now you could imagine, let's create another one and
+
+1355
+01:10:43,840 --> 01:10:46,273
+then do Is Hidden on the two of them. And yeah,
+
+1356
+01:10:46,342 --> 01:10:49,076
+we could that, but that kind of starts getting ridiculous,
+
+1357
+01:10:49,145 --> 01:10:51,812
+cuz now I'm gonna have to have another outlet to that other
+
+1358
+01:10:51,881 --> 01:10:54,582
+one. What a pain. I really just wanna move this.
+
+1359
+01:10:54,651 --> 01:10:58,853
+Well, what makes this be here? What makes it be here
+
+1360
+01:10:58,922 --> 01:11:01,823
+is these constraints on it, the fact that it's aligned to
+
+1361
+01:11:01,891 --> 01:11:03,891
+the center, that it's hooked to the bottom,
+
+1362
+01:11:03,960 --> 01:11:07,094
+that the top space is hooked to that stack view.
+
+1363
+01:11:07,163 --> 01:11:10,030
+That's what makes this be here. So if I could change
+
+1364
+01:11:10,099 --> 01:11:13,033
+those constraints, I could make it be over here. And
+
+1365
+01:11:13,102 --> 01:11:16,637
+as long as those constraints only happen in height compact,
+
+1366
+01:11:16,706 --> 01:11:20,441
+woo hoo, it'll switch, right? So that's what we're gonna do.
+
+1367
+01:11:20,509 --> 01:11:22,075
+Now how do we do that?
+
+1368
+01:11:22,144 --> 01:11:25,680
+Okay, we don't have the little pluses by all our constraints,
+
+1369
+01:11:25,748 --> 01:11:27,081
+how the heck do we do that? Well,
+
+1370
+01:11:27,150 --> 01:11:29,383
+we do that with this magical button right here.
+
+1371
+01:11:29,452 --> 01:11:32,219
+You see this Vary for Traits? We don't even need this.
+
+1372
+01:11:32,288 --> 01:11:35,323
+In fact, we could probably, oops, we can probably use,
+
+1373
+01:11:35,392 --> 01:11:37,391
+don't even need document outline here. So
+
+1374
+01:11:37,459 --> 01:11:40,528
+you can really see what's going on here, right? So here
+
+1375
+01:11:40,596 --> 01:11:43,397
+I'm working, and if I click this Vary for Traits button
+
+1376
+01:11:43,466 --> 01:11:46,667
+right here, it'll say, okay, you're going to go into a mode
+
+1377
+01:11:46,736 --> 01:11:49,403
+where all the constraints that you're doing are only
+
+1378
+01:11:49,471 --> 01:11:54,342
+applicable to the thing you're in. So let's do it, ready?
+
+1379
+01:11:54,410 --> 01:11:57,211
+Vary for Traits, it says do you want to vary by width or
+
+1380
+01:11:57,280 --> 01:12:00,381
+height or both? Here is the height that matters to me and,
+
+1381
+01:12:00,449 --> 01:12:03,651
+whoa, look at that bar. It got dark blue. So
+
+1382
+01:12:03,720 --> 01:12:06,687
+that dark blue is warning you, whoa, dude, you are editing
+
+1383
+01:12:06,756 --> 01:12:10,524
+constraint only in compact height. And in fact,
+
+1384
+01:12:10,593 --> 01:12:14,761
+it's only showing me compact height devices right here. So
+
+1385
+01:12:14,830 --> 01:12:16,397
+that blue warning is a warning,
+
+1386
+01:12:16,466 --> 01:12:20,067
+make sure you pay attention to that. All right, so how do I
+
+1387
+01:12:20,135 --> 01:12:22,703
+get Flips to move? Well, I gotta take all the things that
+
+1388
+01:12:22,772 --> 01:12:24,505
+are constraining Flips to be here and
+
+1389
+01:12:24,574 --> 01:12:27,842
+get rid of them. So I'm just gonna go over here and
+
+1390
+01:12:27,910 --> 01:12:31,111
+delete all of these constraints. And if I go over
+
+1391
+01:12:31,180 --> 01:12:34,582
+to my document outline here and I look at my constraints,
+
+1392
+01:12:34,650 --> 01:12:36,851
+you'll see that they didn't actually get deleted.
+
+1393
+01:12:36,919 --> 01:12:39,854
+See how they're grayed out. Why didn't they get deleted?
+
+1394
+01:12:39,922 --> 01:12:42,323
+Cuz I only deleted them for this size class.
+
+1395
+01:12:42,391 --> 01:12:45,492
+They still exist in the other size class. So that's why
+
+1396
+01:12:45,561 --> 01:12:48,196
+they're only grayed out here when I'm looking in this one.
+
+1397
+01:12:48,264 --> 01:12:50,264
+But it is good, it freed up Flips.
+
+1398
+01:12:50,333 --> 01:12:53,134
+You see, Flips is no longer tied to anything and
+
+1399
+01:12:53,202 --> 01:12:56,737
+also, by the way, of course, this little constraint right
+
+1400
+01:12:56,806 --> 01:13:03,978
+here, if I can click on it, This little I-beam right here,
+
+1401
+01:13:04,046 --> 01:13:07,614
+that's gotta go as well. Because that is no longer
+
+1402
+01:13:07,683 --> 01:13:11,285
+going to be constrained to the edge, it's gonna
+
+1403
+01:13:11,354 --> 01:13:15,790
+be constrained to the edge of this Flips thing, all right?
+
+1404
+01:13:15,858 --> 01:13:19,126
+This is gonna be constrained here. So let's go ahead and
+
+1405
+01:13:19,195 --> 01:13:22,763
+use Ctrl+drag to put this thing centered vertically.
+
+1406
+01:13:22,832 --> 01:13:25,933
+Let's also use Ctrl+drag to hook it up to the trailing
+
+1407
+01:13:26,002 --> 01:13:29,103
+space, although I don't want it to be 11.667.
+
+1408
+01:13:29,172 --> 01:13:31,372
+We'll do our standard 8 right there.
+
+1409
+01:13:31,441 --> 01:13:33,441
+And then let's go ahead and have this guy.
+
+1410
+01:13:33,509 --> 01:13:35,542
+We'll use the pin menu for him, and
+
+1411
+01:13:35,611 --> 01:13:39,447
+have his right edge there be to the nearest neighbor,
+
+1412
+01:13:39,516 --> 01:13:42,016
+which happens to be Flips. And then also,
+
+1413
+01:13:42,084 --> 01:13:45,252
+we'll do pin again to hook this bottom of this right here
+
+1414
+01:13:45,321 --> 01:13:49,556
+to also be 8 from its nearest neighbor which is the bottom.
+
+1415
+01:13:49,625 --> 01:13:53,661
+Now all these constraints that I just put in are all only for
+
+1416
+01:13:53,730 --> 01:13:57,264
+height compact. But now I'm done varying with that.
+
+1417
+01:13:57,333 --> 01:14:01,903
+Now if I go back, you'll see, look, it had no effect
+
+1418
+01:14:01,971 --> 01:14:04,838
+over here. Flips is still at the bottom and
+
+1419
+01:14:04,907 --> 01:14:06,874
+over here it's at the sides. So let's go ahead and run.
+
+1420
+01:14:15,551 --> 01:14:16,634
+let's go make sure that it's still working in the old way.
+
+1421
+01:14:16,635 --> 01:14:17,718
+So first of all,
+
+1422
+01:14:17,787 --> 01:14:20,921
+So here's Flips, working fine, it's staying there. Now let's
+
+1423
+01:14:20,990 --> 01:14:25,459
+go over and do it here. This one, whoa, it's kind of
+
+1424
+01:14:25,527 --> 01:14:28,629
+jumping around a little bit. Why is that happening?
+
+1425
+01:14:28,698 --> 01:14:32,900
+Well, because the 14, 15, 11, those are different width so
+
+1426
+01:14:32,968 --> 01:14:35,569
+that label is kind of changing it to width.
+
+1427
+01:14:35,638 --> 01:14:40,574
+Wouldn't it be a lot cooler if, instead of doing Flips:14,
+
+1428
+01:14:40,643 --> 01:14:44,378
+if I made the Flips be a multi-line.
+
+1429
+01:14:44,447 --> 01:14:46,781
+Remember the multi-lines stuff we did before? And
+
+1430
+01:14:46,849 --> 01:14:53,720
+instead of having Flips:0, what if I did Flips return 0?
+
+1431
+01:14:53,789 --> 01:14:57,091
+This makes more space and also this 0 could be 100 and
+
+1432
+01:14:57,160 --> 01:15:00,094
+it still wouldn't be jiggling around in width.
+
+1433
+01:15:00,162 --> 01:15:01,528
+Well, that's actually really cool.
+
+1434
+01:15:01,597 --> 01:15:05,165
+Unfortunately, I just edited that and it's also
+
+1435
+01:15:05,234 --> 01:15:08,736
+going to be true over here and I don't want it over here. So
+
+1436
+01:15:08,804 --> 01:15:11,338
+how am I gonna have something that is gonna be different
+
+1437
+01:15:11,407 --> 01:15:13,907
+in these two size classes that's driven by the code?
+
+1438
+01:15:13,976 --> 01:15:16,744
+Cuz it's the code that decides what these things are.
+
+1439
+01:15:16,813 --> 01:15:19,246
+Well, we can do that in code as well, let's just jump over
+
+1440
+01:15:19,315 --> 01:15:22,282
+here real quick. Here is where we do this flip,
+
+1441
+01:15:22,351 --> 01:15:28,322
+I'm just gonna say traitCollection.verticalSizeC-
+
+1442
+01:15:28,391 --> 01:15:32,793
+lass = .compact. Then I'm gonna do one thing or
+
+1443
+01:15:32,862 --> 01:15:36,429
+if it's regular then I'll do this old thing. And the thing
+
+1444
+01:15:36,498 --> 01:15:41,669
+I'm gonna do in compact is I'm going to have carriage return
+
+1445
+01:15:41,738 --> 01:15:44,638
+instead of colon. And I was gonna run this and
+
+1446
+01:15:44,707 --> 01:15:48,776
+then we would see that this doesn't quite work, but we're
+
+1447
+01:15:48,845 --> 01:15:52,345
+time constrained, I can hear 1,000 people outside the door.
+
+1448
+01:15:52,414 --> 01:15:54,281
+So I'm gonna tell you one other thing,
+
+1449
+01:15:54,350 --> 01:15:57,251
+which is that if we had gone there it wouldn't work, okay.
+
+1450
+01:15:57,320 --> 01:15:58,719
+When we switch back and forth,
+
+1451
+01:15:58,788 --> 01:16:01,455
+it would not switch. That's because when switched back and
+
+1452
+01:16:01,524 --> 01:16:04,090
+forth, we need to get notified that our
+
+1453
+01:16:04,159 --> 01:16:06,827
+trait collection changed. And there's a view controller life
+
+1454
+01:16:06,896 --> 01:16:09,596
+cycle method which I didn't mention last time because
+
+1455
+01:16:09,665 --> 01:16:11,298
+you didn't know about traits. But now I'm gonna tell you,
+
+1456
+01:16:11,367 --> 01:16:20,073
+it's called traitCollectionDidChange. And
+
+1457
+01:16:20,142 --> 01:16:22,810
+this gets called every time your trait collection changes,
+
+1458
+01:16:22,878 --> 01:16:25,212
+right, every time your size class changes. So
+
+1459
+01:16:25,281 --> 01:16:28,015
+here I'm just gonna update my flip count label.
+
+1460
+01:16:29,085 --> 01:16:30,317
+Because my flip count label,
+
+1461
+01:16:30,386 --> 01:16:31,651
+if you look at its code,
+
+1462
+01:16:31,720 --> 01:16:34,521
+it depends on the trait collection. So of course every
+
+1463
+01:16:34,590 --> 01:16:37,558
+time it changes I need to update it, right?
+
+1464
+01:16:46,803 --> 01:16:48,636
+So here we go. We'll go Sports again, and see,
+
+1465
+01:16:48,704 --> 01:16:49,970
+this is working nicely over here.
+
+1466
+01:16:50,039 --> 01:16:52,873
+It's not jumping around any more because it's underneath.
+
+1467
+01:16:52,942 --> 01:16:56,444
+And now let's go look here. And we got our colon. Woo,
+
+1468
+01:16:56,512 --> 01:17:03,050
+look at that. And we'll go back here. That is it.
+
+1469
+01:17:03,119 --> 01:17:06,554
+We finished before the crowds came in and trampled us. And
+
+1470
+01:17:06,622 --> 01:17:08,055
+I will see you on Monday. Your homework, remember,
+
+1471
+01:17:08,123 --> 01:17:11,192
+is due on Monday, before lecture on Monday.
+
+1472
+01:17:11,260 --> 01:17:12,243
+you'll have a new homework going out on Monday, or
+
+1473
+01:17:12,244 --> 01:17:13,227
+And hopefully,
+
+1474
+01:17:13,295 --> 01:17:14,194
+maybe next Wednesday.
+
+1475
+01:17:14,263 --> 01:17:15,763
+Let's see what happens over the weekend.
+
+1476
+01:17:16,933 --> 01:17:17,564
+>> For more,
+>> 更多课程
+
+1477
+01:17:17,633 --> 01:17:26,139
+please visit us at stanford.edu.
+详见 stanford.edu

@@ -41,7 +41,7 @@
 		52E4A1AA1FCFBA85008B9010 = {
 			isa = PBXGroup;
 			children = (
-				52E4A1B51FCFBA85008B9010 /* validation */,
+				52E4A1B61FCFBA85008B9010 /* main.swift */,
 				52E4A1B41FCFBA85008B9010 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -52,14 +52,6 @@
 				52E4A1B31FCFBA85008B9010 /* validation */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		52E4A1B51FCFBA85008B9010 /* validation */ = {
-			isa = PBXGroup;
-			children = (
-				52E4A1B61FCFBA85008B9010 /* main.swift */,
-			);
-			name = validation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
