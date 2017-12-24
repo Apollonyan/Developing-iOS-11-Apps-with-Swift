@@ -12,22 +12,24 @@ let iTunesUCourseID = 1309275316
 
 enum ResourceType: String, CustomStringConvertible {
     // Raw Type: video/x-m4v, video/mp4
-    case video = "Video"
+    case lecture = "Video"
+    case friday = "Friday Session"
     // Raw Type: application/pdf
     case slides = "Slides"
-    case demoCode = "Demo Code"
-    case readingAssignment = "Reading"
-    case programmingProject = "Programming Project"
+    case demo = "Demo Code"
+    case reading = "Reading"
+    case project = "Programming Project"
     
-    static let all: [ResourceType] = [.video, .slides, .demoCode, .readingAssignment, .programmingProject]
+    static let all: [ResourceType] = [.lecture, .friday, .slides, .demo, .reading, .project]
     
     var description: String {
         switch self {
-        case .video: return "课程视频 / Videos"
-        case .slides: return "课程讲义 / Slides"
-        case .demoCode: return "示例代码 / Demo Code"
-        case .readingAssignment: return "阅读作业 / Readings"
-        case .programmingProject: return "编程作业 / Programming Projects"
+        case .lecture: return "课程视频 / Lecture Videos"
+        case .friday:  return "周五课程 / Friday Sessions"
+        case .slides:  return "课程讲义 / Slides"
+        case .demo:    return "示例代码 / Demo Code"
+        case .reading: return "阅读作业 / Readings"
+        case .project: return "编程作业 / Programming Projects"
         }
     }
 }
@@ -43,7 +45,7 @@ struct Resource: CustomStringConvertible {
         self.url = url
         
         if rawType.contains("video") {
-            type = .video
+            type = title.hasPrefix("Friday") ? .friday : .lecture
         } else if let resType = ResourceType.all.first(where: { title.contains($0.rawValue) }) {
             type = resType
         } else {
@@ -51,18 +53,20 @@ struct Resource: CustomStringConvertible {
         }
         
         var parts: [String]
-        if type == .video {
+        switch type {
+        case .lecture:
             // 4. Views -> index: 4, title: Views
             parts = title.components(separatedBy: ". ")
-        } else if type == .readingAssignment {
+        case .reading:
             // Reading 1: Intro to Swift -> index: 1, title: Intro to Swift
             parts = title.components(separatedBy: ": ")
             parts[0] = parts[0].components(separatedBy: " ")[1]
-        } else if type == .programmingProject {
+        case .project, .friday:
             // Programming Project 2: Calculator Brain -> index: 2, title: Calculator Brain
+            // Friday Session 3: Instruments
             parts = title.components(separatedBy: ": ")
             parts[0] = parts[0].components(separatedBy: " ")[2]
-        } else {
+        default:
             // Lecture 6 Slides -> index: 6, title: Lecture 6 Slides
             // Lecture 9 Demo Code: Smashtag -> index: 9, title: Lecture 9 Demo Code: Smashtag
             parts = [title.components(separatedBy: " ")[1], title]
@@ -189,6 +193,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
                 let workspace = NSWorkspace.shared()
             #endif
             workspace.activateFileViewerSelecting([url])
+            print("Written to \(url.path)")
         } catch {
             print(out)
         }
