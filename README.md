@@ -14,7 +14,7 @@
 
 ----
 
-翻译进度: ![2集](http://progressed.io/bar/2?scale=14&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。其他文档等可以查看[下载列表](./tools/update/download.md)（从 iTunes U 提取）
+翻译进度: ![2集](http://progressed.io/bar/2?scale=19&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。其他文档等可以查看[下载列表](./tools/update/download.md)（从 iTunes U 提取）
 
 课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)；字幕会在每集校对后作为弹幕上传。
 

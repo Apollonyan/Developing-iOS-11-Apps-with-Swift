@@ -1,0 +1,2950 @@
+1
+00:00:00,267 --> 00:00:04,603
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,672 --> 00:00:07,372
+Stanford University.
+>> 斯坦福大学
+
+3
+00:00:07,441 --> 00:00:08,940
+>> Alrighty, well, hi everybody.
+>> 大家好
+
+4
+00:00:09,009 --> 00:00:11,176
+My name is Jason. I'm one of your two TAs.
+我是 Jason，两个教师助理中的一个
+
+5
+00:00:11,178 --> 00:00:13,412
+Junjie is the other one. She is not here today and
+另一位是 Junjie，她今天不在
+
+6
+00:00:13,414 --> 00:00:13,445
+we are gonna go over today kinda two different things.
+
+7
+00:00:14,515 --> 00:00:17,249
+we are gonna go over today kinda two different things.
+
+8
+00:00:17,317 --> 00:00:19,818
+One is just a whirlwind tour of Xcode just to make your
+
+9
+00:00:19,886 --> 00:00:21,353
+life a lot simpler for the entire quarter and
+
+10
+00:00:21,421 --> 00:00:23,856
+the rest of your life to make it more familiar to you.
+
+11
+00:00:23,924 --> 00:00:26,391
+And the other thing is how to use the debugger within Xcode
+
+12
+00:00:26,460 --> 00:00:27,426
+in particular.
+
+13
+00:00:29,830 --> 00:00:31,830
+than most sections just cuz there's not that much material
+
+14
+00:00:31,899 --> 00:00:33,965
+to get through, so we'll be out of here a bit early.
+
+15
+00:00:34,034 --> 00:00:35,867
+But um, there is also, there is also no slides or
+
+16
+00:00:35,936 --> 00:00:37,803
+anything like that, there is no lecture to give,
+
+17
+00:00:37,871 --> 00:00:39,871
+it's just I'm gonna hop right into the demo.
+
+18
+00:00:39,940 --> 00:00:42,107
+And feel free to stop me at any point, just shout,
+
+19
+00:00:42,175 --> 00:00:44,009
+raise your hand if something is not clear if you wanna,
+
+20
+00:00:44,078 --> 00:00:46,110
+you wanna learn more about something or whatever, and
+
+21
+00:00:46,179 --> 00:00:47,412
+I'll stop to do that.
+
+22
+00:00:47,481 --> 00:00:49,414
+I know we're going through a giant list of key commands.
+
+23
+00:00:49,483 --> 00:00:50,983
+It's not like the most engaging lecture, so
+
+24
+00:00:51,051 --> 00:00:52,850
+I'll try to be as engaging as possible, but
+
+25
+00:00:52,919 --> 00:00:54,786
+uh, it is actually super useful.
+
+26
+00:00:54,855 --> 00:00:56,922
+So if, if I want you to have like one take away from,
+
+27
+00:00:56,991 --> 00:00:59,757
+from this whole talk, it's that, if you wanna get good at
+
+28
+00:00:59,826 --> 00:01:01,893
+using Xcode and you wanna feel fluent when you're using it,
+
+29
+00:01:01,962 --> 00:01:04,096
+you actually need to know a lot of key commands.
+
+30
+00:01:04,164 --> 00:01:05,330
+It will really help you a lot.
+
+31
+00:01:07,668 --> 00:01:09,968
+Xcode from Paul in lectures but actually learning all the
+
+32
+00:01:10,037 --> 00:01:12,437
+shortcuts for everything will make your life way simpler.
+
+33
+00:01:12,506 --> 00:01:14,339
+And I hope I can kinda convince you today that all
+
+34
+00:01:14,408 --> 00:01:16,208
+this stuff is actually pretty intuitive.
+
+35
+00:01:16,276 --> 00:01:18,276
+It's not just like memorizing a bunch of random things, but
+
+36
+00:01:18,345 --> 00:01:20,678
+it's all laid out by Apple in a very nice and, and
+
+37
+00:01:20,747 --> 00:01:21,346
+orderly way.
+
+38
+00:01:23,717 --> 00:01:25,651
+So let's just dive right in.
+
+39
+00:01:25,719 --> 00:01:29,287
+I'm gonna pop up an Xcode here and I have Concentration open,
+
+40
+00:01:29,356 --> 00:01:31,856
+which is the end of Wednesday's lecture,
+
+41
+00:01:31,925 --> 00:01:33,392
+we had this code working.
+
+42
+00:01:33,460 --> 00:01:36,761
+The catch here though is that this version of Concentration
+
+43
+00:01:36,830 --> 00:01:40,399
+that I'm using right now, I've deemed it sad Concentration.
+
+44
+00:01:40,467 --> 00:01:41,433
+You can see right here on this folder,
+
+45
+00:01:43,470 --> 00:01:45,971
+we're gonna investigate that using the debugger.
+
+46
+00:01:46,039 --> 00:01:48,039
+But before we do that, I am gonna hop in and
+
+47
+00:01:48,108 --> 00:01:51,309
+give you a tour of Xcode using key commands and what not.
+
+48
+00:01:51,378 --> 00:01:54,713
+So you remember things from lecture where you've seen for
+
+49
+00:01:54,782 --> 00:01:56,415
+example, you can navigate around all the panes
+
+50
+00:01:56,484 --> 00:01:58,583
+by clicking these various buttons, but it's gonna
+
+51
+00:01:58,652 --> 00:02:00,318
+get really old really fast when you're coding.
+
+52
+00:02:00,387 --> 00:02:00,886
+If you're also
+
+53
+00:02:02,989 --> 00:02:04,823
+You can get like five times faster if you just
+
+54
+00:02:06,493 --> 00:02:08,159
+learn how things are laid out in some various things.
+
+55
+00:02:08,228 --> 00:02:10,228
+So the first thing, I'll just kinda go,
+
+56
+00:02:10,297 --> 00:02:12,497
+go through Xcode in order, kinda from the top left.
+
+57
+00:02:12,566 --> 00:02:15,767
+The first thing is, all this stuff up here at the top left,
+
+58
+00:02:15,836 --> 00:02:17,836
+you can actually do automated by key commands.
+
+59
+00:02:17,905 --> 00:02:20,371
+So instead of going up and clicking Run and what not,
+
+60
+00:02:20,440 --> 00:02:22,374
+you can do Cmd+R, and that will run.
+
+61
+00:02:24,912 --> 00:02:26,110
+So there, there are key commands for
+
+62
+00:02:26,179 --> 00:02:28,246
+controlling everything about running and, and stopping and
+
+63
+00:02:28,315 --> 00:02:29,515
+all that stuff.
+
+64
+00:02:29,583 --> 00:02:32,184
+Um, the next thing I wanna talk about is more important
+
+65
+00:02:32,252 --> 00:02:35,487
+which is just how you actually navigate around all of Xcode.
+
+66
+00:02:35,555 --> 00:02:38,657
+And so there are key commands for doing things like, if you
+
+67
+00:02:38,725 --> 00:02:41,927
+watch the screen right now, I can do this, this, this.
+
+68
+00:02:43,597 --> 00:02:45,063
+You get really fast at this stuff.
+
+69
+00:02:46,867 --> 00:02:49,334
+We're, were opening up a second editor right now.
+
+70
+00:02:50,503 --> 00:02:50,936
+Right, so
+
+71
+00:02:53,473 --> 00:02:55,840
+how you can like quickly get your way around Xcode.
+
+72
+00:02:55,909 --> 00:02:59,144
+So when I close everything that I just did.
+
+73
+00:02:59,213 --> 00:03:01,513
+Suppose that were at a full main screen like this,
+
+74
+00:03:01,582 --> 00:03:03,982
+the way that everything is laid out is very logical,
+
+75
+00:03:04,051 --> 00:03:06,852
+where the left-most pane, which is called the Navigator,
+
+76
+00:03:06,920 --> 00:03:08,152
+is controlled by Cmd+0.
+
+77
+00:03:08,221 --> 00:03:10,688
+That's what shows it.
+
+78
+00:03:10,757 --> 00:03:14,692
+And then the right-most pane is showed using Cmd+Option+0.
+
+79
+00:03:14,761 --> 00:03:18,130
+That's what shows and hides the op, right-most pane.
+
+80
+00:03:18,198 --> 00:03:21,633
+And then within each pane, so if I'm on the left pane,
+
+81
+00:03:21,702 --> 00:03:25,837
+if I do Cmd+1,2,3,4,5 you see how up on the top left here
+
+82
+00:03:25,906 --> 00:03:28,072
+we're going through these tabs?
+
+83
+00:03:28,141 --> 00:03:30,976
+1, 2, 3, 4, 5, right?
+
+84
+00:03:31,045 --> 00:03:33,011
+And then if I do Cmd+Option+0, and
+
+85
+00:03:33,079 --> 00:03:36,414
+I look at these tabs up here, I just do Cmd+Option+1, 2 and
+
+86
+00:03:36,483 --> 00:03:38,950
+I can go through all those tabs.
+
+87
+00:03:39,019 --> 00:03:40,686
+So it's actually pretty nicely laid out like that.
+
+88
+00:03:40,754 --> 00:03:43,287
+You just remember that, Cmd+0 is for showing and hiding and
+
+89
+00:03:43,356 --> 00:03:44,623
+then the numbers are for tabbing.
+
+90
+00:03:44,691 --> 00:03:47,058
+And then if you add in Option, it does the right side.
+
+91
+00:03:47,127 --> 00:03:48,560
+So it's pretty simple.
+
+92
+00:03:48,628 --> 00:03:52,464
+If you just do Cmd+Shift+y, it toggles the console and
+
+93
+00:03:52,532 --> 00:03:56,168
+the debugger at the bottom which we'll be working with
+
+94
+00:03:56,236 --> 00:03:57,469
+more later today.
+
+95
+00:03:57,538 --> 00:03:59,504
+And those commands alone are enough to just kind of like
+
+96
+00:03:59,573 --> 00:04:00,939
+constantly manage your window size,
+
+97
+00:04:01,008 --> 00:04:02,874
+especially if you're programming on a laptop where
+
+98
+00:04:02,943 --> 00:04:04,676
+you only have like limited screen real estate.
+
+99
+00:04:04,745 --> 00:04:07,812
+It's actually really nice to be able to use those commands
+
+100
+00:04:07,881 --> 00:04:09,881
+to quickly navigate around.
+
+101
+00:04:09,949 --> 00:04:12,717
+The next thing I'll point out is that, you know from lecture
+
+102
+00:04:12,786 --> 00:04:15,687
+that Xcode has uh, two different editors.
+
+103
+00:04:15,755 --> 00:04:18,757
+It has the um, the main editor that we' re in right here, and
+
+104
+00:04:18,826 --> 00:04:21,726
+it has also this thing called the assistant editor.
+
+105
+00:04:21,795 --> 00:04:27,132
+So if we do a Cmd+Option+Enter.
+
+106
+00:04:27,201 --> 00:04:29,834
+It pops up in this second pane over here, and
+
+107
+00:04:29,903 --> 00:04:33,171
+then we can do Cmd+Enter to go back to just one pane, so
+
+108
+00:04:33,240 --> 00:04:35,207
+this is super useful.
+
+109
+00:04:35,275 --> 00:04:37,842
+The one thing that I'll point out about this is that,
+
+110
+00:04:37,911 --> 00:04:41,380
+if you go to your, your Xcode preferences window,
+
+111
+00:04:41,448 --> 00:04:43,949
+we have all these things that we can, that we can toggle and
+
+112
+00:04:44,017 --> 00:04:44,549
+we won't go through all
+
+113
+00:04:46,519 --> 00:04:47,919
+You can go around and change your font colors and
+
+114
+00:04:47,988 --> 00:04:49,054
+all that good stuff.
+
+115
+00:04:51,658 --> 00:04:54,559
+recommend that you utilize, which is in Navigation here.
+
+116
+00:04:54,628 --> 00:04:57,896
+There's this little check box that says, Navigation uses
+
+117
+00:04:57,965 --> 00:05:01,199
+the primary editor, versus using the focused editor, and
+
+118
+00:05:01,268 --> 00:05:04,235
+by default, this is set to using the primary editor.
+
+119
+00:05:04,304 --> 00:05:07,539
+And that's going to probably torture you if you use certain
+
+120
+00:05:07,608 --> 00:05:09,006
+other key commands.
+
+121
+00:05:09,075 --> 00:05:10,542
+Let me give you an example.
+
+122
+00:05:10,610 --> 00:05:13,511
+One of the key commands is for opening certain files without
+
+123
+00:05:13,580 --> 00:05:15,146
+having to navigate there in the,
+
+124
+00:05:15,215 --> 00:05:16,815
+in the file navigator over here.
+
+125
+00:05:16,883 --> 00:05:19,450
+So let's say that I, we all know that there's
+
+126
+00:05:19,519 --> 00:05:22,454
+a file called Card.swift and we wanna open it, all I
+
+127
+00:05:22,523 --> 00:05:25,490
+have to do is Cmd+Shift+O for open, type card, and
+
+128
+00:05:25,559 --> 00:05:29,327
+then there's Card.swift, and that will open it up.
+
+129
+00:05:29,396 --> 00:05:30,128
+Now what if I wanted
+
+130
+00:05:32,900 --> 00:05:35,199
+So right here, I am zooming around in the,
+
+131
+00:05:35,268 --> 00:05:37,268
+in the right pane and I have the right pane selected.
+
+132
+00:05:37,337 --> 00:05:39,670
+If I do Cmd+Shift+O and I go back to ViewController,
+
+133
+00:05:39,739 --> 00:05:42,707
+it still opens in the left pane.
+
+134
+00:05:42,775 --> 00:05:45,309
+So if you don't have this use focused editor option selected
+
+135
+00:05:45,378 --> 00:05:47,378
+it's always going to use the left editor or
+
+136
+00:05:47,447 --> 00:05:49,180
+the prime editor for those key commands.
+
+137
+00:05:49,249 --> 00:05:52,150
+So that's why you wanna have this box checked, so that now
+
+138
+00:05:52,218 --> 00:05:55,086
+when we go over here and we have the right one selected
+
+139
+00:05:55,155 --> 00:05:57,655
+and we do card, it opens it over on the right pan.
+
+140
+00:05:57,724 --> 00:05:58,990
+Makes sense?
+
+141
+00:05:59,059 --> 00:06:02,526
+Cool, so I highly recommend that you do that.
+
+142
+00:06:02,595 --> 00:06:05,596
+Okay, the next thing, we're gonna do is actually
+
+143
+00:06:05,665 --> 00:06:08,566
+talk about text editing within each window really briefly.
+
+144
+00:06:08,635 --> 00:06:11,369
+One thing that I wanna point out is, you haven't dealt with
+
+145
+00:06:11,437 --> 00:06:14,038
+this problem yet because your Xcode projects haven't gotten
+
+146
+00:06:14,107 --> 00:06:15,907
+very large, but they will get very large.
+
+147
+00:06:15,976 --> 00:06:17,241
+There will be lots of code files and
+
+148
+00:06:17,310 --> 00:06:19,344
+eventually you'll have hundreds of files in a single
+
+149
+00:06:19,413 --> 00:06:21,579
+project when you're making a big Xcode project.
+
+150
+00:06:21,648 --> 00:06:24,682
+And one of the things that will help you navigate that is
+
+151
+00:06:24,751 --> 00:06:27,452
+to help yourself by leaving Navigation,
+
+152
+00:06:27,521 --> 00:06:30,688
+like Navigation helper things throughout your files and
+
+153
+00:06:30,757 --> 00:06:33,524
+one way to do that is this comment right here that is
+
+154
+00:06:33,593 --> 00:06:35,259
+prefixed with comment mark.
+
+155
+00:06:35,295 --> 00:06:35,326
+excuse me.
+
+156
+00:06:37,731 --> 00:06:38,363
+below this line.
+
+157
+00:06:41,134 --> 00:06:43,535
+this notification in this window up here.
+
+158
+00:06:43,604 --> 00:06:44,936
+That's where card touch behavior is and
+
+159
+00:06:45,004 --> 00:06:46,270
+it will jump to that point of the file.
+
+160
+00:06:46,339 --> 00:06:48,306
+And so you can imagine in big files, using these marks is
+
+161
+00:06:48,375 --> 00:06:50,241
+actually super helpful when they're really long,
+
+162
+00:06:50,309 --> 00:06:51,543
+something to navigate around.
+
+163
+00:06:53,313 --> 00:06:56,013
+The next thing that I'll point out about text editing is,
+
+164
+00:06:56,082 --> 00:06:58,850
+it's very useful just to know basic text editing commands.
+
+165
+00:06:58,919 --> 00:07:01,386
+Like for example, if you have many lines selected and
+
+166
+00:07:01,454 --> 00:07:03,821
+you want to comment them out all of a sudden,
+
+167
+00:07:03,890 --> 00:07:07,758
+just Cmd+/ will comment things out like that and
+
+168
+00:07:07,827 --> 00:07:10,295
+then Cmd+/ again will undo them.
+
+169
+00:07:10,363 --> 00:07:12,897
+Another maybe even more useful thing is when you get yourself
+
+170
+00:07:12,966 --> 00:07:15,100
+into a, a nasty state like this.
+
+171
+00:07:17,070 --> 00:07:19,437
+Just mess some stuff up for no reason.
+
+172
+00:07:19,506 --> 00:07:21,372
+And you can tell that it's really not formatted.
+
+173
+00:07:21,441 --> 00:07:23,074
+We can select everything that we want and
+
+174
+00:07:23,143 --> 00:07:25,743
+do Ctrl+I, I for indent and it will just
+
+175
+00:07:25,812 --> 00:07:28,179
+magically put everything exactly like we wanted.
+
+176
+00:07:28,248 --> 00:07:29,747
+So that'll save you a lot of time and headache,
+
+177
+00:07:29,816 --> 00:07:31,516
+if things are not, if you,
+
+178
+00:07:31,585 --> 00:07:33,951
+if you can't tell things that are nicely indented or not.
+
+179
+00:07:34,020 --> 00:07:36,054
+And I'll list these all online on Piazza by the way,
+
+180
+00:07:36,122 --> 00:07:37,922
+so it's not like you need to know down what they are.
+
+181
+00:07:37,991 --> 00:07:39,324
+I just kinda want to give you the,
+
+182
+00:07:39,393 --> 00:07:41,426
+give you the lay of the land here.
+
+183
+00:07:41,495 --> 00:07:43,795
+So hopefully we're through the, the fast sorta boring
+
+184
+00:07:43,863 --> 00:07:46,364
+part of the lecture where it's just all of the key commands.
+
+185
+00:07:46,433 --> 00:07:48,199
+But I highly recommend that you learn all this stuff and
+
+186
+00:07:48,267 --> 00:07:49,967
+start getting it into your muscle memory so
+
+187
+00:07:50,036 --> 00:07:51,436
+that when you're navigating on Xcode,
+
+188
+00:07:51,505 --> 00:07:54,206
+you're not torturing yourself for having to click around
+
+189
+00:07:54,274 --> 00:07:56,941
+everywhere and do everything manually.
+
+190
+00:07:57,010 --> 00:07:59,277
+The next thing to do is to actually start using
+
+191
+00:07:59,346 --> 00:08:00,111
+the debugger.
+
+192
+00:08:02,416 --> 00:08:04,449
+we're not actually using the version of concentration
+
+193
+00:08:04,518 --> 00:08:06,284
+directly from the end of Wednesday's lecture.
+
+194
+00:08:06,353 --> 00:08:08,587
+We're actually using a slightly broken version of it,
+
+195
+00:08:08,655 --> 00:08:11,088
+and so let's see what happens when we actually run this one.
+
+196
+00:08:11,157 --> 00:08:13,991
+I'm gonna run it on the iPhone X simulator using
+
+197
+00:08:14,060 --> 00:08:17,929
+our trusty Cmd+R key command, and let's see what happens.
+
+198
+00:08:30,043 --> 00:08:32,843
+So I've crashed, it doesn't even work right from
+
+199
+00:08:32,912 --> 00:08:35,747
+the start, and we're thrown to the app delegate,
+
+200
+00:08:35,815 --> 00:08:37,515
+which is the main file.
+
+201
+00:08:37,584 --> 00:08:39,551
+It's crashing on the main method it says, but
+
+202
+00:08:39,619 --> 00:08:40,785
+that's not very helpful.
+
+203
+00:08:40,854 --> 00:08:43,021
+So the way that we first get more insight into this,
+
+204
+00:08:43,090 --> 00:08:44,756
+is to look into the actual stack trace,
+
+205
+00:08:44,824 --> 00:08:46,691
+which shows up in the console log down here.
+
+206
+00:08:46,760 --> 00:08:48,325
+And you just see this huge stack trace,
+
+207
+00:08:48,394 --> 00:08:50,361
+which goes all the way into the internals of iOS,
+
+208
+00:08:50,430 --> 00:08:51,730
+all the way down through UI kit,
+
+209
+00:08:51,798 --> 00:08:53,665
+and core foundation, and all this stuff, and
+
+210
+00:08:53,734 --> 00:08:56,100
+it's not very helpful to see all these memory addresses.
+
+211
+00:08:56,169 --> 00:08:59,737
+But if you scroll up to the top in almost every case you
+
+212
+00:08:59,806 --> 00:09:02,140
+will see what the actual reason for
+
+213
+00:09:02,208 --> 00:09:04,009
+terminating the app was.
+
+214
+00:09:04,077 --> 00:09:07,345
+And in this case it tells us that there's an uncaught
+
+215
+00:09:07,414 --> 00:09:10,081
+exception called UnknownKeyException,
+
+216
+00:09:10,150 --> 00:09:12,683
+which we may might not know what that is.
+
+217
+00:09:12,752 --> 00:09:16,253
+It tells us that the reason for the crash was, oops,
+
+218
+00:09:16,322 --> 00:09:16,821
+sorry.
+
+219
+00:09:16,890 --> 00:09:17,622
+The reason for
+
+220
+00:09:20,727 --> 00:09:23,727
+so it already tells us what file something is happening
+
+221
+00:09:23,796 --> 00:09:26,731
+in, has some error on setValue:forUndefinedKey.
+
+222
+00:09:26,799 --> 00:09:28,433
+Unclear exactly what that is,
+
+223
+00:09:28,501 --> 00:09:31,502
+cuz we didn't write that method, and then this class is
+
+224
+00:09:31,571 --> 00:09:35,006
+not key value coding-compliant for the key flipCountLabel.
+
+225
+00:09:35,075 --> 00:09:39,710
+So that gives us even more insight, is something is wrong
+
+226
+00:09:39,779 --> 00:09:44,715
+with flipCountLabel, and so if we go into view controller,
+
+227
+00:09:44,784 --> 00:09:47,752
+and we go check out flipCountLabel,
+
+228
+00:09:47,820 --> 00:09:52,590
+we actually see flipCountLabel abbreviated to LBL here,
+
+229
+00:09:52,659 --> 00:09:56,027
+which is not what it says in the debugger.
+
+230
+00:09:56,096 --> 00:09:58,896
+Can anyone figure out what's actually going on here?
+
+231
+00:09:58,965 --> 00:10:00,599
+How does it know to print out flipCountLabel?
+
+232
+00:10:01,934 --> 00:10:02,900
+Any ideas?
+
+233
+00:10:02,969 --> 00:10:05,804
+If we've named it flipCountLbl,
+
+234
+00:10:05,872 --> 00:10:09,641
+then why is it printing out flipCountLabel?
+
+235
+00:10:09,709 --> 00:10:11,008
+Can anyone think of why?
+
+236
+00:10:11,077 --> 00:10:13,011
+No?
+
+237
+00:10:13,079 --> 00:10:14,179
+Yeah, in the back.
+
+238
+00:10:17,817 --> 00:10:18,583
+Yeah, exactly.
+
+239
+00:10:18,652 --> 00:10:19,751
+So that's what I named it.
+
+240
+00:10:19,819 --> 00:10:20,418
+What he said was,
+
+241
+00:10:22,622 --> 00:10:24,655
+So if we go over to the storyboard over here,
+
+242
+00:10:24,724 --> 00:10:27,591
+actually let's just open up both side-by-side using all of
+
+243
+00:10:27,660 --> 00:10:29,094
+our happy new key commands.
+
+244
+00:10:31,631 --> 00:10:33,064
+So we got the storyboard open over here.
+
+245
+00:10:38,438 --> 00:10:39,804
+I'm gonna make this fullscreen for a moment,
+
+246
+00:10:39,872 --> 00:10:41,239
+cuz it's easier to see what's going on.
+
+247
+00:10:43,810 --> 00:10:44,476
+If we look inside here,
+
+248
+00:10:48,781 --> 00:10:51,782
+Now this right here, that I've selected,
+
+249
+00:10:51,851 --> 00:10:54,685
+is not actually the official name of the object.
+
+250
+00:10:54,754 --> 00:10:58,390
+If I open up our assistant editor over here, and
+
+251
+00:10:58,458 --> 00:11:00,558
+I go over to the view controller, and
+
+252
+00:11:00,627 --> 00:11:03,494
+I look at its rightmost pane, this is where we see all of
+
+253
+00:11:03,563 --> 00:11:04,663
+the things that we've connected, and
+
+254
+00:11:06,633 --> 00:11:09,567
+on the storyboard what they're actually connected to.
+
+255
+00:11:09,636 --> 00:11:11,569
+Here's where you see that we have this outlet.
+
+256
+00:11:11,638 --> 00:11:14,271
+The name of the outlet is Flip Count Label, and it's
+
+257
+00:11:14,340 --> 00:11:17,175
+connected to flipCountLabel, but if you zoom in here,
+
+258
+00:11:17,244 --> 00:11:20,244
+you'll notice that there's a little exclamation point or
+
+259
+00:11:20,313 --> 00:11:22,714
+an empty thing, as compared to the normal dot.
+
+260
+00:11:22,783 --> 00:11:24,682
+So that's it telling you that this thing actually can't
+
+261
+00:11:24,751 --> 00:11:27,318
+find what it's actually connected to.
+
+262
+00:11:27,387 --> 00:11:29,654
+So if we go back over into our View Controller,
+
+263
+00:11:29,723 --> 00:11:30,655
+in this editor, and
+
+264
+00:11:38,865 --> 00:11:41,166
+And then we go back to the storyboard editor,
+
+265
+00:11:41,234 --> 00:11:44,035
+we should see that, that error is no longer there, and
+
+266
+00:11:44,103 --> 00:11:46,504
+we actually have Flip Count Label connected.
+
+267
+00:11:46,573 --> 00:11:49,407
+So this is a bug that you'll probably see often at first,
+
+268
+00:11:49,476 --> 00:11:52,377
+as you're not quite, I mean, it's just hard to keep your
+
+269
+00:11:52,445 --> 00:11:54,745
+storyboard in sync with your code sometimes.
+
+270
+00:11:54,814 --> 00:11:57,581
+So just know that there's this error about key value coding
+
+271
+00:11:57,650 --> 00:11:59,484
+compliance and that's what it means.
+
+272
+00:11:59,553 --> 00:12:01,152
+That you should go check this right most
+
+273
+00:12:01,220 --> 00:12:03,120
+pane with your View Controller selected, and
+
+274
+00:12:03,189 --> 00:12:04,956
+that will help you get rid of these errors.
+
+275
+00:12:05,025 --> 00:12:06,524
+Cool, so we're gonna save that, and
+
+276
+00:12:06,592 --> 00:12:07,759
+then we're gonna run it.
+
+277
+00:12:16,569 --> 00:12:18,803
+Okay great, so it's actually running now.
+
+278
+00:12:18,872 --> 00:12:21,272
+So if you click around to play the game.
+
+279
+00:12:21,341 --> 00:12:26,243
+Oops, it crashed, and so if I look down inside the console
+
+280
+00:12:26,312 --> 00:12:29,713
+here, I don't actually have any logs.
+
+281
+00:12:29,782 --> 00:12:32,316
+It didn't actually show me in the console why it crashed.
+
+282
+00:12:32,385 --> 00:12:34,919
+In fact, I have no info anywhere.
+
+283
+00:12:34,987 --> 00:12:36,220
+Let's try and run it again and
+
+284
+00:12:36,289 --> 00:12:38,356
+see if we can figure out what causes it to crash.
+
+285
+00:12:38,425 --> 00:12:39,557
+It looked like that time it crashed when
+
+286
+00:12:39,626 --> 00:12:40,291
+I clicked on a card.
+
+287
+00:12:43,763 --> 00:12:47,365
+Okay, that time, it let me click on one of the cards, but
+
+288
+00:12:47,434 --> 00:12:50,735
+it still crashed, so let's try it again.
+
+289
+00:12:50,803 --> 00:12:52,770
+Let's see if we can figure out some sort of pattern for
+
+290
+00:12:52,839 --> 00:12:53,638
+what's going on.
+
+291
+00:12:56,509 --> 00:12:59,076
+That time it crashed after four cards.
+
+292
+00:12:59,145 --> 00:13:01,679
+So does anyone have an idea for how we can actually start
+
+293
+00:13:01,748 --> 00:13:03,414
+figuring out how to debug this?
+
+294
+00:13:03,482 --> 00:13:04,015
+Like how on Earth are we
+
+295
+00:13:05,485 --> 00:13:08,386
+It seems to be crashing randomly after some number
+
+296
+00:13:08,455 --> 00:13:09,220
+of cards, and
+
+297
+00:13:15,795 --> 00:13:16,728
+Anyone have an idea?
+
+298
+00:13:18,531 --> 00:13:20,898
+Even if you think it's silly, just say something.
+
+299
+00:13:20,967 --> 00:13:22,200
+Say one way we can do this.
+
+300
+00:13:22,268 --> 00:13:23,034
+Print statements?
+
+301
+00:13:23,102 --> 00:13:23,935
+Yeah, print statements.
+
+302
+00:13:25,671 --> 00:13:27,538
+frustrating if you were in a really big app though.
+
+303
+00:13:27,607 --> 00:13:29,106
+But you already see the problem with print
+
+304
+00:13:29,175 --> 00:13:31,175
+statements is, if we're gonna use print statements,
+
+305
+00:13:31,244 --> 00:13:33,311
+what the heck are we gonna do, go inside every method, and
+
+306
+00:13:33,380 --> 00:13:34,812
+type print at every point in the method,
+
+307
+00:13:34,881 --> 00:13:36,514
+and figure out where, and what's going on?
+
+308
+00:13:36,583 --> 00:13:37,849
+We have to inspect our entire app,
+
+309
+00:13:37,917 --> 00:13:40,484
+imagine we had like a 100,000 lines of code that'd be really
+
+310
+00:13:40,553 --> 00:13:41,085
+frustrating.
+
+311
+00:13:44,424 --> 00:13:47,558
+think about when the actual app is crashing.
+
+312
+00:13:47,626 --> 00:13:49,593
+At what point is it crashing?
+
+313
+00:13:49,662 --> 00:13:51,662
+When you flip a card.
+
+314
+00:13:51,731 --> 00:13:52,830
+When I flip a card.
+
+315
+00:13:52,899 --> 00:13:54,065
+Can you use a break point somewhere?
+
+316
+00:13:54,133 --> 00:13:56,034
+Bingo, so you say, just using a break point,
+
+317
+00:13:56,102 --> 00:13:58,369
+because it's definitely crashing when we flip a card.
+
+318
+00:13:58,438 --> 00:13:59,571
+So that's a new idea.
+
+319
+00:14:03,409 --> 00:14:04,908
+inside that method.
+
+320
+00:14:04,977 --> 00:14:07,378
+And then that will help us hopefully figure out,
+
+321
+00:14:07,447 --> 00:14:10,281
+when the crashing happens we'll be able to step through,
+
+322
+00:14:10,350 --> 00:14:12,517
+and hopefully figure out what's going on.
+
+323
+00:14:12,585 --> 00:14:14,319
+So the way break points work in Xcode,
+
+324
+00:14:14,387 --> 00:14:16,888
+and if you haven't used break points before it's a way
+
+325
+00:14:16,956 --> 00:14:19,457
+for your debugger to pause execution of your program on
+
+326
+00:14:19,525 --> 00:14:21,258
+a certain line of code.
+
+327
+00:14:21,327 --> 00:14:23,628
+So if we go inside the touchCard method,
+
+328
+00:14:23,696 --> 00:14:24,995
+which is we know, the first thing that
+
+329
+00:14:25,064 --> 00:14:27,465
+happens directly when we click on a card.
+
+330
+00:14:27,533 --> 00:14:30,701
+We can click over here on the left pane on the line of code,
+
+331
+00:14:30,770 --> 00:14:32,437
+and it pops up this little blue arrow, and
+
+332
+00:14:32,505 --> 00:14:33,871
+that's what a break point is.
+
+333
+00:14:33,940 --> 00:14:36,307
+And that instructs the debugger to please stop there
+
+334
+00:14:36,375 --> 00:14:37,175
+when we get there.
+
+335
+00:14:40,380 --> 00:14:43,447
+in the left down here, and you can see that it has this
+
+336
+00:14:43,516 --> 00:14:46,551
+little blue arrow that looks just like this one, and
+
+337
+00:14:46,619 --> 00:14:48,753
+when I click on it it turns into grey,
+
+338
+00:14:48,821 --> 00:14:51,189
+which means break points are disabled.
+
+339
+00:14:51,257 --> 00:14:53,223
+All break points in the entire program are disabled, so
+
+340
+00:14:53,292 --> 00:14:55,293
+if you want break points to be enabled you have to activate
+
+341
+00:14:55,362 --> 00:14:56,628
+them this way.
+
+342
+00:14:56,696 --> 00:14:59,563
+There's also a pane, up inside the navigator over here,
+
+343
+00:14:59,632 --> 00:15:02,400
+that looks the same way, and it'll show you a list of all
+
+344
+00:15:02,468 --> 00:15:04,835
+your break points throughout your entire Xcode project.
+
+345
+00:15:04,904 --> 00:15:06,037
+So, you can also go up here to this pane.
+
+346
+00:15:08,441 --> 00:15:09,874
+do with break points than just this.
+
+347
+00:15:09,943 --> 00:15:12,877
+You can also go to this little plus at the bottom left of
+
+348
+00:15:12,946 --> 00:15:16,180
+this pane, and you can set certain special break points.
+
+349
+00:15:16,248 --> 00:15:18,916
+So for example, there's one called an exception break
+
+350
+00:15:18,985 --> 00:15:21,051
+point, so if I add that, what this does is,
+
+351
+00:15:21,120 --> 00:15:22,687
+anytime an exception is thrown,
+
+352
+00:15:22,755 --> 00:15:24,555
+if you throw an exception in your app,
+
+353
+00:15:24,624 --> 00:15:27,391
+instead of just throwing the exception to the console, or
+
+354
+00:15:27,460 --> 00:15:30,528
+crashing, or what not, it'll actually always, by default,
+
+355
+00:15:30,597 --> 00:15:32,963
+open the debugger and pause on that line of code.
+
+356
+00:15:33,032 --> 00:15:34,732
+So if you just always have this all exceptions
+
+357
+00:15:34,800 --> 00:15:36,467
+break point running that will actually help
+
+358
+00:15:36,535 --> 00:15:38,002
+you in your developing for example, so
+
+359
+00:15:38,070 --> 00:15:40,204
+you can actually customize break points here that way.
+
+360
+00:15:40,273 --> 00:15:42,840
+You can also disable individual break points from
+
+361
+00:15:42,909 --> 00:15:43,474
+this pane.
+
+362
+00:15:46,112 --> 00:15:47,879
+the one that we just set right here, but
+
+363
+00:15:47,947 --> 00:15:50,514
+this one that I just mentioned about exceptions causing
+
+364
+00:15:50,583 --> 00:15:52,783
+break points to happen, this one is disabled.
+
+365
+00:15:52,852 --> 00:15:54,452
+So you can selectively go enable and
+
+366
+00:15:54,520 --> 00:15:56,988
+disable break points all across every file off on this
+
+367
+00:15:57,056 --> 00:15:58,756
+one pane, which is nice.
+
+368
+00:15:58,824 --> 00:16:00,224
+But oftentimes all that you need to do,
+
+369
+00:16:00,292 --> 00:16:02,059
+I'm gonna disable the exceptions one.
+
+370
+00:16:02,128 --> 00:16:04,161
+Oftentimes all that you need to do is actually within
+
+371
+00:16:04,230 --> 00:16:07,331
+an individual file, set the break point in that one file.
+
+372
+00:16:07,400 --> 00:16:09,033
+So okay if we run the program now.
+
+373
+00:16:13,572 --> 00:16:16,507
+When I click on a card we'll see that what happens is we
+
+374
+00:16:16,576 --> 00:16:18,176
+end up on this line of code.
+
+375
+00:16:19,312 --> 00:16:21,712
+So the program is paused at
+
+376
+00:16:21,781 --> 00:16:24,048
+this line where we're setting off the card number.
+
+377
+00:16:24,116 --> 00:16:26,250
+And the first thing to point out is that you'll notice
+
+378
+00:16:26,319 --> 00:16:28,619
+in the debugger itself we actually have a trace of
+
+379
+00:16:28,688 --> 00:16:31,355
+everything that's stored off in memory at this point.
+
+380
+00:16:31,424 --> 00:16:34,625
+So self would refer to the view controller in this case.
+
+381
+00:16:34,694 --> 00:16:36,160
+And you can see if I zoom in, you can see
+
+382
+00:16:36,229 --> 00:16:38,096
+that it says concentration view controller and
+
+383
+00:16:38,164 --> 00:16:40,464
+this is the memory address of the view controller, but
+
+384
+00:16:40,533 --> 00:16:42,867
+it not only gives you that, it gives you a drop down menu
+
+385
+00:16:42,936 --> 00:16:45,669
+with all of the things that are instance variables
+
+386
+00:16:45,738 --> 00:16:49,040
+stored off on that instance of that class.
+
+387
+00:16:49,108 --> 00:16:53,911
+So things like we have the instance of the actual game
+
+388
+00:16:53,980 --> 00:16:57,048
+of concentration and that has lots of properties itself.
+
+389
+00:16:57,116 --> 00:17:00,184
+If it has the array of cards and then it also has that
+
+390
+00:17:00,252 --> 00:17:02,786
+variable index of the one and only face up card, and we can
+
+391
+00:17:02,855 --> 00:17:05,957
+expand cards and we can look into each card and then we can
+
+392
+00:17:06,026 --> 00:17:07,959
+find out that the identifier for that card is five.
+
+393
+00:17:08,027 --> 00:17:10,461
+So you can actually see all of the things that are stored off
+
+394
+00:17:10,529 --> 00:17:13,163
+right here, inside of the debugger, so
+
+395
+00:17:13,232 --> 00:17:17,034
+that's super nice, and we can do that, use that to confirm
+
+396
+00:17:17,103 --> 00:17:20,438
+something like maybe we want to make sure that.
+
+397
+00:17:20,506 --> 00:17:21,839
+The identifiers that we've set
+
+398
+00:17:21,908 --> 00:17:24,408
+actually have an equal number of pairs of options.
+
+399
+00:17:24,477 --> 00:17:26,544
+So, if we go through,we see that the first one is
+
+400
+00:17:26,612 --> 00:17:29,013
+identifier five, the second one has identifier three,
+
+401
+00:17:29,082 --> 00:17:29,913
+third one has four.
+
+402
+00:17:29,982 --> 00:17:32,583
+Four, okay great, here's a pair.
+
+403
+00:17:32,652 --> 00:17:34,818
+We shouldn't see another four, right?
+
+404
+00:17:34,887 --> 00:17:37,688
+There's a one and we should see,
+
+405
+00:17:37,756 --> 00:17:41,325
+we should see one through six, correct?
+
+406
+00:17:41,394 --> 00:17:42,660
+And we should see each one twice, so
+
+407
+00:17:42,729 --> 00:17:44,795
+anyway, that'll be like a way to figure that out quickly
+
+408
+00:17:44,864 --> 00:17:46,864
+without having go manually and print everything out.
+
+409
+00:17:46,932 --> 00:17:49,967
+Another thing that we can do at any given point is over
+
+410
+00:17:50,036 --> 00:17:53,336
+inside the console, LLDB, stands for your debugger,
+
+411
+00:17:53,405 --> 00:17:55,740
+the DB part stands for debugger.
+
+412
+00:17:55,808 --> 00:17:58,309
+We can actually print out any object that we want to be able
+
+413
+00:17:58,378 --> 00:17:59,076
+to inspect it.
+
+414
+00:17:59,145 --> 00:18:00,111
+So if I do a PO,
+
+415
+00:18:05,518 --> 00:18:06,784
+Give it a moment.
+
+416
+00:18:06,853 --> 00:18:10,254
+And you notice it prints out this optional concentration,
+
+417
+00:18:10,323 --> 00:18:12,990
+because concentration is of type optional.
+
+418
+00:18:13,059 --> 00:18:14,458
+In this case, it's what's called an implicitly
+
+419
+00:18:14,527 --> 00:18:15,326
+unwrapped optional.
+
+420
+00:18:18,531 --> 00:18:19,897
+In other words, it's not nil.
+
+421
+00:18:19,966 --> 00:18:22,132
+The other value in the enum for an optional is sum.
+
+422
+00:18:22,201 --> 00:18:24,902
+So we know that concentration is set here.
+
+423
+00:18:24,970 --> 00:18:27,871
+Another thing we can do is actually we can print out by
+
+424
+00:18:27,940 --> 00:18:30,741
+just typing p for print so it just works magic
+
+425
+00:18:32,578 --> 00:18:35,379
+abilities to figure how to format the thing that we need
+
+426
+00:18:35,448 --> 00:18:39,584
+to print out in the way they think is the best readable.
+
+427
+00:18:39,652 --> 00:18:40,485
+So if I print out game,
+
+428
+00:18:43,389 --> 00:18:47,158
+prints out cards, all twelve values and then all the info
+
+429
+00:18:47,227 --> 00:18:49,126
+that we were just looking at inside the debugger.
+
+430
+00:18:49,195 --> 00:18:51,495
+But it does it all there formatted very nicely.
+
+431
+00:18:51,563 --> 00:18:52,729
+And then we know that index of one and
+
+432
+00:18:52,798 --> 00:18:53,898
+only face up card is nil so
+
+433
+00:18:57,303 --> 00:18:58,703
+We can also do that for any other object.
+
+434
+00:18:58,771 --> 00:19:00,671
+So I print out flipCountLabel,
+
+435
+00:19:02,475 --> 00:19:04,542
+it prints out that its a UI label optional.
+
+436
+00:19:05,878 --> 00:19:09,446
+It's a UI view, which has a UI responder.
+
+437
+00:19:09,515 --> 00:19:12,483
+And anyway the point is p is very nice it's very helpful
+
+438
+00:19:12,551 --> 00:19:13,951
+for printing anything out whatsoever.
+
+439
+00:19:15,187 --> 00:19:17,387
+So, I'm back to our actual bug, at this point.
+
+440
+00:19:17,456 --> 00:19:20,357
+We have this problem we're clicking on, we click
+
+441
+00:19:20,426 --> 00:19:22,526
+on a card and we're stopped at this break point and
+
+442
+00:19:22,595 --> 00:19:24,962
+we wanna figure out why this thing is crashing.
+
+443
+00:19:25,031 --> 00:19:26,530
+So the first thing that we might do
+
+444
+00:19:26,599 --> 00:19:29,500
+to figure out what line we're crashing on in this case,
+
+445
+00:19:29,569 --> 00:19:31,135
+since we're not getting an exception and
+
+446
+00:19:31,204 --> 00:19:34,271
+we have no idea what's going on, is we might go use these
+
+447
+00:19:34,340 --> 00:19:36,974
+navigation options inside the actual debugger here.
+
+448
+00:19:37,042 --> 00:19:38,542
+So if you look in right here,
+
+449
+00:19:38,610 --> 00:19:40,811
+we have a few different options right here.
+
+450
+00:19:40,880 --> 00:19:43,047
+One of them is continue program execution and
+
+451
+00:19:43,115 --> 00:19:46,083
+what that means is okay we're paused at a break point.
+
+452
+00:19:46,152 --> 00:19:48,452
+Just continue running the program until we hit the next
+
+453
+00:19:48,520 --> 00:19:50,054
+break point, or if there are no breakpoints,
+
+454
+00:19:50,123 --> 00:19:51,255
+just continue running the program.
+
+455
+00:19:52,391 --> 00:19:53,524
+So let's try that right now,
+
+456
+00:19:53,592 --> 00:19:58,128
+let's click, let's click on continue running.
+
+457
+00:19:58,197 --> 00:19:59,363
+Okay, in this case we didn't crash,
+
+458
+00:19:59,432 --> 00:20:00,864
+that time that we tapped on touch card,
+
+459
+00:20:00,933 --> 00:20:02,533
+so it's just continuing the program.
+
+460
+00:20:02,602 --> 00:20:04,502
+We're not on a break point right now, so we click again.
+
+461
+00:20:05,871 --> 00:20:07,304
+Okay, we're back at the same break point, and
+
+462
+00:20:07,373 --> 00:20:08,206
+we can continue again.
+
+463
+00:20:09,575 --> 00:20:12,676
+Oh, and that time the program crashed, and
+
+464
+00:20:12,745 --> 00:20:14,078
+we're not sure what's going on.
+
+465
+00:20:14,147 --> 00:20:16,313
+But we know that it definitely happened right after
+
+466
+00:20:16,381 --> 00:20:17,948
+this first line of touchCard.
+
+467
+00:20:18,017 --> 00:20:22,019
+So let's see how we can go into a little bit more detail.
+
+468
+00:20:28,160 --> 00:20:29,693
+>> Okay, so we click on the card again.
+
+469
+00:20:29,762 --> 00:20:31,996
+Rather than continuing the execution, instead,
+
+470
+00:20:32,064 --> 00:20:34,165
+we can pick the second option here which is step over.
+
+471
+00:20:36,269 --> 00:20:38,001
+Oops, saw the little help dialog pop up for
+
+472
+00:20:38,070 --> 00:20:39,070
+a second there.
+
+473
+00:20:39,138 --> 00:20:40,404
+I wanna get that pop up on the screen.
+
+474
+00:20:43,276 --> 00:20:45,109
+So you can step over an instruction.
+
+475
+00:20:47,713 --> 00:20:49,713
+Let's maybe do the next line of code and
+
+476
+00:20:49,782 --> 00:20:52,549
+we can keep going like this hoping that this is the time
+
+477
+00:20:52,618 --> 00:20:54,619
+where the crush actually happens.
+
+478
+00:21:00,960 --> 00:21:03,760
+And it's not, unfortunately.
+
+479
+00:21:03,829 --> 00:21:06,162
+So actually it doesn't help us with our problem.
+
+480
+00:21:06,231 --> 00:21:07,331
+Does anyone have any other ideas?
+
+481
+00:21:11,103 --> 00:21:12,502
+How do you think we can go further to figure
+
+482
+00:21:12,571 --> 00:21:13,904
+out what the problem actually is?
+
+483
+00:21:15,441 --> 00:21:17,608
+Take a look at, take a look at this method here.
+
+484
+00:21:26,718 --> 00:21:28,886
+Well actually, it didn't crash that time,
+
+485
+00:21:28,955 --> 00:21:30,420
+so that was kind of a bad exercise.
+
+486
+00:21:30,489 --> 00:21:32,389
+But I'm just saying, in general,
+
+487
+00:21:32,458 --> 00:21:35,025
+once we hit the time that it does crash, what's something
+
+488
+00:21:35,094 --> 00:21:37,327
+else that we could do to actually go further?
+
+489
+00:21:37,396 --> 00:21:40,364
+Any ideas? >> Set a break point.
+
+490
+00:21:42,568 --> 00:21:43,033
+>> There we go.
+
+491
+00:21:43,102 --> 00:21:43,668
+So she just,
+
+492
+00:21:45,671 --> 00:21:46,671
+inside concentration.
+
+493
+00:21:48,541 --> 00:21:50,974
+we're also calling other methods inside of touchCard.
+
+494
+00:21:51,043 --> 00:21:52,575
+And then there's another method after that.
+
+495
+00:21:52,644 --> 00:21:54,611
+There's also updateViewFromModel,
+
+496
+00:21:54,680 --> 00:21:55,313
+so actually,
+
+497
+00:21:58,116 --> 00:21:59,483
+Which means, it can be crashing anywhere inside
+
+498
+00:21:59,552 --> 00:22:01,985
+the chooseCard, or any where inside updateViewFromModel.
+
+499
+00:22:02,054 --> 00:22:04,054
+So one thing that we could do is we could go to
+
+500
+00:22:04,123 --> 00:22:06,256
+both of these methods like updateViewFromModel,
+
+501
+00:22:06,325 --> 00:22:07,658
+and we can set a break point there.
+
+502
+00:22:07,726 --> 00:22:12,429
+And then we could pop open a, let's pop open card over here,
+
+503
+00:22:12,498 --> 00:22:15,199
+and we'll go to chooseCard, oh excuse me
+
+504
+00:22:15,268 --> 00:22:17,835
+we're go to concentration over here and we'll put a break
+
+505
+00:22:17,904 --> 00:22:20,604
+point inside choose card and now we have three different
+
+506
+00:22:20,673 --> 00:22:24,274
+break points set as you can see in the break point pane.
+
+507
+00:22:24,343 --> 00:22:28,479
+And that'll make it stop at all the places where it could
+
+508
+00:22:28,547 --> 00:22:30,247
+possibly be at the start of the method.
+
+509
+00:22:30,315 --> 00:22:32,883
+But another, I'm not gonna do that right now, another way of
+
+510
+00:22:32,952 --> 00:22:37,888
+doing that actually is to use the The next option inside
+
+511
+00:22:37,956 --> 00:22:38,989
+the debugger pane.
+
+512
+00:22:41,961 --> 00:22:43,260
+So if you click on something
+
+513
+00:22:45,064 --> 00:22:46,664
+Let me get back to one window here.
+
+514
+00:22:48,567 --> 00:22:53,137
+Once we get to a method, Like chooseCard,
+
+515
+00:22:53,206 --> 00:22:55,572
+we can see this next option here is step into and
+
+516
+00:22:55,641 --> 00:22:58,074
+that's how we get inside the actual method, so
+
+517
+00:22:58,143 --> 00:23:01,779
+if I click step into, now we are at the top of chooseCard.
+
+518
+00:23:01,848 --> 00:23:04,047
+And now if we want we can step over each line inside of
+
+519
+00:23:04,116 --> 00:23:05,249
+chooseCard.
+
+520
+00:23:05,317 --> 00:23:06,683
+And we can inspect the code if we want,
+
+521
+00:23:06,752 --> 00:23:08,452
+we can read it to make sure everything's okay.
+
+522
+00:23:10,757 --> 00:23:12,523
+We could put extra break points inside here if we see
+
+523
+00:23:12,592 --> 00:23:14,125
+something that might be suspicious.
+
+524
+00:23:15,360 --> 00:23:16,559
+Notice that if we're inside a four loop,
+
+525
+00:23:16,628 --> 00:23:18,329
+that's a lot of iterations,
+
+526
+00:23:18,398 --> 00:23:20,764
+it would take forever to step over the whole time.
+
+527
+00:23:20,832 --> 00:23:22,399
+So you can get yourself in trouble real fast
+
+528
+00:23:22,468 --> 00:23:23,833
+if you're stepping into methods that
+
+529
+00:23:23,902 --> 00:23:25,202
+have a lot of behavior going on.
+
+530
+00:23:25,270 --> 00:23:27,170
+But that aren't relevant to actually what's going on.
+
+531
+00:23:27,239 --> 00:23:28,239
+But you get the idea.
+
+532
+00:23:29,542 --> 00:23:30,107
+So let's continue,
+
+533
+00:23:33,779 --> 00:23:37,782
+Let's, this time let's step inside updateViewFromModel.
+
+534
+00:23:40,019 --> 00:23:41,852
+So that's the method that's right beneath this one.
+
+535
+00:23:42,888 --> 00:23:44,287
+And let's step over this.
+
+536
+00:23:44,356 --> 00:23:47,324
+We're gonna go through all the indices inside cardButtons,
+
+537
+00:23:47,393 --> 00:23:49,393
+which is kind of a pain because we have to go
+
+538
+00:23:49,461 --> 00:23:50,795
+through this big for loop and
+
+539
+00:23:50,863 --> 00:23:53,697
+see if anyone sees anything suspicious in this method.
+
+540
+00:23:56,968 --> 00:23:58,803
+Just point it out, point it out if you see it.
+
+541
+00:24:00,138 --> 00:24:01,405
+If something weird is going on.
+
+542
+00:24:05,444 --> 00:24:07,377
+Anybody?
+
+543
+00:24:07,446 --> 00:24:11,715
+It's the world's worst line of code of all time.
+
+544
+00:24:11,784 --> 00:24:12,616
+What is this?
+
+545
+00:24:14,286 --> 00:24:14,819
+What is this?
+
+546
+00:24:14,887 --> 00:24:15,553
+Who put this here?
+
+547
+00:24:17,656 --> 00:24:20,757
+it's information this way to exit your app, right?
+
+548
+00:24:20,826 --> 00:24:24,160
+So we're just actually exiting with negative 1.
+
+549
+00:24:24,229 --> 00:24:28,198
+It turns out we're exiting a flipCount, which that thing we
+
+550
+00:24:28,267 --> 00:24:31,935
+keep in track of at the bottom of that is greater than some
+
+551
+00:24:32,003 --> 00:24:35,538
+random number that's generated between this.
+
+552
+00:24:35,607 --> 00:24:36,974
+What the heck? This line couldn't just make
+
+553
+00:24:37,042 --> 00:24:37,675
+any sense, right?
+
+554
+00:24:40,746 --> 00:24:44,348
+debugger because it's like it's giving us no information
+
+555
+00:24:44,416 --> 00:24:45,349
+in the console so
+
+556
+00:24:48,754 --> 00:24:52,022
+Anyway, so obviously this is the problem, if we get rid
+
+557
+00:24:52,090 --> 00:24:54,658
+of this completely pointless in same line of
+
+558
+00:24:54,727 --> 00:24:57,995
+code that I put in there, then we run the program again
+
+559
+00:25:04,437 --> 00:25:06,770
+We're gonna stop at that break point, so maybe we'll,
+
+560
+00:25:06,839 --> 00:25:08,038
+we'll disable it this time,
+
+561
+00:25:08,107 --> 00:25:10,207
+cuz we're not sure if we fixed all of the problems.
+
+562
+00:25:10,275 --> 00:25:13,010
+So we'll keep that break point there just in case, but
+
+563
+00:25:13,079 --> 00:25:14,644
+we'll disable it and hit continue.
+
+564
+00:25:14,713 --> 00:25:16,614
+And then we'll try to play concentration,
+
+565
+00:25:18,351 --> 00:25:19,850
+See if anything strange is going on.
+
+566
+00:25:19,919 --> 00:25:22,719
+It actually seems like it's working more this time.
+
+567
+00:25:22,788 --> 00:25:23,887
+Also, I'm not actually playing right now.
+
+568
+00:25:23,956 --> 00:25:25,389
+I promise I'm not this bad at this game.
+
+569
+00:25:27,026 --> 00:25:28,592
+But it looks like we fixed the problem.
+
+570
+00:25:28,661 --> 00:25:31,128
+And we know we have fixed one problem because there's not
+
+571
+00:25:31,197 --> 00:25:33,063
+an exit in our code which is kinda ridiculous.
+
+572
+00:25:33,132 --> 00:25:35,266
+Are there any questions about using the actual debugger?
+
+573
+00:25:35,334 --> 00:25:35,933
+Are you done here?
+
+574
+00:25:38,804 --> 00:25:40,069
+Everyone understand kind of the general idea?
+
+575
+00:25:40,138 --> 00:25:41,771
+It's actually pretty simple, for
+
+576
+00:25:41,840 --> 00:25:44,007
+navigating around the memory hierarchy and
+
+577
+00:25:44,076 --> 00:25:46,476
+then using these commands to step through your code.
+
+578
+00:25:46,545 --> 00:25:47,177
+That's all make sense?
+
+579
+00:25:48,514 --> 00:25:50,747
+Okay cool, one thing I wanna show you is that
+
+580
+00:25:50,816 --> 00:25:52,882
+the debugger is not quite as simple as everything that just
+
+581
+00:25:52,951 --> 00:25:54,485
+appears the pane right here.
+
+582
+00:25:54,553 --> 00:25:56,520
+It turns out that there's something inside of Xcode's
+
+583
+00:25:56,589 --> 00:25:59,256
+preferences called behaviors, and this is an Xcode
+
+584
+00:25:59,325 --> 00:26:02,025
+wide thing, it's actually really useful and cool.
+
+585
+00:26:02,094 --> 00:26:04,895
+And what behaviors is for various parts of running your
+
+586
+00:26:04,963 --> 00:26:08,265
+app, and actually gives you the ability
+
+587
+00:26:08,333 --> 00:26:11,835
+to make custom configurations for when certain events occur.
+
+588
+00:26:11,904 --> 00:26:13,637
+You can say if this thing happens,
+
+589
+00:26:13,705 --> 00:26:15,138
+then do this thing to x code.
+
+590
+00:26:15,207 --> 00:26:18,341
+So for example, right now when we pause inside,
+
+591
+00:26:18,410 --> 00:26:21,311
+when the app is running, whenever we pause,
+
+592
+00:26:21,380 --> 00:26:25,215
+we have this option here that says, show the navigator.
+
+593
+00:26:26,685 --> 00:26:27,684
+We have that checked.
+
+594
+00:26:27,753 --> 00:26:30,387
+So if we change this to hide, for example,
+
+595
+00:26:30,456 --> 00:26:33,524
+then when the app pauses, watch what happens.
+
+596
+00:26:37,896 --> 00:26:39,129
+So you're gonna touch on the card.
+
+597
+00:26:40,666 --> 00:26:43,533
+Did you notice that the navigator pane on the left
+
+598
+00:26:43,602 --> 00:26:45,635
+disappeared when that happened?
+
+599
+00:26:45,704 --> 00:26:46,370
+So that's interesting.
+
+600
+00:26:48,640 --> 00:26:51,041
+we're debugging, we might want Xcode to just, by default,
+
+601
+00:26:51,110 --> 00:26:53,410
+just go to a certain state cuz we don't know whenever we're
+
+602
+00:26:53,479 --> 00:26:55,712
+running the app what state our Xcode is currently in, but
+
+603
+00:26:55,781 --> 00:26:57,647
+we know that when we're debugging we want it to be
+
+604
+00:26:57,716 --> 00:26:58,782
+in particular state.
+
+605
+00:26:58,851 --> 00:27:00,384
+So you can actually go customize all that stuff
+
+606
+00:27:00,452 --> 00:27:01,652
+inside behaviors.
+
+607
+00:27:01,720 --> 00:27:03,987
+In the interests of time and sanity, I won't go through
+
+608
+00:27:04,056 --> 00:27:05,455
+every single little option, like we could play
+
+609
+00:27:05,524 --> 00:27:07,758
+a sound when certain things happen or whatever.
+
+610
+00:27:07,827 --> 00:27:09,560
+You can actually go through the Behaviors pane and
+
+611
+00:27:09,628 --> 00:27:12,862
+kinda check and see everything that it can do for you.
+
+612
+00:27:12,931 --> 00:27:14,932
+So it's actually pretty useful.
+
+613
+00:27:15,000 --> 00:27:15,765
+Any questions about behaviors?
+
+614
+00:27:15,834 --> 00:27:16,467
+Does that make sense?
+
+615
+00:27:19,638 --> 00:27:20,571
+Okay, great.
+
+616
+00:27:23,709 --> 00:27:26,777
+a little bit about what actually the Xcode file itself
+
+617
+00:27:26,845 --> 00:27:29,479
+contains, because it's kind of opaqued people the first time
+
+618
+00:27:29,548 --> 00:27:30,413
+they have used Xcode.
+
+619
+00:27:30,482 --> 00:27:32,448
+So this is your actual project file.
+
+620
+00:27:32,517 --> 00:27:35,185
+It has all these different tabs inside of it, and
+
+621
+00:27:35,254 --> 00:27:38,122
+there's just a lot going on inside here.
+
+622
+00:27:38,190 --> 00:27:41,291
+In general, I am not going to go through every little point,
+
+623
+00:27:41,360 --> 00:27:43,927
+but in general, what I would encourage you to do is
+
+624
+00:27:43,996 --> 00:27:46,797
+understand the difference between build settings and
+
+625
+00:27:46,866 --> 00:27:49,866
+what goes on inside of build settings, and build phases,
+
+626
+00:27:49,935 --> 00:27:51,035
+and what that means.
+
+627
+00:27:53,672 --> 00:27:56,039
+like figure out what version of our programming language
+
+628
+00:27:56,107 --> 00:27:57,207
+that we're running with.
+
+629
+00:27:57,276 --> 00:27:58,175
+That's something that's going to go
+
+630
+00:27:58,244 --> 00:27:58,909
+into your build settings.
+
+631
+00:28:00,679 --> 00:28:03,780
+So we can either scroll down and look for that option like,
+
+632
+00:28:03,849 --> 00:28:06,883
+here we find Swift language version set to Swift 4.0 or
+
+633
+00:28:06,952 --> 00:28:09,586
+you can actually use this handy thing coz this menu
+
+634
+00:28:09,655 --> 00:28:10,987
+can get kind of large, and
+
+635
+00:28:11,056 --> 00:28:14,157
+type something like language, and then, okay, great.
+
+636
+00:28:14,225 --> 00:28:17,861
+I was just filtering to just Swift language.
+
+637
+00:28:17,929 --> 00:28:19,863
+So I would encourage you to go through build settings,
+
+638
+00:28:19,932 --> 00:28:22,465
+and just see what things that there are to change and what
+
+639
+00:28:22,534 --> 00:28:25,101
+not, and you'll see this, can get actually kind of large,
+
+640
+00:28:25,170 --> 00:28:27,738
+the more complex your Xcode product is.
+
+641
+00:28:27,807 --> 00:28:29,406
+Both phases is separate from that.
+
+642
+00:28:29,475 --> 00:28:32,509
+And the thing that I would point you towards here is,
+
+643
+00:28:32,578 --> 00:28:33,977
+this is where you see all the source files
+
+644
+00:28:34,045 --> 00:28:35,179
+that are used inside your app.
+
+645
+00:28:38,917 --> 00:28:40,617
+Then there's the second section called link
+
+646
+00:28:40,686 --> 00:28:42,219
+binary with libraries.
+
+647
+00:28:42,287 --> 00:28:43,854
+So that's if you wanna actually add a library
+
+648
+00:28:43,923 --> 00:28:45,822
+to use to your project which we are gonna get into later
+
+649
+00:28:45,891 --> 00:28:46,457
+in this quarter.
+
+650
+00:28:49,395 --> 00:28:51,495
+besides just putting a label or a button or
+
+651
+00:28:51,563 --> 00:28:53,730
+any of the stuff that comes stock in UI kit.
+
+652
+00:28:53,799 --> 00:28:56,567
+Say that we wanted to put like a map because we are making
+
+653
+00:28:56,635 --> 00:28:59,469
+an app like map something like that what we will do is
+
+654
+00:28:59,538 --> 00:29:01,872
+add a new library to our app and type in map, and
+
+655
+00:29:01,940 --> 00:29:04,908
+we find this thing called map kit, and then you type add and
+
+656
+00:29:04,976 --> 00:29:08,044
+that's where all you're adding for frameworks happens.
+
+657
+00:29:08,113 --> 00:29:09,880
+And then we see it created this new Frameworks folder
+
+658
+00:29:09,949 --> 00:29:12,349
+over here, it has a MapKit inside of it.
+
+659
+00:29:12,417 --> 00:29:15,385
+And now we can go inside any file, like ViewController.
+
+660
+00:29:15,454 --> 00:29:19,355
+We can go to the top of that file and say import MapKit and
+
+661
+00:29:19,424 --> 00:29:21,357
+it's there.
+
+662
+00:29:21,426 --> 00:29:22,025
+Make sense?
+
+663
+00:29:24,129 --> 00:29:25,129
+the Xcode file for now.
+
+664
+00:29:28,100 --> 00:29:30,867
+The one caveat I'll talk about with the Xcode file is
+
+665
+00:29:30,936 --> 00:29:33,670
+if you're using Git or any kind of source control,
+
+666
+00:29:33,739 --> 00:29:36,406
+you will actually be committing the Xcode project
+
+667
+00:29:36,474 --> 00:29:39,409
+file itself to the repository and imagine that you're
+
+668
+00:29:39,478 --> 00:29:42,345
+working on source control with other people online.
+
+669
+00:29:42,414 --> 00:29:45,048
+If two different people have a merged conflict within
+
+670
+00:29:45,117 --> 00:29:47,016
+the actual Xcode project file itself,
+
+671
+00:29:47,085 --> 00:29:49,786
+that's just a big file that stores off a bunch of data by
+
+672
+00:29:49,855 --> 00:29:52,656
+your Xcode project, that can be kind of nasty to learn how
+
+673
+00:29:52,725 --> 00:29:54,057
+to merge those conflicts.
+
+674
+00:29:54,126 --> 00:29:54,825
+So that means,
+
+675
+00:29:56,662 --> 00:29:59,763
+code it might be worth looking up online ways to help manage
+
+676
+00:29:59,832 --> 00:30:02,032
+the Xcode project file itself inside source control.
+
+677
+00:30:02,100 --> 00:30:04,367
+Cuz it's not as simple as doing source control inside
+
+678
+00:30:04,436 --> 00:30:05,302
+an actual code file.
+
+679
+00:30:07,406 --> 00:30:09,939
+project file that you'll wanna learn about what it actually
+
+680
+00:30:10,008 --> 00:30:11,008
+looks like internally.
+
+681
+00:30:12,111 --> 00:30:13,209
+So that's all that I have planned for
+
+682
+00:30:13,278 --> 00:30:14,444
+today does anyone have any questions or
+
+683
+00:30:14,513 --> 00:30:15,345
+anything that we went over.
+
+684
+00:30:15,414 --> 00:30:16,613
+Does all make sense?
+
+685
+00:30:18,583 --> 00:30:20,083
+key commands in the debugger, yeah sure.
+
+686
+00:30:20,152 --> 00:30:23,153
+>> Is it possible to do some sort of version control?
+
+687
+00:30:23,222 --> 00:30:23,987
+>> Or right sure, so
+
+688
+00:30:26,791 --> 00:30:29,526
+So I was just sort of alluding to that when I was talking
+
+689
+00:30:29,595 --> 00:30:31,861
+about the Xcode project file itself.
+
+690
+00:30:31,930 --> 00:30:35,098
+The answer is yes, you can use source control.
+
+691
+00:30:35,166 --> 00:30:37,267
+Most people, pretty much everybody these days uses GIT.
+
+692
+00:30:37,335 --> 00:30:39,035
+So highly recommend you go learn GIT.
+
+693
+00:30:39,104 --> 00:30:42,906
+If you dont know GIT, you can go online and quickly,
+
+694
+00:30:42,975 --> 00:30:44,841
+I would recommend, there's something called PRO GIT.
+
+695
+00:30:44,910 --> 00:30:49,947
+And that's a free book that you can learn online.
+
+696
+00:30:50,015 --> 00:30:50,981
+Learn from online.
+
+697
+00:30:56,121 --> 00:30:58,788
+Okay, great, so here's this book called Pro Git.
+
+698
+00:30:58,857 --> 00:31:00,323
+And if you haven't used Git before,
+
+699
+00:31:00,392 --> 00:31:01,925
+I highly recommend that you don't just go off and
+
+700
+00:31:01,994 --> 00:31:02,859
+try to use Git.
+
+701
+00:31:02,927 --> 00:31:04,695
+I highly recommend that you go off and
+
+702
+00:31:04,763 --> 00:31:06,563
+you read something like Pro Git first.
+
+703
+00:31:06,631 --> 00:31:09,265
+So that you actually learn what's going on with Git and
+
+704
+00:31:09,334 --> 00:31:11,768
+how it represents source control under the hood.
+
+705
+00:31:11,836 --> 00:31:14,570
+It'll really help you because one of the big pain points for
+
+706
+00:31:14,639 --> 00:31:17,374
+people, when they are first learning source control is you
+
+707
+00:31:17,442 --> 00:31:19,843
+learn a few commands for how to commit code online and
+
+708
+00:31:19,912 --> 00:31:21,311
+how to send it to other people.
+
+709
+00:31:21,380 --> 00:31:23,580
+But then, when you run into a problem, of some sort, and
+
+710
+00:31:23,649 --> 00:31:26,616
+you don't know how to undo that problem,
+
+711
+00:31:26,685 --> 00:31:28,418
+It's really hard to figure out what's going on if you don't
+
+712
+00:31:28,487 --> 00:31:29,619
+know how to Git actually stores things.
+
+713
+00:31:29,688 --> 00:31:31,087
+So it's really necessary to go through and
+
+714
+00:31:31,156 --> 00:31:34,691
+read something like this book to understand how Git works.
+
+715
+00:31:34,759 --> 00:31:36,059
+And then if you don't have a GitHub account,
+
+716
+00:31:36,128 --> 00:31:37,660
+go to github.com and
+
+717
+00:31:37,729 --> 00:31:39,396
+immediately create an account and
+
+718
+00:31:39,464 --> 00:31:43,433
+start creating your repository and learning all the commands
+
+719
+00:31:43,502 --> 00:31:45,135
+that are better explained to you inside this book.
+
+720
+00:31:45,203 --> 00:31:46,236
+I highly recommend that.
+
+721
+00:31:49,241 --> 00:31:50,107
+in particular,
+
+722
+00:31:53,044 --> 00:31:58,782
+So I'll do file, new project, I'll create a single view
+
+723
+00:31:58,851 --> 00:32:04,754
+app,I'll call it test, And then you'll see that when I'm
+
+724
+00:32:04,823 --> 00:32:06,989
+actually creating the project, I'll put in my desktop here.
+
+725
+00:32:07,058 --> 00:32:09,025
+It actually has a source control option for
+
+726
+00:32:09,094 --> 00:32:10,360
+creating a Git repository.
+
+727
+00:32:10,428 --> 00:32:12,862
+So actually, when you check this it'll, it'll put your
+
+728
+00:32:12,931 --> 00:32:15,065
+project with a .git file in the actual directory.
+
+729
+00:32:15,133 --> 00:32:16,899
+And then you can push that online to GitHub.
+
+730
+00:32:16,968 --> 00:32:17,968
+So it'll do that automatically so
+
+731
+00:32:18,037 --> 00:32:18,769
+you don't need to do it manually.
+
+732
+00:32:22,140 --> 00:32:23,273
+Any other questions?
+
+733
+00:32:25,110 --> 00:32:25,609
+No.
+
+734
+00:32:27,045 --> 00:32:27,644
+talk to me afterwards.
+
+735
+00:32:29,180 --> 00:32:31,114
+Thank you all.
+谢谢大家
+
+736
+00:32:31,182 --> 00:32:35,352
+>> For more please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu
