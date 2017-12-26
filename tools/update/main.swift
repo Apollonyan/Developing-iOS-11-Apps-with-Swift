@@ -12,7 +12,7 @@ let iTunesUCourseID = 1309275316
 
 enum ResourceType: String, CustomStringConvertible {
     // Raw Type: video/x-m4v, video/mp4
-    case lecture = "Video"
+    case lecture = "."
     case friday = "Friday Session"
     // Raw Type: application/pdf
     case slides = "Slides"
@@ -41,16 +41,10 @@ struct Resource: CustomStringConvertible {
     let url: String
     let summary: String?
     
-    init?(title: String, rawType: String, url: String, summary: String?) {
+    init?(title: String, url: String, summary: String?) {
         self.url = url
-        
-        if rawType.contains("video") {
-            type = title.hasPrefix("Friday") ? .friday : .lecture
-        } else if let resType = ResourceType.all.first(where: { title.contains($0.rawValue) }) {
-            type = resType
-        } else {
-            fatalError("Unknown Raw Type \(rawType)")
-        }
+
+        type = ResourceType.all.first { title.contains($0.rawValue) }!
         
         var parts: [String]
         switch type {
@@ -106,7 +100,6 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
     
     var title: String?
     var isParsingTitle = false
-    var type: String?
     var url: String?
     var summary: String?
     var isParsingSummary = false
@@ -120,7 +113,6 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
         case "summary":
             isParsingSummary = true
         case "link":
-            type = attributeDict["type"]
             url = attributeDict["href"]
         default:
             break
@@ -149,7 +141,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             isParsingSummary = false
         case "entry":
             total += 1
-            if let res = Resource(title: title!, rawType: type!, url: url!, summary: summary) {
+            if let res = Resource(title: title!, url: url!, summary: summary) {
                 resources.append(res)
             } else {
                 totalSkipped += 1
@@ -157,7 +149,6 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             }
             title = nil
             isParsingTitle = false
-            type = nil
             url = nil
             summary = nil
             isParsingSummary = false
