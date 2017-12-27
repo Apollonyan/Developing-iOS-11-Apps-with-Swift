@@ -44,8 +44,9 @@ struct Resource: CustomStringConvertible {
     init?(title: String, url: String, summary: String?) {
         self.url = url
 
-        type = ResourceType.all.first { title.contains($0.rawValue) }!
-        
+        let optional = ResourceType.all.first { title.contains($0.rawValue) }
+        if let type = optional { self.type = type } else { return nil }
+
         var parts: [String]
         switch type {
         case .lecture:
