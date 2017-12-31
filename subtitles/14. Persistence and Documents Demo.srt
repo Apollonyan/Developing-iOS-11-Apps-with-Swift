@@ -1,0 +1,6060 @@
+1
+00:00:00,401 --> 00:00:04,603
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,671 --> 00:00:09,474
+Stanford University. >> All right,
+>> 斯坦福大学 >> 好
+
+3
+00:00:09,543 --> 00:00:14,046
+well, welcome to lecture number 14 of Stanford CS193P,
+欢迎来到斯坦福 CS193P 的第十四节课
+
+4
+00:00:14,114 --> 00:00:18,884
+fall of 2017, 18. So, I'm going to finish off the thing
+现在是 2017-18 年秋季学期
+
+5
+00:00:18,953 --> 00:00:22,254
+we had about the documents last time, I was hoping to
+
+6
+00:00:22,323 --> 00:00:24,489
+have finished that last time. So we're kind of rushed for
+
+7
+00:00:24,558 --> 00:00:27,025
+time this time, especially since we're gonna get kicked
+
+8
+00:00:27,093 --> 00:00:29,794
+out again for a midterm right after. And then I'm gonna
+
+9
+00:00:29,863 --> 00:00:32,364
+launch into a long demo that's gonna basically demonstrate
+
+10
+00:00:32,432 --> 00:00:35,300
+all of the stuff we talked about on Monday.
+
+11
+00:00:35,368 --> 00:00:39,504
+All right, so we did all that stuff on Monday so that we
+
+12
+00:00:39,573 --> 00:00:43,075
+could easily take whatever our document-based app is,
+
+13
+00:00:43,143 --> 00:00:45,743
+and store it in a document. We went all the way through
+
+14
+00:00:45,812 --> 00:00:49,314
+having UIDocument write things out to the file system.
+
+15
+00:00:49,383 --> 00:00:52,751
+Now we're gonna add a really cool layer of UI in the front
+
+16
+00:00:52,819 --> 00:00:55,754
+of that, so that users can pick the documents they want.
+
+17
+00:00:55,822 --> 00:00:59,024
+Rename them, move them around, all that right inside your
+
+18
+00:00:59,093 --> 00:01:02,327
+app. And the UI for this, as you can see the screenshot of,
+
+19
+00:01:02,395 --> 00:01:05,597
+looks a lot like the files app in iOS 11. In fact,
+
+20
+00:01:05,666 --> 00:01:09,034
+the files app in iOS 11 is probably just a very thin
+
+21
+00:01:09,103 --> 00:01:12,104
+layer on top of this UI, or this API,
+
+22
+00:01:12,172 --> 00:01:15,340
+the UIDocumentBrowserViewControl-
+
+23
+00:01:15,408 --> 00:01:17,709
+ler. So how does this thing work,
+
+24
+00:01:17,777 --> 00:01:20,378
+this view controller? Well, the most important thing to
+
+25
+00:01:20,447 --> 00:01:22,447
+understand is that it's just a view controller, but
+
+26
+00:01:22,516 --> 00:01:25,183
+it's always the root view controller of
+
+27
+00:01:25,251 --> 00:01:27,452
+your application. So in other words, in your storyboard,
+
+28
+00:01:27,521 --> 00:01:30,122
+it's always got the little arrow that points to it. And
+
+29
+00:01:30,190 --> 00:01:31,323
+when you run your app,
+
+30
+00:01:31,391 --> 00:01:33,926
+it's gonna be the view controller users see first.
+
+31
+00:01:33,994 --> 00:01:37,062
+Then they'll pick whatever document they want, and
+
+32
+00:01:37,131 --> 00:01:38,797
+then your UI will take over.
+
+33
+00:01:38,865 --> 00:01:41,166
+Your view controller will come up in front of this one,
+
+34
+00:01:41,234 --> 00:01:43,769
+do whatever it does to show your document. All right, so
+
+35
+00:01:43,837 --> 00:01:47,305
+that's the fundamental architecture of this thing.
+
+36
+00:01:47,374 --> 00:01:50,676
+And one thing that's important to tell this little document
+
+37
+00:01:50,744 --> 00:01:54,446
+browser view controller is what types of files you open,
+
+38
+00:01:54,514 --> 00:01:56,080
+and you do that on your project settings. So
+
+39
+00:01:56,149 --> 00:01:59,451
+if you go to project settings underneath the info tab,
+
+40
+00:01:59,519 --> 00:02:01,686
+you gotta select your target, not the project, but
+
+41
+00:02:01,755 --> 00:02:04,155
+the target. Go to the info tab, and then inside there,
+
+42
+00:02:04,224 --> 00:02:06,225
+there's a little section there called document types.
+
+43
+00:02:06,293 --> 00:02:08,793
+Well, that's the types of documents you open, and
+
+44
+00:02:08,862 --> 00:02:09,961
+you just fill out this.
+
+45
+00:02:10,030 --> 00:02:12,564
+You can have multiple types when you fill out this little
+
+46
+00:02:12,633 --> 00:02:14,800
+form, like that one. In here, for example,
+
+47
+00:02:14,868 --> 00:02:17,468
+I've shown how to have JSON files be a kind of file that
+
+48
+00:02:17,537 --> 00:02:20,505
+you open, and it's pretty straightforward there.
+
+49
+00:02:20,574 --> 00:02:23,108
+The little things at the bottom there, the BundleType
+
+50
+00:02:23,177 --> 00:02:25,644
+and the HandleRank, are basically just saying, well,
+
+51
+00:02:25,712 --> 00:02:28,613
+is this like a primary type of file that you open?
+
+52
+00:02:28,682 --> 00:02:32,217
+Are you the owner of this type of file, or is it just some
+
+53
+00:02:32,285 --> 00:02:35,587
+other type that you can, that you know how to open,
+
+54
+00:02:35,656 --> 00:02:38,456
+etc. Now, you can have your own document type,
+
+55
+00:02:38,525 --> 00:02:39,824
+for example, for emojiart,
+
+56
+00:02:39,893 --> 00:02:42,594
+I'm not gonna get to it today because of time constraints.
+
+57
+00:02:42,662 --> 00:02:46,531
+But emojiart really wants to have its own document type,
+
+58
+00:02:46,599 --> 00:02:50,002
+.emojiart or something like that. And you set that up in
+
+59
+00:02:50,070 --> 00:02:52,704
+the section right below the document types,
+
+60
+00:02:52,772 --> 00:02:56,108
+called exported UTIs, UTI stands for Universal Type and
+
+61
+00:02:56,176 --> 00:02:58,610
+Identifier. And you can invent your own UTI,
+
+62
+00:02:58,679 --> 00:03:00,578
+as long as it's a nice, unique name.
+
+63
+00:03:00,647 --> 00:03:04,549
+Like here, I've used the name edu.stanford.cs193p.emojiart,
+
+64
+00:03:04,617 --> 00:03:08,153
+that's very likely to be a unique type identifier.
+
+65
+00:03:08,222 --> 00:03:09,955
+I just have to specify a couple of things,
+
+66
+00:03:10,023 --> 00:03:11,723
+most notably at the bottom there,
+
+67
+00:03:11,792 --> 00:03:14,592
+the file name extension that goes with an emoji art,
+
+68
+00:03:14,661 --> 00:03:19,631
+I picked emojiart, .emojiart. And then once you set this up,
+
+69
+00:03:19,699 --> 00:03:22,400
+you can go back up to the document types one at the top,
+
+70
+00:03:22,469 --> 00:03:25,137
+and add this as a document type that you open.
+
+71
+00:03:25,205 --> 00:03:28,706
+Just like that, and yeah, and I explained the UTI there.
+
+72
+00:03:28,775 --> 00:03:33,845
+Now we, you know, from the start of this class,
+
+73
+00:03:33,914 --> 00:03:37,082
+we always picked single view app as the type of app that we
+
+74
+00:03:37,151 --> 00:03:39,617
+opened. But we're actually, for document based apps,
+
+75
+00:03:39,686 --> 00:03:41,452
+we're going to use an Xcode template.
+
+76
+00:03:41,521 --> 00:03:43,888
+It doesn't really give us much in that template,
+
+77
+00:03:43,957 --> 00:03:46,024
+but it gives enough that it's worth doing.
+
+78
+00:03:46,092 --> 00:03:47,959
+So if you're gonna do a document based app,
+
+79
+00:03:48,028 --> 00:03:52,430
+I recommend going back and creating a new app,
+
+80
+00:03:52,499 --> 00:03:55,200
+a new project, using this as the template. And in fact,
+
+81
+00:03:55,269 --> 00:03:57,635
+I'm gonna do that in the demo, even though we're, you know,
+
+82
+00:03:57,704 --> 00:03:59,037
+80% of the way through emojiart,
+
+83
+00:03:59,106 --> 00:04:00,105
+I'm still gonna go back and
+
+84
+00:04:00,174 --> 00:04:01,539
+create a new emojiart with this, and
+
+85
+00:04:01,608 --> 00:04:02,707
+then just move my files over.
+
+86
+00:04:02,776 --> 00:04:04,809
+Because I want the things that come with the template, and
+
+87
+00:04:04,878 --> 00:04:06,444
+let's talk about what's in that template.
+
+88
+00:04:06,513 --> 00:04:08,647
+One thing is that it stubs out that
+
+89
+00:04:08,716 --> 00:04:11,883
+document types, and it doesn't do JSON files.
+
+90
+00:04:11,952 --> 00:04:14,819
+It does image files, but you can change it to JSON files or
+
+91
+00:04:14,888 --> 00:04:17,622
+add more types. It also puts an entry in your
+
+92
+00:04:17,690 --> 00:04:19,624
+Info.plist which is very important,
+
+93
+00:04:19,693 --> 00:04:22,594
+called Supports Document Browser. And that's basically
+
+94
+00:04:22,663 --> 00:04:25,263
+just saying that the documents that are stored inside
+
+95
+00:04:25,332 --> 00:04:28,132
+your app sandbox are like real documents that people would
+
+96
+00:04:28,201 --> 00:04:31,403
+wanna open with like the files app or something like that. So
+
+97
+00:04:31,472 --> 00:04:33,605
+that's an important entry to put in your Info.plist,
+
+98
+00:04:33,673 --> 00:04:35,574
+we're actually going to put that into the demo manually,
+
+99
+00:04:35,642 --> 00:04:37,308
+just to emphasize it.
+
+100
+00:04:37,377 --> 00:04:39,777
+It has one method in AppDelegate, you know,
+
+101
+00:04:39,846 --> 00:04:41,979
+AppDelegate's that file that we're always moving out of
+
+102
+00:04:42,048 --> 00:04:45,417
+the way, into supporting files. So it has one method in
+
+103
+00:04:45,485 --> 00:04:48,619
+there that allows other apps, like the files app,
+
+104
+00:04:48,688 --> 00:04:51,990
+to ask your app to open your documents. And it's a very
+
+105
+00:04:52,058 --> 00:04:54,292
+simple little method, we're not really gonna look at it
+
+106
+00:04:54,361 --> 00:04:57,195
+today, but this template does throw that in there for you.
+
+107
+00:04:57,264 --> 00:04:59,664
+It also stubs out a subclass of UIDocument, which you
+
+108
+00:04:59,733 --> 00:05:02,868
+usually don't need, cuz you've already created that yourself.
+
+109
+00:05:02,936 --> 00:05:05,970
+And it also stubs out an MVC to show the document,
+
+110
+00:05:06,039 --> 00:05:08,740
+just this really dumb MVC. And you don't need that, usually,
+
+111
+00:05:08,809 --> 00:05:11,609
+either, because you obviously have an MVC that shows your
+
+112
+00:05:11,678 --> 00:05:15,046
+document, or you wouldn't be writing this app. And finally,
+
+113
+00:05:15,115 --> 00:05:17,882
+it gives a subclass of UIDocumentBrowserViewControl-
+
+114
+00:05:17,951 --> 00:05:19,650
+ler, which serves as its own delegate.
+
+115
+00:05:19,719 --> 00:05:22,054
+It just has like five methods in it that are really simple,
+
+116
+00:05:22,122 --> 00:05:24,456
+and we're gonna go over those in detail. So
+
+117
+00:05:24,525 --> 00:05:26,891
+after you create a project with this template,
+
+118
+00:05:26,960 --> 00:05:29,094
+what do you need to do to get your app working? Well, one,
+
+119
+00:05:29,162 --> 00:05:31,929
+you've gotta have your own UIDocument subclass, of
+
+120
+00:05:31,998 --> 00:05:36,701
+course. Two, you've gotta have your own document-viewing MVC,
+
+121
+00:05:36,769 --> 00:05:38,703
+right? Like EmojiArtViewController,
+
+122
+00:05:38,772 --> 00:05:40,872
+or your ImageGalleryViewController,
+
+123
+00:05:40,941 --> 00:05:44,509
+whatever from your homework. Then you have to add
+
+124
+00:05:44,577 --> 00:05:48,046
+a little bit of code to this UIDocumentBrowserViewContro-
+
+125
+00:05:48,114 --> 00:05:51,282
+ller subclass that comes with the template. In its
+
+126
+00:05:51,351 --> 00:05:53,551
+viewDidLoad, you're gonna configure it a little bit,
+
+127
+00:05:53,620 --> 00:05:55,052
+it has a couple of bars you can set,
+
+128
+00:05:55,121 --> 00:05:58,289
+we'll talk about that. You're also going to have to provide
+
+129
+00:05:58,358 --> 00:06:01,493
+the URL of a blank document. And
+
+130
+00:06:01,561 --> 00:06:03,962
+this is so that when the user goes into the UI and
+
+131
+00:06:04,030 --> 00:06:07,332
+says, create a new document, you've got, it's gotta
+
+132
+00:06:07,400 --> 00:06:10,902
+copy some template, some blank version of your document,
+
+133
+00:06:10,971 --> 00:06:13,705
+to be that new document. So you just have to give the URL
+
+134
+00:06:13,774 --> 00:06:17,141
+of a blank document, so that you support document creation.
+
+135
+00:06:17,210 --> 00:06:20,544
+And then finally, the code you have to put in there is,
+
+136
+00:06:20,613 --> 00:06:24,182
+when someone wants to open one of your documents, you have to
+
+137
+00:06:24,251 --> 00:06:28,019
+write the code to put in MVC onscreen. And you don't do it
+
+138
+00:06:28,088 --> 00:06:31,122
+with segueing, so we're gonna learn a little bit new way to
+
+139
+00:06:31,191 --> 00:06:35,694
+put an MVC on screen that does not involve segues. And
+
+140
+00:06:35,762 --> 00:06:37,528
+the last thing you wanna do to the template, of course,
+
+141
+00:06:37,597 --> 00:06:40,498
+is update those types, the document types to be,
+
+142
+00:06:40,567 --> 00:06:44,235
+not be imaged, but to be JSON or emojiart type or
+
+143
+00:06:44,304 --> 00:06:46,437
+image gallery type for your homework, or whatever. So
+
+144
+00:06:46,506 --> 00:06:49,240
+those are the only four things you do, once you do those four
+
+145
+00:06:49,308 --> 00:06:52,076
+simple things, you'll get this full UI. So steps one and
+
+146
+00:06:52,145 --> 00:06:55,313
+two, you've probably already done in your app.
+
+147
+00:06:55,381 --> 00:06:58,082
+Step three looks like this, this is viewDidLoad of
+
+148
+00:06:58,151 --> 00:07:01,519
+the UIDocumentBrowser ViewController's subclass.
+
+149
+00:07:01,588 --> 00:07:04,022
+And you really have to the first thing,
+
+150
+00:07:04,091 --> 00:07:06,291
+which is set it as its own delegate.
+
+151
+00:07:06,360 --> 00:07:09,293
+Because it actually implements a lot of these opening
+
+152
+00:07:09,362 --> 00:07:12,463
+file methods and stuff using its own delegate methods.
+
+153
+00:07:12,532 --> 00:07:15,566
+Then you can have some things like, allowsDocumentCreation =
+
+154
+00:07:15,635 --> 00:07:18,403
+true. Do you allow people to create documents in your app,
+
+155
+00:07:18,471 --> 00:07:21,639
+or are you just a document viewer? Do you allow multiple
+
+156
+00:07:21,708 --> 00:07:23,942
+items to be picked, in other words, can the user go in and
+
+157
+00:07:24,010 --> 00:07:27,612
+like Shift + click, or whatever the equivalent is,
+
+158
+00:07:27,681 --> 00:07:30,281
+with the touch interface, to choose multiple items and
+
+159
+00:07:30,350 --> 00:07:32,450
+open them at once? Like Emoji Art can't do that,
+
+160
+00:07:32,519 --> 00:07:34,519
+it can only show one document at a time.
+
+161
+00:07:34,587 --> 00:07:37,589
+Then you can also tweak the look of the UI a little bit.
+
+162
+00:07:37,658 --> 00:07:39,624
+Change the colors, tint colors,
+
+163
+00:07:39,693 --> 00:07:42,360
+things like that, to try and match your document controller
+
+164
+00:07:42,428 --> 00:07:44,195
+when it comes up to have the same kinda look.
+
+165
+00:07:44,263 --> 00:07:46,932
+So that's it, that's how you configure it in viewDidLoad,
+
+166
+00:07:47,000 --> 00:07:48,933
+that's mostly the settings that you can set.
+
+167
+00:07:49,001 --> 00:07:52,337
+And then you have to provide this template URL, you do it
+
+168
+00:07:52,405 --> 00:07:55,807
+kind in a weird way. There's this method, DocumentBrowser
+
+169
+00:07:55,876 --> 00:07:59,077
+didRequestDocumentCreationWit- hHandler. That's the method
+
+170
+00:07:59,146 --> 00:08:01,779
+that's saying, somebody wants to create a document of your
+
+171
+00:08:01,848 --> 00:08:05,684
+type in your app. What do you got to give me is a URL
+
+172
+00:08:05,752 --> 00:08:08,386
+to a template, to a blank. And the way it makes you
+
+173
+00:08:08,455 --> 00:08:11,055
+do that is it hands you a little function called
+
+174
+00:08:11,124 --> 00:08:13,691
+the importHandler. There it's called,
+
+175
+00:08:13,760 --> 00:08:16,928
+I guess I called it Handler to make it shorter.
+
+176
+00:08:16,997 --> 00:08:19,164
+But it's actually called importHandler and
+
+177
+00:08:19,232 --> 00:08:22,100
+it just takes a URL which is the URL of a blank document.
+
+178
+00:08:22,169 --> 00:08:24,969
+And then the import mode which is either copy this or
+
+179
+00:08:25,038 --> 00:08:27,905
+move it to create a new document. So, it would be move
+
+180
+00:08:27,974 --> 00:08:30,441
+if you created this thing every time this got called.
+
+181
+00:08:30,510 --> 00:08:33,144
+It's copy if you create it once and then you hand it
+
+182
+00:08:33,213 --> 00:08:35,480
+out every time someone says new document.
+
+183
+00:08:35,548 --> 00:08:37,515
+And that's it, all you have to do is call that handler,
+
+184
+00:08:37,584 --> 00:08:41,585
+super simple, you'll see that in the demo. Next, you have to
+
+185
+00:08:41,654 --> 00:08:44,489
+present your document MVC, so we have to take a little time
+
+186
+00:08:44,558 --> 00:08:47,024
+out and go to an aside and learn something different
+
+187
+00:08:47,093 --> 00:08:51,596
+which is how to put MVC on screen without segueing. So
+
+188
+00:08:51,665 --> 00:08:54,633
+how do we do that? It's quite easy. There's a method
+
+189
+00:08:54,701 --> 00:08:57,936
+in UIViewController called present animated.
+
+190
+00:08:58,004 --> 00:09:01,472
+You send it to yourself, if you're a ViewController, and
+
+191
+00:09:01,541 --> 00:09:04,242
+you give it an argument of another MVC, and it
+
+192
+00:09:04,311 --> 00:09:07,545
+presents it animated. And it presents it on screen modally,
+
+193
+00:09:07,614 --> 00:09:11,082
+which means it takes over the entire screen. Okay and
+
+194
+00:09:11,151 --> 00:09:14,418
+just owns the entire screen until it dismisses itself,
+
+195
+00:09:14,487 --> 00:09:17,855
+then it's back to you. Which is exactly what we want here.
+
+196
+00:09:17,924 --> 00:09:23,695
+So, the trick here though is how do I get a new MVC
+
+197
+00:09:23,763 --> 00:09:25,413
+I told you actually earlier that iOS has a few MVCs like
+
+198
+00:09:25,414 --> 00:09:27,064
+to present? And
+
+199
+00:09:27,133 --> 00:09:29,867
+the camera take, picture taking MVC and somethings.
+
+200
+00:09:29,936 --> 00:09:32,537
+So it has some, but what if you have one of your own?
+
+201
+00:09:32,605 --> 00:09:35,039
+Okay well, it's really easy actually. You just put it in
+
+202
+00:09:35,108 --> 00:09:38,242
+your storyboard, it won't have any segues drawn to it,
+
+203
+00:09:38,311 --> 00:09:41,412
+but what you're going to do is name it. You're just going to
+
+204
+00:09:41,481 --> 00:09:44,215
+select it, go to your identity inspector, there's a little
+
+205
+00:09:44,284 --> 00:09:46,250
+storyboard ID in there, you give it a name and
+
+206
+00:09:46,319 --> 00:09:49,754
+then you use that name in your code like this. You get
+
+207
+00:09:49,823 --> 00:09:52,323
+an instance of your storyboard which you get by saying
+
+208
+00:09:52,392 --> 00:09:55,926
+UIStoryboard name. You that our storyboard has always been
+
+209
+00:09:55,995 --> 00:09:58,496
+called Main.storyboard. But we haven't talked about the fact
+
+210
+00:09:58,565 --> 00:10:00,365
+that you can actually have multiple storyboards,
+
+211
+00:10:00,433 --> 00:10:04,101
+probably legal. We always just have that main. And
+
+212
+00:10:04,170 --> 00:10:06,571
+bundle is almost nil there, cuz you got your main bundle,
+
+213
+00:10:06,639 --> 00:10:08,306
+and nil means your main bundle. So
+
+214
+00:10:08,375 --> 00:10:09,807
+you get the storyboard, and then you ask
+
+215
+00:10:09,876 --> 00:10:13,011
+the storyboard to make you an MVC with that name by saying
+
+216
+00:10:13,080 --> 00:10:15,013
+instantiateViewControllerWith- Identifer.
+
+217
+00:10:15,082 --> 00:10:17,782
+And that foo that you have there is the thing
+
+218
+00:10:17,851 --> 00:10:20,684
+that's in my identity inspector for that MVC for
+
+219
+00:10:20,753 --> 00:10:24,389
+the controller, top level controller of that MVC. And
+
+220
+00:10:24,457 --> 00:10:26,691
+that's it, now you just prepared that thing.
+
+221
+00:10:26,759 --> 00:10:29,561
+In this case, you know by setting its document and
+
+222
+00:10:29,629 --> 00:10:32,396
+then you just present it. So it's really, really easy and
+
+223
+00:10:32,465 --> 00:10:34,832
+instantiateViewControllerWith- Identifier is the key method
+
+224
+00:10:34,901 --> 00:10:37,235
+that you need without a storyboard.
+
+225
+00:10:37,303 --> 00:10:39,904
+All right, so back to our present. So we need to be able
+
+226
+00:10:39,973 --> 00:10:42,540
+to write a function that presents it. And it's really
+
+227
+00:10:42,608 --> 00:10:45,076
+simple, we're just gonna get our storyboard, we're gonna
+
+228
+00:10:45,144 --> 00:10:47,411
+instantiate our ViewController from the storyboard.
+
+229
+00:10:47,480 --> 00:10:50,749
+Now, really importantly we're gonna set the document
+
+230
+00:10:50,817 --> 00:10:53,317
+of the document showing MVC that we just got
+
+231
+00:10:53,386 --> 00:10:56,488
+out of the storyboard, we're gonna set it to be a new
+
+232
+00:10:56,556 --> 00:10:59,757
+document with URL that's passed to us, because it's
+
+233
+00:10:59,826 --> 00:11:03,260
+presentDocument at url. Now this might be a new document,
+
+234
+00:11:03,329 --> 00:11:05,596
+it just created by copying that template or
+
+235
+00:11:05,665 --> 00:11:07,798
+it might be some document we're opening
+
+236
+00:11:07,867 --> 00:11:09,801
+that was created in the past. You don't know and
+
+237
+00:11:09,870 --> 00:11:13,337
+you don't care here. And then you just called present
+
+238
+00:11:13,406 --> 00:11:16,340
+of that document MVC. That's it,
+
+239
+00:11:16,409 --> 00:11:19,177
+if you do all that, then it just will all work. Of course,
+
+240
+00:11:19,246 --> 00:11:22,313
+you wanna set the types that you do, JSON, Emoji Art,
+
+241
+00:11:22,382 --> 00:11:25,383
+whatever. And we're gonna see all of this happening
+
+242
+00:11:25,452 --> 00:11:28,619
+in Emoji Art. So let's jump right into the demo and
+
+243
+00:11:28,688 --> 00:11:32,991
+do this in Emoji Art. Now, Emoji Art is an obvious app
+
+244
+00:11:33,059 --> 00:11:36,494
+to want to turn into a document based app. Because
+
+245
+00:11:36,562 --> 00:11:39,897
+building these beautiful works of art with emoji, right?
+
+246
+00:11:39,966 --> 00:11:42,533
+And we certainly might want to do multiple of them, not just
+
+247
+00:11:42,602 --> 00:11:46,404
+have to constantly be working on the same one. So there's
+
+248
+00:11:46,473 --> 00:11:50,407
+something about our MVC, our EmojiArtViewController.
+
+249
+00:11:50,476 --> 00:11:53,944
+The view controller that shows our Emoji Art document.
+
+250
+00:11:54,013 --> 00:11:57,415
+It has no model, right? We have no model in this thing.
+
+251
+00:11:57,483 --> 00:12:01,552
+It's just all view. All the EmojiArtView especially. So
+
+252
+00:12:01,621 --> 00:12:04,555
+I'm going to add another section here at the top
+
+253
+00:12:04,624 --> 00:12:07,925
+to put my model. I'm going to put this in my Model section
+
+254
+00:12:07,994 --> 00:12:10,528
+right here. Everyone remember that these marks that you put,
+
+255
+00:12:10,597 --> 00:12:11,396
+that causes it so
+
+256
+00:12:11,464 --> 00:12:13,398
+that when you go up here to the top, you can,
+
+257
+00:12:13,466 --> 00:12:15,867
+these are like in sections. You see the sections there?
+
+258
+00:12:15,935 --> 00:12:18,202
+So I've added a new one up here, Model. And
+
+259
+00:12:18,271 --> 00:12:21,839
+you can click on them to jump to the different sections. So
+
+260
+00:12:21,907 --> 00:12:24,676
+my Model, it wants to be some sort of var, I'll call it
+
+261
+00:12:24,744 --> 00:12:29,647
+emojiArt. And it's gonna be of some type, like EmojiArt.
+
+262
+00:12:29,715 --> 00:12:32,650
+This type doesn't exist, but that's kind of what my model
+
+263
+00:12:32,718 --> 00:12:37,822
+wants to be. So, let's invent a struct here, or class or
+
+264
+00:12:37,891 --> 00:12:40,924
+struct, that represents an Emoji Art document.
+
+265
+00:12:40,993 --> 00:12:43,194
+Well, what's in an Emoji Art document?
+
+266
+00:12:43,263 --> 00:12:45,462
+There's the URL in the background and
+
+267
+00:12:45,531 --> 00:12:48,032
+then there's all those emojis, what they are, and
+
+268
+00:12:48,100 --> 00:12:50,034
+where they are, and how big they are, right?
+
+269
+00:12:50,103 --> 00:12:52,771
+That's what an Emoji Art document looks like. So,
+
+270
+00:12:52,839 --> 00:12:55,273
+let's go create a model to do exactly that.
+
+271
+00:12:55,342 --> 00:12:57,675
+So I'm going to create a new file, just a model file.
+
+272
+00:12:57,744 --> 00:13:00,144
+So we're over here in Swift, not over here at Cocoa Touch,
+
+273
+00:13:00,213 --> 00:13:03,481
+we're over here with Swift File. I'm going to call it
+
+274
+00:13:03,550 --> 00:13:07,185
+Emoji Art. Makes perfect sense to call it that. Here it is,
+
+275
+00:13:07,253 --> 00:13:11,055
+I'm going to type it in really fast. There it is.
+
+276
+00:13:11,123 --> 00:13:13,491
+And so here it is. Makes perfect sense what it is,
+
+277
+00:13:13,560 --> 00:13:17,828
+right? URL, that's for the background, then an array
+
+278
+00:13:17,897 --> 00:13:21,532
+of these EmojiInfos which is this thing. And each EmojiInfo
+
+279
+00:13:21,600 --> 00:13:25,235
+is its position, x and y, the text that's like a bike or
+
+280
+00:13:25,304 --> 00:13:28,373
+the bee, or whatever the string is, and then the size,
+
+281
+00:13:28,441 --> 00:13:31,142
+which I'm gonna have be the font size. Notice I've made
+
+282
+00:13:31,210 --> 00:13:33,911
+these Ints instead of CG floats or whatever because
+
+283
+00:13:33,980 --> 00:13:37,081
+this is a model okay this is not a UI thing, it's our
+
+284
+00:13:37,150 --> 00:13:39,984
+model. So these could be Ints or they could be doubles but
+
+285
+00:13:40,053 --> 00:13:42,754
+I decided I want Ints because I want my JSON to look nice
+
+286
+00:13:42,822 --> 00:13:45,456
+and not have a lot of fractional numbers and
+
+287
+00:13:45,525 --> 00:13:47,959
+all that stuff, so I decided to make them into Ints.
+
+288
+00:13:48,027 --> 00:13:50,528
+And that's it, this fully represents an Emoji Art
+
+289
+00:13:50,596 --> 00:13:53,131
+document this is just initializer that initializes
+
+290
+00:13:53,199 --> 00:13:57,534
+those two things. Nothing else to it but this, all right.
+
+291
+00:13:57,603 --> 00:14:00,872
+Now let's think about our EmojiArtViewController back
+
+292
+00:14:00,940 --> 00:14:04,408
+here. What does it need to be able to interact with
+
+293
+00:14:04,477 --> 00:14:08,612
+the model? Well, it needs all those little UI labels that
+
+294
+00:14:08,681 --> 00:14:11,049
+are in its EmojiArtView. No problem. We can get those.
+
+295
+00:14:11,117 --> 00:14:12,916
+We're the controller. We can talk to our view and
+
+296
+00:14:12,985 --> 00:14:16,054
+get anything we want from it. But it also needs the URL and
+
+297
+00:14:16,122 --> 00:14:19,257
+currently we actually don't keep the URL for
+
+298
+00:14:19,325 --> 00:14:20,524
+the background image.
+
+299
+00:14:20,593 --> 00:14:22,593
+Let's go scroll down to where we get that image,
+
+300
+00:14:22,661 --> 00:14:25,897
+it's right at the bottom here. When we drop an image, and
+
+301
+00:14:25,965 --> 00:14:28,766
+you can see our image fetcher goes off and fetches
+
+302
+00:14:28,835 --> 00:14:32,003
+that url and image. But then we only use the image.
+
+303
+00:14:32,071 --> 00:14:35,940
+We don't use the URL. So, we're gonna start doing that.
+
+304
+00:14:36,008 --> 00:14:37,875
+And I'm gonna do it in a way just to show you
+
+305
+00:14:37,943 --> 00:14:40,878
+a little bit more kind of Swift program, which is
+
+306
+00:14:40,947 --> 00:14:44,515
+I'm gonna make this var, which is currently a UIImage,
+
+307
+00:14:44,584 --> 00:14:48,185
+be a tuple. And why would I make this a tuple? Well,
+
+308
+00:14:48,254 --> 00:14:50,421
+I'm gonna make it a tuple because I want the URL and
+
+309
+00:14:50,490 --> 00:14:53,857
+the image to always be set together. I would never want
+
+310
+00:14:53,926 --> 00:14:56,494
+to accidentally set the image and have the URL be different.
+
+311
+00:14:56,563 --> 00:14:58,763
+So I'm gonna always set them together. So I'm gonna change
+
+312
+00:14:58,831 --> 00:15:01,032
+this from being a UIImage to being a tuple.
+
+313
+00:15:01,101 --> 00:15:02,699
+So let's go find out where it's declared,
+
+314
+00:15:02,768 --> 00:15:05,669
+here it is. It's currently a UIImage,
+
+315
+00:15:05,738 --> 00:15:09,841
+I'm gonna change it to be a tuple that has a URL and
+
+316
+00:15:09,909 --> 00:15:12,743
+an image as part of the tuple. And of course,
+
+317
+00:15:12,812 --> 00:15:15,579
+changing this thing's type is gonna require me to change its
+
+318
+00:15:15,648 --> 00:15:18,949
+implementation a little bit. Like all these new values down
+
+319
+00:15:19,018 --> 00:15:22,786
+here aren't UIImages anymore, they're this tuple, so
+
+320
+00:15:22,855 --> 00:15:27,224
+we gotta say newValue.image when I want the image. And of
+
+321
+00:15:27,293 --> 00:15:31,428
+course when I'm returning it I can't just return the image
+
+322
+00:15:31,497 --> 00:15:35,466
+here I after return the tuple with some URL of some sort and
+
+323
+00:15:35,534 --> 00:15:38,802
+that UIImage and what URL am I gonna return. Well,
+
+324
+00:15:38,871 --> 00:15:40,371
+I'm gonna actually have to store that,
+
+325
+00:15:40,440 --> 00:15:41,872
+so I'm gonna make a little private var.
+
+326
+00:15:41,941 --> 00:15:46,076
+I'm gonna call emojiArtBackgroundImageURL,
+
+327
+00:15:46,145 --> 00:15:50,080
+which is gonna be URL. And I'm gonna store it in there. Now,
+
+328
+00:15:50,149 --> 00:15:51,982
+I'm not gonna wanna set it from here,
+
+329
+00:15:52,051 --> 00:15:53,351
+I'm gonna always want to set it from here,
+
+330
+00:15:53,419 --> 00:15:55,052
+but I'm just gonna be using this as storage.
+
+331
+00:15:55,121 --> 00:15:57,955
+Some people might put an under bar in front of this here to
+
+332
+00:15:58,024 --> 00:16:01,692
+kind of emphasize, that this is background storage.
+
+333
+00:16:01,761 --> 00:16:03,227
+We're not gonna ever set this directly.
+
+334
+00:16:03,296 --> 00:16:06,530
+We set the URL here, so it's always set The same so
+
+335
+00:16:06,599 --> 00:16:08,066
+I'm gonna leave it under bar there too.
+
+336
+00:16:09,101 --> 00:16:11,368
+So this URL here then is this one.
+
+337
+00:16:11,437 --> 00:16:14,839
+So I'm just gonna return this URL. And of course when I set,
+
+338
+00:16:14,907 --> 00:16:19,343
+I need to set the URL to be this new values URL. Okay so
+
+339
+00:16:19,412 --> 00:16:21,511
+now I'm capturing the URL all the time,
+
+340
+00:16:21,580 --> 00:16:25,048
+I always have the URL anytime I have an image. That's good,
+
+341
+00:16:25,117 --> 00:16:28,920
+I need it for my model. Now let's talk about the model
+
+342
+00:16:28,988 --> 00:16:33,424
+here, we could have this model just stored like this and
+
+343
+00:16:33,493 --> 00:16:35,827
+then have some other functions that like go and
+
+344
+00:16:35,895 --> 00:16:39,763
+look at all of our UI labels and grab the URL and
+
+345
+00:16:39,832 --> 00:16:41,666
+build an emojiArt, but you know,
+
+346
+00:16:41,735 --> 00:16:46,770
+I'm gonna do something fun. Watch this,
+
+347
+00:16:46,839 --> 00:16:52,910
+I'm gonna make this
+
+348
+00:16:52,979 --> 00:16:59,083
+a computed property
+
+349
+00:16:59,152 --> 00:17:04,488
+be a perfect match
+
+350
+00:17:04,557 --> 00:17:09,460
+with my UI. And that is a really
+
+351
+00:17:09,529 --> 00:17:11,963
+good thing to have in a controller is the model and
+
+352
+00:17:12,031 --> 00:17:15,633
+the UI always in sync. So, that's why I'm gonna do this.
+
+353
+00:17:15,702 --> 00:17:18,369
+And I think it'll work out nicely here. All right, so
+
+354
+00:17:18,438 --> 00:17:21,772
+what do I need to do get my model? I gotta return the URL,
+
+355
+00:17:21,841 --> 00:17:25,008
+and I gotta return all those little emoji infos, right?
+
+356
+00:17:25,077 --> 00:17:28,679
+I'm eventually gonna have to return some emoji art by
+
+357
+00:17:28,748 --> 00:17:33,784
+calling its initializer, url with some url, and the emojis
+
+358
+00:17:33,853 --> 00:17:38,455
+with some emojis. So we need these two vars to be created.
+
+359
+00:17:38,524 --> 00:17:40,024
+Well, the URL is really easy,
+
+360
+00:17:40,093 --> 00:17:43,394
+I'm just gonna say if I get let url = my
+
+361
+00:17:43,462 --> 00:17:51,802
+emojiArtBackgroundImage. URL that's it's URL.
+
+362
+00:17:51,871 --> 00:17:55,472
+If I can do that then I'm ready to return something
+
+363
+00:17:55,541 --> 00:17:58,476
+here. By the way if I can't do that then I'm going to return
+
+364
+00:17:58,545 --> 00:18:03,581
+Nil because for me my emoji art is not really
+
+365
+00:18:03,649 --> 00:18:07,084
+well defined if it doesn't have a background. It doesn't
+
+366
+00:18:07,153 --> 00:18:08,652
+really make sense to have emoji art where there's like
+
+367
+00:18:08,721 --> 00:18:10,688
+a bee and a bike on a plain background,
+
+368
+00:18:10,756 --> 00:18:13,357
+we don't really support that. So I'm just going to say,
+
+369
+00:18:13,426 --> 00:18:15,993
+if you ask for my model and I don't have a URL yet,
+
+370
+00:18:16,062 --> 00:18:18,328
+then I'm just going to say I don't have a model yet.
+
+371
+00:18:18,397 --> 00:18:22,299
+I'm not been created enough to say that I have one. So
+
+372
+00:18:22,368 --> 00:18:25,535
+that fixes the URL. How about this emojis thing right here?
+
+373
+00:18:25,604 --> 00:18:29,907
+We have to set this emojis var right here, so I'm just gonna
+
+374
+00:18:29,975 --> 00:18:35,412
+say, let emojis =. And essentially what I wanna do
+
+375
+00:18:35,481 --> 00:18:40,584
+here is go ask my emojiArtView for all its subviews.
+
+376
+00:18:40,653 --> 00:18:43,420
+But I really don't want all of them, I just want the ones
+
+377
+00:18:43,489 --> 00:18:48,425
+that I can get as a UILabel. I'm using map here, you
+
+378
+00:18:48,494 --> 00:18:52,730
+all know map. So this returned in array fo UI labels.
+
+379
+00:18:52,798 --> 00:18:56,066
+The only thing about this is, this might return nil. So
+
+380
+00:18:56,135 --> 00:18:59,202
+I actually want to use a different map called flat Map.
+
+381
+00:18:59,271 --> 00:19:02,473
+So flat Map is just like map, is just if the little function
+
+382
+00:19:02,542 --> 00:19:06,410
+returns nil it ignores it. So it flats it down not to have
+
+383
+00:19:06,478 --> 00:19:10,447
+the nil ones, all right. So now I have all my UI labels.
+
+384
+00:19:10,516 --> 00:19:14,318
+Now I need to turn this into an array of these
+
+385
+00:19:14,386 --> 00:19:17,154
+emojiinfos. All right because that's what I'm doing, I'm
+
+386
+00:19:17,223 --> 00:19:19,823
+returning my model. So how the heck am I going to do that?
+
+387
+00:19:19,892 --> 00:19:22,993
+I'm definitely going to need a function that takes a UI label
+
+388
+00:19:23,062 --> 00:19:25,429
+and returns one of these emojiinfos.
+
+389
+00:19:25,498 --> 00:19:26,497
+You know what I'm gonna do,
+
+390
+00:19:26,565 --> 00:19:29,700
+I'm actually gonna do that by writing an extension
+
+391
+00:19:29,769 --> 00:19:32,803
+to this struck. And I'm gonna put that extension
+
+392
+00:19:32,872 --> 00:19:36,340
+over here in my controller because that extension
+
+393
+00:19:36,409 --> 00:19:39,377
+is gonna take a UI label as an argument and
+
+394
+00:19:39,445 --> 00:19:42,279
+return an emoji info as the value.
+
+395
+00:19:42,347 --> 00:19:45,249
+And that UI label is a UI thing so that can not be in my
+
+396
+00:19:45,318 --> 00:19:49,686
+model. But it can be in my controller, and
+
+397
+00:19:49,755 --> 00:19:52,056
+this is my controller. And some people say, well,
+
+398
+00:19:52,124 --> 00:19:56,593
+wait a second. If you put an extension here to EmojiInfo,
+
+399
+00:19:56,662 --> 00:19:59,296
+you've just added UI to your model.
+
+400
+00:19:59,365 --> 00:20:02,666
+No, this is my controller. Not my model,
+
+401
+00:20:02,735 --> 00:20:05,769
+the fact that my controller is implementing this with makes
+
+402
+00:20:05,838 --> 00:20:08,572
+extension, this extension lives in my controller so
+
+403
+00:20:08,640 --> 00:20:11,409
+that is perfectly legal to do and you'll see IOS do that
+
+404
+00:20:11,477 --> 00:20:14,211
+where you have something like NS attributed string,
+
+405
+00:20:14,280 --> 00:20:16,513
+which is actually in foundation, I think.
+
+406
+00:20:16,582 --> 00:20:20,183
+But, when you start adding attributes like fonts and so
+
+407
+00:20:20,252 --> 00:20:22,286
+like that now becomes UI thing,
+
+408
+00:20:22,354 --> 00:20:25,689
+all that stuff is implemented the UI kit. By extension,
+
+409
+00:20:25,758 --> 00:20:29,026
+in NSAttributeString. We're doing the same thing here. So
+
+410
+00:20:29,094 --> 00:20:30,795
+I decided to do this, instead of with a function,
+
+411
+00:20:30,863 --> 00:20:34,164
+I actually add an extension that adds a new initializer
+
+412
+00:20:34,233 --> 00:20:38,035
+to EmojiInfo. Initializes it with a label, and if I can
+
+413
+00:20:38,104 --> 00:20:41,071
+get the attributedText out of there and get its font,
+
+414
+00:20:41,140 --> 00:20:44,274
+then I can make myself an EmojiInfo. If I can't,
+
+415
+00:20:44,343 --> 00:20:48,112
+I'm gonna return nil, so this is failable initializer,
+
+416
+00:20:48,180 --> 00:20:53,551
+this is how you fail out of a failable initializer. So,
+
+417
+00:20:53,619 --> 00:20:55,152
+now that I can do that so easily,
+
+418
+00:20:55,221 --> 00:20:58,289
+I'm just gonna take this array of UI labels right here, and
+
+419
+00:20:58,357 --> 00:21:02,059
+I'm going to flat map that. And the thing here I'm gonna
+
+420
+00:21:02,128 --> 00:21:06,664
+say is return an EmojiArt.EmoliInfo
+
+421
+00:21:06,733 --> 00:21:11,234
+using my nice new label initializer. And
+
+422
+00:21:11,303 --> 00:21:17,474
+remember that $0 right here is these UI labels. You got that?
+
+423
+00:21:17,543 --> 00:21:21,044
+It's kinda cool. All right, so that's our emoji has.
+
+424
+00:21:21,113 --> 00:21:25,382
+That is creating out EmojiArt, that's it. That's all we need
+
+425
+00:21:25,451 --> 00:21:29,153
+to do to get our model. How about the set side of it?
+
+426
+00:21:29,221 --> 00:21:31,522
+Well ,the first thing I wanna do when someone sets a new
+
+427
+00:21:31,591 --> 00:21:34,658
+EmojiArt is clear out what I've already got in there.
+
+428
+00:21:34,727 --> 00:21:39,330
+So I'm gonna set my EmojiArt Background image to nil,
+
+429
+00:21:39,399 --> 00:21:41,031
+it's a tuple, remember? And
+
+430
+00:21:41,099 --> 00:21:44,568
+I'm gonna set all of my emojiArtview.subviews, but
+
+431
+00:21:44,637 --> 00:21:47,038
+actually only the ones that are labels.
+
+432
+00:21:50,643 --> 00:21:53,810
+I'm gonna send a message to all of them for
+
+433
+00:21:53,879 --> 00:21:57,882
+each to remove themselves from their Superview.
+
+434
+00:22:02,788 --> 00:22:05,122
+Okay so I'm just taking all the labels in there and
+
+435
+00:22:05,191 --> 00:22:08,458
+removing them because somebody set a new model so I'm
+
+436
+00:22:08,527 --> 00:22:12,663
+clearing everything out here. As question mark, there we go.
+
+437
+00:22:14,500 --> 00:22:17,034
+So now I cleared everything out, now I need to put
+
+438
+00:22:17,103 --> 00:22:19,770
+this new thing in. Well, to put the URL in,
+
+439
+00:22:19,839 --> 00:22:23,207
+I'm gonna need to fetch it. So let's fetch it,
+
+440
+00:22:25,077 --> 00:22:27,444
+here is how I fetch right, here is my image fetcher,
+
+441
+00:22:27,512 --> 00:22:30,548
+doing the same thing, I did when some thing was dropped.
+
+442
+00:22:30,616 --> 00:22:33,450
+I'm gonna do this back on the main cube because now I'm
+
+443
+00:22:33,519 --> 00:22:38,756
+gonna update my UI with this URL when it came back. So
+
+444
+00:22:38,825 --> 00:22:41,392
+what am I gonna do when this thing comes back?
+
+445
+00:22:41,460 --> 00:22:43,693
+First of all, I got to set my background image. So
+
+446
+00:22:43,762 --> 00:22:48,898
+I'm gonna set my image, oops, my emoji Emoji art
+
+447
+00:22:48,967 --> 00:22:53,537
+image background equal to the URL and image that came back,
+
+448
+00:22:53,606 --> 00:22:56,206
+again this is a tuple. I'm setting it from here, coming
+
+449
+00:22:56,275 --> 00:22:59,309
+back from the ImageFetcher. And now I need to
+
+450
+00:22:59,378 --> 00:23:03,280
+add all those labels for all the emoji, right. The bees and
+
+451
+00:23:03,349 --> 00:23:05,182
+the bikes and everything that I've dragged down,
+
+452
+00:23:05,250 --> 00:23:08,519
+I've got to put all of those in there, so let's do that.
+
+453
+00:23:08,587 --> 00:23:11,688
+Probably the easiest way to do that, kinda conceptually,
+
+454
+00:23:11,757 --> 00:23:14,191
+I'm gonna take this new value of the emoji art,
+
+455
+00:23:14,259 --> 00:23:16,226
+and look through all of its emojis.
+
+456
+00:23:16,295 --> 00:23:19,630
+And for each of them, I kinda wanna just ask my
+
+457
+00:23:19,699 --> 00:23:25,669
+emojiArtView, to add a label
+
+458
+00:23:25,737 --> 00:23:29,406
+with the right arguments, whatever for each one, right?
+
+459
+00:23:29,475 --> 00:23:31,842
+This is conceptually what I wanna do. Well, actually,
+
+460
+00:23:31,911 --> 00:23:34,544
+I have add label in my emoji art view, but I made it
+
+461
+00:23:34,613 --> 00:23:37,280
+private. So I'm gonna go over to my emoji art view and make
+
+462
+00:23:37,349 --> 00:23:42,452
+that public. And remember that I'm the controller over there.
+
+463
+00:23:42,521 --> 00:23:44,988
+I can call anything I want in my view. My view can't call
+
+464
+00:23:45,057 --> 00:23:47,624
+anything at me without that blind structure communication,
+
+465
+00:23:47,693 --> 00:23:49,126
+but I can call anything I want in it.
+
+466
+00:23:49,195 --> 00:23:50,360
+So in here, we have label and
+
+467
+00:23:50,429 --> 00:23:52,195
+it looks like it wants an attributed string and
+
+468
+00:23:52,264 --> 00:23:56,132
+the point. That makes sense, so let's go back over here and
+
+469
+00:23:56,201 --> 00:24:02,239
+do that. So, the attributed Text,
+
+470
+00:24:02,307 --> 00:24:07,077
+is that what they called it? We want some attributed, no,
+
+471
+00:24:07,146 --> 00:24:12,916
+it's just with, I think, with attributed,
+
+472
+00:24:12,985 --> 00:24:17,454
+yeah. Attributed text, and centeredAt, actually,
+
+473
+00:24:17,522 --> 00:24:22,425
+I already know centeredAt. centeredAt is just a CG
+
+474
+00:24:22,494 --> 00:24:27,831
+point with the X being this $0.x.
+
+475
+00:24:27,900 --> 00:24:32,035
+And the y is this $0.y.
+
+476
+00:24:32,104 --> 00:24:36,473
+Because $0 is each of these emojis, so it's in EmojiInfo.
+
+477
+00:24:36,542 --> 00:24:39,609
+EmojiInfo, just to remind you, is this thing, so
+
+478
+00:24:39,678 --> 00:24:43,146
+the x and y, this is the x and y position. Now I need to deal
+
+479
+00:24:43,215 --> 00:24:46,149
+with the text and the size, so let's do that.
+
+480
+00:24:46,218 --> 00:24:50,186
+And we do that by letting that attributedText argument equals
+
+481
+00:24:50,255 --> 00:24:53,590
+the text converted to an attributed string. I actually
+
+482
+00:24:53,659 --> 00:24:56,092
+have this nice little function I wrote in utilities called
+
+483
+00:24:56,161 --> 00:24:58,461
+attributedString(withTextSty- le). And so
+
+484
+00:24:58,530 --> 00:25:03,133
+I'm gonna make it .body font, of a certain size,
+
+485
+00:25:03,202 --> 00:25:08,004
+which is a CGFloat of the $0's size. So there we've set and
+
+486
+00:25:08,073 --> 00:25:11,608
+if now someone sets our model, boom! We've set everything.
+
+487
+00:25:11,677 --> 00:25:14,811
+Our UIs should match. Now we're in great shape,
+
+488
+00:25:14,880 --> 00:25:17,947
+because we've got an MVC here. Which has a model that we can
+
+489
+00:25:18,016 --> 00:25:21,151
+set and get that makes our UI work and all we need to do is
+
+490
+00:25:21,220 --> 00:25:25,322
+make it persistent. Make it store on disk. And we're gonna
+
+491
+00:25:25,391 --> 00:25:28,559
+make it persistent by having this EmojiArt thing here
+
+492
+00:25:28,627 --> 00:25:31,928
+become codable, and be able to turn itself into a JSON.
+
+493
+00:25:31,997 --> 00:25:35,799
+And then we're gonna use JSON as our file format. So
+
+494
+00:25:35,868 --> 00:25:39,002
+let's go back to EmojiArt over here, and
+
+495
+00:25:39,070 --> 00:25:41,671
+make this thing generate JSON. And
+
+496
+00:25:41,740 --> 00:25:45,475
+we're gonna do that by just saying that it is Codable. And
+
+497
+00:25:45,544 --> 00:25:47,878
+when we put Codable on there, and we recompile.
+
+498
+00:25:47,947 --> 00:25:50,981
+We're gonna see if there's any problems with this and
+
+499
+00:25:51,049 --> 00:25:54,151
+see whether it is codable or not. So let's find out, and
+
+500
+00:25:54,219 --> 00:25:57,554
+it says it's not. It says it doesn't implement decodable
+
+501
+00:25:57,623 --> 00:26:00,491
+and encodable, which are the two protocols in this Codable
+
+502
+00:26:00,559 --> 00:26:05,395
+protocol, why not? This is codable, an array is codable,
+
+503
+00:26:05,464 --> 00:26:09,332
+no, this type is not codable, well,
+
+504
+00:26:09,401 --> 00:26:14,204
+no problem, colon, Codable. We made that Codable, and now,
+
+505
+00:26:14,272 --> 00:26:17,341
+we'll let this thing recompile, and the error went
+
+506
+00:26:17,409 --> 00:26:20,543
+away, look at that, we just made EmojiArt codable.
+
+507
+00:26:20,612 --> 00:26:23,346
+And this is what I was telling you about, this codable stuff,
+
+508
+00:26:23,415 --> 00:26:25,015
+the new kind of archiving is so easy.
+
+509
+00:26:25,084 --> 00:26:27,384
+Because you don't need to do all of that inits, and decode,
+
+510
+00:26:27,453 --> 00:26:31,021
+and encode, and all of that stuff. For 90% of all structs,
+
+511
+00:26:31,090 --> 00:26:33,924
+it'll just do it for you. Now, again,
+
+512
+00:26:33,993 --> 00:26:37,527
+our JSON keys are gonna be the same as our variable names.
+
+513
+00:26:37,596 --> 00:26:39,295
+When we do the JSON, which is good, in this case,
+
+514
+00:26:39,364 --> 00:26:40,564
+cuz they're all nice enough. But
+
+515
+00:26:40,633 --> 00:26:43,367
+we could change it by adding that private enum coding keys,
+
+516
+00:26:43,436 --> 00:26:44,868
+colon string, remember that?
+
+517
+00:26:44,937 --> 00:26:48,071
+So I, we're not going to, but, but we could do that.
+
+518
+00:26:48,140 --> 00:26:50,307
+All right, now, how about the JSON?
+
+519
+00:26:50,375 --> 00:26:53,844
+How do we get the JSON version of this? Well,
+
+520
+00:26:53,913 --> 00:26:58,181
+I'm actually gonna add a var to this EmojiArt called json.
+
+521
+00:26:58,250 --> 00:27:01,351
+And it returns a Data, optional, it's possible,
+
+522
+00:27:01,420 --> 00:27:04,888
+I guess, we might not be able to turn ourselves into JSON.
+
+523
+00:27:04,957 --> 00:27:07,124
+But I think 100% we would, but
+
+524
+00:27:07,192 --> 00:27:11,628
+I'll make it a Data just be clear. And I'm just going to
+
+525
+00:27:11,697 --> 00:27:16,800
+create a JSON out of myself by returning, trying
+
+526
+00:27:16,869 --> 00:27:23,373
+to use a JSONEncoder to encode my, self, and that's it.
+
+527
+00:27:23,442 --> 00:27:26,343
+That's either gonna return a data of myself, a JSON, or
+
+528
+00:27:26,411 --> 00:27:28,845
+nil if it couldn't do it, now this is never gonna
+
+529
+00:27:28,914 --> 00:27:31,615
+fail. I'm so confident this is never gonna fail, I could even
+
+530
+00:27:31,684 --> 00:27:33,316
+do try exclamation point right there and
+
+531
+00:27:33,385 --> 00:27:34,485
+not make that an optional.
+
+532
+00:27:34,553 --> 00:27:39,256
+Cuz these types are all 100% encodable. But
+
+533
+00:27:39,325 --> 00:27:42,392
+I'll do this just to kind of be correct programming.
+
+534
+00:27:42,461 --> 00:27:45,295
+So now we have a way to turn this thing into EmojiArt.
+
+535
+00:27:45,364 --> 00:27:48,765
+So let's add a little bit of UI to our EmojiArt to have
+
+536
+00:27:48,833 --> 00:27:52,603
+a button I'm gonna call save. Which you press save, and
+
+537
+00:27:52,672 --> 00:27:55,471
+it's going to eventually save this JSON,
+
+538
+00:27:55,540 --> 00:27:58,175
+this EmojiArt document to disk as JSON.
+
+539
+00:27:58,243 --> 00:28:00,276
+But first, we'll just have it print the JSON out on
+
+540
+00:28:00,345 --> 00:28:02,512
+the console, so we can just see what's going on here.
+
+541
+00:28:02,581 --> 00:28:05,749
+So let's do that, let's go to our storyboard and add a save
+
+542
+00:28:05,818 --> 00:28:08,151
+button here. Now if we look in our storyboard, look,
+
+543
+00:28:08,219 --> 00:28:10,921
+we've got a lot of junk in here. This is that table view
+
+544
+00:28:10,990 --> 00:28:13,923
+that we put to try and have our documents in a table view.
+
+545
+00:28:13,992 --> 00:28:16,994
+Hm, well, we're gonna have a significant upgrade here,
+
+546
+00:28:17,062 --> 00:28:19,729
+because we're gonna use that nice files app thing.
+
+547
+00:28:19,798 --> 00:28:21,865
+So I'm just going to delete this junk.
+
+548
+00:28:21,933 --> 00:28:26,603
+Get rid of all that, and I want to now put a save button
+
+549
+00:28:26,672 --> 00:28:29,840
+somewhere here in this UI. You know what I'm gonna do?
+
+550
+00:28:29,909 --> 00:28:32,743
+I'm gonna Embed this into Navigation Controller, so
+
+551
+00:28:32,811 --> 00:28:34,945
+that I get the little title bar at the top,
+
+552
+00:28:35,014 --> 00:28:37,681
+you see this little title bar that comes at the top?
+
+553
+00:28:37,749 --> 00:28:40,284
+Cuz that's a good place I could put a little save button
+
+554
+00:28:40,352 --> 00:28:43,052
+too. So throwing things in Navigation Controller,
+
+555
+00:28:43,121 --> 00:28:45,588
+you get that title bar, it's actually quite common and
+
+556
+00:28:45,657 --> 00:28:49,492
+a quite nice feature. So let's go down here and search for
+
+557
+00:28:49,561 --> 00:28:52,162
+Bar Button, Bar Button, here it is.
+
+558
+00:28:52,231 --> 00:28:54,764
+We always use bar buttons in these bars, not regular
+
+559
+00:28:54,833 --> 00:28:57,700
+buttons. And I'm going to inspect that bar button and
+
+560
+00:28:57,769 --> 00:29:00,804
+make it be a Save, a standard button called Save,
+
+561
+00:29:00,872 --> 00:29:04,140
+there it is. Let's wire it up, target action,
+
+562
+00:29:04,209 --> 00:29:09,012
+into our controller here. So, control drag, down here, it's
+
+563
+00:29:09,080 --> 00:29:13,249
+going to be an action, I'm going to call it save. That's
+
+564
+00:29:13,318 --> 00:29:16,252
+going to be a bar button item as its argument, there we go,
+
+565
+00:29:16,321 --> 00:29:20,524
+here it is. Let's go back to full screen so we can get the,
+
+566
+00:29:20,592 --> 00:29:24,060
+oops, get the full width here to do our save.
+
+567
+00:29:24,129 --> 00:29:28,832
+So this save, I just wanted to print my model out as JSON on
+
+568
+00:29:28,901 --> 00:29:33,704
+the console. So, to do that, I'm just gonna say,
+
+569
+00:29:33,772 --> 00:29:37,807
+if I can let json = my model, if I have one,
+
+570
+00:29:37,876 --> 00:29:44,081
+it's json. Now I have the json, it's a data, though.
+
+571
+00:29:44,149 --> 00:29:47,217
+And I want to print it out, obviously, as a string. And
+
+572
+00:29:47,286 --> 00:29:50,787
+when you have a data and you want to print it as a string,
+
+573
+00:29:50,856 --> 00:29:54,257
+you have to tell the system what the encoding is like,
+
+574
+00:29:54,326 --> 00:29:58,461
+is it ASCII? Or Unicode, some sort of Unicode thing?
+
+575
+00:29:58,530 --> 00:30:02,965
+Well, JSON is always UTF8, which is Unicode encoding,
+
+576
+00:30:03,034 --> 00:30:04,634
+eight bit encoding.
+
+577
+00:30:04,702 --> 00:30:11,141
+So, we're just going to let, if let jsonString = String,
+
+578
+00:30:11,210 --> 00:30:15,078
+constructor, with taking that json that I have.
+
+579
+00:30:15,146 --> 00:30:18,481
+And telling it what the encoding is, which is dot,
+
+580
+00:30:18,550 --> 00:30:22,252
+you can see there is a lot of different kinds of isoLatin1
+
+581
+00:30:22,321 --> 00:30:26,923
+and shiftJIS. And all these things, ascii right there, but
+
+582
+00:30:26,992 --> 00:30:30,393
+we're gonna do utf8. So if we're able to do that,
+
+583
+00:30:30,462 --> 00:30:34,130
+then I'm just gonna print it, print(jsonString). So,
+
+584
+00:30:34,199 --> 00:30:36,332
+now we're our save button is gonna print it out,
+
+585
+00:30:36,401 --> 00:30:38,202
+so let's go ahead and give this a try.
+
+586
+00:30:39,838 --> 00:30:41,537
+You see a little bit of warnings over there.
+
+587
+00:30:41,606 --> 00:30:47,977
+That's just because of that, yes that warning is
+
+588
+00:30:48,046 --> 00:30:51,582
+a good warning. Let's go look at this warning right here,
+
+589
+00:30:51,650 --> 00:30:54,017
+it says, unreachable part of our storyboard.
+
+590
+00:30:54,085 --> 00:30:58,188
+And indeed if we go look our storyboard over here,
+
+591
+00:30:58,257 --> 00:31:01,390
+here it is. We have no entry point to our storyboard, cuz,
+
+592
+00:31:01,459 --> 00:31:03,260
+remember, I deleted all of that junk?
+
+593
+00:31:03,328 --> 00:31:06,229
+Well, I deleted the entry point with it. So let's select
+
+594
+00:31:06,297 --> 00:31:09,632
+this Navigation Controller, and go over and inspect it,
+
+595
+00:31:09,701 --> 00:31:13,403
+and say, this is our initial View Controller. So you've got
+
+596
+00:31:13,472 --> 00:31:16,540
+to pay attentions to your warnings over here, right?
+
+597
+00:31:16,608 --> 00:31:19,809
+So let's bring our console back up,
+
+598
+00:31:19,878 --> 00:31:24,014
+make this as wide as possible, run, go back and
+
+599
+00:31:24,083 --> 00:31:26,883
+take a look here. All right, this time it's running.
+
+600
+00:31:26,952 --> 00:31:29,753
+So here's our EmojiArt right here, let's go ahead and
+
+601
+00:31:29,821 --> 00:31:33,090
+make a nice EmojiArt document. How about with this thing
+
+602
+00:31:33,158 --> 00:31:36,893
+right here, and let's put a little bicycle on the road,
+
+603
+00:31:36,962 --> 00:31:39,796
+right there. Now I'm going to hit save, and
+
+604
+00:31:39,865 --> 00:31:43,866
+let's watch our console over there. Oops, save, look,
+
+605
+00:31:43,935 --> 00:31:48,004
+there it is. Here is our emoji, it's got the URL,
+
+606
+00:31:48,073 --> 00:31:51,808
+which is this really, really long Google image emoji.
+
+607
+00:31:51,877 --> 00:31:53,376
+And then it's got the emojis,
+
+608
+00:31:53,445 --> 00:31:56,479
+which is an array, that only has one thing, the bike in it.
+
+609
+00:31:56,548 --> 00:31:59,982
+So let's add another thing, my second favorite thing to add,
+
+610
+00:32:00,051 --> 00:32:04,087
+which is a bee, and save. And now JSON has the bee in it as
+
+611
+00:32:04,156 --> 00:32:07,824
+well. So with very little work here,
+
+612
+00:32:07,893 --> 00:32:11,060
+just by making that thing codeable, we have made it so
+
+613
+00:32:11,129 --> 00:32:14,197
+we can save our document in JSON format. So
+
+614
+00:32:14,266 --> 00:32:16,900
+now let's add the file system code to actually write it out
+
+615
+00:32:16,969 --> 00:32:19,236
+to disk. And that's gonna be our next step here, so
+
+616
+00:32:19,304 --> 00:32:23,206
+let's go do that. Go back to our controller here.
+
+617
+00:32:23,275 --> 00:32:25,542
+So instead of printing this thing out as a JSON,
+
+618
+00:32:25,611 --> 00:32:27,543
+we're just going to write this to disk.
+
+619
+00:32:27,612 --> 00:32:32,315
+Now this is of type data, right? It's a data. So
+
+620
+00:32:32,384 --> 00:32:39,022
+I can just write it to disk with json.write[to: url].
+
+621
+00:32:39,091 --> 00:32:41,625
+Now, couple of things, one we have to say what url are we
+
+622
+00:32:41,693 --> 00:32:43,659
+gonna write it to. And of course this throws.
+
+623
+00:32:43,728 --> 00:32:46,696
+So you're gonna have to do both of those things. First,
+
+624
+00:32:46,764 --> 00:32:49,332
+let's talk about what url we're gonna write it to. Well,
+
+625
+00:32:49,401 --> 00:32:51,968
+any time you talk about the file system, what's the number
+
+626
+00:32:52,036 --> 00:32:54,404
+one thing you have to do when you're creating your url?
+
+627
+00:32:54,473 --> 00:32:57,273
+Find a directory in the sandbox to start.
+
+628
+00:32:57,342 --> 00:32:59,675
+Always do this. 100.0 percent at a time, you're going
+
+629
+00:32:59,744 --> 00:33:01,878
+to write something to the file system or read something from
+
+630
+00:33:01,946 --> 00:33:04,514
+the file system. You gotta figure out which sandbox
+
+631
+00:33:04,583 --> 00:33:08,117
+directory you're gonna start in. So this is a document, so
+
+632
+00:33:08,186 --> 00:33:11,688
+I'm gonna put it in my document directory. So, I,
+
+633
+00:33:11,757 --> 00:33:16,292
+let's type this in here. This is how we look up a sandbox
+
+634
+00:33:16,361 --> 00:33:20,363
+directory here, this default FileManager.default method
+
+635
+00:33:20,431 --> 00:33:22,465
+url. So we're looking for the document directory.
+
+636
+00:33:22,534 --> 00:33:25,301
+We always do userDomainMask. We're not replacing a file so
+
+637
+00:33:25,370 --> 00:33:27,337
+we don't care about that. And we want to create
+
+638
+00:33:27,405 --> 00:33:30,340
+the documents directory if it hasn't. And then I'm gonna
+
+639
+00:33:30,408 --> 00:33:33,176
+append the name of my file unto that URL for the document
+
+640
+00:33:33,245 --> 00:33:37,614
+directory. untitled.json, I'm gonna call it. So
+
+641
+00:33:37,682 --> 00:33:40,683
+now I have the URL. I can put this in here and write it.
+
+642
+00:33:40,752 --> 00:33:43,353
+Now I just have to deal with the fact that this throws.
+
+643
+00:33:43,421 --> 00:33:47,357
+So it means I have to put try in front of it. And
+
+644
+00:33:47,425 --> 00:33:50,494
+I'm going to actually catch errors in this.
+
+645
+00:33:52,931 --> 00:33:58,035
+Catch, oops, catch let error. And here if I get an error I'm
+
+646
+00:33:58,103 --> 00:34:01,771
+gonna say print("couldn't"), oops, couldn't.
+
+647
+00:34:01,840 --> 00:34:04,774
+Save, and we'll put the error right in there, so
+
+648
+00:34:04,843 --> 00:34:07,443
+we can see what it is. But, if it doesn't fail,
+
+649
+00:34:07,512 --> 00:34:10,881
+then I'm gonna say saved successfully.
+
+650
+00:34:13,685 --> 00:34:16,352
+So, now when we run on our console, we should see,
+
+651
+00:34:16,421 --> 00:34:19,222
+either, saved successfully, or couldn't save.
+
+652
+00:34:19,291 --> 00:34:23,426
+So, let's go try this. Put all the code on here at the same
+
+653
+00:34:23,495 --> 00:34:28,431
+time so you can see it. Run again. Let's go out here,
+
+654
+00:34:28,500 --> 00:34:35,805
+see that. So one thing about our app, of course,
+
+655
+00:34:35,874 --> 00:34:38,708
+every time it starts, we, it doesn't load up the document.
+
+656
+00:34:38,776 --> 00:34:39,609
+So, it's always blank.
+
+657
+00:34:39,677 --> 00:34:42,378
+So we'll always have to start again. So here let's start
+
+658
+00:34:42,447 --> 00:34:47,150
+again with this one. Let's put an apple in the sky up here.
+
+659
+00:34:47,219 --> 00:34:50,020
+And I'm gonna hit save now and hopefully it will say saved
+
+660
+00:34:50,088 --> 00:34:52,956
+successfully in our console, ready? Woo hoo,
+
+661
+00:34:53,024 --> 00:34:57,193
+saved successfully! Let's add another one, some coffee.
+
+662
+00:34:57,262 --> 00:35:00,196
+Saved successfully, it's working. But, this is not very
+
+663
+00:35:00,264 --> 00:35:02,966
+satisfying because, it's just saying saved successfully.
+
+664
+00:35:03,034 --> 00:35:06,102
+And you're like, yeah, sure, well you say it's saved. But
+
+665
+00:35:06,171 --> 00:35:08,471
+did it really save? But actually, we can go look and
+
+666
+00:35:08,539 --> 00:35:11,174
+see if it saved and go find this document. Because
+
+667
+00:35:11,243 --> 00:35:15,178
+we have the iOS 11 files app, which let's us look at
+
+668
+00:35:15,246 --> 00:35:18,381
+documents in apps that opt in. Now,
+
+669
+00:35:18,450 --> 00:35:21,684
+the key there is apps that opt in. So we have to actually put
+
+670
+00:35:21,753 --> 00:35:24,754
+that little info.plist thing I was talking about that says we
+
+671
+00:35:24,823 --> 00:35:27,590
+are an app where you can look in our document directory and
+
+672
+00:35:27,659 --> 00:35:29,325
+see our document. So let's go do that.
+
+673
+00:35:29,394 --> 00:35:32,528
+We're just gonna jump over to our info.plist here. I'm gonna
+
+674
+00:35:32,597 --> 00:35:35,698
+do the same kind of thing that we did in your homework where
+
+675
+00:35:35,767 --> 00:35:39,569
+you added a row, remember that, to do the HTTP URL. So
+
+676
+00:35:39,638 --> 00:35:45,341
+I'm gonna add a row, Support Document Browser,
+
+677
+00:35:45,410 --> 00:35:47,110
+there it is. Supports Document Browser, and
+
+678
+00:35:47,179 --> 00:35:51,581
+I'm gonna set that to yes. And that tells the system, okay,
+
+679
+00:35:51,650 --> 00:35:53,416
+you can look in my documents directory and
+
+680
+00:35:53,485 --> 00:35:56,419
+see my documents. So I have to run again because we have to
+
+681
+00:35:56,488 --> 00:35:59,789
+transfer the app back over to the iPad, so
+
+682
+00:35:59,857 --> 00:36:02,525
+it'll look at this info.plist over there. But actually,
+
+683
+00:36:02,594 --> 00:36:04,727
+I don't even need to create that untitled JSON again,
+
+684
+00:36:04,796 --> 00:36:07,697
+it's already there. So I swiped up from the bottom to
+
+685
+00:36:07,765 --> 00:36:09,432
+get this little thing to appear on the bottom here.
+
+686
+00:36:09,500 --> 00:36:10,800
+And I'm gonna click or
+
+687
+00:36:10,869 --> 00:36:13,302
+touch on this app right here. That is the files app.
+
+688
+00:36:13,371 --> 00:36:16,539
+And you're gonna see the UI here for files.
+
+689
+00:36:16,608 --> 00:36:20,009
+This is a lot what your UI is gonna look like in your app.
+
+690
+00:36:20,078 --> 00:36:22,212
+So it's got all these nice folders right here.
+
+691
+00:36:22,280 --> 00:36:24,814
+You can arrange them by date, and tags, and
+
+692
+00:36:24,883 --> 00:36:27,817
+name. You can go put things on your iCloud Drive. You can put
+
+693
+00:36:27,886 --> 00:36:31,354
+things on you iPad. And here, I'm clicking iPad. Emoji Art
+
+694
+00:36:31,422 --> 00:36:34,257
+is the only app On my iPad currently that has a documents
+
+695
+00:36:34,326 --> 00:36:38,160
+directory, with documents that file is allowed to look at.
+
+696
+00:36:38,229 --> 00:36:41,163
+That's because this iPad is pretty much fresh install.
+
+697
+00:36:41,232 --> 00:36:44,000
+But here it is, my app. And if I click on this notice it puts
+
+698
+00:36:44,069 --> 00:36:46,903
+my app icon in, that's kinda nice. If I click on it,
+
+699
+00:36:46,971 --> 00:36:50,173
+woohoo, it's untitled.json. And I can long press on it,
+
+700
+00:36:50,242 --> 00:36:53,375
+and say info. And it'll even tell me look, this is the kind
+
+701
+00:36:53,444 --> 00:36:56,612
+of file, it's a*.json file. It has 656 bytes, that sounds
+
+702
+00:36:56,681 --> 00:37:00,182
+about right. That's about how many things we had in there.
+
+703
+00:37:00,251 --> 00:37:02,885
+And I can even click on it to view it. However,
+
+704
+00:37:02,954 --> 00:37:08,057
+look where it views it. In some sort of JSON,
+
+705
+00:37:08,126 --> 00:37:11,093
+viewing app of some sort.
+
+706
+00:37:11,162 --> 00:37:14,364
+Not in our app, so that's kinda weird.
+
+707
+00:37:14,432 --> 00:37:17,733
+Why is that? Well, because we're not a JSON viewing app,
+
+708
+00:37:17,802 --> 00:37:20,770
+we're an emoji art app. So the files app doesn't
+
+709
+00:37:20,839 --> 00:37:23,306
+know that we are the one to open there. And we can fix
+
+710
+00:37:23,375 --> 00:37:25,875
+that a little bit later. We're probably not gonna have time
+
+711
+00:37:25,944 --> 00:37:27,176
+to do it today with the demo.
+
+712
+00:37:27,245 --> 00:37:29,679
+But I will certainly do it in the code I post and show you.
+
+713
+00:37:29,747 --> 00:37:32,882
+And the fix to that is to define a new file type called
+
+714
+00:37:32,950 --> 00:37:35,651
+emoji art. And then the files app will know,
+
+715
+00:37:35,720 --> 00:37:37,053
+that's an emoji art thing.
+
+716
+00:37:37,121 --> 00:37:39,389
+But right now, it looks at extension json and says well,
+
+717
+00:37:39,458 --> 00:37:41,524
+I'm gonna do the json thing.
+
+718
+00:37:41,593 --> 00:37:42,926
+And you can tell, see it's right though.
+
+719
+00:37:42,994 --> 00:37:44,927
+It's got the apple, it's got the coffee in there.
+
+720
+00:37:44,996 --> 00:37:48,531
+It's really small but you can see it. So, that's great. So,
+
+721
+00:37:48,600 --> 00:37:50,867
+we know it's actually saving. So let's go to the next step,
+
+722
+00:37:50,935 --> 00:37:52,969
+which is reading this document. So,
+
+723
+00:37:53,038 --> 00:37:56,305
+let's have our app, every time it puts its view controller
+
+724
+00:37:56,374 --> 00:37:59,509
+up, view will appear we'll do it in, it looks for
+
+725
+00:37:59,578 --> 00:38:02,211
+untitled.json, and loads it up.
+
+726
+00:38:02,280 --> 00:38:04,747
+That way, every time we run our app, it won't be blank
+
+727
+00:38:04,816 --> 00:38:07,517
+every time. It'll just load the last document we were
+
+728
+00:38:07,586 --> 00:38:10,620
+working on untitled.json that we were working on. Okay, so
+
+729
+00:38:10,689 --> 00:38:16,292
+let's do that. Go back to our controller.
+
+730
+00:38:16,360 --> 00:38:20,763
+Here's our view controller right here. So we're gonna do
+
+731
+00:38:20,832 --> 00:38:26,869
+that in viewWillAppear. super.viewWillAppear(animat-
+
+732
+00:38:26,938 --> 00:38:31,674
+ed). So, what do we need to do in here in viewWillAppear,
+
+733
+00:38:31,742 --> 00:38:33,943
+to get this to appear? It's pretty straightforward.
+
+734
+00:38:34,012 --> 00:38:38,314
+We just need to get that URL for the untitled.json. And
+
+735
+00:38:38,383 --> 00:38:42,185
+then look at the data and turn it back into an emoji art and
+
+736
+00:38:42,253 --> 00:38:43,752
+set that as our model.
+
+737
+00:38:43,821 --> 00:38:47,323
+Got that, so let's do that. Of course I need that URL.
+
+738
+00:38:47,392 --> 00:38:50,994
+So I'm gonna do the same thing that I did before.
+
+739
+00:38:51,063 --> 00:38:54,030
+What did I call that, let url, yeah. So
+
+740
+00:38:54,099 --> 00:38:56,633
+here's where I go get my document directory and
+
+741
+00:38:56,701 --> 00:38:59,268
+append the path component on untitled.json.
+
+742
+00:38:59,337 --> 00:39:02,605
+This is exactly what I did up here, no different cuz I want
+
+743
+00:39:02,674 --> 00:39:07,677
+the exact same url. But here, I'm going to say if I can let
+
+744
+00:39:07,746 --> 00:39:12,515
+jsonData equal trying to have Data contentsOf,
+
+745
+00:39:12,584 --> 00:39:16,986
+exactly the same thing. This Data contentsOf is exactly
+
+746
+00:39:17,055 --> 00:39:20,356
+what we did to get image urls over http, right?
+
+747
+00:39:20,425 --> 00:39:23,793
+So, contents of the file url, which is
+
+748
+00:39:23,861 --> 00:39:26,729
+this untitled json file in our documents directory.
+
+749
+00:39:26,798 --> 00:39:30,399
+That's what this url is. So if I'm able to create a data out
+
+750
+00:39:30,468 --> 00:39:33,937
+of that file, now I need to create an emojiArt out of it,
+
+751
+00:39:34,005 --> 00:39:38,073
+and set that as my model. So emojiArt is my model,
+
+752
+00:39:38,142 --> 00:39:42,811
+let me say equal to. I need to create an EmojiArt from
+
+753
+00:39:42,880 --> 00:39:47,950
+some jsonData. Well, we don't have an initializer for
+
+754
+00:39:48,019 --> 00:39:51,721
+EmojiArt that creates an EmojiArt from jsonData.
+
+755
+00:39:51,790 --> 00:39:53,823
+But we can really easily write one.
+
+756
+00:39:53,892 --> 00:39:55,992
+Let's go back to EmojiArt over here.
+
+757
+00:39:56,060 --> 00:39:58,327
+And just like we wrote this to get the JSON,
+
+758
+00:39:58,396 --> 00:40:00,629
+we can certainly write an initializer,
+
+759
+00:40:00,698 --> 00:40:02,698
+which I'm also gonna have be failable,
+
+760
+00:40:02,767 --> 00:40:07,336
+that takes some JSON, which is a Data. And, Initializes and,
+
+761
+00:40:07,405 --> 00:40:10,807
+if I can't initialize it, then I'm going to fail and
+
+762
+00:40:10,875 --> 00:40:14,811
+return nil. So what does it look like to do this? Again,
+
+763
+00:40:14,879 --> 00:40:18,447
+really easy. I'm just gonna say, if I can let new value,
+
+764
+00:40:18,516 --> 00:40:21,183
+that's gonna be my new value that I pull out of there,
+
+765
+00:40:21,252 --> 00:40:28,190
+equal try to JSONDecoder.
+
+766
+00:40:28,259 --> 00:40:30,493
+And what am I trying to decode out of that data?
+
+767
+00:40:30,562 --> 00:40:34,730
+I'm trying to decode an EmojiArt object.
+
+768
+00:40:34,799 --> 00:40:38,200
+And from what data? The JSON that you passed in.
+
+769
+00:40:38,269 --> 00:40:39,435
+So if I'm able to do that,
+
+770
+00:40:39,504 --> 00:40:42,871
+if I'm able to decode it out of there, now I have it.
+
+771
+00:40:42,940 --> 00:40:45,642
+The new thing in new value, and so I'm just gonna say,
+
+772
+00:40:45,710 --> 00:40:49,044
+self = newValue, right? I mean, an initializer here. So,
+
+773
+00:40:49,113 --> 00:40:51,581
+I'm just going to initialize myself, and I'm gonna fail
+
+774
+00:40:51,650 --> 00:40:54,917
+otherwise by returning nil. Now, this ones much more
+
+775
+00:40:54,986 --> 00:40:58,554
+likely to fail, because you could imagine corrupted JSON,
+
+776
+00:40:58,623 --> 00:41:02,324
+just playing the wrong JSON file. An empty JSON file, all
+
+777
+00:41:02,393 --> 00:41:04,360
+of these things would cause this to fail, and that's fine.
+
+778
+00:41:04,429 --> 00:41:05,761
+It's just this will not initialize,
+
+779
+00:41:05,830 --> 00:41:10,166
+this is only gonna initialize. If this is valid about JSON
+
+780
+00:41:10,235 --> 00:41:13,969
+encoded, something from this basically that's the only way
+
+781
+00:41:14,038 --> 00:41:18,474
+it will succeed. So now our code will work over here,
+
+782
+00:41:18,543 --> 00:41:21,277
+right? We've got this implemented, so
+
+783
+00:41:21,346 --> 00:41:25,414
+now when we quit and go back our document should be there.
+
+784
+00:41:25,483 --> 00:41:29,152
+So let's do that let's run and
+
+785
+00:41:29,220 --> 00:41:33,456
+then show it to you. Here it is and
+
+786
+00:41:33,525 --> 00:41:37,226
+sure enough look at that, it already picked up that
+
+787
+00:41:37,295 --> 00:41:41,730
+untitled.json and if I add a dog to this and hit Save.
+
+788
+00:41:41,799 --> 00:41:47,369
+Then quit and run again,
+
+789
+00:41:47,438 --> 00:41:50,773
+comes back with the dog. So we're both saving it,
+
+790
+00:41:50,841 --> 00:41:53,109
+with the Save button, and view will appear,
+
+791
+00:41:53,177 --> 00:41:55,612
+we are loading it up. So this is excellent.
+
+792
+00:41:55,680 --> 00:41:57,847
+We are really making a lot of progress here.
+
+793
+00:41:57,915 --> 00:42:00,450
+But now it is time to take this to the next level,
+
+794
+00:42:00,518 --> 00:42:03,552
+which is to be able to do that files app kind of UI. And
+
+795
+00:42:03,621 --> 00:42:07,423
+to do that, to make that easy, and to simplify our existing
+
+796
+00:42:07,492 --> 00:42:11,694
+code actually, we need to use UIDocument. UIDocument
+
+797
+00:42:11,763 --> 00:42:14,930
+encapsulates a document in just this really beautiful
+
+798
+00:42:14,999 --> 00:42:17,900
+way, really nice API. And that's what we need to do.
+
+799
+00:42:17,969 --> 00:42:19,402
+Now we could just do that here.
+
+800
+00:42:19,470 --> 00:42:22,204
+All you have to do is create a UIDocument subclass,
+
+801
+00:42:22,273 --> 00:42:25,174
+and implement the two methods I talked about in lectureon
+
+802
+00:42:25,243 --> 00:42:27,176
+Monday. But this where we're gonna step in and
+
+803
+00:42:27,245 --> 00:42:30,146
+use that template. We're gonna throw that template in here
+
+804
+00:42:30,214 --> 00:42:36,319
+for document base. So I'm gonna stop my app right here.
+
+805
+00:42:38,456 --> 00:42:41,390
+And I'm going to rename my existing EmojiArt.
+
+806
+00:42:41,459 --> 00:42:45,094
+I'm just gonna call it EmojiArtOLD. And then I'm
+
+807
+00:42:45,162 --> 00:42:49,031
+gonna go back to Xcode and create a new project. On this
+
+808
+00:42:49,100 --> 00:42:51,767
+two project I'm gonna use this Document Based App right here.
+
+809
+00:42:51,836 --> 00:42:53,836
+I'm wanna call this still EmojiArt,
+
+810
+00:42:53,905 --> 00:42:56,705
+basically this gonna be the same app which gonna have
+
+811
+00:42:56,774 --> 00:43:00,243
+this build on this template. I'm gonna put the same place,
+
+812
+00:43:00,311 --> 00:43:02,545
+I put everything else, here it is.
+
+813
+00:43:02,614 --> 00:43:06,048
+Let's quickly look at the things this created.
+
+814
+00:43:06,117 --> 00:43:09,184
+It's just a normal kind of Xcode app, of course,
+
+815
+00:43:09,253 --> 00:43:12,422
+it has assets, a launch screen, an app delegate.
+
+816
+00:43:12,490 --> 00:43:15,958
+And so I'm gonna put these three things in a little
+
+817
+00:43:16,027 --> 00:43:20,729
+supporting file like I always do. However, I'm gonna
+
+818
+00:43:20,798 --> 00:43:25,701
+take a moment to first take a look at the AppDelegate.
+
+819
+00:43:25,770 --> 00:43:28,203
+Because the AppDelegate is not just a bunch of
+
+820
+00:43:28,272 --> 00:43:30,573
+empty methods with just comments only,
+
+821
+00:43:30,642 --> 00:43:32,975
+it also now has this actual method.
+
+822
+00:43:33,044 --> 00:43:36,579
+This method is called open inputURL. This is sent
+
+823
+00:43:36,648 --> 00:43:38,847
+to your application by other applications,
+
+824
+00:43:38,916 --> 00:43:42,618
+like files, that say, I wanna open up one of your documents.
+
+825
+00:43:42,687 --> 00:43:45,154
+Now, this is only gonna get called if we have an EmojiArt
+
+826
+00:43:45,223 --> 00:43:47,556
+document, not a JSON document, cuz we're not an,
+
+827
+00:43:47,625 --> 00:43:50,326
+JSON opening app. But this is how that happened.
+
+828
+00:43:50,394 --> 00:43:52,661
+It's pretty simple code, I'm not gonna go through it, but
+
+829
+00:43:52,730 --> 00:43:55,231
+this is where that's going on. And we're gonna talk all about
+
+830
+00:43:55,299 --> 00:43:59,034
+AppDelegate, all this stuff, next week, all right.
+
+831
+00:43:59,103 --> 00:44:01,236
+So we got supporting files. What else came over there?
+
+832
+00:44:01,305 --> 00:44:03,940
+Well, we have this UIDocument subclass
+
+833
+00:44:04,008 --> 00:44:05,608
+called Document. Well,
+
+834
+00:44:05,677 --> 00:44:10,479
+this is going to eventually be our EmojiArtDocument.
+
+835
+00:44:10,548 --> 00:44:14,883
+EmojiArt, so you can rename the name of the file to be
+
+836
+00:44:14,952 --> 00:44:19,488
+EmojiArt. So this has got those two functions, right?
+
+837
+00:44:19,557 --> 00:44:21,691
+The one that converts from out model to a data,
+
+838
+00:44:21,759 --> 00:44:23,493
+and from a data to a model, back and forth.
+
+839
+00:44:23,561 --> 00:44:25,861
+That's all we have to implement to make this work.
+
+840
+00:44:25,930 --> 00:44:27,396
+So we'll do that in a little bit.
+
+841
+00:44:27,465 --> 00:44:30,132
+Then there's this, DocumentViewController,
+
+842
+00:44:30,201 --> 00:44:33,135
+is basically like EmojiArtViewController, right?
+
+843
+00:44:33,204 --> 00:44:36,072
+It's just the stub for a DocumentViewController.
+
+844
+00:44:36,140 --> 00:44:38,040
+And, of course, we have EmojiArtViewController so
+
+845
+00:44:38,109 --> 00:44:38,741
+we don't need this.
+
+846
+00:44:38,809 --> 00:44:41,911
+So I am just going to right-click on it and
+
+847
+00:44:41,980 --> 00:44:44,413
+delete it. So I'm gonna delete this DocumentViewController.
+
+848
+00:44:44,482 --> 00:44:47,750
+I don't need it, I have my EmojiArtViewController. And
+
+849
+00:44:47,819 --> 00:44:50,218
+then there's this DocumentBrowserViewController
+
+850
+00:44:50,287 --> 00:44:53,188
+thing right here. This is the subclass
+
+851
+00:44:53,257 --> 00:44:56,358
+UIDocumentBrowserViewControl- ler. Here's that viewDidLoad I
+
+852
+00:44:56,427 --> 00:44:58,928
+was telling you we were gonna configure it. Here's the place
+
+853
+00:44:58,996 --> 00:45:02,264
+where we're gonna call this import handler to copy
+
+854
+00:45:02,333 --> 00:45:05,100
+a template. Here's some other methods that we are not even
+
+855
+00:45:05,169 --> 00:45:05,902
+going to have to touch,
+
+856
+00:45:05,970 --> 00:45:08,070
+they just get's called when it's time to open
+
+857
+00:45:08,139 --> 00:45:10,639
+a document. And then there's this one down here
+
+858
+00:45:10,708 --> 00:45:13,308
+presentDocument, which I'm gonna delete most of.
+
+859
+00:45:13,377 --> 00:45:15,912
+This is just an internal method that's called from all
+
+860
+00:45:15,980 --> 00:45:19,916
+those other things that says, present your MVC for this
+
+861
+00:45:19,984 --> 00:45:24,320
+document at this URL. So we'll be implementing that soon.
+
+862
+00:45:24,389 --> 00:45:26,021
+And then, of course we've got our story board.
+
+863
+00:45:26,090 --> 00:45:27,222
+Let's see what's in our story board.
+
+864
+00:45:27,291 --> 00:45:31,127
+I'm gonna make our story board look like more like an iPad.
+
+865
+00:45:31,195 --> 00:45:33,963
+It's a little more familiar to us. Although,
+
+866
+00:45:34,032 --> 00:45:35,898
+our app will work on iPhone, by the way.
+
+867
+00:45:35,967 --> 00:45:38,433
+After all this I will show you that hopefully,
+
+868
+00:45:38,502 --> 00:45:41,537
+if we have time. So there's only two view controllers
+
+869
+00:45:41,606 --> 00:45:44,607
+here in this storyboard, one is this one.
+
+870
+00:45:44,676 --> 00:45:46,642
+That's the DocumentBrowserViewController.
+
+871
+00:45:46,711 --> 00:45:50,212
+That's the thing that looks like the files app. And
+
+872
+00:45:50,281 --> 00:45:53,182
+notice that's where we come in.
+
+873
+00:45:53,251 --> 00:45:56,084
+We arrive into this app there. Then there's this,
+
+874
+00:45:56,153 --> 00:45:58,888
+this is going to be our EmojiArtViewController.
+
+875
+00:45:58,956 --> 00:46:01,156
+In fact, I'm going to delete the one that comes in here,
+
+876
+00:46:01,225 --> 00:46:02,424
+cuz it's just a little place holder.
+
+877
+00:46:02,493 --> 00:46:05,227
+And I'm gonna put my EmojiArtViewController here,
+
+878
+00:46:05,296 --> 00:46:06,662
+and lets go do it right now.
+
+879
+00:46:06,731 --> 00:46:10,899
+In fact, I'm gonna go back to EmojiArt.old here.
+
+880
+00:46:10,968 --> 00:46:12,801
+I'm gonna go to its storyboard.
+
+881
+00:46:12,870 --> 00:46:15,938
+And one thing that's really cool about storyboards is that
+
+882
+00:46:16,007 --> 00:46:18,841
+you can copy and paste from one storyboard to another,
+
+883
+00:46:18,910 --> 00:46:22,278
+because all the connections to the code are made by name.
+
+884
+00:46:22,347 --> 00:46:23,579
+It's only just the names, so
+
+885
+00:46:23,648 --> 00:46:25,548
+as long as the names are the same in both ways,
+
+886
+00:46:25,616 --> 00:46:28,584
+places it works. So I'm just gonna select all of this and
+
+887
+00:46:28,652 --> 00:46:33,155
+hit copy. Then go back to my new one here and
+
+888
+00:46:33,224 --> 00:46:37,292
+hit paste. Zoom out a little bit, so I can see it all.
+
+889
+00:46:37,361 --> 00:46:43,198
+Go to our document outline, make this look nice here.
+
+890
+00:46:43,267 --> 00:46:44,166
+Now, one thing to notice,
+
+891
+00:46:44,235 --> 00:46:46,334
+I know this is a little hard to see on this screen, so
+
+892
+00:46:46,403 --> 00:46:47,369
+I'll try and zoom in more.
+
+893
+00:46:47,438 --> 00:46:50,305
+But you notice there's no segue between here, right?
+
+894
+00:46:50,374 --> 00:46:53,275
+These live on their own, this one lives on its own. And
+
+895
+00:46:53,344 --> 00:46:56,278
+that's why we have to do this manual presenting. The other
+
+896
+00:46:56,347 --> 00:46:58,814
+thing I'm gonna do for now is I'm gonna have the entry point
+
+897
+00:46:58,882 --> 00:47:01,883
+be our existing view controller. We'll add this one
+
+898
+00:47:01,952 --> 00:47:04,586
+in once we get the UIDocument stuff working, cuz we have to
+
+899
+00:47:04,655 --> 00:47:08,123
+have UIDocument working before we can really leverage this.
+
+900
+00:47:08,192 --> 00:47:10,092
+So we're just going to have our old UI for now.
+
+901
+00:47:10,160 --> 00:47:12,828
+And I'm gonna try and get our existing app as we had it
+
+902
+00:47:12,897 --> 00:47:14,663
+before working with UIDocument.
+
+903
+00:47:14,732 --> 00:47:16,265
+So it's gonna be the exact same thing, but
+
+904
+00:47:16,334 --> 00:47:18,567
+just working with UIDocument instead of directly accessing
+
+905
+00:47:18,635 --> 00:47:22,304
+the file system there. So of course we also need to have
+
+906
+00:47:22,373 --> 00:47:25,207
+all of our files from the old one. So let's go back to old
+
+907
+00:47:25,276 --> 00:47:30,378
+EmojiArt here. And get all of our stuff out of there, oops!
+
+908
+00:47:30,447 --> 00:47:33,916
+This, getting these two things on the screen at the same time
+
+909
+00:47:33,984 --> 00:47:36,651
+on this very small screen can be a challenge, all right.
+
+910
+00:47:36,720 --> 00:47:42,658
+So I'm going to bring over my controller, my model, my view.
+
+911
+00:47:42,726 --> 00:47:45,595
+Some of the supporting files like the cells,
+
+912
+00:47:45,663 --> 00:47:48,964
+the gesture recognizer stuff. The utilities,
+
+913
+00:47:49,033 --> 00:47:52,368
+the stuff I did, I'm not bringing over the AppDelegate,
+
+914
+00:47:52,436 --> 00:47:56,271
+because that came with the template. So I don't wanna do
+
+915
+00:47:56,340 --> 00:47:59,374
+that and I'm not bringing over my TableViewController either.
+
+916
+00:47:59,443 --> 00:48:01,644
+That's what under junk here, that's the TableViewController
+
+917
+00:48:01,713 --> 00:48:03,145
+that was suppose to be the documents thing, but
+
+918
+00:48:03,213 --> 00:48:05,614
+we said forget that, we're using this new files thing So
+
+919
+00:48:05,682 --> 00:48:10,185
+I'm just gonna drag these over here. Copy them all in and
+
+920
+00:48:10,254 --> 00:48:13,688
+one other thing I wanna bring over actually from here is my
+
+921
+00:48:13,757 --> 00:48:17,560
+app icon. I got this nice app icon, I don't wanna lose that.
+
+922
+00:48:17,628 --> 00:48:21,630
+So I'm gonna go over here to my assets and my new one and
+
+923
+00:48:21,699 --> 00:48:26,201
+get rid of the blank app icon and just drag this app icon
+
+924
+00:48:26,270 --> 00:48:31,340
+over here. So that's it. So I've essentially brought over
+
+925
+00:48:31,409 --> 00:48:35,644
+everything from my old emoji art to the new emoji art. But
+
+926
+00:48:35,712 --> 00:48:38,581
+what we're gonna do first is go and
+
+927
+00:48:38,649 --> 00:48:41,283
+make this emoji art document business work.
+
+928
+00:48:41,352 --> 00:48:43,753
+So let's go do that. Where's our emoji art document?
+
+929
+00:48:43,821 --> 00:48:45,921
+It's right here. This is the thing I just renamed.
+
+930
+00:48:45,990 --> 00:48:49,324
+And there is only these two methods that are doing stuff,
+
+931
+00:48:49,393 --> 00:48:50,659
+we know exactly how to do it,
+
+932
+00:48:50,728 --> 00:48:53,462
+we were just doing this. One thing about this is,
+
+933
+00:48:53,531 --> 00:48:56,932
+is you notice the contents returns an Any not a Data,
+
+934
+00:48:57,001 --> 00:49:00,069
+that's because this Any could be a file wrapper. A directory
+
+935
+00:49:00,137 --> 00:49:02,905
+full of files is a way to represent a document just like
+
+936
+00:49:02,973 --> 00:49:06,075
+is a data is. But usually this is going to return a Data.
+
+937
+00:49:06,143 --> 00:49:09,211
+In fact, look, the default returns a blank Data. So here,
+
+938
+00:49:09,279 --> 00:49:11,680
+to do either of these,
+
+939
+00:49:11,749 --> 00:49:15,918
+we actually need that model passed to us in the document.
+
+940
+00:49:15,986 --> 00:49:18,854
+So, I'm gonna have a var emojiArt over here as well
+
+941
+00:49:18,923 --> 00:49:20,990
+which is going to be an EmojiArt. And
+
+942
+00:49:21,058 --> 00:49:24,693
+any time I wanna save my model from my controller, I just
+
+943
+00:49:24,761 --> 00:49:28,497
+take my controller's model and put it in the document and
+
+944
+00:49:28,566 --> 00:49:31,567
+then the document knows what to do from there.
+
+945
+00:49:31,636 --> 00:49:34,936
+So let's go ahead and return this emojiArt.json and
+
+946
+00:49:35,005 --> 00:49:37,640
+if it doesn't have JSON representation,
+
+947
+00:49:37,708 --> 00:49:41,877
+then we'll return Data, which is a blank document.
+
+948
+00:49:41,946 --> 00:49:44,080
+Empty document and we know how to deal with that,
+
+949
+00:49:44,148 --> 00:49:46,982
+because our documents always come up empty.
+
+950
+00:49:47,051 --> 00:49:50,485
+And then this is the other way around, here we're having one
+
+951
+00:49:50,554 --> 00:49:54,323
+passed to us. A data pass to us and we want to turn it into
+
+952
+00:49:54,392 --> 00:49:57,226
+an emoji art. So I'm going to say if I can let the json =,
+
+953
+00:49:57,295 --> 00:49:59,461
+the contents that were passed to me as a data,
+
+954
+00:49:59,530 --> 00:50:01,964
+because I don't deal with file wrappers.
+
+955
+00:50:02,033 --> 00:50:05,233
+If this were a file wrapper, I don't deal with that.
+
+956
+00:50:05,302 --> 00:50:08,336
+Then I'm gonna set my emojiArt equal to, again,
+
+957
+00:50:08,405 --> 00:50:11,773
+using that constructor that I did to take the data and
+
+958
+00:50:11,842 --> 00:50:13,408
+turn it into an EmojiArt.
+
+959
+00:50:13,477 --> 00:50:17,212
+And this might fail and that's fine. And this will be nil and
+
+960
+00:50:17,281 --> 00:50:20,449
+then it won't save the document. It can't save a nil
+
+961
+00:50:20,517 --> 00:50:25,187
+document. And, I talked about this ofType in both these
+
+962
+00:50:25,255 --> 00:50:29,892
+cases. This is a UTI. Like public.json is a UTI or
+
+963
+00:50:29,960 --> 00:50:35,030
+edu.stanford.cs193.emojiart could be a UTI.
+
+964
+00:50:35,099 --> 00:50:36,998
+A unique identifier of the type.
+
+965
+00:50:37,067 --> 00:50:40,102
+Now we don't really care because we only open one thing
+
+966
+00:50:40,171 --> 00:50:43,171
+or anything we open, JSON or an emojiArt or whatever,
+
+967
+00:50:43,240 --> 00:50:46,074
+is all just a JSON data anyway to us. So we don't care about
+
+968
+00:50:46,143 --> 00:50:48,744
+the type, but some apps might open multiple different types.
+
+969
+00:50:48,813 --> 00:50:50,646
+They might need to know what type it is in order to
+
+970
+00:50:50,715 --> 00:50:53,715
+successfully open it or save it. And that's it, this is all
+
+971
+00:50:53,784 --> 00:50:57,286
+we need to do to do an emojiArt document. We're done,
+
+972
+00:50:57,355 --> 00:51:00,489
+now we can use all the API of UIDocument like, let's say,
+
+973
+00:51:00,558 --> 00:51:03,659
+synchronous opening and saving, working over iCloud,
+
+974
+00:51:03,727 --> 00:51:06,928
+automatics, auto saving, all that stuff just all work for
+
+975
+00:51:06,997 --> 00:51:09,331
+free as long as we implement these things.
+
+976
+00:51:09,399 --> 00:51:13,235
+So let's use all those things back in our emojiArt
+
+977
+00:51:13,304 --> 00:51:16,939
+view controller here to replace the places where we're
+
+978
+00:51:17,008 --> 00:51:20,842
+actually accessing the file system directly here. So
+
+979
+00:51:20,911 --> 00:51:25,513
+we want to get rid of this, so let's delete all that. And
+
+980
+00:51:25,582 --> 00:51:28,017
+let's delete all this. And
+
+981
+00:51:28,085 --> 00:51:32,254
+we're gonna replace this with stuff from using the same
+
+982
+00:51:32,323 --> 00:51:35,690
+primitives, but using the document. Now, to do this,
+
+983
+00:51:35,759 --> 00:51:38,560
+we obviously need to have a var which is the document
+
+984
+00:51:38,629 --> 00:51:40,228
+cos we have to be able to talk to our own document.
+
+985
+00:51:40,297 --> 00:51:42,665
+And so we're just gonna have a var called
+
+986
+00:51:42,733 --> 00:51:45,500
+document which is a type EmojiArtDocument. This is
+
+987
+00:51:45,569 --> 00:51:49,938
+going to be set in that code from the file chooser, right?
+
+988
+00:51:50,007 --> 00:51:51,439
+When the file chooser chooses a file,
+
+989
+00:51:51,508 --> 00:51:53,875
+we're gonna set our document in our new MVC and
+
+990
+00:51:53,944 --> 00:51:57,012
+then it's just gonna magically show its stuff using all
+
+991
+00:51:57,081 --> 00:51:59,648
+the document API. So let's talk about,
+
+992
+00:51:59,717 --> 00:52:03,151
+view will appear first. When our first document first
+
+993
+00:52:03,220 --> 00:52:05,587
+appears, we need to open our document.
+
+994
+00:52:05,656 --> 00:52:10,091
+So we do that by just saying, document?.open. And that's all
+
+995
+00:52:10,160 --> 00:52:12,695
+we have to say. It does come with a completion handler
+
+996
+00:52:12,763 --> 00:52:16,064
+that will tell you whether it was successful doing that.
+
+997
+00:52:16,133 --> 00:52:18,833
+And we usually want to check this, and say, if we're,
+
+998
+00:52:18,902 --> 00:52:21,303
+there were success, then we're going to do some stuff.
+
+999
+00:52:21,372 --> 00:52:23,639
+What might we want to do here, maybe want to set
+
+1000
+00:52:23,708 --> 00:52:30,912
+our title equal to the documents localized name. This
+
+1001
+00:52:30,981 --> 00:52:33,749
+localized name just come from the URL, it's like the last
+
+1002
+00:52:33,817 --> 00:52:35,851
+part of the URL without the file extension put in there,
+
+1003
+00:52:35,919 --> 00:52:38,386
+so that's nice. We need self in there of course to
+
+1004
+00:52:38,455 --> 00:52:40,989
+insert a closure. But the most important thing we wanna
+
+1005
+00:52:41,058 --> 00:52:46,361
+do if we successfully open the document is to set our model
+
+1006
+00:52:46,430 --> 00:52:51,567
+to the model that the document was able to get by
+
+1007
+00:52:51,635 --> 00:52:56,438
+opening that file. So the document has an emoji art that
+
+1008
+00:52:56,507 --> 00:53:01,176
+it got from the file. We have our model. We want to get it.
+
+1009
+00:53:01,245 --> 00:53:04,212
+So that's the main thing we are doing in all of these
+
+1010
+00:53:04,281 --> 00:53:07,582
+document things, is for setting, getting our model.
+
+1011
+00:53:07,651 --> 00:53:10,819
+Now what about save? Well,
+
+1012
+00:53:10,888 --> 00:53:17,259
+we actually don't really do save, we do autosave.
+
+1013
+00:53:17,328 --> 00:53:21,529
+So how do we do autosave? The only thing that's important
+
+1014
+00:53:21,598 --> 00:53:25,868
+with autosave is that you tell the UIDocument that something
+
+1015
+00:53:25,936 --> 00:53:28,437
+has changed. Otherwise, it's not going to waste its time
+
+1016
+00:53:28,505 --> 00:53:31,239
+autosaving something that hasn't changed. And
+
+1017
+00:53:31,308 --> 00:53:36,111
+you do that by first telling the document to look
+
+1018
+00:53:36,180 --> 00:53:40,849
+at your model, so we wanna set it to our model.
+
+1019
+00:53:40,918 --> 00:53:44,186
+And then you tell the document that a change has happened.
+
+1020
+00:53:44,255 --> 00:53:47,723
+So you update the change count and you say that that change
+
+1021
+00:53:47,791 --> 00:53:51,593
+is done. By the way, this done can be undo, redo or done.
+
+1022
+00:53:51,662 --> 00:53:53,728
+So we're not talking about the undo manager, so
+
+1023
+00:53:53,797 --> 00:53:56,531
+I can't really show you that. But the other option is done,
+
+1024
+00:53:56,600 --> 00:53:58,333
+because meaning the change is done.
+
+1025
+00:53:58,402 --> 00:54:01,636
+And by the way, I'm only going to do this is the document's
+
+1026
+00:54:01,705 --> 00:54:05,140
+emojiArt is not nil. Okay, if we haven't actually started up
+
+1027
+00:54:05,208 --> 00:54:08,343
+a document, it's useless to be updating its change count
+
+1028
+00:54:08,412 --> 00:54:13,816
+there. Now this is strange, because we are saying and
+
+1029
+00:54:13,884 --> 00:54:16,084
+noting that our document changed,
+
+1030
+00:54:16,152 --> 00:54:20,522
+because the user pressed the save button. That is weird.
+
+1031
+00:54:20,591 --> 00:54:23,925
+Really, we should notice change when anything changes.
+
+1032
+00:54:23,994 --> 00:54:26,494
+Someone dragged out another emoji, they resized it,
+
+1033
+00:54:26,563 --> 00:54:29,230
+they put a different background URL. That's when
+
+1034
+00:54:29,299 --> 00:54:31,834
+we should "save". And really, this method shouldn't even be
+
+1035
+00:54:31,902 --> 00:54:34,069
+called save, it should be called document change.
+
+1036
+00:54:34,138 --> 00:54:37,339
+Well, unfortunately, the time, one of the number one thing
+
+1037
+00:54:37,408 --> 00:54:39,041
+it's gonna cut off that I can't get done,
+
+1038
+00:54:39,110 --> 00:54:40,509
+because of this midterm coming in here,
+
+1039
+00:54:40,578 --> 00:54:45,079
+is putting that saving, or the document change tracking in.
+
+1040
+00:54:45,148 --> 00:54:47,182
+And why is that an interesting thing?
+
+1041
+00:54:47,251 --> 00:54:52,086
+Well, because that's being tracked in our view, right?
+
+1042
+00:54:52,155 --> 00:54:54,957
+Our view is what knows when we've resized something or
+
+1043
+00:54:55,025 --> 00:54:55,958
+dragged something in.
+
+1044
+00:54:56,026 --> 00:54:58,861
+So our view needs to talk back to our controller and say,
+
+1045
+00:54:58,929 --> 00:55:02,430
+hey, something changed. Well, it can't talk back to our
+
+1046
+00:55:02,499 --> 00:55:05,400
+controller, except for blind and structured, right? So
+
+1047
+00:55:05,469 --> 00:55:08,503
+how would we, any of you here, how would you suggest that we
+
+1048
+00:55:08,572 --> 00:55:11,506
+talk from our view back to our controller to tell it, hey,
+
+1049
+00:55:11,575 --> 00:55:14,510
+this document has changed, this document has changed.
+
+1050
+00:55:14,578 --> 00:55:16,712
+What would you suggest, mechanism?
+
+1051
+00:55:23,653 --> 00:55:26,154
+So one suggestion is, let's have a variable in our
+
+1052
+00:55:26,223 --> 00:55:29,157
+view that's a reference to our controller. And
+
+1053
+00:55:29,226 --> 00:55:32,060
+that's not allowed by MVC, right? View can't talk
+
+1054
+00:55:32,129 --> 00:55:37,366
+to its controller that way. So let's try delegation.
+
+1055
+00:55:37,434 --> 00:55:40,035
+The same way a table view talks back to its controller,
+
+1056
+00:55:40,103 --> 00:55:42,704
+it's a delegation, scroll view it uses delegation,
+
+1057
+00:55:42,773 --> 00:55:45,573
+that's how we would have to do. So we are going to set up
+
+1058
+00:55:45,642 --> 00:55:48,410
+our own delegation where we have an emojiArt view
+
+1059
+00:55:48,479 --> 00:55:50,745
+delegate. That's what we would do. Unfortunately,
+
+1060
+00:55:50,814 --> 00:55:52,314
+I don't have time to do that, but that's what we would do.
+
+1061
+00:55:52,382 --> 00:55:54,115
+So I don't want you to get the idea here that you should
+
+1062
+00:55:54,184 --> 00:55:56,017
+have save buttons in document apps.
+
+1063
+00:55:56,086 --> 00:55:57,719
+You should never have a save button.
+
+1064
+00:55:57,788 --> 00:55:59,354
+It should know when things change and
+
+1065
+00:55:59,423 --> 00:56:03,091
+just call this updateChangCount.
+
+1066
+00:56:03,160 --> 00:56:05,627
+But since we don't have that, we will have our save button,
+
+1067
+00:56:05,696 --> 00:56:09,865
+we will just tell it when it saves. All right? What else do
+
+1068
+00:56:09,934 --> 00:56:12,600
+we have to do here? How about closing our document.
+
+1069
+00:56:12,669 --> 00:56:16,004
+Right now we only have one document, untitled.json, but
+
+1070
+00:56:16,073 --> 00:56:18,606
+we're just about to ask, add a file chooser that's gonna let
+
+1071
+00:56:18,675 --> 00:56:20,508
+us choose lots of different documents. So
+
+1072
+00:56:20,577 --> 00:56:22,610
+we need a way to close this document so
+
+1073
+00:56:22,679 --> 00:56:24,312
+we can open another document.
+
+1074
+00:56:24,381 --> 00:56:29,284
+So I'm gonna go back and add a close button to our UI.
+
+1075
+00:56:29,352 --> 00:56:32,354
+I'm gonna put it right here on the other side from save
+
+1076
+00:56:32,423 --> 00:56:36,525
+over there. We're gonna go in here. Bar Button again,
+
+1077
+00:56:38,261 --> 00:56:40,862
+Bar Button up here. There's actually a standard one for
+
+1078
+00:56:40,931 --> 00:56:42,864
+that. It's actually called Done,
+
+1079
+00:56:42,933 --> 00:56:47,068
+cuz you're done with this document, right there. And
+
+1080
+00:56:47,137 --> 00:56:52,106
+we are then going to control-drag, and
+
+1081
+00:56:52,175 --> 00:56:55,978
+I'll put it right in here. And I'm gonna have an action here.
+
+1082
+00:56:56,046 --> 00:56:58,713
+I'm gonna call it close, I could call it done, but
+
+1083
+00:56:58,782 --> 00:57:02,851
+I'll call it close. And now let's go back
+
+1084
+00:57:02,920 --> 00:57:08,189
+to full width here, go back over to here. All right,
+
+1085
+00:57:08,258 --> 00:57:11,093
+so what are we gonna do in our close? Well, for a document
+
+1086
+00:57:11,161 --> 00:57:15,564
+app, it's easy. You're just gonna say document?.close().
+
+1087
+00:57:15,632 --> 00:57:18,666
+Now, it also has a success completion handler, but
+
+1088
+00:57:18,735 --> 00:57:22,037
+I don't really care because I'm not gonna do anything.
+
+1089
+00:57:22,106 --> 00:57:23,471
+Whether it's successful or not,
+
+1090
+00:57:23,540 --> 00:57:25,907
+I'm just going to try to close it, and hope it will be, and
+
+1091
+00:57:25,976 --> 00:57:28,476
+99% of the time it's going to be. I could, you know,
+
+1092
+00:57:28,545 --> 00:57:31,613
+catch your errors and stuff like that. Having problems for
+
+1093
+00:57:31,682 --> 00:57:33,682
+some reason, the closing and having problems, but
+
+1094
+00:57:33,750 --> 00:57:35,350
+the best we can really do is just try to close and
+
+1095
+00:57:35,419 --> 00:57:37,251
+see what happens. The other thing I'm gonna do is I'm
+
+1096
+00:57:37,320 --> 00:57:40,788
+gonna save() right before, now because I don't have automatic
+
+1097
+00:57:40,857 --> 00:57:43,892
+change tracking, I wanna save before I close. If I had
+
+1098
+00:57:43,961 --> 00:57:47,362
+automatic change tracking, I wouldn't do save here. I would
+
+1099
+00:57:47,431 --> 00:57:49,330
+delete this line of code. And in fact I am going to delete
+
+1100
+00:57:49,399 --> 00:57:52,234
+this line of code when I post this code after lecture,
+
+1101
+00:57:52,302 --> 00:57:54,369
+because I'm going to have that change tracking in there.
+
+1102
+00:57:54,438 --> 00:57:56,237
+Now notice I did save with no argument,
+
+1103
+00:57:56,306 --> 00:57:57,472
+because save takes a bar
+
+1104
+00:57:57,541 --> 00:58:00,208
+button item and I don't have one. Here's a cool trick.
+
+1105
+00:58:00,277 --> 00:58:01,809
+I'm gonna make this an optional and
+
+1106
+00:58:01,878 --> 00:58:05,814
+have it default to nil. By doing that, now I can call
+
+1107
+00:58:05,882 --> 00:58:08,050
+save with nothing and it defaults to nil and
+
+1108
+00:58:08,118 --> 00:58:10,151
+I don't use this bar button item in here so,
+
+1109
+00:58:10,220 --> 00:58:15,156
+all is well. Everybody got all that? Okay, now,
+
+1110
+00:58:15,225 --> 00:58:17,659
+to test all of this, this is it. See how we've replaced all
+
+1111
+00:58:17,728 --> 00:58:20,796
+that stuff in our, that was file system now with all this
+
+1112
+00:58:20,864 --> 00:58:23,298
+nice code that is very understandable and readable?
+
+1113
+00:58:23,367 --> 00:58:26,602
+Open our document, close our document, update the document.
+
+1114
+00:58:26,670 --> 00:58:30,238
+I'm going to, in my view did load, set my document
+
+1115
+00:58:30,307 --> 00:58:33,174
+to be Untitled.json. Eventually, it's going to be
+
+1116
+00:58:33,243 --> 00:58:35,277
+that chooser thing, but for now it's going to be that.
+
+1117
+00:58:35,345 --> 00:58:37,145
+So in viewDidLoad, just a, this is just as a test.
+
+1118
+00:58:37,214 --> 00:58:38,780
+I'm going to take this right out of here,
+
+1119
+00:58:38,849 --> 00:58:40,415
+right after we do this test. And
+
+1120
+00:58:40,484 --> 00:58:45,320
+all I'm going to do here is get that,
+
+1121
+00:58:45,388 --> 00:58:50,092
+that json url again. You can see why I put that in,
+
+1122
+00:58:50,160 --> 00:58:51,659
+those codes in there, because I have to type it so
+
+1123
+00:58:51,728 --> 00:58:54,729
+many times. And all I'm going to do here is just
+
+1124
+00:58:54,798 --> 00:58:56,497
+set my document, right?
+
+1125
+00:58:56,566 --> 00:59:00,302
+That's this bar right here. It has to be an EmojiArtDocument,
+
+1126
+00:59:00,370 --> 00:59:04,038
+I'm going to set that equal to an EmojiArt,
+
+1127
+00:59:04,107 --> 00:59:07,242
+well we're running out of battery there. Document, and
+
+1128
+00:59:07,311 --> 00:59:11,713
+remember that UIDocuments only have one initializer,
+
+1129
+00:59:11,781 --> 00:59:16,384
+it's the URL. So this is fileURL,
+
+1130
+00:59:16,453 --> 00:59:22,557
+the URL. Make sense there?
+
+1131
+00:59:22,626 --> 00:59:26,261
+Have my close, curly braces, there we go. So that's it.
+
+1132
+00:59:26,330 --> 00:59:29,664
+So I'm only doing that just as a test. So now,
+
+1133
+00:59:29,732 --> 00:59:33,535
+when we launch our app, it should load that Untitled.json
+
+1134
+00:59:33,604 --> 00:59:36,104
+up because we're immediately setting that as our document,
+
+1135
+00:59:36,173 --> 00:59:37,739
+and the document just does its thing.
+
+1136
+00:59:37,808 --> 00:59:41,242
+So let's go ahead and take a look at that here.
+
+1137
+00:59:41,311 --> 00:59:44,713
+Run, and let you see what's going on.
+
+1138
+00:59:51,554 --> 00:59:54,823
+Okay, look, it loaded up Untitled.json. And
+
+1139
+00:59:54,892 --> 00:59:57,759
+let's put a little airplane flying across there, and
+
+1140
+00:59:57,827 --> 01:00:01,195
+I'm gonna hit Save to let it know that there was a change
+
+1141
+01:00:01,264 --> 01:00:06,801
+to the document, and then hit Done. Now if I quit and
+
+1142
+01:00:06,870 --> 01:00:11,439
+run again. Hopefully, we'll see
+
+1143
+01:00:11,508 --> 01:00:13,975
+the airplane there and we did. Okay, so UIDocument is doing
+
+1144
+01:00:14,044 --> 01:00:16,177
+all of the things the file system stuff was doing for
+
+1145
+01:00:16,246 --> 01:00:18,413
+us. But now that we have UIDocument,
+
+1146
+01:00:18,481 --> 01:00:21,149
+we can have our app launch instead
+
+1147
+01:00:21,218 --> 01:00:23,151
+of launch and show this, launch and
+
+1148
+01:00:23,220 --> 01:00:25,420
+show that file choosing thing, the document browser thing,
+
+1149
+01:00:25,488 --> 01:00:28,222
+like the files app. So let's go put that piece of
+
+1150
+01:00:28,291 --> 01:00:31,526
+the puzzle in here. Before I do anything,
+
+1151
+01:00:31,595 --> 01:00:34,763
+I'm going to make sure I remove this viewDidLoad.
+
+1152
+01:00:34,832 --> 01:00:37,298
+I'm going to take that away because I'm not gonna be
+
+1153
+01:00:37,367 --> 01:00:41,436
+setting my document to this Untitled.json, I'm going to be
+
+1154
+01:00:41,505 --> 01:00:44,272
+setting it to whatever the document view browser
+
+1155
+01:00:44,340 --> 01:00:48,110
+wants me to have it be. All right, so here we are.
+
+1156
+01:00:48,178 --> 01:00:50,578
+This is the document browser view controller,
+
+1157
+01:00:50,647 --> 01:00:53,414
+this is thing where all the magic happens, here.
+
+1158
+01:00:53,483 --> 01:00:57,419
+One thing we have to do to get this guy in the loop is to go
+
+1159
+01:00:57,487 --> 01:01:01,622
+back to our storyboard and have the entry point no longer
+
+1160
+01:01:01,691 --> 01:01:05,993
+be our MVC. Instead it's going to be this. And we're gonna be
+
+1161
+01:01:06,062 --> 01:01:09,664
+responsible from getting from here to presenting this on top
+
+1162
+01:01:09,733 --> 01:01:12,333
+of this to show our documents. So, let's see how we do that.
+
+1163
+01:01:12,402 --> 01:01:15,770
+All right, so let's do all the parts I talked about in
+
+1164
+01:01:15,838 --> 01:01:18,840
+the slides here. Let's do viewDidLoad. Let's configure.
+
+1165
+01:01:18,908 --> 01:01:22,744
+So, of course, we want or delegate = self, we need that.
+
+1166
+01:01:22,813 --> 01:01:25,513
+Also, we are not going to allow picking of multiple
+
+1167
+01:01:25,581 --> 01:01:28,015
+items, cuz we only know how to show one EmojiArtDocument
+
+1168
+01:01:28,084 --> 01:01:32,454
+at a time. Allows documentation to be true, hm,
+
+1169
+01:01:32,522 --> 01:01:36,224
+yeah for now. And then here is things, tint color,
+
+1170
+01:01:36,293 --> 01:01:38,059
+I'm not gonna change the color or the look of it.
+
+1171
+01:01:38,128 --> 01:01:40,996
+You can play around with that, see what you like there.
+
+1172
+01:01:41,064 --> 01:01:43,264
+So, we're gonna come back to viewDidLoad and
+
+1173
+01:01:43,333 --> 01:01:44,765
+address this in just a moment.
+
+1174
+01:01:44,834 --> 01:01:48,002
+But now let's go down here to didRequestDocumentCreationWit-
+
+1175
+01:01:48,071 --> 01:01:51,372
+hHandler. This is where it's saying, give me the URL of
+
+1176
+01:01:51,441 --> 01:01:53,508
+a blank document, because someone wants to create one.
+
+1177
+01:01:53,577 --> 01:01:55,943
+And I'm gonna make this really easy on us here.
+
+1178
+01:01:56,012 --> 01:01:58,013
+I'm gonna delete all of that in there, and
+
+1179
+01:01:58,081 --> 01:02:00,948
+just call this importHandler that it gave me.
+
+1180
+01:02:01,017 --> 01:02:04,186
+See, it's giving me this importHandler? It takes a URL,
+
+1181
+01:02:04,254 --> 01:02:07,221
+and either copy or move. And I'm gonna copy,
+
+1182
+01:02:07,290 --> 01:02:12,293
+call it with a template, which is gonna be a URL, and .copy.
+
+1183
+01:02:12,362 --> 01:02:19,467
+And all I have to do is make a URL, var template: URL.
+
+1184
+01:02:19,536 --> 01:02:21,936
+Make this template point to some blank document.
+
+1185
+01:02:22,005 --> 01:02:26,707
+And I'm gonna do that in viewDidLoad right here. And
+
+1186
+01:02:26,776 --> 01:02:28,943
+I type that over here. And
+
+1187
+01:02:29,012 --> 01:02:30,779
+to do that I'm just going to get a URL.
+
+1188
+01:02:30,847 --> 01:02:33,147
+This time not into my documents directory because
+
+1189
+01:02:33,216 --> 01:02:35,350
+this is the blank document I'm copying all the time. I don't
+
+1190
+01:02:35,419 --> 01:02:38,753
+want it to appear in the documents when the guy goes
+
+1191
+01:02:38,822 --> 01:02:41,856
+and looks there. So I'm gonna put it in applicationSupport.
+
+1192
+01:02:41,924 --> 01:02:44,125
+So, applicationSupport's a great place to put things that
+
+1193
+01:02:44,194 --> 01:02:46,928
+are kind of behind the scenes. But they're permanent.
+
+1194
+01:02:46,997 --> 01:02:48,529
+I want this template to stick around.
+
+1195
+01:02:48,598 --> 01:02:50,265
+I don't want it to be in the caches and get deleted,
+
+1196
+01:02:50,334 --> 01:02:52,033
+although I probably could put it in caches cuz
+
+1197
+01:02:52,102 --> 01:02:54,669
+I can always recreate it here in viewDidLoad.
+
+1198
+01:02:54,738 --> 01:02:56,138
+But anyway, so this is the URL.
+
+1199
+01:02:56,206 --> 01:02:58,206
+I'm going to call it Untitled.json, just for
+
+1200
+01:02:58,274 --> 01:02:59,040
+old time's sake.
+
+1201
+01:02:59,109 --> 01:03:01,642
+I'm putting it in my applicationSupportDirectory.
+
+1202
+01:03:01,711 --> 01:03:04,712
+And all I wanna do here, though, is make sure I create
+
+1203
+01:03:04,781 --> 01:03:07,382
+this file. So I've got the URL to it. So to create it,
+
+1204
+01:03:07,451 --> 01:03:11,486
+I'm gonna say, if the template is not nil. In other words,
+
+1205
+01:03:11,554 --> 01:03:14,389
+I was able to create the URL, which I should be able to.
+
+1206
+01:03:14,458 --> 01:03:18,126
+I'm gonna now set allowDocumentCreation.
+
+1207
+01:03:18,194 --> 01:03:20,795
+This var up here, instead of it being true.
+
+1208
+01:03:20,864 --> 01:03:23,665
+I am going to set it to be the result of asking
+
+1209
+01:03:23,734 --> 01:03:26,334
+the FileManager, the default FileManager,
+
+1210
+01:03:26,403 --> 01:03:30,371
+to create that file. So it has a method called createFile,
+
+1211
+01:03:30,440 --> 01:03:33,608
+give it the path to the file, the template's path, and
+
+1212
+01:03:33,677 --> 01:03:35,009
+you create it with some contents.
+
+1213
+01:03:35,078 --> 01:03:37,745
+I'm gonna make it empty cuz it's just a blank document, or
+
+1214
+01:03:37,814 --> 01:03:40,481
+an empty document, and I don't even need any file attribute,
+
+1215
+01:03:40,550 --> 01:03:43,184
+so let's get rid of that. Now createFile is a nice way to
+
+1216
+01:03:43,253 --> 01:03:45,353
+create a file because it doesn't throw or
+
+1217
+01:03:45,421 --> 01:03:48,389
+anything like that, and it returns a Boolean whether that
+
+1218
+01:03:48,458 --> 01:03:50,659
+file either got created or already exists,
+
+1219
+01:03:50,727 --> 01:03:52,460
+which is exactly what I want here.
+
+1220
+01:03:52,529 --> 01:03:55,797
+And if it's true, then I will allow document creation.
+
+1221
+01:03:55,865 --> 01:03:57,131
+Otherwise, I'm not gonna allow it,
+
+1222
+01:03:57,200 --> 01:04:00,301
+cuz I couldn't create the template. See why I'm doing
+
+1223
+01:04:00,370 --> 01:04:03,905
+that right there? So that's a nice little trick to kinda do.
+
+1224
+01:04:03,973 --> 01:04:05,840
+When you're creating your template,
+
+1225
+01:04:05,909 --> 01:04:09,377
+if you fail to create it for some reason, you can do that.
+
+1226
+01:04:09,446 --> 01:04:12,547
+So now this importHandler will just work. I'm passing it to
+
+1227
+01:04:12,615 --> 01:04:15,383
+this template that I created up here, and having it copy
+
+1228
+01:04:15,451 --> 01:04:18,386
+out of application support into the documents directory.
+
+1229
+01:04:18,454 --> 01:04:21,089
+These other things over here we don't need to even touch.
+
+1230
+01:04:21,158 --> 01:04:23,791
+These are the things that get called when people click on
+
+1231
+01:04:23,860 --> 01:04:26,026
+documents, didPickDocumentURLs.
+
+1232
+01:04:26,095 --> 01:04:29,363
+didImportDocument is when some other app, like the files app,
+
+1233
+01:04:29,432 --> 01:04:31,566
+asks you to open up one of your documents.
+
+1234
+01:04:31,634 --> 01:04:34,469
+And notice that they are both doing the same one liner,
+
+1235
+01:04:34,537 --> 01:04:37,272
+which is, please present the document at that URL.
+
+1236
+01:04:37,340 --> 01:04:41,008
+That means, put up your ViewController to show it.
+
+1237
+01:04:41,077 --> 01:04:44,545
+Okay, so we, and there's a, by the way, an error one here,
+
+1238
+01:04:44,614 --> 01:04:46,681
+see, failedToImportDocumentAt.
+
+1239
+01:04:46,749 --> 01:04:48,316
+You really should put up an alert here, but
+
+1240
+01:04:48,385 --> 01:04:49,884
+I haven't shown you how to put up alerts.
+
+1241
+01:04:49,953 --> 01:04:51,318
+I'm gonna show you next week,
+
+1242
+01:04:51,387 --> 01:04:53,988
+so you can't do it. But that, you really should put an alert
+
+1243
+01:04:54,057 --> 01:04:55,790
+that says, couldn't load document, or
+
+1244
+01:04:55,858 --> 01:04:58,192
+couldn't open document, or whatever. All right, so
+
+1245
+01:04:58,261 --> 01:05:00,728
+here's presentDocument, that's going to present it. And
+
+1246
+01:05:00,797 --> 01:05:03,665
+I'm gonna basically do what I showed you in the slides right
+
+1247
+01:05:03,733 --> 01:05:06,100
+here, which is, I'm gonna get my storyBoard.
+
+1248
+01:05:06,169 --> 01:05:08,870
+There was already code to get the storyBoard in here
+
+1249
+01:05:08,939 --> 01:05:12,206
+from that template. And I'm going to use the storyBoard to
+
+1250
+01:05:12,275 --> 01:05:14,409
+get the ViewController that I want to present.
+
+1251
+01:05:14,478 --> 01:05:16,144
+Now, it's a little tricky here,
+
+1252
+01:05:16,212 --> 01:05:19,080
+the ViewController that I want to present is actually not
+
+1253
+01:05:19,149 --> 01:05:22,383
+my emoji art ViewController. It's the navigation controller
+
+1254
+01:05:22,452 --> 01:05:24,785
+it's in, does everyone understand that? So
+
+1255
+01:05:24,854 --> 01:05:27,922
+I have to somehow instantiate this navigation controller,
+
+1256
+01:05:27,991 --> 01:05:29,523
+which will also bring this in.
+
+1257
+01:05:29,592 --> 01:05:32,226
+So I need to give this guy a name, so I'm just going to
+
+1258
+01:05:32,295 --> 01:05:35,296
+select it, go to the Identity Inspector and give it a name.
+
+1259
+01:05:35,364 --> 01:05:40,301
+I'm gonna call it, my DocumentMVC. It could be any
+
+1260
+01:05:40,370 --> 01:05:43,671
+name we want, but DocumentMVC is kind of what that is,
+
+1261
+01:05:43,740 --> 01:05:46,174
+at the top of my DocumentMVC mechanism.
+
+1262
+01:05:46,243 --> 01:05:50,946
+So now that I have this name, I can go back here and say-
+
+1263
+01:05:54,718 --> 01:05:57,285
+Let my documentVC
+
+1264
+01:05:57,354 --> 01:06:03,524
+= the storyBoard.instantiateViewCon-
+
+1265
+01:06:03,593 --> 01:06:11,099
+troller(withIdentifier: "DocumentMVC").
+
+1266
+01:06:11,168 --> 01:06:13,101
+So now we have our DocumentMVC.
+
+1267
+01:06:13,170 --> 01:06:17,038
+And now I'm just going to configure it, and then I'm
+
+1268
+01:06:17,106 --> 01:06:21,508
+going to present it by saying present the (documentMVC),
+
+1269
+01:06:21,577 --> 01:06:25,146
+VC rather. And animated: true, I want animated: true in case
+
+1270
+01:06:25,215 --> 01:06:28,116
+someone clicked on it in the file, we want it to slide up,
+
+1271
+01:06:28,184 --> 01:06:29,884
+right? We don't just want it to just appear,
+
+1272
+01:06:29,953 --> 01:06:31,219
+we want it to slide up from the bottom.
+
+1273
+01:06:31,287 --> 01:06:33,754
+There's even a way to make this like grow out of the icon
+
+1274
+01:06:33,823 --> 01:06:35,790
+in the files thing, which is really cool.
+
+1275
+01:06:35,859 --> 01:06:36,991
+It's not even that hard, but
+
+1276
+01:06:37,060 --> 01:06:39,460
+unfortunately I don't have time to show it to you, but
+
+1277
+01:06:39,529 --> 01:06:42,096
+just know that there's a way to do it. This is gonna be
+
+1278
+01:06:42,165 --> 01:06:45,299
+the normal slide up from the bottom presentation. But
+
+1279
+01:06:45,368 --> 01:06:48,570
+this DocumentMVC has an emojiViewController in it that
+
+1280
+01:06:48,638 --> 01:06:50,471
+we need to set the document of. So
+
+1281
+01:06:50,540 --> 01:06:52,907
+I'm going to do the same kind of thing we do in a prepare.
+
+1282
+01:06:52,976 --> 01:06:57,912
+I'm going to say, if I can let my emojiViewController
+
+1283
+01:06:57,980 --> 01:07:02,517
+= the documentViewController, its contents.
+
+1284
+01:07:02,585 --> 01:07:05,419
+Remember that contents, I showed you that before, let's
+
+1285
+01:07:05,488 --> 01:07:08,255
+go look at it just to remind you, I have this in Utilities.
+
+1286
+01:07:08,324 --> 01:07:12,092
+The contents is a UI ViewController method right
+
+1287
+01:07:12,161 --> 01:07:17,265
+here, that just says, if I'm a navigation controller, return
+
+1288
+01:07:17,334 --> 01:07:20,468
+my contents. Otherwise, if I'm not a navigation controller,
+
+1289
+01:07:20,536 --> 01:07:22,437
+just return myself. So this will make it so
+
+1290
+01:07:22,505 --> 01:07:24,639
+that this code that I just wrote will work,
+
+1291
+01:07:24,707 --> 01:07:28,042
+whether it's wrapped in a navigation controller or not.
+
+1292
+01:07:28,111 --> 01:07:34,282
+So get the contents as an EmojiArtViewController.
+
+1293
+01:07:34,350 --> 01:07:42,257
+So, if I can get the EmojiArtViewController,
+
+1294
+01:07:42,325 --> 01:07:45,860
+I guess I should call this EmojiArtViewController just to
+
+1295
+01:07:45,929 --> 01:07:48,963
+be nice there. Then I can set its document,
+
+1296
+01:07:49,032 --> 01:07:52,233
+EmojiArtViewController.docu- ment = and
+
+1297
+01:07:52,302 --> 01:07:55,536
+what does the document equals? It means,
+
+1298
+01:07:55,605 --> 01:07:59,106
+= a new EmojiArtDocument, which we know
+
+1299
+01:07:59,175 --> 01:08:03,478
+the constructor is fileURL, and what's the URL?
+
+1300
+01:08:03,546 --> 01:08:08,883
+It's the URL they want us to present, documentURL.
+
+1301
+01:08:13,289 --> 01:08:19,794
+This is saying Instance member, capital E,
+
+1302
+01:08:19,862 --> 01:08:24,566
+there we go. I thought it wanted a static method there.
+
+1303
+01:08:26,602 --> 01:08:29,603
+One other thing we need to do is the types. Right now,
+
+1304
+01:08:29,672 --> 01:08:32,540
+if we go look at our project settings right here,
+
+1305
+01:08:32,609 --> 01:08:35,743
+I'm gonna go over and look at our project settings.
+
+1306
+01:08:35,812 --> 01:08:37,812
+And we look at the info here,
+
+1307
+01:08:37,880 --> 01:08:42,683
+the Document Types that we can open are images. And
+
+1308
+01:08:42,752 --> 01:08:47,521
+we don't open images, we open JSON files. public.JSON.
+
+1309
+01:08:47,590 --> 01:08:51,759
+And, like I say, when I post the code after lecture,
+
+1310
+01:08:51,828 --> 01:08:54,762
+I'll also do this Exported UTIs down here. And
+
+1311
+01:08:54,831 --> 01:08:57,632
+make a new type of emoji art, and then put that as our type.
+
+1312
+01:08:57,701 --> 01:09:02,503
+But, for now, we'll say that we do JSON files.
+
+1313
+01:09:02,572 --> 01:09:04,972
+Okay, so if I haven't forgotten anything here,
+
+1314
+01:09:05,041 --> 01:09:10,111
+it should work. Okay, look at that,
+
+1315
+01:09:10,180 --> 01:09:12,246
+already you can see that our app is quite different.
+
+1316
+01:09:12,314 --> 01:09:18,018
+It is showing us a UI that looks just like the files app,
+
+1317
+01:09:18,087 --> 01:09:20,855
+right? It's got the folders and all that stuff,
+
+1318
+01:09:20,924 --> 01:09:22,724
+we can even go over here to iCloud Drive.
+
+1319
+01:09:22,792 --> 01:09:26,160
+We can go on my iPad, there it is, EmojiArt, let's look
+
+1320
+01:09:26,228 --> 01:09:30,964
+inside. Okay, there is our Untitled.JSON, let's open it.
+
+1321
+01:09:31,033 --> 01:09:36,470
+Woo, it works! Let's close this one, it doesn't close,
+
+1322
+01:09:36,539 --> 01:09:39,673
+look, I'm pressing Done, it doesn't close.
+
+1323
+01:09:39,742 --> 01:09:43,311
+When our MVC comes up, it takes over the whole screen,
+
+1324
+01:09:43,379 --> 01:09:45,746
+because we presented it right here,
+
+1325
+01:09:45,815 --> 01:09:50,118
+how do we make it go away? How do we dismiss it, essentially?
+
+1326
+01:09:50,186 --> 01:09:52,987
+Well, we do that in the ViewController itself, or
+
+1327
+01:09:53,056 --> 01:09:56,724
+the ViewController that wants to dismiss itself.
+
+1328
+01:09:56,792 --> 01:09:58,893
+And the way we're gonna do that is in close,
+
+1329
+01:09:58,962 --> 01:10:01,028
+when you hit that Done button right there.
+
+1330
+01:10:01,097 --> 01:10:03,464
+And we're going to save, but
+
+1331
+01:10:03,533 --> 01:10:08,269
+then we're going to say dismiss(animated). So
+
+1332
+01:10:08,338 --> 01:10:11,939
+dismiss(animated: true) is how you dismiss yourself.
+
+1333
+01:10:12,008 --> 01:10:14,642
+If you've been presented, you can dismiss yourself.
+
+1334
+01:10:14,711 --> 01:10:17,178
+This also has a completion handler, and
+
+1335
+01:10:17,246 --> 01:10:20,681
+in that completion handler, I'm going to close. So
+
+1336
+01:10:20,750 --> 01:10:23,250
+I'm gonna wait until I've been dismissed. The animation has
+
+1337
+01:10:23,319 --> 01:10:26,587
+happened, then I'll close my document. And, of course,
+
+1338
+01:10:26,656 --> 01:10:31,059
+now I'm in a closure, so I can say, self. So let's try that.
+
+1339
+01:10:45,107 --> 01:10:47,742
+So here I'm gonna open Untitled again.
+
+1340
+01:10:47,811 --> 01:10:49,576
+Now I'm gonna close it and I'm back here,
+
+1341
+01:10:49,645 --> 01:10:51,446
+now I'm gonna create a document, ready?
+
+1342
+01:10:51,514 --> 01:10:54,681
+Create, it copies that template, it's blank.
+
+1343
+01:10:54,750 --> 01:10:57,085
+Now I'm gonna drag a document in here,
+
+1344
+01:10:57,153 --> 01:10:59,953
+let's see if we can find something good here,
+
+1345
+01:11:00,022 --> 01:11:05,158
+something like that. Put an apple on the tree, I'd say,
+
+1346
+01:11:05,227 --> 01:11:10,498
+like that. Now, I'm going to, I'll save just to note that it
+
+1347
+01:11:10,566 --> 01:11:14,368
+has changed, again, we should do that automatically. And
+
+1348
+01:11:14,437 --> 01:11:17,838
+then I'm going to say Done. And now I have two documents,
+
+1349
+01:11:17,907 --> 01:11:20,574
+and now I can go back to the other one, right?
+
+1350
+01:11:20,643 --> 01:11:23,711
+Click there, go to this one, put that one, now,
+
+1351
+01:11:23,779 --> 01:11:26,780
+what if want to put these things on iCloud Drive?
+
+1352
+01:11:26,849 --> 01:11:30,618
+Watch what happens when I go to iCloud Drive for emoji art,
+
+1353
+01:11:30,687 --> 01:11:32,486
+Create Document, see, look.
+
+1354
+01:11:32,555 --> 01:11:34,889
+I can create a document on iCloud Drive.
+
+1355
+01:11:34,958 --> 01:11:37,958
+So this is actually created on the network, I'll be able to
+
+1356
+01:11:38,027 --> 01:11:40,461
+see on all my devices, so make another one here,
+
+1357
+01:11:40,529 --> 01:11:45,299
+something like this. Put a bee out there, a big bee, and
+
+1358
+01:11:45,367 --> 01:11:49,703
+mark saved, and then Done. And now we have this document
+
+1359
+01:11:49,772 --> 01:11:52,140
+Untitled right here that you see is on iCloud Drive.
+
+1360
+01:11:52,208 --> 01:11:55,042
+Se still have the Untitled ones on our device, and
+
+1361
+01:11:55,111 --> 01:11:58,479
+we have the one here on iCloud Drive. So, we click on it and
+
+1362
+01:11:58,547 --> 01:12:00,380
+we get to see it. Now,
+
+1363
+01:12:00,449 --> 01:12:04,818
+the next thing I'm gonna do is make it so that this UI looks
+
+1364
+01:12:04,887 --> 01:12:09,289
+a lot better. Because look at the icons there. I mean,
+
+1365
+01:12:09,358 --> 01:12:11,659
+is that the world's ugliest looking icons? We're gonna
+
+1366
+01:12:11,727 --> 01:12:13,861
+go from the world's ugliest looking icons to the world's
+
+1367
+01:12:13,930 --> 01:12:16,697
+best looking icons. Because with UI document,
+
+1368
+01:12:16,765 --> 01:12:20,535
+you can have each document have it's own icon. And
+
+1369
+01:12:20,603 --> 01:12:23,303
+I'm gonna set the icon to be miniature version of
+
+1370
+01:12:23,372 --> 01:12:25,405
+the document, a thumbnail image of the document. That
+
+1371
+01:12:25,474 --> 01:12:28,275
+way I can easily see which one was the one with the apple and
+
+1372
+01:12:28,344 --> 01:12:29,543
+which one had the bee. It'll be,
+
+1373
+01:12:29,612 --> 01:12:30,511
+I'll be able to see it right in here.
+
+1374
+01:12:30,580 --> 01:12:33,381
+So let's do that. That turned out to be super simple to do
+
+1375
+01:12:33,449 --> 01:12:35,883
+in the UI document. So I'm gonna go back to my Emoji Art
+
+1376
+01:12:35,951 --> 01:12:38,486
+document here. This simple guy. And
+
+1377
+01:12:38,554 --> 01:12:43,124
+I'm just gonna add one method, which I'm gonna override.
+
+1378
+01:12:43,192 --> 01:12:46,260
+Called file attributes to right. And this is essentially
+
+1379
+01:12:46,328 --> 01:12:48,896
+just returning a dictionary of the file attribute,
+
+1380
+01:12:48,964 --> 01:12:51,799
+like is this file hidden, those kind of things. So
+
+1381
+01:12:51,867 --> 01:12:54,001
+I'm gonna get those attributes from my super class,
+
+1382
+01:12:54,070 --> 01:12:55,069
+cuz I'm overriding this.
+
+1383
+01:12:55,138 --> 01:12:58,306
+So when you get this and then I'm gonna add one attribute
+
+1384
+01:12:58,374 --> 01:13:00,908
+which is this kinda complicated thing called
+
+1385
+01:13:00,976 --> 01:13:03,978
+a thumbnailDictionaryKey. Actually the value is another
+
+1386
+01:13:04,046 --> 01:13:08,182
+dictionary. And you put this other key here,
+
+1387
+01:13:08,250 --> 01:13:10,618
+Thumbnail1024x1024SizeKey. Don't let that fool you.
+
+1388
+01:13:10,686 --> 01:13:13,020
+It can be any size you want. Although if it's too small,
+
+1389
+01:13:13,089 --> 01:13:14,655
+it'll use the document icon again. So
+
+1390
+01:13:14,724 --> 01:13:17,257
+make sure it's big enough to actually being an improvement
+
+1391
+01:13:17,326 --> 01:13:19,860
+on that. And I need to put a thumbnail in there.
+
+1392
+01:13:19,929 --> 01:13:22,863
+So I am gonna add a var to be that thumbnail.
+
+1393
+01:13:22,932 --> 01:13:26,934
+UIImage. Thumbnail's just a UIImage. And
+
+1394
+01:13:27,003 --> 01:13:29,770
+now I'm gonna set this thumbnail image in my document
+
+1395
+01:13:29,838 --> 01:13:31,172
+every time I close. So
+
+1396
+01:13:31,240 --> 01:13:34,007
+when I close I am just gonna make another snapshot of it.
+
+1397
+01:13:34,076 --> 01:13:36,310
+So let's go do that to my controller.
+
+1398
+01:13:36,378 --> 01:13:41,348
+Here's where I close, right after I save. I'm gonna say
+
+1399
+01:13:41,417 --> 01:13:46,587
+that my documents.thumbnail =
+
+1400
+01:13:46,656 --> 01:13:52,126
+myemojiArtview.snapshot. So
+
+1401
+01:13:52,195 --> 01:13:56,130
+snapshot is a little var that I wrote, I put in utilities.
+
+1402
+01:13:56,199 --> 01:13:58,665
+You can go a look at it. It's only three or four lines of
+
+1403
+01:13:58,734 --> 01:14:02,102
+code that just takes the view and snapshots it, grabs it as
+
+1404
+01:14:02,171 --> 01:14:06,107
+a UI image. And I'm only gonna do this by the way if,
+
+1405
+01:14:06,175 --> 01:14:09,343
+again, if my documents emojiArt is not nill.
+
+1406
+01:14:09,411 --> 01:14:11,645
+Cuz I don't wanna snapshot a blank document.
+
+1407
+01:14:11,714 --> 01:14:14,615
+But what I should do here is do the snapshot and
+
+1408
+01:14:14,684 --> 01:14:18,552
+then if this thing is nil, I should come up with some other
+
+1409
+01:14:18,621 --> 01:14:22,923
+nice thumbnail for it. But I'm not doing that. So
+
+1410
+01:14:22,992 --> 01:14:26,861
+let's make sure it rebuilds everything here. So
+
+1411
+01:14:26,929 --> 01:14:30,598
+let's run again. Go over here, see what this looks like.
+
+1412
+01:14:32,635 --> 01:14:34,601
+It actually ran even though it said it had an error there,
+
+1413
+01:14:34,670 --> 01:14:38,338
+but it did run successfully. All right, so
+
+1414
+01:14:38,407 --> 01:14:40,140
+let's open one of our documents.
+
+1415
+01:14:40,209 --> 01:14:42,175
+Remember we set our thumbnails when we close,
+
+1416
+01:14:42,244 --> 01:14:45,947
+so here's one. Let's go ahead and close it. And
+
+1417
+01:14:46,015 --> 01:14:48,416
+look, we get this beautiful thumbnail of it.
+
+1418
+01:14:48,484 --> 01:14:49,983
+How about this other one over here?
+
+1419
+01:14:50,052 --> 01:14:53,820
+This guy? Let's close that one. And this even works on
+
+1420
+01:14:53,889 --> 01:14:56,390
+the iCloud drive. It might be a little delayed on the iCloud
+
+1421
+01:14:56,458 --> 01:14:58,359
+drive because it has to upload it, but let's try.
+
+1422
+01:14:58,428 --> 01:15:01,395
+Let's see how fast, pretty quick network right here.
+
+1423
+01:15:01,464 --> 01:15:03,864
+I don't know if you can see in the iCloud drive,
+
+1424
+01:15:03,932 --> 01:15:06,767
+it actually had the little cloud symbol there briefly as
+
+1425
+01:15:06,836 --> 01:15:08,368
+it was downloading it back from
+
+1426
+01:15:08,437 --> 01:15:10,104
+the clouds which is kind of cool.
+
+1427
+01:15:10,172 --> 01:15:13,808
+In this UI that you see here, is all the full files UI.
+
+1428
+01:15:13,876 --> 01:15:17,511
+So not only can you do things like I did before we check
+
+1429
+01:15:17,580 --> 01:15:19,846
+the info, but you could move it,
+
+1430
+01:15:19,915 --> 01:15:23,984
+like I could move this from my iCloud back to my local device
+
+1431
+01:15:24,053 --> 01:15:26,754
+or copy here I guess. And it's asking here if I wanna
+
+1432
+01:15:26,823 --> 01:15:29,055
+keep both or replace it cuz they're both called Untitled,
+
+1433
+01:15:29,124 --> 01:15:32,292
+so I'll keep both. So now if I go back to my iPad here, now I
+
+1434
+01:15:32,361 --> 01:15:35,162
+have three items, including this one here. And again,
+
+1435
+01:15:35,231 --> 01:15:38,432
+sometimes you get a delay when you move things from iCloud,
+
+1436
+01:15:38,501 --> 01:15:40,834
+getting the thumbnails,
+
+1437
+01:15:40,903 --> 01:15:43,737
+cuz the thumbnails can be kind of big at times. And so
+
+1438
+01:15:43,806 --> 01:15:45,806
+slogging them around can take a little bit of time here and
+
+1439
+01:15:45,875 --> 01:15:49,009
+there. You can also rename your files, so
+
+1440
+01:15:49,078 --> 01:15:53,346
+you know, this is apple in the sky. So let's rename it,
+
+1441
+01:15:53,415 --> 01:15:58,418
+let's call it Sky Apple. So you can rename your files,
+
+1442
+01:15:58,487 --> 01:16:01,488
+all that stuff. And the user can do it in here without
+
+1443
+01:16:01,557 --> 01:16:05,225
+having to go over to the files app to do that.
+
+1444
+01:16:05,294 --> 01:16:07,160
+I have a couple minutes left so I'm
+
+1445
+01:16:07,229 --> 01:16:10,164
+gonna show you one other thing which is running this on
+
+1446
+01:16:10,232 --> 01:16:14,068
+iPhone. So let's go run this on the iPhone.
+
+1447
+01:16:14,137 --> 01:16:17,171
+I'm just gonna go run it in the simulator, iPhone X,
+
+1448
+01:16:17,239 --> 01:16:22,709
+let's see what this looks like in the iPhone X. So
+
+1449
+01:16:22,778 --> 01:16:26,747
+this whole document view browser, it all works just as
+
+1450
+01:16:26,815 --> 01:16:30,551
+well in the iPhone, as it does on the iPad. There's only
+
+1451
+01:16:30,620 --> 01:16:32,986
+a couple of things we have to think about when we try and
+
+1452
+01:16:33,055 --> 01:16:36,156
+make this app work on the iPhone, as you'll see here.
+
+1453
+01:16:36,225 --> 01:16:39,292
+Once this gets fired up. So there it is. See, you can,
+
+1454
+01:16:39,361 --> 01:16:41,962
+we can look on iCloud Drive here.
+
+1455
+01:16:42,031 --> 01:16:44,698
+We can even see that document, a document that we've created
+
+1456
+01:16:44,767 --> 01:16:49,469
+before on iCloud Drive. And in open end, we can open stuff
+
+1457
+01:16:49,538 --> 01:16:53,807
+off of iCloud Drive. So I can open it. Now On iPhone, I'd
+
+1458
+01:16:53,876 --> 01:16:57,377
+really like to still be able to drag some emojis in and
+
+1459
+01:16:57,446 --> 01:17:01,115
+work on this document, right. One thing I can't do, though,
+
+1460
+01:17:01,184 --> 01:17:03,817
+is create a new document. Do you see why? Because on
+
+1461
+01:17:03,886 --> 01:17:07,821
+iPhone, you can't drag from Safari to drag in new things.
+
+1462
+01:17:07,890 --> 01:17:11,591
+So it's really misleading that it says Create Document here.
+
+1463
+01:17:11,660 --> 01:17:13,694
+Because if I hit Create Document,
+
+1464
+01:17:13,763 --> 01:17:16,196
+I can't really create an actual document,
+
+1465
+01:17:16,265 --> 01:17:19,232
+because I can't drag anything in. So I really don't want it
+
+1466
+01:17:19,301 --> 01:17:22,336
+to say Create Document on iPhone. The other thing is,
+
+1467
+01:17:22,405 --> 01:17:27,074
+I want my collection view to work. I can't drag. I'm trying
+
+1468
+01:17:27,143 --> 01:17:30,144
+to push down and drag. Why does drag not work? Well,
+
+1469
+01:17:30,213 --> 01:17:32,746
+drag doesn't work because collection view by default
+
+1470
+01:17:32,815 --> 01:17:35,982
+on iPhone does not allow dragging. But we can turn it
+
+1471
+01:17:36,051 --> 01:17:38,485
+on. So let's go fix both of those things in our code.
+
+1472
+01:17:38,554 --> 01:17:41,454
+We're gonna fix the problem with
+
+1473
+01:17:41,523 --> 01:17:45,425
+the misleading create by just, this part here where we go and
+
+1474
+01:17:45,494 --> 01:17:48,762
+create the template. I'm just not gonna do that on iPhone.
+
+1475
+01:17:48,831 --> 01:17:51,431
+So I'm, that's gonna leave this to be false, and
+
+1476
+01:17:51,500 --> 01:17:53,367
+So how do I check my code to see if I'm on an iPad? And
+
+1477
+01:17:53,368 --> 01:17:55,235
+it's not do it.
+
+1478
+01:17:55,304 --> 01:18:00,206
+you do that this way. You say if UIDevice.current,
+
+1479
+01:18:00,275 --> 01:18:03,644
+that's my current device,
+
+1480
+01:18:03,713 --> 01:18:10,383
+has a userInterfaceIdiom
+
+1481
+01:18:10,452 --> 01:18:14,187
+of .pad. And the other option is
+
+1482
+01:18:14,256 --> 01:18:17,724
+.phone so I'm only gonna do this template thing, which is
+
+1483
+01:18:17,793 --> 01:18:20,527
+the only thing that can set this to true on the iPad.
+
+1484
+01:18:20,596 --> 01:18:23,030
+So I'm never gonna have create document on the iPhone.
+
+1485
+01:18:23,099 --> 01:18:23,831
+That's good.
+
+1486
+01:18:23,900 --> 01:18:26,233
+Now, what about the dragging of the Collection View?
+
+1487
+01:18:26,302 --> 01:18:29,536
+Well, that's in my controller. I'm gonna go down here
+
+1488
+01:18:29,605 --> 01:18:32,373
+to where I create my Collection View. This is my
+
+1489
+01:18:32,441 --> 01:18:34,641
+Collection View outlets that are here. And I'm gonna set
+
+1490
+01:18:34,710 --> 01:18:39,112
+this thing in Collection View called draginteractionenabled.
+
+1491
+01:18:39,181 --> 01:18:43,717
+Now this is true by default on iPad. And false by default on
+
+1492
+01:18:43,786 --> 01:18:45,819
+my iPhone. But if I set it to true everywhere,
+
+1493
+01:18:45,887 --> 01:18:46,854
+now it will make it so
+
+1494
+01:18:46,922 --> 01:18:49,656
+I can drag in my collection vew on the iPhone, as well.
+
+1495
+01:18:49,725 --> 01:18:53,861
+So when we go here, we won't see the create button and
+
+1496
+01:18:53,930 --> 01:18:57,431
+we also will be able to work on our document.
+
+1497
+01:19:02,104 --> 01:19:04,071
+So let's open this document right here. Here it is.
+
+1498
+01:19:04,139 --> 01:19:08,408
+Now look, I can drag. Drag around my Collection View and
+
+1499
+01:19:08,477 --> 01:19:10,910
+I can also pull things out of here and
+
+1500
+01:19:10,979 --> 01:19:14,948
+into my picture. I can either mark it as saved and done, and
+
+1501
+01:19:15,017 --> 01:19:17,985
+if I want it back to my iPad, I'll be able to see it over
+
+1502
+01:19:18,053 --> 01:19:21,421
+there. So the only two things I'm gonna do post lecture
+
+1503
+01:19:21,490 --> 01:19:23,957
+here that you're not gonna be able to watch me do
+
+1504
+01:19:24,026 --> 01:19:26,694
+is the delegation thing. So that we don't have to
+
+1505
+01:19:26,762 --> 01:19:29,362
+have that save button anymore cuz we hate that and
+
+1506
+01:19:29,431 --> 01:19:32,632
+also adding the new type emoji art. Which really is only two
+
+1507
+01:19:32,701 --> 01:19:35,769
+things I'm gonna change. I'm gonna add the emoji art thing
+
+1508
+01:19:35,838 --> 01:19:38,805
+in that settings that I was telling you about.
+
+1509
+01:19:38,874 --> 01:19:40,941
+And then I'm gonna change this right here,
+
+1510
+01:19:41,010 --> 01:19:44,444
+my empty template to be untitled dot emoji art. That's
+
+1511
+01:19:44,513 --> 01:19:47,281
+only change I'm gonna make to make it be using the emoji art
+
+1512
+01:19:47,349 --> 01:19:52,519
+documents instead of JSON. All right. That is it. I
+
+1513
+01:19:52,588 --> 01:19:55,255
+will see you all next Monday. >> For
+
+1514
+01:19:55,324 --> 01:19:59,126
+more, please visit us at stanford.edu
+>> 更多课程详见 stanford.edu

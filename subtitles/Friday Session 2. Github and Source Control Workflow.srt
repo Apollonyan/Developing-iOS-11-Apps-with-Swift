@@ -1,0 +1,1220 @@
+1
+00:00:00,401 --> 00:00:04,803
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,872 --> 00:00:10,008
+Stanford University. >> Welcome everyone to
+>> 斯坦福大学 >> 欢迎大家来到
+
+3
+00:00:10,077 --> 00:00:14,613
+our Friday section of CS193P. I'm Junjie, one of your TAs.
+CS193P 的周五课程，我是教师助理 Junjie
+
+4
+00:00:14,682 --> 00:00:18,249
+And today, I'm gonna talk about the GitHub and
+
+5
+00:00:18,318 --> 00:00:23,221
+the source control workflow in Xcode 9. So,
+
+6
+00:00:23,290 --> 00:00:28,126
+what is source control? Like have you used like
+
+7
+00:00:28,195 --> 00:00:31,029
+some source control systems like GitHub?
+
+8
+00:00:31,098 --> 00:00:36,067
+Yeah, so as a software developer, you will like,
+
+9
+00:00:36,136 --> 00:00:40,672
+almost like it's a necessary skill set for
+
+10
+00:00:40,741 --> 00:00:43,442
+you to learn how to use source control systems.
+
+11
+00:00:43,510 --> 00:00:46,611
+Like big companies like Facebook and Google,
+
+12
+00:00:46,680 --> 00:00:50,381
+they all have their own source control systems. And
+
+13
+00:00:50,450 --> 00:00:54,385
+it's very important for you to master those skills before you
+
+14
+00:00:54,454 --> 00:00:58,223
+really go into the industry. So what is source control?
+
+15
+00:00:58,291 --> 00:01:03,328
+Why should we matter? Why should we care about it?
+
+16
+00:01:03,397 --> 00:01:07,933
+It allows you to track your code changes over time.
+
+17
+00:01:08,002 --> 00:01:11,370
+You can revert your files back to a previous state.
+
+18
+00:01:11,438 --> 00:01:16,107
+You can compare different versions of code side by side.
+
+19
+00:01:16,176 --> 00:01:18,476
+And it also makes it a lot easier for
+
+20
+00:01:18,545 --> 00:01:22,481
+you to work with other teammates. And
+
+21
+00:01:22,549 --> 00:01:26,884
+like when bugs happen, it's much easier to take it down.
+
+22
+00:01:26,953 --> 00:01:31,556
+Today, our topic is one of the biggest source control system
+
+23
+00:01:31,625 --> 00:01:36,361
+in the world, and it's built right into Xcode 9.
+
+24
+00:01:36,430 --> 00:01:39,697
+Xcode 9 has done a lot of great things to integrate
+
+25
+00:01:39,766 --> 00:01:44,670
+GitHub to make it very easy to use. So
+
+26
+00:01:44,738 --> 00:01:49,808
+I'm gonna try to demo you some of the basics in Xcode 9,
+
+27
+00:01:49,877 --> 00:01:54,446
+how to use GitHub. Before that, you should register
+
+28
+00:01:54,515 --> 00:01:59,284
+an account in github.com. The repository,
+
+29
+00:01:59,353 --> 00:02:04,690
+the public repository or a repo, is free. And, a repo
+
+30
+00:02:04,758 --> 00:02:08,693
+is just like a code directory for you to store the code.
+
+31
+00:02:08,762 --> 00:02:12,930
+And if you register using your Stanford email account,
+
+32
+00:02:12,999 --> 00:02:17,068
+you can get the private repository for free. I highly,
+
+33
+00:02:17,137 --> 00:02:21,072
+highly encourage you to use a private repo to manage
+
+34
+00:02:21,141 --> 00:02:24,342
+all your assignments, all your cost projects.
+
+35
+00:02:24,411 --> 00:02:28,547
+And it's much easier for you to collaborate with your
+
+36
+00:02:28,616 --> 00:02:31,716
+teammates, and in- >> Remind people not to make
+
+37
+00:02:31,785 --> 00:02:33,284
+it public, though. >> Yeah, yeah.
+
+38
+00:02:33,353 --> 00:02:34,252
+>> [CROSSTALK] the public
+
+39
+00:02:34,320 --> 00:02:35,020
+to private. >> So
+
+40
+00:02:35,088 --> 00:02:39,658
+that's why you wanna register using your Stanford email.
+
+41
+00:02:39,727 --> 00:02:41,926
+You would never like up, upload
+
+42
+00:02:41,995 --> 00:02:46,164
+your assignments onto GitHub using a public repository cuz
+
+43
+00:02:46,233 --> 00:02:50,268
+like you don't know who will just download all the code and
+
+44
+00:02:50,337 --> 00:02:55,040
+copy, copy out of no place. So last Friday's session,
+
+45
+00:02:55,108 --> 00:02:59,344
+Jason also mentioned that there's a Pro Git ebook.
+
+46
+00:02:59,413 --> 00:03:03,181
+That's really great for you to learn some of the basics of
+
+47
+00:03:03,250 --> 00:03:06,584
+GitHub and the source control, some of the concepts.
+
+48
+00:03:06,653 --> 00:03:09,754
+It's a really good starting point for
+
+49
+00:03:09,823 --> 00:03:14,259
+you to learn those skills. I post a link here and
+
+50
+00:03:14,327 --> 00:03:19,697
+you can like check it out if you want. So there are three
+
+51
+00:03:19,766 --> 00:03:24,069
+main components in like Xcode 9 Source Control Workflow, and
+
+52
+00:03:24,138 --> 00:03:27,839
+I will go through each of them briefly.
+
+53
+00:03:27,908 --> 00:03:32,410
+The first one is pulling and pushing. For pulling and
+
+54
+00:03:32,479 --> 00:03:35,647
+pushing is like dealing with your local changes and
+
+55
+00:03:35,716 --> 00:03:39,518
+the changes in the remote repository. So, for
+
+56
+00:03:39,586 --> 00:03:40,551
+clone and pull,
+
+57
+00:03:40,620 --> 00:03:44,522
+you can download all the code from the remote repository to
+
+58
+00:03:44,591 --> 00:03:48,860
+your own laptop. Xcode 9 actually make it really,
+
+59
+00:03:48,929 --> 00:03:53,298
+really easy to download a repository. You just click
+
+60
+00:03:53,366 --> 00:03:57,502
+the Clone and Download button and then open it in Xcode.
+
+61
+00:03:57,570 --> 00:04:00,571
+And Xcode will download all the changes for
+
+62
+00:04:00,640 --> 00:04:02,573
+you. It's really nice. And
+
+63
+00:04:02,642 --> 00:04:07,112
+I will show you how to do that in a demo. And another way to
+
+64
+00:04:07,181 --> 00:04:12,650
+do it is to copy out this GitHub repository address.
+
+65
+00:04:12,719 --> 00:04:17,221
+And I will also show you how to do that in a demo. For
+
+66
+00:04:17,290 --> 00:04:20,925
+the push, it's like you make some local changes,
+
+67
+00:04:20,994 --> 00:04:24,563
+you, and you want to push to the remote so that you can
+
+68
+00:04:24,631 --> 00:04:30,469
+edit it in another machine or share it to your friends.
+
+69
+00:04:32,606 --> 00:04:37,509
+So, every batch of code changes is called a commit.
+
+70
+00:04:37,578 --> 00:04:41,679
+The commit it's like a snapshot of all the code
+
+71
+00:04:41,748 --> 00:04:46,784
+changes and also the description message.
+
+72
+00:04:46,853 --> 00:04:51,423
+It has the author, description message, and also the time.
+
+73
+00:04:51,491 --> 00:04:55,927
+I highly encourage you to make small commits instead of
+
+74
+00:04:55,996 --> 00:05:00,732
+making a really big commit, like only one commit for
+
+75
+00:05:00,801 --> 00:05:05,303
+the repository. That's like the final finish one.
+
+76
+00:05:05,372 --> 00:05:10,875
+Because making small commits makes it much easier to debug.
+
+77
+00:05:10,944 --> 00:05:14,279
+The rule of thumb is one feature at a time, and
+
+78
+00:05:14,348 --> 00:05:17,449
+each commit should be self-contained.
+
+79
+00:05:17,517 --> 00:05:21,653
+When bugs happen, you can easily revert to the previous
+
+80
+00:05:21,721 --> 00:05:27,225
+state without affecting the other files. So
+
+81
+00:05:27,293 --> 00:05:33,364
+here's what the commit panel looks like in Xcode 9.
+
+82
+00:05:33,433 --> 00:05:37,569
+You get the commit message here and also the author,
+
+83
+00:05:37,638 --> 00:05:40,304
+the branches, the tags and remotes.
+
+84
+00:05:40,373 --> 00:05:44,409
+We will go through these concepts in a demo. And
+
+85
+00:05:44,477 --> 00:05:48,113
+here's the identifier, it is the SHA identifier for
+
+86
+00:05:48,181 --> 00:05:53,051
+this commit. The last
+
+87
+00:05:53,119 --> 00:05:57,221
+concept I'm introducing today is the branching. So
+
+88
+00:05:57,290 --> 00:06:04,061
+each little commits, one after one, is called a code branch.
+
+89
+00:06:04,130 --> 00:06:06,297
+In the GitHub repo, repository,
+
+90
+00:06:06,366 --> 00:06:10,435
+the most important one is the master branch. You would wanna
+
+91
+00:06:10,503 --> 00:06:13,772
+always keep your master branch clean, bug-free and
+
+92
+00:06:13,840 --> 00:06:18,710
+stable. And when you want to work on new features,
+
+93
+00:06:18,778 --> 00:06:23,347
+you would like to branch from the master. So
+
+94
+00:06:23,416 --> 00:06:28,119
+Xcode 9 is really easy for you to just right-click and
+
+95
+00:06:28,188 --> 00:06:32,523
+create a new branch. The new branch will have the same
+
+96
+00:06:32,592 --> 00:06:37,595
+code as the master. But when you keep developing your code,
+
+97
+00:06:37,664 --> 00:06:43,000
+it won't affect the master branch. And after you finish
+
+98
+00:06:43,069 --> 00:06:46,438
+developing all your features, you've unit tested your code,
+
+99
+00:06:46,507 --> 00:06:49,841
+you can merge it back to master branch.
+
+100
+00:06:49,910 --> 00:06:55,946
+I will show you how to do the branching in this demo. So,
+
+101
+00:06:56,015 --> 00:07:01,119
+any questions so far? No,
+
+102
+00:07:01,187 --> 00:07:06,925
+so let's go into the demo. So let's pull out Xcode.
+
+103
+00:07:08,628 --> 00:07:11,896
+So before we do the fancy things in Xcode,
+
+104
+00:07:11,964 --> 00:07:15,833
+we would like to set up the GitHub account in Xcode. So
+
+105
+00:07:15,902 --> 00:07:21,372
+the way to do it as click on Xcode > Preferences
+
+106
+00:07:21,441 --> 00:07:26,077
+> Accounts. When you select the Add button,
+
+107
+00:07:26,145 --> 00:07:30,548
+you can add GitHub Enterprise. Enterprise is like,
+
+108
+00:07:30,617 --> 00:07:34,419
+when you work for a company, they will have the company
+
+109
+00:07:34,488 --> 00:07:38,590
+GitHub account. So I'm gonna select the GitHub.
+
+110
+00:07:38,658 --> 00:07:47,165
+And I'm using my Stanford email address. So
+
+111
+00:07:47,234 --> 00:07:51,369
+we've already signed in. And before we jump into the code,
+
+112
+00:07:51,437 --> 00:07:55,106
+we would wanna make sure the Source Control is setting up
+
+113
+00:07:55,175 --> 00:08:00,211
+correctly. So, these options is like, whether you
+
+114
+00:08:00,279 --> 00:08:05,850
+want Xcode to download the remote changes for you.
+
+115
+00:08:05,919 --> 00:08:11,322
+So that you won't need to pull the changes in command line.
+
+116
+00:08:11,391 --> 00:08:14,992
+And when you click on the Git button here, you can set up
+
+117
+00:08:15,061 --> 00:08:20,665
+some global ignored files. If you have used GitHub before,
+
+118
+00:08:20,734 --> 00:08:24,869
+you know that there's a gitignore file so
+
+119
+00:08:24,938 --> 00:08:31,041
+that your files won't be checked by the GitHub system.
+
+120
+00:08:31,110 --> 00:08:35,113
+So you can set up some global ignored files here. That means
+
+121
+00:08:35,181 --> 00:08:40,652
+like .D_Store files won't be checked by the GitHub. So
+
+122
+00:08:40,720 --> 00:08:45,790
+let's start by creating a new Xcode product.
+
+123
+00:08:49,529 --> 00:08:54,799
+Let's do Single View, and then GitTutorial.
+
+124
+00:08:59,305 --> 00:09:03,174
+And it's basically the same thing as we are doing when
+
+125
+00:09:03,243 --> 00:09:06,377
+creating the new project for our homework,
+
+126
+00:09:06,446 --> 00:09:10,815
+but the difference is that we wanna select this button. So
+
+127
+00:09:10,884 --> 00:09:13,951
+this is the mysterious Source Control button we never
+
+128
+00:09:14,020 --> 00:09:15,920
+talk about in class.
+
+129
+00:09:15,989 --> 00:09:20,591
+And this means that Xcode will initialize a Git repository
+
+130
+00:09:20,660 --> 00:09:25,297
+for you. So we would select this button for this section.
+
+131
+00:09:26,399 --> 00:09:31,436
+Hit Create, and then we would have
+
+132
+00:09:31,504 --> 00:09:36,408
+a Git repository, and
+
+133
+00:09:36,476 --> 00:09:43,582
+we can inspect the Source Control panel over here.
+
+134
+00:09:43,650 --> 00:09:47,485
+It's on the top left, and the second button.
+
+135
+00:09:50,056 --> 00:09:53,658
+It shows that we are currently at the master branch. And
+
+136
+00:09:53,726 --> 00:09:57,896
+the initial commit is just some free code given by Xcode
+
+137
+00:09:57,964 --> 00:10:02,166
+that create, initialize, and then push the code for
+
+138
+00:10:02,235 --> 00:10:07,539
+you. So, let's make some change.
+
+139
+00:10:09,076 --> 00:10:14,012
+Maybe I will delete this free code. And
+
+140
+00:10:14,080 --> 00:10:22,420
+then add a print line.
+
+141
+00:10:22,489 --> 00:10:27,525
+And once I've saved the file, there's an M appeared here.
+
+142
+00:10:27,594 --> 00:10:31,429
+That M stands for modified. Basically, it means that your
+
+143
+00:10:31,497 --> 00:10:37,268
+local repository have some uncommitted changes. And
+
+144
+00:10:37,337 --> 00:10:41,305
+that's also modified in storyboard. I want to drag our
+
+145
+00:10:41,374 --> 00:10:47,645
+button. And
+
+146
+00:10:47,714 --> 00:10:51,816
+put it in the middle. Okay,
+
+147
+00:10:51,885 --> 00:10:57,087
+let's save the change. So now I have made some change.
+
+148
+00:10:57,156 --> 00:11:00,658
+So we wanna commit those changes.
+
+149
+00:11:00,727 --> 00:11:03,828
+It's like clicking the Source Control here, and
+
+150
+00:11:03,897 --> 00:11:09,901
+then hit Commit. Then a Version Editor will appear.
+
+151
+00:11:09,970 --> 00:11:14,505
+And it's really nice because you can see your change
+
+152
+00:11:14,573 --> 00:11:19,110
+side by side by clicking the filename. And it shows that
+
+153
+00:11:19,179 --> 00:11:22,780
+you've added one line and you've deleted some code.
+
+154
+00:11:22,849 --> 00:11:26,851
+And if you click on the button in the middle,
+
+155
+00:11:26,919 --> 00:11:30,554
+you can actually don't commit this specific line or
+
+156
+00:11:30,623 --> 00:11:37,962
+discards the change. So, let's also look at the storyboard.
+
+157
+00:11:38,030 --> 00:11:41,299
+Maybe it's your first time looking the storyboard.
+
+158
+00:11:41,368 --> 00:11:45,603
+At this level, we generally don't like added the file in,
+
+159
+00:11:45,671 --> 00:11:49,173
+in this level. It's a XML file, so
+
+160
+00:11:49,242 --> 00:11:54,511
+it's super complicated. After you've confirmed that this is
+
+161
+00:11:54,580 --> 00:11:58,817
+the change you want, you would enter the commit message here.
+
+162
+00:12:00,420 --> 00:12:07,558
+Added a button and a print. Notice that
+
+163
+00:12:07,626 --> 00:12:12,096
+there's also a Push to remote button here. But we don't
+
+164
+00:12:12,165 --> 00:12:16,767
+have a remote now because the repository only lives locally.
+
+165
+00:12:16,836 --> 00:12:19,937
+We don't have a remote repository in the GitHub.
+
+166
+00:12:20,006 --> 00:12:25,542
+If we have the remote origin, we can push also to remote.
+
+167
+00:12:25,611 --> 00:12:28,879
+And I will show you how to add the remote origin in a second.
+
+168
+00:12:28,948 --> 00:12:34,418
+So now let's just commit the files. So
+
+169
+00:12:34,487 --> 00:12:37,354
+once I do that, the M disappeared. And
+
+170
+00:12:37,423 --> 00:12:41,659
+let's go back to the Source Control Panel.
+
+171
+00:12:41,727 --> 00:12:46,764
+Look, here's the commit I just made. And you can inspect
+
+172
+00:12:46,833 --> 00:12:51,503
+it by clicking it and then select the button here. And
+
+173
+00:12:51,571 --> 00:12:57,007
+it shows the author, the date, the branches,
+
+174
+00:12:57,076 --> 00:13:02,079
+and also the files. If you want to inspect the changes,
+
+175
+00:13:02,148 --> 00:13:07,051
+you can actually click on the Assistant Editor.
+
+176
+00:13:07,119 --> 00:13:10,922
+I want my Assistant Editor on the bottom. And
+
+177
+00:13:10,991 --> 00:13:16,427
+then when I click the file, it actually
+
+178
+00:13:16,496 --> 00:13:21,232
+displays the changes side by side. You can easily see what
+
+179
+00:13:21,301 --> 00:13:26,237
+files you've changed in this specific commit.
+
+180
+00:13:32,112 --> 00:13:37,816
+And let's make more changes here, like print,
+
+181
+00:13:40,086 --> 00:13:43,621
+hello CS193p.
+
+182
+00:13:47,393 --> 00:13:51,829
+And over to Source Control button here, I can actually
+
+183
+00:13:51,897 --> 00:13:56,734
+discard all the changes in my current repository.
+
+184
+00:13:56,802 --> 00:14:01,705
+That basically roll back to the latest commit. But
+
+185
+00:14:01,774 --> 00:14:07,544
+I will show you how to revert to several commits ago.
+
+186
+00:14:07,613 --> 00:14:11,315
+So let's add this commit first.
+
+187
+00:14:11,383 --> 00:14:17,087
+Add an, another print.
+
+188
+00:14:17,156 --> 00:14:20,625
+But we should have successfully committed because
+
+189
+00:14:20,693 --> 00:14:25,095
+there's no M over the ViewController. And say, for
+
+190
+00:14:25,164 --> 00:14:30,534
+this specific file, I want to roll back to two commits ago.
+
+191
+00:14:30,603 --> 00:14:36,073
+I can open this Source Control button.
+
+192
+00:14:36,142 --> 00:14:40,812
+And then it's a side by side comparison between your
+
+193
+00:14:40,880 --> 00:14:45,250
+local revision and your commits. So
+
+194
+00:14:47,153 --> 00:14:52,990
+if I select the commit, two commits ago,
+
+195
+00:14:53,058 --> 00:14:58,495
+I can see all my changes. And I can click on the button
+
+196
+00:14:58,564 --> 00:15:03,368
+here, if I want to discard all the changes.
+
+197
+00:15:05,204 --> 00:15:10,641
+Revert, so now my local repository
+
+198
+00:15:10,710 --> 00:15:15,647
+have reverted those changes.
+
+199
+00:15:18,584 --> 00:15:25,023
+That's commit. Revert.
+
+200
+00:15:29,528 --> 00:15:31,495
+Like I just mentioned,
+
+201
+00:15:31,564 --> 00:15:35,833
+all the code now lives in my local repository,
+
+202
+00:15:35,901 --> 00:15:40,971
+so there's no way I can share it to my teammate or work
+
+203
+00:15:41,040 --> 00:15:46,076
+on the other workstation. And also if I just lost my laptop,
+
+204
+00:15:46,145 --> 00:15:49,213
+everything will be gone. You certainly don't want that.
+
+205
+00:15:49,282 --> 00:15:54,218
+So let's see like how to add a remote. Origin for
+
+206
+00:15:54,286 --> 00:15:58,322
+this GitTutorial repo. And it's super simple here,
+
+207
+00:15:58,391 --> 00:16:02,727
+you just click on the Remote, and right-click.
+
+208
+00:16:02,796 --> 00:16:06,464
+There's a Create GitTutorial Remote on GitHub.
+
+209
+00:16:08,668 --> 00:16:11,435
+And it allows you to select public or
+
+210
+00:16:11,504 --> 00:16:15,939
+private repository. So since I'm using my Stanford account,
+
+211
+00:16:16,008 --> 00:16:18,543
+I can get the free private repo.
+
+212
+00:16:27,086 --> 00:16:30,788
+Okay, now we have a remote origin, and
+
+213
+00:16:30,856 --> 00:16:33,724
+let's take a look. So
+
+214
+00:16:33,792 --> 00:16:41,198
+here's my Stanford GitHub account.
+
+215
+00:16:41,267 --> 00:16:45,603
+And there's a GitTutorial repository we just created.
+
+216
+00:16:47,507 --> 00:16:51,042
+And it has all the files we've modified.
+
+217
+00:16:54,613 --> 00:16:59,750
+And if you want to work in the other workstation,
+
+218
+00:16:59,819 --> 00:17:04,989
+you can just clone or download and open in Xcode and/or copy
+
+219
+00:17:05,058 --> 00:17:10,427
+the address. So before I show you how to clone,
+
+220
+00:17:10,496 --> 00:17:14,531
+let me show you how to add the collaborator. It's super
+
+221
+00:17:14,600 --> 00:17:17,668
+useful if you want to work with the other teammate. So
+
+222
+00:17:17,737 --> 00:17:22,473
+for this specific repository, you go to Setting,
+
+223
+00:17:23,509 --> 00:17:26,177
+and hit Collaborators.
+
+224
+00:17:26,245 --> 00:17:31,282
+And basically, you need to know your friend's GitHub ID,
+
+225
+00:17:31,350 --> 00:17:34,452
+and you just type it here. For demonstration,
+
+226
+00:17:34,521 --> 00:17:39,857
+I will add my personal account here. And
+
+227
+00:17:39,926 --> 00:17:43,761
+GitHub will you send an email to your friend and, or
+
+228
+00:17:43,830 --> 00:17:46,596
+you can just share this invite link.
+
+229
+00:17:46,665 --> 00:17:51,502
+Let me copy it here, and then sign into my personal account.
+
+230
+00:18:05,084 --> 00:18:10,788
+So I click on this link And
+
+231
+00:18:10,857 --> 00:18:15,392
+it says that you are invited to collaborate. So
+
+232
+00:18:15,461 --> 00:18:22,366
+I can accept the invitation. Now,
+
+233
+00:18:22,434 --> 00:18:28,339
+I have the push access to this private repository.
+
+234
+00:18:32,278 --> 00:18:36,313
+So another way to create the repo is by cloning
+
+235
+00:18:36,382 --> 00:18:40,718
+the existing repo from the GitHub. Say,
+
+236
+00:18:40,787 --> 00:18:45,089
+I have a Concentration private repo here.
+
+237
+00:18:46,593 --> 00:18:50,327
+And I want to download it to my local machine.
+
+238
+00:18:50,396 --> 00:18:55,066
+I can just hit Open in Xcode, and Yes.
+
+239
+00:18:58,070 --> 00:19:02,540
+So all the code were downloaded by Xcode. And
+
+240
+00:19:02,608 --> 00:19:07,411
+the other way to do it is save this address.
+
+241
+00:19:07,479 --> 00:19:11,782
+And then,
+
+242
+00:19:11,851 --> 00:19:15,619
+in our Xcode welcome page,
+
+243
+00:19:15,688 --> 00:19:18,589
+you can select this Clone an existing project.
+
+244
+00:19:22,261 --> 00:19:29,834
+You can paste in the address, and then just clone.
+
+245
+00:19:37,409 --> 00:19:39,610
+So Xcode will do the exact same thing.
+
+246
+00:19:39,678 --> 00:19:42,880
+It's just copying all the files from remote.
+
+247
+00:19:42,948 --> 00:19:47,585
+The good thing is that in the source control panel here,
+
+248
+00:19:47,653 --> 00:19:50,254
+you can actually get all the code changes for
+
+249
+00:19:50,322 --> 00:19:54,258
+the repository. And you can also like inspect all
+
+250
+00:19:54,327 --> 00:19:59,229
+the changes you've made. So for
+
+251
+00:19:59,298 --> 00:20:03,968
+this specific repo, actually, the master is a fully
+
+252
+00:20:04,036 --> 00:20:08,372
+functional version. The, I want to like work on the other
+
+253
+00:20:08,440 --> 00:20:12,276
+new features that may be, I think, is a little risky. So
+
+254
+00:20:12,345 --> 00:20:18,749
+I, I can branch from master by right-click here.
+
+255
+00:20:18,817 --> 00:20:23,688
+And I will call my new branch test because I don't have
+
+256
+00:20:23,756 --> 00:20:29,092
+better names. So my current epository is set
+
+257
+00:20:29,161 --> 00:20:33,598
+to test. Now, it has the same copy of code as the master.
+
+258
+00:20:35,234 --> 00:20:39,870
+Let's work on some risky new features.
+
+259
+00:20:39,939 --> 00:20:45,542
+So that's to change the color of the button. Maybe I
+
+260
+00:20:45,611 --> 00:20:49,914
+think blue is too ugly. I want to change it to red.
+
+261
+00:20:55,287 --> 00:20:57,221
+And I commit this change.
+
+262
+00:21:03,395 --> 00:21:06,430
+Notice that because we have a remote origin,
+
+263
+00:21:06,499 --> 00:21:09,967
+we can actually select Push to remote. And
+
+264
+00:21:10,035 --> 00:21:14,404
+because the test branch only lives locally in my machine,
+
+265
+00:21:14,473 --> 00:21:18,475
+actually Xcode can create that remote origin test for
+
+266
+00:21:18,544 --> 00:21:23,481
+you. So we can commit and push.
+
+267
+00:21:30,990 --> 00:21:36,493
+So in my current test branch, I have this changed. But
+
+268
+00:21:36,562 --> 00:21:42,966
+my master branch is not affected.
+
+269
+00:21:43,035 --> 00:21:46,570
+So, if you want to switch back to the master,
+
+270
+00:21:46,638 --> 00:21:51,008
+you can right-click on master and select Checkout.
+
+271
+00:21:55,381 --> 00:21:58,815
+Now my current branch is master. And when
+
+272
+00:21:58,884 --> 00:22:02,953
+I go back to the storyboard, the button is still blue.
+
+273
+00:22:06,325 --> 00:22:10,794
+Now say, you've fully tested your code, and you're saying
+
+274
+00:22:10,863 --> 00:22:15,332
+that the button should be red instead of blue in the master.
+
+275
+00:22:15,401 --> 00:22:17,634
+You can right-click here, and
+
+276
+00:22:17,703 --> 00:22:20,404
+then select Merge test into master.
+
+277
+00:22:26,111 --> 00:22:30,214
+The version editor is like for you to see whether this merge
+
+278
+00:22:30,283 --> 00:22:36,553
+is what you want. Another thing is that,
+
+279
+00:22:36,622 --> 00:22:41,691
+because the storyboard is the XML file, you would never want
+
+280
+00:22:41,760 --> 00:22:46,330
+to merge the same storyboard with the other teammates.
+
+281
+00:22:46,399 --> 00:22:49,466
+You can work on different storyboards, but
+
+282
+00:22:49,535 --> 00:22:54,104
+you would never like want to merge the change in
+
+283
+00:22:54,173 --> 00:22:59,242
+the same storyboard, because that's really, really painful.
+
+284
+00:22:59,311 --> 00:23:04,582
+Now we are at the master, and we also have the Changed
+
+285
+00:23:04,650 --> 00:23:10,054
+button color here. And when I go back to the storyboard,
+
+286
+00:23:13,425 --> 00:23:17,895
+The button is now red. So we've successfully merged
+
+287
+00:23:17,963 --> 00:23:23,200
+the change. And
+
+288
+00:23:23,269 --> 00:23:27,204
+notice that our current master is ahead
+
+289
+00:23:27,272 --> 00:23:31,909
+of the original master. So another way to push to
+
+290
+00:23:31,977 --> 00:23:36,580
+the origin is to click Source Control > Push.
+
+291
+00:23:44,824 --> 00:23:48,993
+Now all my notes are at the same snapshot.
+
+292
+00:23:51,364 --> 00:23:54,264
+Another cool thing I want to show you is that,
+
+293
+00:23:54,333 --> 00:23:57,968
+they make it really easy if you want to inspect your
+
+294
+00:23:58,036 --> 00:24:02,706
+commits. Like I have some commit for button.
+
+295
+00:24:02,775 --> 00:24:06,577
+It will show all the commit message that should,
+
+296
+00:24:06,646 --> 00:24:12,148
+has button in it. And you can also filter by author,
+
+297
+00:24:12,217 --> 00:24:15,719
+like author is junjie. And
+
+298
+00:24:15,788 --> 00:24:20,690
+you can also search last 24 hours, last 30 days.
+
+299
+00:24:20,759 --> 00:24:24,795
+It's really helpful if you want to search your change.
+
+300
+00:24:27,166 --> 00:24:32,969
+So that's basically all for our demo.
+
+301
+00:24:33,038 --> 00:24:38,809
+Do you have any questions? No,
+
+302
+00:24:38,877 --> 00:24:44,014
+okay, so that's it for today. Thank you for coming, and
+
+303
+00:24:44,083 --> 00:24:47,784
+good luck on your assignments. >> For more,
+祝你们顺利完成作业。 >> 更多课程
+
+304
+00:24:47,853 --> 00:24:56,359
+please visit us at stanford.edu.
+详见 stanford.edu

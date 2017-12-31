@@ -1,0 +1,5525 @@
+1
+00:00:00,401 --> 00:00:04,702
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,771 --> 00:00:09,841
+Stanford University. >> Welcome to lecture number
+>> 斯坦福大学 >> 好，欢迎来到斯坦福
+
+3
+00:00:09,910 --> 00:00:14,413
+16 of Stanford CS193P, fall of 2017 18.
+CS193P 2017-18 年秋季学期的第十六节课
+
+4
+00:00:14,481 --> 00:00:16,548
+We have one topic today but it's a big one,
+
+5
+00:00:16,617 --> 00:00:18,883
+lots of different parts of it which is segues.
+
+6
+00:00:18,952 --> 00:00:21,487
+This is the last important thing you need to know
+
+7
+00:00:21,555 --> 00:00:24,323
+structurally to be able to build complicated apps.
+
+8
+00:00:24,391 --> 00:00:26,524
+So we're gonna dive right into the first one here,
+
+9
+00:00:26,593 --> 00:00:29,661
+which is modal Segues. You actually already know about
+
+10
+00:00:29,729 --> 00:00:32,631
+Modal View Controllers because in our emoji Art view and
+
+11
+00:00:32,700 --> 00:00:36,134
+in your homework, you actually presented your document view
+
+12
+00:00:36,203 --> 00:00:41,306
+modally. So a Modal View Controller is one that takes
+
+13
+00:00:41,375 --> 00:00:44,008
+over the whole screen, usually it slides up from the bottom,
+
+14
+00:00:44,077 --> 00:00:47,111
+though not always. And here I have an example of
+
+15
+00:00:47,180 --> 00:00:51,016
+some sort of contact keeping app and it's got little +
+
+16
+00:00:51,085 --> 00:00:53,852
+button in the upper right and when I press that it modesty
+
+17
+00:00:53,920 --> 00:00:57,422
+segues to or modally presents another view controller so
+
+18
+00:00:57,491 --> 00:01:00,492
+a completely different view controller. This is
+
+19
+00:01:00,561 --> 00:01:03,195
+not a navigation controller, there's no back button instead
+
+20
+00:01:03,264 --> 00:01:05,563
+you can see there's a Cancel button there. And
+
+21
+00:01:05,632 --> 00:01:08,399
+I can have presented this view controller and then present
+
+22
+00:01:08,468 --> 00:01:10,735
+another view controller if I want. For example,
+
+23
+00:01:10,804 --> 00:01:13,972
+this little add photo button in this new contact MVC,
+
+24
+00:01:14,041 --> 00:01:16,975
+if you press it, it presents another modal view controller
+
+25
+00:01:17,044 --> 00:01:18,510
+on top of the other one.
+
+26
+00:01:18,579 --> 00:01:21,212
+Again, no back button, this is not a navigation controller.
+
+27
+00:01:21,281 --> 00:01:23,415
+We are just presenting these thing modally.
+
+28
+00:01:23,484 --> 00:01:27,085
+We call it modally because the app is now in a mode,
+
+29
+00:01:27,154 --> 00:01:32,724
+essentially, where it can only do this MVC. So we get out of
+
+30
+00:01:32,793 --> 00:01:35,327
+this, of course, by having to dismiss these view controllers
+
+31
+00:01:35,395 --> 00:01:37,795
+just like we did with our document and Emoji Art.
+
+32
+00:01:37,864 --> 00:01:41,599
+So I'm gonna Cancel this one, goes back to the previous one.
+
+33
+00:01:41,668 --> 00:01:45,137
+I Cancel this one, it's gonna go back to its previous one,
+
+34
+00:01:45,206 --> 00:01:47,706
+and we're back to where we started here.
+
+35
+00:01:47,774 --> 00:01:49,674
+So that's it modal view controller's very simple.
+
+36
+00:01:49,743 --> 00:01:52,110
+Now, I wait to tell you about modal view controllers
+
+37
+00:01:52,179 --> 00:01:54,379
+until really the end of the quarter,
+
+38
+00:01:54,448 --> 00:01:57,382
+because this is really not the primary way you wanna be
+
+39
+00:01:57,451 --> 00:02:00,986
+putting view controllers up. Navigation controllers and
+
+40
+00:02:01,054 --> 00:02:04,423
+split view controllers are a much better way to interact
+
+41
+00:02:04,491 --> 00:02:07,058
+with the user, it's because of this mode business.
+
+42
+00:02:07,127 --> 00:02:09,193
+You don't really wanna put your users in a situation
+
+43
+00:02:09,262 --> 00:02:11,129
+where they can only do what you're telling them to do.
+
+44
+00:02:11,198 --> 00:02:13,165
+They like the flexibility to navigate around,
+
+45
+00:02:13,234 --> 00:02:15,433
+change their mind, go somewhere else. And
+
+46
+00:02:15,502 --> 00:02:17,402
+they can't do that if you put them in this mode,
+
+47
+00:02:17,471 --> 00:02:21,039
+all they can do is cancel it to get back to that world. So
+
+48
+00:02:21,108 --> 00:02:24,909
+I generally recommend thinking of another way to put an MVC
+
+49
+00:02:24,978 --> 00:02:29,715
+up first before you resort to modal. So how do we set
+
+50
+00:02:29,783 --> 00:02:33,085
+a modal segue? Exactly the same as all our other segues,
+
+51
+00:02:33,153 --> 00:02:36,187
+we just control drag. Of course we can present it
+
+52
+00:02:36,256 --> 00:02:39,090
+from code as well with perform segue with identifier.
+
+53
+00:02:39,159 --> 00:02:41,493
+And we even learned, in last lecture,
+
+54
+00:02:41,562 --> 00:02:45,029
+there how to present a view controller, not with a segue,
+
+55
+00:02:45,098 --> 00:02:47,932
+in a modal fashion, which is the present method
+
+56
+00:02:48,001 --> 00:02:51,970
+in view controller. That's how we got our Emoji Art document
+
+57
+00:02:52,038 --> 00:02:55,173
+onscreen when it was chosen, and so you know all of that.
+
+58
+00:02:55,242 --> 00:02:59,177
+But modal segues and modal presentations kind of like
+
+59
+00:02:59,245 --> 00:03:02,781
+the basic segue. It's again I'm only telling you at last
+
+60
+00:03:02,849 --> 00:03:05,850
+because you don't wanna use it as your first resort. But
+
+61
+00:03:05,919 --> 00:03:08,387
+there's nothing simpler when it comes to this kinda thing,
+
+62
+00:03:08,455 --> 00:03:11,523
+and so preparing for a modal segue is, again,
+
+63
+00:03:11,591 --> 00:03:15,494
+exactly what you're used to, nothing special whatsoever.
+
+64
+00:03:15,562 --> 00:03:18,797
+And one interesting thing about modal is how do I
+
+65
+00:03:18,866 --> 00:03:23,468
+hear back from a modal segue to MVC?
+
+66
+00:03:23,537 --> 00:03:27,071
+I put that contacts thing, I added a contact, how do I get
+
+67
+00:03:27,140 --> 00:03:31,910
+the contact that I wanna add back, to my contacts app. And
+
+68
+00:03:31,979 --> 00:03:35,113
+really, things fall into two categories there for the most
+
+69
+00:03:35,182 --> 00:03:38,483
+part. One is you don't need to give anything back, so
+
+70
+00:03:38,551 --> 00:03:41,953
+like in the contacts app maybe that new contacts MVC just
+
+71
+00:03:42,022 --> 00:03:45,590
+puts it in a database and then you just dismiss that thing.
+
+72
+00:03:45,659 --> 00:03:48,093
+And when you came back to the other one it's just gonna be
+
+73
+00:03:48,162 --> 00:03:50,328
+showing it because it's watching the database.
+
+74
+00:03:50,397 --> 00:03:53,632
+In other words they're sharing a model for example. But there
+
+75
+00:03:53,700 --> 00:03:55,600
+is the case where you actually have to communicate back.
+
+76
+00:03:55,669 --> 00:03:58,870
+So let's say we didn't have that sort of design in our add
+
+77
+00:03:58,939 --> 00:03:59,838
+contact thing,
+
+78
+00:03:59,907 --> 00:04:02,507
+actually it wants to give us our contact back.
+
+79
+00:04:02,576 --> 00:04:06,011
+In that sense you wanna think about those modally presented
+
+80
+00:04:06,079 --> 00:04:08,980
+view controllers like the add contacts MVC as part
+
+81
+00:04:09,049 --> 00:04:12,183
+of the view of the previous one. Just like in a navigation
+
+82
+00:04:12,252 --> 00:04:14,986
+tool when we go to the next card on the stack, we think of
+
+83
+00:04:15,055 --> 00:04:17,722
+that as a part of our view. Kinda why I think of the same
+
+84
+00:04:17,791 --> 00:04:21,993
+thing here, so, that thing you present can't really talk back
+
+85
+00:04:22,062 --> 00:04:25,730
+to the thing that presented it. Really the thing that
+
+86
+00:04:25,799 --> 00:04:28,900
+presented it needs to talk to it. And we have a mechanism
+
+87
+00:04:28,969 --> 00:04:31,169
+for doing that, it's called unwind segue,
+
+88
+00:04:31,238 --> 00:04:34,205
+which I'm gonna talk about at the end of today's lecture.
+
+89
+00:04:34,274 --> 00:04:39,377
+And that's really how we would communicate things back and
+
+90
+00:04:39,445 --> 00:04:44,282
+still keep MVC intact there. And how do we dismiss a view
+
+91
+00:04:44,351 --> 00:04:46,884
+controller? Again, you've already learned this because
+
+92
+00:04:46,953 --> 00:04:49,053
+we dismissed our document view controller.
+
+93
+00:04:49,122 --> 00:04:52,123
+Use this method dismiss but I kinda mislead you in our demo
+
+94
+00:04:52,192 --> 00:04:54,793
+last time, and I'm gonna straighten that out and
+
+95
+00:04:54,861 --> 00:04:57,729
+I kinda did it intentionally so that you would see these
+
+96
+00:04:57,797 --> 00:04:59,664
+change that I'm gonna make today.
+
+97
+00:04:59,733 --> 00:05:03,401
+And realize I see, and what I mislead you about is that it
+
+98
+00:05:03,470 --> 00:05:07,505
+is really the presenting view controller's responsibility to
+
+99
+00:05:07,574 --> 00:05:11,309
+dismiss not the presented. And you notice that in our
+
+100
+00:05:11,378 --> 00:05:15,680
+Emoji Art app we had our close button just say dismiss,
+
+101
+00:05:15,748 --> 00:05:18,216
+in other words it's saying dismiss to the Emoji Art
+
+102
+00:05:18,284 --> 00:05:21,019
+document saying dismiss yourself.
+
+103
+00:05:21,087 --> 00:05:23,989
+That's really not the right way to do that,
+
+104
+00:05:24,057 --> 00:05:26,924
+now it works because the dismiss method will
+
+105
+00:05:26,993 --> 00:05:30,361
+automatically forward that to its presenting view
+
+106
+00:05:30,430 --> 00:05:33,999
+controller, if you've been presented. But the reason we
+
+107
+00:05:34,067 --> 00:05:36,567
+don't like to rely on that's probably in there for
+
+108
+00:05:36,636 --> 00:05:39,671
+some sort of historic reason. But the reason we don't wanna
+
+109
+00:05:39,740 --> 00:05:42,874
+rely on it is because if we had the line dismiss inside of
+
+110
+00:05:42,942 --> 00:05:46,311
+our code somewhere in a view controller, it usually means
+
+111
+00:05:46,380 --> 00:05:49,247
+we're going to dismiss something we presented,
+
+112
+00:05:49,316 --> 00:05:53,117
+cuz we're the presenting view controller. So to make that
+
+113
+00:05:53,186 --> 00:05:56,288
+clear, when we're dismissing ourself, we probably wanna
+
+114
+00:05:56,356 --> 00:05:58,724
+send that to our presenting view controller.
+
+115
+00:05:58,792 --> 00:06:00,591
+And there's a var in UIViewController called
+
+116
+00:06:00,660 --> 00:06:02,493
+presentingViewController. That,
+
+117
+00:06:02,562 --> 00:06:04,563
+if you've been presented, it will not be nil and
+
+118
+00:06:04,631 --> 00:06:07,065
+you can send it dismiss, and that will dismiss yourself.
+
+119
+00:06:07,133 --> 00:06:10,535
+So we're gonna go back to our demo today, and I'm gonna
+
+120
+00:06:10,604 --> 00:06:14,339
+change our call to dismiss to say presentingViewController
+
+121
+00:06:14,408 --> 00:06:18,176
+optional chain .dismiss. Just to make it clear that really
+
+122
+00:06:18,245 --> 00:06:19,844
+we should be asking our present,
+
+123
+00:06:19,913 --> 00:06:22,948
+it's not necessarily wrong to dismiss ourselves like that,
+
+124
+00:06:23,016 --> 00:06:26,417
+but it's confusing. Because we're not sure whether that
+
+125
+00:06:26,486 --> 00:06:29,520
+dismiss means to dismiss something I presented or
+
+126
+00:06:29,589 --> 00:06:33,124
+dismiss myself, so we're just trying to clear that up.
+
+127
+00:06:33,193 --> 00:06:36,228
+Yeah, so like I say for convenience it's forwarded but
+
+128
+00:06:36,296 --> 00:06:38,630
+we don't rely on it. Now another thing of course is
+
+129
+00:06:38,699 --> 00:06:42,000
+this Unwind Segue I alluded to where you gotta communicate
+
+130
+00:06:42,068 --> 00:06:44,936
+information back that automatically dismisses. So
+
+131
+00:06:45,004 --> 00:06:48,239
+that's another way to dismiss, and we'll see that when we
+
+132
+00:06:48,308 --> 00:06:51,643
+talk about unwind towards the end here. You can also control
+
+133
+00:06:51,711 --> 00:06:54,846
+the presentation of the view controller a little bit with
+
+134
+00:06:54,914 --> 00:06:58,516
+the modal presentation style var in view controller. And
+
+135
+00:06:58,584 --> 00:07:01,986
+this only can have a little bit of control, for example,
+
+136
+00:07:02,055 --> 00:07:04,055
+the default is .fullScreen, the
+
+137
+00:07:04,124 --> 00:07:06,691
+modelPresentationStyle.fullSc- reen.
+
+138
+00:07:06,760 --> 00:07:08,426
+That means slide up from the bottom and
+
+139
+00:07:08,494 --> 00:07:10,562
+cover the whole screen, that's what you've been seeing so
+
+140
+00:07:10,631 --> 00:07:13,998
+far, that's the default. There's also overFullScreen
+
+141
+00:07:14,067 --> 00:07:16,734
+which is interesting, that does the same thing except
+
+142
+00:07:16,803 --> 00:07:19,270
+for it lets the view controller that's covering
+
+143
+00:07:19,339 --> 00:07:22,206
+up shine through. So that if you're presenting a view
+
+144
+00:07:22,275 --> 00:07:25,142
+control that has a clear background it'll show through.
+
+145
+00:07:25,211 --> 00:07:27,045
+Now we don't usually do that, so
+
+146
+00:07:27,114 --> 00:07:29,714
+hide something with a clear background. However, sometimes
+
+147
+00:07:29,783 --> 00:07:32,917
+we will slide something out with a blurred background. And
+
+148
+00:07:32,986 --> 00:07:35,019
+I'm not gonna really talk about visual effects,
+
+149
+00:07:35,088 --> 00:07:38,056
+look at UI visual effects if you wanna learn more about it.
+
+150
+00:07:38,124 --> 00:07:39,224
+But you can make it so
+
+151
+00:07:39,292 --> 00:07:41,760
+that you have a nice blurred background, and
+
+152
+00:07:41,828 --> 00:07:46,764
+that would be the time we'd use overFullScreen. On iPad,
+
+153
+00:07:46,833 --> 00:07:50,968
+sometimes doing the full screen approach is just too
+
+154
+00:07:51,037 --> 00:07:55,340
+much white space, the screen is so big there's way too much
+
+155
+00:07:55,408 --> 00:07:58,810
+white space. So there's a couple of ways to have an iPad
+
+156
+00:07:58,878 --> 00:08:03,014
+a little smaller area come up and have your.
+
+157
+00:08:03,083 --> 00:08:06,084
+View Controller, and the one is called pageSheet which
+
+158
+00:08:06,152 --> 00:08:08,386
+kinda does something the size of a piece of paper.
+
+159
+00:08:08,455 --> 00:08:10,821
+It looks to be a piece of paper. And then form sheet,
+
+160
+00:08:10,890 --> 00:08:13,591
+which is even a smaller little white thing. And,
+
+161
+00:08:13,660 --> 00:08:18,563
+when these things show up, the rest of the UI is grayed out.
+
+162
+00:08:18,632 --> 00:08:21,132
+It's kind of grayed out and also completely inaccessible.
+
+163
+00:08:21,200 --> 00:08:22,601
+You can't touch it on, you can't interact with it,
+
+164
+00:08:22,669 --> 00:08:26,971
+whatever. In horizontally compact environment like
+
+165
+00:08:27,040 --> 00:08:31,609
+iPhone, Right or iPhone plus in portrait,
+
+166
+00:08:31,678 --> 00:08:35,413
+the iOS will automatically adapt form sheet and
+
+167
+00:08:35,482 --> 00:08:38,015
+page sheet styles to be full screen because
+
+168
+00:08:38,084 --> 00:08:41,419
+there's just not enough room to show a form sheet or a page
+
+169
+00:08:41,488 --> 00:08:43,988
+sheet on an iPhone and still have the gray area around.
+
+170
+00:08:44,057 --> 00:08:45,723
+Everything would be jammed too small.
+
+171
+00:08:45,792 --> 00:08:48,827
+So it'll automatically adapt for you.
+
+172
+00:08:48,895 --> 00:08:52,297
+How about the animation of the thing appearing on screen.
+
+173
+00:08:52,366 --> 00:08:54,599
+Well, by default it slides up from the bottom,
+
+174
+00:08:54,667 --> 00:08:56,801
+that's called cover vertical, but
+
+175
+00:08:56,870 --> 00:08:59,103
+it also has flipped horizontal where you can flip it over.
+
+176
+00:08:59,172 --> 00:09:02,773
+Another one is cross-dissolve, and, finally, there's partial
+
+177
+00:09:02,842 --> 00:09:05,644
+curl which looks like a piece of paper flipping up off
+
+178
+00:09:05,712 --> 00:09:08,613
+the bottom, which in kinda cool that one only works
+
+179
+00:09:08,682 --> 00:09:12,683
+with fullscreen modal, doesn't work with the page sheet or
+
+180
+00:09:12,752 --> 00:09:14,619
+form sheet. Doesn't make sense you can't really fold it
+
+181
+00:09:14,688 --> 00:09:17,822
+up from the bottom when you're kinda got the excess
+
+182
+00:09:17,891 --> 00:09:22,293
+area around the edges. So we don't really tend to use those
+
+183
+00:09:22,361 --> 00:09:27,165
+other ones that much, you know you want to be careful UI
+
+184
+00:09:27,234 --> 00:09:31,069
+be too tricky. You want it to feel like other UIs. We tend
+
+185
+00:09:31,137 --> 00:09:33,537
+to leave that one cover vertical most of the time.
+
+186
+00:09:33,606 --> 00:09:35,473
+Both of these styles, the presentation style and
+
+187
+00:09:35,541 --> 00:09:38,276
+the transition style can be set in the story board.
+
+188
+00:09:38,345 --> 00:09:41,612
+You just inspect the segue you created by control dragging
+
+189
+00:09:41,681 --> 00:09:44,949
+and in Inspector there you can set these things. All right,
+
+190
+00:09:45,017 --> 00:09:46,284
+so, we're going to do a demo here.
+
+191
+00:09:46,353 --> 00:09:47,718
+We're going to go back to EmojiArt.
+
+192
+00:09:47,787 --> 00:09:51,089
+And what we're going to do is add an inspector.
+
+193
+00:09:51,157 --> 00:09:52,991
+You know how you have an inspector in XCode.
+
+194
+00:09:53,059 --> 00:09:55,693
+Well, we're going to have an inspector of EmojiArt
+
+195
+00:09:55,762 --> 00:09:57,929
+documents and what it's going to tell us about the EmojiArt
+
+196
+00:09:57,998 --> 00:10:02,434
+documents is the size in bytes and when it was created. So
+
+197
+00:10:02,502 --> 00:10:05,270
+it's a simple inspector. This is a demo after all.
+
+198
+00:10:05,338 --> 00:10:07,605
+I'll probably throw the thumbnail image in,
+
+199
+00:10:07,673 --> 00:10:09,540
+into the inspector as well. Just so I can show you
+
+200
+00:10:09,609 --> 00:10:12,543
+a little bit what we can do with constraints in code,
+
+201
+00:10:12,612 --> 00:10:15,412
+because I have a little more to show you about constraints.
+
+202
+00:10:15,481 --> 00:10:20,418
+So let's hop on over here. Here is EmojiArt exactly as
+
+203
+00:10:20,487 --> 00:10:23,988
+we left it last time. This is our EmojiArt document
+
+204
+00:10:24,057 --> 00:10:26,457
+view controller here, EmojiArtViewControl And
+
+205
+00:10:26,526 --> 00:10:28,759
+what I'm gonna do is I'm gonna a little button right here.
+
+206
+00:10:28,828 --> 00:10:31,963
+I'm gonna call it inspect I guess. And
+
+207
+00:10:32,032 --> 00:10:32,697
+when you click this button,
+
+208
+00:10:32,765 --> 00:10:36,634
+it's gonna bring a whole new view controller up modally.
+
+209
+00:10:36,702 --> 00:10:40,304
+That inspects this document that we're looking at.
+
+210
+00:10:40,373 --> 00:10:43,140
+So let's go ahead and create that new view controller.
+
+211
+00:10:43,209 --> 00:10:46,777
+And just to review, we created a new view controller just by
+
+212
+00:10:46,846 --> 00:10:48,412
+dragging it out. So
+
+213
+00:10:48,481 --> 00:10:50,281
+here I put a new view controller in here.
+
+214
+00:10:50,350 --> 00:10:52,817
+Of course every view controller needs it's own
+
+215
+00:10:52,885 --> 00:10:55,486
+view controller sub class, to controller. So I'm gonna go
+
+216
+00:10:55,555 --> 00:10:59,590
+new file here, we're creating a coco touch class, it's
+
+217
+00:10:59,659 --> 00:11:03,394
+a sub class of UIV controller. I'm gonna call it my document
+
+218
+00:11:03,463 --> 00:11:06,998
+info view controller, all right. Put it in the same
+
+219
+00:11:07,066 --> 00:11:09,834
+place we out all our other files there. Here it is.
+
+220
+00:11:09,903 --> 00:11:12,503
+I'm gonna make sure that I don't forget to go back here
+
+221
+00:11:12,572 --> 00:11:16,240
+and inspect with the identity inspector up here and
+
+222
+00:11:16,309 --> 00:11:18,743
+change it to be a document info view Controller
+
+223
+00:11:18,811 --> 00:11:21,445
+otherwise won't be able to wire up my outlets and
+
+224
+00:11:21,514 --> 00:11:25,216
+actions and all that business. Let's go ahead and
+
+225
+00:11:25,284 --> 00:11:28,853
+add this info button that modally segues to that.
+
+226
+00:11:28,921 --> 00:11:32,089
+Search for button here. Of course, I'm going to use a bar
+
+227
+00:11:32,158 --> 00:11:35,026
+button item because I'm putting it in my bar up here.
+
+228
+00:11:35,095 --> 00:11:39,030
+I don't think there's any predefined button type for
+
+229
+00:11:39,098 --> 00:11:41,566
+inspector info, so I'm going to use a custom button this
+
+230
+00:11:41,635 --> 00:11:46,604
+time. The title, I'm going to have it be Inspect. And
+
+231
+00:11:46,672 --> 00:11:48,138
+then I'm just gonna control drag,
+
+232
+00:11:48,207 --> 00:11:50,774
+this is how you create a modal segue, just control drag, and,
+
+233
+00:11:50,843 --> 00:11:52,744
+instead of picking Show or Show Detail,
+
+234
+00:11:52,812 --> 00:11:55,213
+which is navigation controller in split view controller,
+
+235
+00:11:55,281 --> 00:11:57,348
+we're gonna do present modally. And
+
+236
+00:11:57,417 --> 00:12:00,050
+that creates this little segue right here, we can look at it.
+
+237
+00:12:00,119 --> 00:12:03,588
+Of course, we're gonna wanna prepare this MVC so
+
+238
+00:12:03,657 --> 00:12:05,023
+we will need an identifier.
+
+239
+00:12:05,091 --> 00:12:09,027
+I'm gonna call this segue under identifier Show Document
+
+240
+00:12:09,095 --> 00:12:11,628
+info cuz that's what it does right there and you can see
+
+241
+00:12:11,697 --> 00:12:14,199
+this presents Modally. Here's where I was talking about you
+
+242
+00:12:14,267 --> 00:12:17,868
+can change how it presents Page Sheet, Form Sheet.
+
+243
+00:12:17,937 --> 00:12:19,937
+And also how it animates on screen,
+
+244
+00:12:20,006 --> 00:12:24,041
+right. I'm just inspecting this little guy right here.
+
+245
+00:12:24,110 --> 00:12:26,110
+So now I need to build my UI here for
+
+246
+00:12:26,179 --> 00:12:30,681
+my document. Info, so I'm gonna have some labels here,
+
+247
+00:12:30,750 --> 00:12:32,650
+of course, for the size and the creation date.
+
+248
+00:12:32,719 --> 00:12:35,586
+So I'm gonna bring that out, actually I'm gonna create four
+
+249
+00:12:35,655 --> 00:12:40,724
+of these, four labels, and zoom in so
+
+250
+00:12:40,793 --> 00:12:43,995
+you can see this a lot better, right, just my four labels. So
+
+251
+00:12:44,063 --> 00:12:46,931
+I'm gonna have one label that's gonna be size, and
+
+252
+00:12:46,999 --> 00:12:49,834
+the other one's gonna be created, and then this is
+
+253
+00:12:49,903 --> 00:12:53,504
+going to be the actual size which all have the 99 bytes so
+
+254
+00:12:53,573 --> 00:12:57,275
+we can tell it's successfully showing the actual size.
+
+255
+00:12:57,343 --> 00:13:00,144
+And then the creation day we'll say today is date
+
+256
+00:13:00,213 --> 00:13:02,814
+because we created a lot of our documents earlier so
+
+257
+00:13:02,882 --> 00:13:08,385
+this is the 15th, 17th and we do about 4:45 pm something
+
+258
+00:13:08,454 --> 00:13:12,456
+like that. So these two we're gonna set from information in
+
+259
+00:13:12,525 --> 00:13:17,461
+our document obviously. Let's use stack views to line
+
+260
+00:13:17,530 --> 00:13:20,364
+of this stuff up so l am gonna hit this to a stack view and
+
+261
+00:13:20,433 --> 00:13:23,667
+their alignment trail which is exactly what l want and these
+
+262
+00:13:23,736 --> 00:13:26,704
+right here, putting stock view and their alignment leading
+
+263
+00:13:26,773 --> 00:13:29,373
+which is exactly what l want. Then l am gonna take the two
+
+264
+00:13:29,442 --> 00:13:32,510
+at these and put them in this stack view with some standards
+
+265
+00:13:32,579 --> 00:13:36,914
+spacing between, now I have a nice little
+
+266
+00:13:36,982 --> 00:13:40,752
+space to show my size and created here. One other thing
+
+267
+00:13:40,820 --> 00:13:44,221
+I'm gonna add is an image view and I'm mostly adding this
+
+268
+00:13:44,290 --> 00:13:46,157
+because I wanna show you something about constraints.
+
+269
+00:13:46,226 --> 00:13:48,826
+So here's an image view this is a little big, you know I'll
+
+270
+00:13:48,894 --> 00:13:53,697
+try to pick a size that. Kinda works for this text
+
+271
+00:13:53,766 --> 00:13:56,433
+that I have down here. Let's go and put that in stack view,
+
+272
+00:13:56,502 --> 00:13:59,637
+and I'll put standard spacing in there as well.
+
+273
+00:14:01,107 --> 00:14:03,574
+And we'll have the alignment here be centered,
+
+274
+00:14:03,643 --> 00:14:05,643
+because we don't want that to be necessarily have to be
+
+275
+00:14:05,712 --> 00:14:08,779
+the exact same width. Now notice it's red here.
+
+276
+00:14:08,848 --> 00:14:12,116
+We've got red up here because it says horizontal
+
+277
+00:14:12,185 --> 00:14:15,253
+ambiguous settings here. And this is because the image view
+
+278
+00:14:15,322 --> 00:14:17,989
+if you'll remember has an intrinsic size.
+
+279
+00:14:18,057 --> 00:14:21,291
+It depends on the image in there and all that. So
+
+280
+00:14:21,360 --> 00:14:23,894
+I'm gonna do a couple of things here. One, I don't want
+
+281
+00:14:23,963 --> 00:14:26,564
+this image view to actually get much wider than this.
+
+282
+00:14:26,633 --> 00:14:28,332
+I wouldn't want it to be like really, really wide and
+
+283
+00:14:28,401 --> 00:14:30,168
+make this text fill really small. So
+
+284
+00:14:30,236 --> 00:14:34,639
+I'm gonna fix the width of this actually right here
+
+285
+00:14:34,707 --> 00:14:37,709
+to whatever it is fine. And then also not to worry about
+
+286
+00:14:37,777 --> 00:14:41,679
+the hight, so I'm gonna also fix the aspect ratio.
+
+287
+00:14:41,747 --> 00:14:45,282
+However with this aspect ratio, I'm going to set it
+
+288
+00:14:45,351 --> 00:14:48,919
+from code. Because I want the aspect ratio of this image,
+
+289
+00:14:48,988 --> 00:14:52,123
+which is gonna be my thumbnail of my document to be the right
+
+290
+00:14:52,192 --> 00:14:55,093
+aspect ratio for my image. So we'll do that a little
+
+291
+00:14:55,161 --> 00:15:00,565
+constraint in code exercise, you know, a little bit here.
+
+292
+00:15:00,633 --> 00:15:02,667
+So I'm gonna take this and center it in the middle.
+
+293
+00:15:02,735 --> 00:15:03,901
+So let's go ahead and
+
+294
+00:15:03,970 --> 00:15:08,605
+I have it centered vertically in place here. And
+
+295
+00:15:08,674 --> 00:15:12,610
+that eliminated all of my auto lay out warnings and so
+
+296
+00:15:12,679 --> 00:15:15,913
+what it looks like now. Looks a little lonely here in this
+
+297
+00:15:15,982 --> 00:15:19,550
+big white space, but it's what it is. And now,
+
+298
+00:15:19,618 --> 00:15:21,619
+let's go ahead and create some outlets to these things so
+
+299
+00:15:21,687 --> 00:15:24,622
+we can set these stuffs. So I'm gonna go over here.
+
+300
+00:15:24,691 --> 00:15:28,126
+Go to my document info view controller. Here it is.
+
+301
+00:15:28,194 --> 00:15:30,628
+Get rid of all the free stuff it gave us and
+
+302
+00:15:30,696 --> 00:15:34,164
+let's start wiring these things up.
+
+303
+00:15:34,233 --> 00:15:37,101
+So I'll zoom in again so you can see it. Let's wire up
+
+304
+00:15:37,170 --> 00:15:39,303
+this image view that's gonna be where my thumbnail goes so
+
+305
+00:15:39,371 --> 00:15:43,974
+I'm gonna call this my thumbnailImageView. And then
+
+306
+00:15:44,043 --> 00:15:47,144
+little this label right here that's where my size goes, so
+
+307
+00:15:47,213 --> 00:15:51,482
+I'm gonna put it over here and call it this my sizeLabel and
+
+308
+00:15:51,551 --> 00:15:55,219
+this one right here is where my created. Creation date,
+
+309
+00:15:55,288 --> 00:15:59,557
+stuff goes, I'm gonna call that my created label. So
+
+310
+00:15:59,626 --> 00:16:01,024
+I've created a nice little.
+
+311
+00:16:01,093 --> 00:16:04,962
+Guy here to do some UI, and I've wired him up to Info.
+
+312
+00:16:05,031 --> 00:16:07,664
+Let's go ahead and run what we've got so
+
+313
+00:16:07,733 --> 00:16:10,334
+far here. Just to see what it does, even though,
+
+314
+00:16:10,402 --> 00:16:13,370
+of course, we don't actually set any of these values. But
+
+315
+00:16:13,439 --> 00:16:17,307
+we can at least make sure that our UI is looking similar to
+
+316
+00:16:17,376 --> 00:16:23,881
+what we want. Okay, here we are.
+
+317
+00:16:23,950 --> 00:16:27,051
+EmojiArt, let's bring up apple, bees, here we go,
+
+318
+00:16:27,119 --> 00:16:29,920
+apples and bees. And here's our inspect button up here,
+
+319
+00:16:29,989 --> 00:16:31,622
+now, watch, I'm gonna to click this.
+
+320
+00:16:31,691 --> 00:16:34,726
+Slides up from the bottom. We see 99 bytes in today's date,
+
+321
+00:16:34,794 --> 00:16:36,660
+because we haven't done anything there, and,
+
+322
+00:16:36,729 --> 00:16:38,329
+of course, there's no thumbnail image.
+
+323
+00:16:38,397 --> 00:16:39,897
+And we've got a big problem here.
+
+324
+00:16:39,966 --> 00:16:42,533
+Yikes, I can't get back to my app, right?
+
+325
+00:16:42,602 --> 00:16:44,969
+Because I presented this modally, it took over,
+
+326
+00:16:45,038 --> 00:16:47,504
+now it's my responsibility to provide some UI to get
+
+327
+00:16:47,573 --> 00:16:49,907
+the heck out of here. So let's go do that,
+
+328
+00:16:49,976 --> 00:16:53,377
+I'm gonna do that really simply by adding a button, so
+
+329
+00:16:53,445 --> 00:16:58,316
+I'm gonna go over here, get a button. Here it is,
+
+330
+00:16:58,384 --> 00:17:01,219
+so we drag this button in here, I'm just gonna put it at
+
+331
+00:17:01,287 --> 00:17:04,322
+the bottom here, and I'm gonna call this button Return to
+
+332
+00:17:04,390 --> 00:17:08,492
+Document. And we'll just Ctrl+drag from here.
+
+333
+00:17:08,561 --> 00:17:12,530
+And we'll call this done, cuz we're done with this thing,
+
+334
+00:17:12,598 --> 00:17:15,966
+and it's gonna be an action, and we don't need any
+
+335
+00:17:16,035 --> 00:17:19,570
+arguments to it or whatever. So this one is nicely done and
+
+336
+00:17:19,639 --> 00:17:22,540
+what are we gonna do when we're done? Well, we want to
+
+337
+00:17:22,608 --> 00:17:25,376
+dismiss ourselves, but now here's where we're gonna
+
+338
+00:17:25,444 --> 00:17:29,113
+remember that, we could just say dismiss. And that works
+
+339
+00:17:29,181 --> 00:17:32,616
+because of that automatic forwarding, but really what we
+
+340
+00:17:32,685 --> 00:17:35,620
+want to do is ask our presentingViewController,
+
+341
+00:17:35,688 --> 00:17:42,092
+if we have one, to please dismiss us. And it's animated,
+
+342
+00:17:42,161 --> 00:17:46,163
+true. And it has a completion handler,
+
+343
+00:17:46,232 --> 00:17:49,266
+we're not gonna use that, so it's gonna dismiss us, so
+
+344
+00:17:49,335 --> 00:17:52,103
+let's take a look at this. Make sure this is actually
+
+345
+00:17:52,171 --> 00:18:00,511
+dismissing us. Okay, here we go. Up here, let's Inspect,
+
+346
+00:18:00,580 --> 00:18:04,615
+we have Return to Document. Woo hoo! We're back.
+
+347
+00:18:04,684 --> 00:18:07,718
+So, that's good. Now, we have a model that this,
+
+348
+00:18:07,786 --> 00:18:11,055
+this MVC has no model, so we have a model to add here, so
+
+349
+00:18:11,123 --> 00:18:14,558
+that you can actually show the document. Actually, before
+
+350
+00:18:14,627 --> 00:18:17,561
+that, let's go back and add this presentingViewController
+
+351
+00:18:17,630 --> 00:18:19,797
+treatment to our EmojiArtViewController.
+
+352
+00:18:19,866 --> 00:18:21,298
+Just so you can see where that was.
+
+353
+00:18:21,367 --> 00:18:25,269
+So let's get back here, and search for dismiss,
+
+354
+00:18:25,337 --> 00:18:28,839
+here's where we dismiss ourselves in our close and
+
+355
+00:18:28,908 --> 00:18:32,809
+we just said, dismiss, but we really should have said,
+
+356
+00:18:32,878 --> 00:18:38,515
+presentingViewController, dismiss. Got that? So
+
+357
+00:18:38,584 --> 00:18:43,254
+the model of this guy right here. What is the model?
+
+358
+00:18:43,323 --> 00:18:45,856
+Well, it's a DocumentInfoViewController,
+
+359
+00:18:45,925 --> 00:18:49,126
+it looks at a document's info like its size and created. So
+
+360
+00:18:49,195 --> 00:18:53,064
+it's var should probably be a document that it inspects, and
+
+361
+00:18:53,132 --> 00:18:58,436
+we'll make that be an EmojiArt document. So,
+
+362
+00:18:58,504 --> 00:19:01,205
+when we set this model, we want to update our UI,
+
+363
+00:19:01,274 --> 00:19:03,907
+put the size in there, put the create in there.
+
+364
+00:19:03,976 --> 00:19:06,711
+So I'm going to put a little didSet in here, and
+
+365
+00:19:06,779 --> 00:19:08,713
+the didSet is just gonna call some
+
+366
+00:19:08,781 --> 00:19:11,548
+updateUI method that I'm gonna have to write.
+
+367
+00:19:11,617 --> 00:19:15,386
+And similarly when viewDidLoad happens,
+
+368
+00:19:15,455 --> 00:19:19,990
+I'm also gonna update my UI. Because here, I might be
+
+369
+00:19:20,059 --> 00:19:23,226
+updating my UI before my outlets are set, for example,
+
+370
+00:19:23,295 --> 00:19:26,831
+some might be preparing me. So here I want to make sure that
+
+371
+00:19:26,899 --> 00:19:29,700
+after my outlets are set which is what viewDidLoad is all
+
+372
+00:19:29,768 --> 00:19:32,136
+about that I go back and update my UI again.
+
+373
+00:19:32,205 --> 00:19:34,971
+So I need a private func here called updateUI,
+
+374
+00:19:35,040 --> 00:19:38,308
+and in here, we're going to update all of the fields.
+
+375
+00:19:38,377 --> 00:19:41,679
+All of our outlets, and stuff like that, to match our model,
+
+376
+00:19:41,747 --> 00:19:44,214
+which is this document up here. All right, so
+
+377
+00:19:44,283 --> 00:19:47,718
+what do we need to do this? One thing we need to do is
+
+378
+00:19:47,786 --> 00:19:50,954
+to obviously be able to get the URL for the document and
+
+379
+00:19:51,023 --> 00:19:54,091
+then go look at the URL to find its file attributes.
+
+380
+00:19:54,159 --> 00:19:56,293
+Now I'm gonna show you how to do that with File Manager,
+
+381
+00:19:56,362 --> 00:20:00,130
+it's very, very easy. I'm also going to protect against my
+
+382
+00:20:00,199 --> 00:20:03,867
+outlets not being set yet. Because that's often true in
+
+383
+00:20:03,936 --> 00:20:06,804
+an update UI method because people set your model and
+
+384
+00:20:06,873 --> 00:20:09,206
+prepare, and so your things aren't set.
+
+385
+00:20:09,275 --> 00:20:13,277
+So I'm gonna first check to see that my sizeLabel does
+
+386
+00:20:13,346 --> 00:20:17,848
+not equal nil, and also that my createdLabel does not equal
+
+387
+00:20:17,916 --> 00:20:20,784
+nil. And if both of those are true,
+
+388
+00:20:20,853 --> 00:20:24,054
+then I'm gonna see if I can let URL equal
+
+389
+00:20:24,123 --> 00:20:28,725
+the document's.fileURL. Cuz I've got to have that URL
+
+390
+00:20:28,794 --> 00:20:31,362
+if I'm going to find the size and the created and
+
+391
+00:20:31,431 --> 00:20:35,031
+then I'm gonna see if I can get those attributes. So
+
+392
+00:20:35,100 --> 00:20:38,268
+I'm gonna say, if I can let the attributes equal try,
+
+393
+00:20:38,337 --> 00:20:42,173
+to get to the FileManager, the default, not manger, Manager.
+
+394
+00:20:42,241 --> 00:20:47,110
+The default one, to get the attributesOfItem,
+
+395
+00:20:47,179 --> 00:20:50,481
+you see the very first one there,
+
+396
+00:20:50,550 --> 00:20:52,682
+attributesOfItem.
+
+397
+00:20:52,751 --> 00:20:55,986
+And, of course, this is the URLs path right here. And
+
+398
+00:20:56,055 --> 00:21:01,192
+if I'm able to do that. If I can get the attributes,
+
+399
+00:21:01,260 --> 00:21:06,130
+then I can update those labels. Make sense?
+
+400
+00:21:06,198 --> 00:21:09,399
+All right, so let's do that. I have the attributes here,
+
+401
+00:21:09,468 --> 00:21:12,303
+presumably, if I got this far with all of these, if lets and
+
+402
+00:21:12,371 --> 00:21:15,472
+stuff right here. So let's do the sizeLabel,
+
+403
+00:21:15,541 --> 00:21:19,477
+that was an easy one, sizeLabel.text, equals,
+
+404
+00:21:19,545 --> 00:21:24,014
+let's just put the attributes. Now,
+
+405
+00:21:24,082 --> 00:21:26,917
+attributes, they come back from attributes of item, this
+
+406
+00:21:26,986 --> 00:21:29,553
+attributes is a dictionary if we look at it right here.
+
+407
+00:21:29,622 --> 00:21:32,189
+It's the dictionary of FileAttributeKey and any.
+
+408
+00:21:32,257 --> 00:21:33,757
+So you can go look in the documentation for
+
+409
+00:21:33,826 --> 00:21:35,459
+all the file attributes that you can get, and
+
+410
+00:21:35,528 --> 00:21:38,695
+there's quite a few. Created date, modified date, size,
+
+411
+00:21:38,764 --> 00:21:42,099
+all these things, so we're gonna use one of them here,
+
+412
+00:21:42,167 --> 00:21:45,002
+which is .size. And if that happens to be nil, for
+
+413
+00:21:45,071 --> 00:21:48,339
+some reason, we can't get the size, which we should always
+
+414
+00:21:48,407 --> 00:21:51,441
+be able to, but if we can't, then I'm gonna go ahead and
+
+415
+00:21:51,510 --> 00:21:55,245
+say zero bytes. Although maybe I'd be better off saying
+
+416
+00:21:55,314 --> 00:21:59,650
+something like unknown size or something like that here, but
+
+417
+00:21:59,719 --> 00:22:02,453
+I'll just say that for demo purposes.
+
+418
+00:22:02,521 --> 00:22:04,688
+And then we've got created, so here I'm gonna say,
+
+419
+00:22:04,757 --> 00:22:06,791
+I'm gonna try to get the creation date by saying.
+
+420
+00:22:06,859 --> 00:22:10,327
+If I can let created equal the attributes for
+
+421
+00:22:10,396 --> 00:22:14,932
+the creationDate. That's another FileAttributeKey
+
+422
+00:22:15,001 --> 00:22:17,968
+right there and this comes back as an Any, so
+
+423
+00:22:18,036 --> 00:22:22,339
+I want to say as a Date. So I'm converting it to a Date,
+
+424
+00:22:22,408 --> 00:22:26,743
+hopefully you're getting used to doing this, as, business to
+
+425
+00:22:26,812 --> 00:22:30,614
+cast things from Any. So here I've got the created, and
+
+426
+00:22:30,683 --> 00:22:34,652
+what I really want to say is, my createdLabel's.text.
+
+427
+00:22:35,721 --> 00:22:37,888
+Essentially equals this created, but
+
+428
+00:22:37,956 --> 00:22:41,158
+unfortunately, this is a Date, and I have to turn it into
+
+429
+00:22:41,227 --> 00:22:43,394
+a string to put it into text right here.
+
+430
+00:22:43,463 --> 00:22:45,496
+So how do you turn a Date into a string?
+
+431
+00:22:45,564 --> 00:22:48,332
+Well, yes, you can do backslash open parentheses,
+
+432
+00:22:48,401 --> 00:22:50,934
+the date, and you'll get some sort of date, but
+
+433
+00:22:51,003 --> 00:22:54,404
+really we want to use a class in IOS called date formatter.
+
+434
+00:22:54,473 --> 00:22:57,975
+So date formatter will format the date, not just to look how
+
+435
+00:22:58,044 --> 00:23:01,211
+you tell it to look, but also for the local language.
+
+436
+00:23:01,280 --> 00:23:03,313
+Cuz some people, they put the month before the day,
+
+437
+00:23:03,382 --> 00:23:04,481
+or the day before the month.
+
+438
+00:23:04,550 --> 00:23:06,183
+And, of course, in other languages,
+
+439
+00:23:06,251 --> 00:23:08,585
+the dates are all completely different. So,
+
+440
+00:23:08,654 --> 00:23:11,655
+l'm gonna create a little date formatter here,
+
+441
+00:23:11,724 --> 00:23:14,825
+l'm gonna call it a, it doesn't have to be a let,
+
+442
+00:23:14,893 --> 00:23:17,995
+even, a shortDateFormatter. So this is going to be
+
+443
+00:23:18,063 --> 00:23:21,165
+a formatter that makes the date as short as possible, so
+
+444
+00:23:21,234 --> 00:23:23,534
+it's going to be of type DateFormatter.
+
+445
+00:23:23,602 --> 00:23:26,436
+I'm going to create it by setting it equal to executing
+
+446
+00:23:26,505 --> 00:23:30,007
+a closure, surely you are all familiar with that. And
+
+447
+00:23:30,076 --> 00:23:33,410
+I'll just create a formatter here by saying DateFormatter,
+
+448
+00:23:33,479 --> 00:23:35,779
+and then I'm gonna configure it a little.
+
+449
+00:23:35,848 --> 00:23:39,950
+I'm gonna tell it that I want it to use for its dateStyle,
+
+450
+00:23:40,019 --> 00:23:43,187
+I want it to use the short style, and also for
+
+451
+00:23:43,256 --> 00:23:46,623
+it's timeStyle, I also want it to do short and
+
+452
+00:23:46,692 --> 00:23:49,593
+then I'm gonna return this formatter.
+
+453
+00:23:49,662 --> 00:23:51,795
+You know, if you were really doing an app,
+
+454
+00:23:51,864 --> 00:23:54,331
+you might actually want this to be of more friendly
+
+455
+00:23:54,399 --> 00:23:57,133
+naming that you'd have to do yourself. It can actually be
+
+456
+00:23:57,202 --> 00:23:59,536
+quite a bit of work to really get it right in all languages.
+
+457
+00:23:59,605 --> 00:24:01,104
+But you might want to say, like,
+
+458
+00:24:01,173 --> 00:24:03,707
+yesterday at 5 PM. That would be nice, unfortunately,
+
+459
+00:24:03,776 --> 00:24:06,710
+there's no Date format that friendly format you
+
+460
+00:24:06,779 --> 00:24:09,813
+have to do that yourself, so l have my credit here so
+
+461
+00:24:09,882 --> 00:24:12,716
+l am gonna use my short date formatter here, and
+
+462
+00:24:12,785 --> 00:24:18,589
+date format has a method called string from date. And
+
+463
+00:24:18,657 --> 00:24:22,392
+it will convert it into a string format. So
+
+464
+00:24:22,461 --> 00:24:25,161
+that's the label in the UI. What about our thumbnail
+
+465
+00:24:25,230 --> 00:24:27,631
+right there? I'm gonna do the same protection here and
+
+466
+00:24:27,700 --> 00:24:33,003
+say if my thumbnailImageView is not nil not equal
+
+467
+00:24:33,072 --> 00:24:38,476
+nil. Then also if I can get my thumbnail
+
+468
+00:24:38,544 --> 00:24:43,847
+from my document, remember that we have this
+
+469
+00:24:43,915 --> 00:24:47,017
+var in emoji art document called thumbnail, right?
+
+470
+00:24:47,085 --> 00:24:49,720
+This is our model up here, emoji art document. So,
+
+471
+00:24:49,788 --> 00:24:51,555
+we have this thumbnail. So, I can get the thumbnail and
+
+472
+00:24:51,623 --> 00:24:55,025
+my thumbnailImageView is not nil. Then I can just say my
+
+473
+00:24:55,094 --> 00:25:00,931
+thumbnailImageView.image equals that thumbnail.
+
+474
+00:25:02,634 --> 00:25:06,970
+Okay so now we've taught our this MVC how to take it's
+
+475
+00:25:07,038 --> 00:25:11,308
+model and keep its UI up to date with it. Now we have to
+
+476
+00:25:11,376 --> 00:25:15,945
+do is prepare this MVC as part of that modal segway. So
+
+477
+00:25:16,014 --> 00:25:17,815
+you're all familiar how to do prepare.
+
+478
+00:25:17,883 --> 00:25:21,352
+I'm gonna put my navigation code right at the top here,
+
+479
+00:25:21,420 --> 00:25:22,685
+which you wouldn't normally do but
+
+480
+00:25:22,754 --> 00:25:25,689
+just to make so it's easy for us to find it as we go through
+
+481
+00:25:25,758 --> 00:25:28,491
+this demo. So I'm going to put my navigation here, I'm just
+
+482
+00:25:28,560 --> 00:25:32,463
+gonna to do prepare for segue, here it is. Nothing special in
+
+483
+00:25:32,531 --> 00:25:37,734
+this, I'm just gonna say if my segue.identifier =="Show
+
+484
+00:25:37,803 --> 00:25:41,137
+Document Info", remember that what I said as my segue
+
+485
+00:25:41,206 --> 00:25:44,475
+identifier in the story board. Then I can sting in and say if
+
+486
+00:25:44,543 --> 00:25:49,446
+I can let the destination equal my segue's destination.
+
+487
+00:25:49,515 --> 00:25:52,783
+And I'm also gonna say dot content because I want it
+
+488
+00:25:52,851 --> 00:25:55,318
+to work even if it's wrapped in a navigation controller.
+
+489
+00:25:55,387 --> 00:25:58,689
+Remember that trick that we do. And here I'm gonna say
+
+490
+00:25:58,757 --> 00:26:02,259
+as of course, a document info view controller cuz that's
+
+491
+00:26:02,327 --> 00:26:04,628
+what it should be if the segue show document info,
+
+492
+00:26:04,697 --> 00:26:08,933
+it should be segue into this thing right here. Then we can
+
+493
+00:26:09,001 --> 00:26:13,170
+set our destination.document = document. And
+
+494
+00:26:13,239 --> 00:26:18,142
+you know what? I'm also going to update my thumbnail here,
+
+495
+00:26:18,210 --> 00:26:21,345
+so I'm gust gonna have my documents thumbnail updated to
+
+496
+00:26:21,413 --> 00:26:28,384
+be my emojiArtViews.snapshot. Okay just because I
+
+497
+00:26:28,453 --> 00:26:30,787
+might not have made a snapshot of my thumbnail since the last
+
+498
+00:26:30,856 --> 00:26:33,357
+time I closed or whatever. I want it to be as up
+
+499
+00:26:33,425 --> 00:26:36,226
+to date as possible. So that's it.
+
+500
+00:26:36,294 --> 00:26:39,563
+We prepared it. It's a proper MVC with a model and
+
+501
+00:26:39,632 --> 00:26:41,432
+all that, so this should all work. Let's take a look.
+
+502
+00:26:48,173 --> 00:26:51,241
+Okay here we are so apple bee is right here. Here it is.
+
+503
+00:26:51,310 --> 00:26:55,112
+Let's inspect it. Looking good. There's our thumbnail.
+
+504
+00:26:55,180 --> 00:26:57,180
+The size is not 99 so it must have got that.
+
+505
+00:26:57,249 --> 00:27:01,317
+So it looks like we created this last week sometime.
+
+506
+00:27:01,386 --> 00:27:04,621
+So that all looks good. We can return to document, but
+
+507
+00:27:04,690 --> 00:27:05,823
+there's a little bit of a problem here.
+
+508
+00:27:05,891 --> 00:27:09,492
+Let's go look at Space Dog. We got Space dog right here,
+
+509
+00:27:09,561 --> 00:27:14,030
+let's inspect that. Space Dog got smooshed, because we have
+
+510
+00:27:14,099 --> 00:27:18,068
+this fixed aspect ratio in our storyboard, and we don't want
+
+511
+00:27:18,137 --> 00:27:21,371
+that, we want the aspect ratio of this to be equal to
+
+512
+00:27:21,440 --> 00:27:25,709
+the aspect ratio of the image. Now how are we gonna do that?
+
+513
+00:27:25,778 --> 00:27:29,212
+Well, we're gonna do something very similar to what we did
+
+514
+00:27:29,281 --> 00:27:33,083
+when we had the size hooked up, but unfortunately it's
+
+515
+00:27:33,151 --> 00:27:36,253
+a little more difficult with aspect ratio so I'm gonna go
+
+516
+00:27:36,321 --> 00:27:40,424
+over here to our story board. And I'm gonna bring out my
+
+517
+00:27:40,492 --> 00:27:44,194
+document outline and then I'm gonna bring up my MVC
+
+518
+00:27:44,263 --> 00:27:48,365
+over here, and I'm gonna create a outlet
+
+519
+00:27:48,433 --> 00:27:51,634
+to this thumbnail image views constraint, which is
+
+520
+00:27:51,703 --> 00:27:56,773
+the aspect ratio here that we put, so that I can control it,
+
+521
+00:27:56,842 --> 00:27:58,742
+but I'm gonna have to control it a little differently, so
+
+522
+00:27:58,811 --> 00:28:03,514
+this is an outlet I'm gonna call my thumbnailAspectRatio.
+
+523
+00:28:04,984 --> 00:28:08,151
+There it is. And when we did the size and
+
+524
+00:28:08,220 --> 00:28:11,121
+width, if you'll remember, we just took the constraint and
+
+525
+00:28:11,190 --> 00:28:14,824
+we set it to constant to be different, right? That doesn't
+
+526
+00:28:14,893 --> 00:28:19,863
+work for aspect ratio, because aspect ratio is a multiplier.
+
+527
+00:28:19,932 --> 00:28:23,733
+If we go look at aspect ratio in inspector over here,
+
+528
+00:28:23,802 --> 00:28:26,403
+so i'm gonna select Aspect Ratio, here's the constraint
+
+529
+00:28:26,472 --> 00:28:29,406
+in the Inspector. You'll see that it's constant is actually
+
+530
+00:28:29,475 --> 00:28:33,643
+zero and it's Multiplier that is causing the Aspect Ratio,
+
+531
+00:28:33,712 --> 00:28:37,247
+and in fact, a Aspect Ratio Constraint is nothing more
+
+532
+00:28:37,315 --> 00:28:41,084
+than a relationship between a view's width In its height
+
+533
+00:28:41,153 --> 00:28:44,488
+using this multiplier. Its not a special constraint,
+
+534
+00:28:44,556 --> 00:28:46,990
+its just a normal constraint that uses this multiplier to
+
+535
+00:28:47,059 --> 00:28:50,193
+relate the width and height of the view.
+
+536
+00:28:50,262 --> 00:28:54,464
+The problem here is that multiplier is read only.
+
+537
+00:28:54,533 --> 00:28:58,134
+It's not like like constant where you can set it and
+
+538
+00:28:58,203 --> 00:29:01,604
+adjust to it versus read only. So if we want to change this
+
+539
+00:29:01,673 --> 00:29:04,941
+we have to change the entire constraint. We have to create
+
+540
+00:29:05,010 --> 00:29:08,344
+a new constraint with that multiplier and replace it.
+
+541
+00:29:08,413 --> 00:29:11,147
+So this is a great opportunity to show you
+
+542
+00:29:11,216 --> 00:29:13,216
+how to set constraints on views, and
+
+543
+00:29:13,285 --> 00:29:15,318
+how to remove constraints on views, and
+
+544
+00:29:15,387 --> 00:29:18,588
+how to create constraints with initializer all in one nice
+
+545
+00:29:18,656 --> 00:29:21,558
+little example here, so that's what we're gonna do. Let's
+
+546
+00:29:21,626 --> 00:29:25,895
+go back to here, go back to our document info here. This
+
+547
+00:29:25,964 --> 00:29:28,598
+is where I just added this aspect ratio right here and
+
+548
+00:29:28,666 --> 00:29:32,102
+then here where I set the thumbnail, I want this aspect
+
+549
+00:29:32,170 --> 00:29:35,539
+ratio to be replaced with one that is correct for
+
+550
+00:29:35,607 --> 00:29:38,675
+this thumbnail. So, the first thing I'm gonna do is I'm
+
+551
+00:29:38,743 --> 00:29:41,845
+gonna remove the existing ones. So, I'm going to ask my
+
+552
+00:29:41,913 --> 00:29:45,716
+thumbnail image view to remove the constraint on itself,
+
+553
+00:29:45,784 --> 00:29:50,687
+which is the thumbnail aspect ratio. That's the one
+
+554
+00:29:50,756 --> 00:29:52,755
+from the storyboard. So remove the one from the storyboard.
+
+555
+00:29:52,824 --> 00:29:56,760
+I better also check to make sure that that is not nil.
+
+556
+00:29:59,531 --> 00:30:03,099
+Oops. Not equal nil, just cuz I don't wanna crash
+
+557
+00:30:03,168 --> 00:30:06,569
+inside here. So that's good. So that's the first step.
+
+558
+00:30:06,638 --> 00:30:09,306
+Remove the constraints. Now let's create a new constraint
+
+559
+00:30:09,375 --> 00:30:10,607
+with the right aspect ratio.
+
+560
+00:30:10,676 --> 00:30:12,575
+So this is how you create a constraint in the code.
+
+561
+00:30:12,644 --> 00:30:13,877
+There's actually two ways.
+
+562
+00:30:13,946 --> 00:30:16,146
+You can use this initializer. Believe it or not,
+
+563
+00:30:16,214 --> 00:30:19,049
+there's another way where you can specify using kind of
+
+564
+00:30:19,117 --> 00:30:22,952
+ASCII art. Where you make these ASCII strings
+
+565
+00:30:23,021 --> 00:30:24,087
+that have some rules, and
+
+566
+00:30:24,156 --> 00:30:27,056
+you almost make it look like your constraints Art, kind of
+
+567
+00:30:27,125 --> 00:30:29,593
+artistically presented. I'm not gonna show that,
+
+568
+00:30:29,661 --> 00:30:31,628
+it's really cool, but I don't have time to show it, but
+
+569
+00:30:31,697 --> 00:30:34,197
+it's something worth looking at in the documentation where
+
+570
+00:30:34,266 --> 00:30:35,899
+you can do things like pin things to the edges,
+
+571
+00:30:35,967 --> 00:30:36,934
+make things centered,
+
+572
+00:30:37,002 --> 00:30:39,302
+have things have relationships to other boundaries,
+
+573
+00:30:39,370 --> 00:30:43,206
+all using this, these like this really concise ASCII art.
+
+574
+00:30:43,274 --> 00:30:45,909
+But here we're gonna use the constructor to create a new
+
+575
+00:30:45,978 --> 00:30:49,412
+thumbnail aspect ratio and the constructor looks like this.
+
+576
+00:30:49,481 --> 00:30:52,882
+So it's NSLayoutConstraint, that's the class of
+
+577
+00:30:52,951 --> 00:30:56,352
+a constraint. And here is it's constructor right here, this
+
+578
+00:30:56,421 --> 00:31:00,323
+first one. I'm gonna, it's got so many arguments, I'm gonna
+
+579
+00:31:00,392 --> 00:31:05,828
+do my trick here. So you can see them all clearly. And
+
+580
+00:31:05,897 --> 00:31:09,499
+this all line up, you probably already starting to recognize
+
+581
+00:31:09,568 --> 00:31:11,033
+them as you look at this.
+
+582
+00:31:11,102 --> 00:31:13,669
+These are all perfectly lined up with,
+
+583
+00:31:13,738 --> 00:31:18,308
+back here in the storyboard when we selected this and
+
+584
+00:31:18,377 --> 00:31:21,744
+inspected it. Look, see these things? First item relation,
+
+585
+00:31:21,813 --> 00:31:24,881
+second item constant priority multiplier. Those are exactly
+
+586
+00:31:24,950 --> 00:31:28,818
+the same things we are seeing over here when we are creating
+
+587
+00:31:28,887 --> 00:31:32,589
+one. Items, second items, relationships, multiplier,
+
+588
+00:31:32,657 --> 00:31:35,659
+the same things. So we're just setting them in code here.
+
+589
+00:31:35,727 --> 00:31:38,561
+Now remember I said these aspect ratio is a relationship
+
+590
+00:31:38,630 --> 00:31:41,364
+between the thumbnailing, which fills width and
+
+591
+00:31:41,433 --> 00:31:42,632
+its height. Right?
+
+592
+00:31:42,701 --> 00:31:47,470
+So the two items involved are both the thumbnail image view.
+
+593
+00:31:47,539 --> 00:31:49,873
+So that's that one and the two item.
+
+594
+00:31:49,942 --> 00:31:54,177
+Thumbnail image view. But the attributes of the first one
+
+595
+00:31:54,246 --> 00:31:57,848
+here is the width and we're setting it actually to be
+
+596
+00:31:57,916 --> 00:32:02,085
+equal to the height with this multiplier. So
+
+597
+00:32:02,153 --> 00:32:04,253
+it's equal as the relationship between the two but
+
+598
+00:32:04,322 --> 00:32:07,823
+the multiplier gets the count in there. And of course that's
+
+599
+00:32:07,892 --> 00:32:10,927
+related to the height. And the here's the multiplier we want
+
+600
+00:32:10,996 --> 00:32:14,664
+which is just the thumbnail.size.width divided
+
+601
+00:32:14,732 --> 00:32:19,135
+by the thumbnails.size.height. And
+
+602
+00:32:19,204 --> 00:32:22,205
+constant as you remember from the inspector in storyboard
+
+603
+00:32:22,273 --> 00:32:25,108
+is zero. We're not doing any constant manipulation of it,
+
+604
+00:32:25,176 --> 00:32:27,176
+just this multiplier between the width and height.
+
+605
+00:32:27,245 --> 00:32:29,646
+So this is what it looks like to create a layout constraint.
+
+606
+00:32:29,715 --> 00:32:31,614
+And of course these don't have to be the same view,
+
+607
+00:32:31,683 --> 00:32:34,250
+they could be relationship between two same, two views.
+
+608
+00:32:34,319 --> 00:32:38,087
+We could make their widths the same or whatever. So,
+
+609
+00:32:38,156 --> 00:32:40,691
+now that's we've created this new constraint let's add it
+
+610
+00:32:40,759 --> 00:32:42,892
+to the thumbnail image view as a constraint.
+
+611
+00:32:42,961 --> 00:32:52,435
+You add a constraint with addConstraint. So that's it.
+
+612
+00:32:52,504 --> 00:32:54,538
+So let's go take a look and see if that fixed our problem.
+
+613
+00:33:02,580 --> 00:33:05,248
+Here we go, let's go to the space dog again cause
+
+614
+00:33:05,316 --> 00:33:08,318
+it is that have the problem and we inspect and whoa, its
+
+615
+00:33:08,387 --> 00:33:12,155
+still width is limited, but it got the right aspect ratio.
+
+616
+00:33:12,224 --> 00:33:14,157
+And it's got the size there, 661 and
+
+617
+00:33:14,226 --> 00:33:19,428
+all that. Now, one other thing I want us to notice here is
+
+618
+00:33:19,497 --> 00:33:23,366
+this big white space doesn't look that good on iPad. So
+
+619
+00:33:23,435 --> 00:33:28,771
+let's go do what I said over here and use the presentation
+
+620
+00:33:28,840 --> 00:33:32,942
+style here. Where's the thing here.
+
+621
+00:33:33,011 --> 00:33:37,680
+Let's go here to that. I will zoom out for
+
+622
+00:33:37,749 --> 00:33:42,752
+you. Let's go select this segue. I'll go over here and
+
+623
+00:33:42,821 --> 00:33:46,556
+change it to be presentation style form sheet.
+
+624
+00:33:46,625 --> 00:33:48,592
+Okay And this is what is kinda gonna look like.
+
+625
+00:33:48,660 --> 00:33:50,093
+One thing that's cool about the story board is it
+
+626
+00:33:50,162 --> 00:33:52,795
+will preview a lot of stuff that you pick.
+
+627
+00:33:52,864 --> 00:33:55,332
+So it's gonna be a little better here cuz little less
+
+628
+00:33:55,400 --> 00:33:57,534
+white space going on. So we'll see what that looks like.
+
+629
+00:34:04,576 --> 00:34:06,342
+So here we go, space dog here,
+
+630
+00:34:06,411 --> 00:34:10,480
+inspect. That looks a little nicer. It's still not awesome.
+
+631
+00:34:10,548 --> 00:34:12,882
+It probably be better in a pop over which we're gonna do
+
+632
+00:34:12,951 --> 00:34:17,387
+next. But, it's a little nicer. Note that I can't click
+
+633
+00:34:17,456 --> 00:34:19,622
+on the background like a pop over to get out of here.
+
+634
+00:34:19,691 --> 00:34:21,724
+I still need return to document. And
+
+635
+00:34:21,793 --> 00:34:22,525
+also, while we're here,
+
+636
+00:34:22,594 --> 00:34:25,462
+let's take a look what this looks like on an iPhone.
+
+637
+00:34:25,530 --> 00:34:28,064
+Because an iPhone we can't do form sheet, but
+
+638
+00:34:28,133 --> 00:34:31,067
+I promised you that iOS would automatically adapt and
+
+639
+00:34:31,136 --> 00:34:36,006
+it will. So here we go. Let's bring up Space Dog here.
+
+640
+00:34:36,074 --> 00:34:38,942
+Here it is. Inspect and you can see it adapted by doing
+
+641
+00:34:39,011 --> 00:34:44,180
+full screen instead. All right.
+
+642
+00:34:44,249 --> 00:34:48,785
+Let's get back to our slides and talk about Popover.
+
+643
+00:34:52,390 --> 00:34:56,326
+So popover is really just another way of doing modal.
+
+644
+00:34:56,394 --> 00:34:58,295
+It just looks quite different and
+
+645
+00:34:58,363 --> 00:35:00,863
+it has more configuration to it. That's really all that's
+
+646
+00:35:00,932 --> 00:35:03,633
+going on with popover. So here's a popover happening
+
+647
+00:35:03,701 --> 00:35:06,236
+right here. You can see it's got this "Search for
+
+648
+00:35:06,304 --> 00:35:10,674
+Appointment" MVC that's appearing there. And
+
+649
+00:35:10,742 --> 00:35:13,443
+that's an entirely different MVC and it is actually being
+
+650
+00:35:13,512 --> 00:35:16,012
+shown modally cuz you can't do anything else on this screen
+
+651
+00:35:16,081 --> 00:35:18,982
+right now, except for interact without MVC. But you can
+
+652
+00:35:19,050 --> 00:35:21,551
+see that the rest of the UI is just kinda grayed out, so
+
+653
+00:35:21,619 --> 00:35:24,820
+it doesn't cover it all up, it just grades it out here.
+
+654
+00:35:24,889 --> 00:35:27,357
+Notice that the Popover has a little arrow at the top,
+
+655
+00:35:27,426 --> 00:35:28,391
+a little triangle.
+
+656
+00:35:28,460 --> 00:35:33,296
+That thing is pointing to what cause this Popover to come up.
+
+657
+00:35:33,364 --> 00:35:36,699
+The thing that segwayed that caused the Segway to happen
+
+658
+00:35:36,768 --> 00:35:40,469
+there that often is bar button item or button item but
+
+659
+00:35:40,538 --> 00:35:44,073
+it also can be any arbitrary rectangle in any view. And
+
+660
+00:35:44,142 --> 00:35:45,308
+why would you want that?
+
+661
+00:35:45,376 --> 00:35:48,277
+Let's say you have a text editor, you select a word, and
+
+662
+00:35:48,346 --> 00:35:51,181
+you do some UI that says, show me the dictionary definition
+
+663
+00:35:51,249 --> 00:35:54,050
+of this, and you pop that up in a popover. Well you would
+
+664
+00:35:54,119 --> 00:35:56,552
+want that popover's arrow to point at the word.
+
+665
+00:35:56,621 --> 00:35:59,890
+Right, so you need to be able to have arbitrary rectangles.
+
+666
+00:36:01,392 --> 00:36:05,528
+Now notice that the grayed area in the background,
+
+667
+00:36:05,597 --> 00:36:08,364
+while you can't interact with it, you can touch on it and
+
+668
+00:36:08,433 --> 00:36:11,300
+when you do, that dismisses the popover.
+
+669
+00:36:11,369 --> 00:36:13,903
+So popovers do not have cancel
+
+670
+00:36:13,972 --> 00:36:16,806
+buttons. They don't need cancel buttons cause you can
+
+671
+00:36:16,874 --> 00:36:19,442
+always just click on the background to cancel them.
+
+672
+00:36:19,511 --> 00:36:22,212
+That's why we went to be very careful to the alert and
+
+673
+00:36:22,281 --> 00:36:25,114
+action sheets to say which of our action items
+
+674
+00:36:25,183 --> 00:36:29,418
+were cancel buttons basically so they would know not to put
+
+675
+00:36:29,487 --> 00:36:32,722
+them in a view control like this.
+
+676
+00:36:34,692 --> 00:36:37,460
+All right, so like I said, popover is just the same as
+
+677
+00:36:37,529 --> 00:36:40,329
+modal, you create it the same way as well.
+
+678
+00:36:40,398 --> 00:36:44,534
+You can ctrl-drag to hook it up there. It's just that when
+
+679
+00:36:44,603 --> 00:36:47,537
+you connect it you say popover instead of present modally.
+
+680
+00:36:49,574 --> 00:36:53,910
+There's things you need to do or might want to do when you
+
+681
+00:36:53,978 --> 00:36:58,414
+prepare a popover however. So, the popover has got little
+
+682
+00:36:58,483 --> 00:37:00,750
+arrow. You might wanna make it point in the right direction.
+
+683
+00:37:00,819 --> 00:37:03,219
+You might wanna make a point at a little rectangle in
+
+684
+00:37:03,288 --> 00:37:06,356
+a view. You got to say where that is. You
+
+685
+00:37:06,424 --> 00:37:09,425
+might want to control how it adapts on iPhone because it
+
+686
+00:37:09,494 --> 00:37:10,260
+does adapt.
+
+687
+00:37:10,328 --> 00:37:12,828
+Because normally you don't have popovers on iPhones, but
+
+688
+00:37:12,897 --> 00:37:15,565
+you still want to have single code like we showed with
+
+689
+00:37:15,633 --> 00:37:18,101
+alert and action sheet, that does the popover stuff, and
+
+690
+00:37:18,169 --> 00:37:21,170
+it just adapts and does full screen on the iPhone.
+
+691
+00:37:21,239 --> 00:37:23,739
+So you can control that with the popover. And the way
+
+692
+00:37:23,808 --> 00:37:26,342
+you do all of these is through a mechanism that's built in to
+
+693
+00:37:26,411 --> 00:37:30,213
+iOS called presentation controllers. So, all segues
+
+694
+00:37:30,282 --> 00:37:32,482
+are managed what's called a presentation controller,
+
+695
+00:37:32,551 --> 00:37:34,951
+which I'm not gonna talk about at all. However,
+
+696
+00:37:35,020 --> 00:37:38,387
+popovers controller which you call UIpopover presentation
+
+697
+00:37:38,456 --> 00:37:41,424
+controller is the place you want to reach into when you're
+
+698
+00:37:41,493 --> 00:37:43,993
+preparing to do these things,
+
+699
+00:37:44,061 --> 00:37:46,896
+set the triangle, the little arrow where it points,
+
+700
+00:37:46,965 --> 00:37:51,134
+do anything with the adapting mechanism, etcetera. So
+
+701
+00:37:51,202 --> 00:37:52,868
+let's look what that looks like. So here's a prepare for
+
+702
+00:37:52,937 --> 00:37:56,705
+segue, for a popover, and everything's the same
+
+703
+00:37:56,774 --> 00:37:59,542
+on the green code, all the way until the yellow line of code.
+
+704
+00:37:59,611 --> 00:38:01,077
+That's where things get different. And
+
+705
+00:38:01,146 --> 00:38:03,813
+here what I'm doing is I'm asking the view controller
+
+706
+00:38:03,882 --> 00:38:04,713
+that I'm presenting,
+
+707
+00:38:04,782 --> 00:38:08,284
+for it's popover presentation controller. This will be nill,
+
+708
+00:38:08,352 --> 00:38:11,187
+if this is not a popover presentation, but if it is
+
+709
+00:38:11,255 --> 00:38:14,123
+a popover presentation, then I can configure the popover.
+
+710
+00:38:14,192 --> 00:38:16,793
+For example, saying the permitted arrow direction or
+
+711
+00:38:16,861 --> 00:38:19,462
+saying, which rectangle in the text I want.
+
+712
+00:38:19,530 --> 00:38:24,267
+Or, as you can see down here, setting it's delegate. So
+
+713
+00:38:24,336 --> 00:38:28,304
+setting the delegate is how we control adapting behavior.
+
+714
+00:38:28,373 --> 00:38:33,142
+How the io, how iOS adapts to trying to present a popover
+
+715
+00:38:33,211 --> 00:38:37,813
+on an iPhone. So let's talk a little bit about adapting and
+
+716
+00:38:37,882 --> 00:38:41,717
+how that works here. It's really great because you can
+
+717
+00:38:41,786 --> 00:38:44,320
+then write your code to just work with popovers and
+
+718
+00:38:44,389 --> 00:38:45,522
+it just automatically work in iPhone,
+
+719
+00:38:45,590 --> 00:38:48,558
+you don't have to put a lot of, if device idiom is iPad,
+
+720
+00:38:48,627 --> 00:38:54,363
+then do this. So it's really nice for that. So what happens
+
+721
+00:38:54,432 --> 00:38:57,400
+here is that when the popover is presented in a horizontally
+
+722
+00:38:57,469 --> 00:39:00,002
+compact environment you'll know which one those are.
+
+723
+00:39:00,071 --> 00:39:03,573
+That's an iPhone basically in either landscape or portrait.
+
+724
+00:39:03,641 --> 00:39:06,809
+iPhone+ in portrait. In that kind of environment it
+
+725
+00:39:06,878 --> 00:39:10,613
+adapts by switching from popover to full screen. But
+
+726
+00:39:10,682 --> 00:39:14,784
+you can stop that if you want by setting the delegate
+
+727
+00:39:14,852 --> 00:39:17,420
+like I showed on previous slide then implementing
+
+728
+00:39:17,489 --> 00:39:20,623
+this delegate method called adapter presentation style for
+
+729
+00:39:20,691 --> 00:39:25,227
+controller trait collection and its. Essentially asking
+
+730
+00:39:25,296 --> 00:39:28,531
+you, asking the delegate. I'm about to present this thing
+
+731
+00:39:28,599 --> 00:39:31,734
+with this trade collection. Like, horizontally compact,
+
+732
+00:39:31,803 --> 00:39:35,805
+right. And I, what modal presentations that you would
+
+733
+00:39:35,873 --> 00:39:39,309
+like me to do? I'm by default, I'll do popover on iPad or
+
+734
+00:39:39,377 --> 00:39:43,512
+a non-horizontally compact Places and then I'll do
+
+735
+00:39:43,581 --> 00:39:46,782
+full screen, not over screen, full screen on horizontally
+
+736
+00:39:46,851 --> 00:39:49,352
+compact, that's the default. Well, you can intercede here,
+
+737
+00:39:49,421 --> 00:39:53,589
+say no, no, no I want you to adapt to none. In other words,
+
+738
+00:39:53,658 --> 00:39:57,860
+don't adapt. When I say return UIModalPresentationStyle.none,
+
+739
+00:39:57,928 --> 00:40:00,363
+it says do not adapt in any place.
+
+740
+00:40:00,431 --> 00:40:04,333
+That means, put it as a popover on the iPhone. So
+
+741
+00:40:04,402 --> 00:40:06,168
+this is how you can make it not adapt, and
+
+742
+00:40:06,237 --> 00:40:08,137
+thus use a popover on an iPhone.
+
+743
+00:40:08,206 --> 00:40:11,073
+Which you sometimes want if the popover's kinda small, and
+
+744
+00:40:11,142 --> 00:40:14,844
+will fit nicely, you would want this. As an alternative
+
+745
+00:40:14,913 --> 00:40:19,015
+to this, let's say you really, the popover is big and
+
+746
+00:40:19,083 --> 00:40:22,018
+it won't fit, then you can use this delegate method. And
+
+747
+00:40:22,086 --> 00:40:24,921
+what this delegate method does, is allow you
+
+748
+00:40:24,989 --> 00:40:30,527
+to return a different MVC to show an iPhone.
+
+749
+00:40:30,595 --> 00:40:33,463
+Now why would you want to return a different MVC?
+
+750
+00:40:33,531 --> 00:40:35,531
+It's not because you want a different content MVC.
+
+751
+00:40:35,600 --> 00:40:40,069
+I still want my document info view controller.
+
+752
+00:40:40,137 --> 00:40:41,470
+I still want it to be in there, but
+
+753
+00:40:41,539 --> 00:40:43,973
+maybe I wanna wrap it in a navigation controller, so
+
+754
+00:40:44,042 --> 00:40:46,909
+I can put a Cancel button on the top. Because when it
+
+755
+00:40:46,978 --> 00:40:48,845
+comes up full screen, I have to be able to cancel it,
+
+756
+00:40:48,913 --> 00:40:51,815
+unlike in popover. You see the difference? So
+
+757
+00:40:51,883 --> 00:40:53,783
+I can have exactly the same view controller,
+
+758
+00:40:53,852 --> 00:40:56,652
+my document info view controller. And here from this
+
+759
+00:40:56,721 --> 00:40:59,322
+method view controller for adapter presentation style,
+
+760
+00:40:59,390 --> 00:41:02,325
+I'm gonna return a navigation controller whose root view
+
+761
+00:41:02,394 --> 00:41:04,994
+controller is my document view controller, and
+
+762
+00:41:05,063 --> 00:41:08,864
+I've added a Cancel button to it. Make sense?
+
+763
+00:41:08,933 --> 00:41:12,401
+This is a way to go ahead and let it adapt on iPhone, but
+
+764
+00:41:12,470 --> 00:41:16,372
+get involved a little bit and control what, how the MVC is
+
+765
+00:41:16,441 --> 00:41:21,076
+presented. Another important popover
+
+766
+00:41:21,145 --> 00:41:24,747
+issue is its size. By default, the popover's gonna come over,
+
+767
+00:41:24,815 --> 00:41:27,450
+come up at a kind of fixed size. It's about the width of
+
+768
+00:41:27,519 --> 00:41:31,120
+an iPhone, to maybe two-thirds the height of most screens,
+
+769
+00:41:31,188 --> 00:41:34,824
+but it's almost never what you want. You want the popover
+
+770
+00:41:34,893 --> 00:41:37,226
+to come up and be as small as possible, right,
+
+771
+00:41:37,295 --> 00:41:41,097
+to fit your UI. And so you do that with this var
+
+772
+00:41:41,165 --> 00:41:43,466
+in your view controller, the one that's being presented,
+
+773
+00:41:43,535 --> 00:41:46,602
+called preferred content size. And it just returns the size
+
+774
+00:41:46,670 --> 00:41:50,606
+that this view controller likes to be. The size it wants
+
+775
+00:41:50,675 --> 00:41:53,976
+to be in a popover. And I'm gonna show you in the demo
+
+776
+00:41:54,045 --> 00:41:58,414
+here how we can calculate that minimum size using auto
+
+777
+00:41:58,482 --> 00:42:00,583
+layout. Cuz that's really what we really wanna do.
+
+778
+00:42:00,652 --> 00:42:06,021
+We wanna fit the stuff that's in our UI using auto layout.
+
+779
+00:42:06,090 --> 00:42:09,658
+So this is a very important var to either set or override,
+
+780
+00:42:09,727 --> 00:42:10,693
+one or the other.
+
+781
+00:42:10,762 --> 00:42:12,895
+All right, so let's do that.
+
+782
+00:42:12,964 --> 00:42:16,132
+Let's go ahead and make a nice little popover version.
+
+783
+00:42:16,201 --> 00:42:19,535
+I, what I'm going to do here is go back to emoji art and do
+
+784
+00:42:19,603 --> 00:42:23,773
+the exact same thing that we did before, with this little
+
+785
+00:42:23,842 --> 00:42:27,309
+Info button that appears, whoops, over here. But I'm
+
+786
+00:42:27,378 --> 00:42:31,013
+gonna add another button that does the same thing, same MVC,
+
+787
+00:42:31,082 --> 00:42:34,483
+but in a popover. So you can see them side by side. And
+
+788
+00:42:34,552 --> 00:42:38,120
+I'm gonna use the exact same MVC to do that. They're gonna
+
+789
+00:42:38,189 --> 00:42:42,291
+completely share the code. All right, so how do we do this?
+
+790
+00:42:42,359 --> 00:42:44,860
+Really easily, I'm gonna go get another var button item.
+
+791
+00:42:44,929 --> 00:42:47,930
+Put it up here next to the inspect. We'll call this one
+
+792
+00:42:47,998 --> 00:42:51,633
+inspect, we'll call it pop. Cuz it's gonna pop over and
+
+793
+00:42:51,702 --> 00:42:54,571
+I'm just gonna control drag from it to this exact MVC
+
+794
+00:42:54,639 --> 00:42:57,272
+right here. And instead of present modally,
+
+795
+00:42:57,341 --> 00:43:01,276
+I'm gonna do present is popover. And here you can see
+
+796
+00:43:01,345 --> 00:43:03,345
+I can inspect this segue. Here's the old segue,
+
+797
+00:43:03,414 --> 00:43:06,282
+show document info. Here's the new one. You know what?
+
+798
+00:43:06,350 --> 00:43:09,485
+This popover, since I can tell whether it's a popover and
+
+799
+00:43:09,553 --> 00:43:12,488
+prepare, I'm gonna have the exact same identifier.
+
+800
+00:43:12,557 --> 00:43:15,424
+Show Document info, it's gonna do the same preparation.
+
+801
+00:43:15,493 --> 00:43:18,795
+We'll just put a little bit extra in there if we need
+
+802
+00:43:18,863 --> 00:43:21,330
+to control something that's popover. And look, even some
+
+803
+00:43:21,398 --> 00:43:24,800
+of these things like which arrow direction is allowed and
+
+804
+00:43:24,869 --> 00:43:27,203
+things like that can be set right here in the storyboard.
+
+805
+00:43:27,271 --> 00:43:30,106
+You don't even need to do it in your prepare. But
+
+806
+00:43:30,174 --> 00:43:31,774
+the delegate stuff we're adapting,
+
+807
+00:43:31,842 --> 00:43:34,177
+that we will need to do, and that I am going to show you.
+
+808
+00:43:36,347 --> 00:43:38,548
+So that did actually, it's all we need to do.
+
+809
+00:43:38,617 --> 00:43:40,383
+We already have a fully functioning MVC.
+
+810
+00:43:40,451 --> 00:43:43,252
+You can already see, it's not gonna be very pretty.
+
+811
+00:43:43,321 --> 00:43:45,654
+Look how big this popover is gonna be.
+
+812
+00:43:45,723 --> 00:43:47,823
+That's not gonna be nice. But let's go take a look,
+
+813
+00:43:47,892 --> 00:43:50,927
+let's go run it on iPad, see what we get.
+
+814
+00:43:57,669 --> 00:44:00,502
+All right, and our Apple Bee is right here.
+
+815
+00:44:00,571 --> 00:44:02,405
+Here's our old inspector, right?
+
+816
+00:44:02,473 --> 00:44:07,176
+Looking good, and here's our popover. Not looking great,
+
+817
+00:44:07,245 --> 00:44:12,214
+but not looking that bad. At least it's working, but
+
+818
+00:44:12,283 --> 00:44:15,184
+we don't want it to be this big. We want it to be
+
+819
+00:44:15,253 --> 00:44:19,088
+just big enough to fit all of this stuff, all right? So
+
+820
+00:44:19,157 --> 00:44:21,124
+to do that we obviously need the preferred content,
+
+821
+00:44:21,192 --> 00:44:23,125
+set the preferred content size, so let's do that.
+
+822
+00:44:23,194 --> 00:44:26,295
+Let's go to our document infield controller, and
+
+823
+00:44:26,363 --> 00:44:30,333
+have it essentially set its own preferred content size.
+
+824
+00:44:30,401 --> 00:44:36,238
+Now where is a good place to set one's own content size?
+
+825
+00:44:36,307 --> 00:44:39,041
+One good place is in viewDidLayoutSubviews
+
+826
+00:44:39,110 --> 00:44:42,211
+because remember the viewDidLayoutSubviews
+
+827
+00:44:42,280 --> 00:44:44,881
+is a place where we're sure that
+
+828
+00:44:44,949 --> 00:44:47,383
+geometry will work, right? This is where I encourage you
+
+829
+00:44:47,452 --> 00:44:50,586
+to put all your geometry-specific code.
+
+830
+00:44:50,655 --> 00:44:53,155
+So this is a pretty good place to put it here.
+
+831
+00:44:53,224 --> 00:44:56,191
+Our preferred size probably doesn't actually depend on our
+
+832
+00:44:56,260 --> 00:44:57,893
+geometry very much,
+
+833
+00:44:57,962 --> 00:45:00,563
+because we're just gonna do auto layout on our stack views
+
+834
+00:45:00,632 --> 00:45:04,033
+and see how they fit. But it can't hurt to put
+
+835
+00:45:04,102 --> 00:45:07,303
+stuff in here. It's as good a place as any probably.
+
+836
+00:45:07,372 --> 00:45:10,272
+Now how am I gonna calculate my preferred size?
+
+837
+00:45:10,341 --> 00:45:14,476
+Well, I'm actually going to go back to my storyboard here.
+
+838
+00:45:14,545 --> 00:45:17,480
+And what I'm gonna do is I'm gonna take this top level
+
+839
+00:45:17,548 --> 00:45:21,117
+stack view right here. See this stack view? And I'm going
+
+840
+00:45:21,185 --> 00:45:25,087
+to ask iOS, and I'm gonna show you how to do that. What's
+
+841
+00:45:25,155 --> 00:45:28,024
+the smallest you can be and still fit all these things,
+
+842
+00:45:28,092 --> 00:45:29,758
+and still obey all the constraints?
+
+843
+00:45:29,827 --> 00:45:31,360
+So that's what I'm gonna do. So to do that,
+
+844
+00:45:31,428 --> 00:45:34,663
+I actually need an outlet to this top level view.
+
+845
+00:45:34,732 --> 00:45:37,166
+So let's go ahead and create that outlet.
+
+846
+00:45:37,234 --> 00:45:41,570
+We'll just go down to our outlets all right here,
+
+847
+00:45:41,639 --> 00:45:46,409
+Ctrl+drag, call this our topLevelView. So
+
+848
+00:45:46,477 --> 00:45:51,380
+here's out topLevelView. And all I'm gonna do here,
+
+849
+00:45:51,449 --> 00:45:56,385
+I have to make full code size here. So
+
+850
+00:45:56,454 --> 00:46:01,090
+what I'm gonna do is I'm gonna use this really great UI view
+
+851
+00:46:01,159 --> 00:46:06,362
+method called size that fits in size. So
+
+852
+00:46:06,431 --> 00:46:08,397
+this is the method that you give it a size and
+
+853
+00:46:08,466 --> 00:46:12,001
+it will tell you what size best fits in that size. And
+
+854
+00:46:12,070 --> 00:46:14,503
+then there are two really cool sizes.
+
+855
+00:46:14,572 --> 00:46:17,039
+One is as small as possible and the other one is as big as
+
+856
+00:46:17,107 --> 00:46:20,009
+possible. Those are the two sizes you can give us.
+
+857
+00:46:20,078 --> 00:46:23,512
+So I'm gonna use the as small as possible size to do this.
+
+858
+00:46:23,580 --> 00:46:27,549
+So here's how it works. I'm gonna say if I can let
+
+859
+00:46:27,618 --> 00:46:32,888
+the fittedSize equal my topLevelView,
+
+860
+00:46:32,957 --> 00:46:36,592
+that top level stack view thing,
+
+861
+00:46:36,661 --> 00:46:40,596
+sizeThatFits and sizeThatFits and
+
+862
+00:46:40,665 --> 00:46:46,869
+the smallest possible size is UI layout, whoa,
+
+863
+00:46:46,937 --> 00:46:51,773
+there, UILayout fitting size. And you can see here
+
+864
+00:46:51,842 --> 00:46:54,610
+there are the two magic ones, expanded size and
+
+865
+00:46:54,679 --> 00:46:58,547
+compressed size. So compressed size is the one I want. And
+
+866
+00:46:58,616 --> 00:47:01,550
+this is essentially saying go do auto layout and
+
+867
+00:47:01,619 --> 00:47:05,087
+see the smallest possible sizes you can be. So if I'm
+
+868
+00:47:05,156 --> 00:47:09,424
+able to do that, which I'll be able to do if this is not nil,
+
+869
+00:47:09,493 --> 00:47:13,362
+if my outlet has been set here. Then l'm gonna set my
+
+870
+00:47:13,431 --> 00:47:17,833
+preferred content size equal to a CG size which is width of
+
+871
+00:47:17,901 --> 00:47:22,337
+that fitted size plus a little bit of padding. You know,
+
+872
+00:47:22,406 --> 00:47:25,040
+l want a little border. I don't want my popover
+
+873
+00:47:25,109 --> 00:47:28,710
+to be jammed right up against my UI. I want a little extra.
+
+874
+00:47:28,779 --> 00:47:31,680
+And of course there should be a constant, but it's a demo so
+
+875
+00:47:31,749 --> 00:47:34,349
+we won't do that. So here's the height is
+
+876
+00:47:34,418 --> 00:47:37,486
+the fittedSize.height plus some padding as well.
+
+877
+00:47:37,554 --> 00:47:39,021
+So I just wanna make a nice size.
+
+878
+00:47:39,090 --> 00:47:41,757
+So this is the size that I prefer to be, that I will,
+
+879
+00:47:41,826 --> 00:47:44,026
+I feel like I will look nice if I'm that size.
+
+880
+00:47:44,094 --> 00:47:46,629
+So let's see what happens when we run that.
+
+881
+00:47:50,701 --> 00:47:56,304
+Here again. Ready, cuz
+
+882
+00:47:56,373 --> 00:47:59,408
+there's our normal one, right, and now the popover one.
+
+883
+00:47:59,477 --> 00:48:02,711
+Woo hoo, it looks really, really good. It's very nice,
+
+884
+00:48:02,780 --> 00:48:07,750
+much nicer than the one that does the whole A document. And
+
+885
+00:48:07,819 --> 00:48:10,352
+in fact, let's go look. This is popover looks great.
+
+886
+00:48:10,421 --> 00:48:13,455
+Let's go make it look, see how it looks on the iPhone
+
+887
+00:48:13,524 --> 00:48:16,792
+just real quick. Make sure it's doing adapting, I
+
+888
+00:48:16,860 --> 00:48:19,461
+told you that in horizontally compact, it's gonna adapt.
+
+889
+00:48:19,530 --> 00:48:23,265
+So let's make it's doing what it's suppose to do. So
+
+890
+00:48:23,334 --> 00:48:27,336
+here we go, Apple Bees. Here's our Apple Bees. Let's go pop
+
+891
+00:48:27,404 --> 00:48:31,473
+over. It still worked. Looks nice. Didn't break anything
+
+892
+00:48:31,542 --> 00:48:34,076
+that we changed the preferred size or anything like that.
+
+893
+00:48:34,144 --> 00:48:36,979
+It's still working just great, but
+
+894
+00:48:37,048 --> 00:48:39,181
+we do have a little bit of a problem here.
+
+895
+00:48:39,249 --> 00:48:43,352
+All is not perfectly awesome in the world here, which is,
+
+896
+00:48:43,420 --> 00:48:46,888
+let's take a look at this on iPad again. And
+
+897
+00:48:46,957 --> 00:48:50,092
+we're gonna see that, it actually while it looks
+
+898
+00:48:50,161 --> 00:48:54,829
+pretty, it's not really very sensible, because why do I
+
+899
+00:48:54,898 --> 00:48:59,234
+have a thumbnail image, when I can see the image right there.
+
+900
+00:48:59,303 --> 00:49:01,436
+It doesn't really make sense to have thumbnail image here.
+
+901
+00:49:01,505 --> 00:49:04,640
+It made sense in this case over here, all right,
+
+902
+00:49:04,709 --> 00:49:06,442
+it makes sense here, cuz I'm blocking the image, and
+
+903
+00:49:06,511 --> 00:49:09,978
+so I wanna remind myself which one this is. But here,
+
+904
+00:49:10,047 --> 00:49:12,848
+it doesn't sense out there, so we shouldn't have that here.
+
+905
+00:49:12,917 --> 00:49:16,852
+Also, return to document. Yeah, but how about
+
+906
+00:49:16,920 --> 00:49:19,922
+just click over here, so I don't need return to document.
+
+907
+00:49:19,990 --> 00:49:22,191
+That's essentially a cancel button for this thing,
+
+908
+00:49:22,260 --> 00:49:24,726
+so I don't need that as well. And finally, I don't know if
+
+909
+00:49:24,795 --> 00:49:27,863
+you're able to see this with the screen resolution,
+
+910
+00:49:27,931 --> 00:49:30,732
+but do you see my triangle right up there? It's actually
+
+911
+00:49:30,801 --> 00:49:33,368
+a little bit see-through. It's kinda blurring the background,
+
+912
+00:49:33,437 --> 00:49:38,340
+but then I have stark hard white background here.
+
+913
+00:49:38,409 --> 00:49:39,625
+I wanna get rid of my hard white background, and
+
+914
+00:49:39,626 --> 00:49:40,842
+I don't want that,
+
+915
+00:49:40,911 --> 00:49:43,279
+have the whole thing be a little bit see-through.
+
+916
+00:49:43,347 --> 00:49:46,114
+It's a little softer, looks a little nicer,
+
+917
+00:49:46,183 --> 00:49:49,585
+it's less harsh to do that. So this background of this view
+
+918
+00:49:49,653 --> 00:49:52,254
+controller really should not be wide, it should be clear,
+
+919
+00:49:52,323 --> 00:49:56,092
+and let the blur of the pop up show behind. So I wanna make
+
+920
+00:49:56,160 --> 00:49:59,695
+these changes in my document view controller here.
+
+921
+00:49:59,764 --> 00:50:02,564
+So I'm gonna do this at the end of update UI.
+
+922
+00:50:02,633 --> 00:50:06,802
+I'm just gonna say here, if my presentation controller that's
+
+923
+00:50:06,871 --> 00:50:09,204
+a ,nope presentation controller,
+
+924
+00:50:09,273 --> 00:50:12,541
+that's the controller that brought me up.
+
+925
+00:50:12,610 --> 00:50:18,447
+If it is a UI pop over presentation controller,
+
+926
+00:50:18,516 --> 00:50:20,982
+then I'm gonna do some pop over specific stuff here.
+
+927
+00:50:21,051 --> 00:50:25,153
+Like I'm gonna have the thumbnail image view isHidden
+
+928
+00:50:25,222 --> 00:50:29,191
+= true. I'm gonna hide that image, I don't want that, and
+
+929
+00:50:29,260 --> 00:50:30,792
+also I'm gonna hide that return button.
+
+930
+00:50:30,861 --> 00:50:34,096
+So let's go back to our story board here, and make yet
+
+931
+00:50:34,165 --> 00:50:36,999
+another outlet. This outlet is going to be
+
+932
+00:50:37,067 --> 00:50:40,769
+to this return document button right here. Control drag,
+
+933
+00:50:40,838 --> 00:50:46,642
+I'm gonna call that, my returnToDocumentButton.
+
+934
+00:50:46,710 --> 00:50:50,278
+Back here. All right,
+
+935
+00:50:50,347 --> 00:50:54,382
+so I'm gonna have that return to document button.
+
+936
+00:50:54,451 --> 00:50:59,187
+It is hidden also true, and let's fix that background.
+
+937
+00:50:59,256 --> 00:51:04,860
+I'm gonna have my view.backgroundColor = .clear.
+
+938
+00:51:04,928 --> 00:51:08,531
+So I get that nice popover blur effect behind right
+
+939
+00:51:08,599 --> 00:51:10,966
+there, right? Let's see if that fixed everything,
+
+940
+00:51:11,035 --> 00:51:15,037
+that sure seemed simple. And this is kinda the wonder
+
+941
+00:51:15,106 --> 00:51:17,339
+of auto layout, is that we just hide those things and
+
+942
+00:51:17,408 --> 00:51:19,908
+then the rest of the stuff is just going to
+
+943
+00:51:19,977 --> 00:51:23,412
+form up around it, and use the auto layout. So here we go,
+
+944
+00:51:23,480 --> 00:51:27,515
+pop, look at that. I don't know if you can see the blur,
+
+945
+00:51:27,584 --> 00:51:30,252
+right there behind. So the apple, and
+
+946
+00:51:30,321 --> 00:51:31,553
+if I change that to the bee,
+
+947
+00:51:31,622 --> 00:51:34,589
+you'll see it's a little yellow there. So this is nice,
+
+948
+00:51:34,658 --> 00:51:36,958
+and also it's using very little space and
+
+949
+00:51:37,027 --> 00:51:40,128
+also giving me the information I need without any
+
+950
+00:51:40,197 --> 00:51:43,498
+stuff I don't need, like the return to document button. And
+
+951
+00:51:43,567 --> 00:51:47,303
+let's go see what happened on the iPhone, when we did that
+
+952
+00:51:47,371 --> 00:51:52,341
+though. Sometimes you got to pay when you make a change.
+
+953
+00:51:56,046 --> 00:51:59,348
+Here we go. All right, and pop.
+
+954
+00:52:01,585 --> 00:52:05,820
+That's not good. Well, what's happening here?
+
+955
+00:52:05,889 --> 00:52:09,491
+Why is this completely black? It is about the worst possible
+
+956
+00:52:09,560 --> 00:52:11,493
+thing that can happen, especially in iPhone X,
+
+957
+00:52:11,562 --> 00:52:14,296
+because the whole screen is black thing while it's white.
+
+958
+00:52:14,365 --> 00:52:17,432
+Okay so why is this happening? Well, we changed
+
+959
+00:52:17,501 --> 00:52:20,703
+the background color of that inventory to be clear. So
+
+960
+00:52:20,771 --> 00:52:25,140
+we are actually looking into the void here. Be careful to
+
+961
+00:52:25,208 --> 00:52:26,975
+get not closer to our device, it might suck us in there,
+
+962
+00:52:27,044 --> 00:52:29,978
+because this is absolute void, there's nothing behind there.
+
+963
+00:52:30,046 --> 00:52:33,348
+So that's not good. So we've kind of changed our popover.
+
+964
+00:52:33,417 --> 00:52:36,552
+Now, we could go and do the adopting thing,
+
+965
+00:52:36,620 --> 00:52:40,356
+where we fix on that you view controller up before
+
+966
+00:52:40,424 --> 00:52:42,124
+it presents, but I'm gonna do something else.
+
+967
+00:52:42,193 --> 00:52:44,960
+I'm gonna fix the adapting, so that it shows up popover on
+
+968
+00:52:45,028 --> 00:52:47,929
+iPhone, because now, that I've made that popover nice and
+
+969
+00:52:47,998 --> 00:52:50,900
+small, it'll fit beautifully on iPhone. So
+
+970
+00:52:50,968 --> 00:52:53,234
+let's go fix that. Let's make this adapt, so
+
+971
+00:52:53,303 --> 00:52:57,005
+that on iPhone, it still shows popover. So I'm gonna do that,
+
+972
+00:52:57,074 --> 00:53:00,176
+but going back here. This is my preparer right here.
+
+973
+00:53:00,244 --> 00:53:02,044
+This is where I prepare for both my segues,
+
+974
+00:53:02,113 --> 00:53:05,814
+both the popover segue and the other segue. So here,
+
+975
+00:53:05,883 --> 00:53:09,117
+when I'm doing my preparer, I just need to grab my popover
+
+976
+00:53:09,186 --> 00:53:12,254
+presentation controller, and set myself as its delegate, so
+
+977
+00:53:12,323 --> 00:53:13,988
+I can get involved in the adaptation.
+
+978
+00:53:14,057 --> 00:53:16,658
+So I'm gonna say, if I can let my popover presentation
+
+979
+00:53:16,727 --> 00:53:20,395
+controller equal the destination view controllers
+
+980
+00:53:20,464 --> 00:53:22,631
+popover presentation controller and again,
+
+981
+00:53:22,699 --> 00:53:25,300
+this will be mill if we're not popover. So it's not gonna
+
+982
+00:53:25,368 --> 00:53:29,638
+effect the molo one we have. No effect. This if let won't
+
+983
+00:53:29,707 --> 00:53:34,242
+happen. Then I'm gonna set the popover controllers delegate
+
+984
+00:53:34,311 --> 00:53:37,378
+equal to myself. And of course as soon as I do that,
+
+985
+00:53:37,447 --> 00:53:41,049
+now I need to say, yes, I'm a UIPopoverPresentationControll-
+
+986
+00:53:41,118 --> 00:53:44,385
+erDelegate. All the methods in there are optional, so
+
+987
+00:53:44,454 --> 00:53:47,055
+I successfully implement that protocol.
+
+988
+00:53:47,124 --> 00:53:49,325
+But I am gonna pick one to implement,
+
+989
+00:53:49,393 --> 00:53:50,793
+which is gonna be talked about in the slide,
+
+990
+00:53:50,861 --> 00:53:53,762
+which is the adaptive presentation style for
+
+991
+00:53:53,831 --> 00:53:58,334
+controller, traitCollection. So you can see it again right
+
+992
+00:53:59,436 --> 00:54:03,872
+here. So this again,
+
+993
+00:54:03,940 --> 00:54:07,342
+this is gonna be a popover PresentationController.
+
+994
+00:54:07,411 --> 00:54:09,912
+It's seen in a given TraitCollection.
+
+995
+00:54:09,980 --> 00:54:12,547
+Horizontally compact, for example, whatever.
+
+996
+00:54:12,616 --> 00:54:14,983
+What modal presentation style do you want me to use?
+
+997
+00:54:15,051 --> 00:54:19,287
+And the default is, for compact width full screen,
+
+998
+00:54:19,356 --> 00:54:21,356
+that's the default. So I'm gonna say, no,
+
+999
+00:54:21,425 --> 00:54:26,361
+I want you to do none. Presentation style none,
+
+1000
+00:54:26,430 --> 00:54:31,900
+which means don't adapt. The adaptation style is none.
+
+1001
+00:54:31,969 --> 00:54:35,270
+There is no adaptation style, cuz I don't want you to adapt.
+
+1002
+00:54:35,339 --> 00:54:38,273
+And that's gonna cause it to just continue to use popover,
+
+1003
+00:54:38,342 --> 00:54:39,841
+as it's presentation style.
+
+1004
+00:54:39,910 --> 00:54:42,011
+So let's go and look, see if that's fixed in on the iPhone.
+
+1005
+00:54:49,819 --> 00:54:53,789
+There we go, and, pop. All fixed.
+
+1006
+00:54:53,857 --> 00:54:57,960
+And this looks nice, even in landscape mode.
+
+1007
+00:55:00,931 --> 00:55:04,733
+And none of this broke this inspector. Even though it's
+
+1008
+00:55:04,801 --> 00:55:06,802
+using the exact same code, it's because there's no
+
+1009
+00:55:06,871 --> 00:55:08,837
+popover presentation controller involved there,
+
+1010
+00:55:08,906 --> 00:55:14,076
+so none of that code had any effect. All right, that's it.
+
+1011
+00:55:14,144 --> 00:55:23,251
+Let's get back to our slides here. The next segue
+
+1012
+00:55:23,320 --> 00:55:26,922
+way we're gonna talk about is unwind. The unwind segue.
+
+1013
+00:55:26,990 --> 00:55:31,126
+This is the only segue in iOS that does not create a new
+
+1014
+00:55:31,194 --> 00:55:34,496
+MVC. I just want to remind you that, all the empty segues
+
+1015
+00:55:34,564 --> 00:55:37,566
+we've talked about before, they always create a new MVC.
+
+1016
+00:55:37,634 --> 00:55:40,001
+Even showed detail in split view controller,
+
+1017
+00:55:40,070 --> 00:55:44,539
+replaces the detail with a new MVC. And certainly all
+
+1018
+00:55:44,608 --> 00:55:46,708
+the other navigation pushing on the stack.
+
+1019
+00:55:46,776 --> 00:55:49,210
+Modally, obviously create one and puts it up, but
+
+1020
+00:55:49,279 --> 00:55:52,214
+unwind does not, it's the only one that does that. And
+
+1021
+00:55:52,283 --> 00:55:54,683
+that's because, where unwind segues to,
+
+1022
+00:55:54,752 --> 00:55:57,118
+it segues to an existing view controller,
+
+1023
+00:55:57,187 --> 00:55:59,988
+that presented the current view controller,
+
+1024
+00:56:00,056 --> 00:56:02,858
+or indirectly presented it by presenting some other view
+
+1025
+00:56:02,926 --> 00:56:06,361
+controller that presented this one.. So what's this thing
+
+1026
+00:56:06,430 --> 00:56:09,931
+good for? Well, two things really. One, it's good for
+
+1027
+00:56:10,000 --> 00:56:13,702
+jumping back more than one step in a navigation
+
+1028
+00:56:13,770 --> 00:56:15,871
+controller. So you've got a navigation controller,
+
+1029
+00:56:15,939 --> 00:56:17,973
+you've pushed a bunch of cards on the stack,
+
+1030
+00:56:18,041 --> 00:56:21,643
+now you want to go back three or four cards in one jump.
+
+1031
+00:56:21,712 --> 00:56:25,146
+This is good for that. Another thing that's really good for
+
+1032
+00:56:25,215 --> 00:56:26,514
+or the other thing which is really good for
+
+1033
+00:56:26,583 --> 00:56:28,517
+is, what we talked about in the first slide
+
+1034
+00:56:28,585 --> 00:56:32,287
+today which is communicating back to its presenting view
+
+1035
+00:56:32,356 --> 00:56:36,391
+controller. Because by segueing back to its
+
+1036
+00:56:36,459 --> 00:56:40,462
+presenting view controller versus just dismissing itself,
+
+1037
+00:56:40,531 --> 00:56:43,731
+it's giving that view controller a chance
+
+1038
+00:56:43,800 --> 00:56:48,003
+to interact with it. All right. So how does this whole
+
+1039
+00:56:48,072 --> 00:56:52,106
+thing work? Instead of control dragging to create this MVC
+
+1040
+00:56:52,175 --> 00:56:54,976
+by control dragging to the MVC you wanna go back
+
+1041
+00:56:55,045 --> 00:56:57,478
+to. Instead you're gonna Ctrl Drag to this little red button
+
+1042
+00:56:57,547 --> 00:56:59,648
+at the top of the MVC you've probably seen this before,
+
+1043
+00:56:59,716 --> 00:57:01,082
+you've probably seen this before,
+
+1044
+00:57:01,151 --> 00:57:02,117
+this little right button,
+
+1045
+00:57:02,185 --> 00:57:04,119
+you probably wondered what the heck is that thing?
+
+1046
+00:57:04,188 --> 00:57:07,588
+And when you connect to that you're gonna get some choices.
+
+1047
+00:57:07,657 --> 00:57:10,759
+These choices are going to be a list of special methods that
+
+1048
+00:57:10,827 --> 00:57:12,694
+Xcode has found in your entire app.
+
+1049
+00:57:12,762 --> 00:57:15,163
+So it looks in your entire app and looks for
+
+1050
+00:57:15,232 --> 00:57:18,733
+these special methods and it lists them all here. And
+
+1051
+00:57:18,802 --> 00:57:22,036
+we're gonna talk about what makes that special and how you
+
+1052
+00:57:22,105 --> 00:57:25,940
+specify this special thing. So, that's how you set up
+
+1053
+00:57:26,009 --> 00:57:30,145
+an online segue. So, how does it do when it does from there?
+
+1054
+00:57:30,213 --> 00:57:34,383
+Ctrl Drag into there, and choosing a method there means,
+
+1055
+00:57:34,451 --> 00:57:38,453
+go Segue to some MVC that presented me or that presented
+
+1056
+00:57:38,522 --> 00:57:41,089
+someone who presented me, or all the way up this chain, who
+
+1057
+00:57:41,158 --> 00:57:45,994
+implements that method. IOS is gonna look at every single
+
+1058
+00:57:46,062 --> 00:57:49,097
+person, every single MVC they have presented you, until
+
+1059
+00:57:49,166 --> 00:57:52,133
+it finds one that implements the method you chose when you
+
+1060
+00:57:52,202 --> 00:57:55,670
+control dragged to that exit. If it doesn't find one,
+
+1061
+00:57:55,739 --> 00:58:00,041
+it won't Segue. And that's it, that's how Unwind Segue works.
+
+1062
+00:58:00,110 --> 00:58:01,810
+So let's look at the methods involved here.
+
+1063
+00:58:01,878 --> 00:58:04,646
+Here's the special method. That it looks for
+
+1064
+00:58:04,715 --> 00:58:08,016
+it to put in that menu. It has to have two things about it.
+
+1065
+00:58:08,085 --> 00:58:10,651
+One, at-time IBAction, if you don't put at-time
+
+1066
+00:58:10,720 --> 00:58:12,453
+IBAction in front of it, it won't work.
+
+1067
+00:58:12,522 --> 00:58:14,990
+Won't appear in the list, the little exit button. And
+
+1068
+00:58:15,059 --> 00:58:17,392
+number two, it has to have one, and only one,
+
+1069
+00:58:17,460 --> 00:58:20,262
+argument which has to be of type UIStoryboardSegue.
+
+1070
+00:58:20,330 --> 00:58:23,298
+So UIStoryboardSegue is the exact same type as the first
+
+1071
+00:58:23,366 --> 00:58:28,403
+argument to prepare for segue. And it has the destination
+
+1072
+00:58:28,472 --> 00:58:31,473
+View Controller. It also has the source View Controller
+
+1073
+00:58:31,542 --> 00:58:35,577
+in an unwind case. So it knows where you're unwinding from,
+
+1074
+00:58:35,646 --> 00:58:37,846
+that's the source and where you're unwinding to,
+
+1075
+00:58:37,915 --> 00:58:41,583
+that's the destination. So that's the only argument.
+
+1076
+00:58:41,652 --> 00:58:46,054
+So if you create that method, it will, in any VC, anywhere
+
+1077
+00:58:46,122 --> 00:58:50,859
+in your app, it will show up in the exit menu there. Now,
+
+1078
+00:58:50,928 --> 00:58:55,196
+let's talk about these two methods in the code there.
+
+1079
+00:58:55,265 --> 00:58:59,234
+You do get to prepare for an Unwind Segue. You do actually
+
+1080
+00:58:59,302 --> 00:59:02,737
+get prepare for segue called, for you, and you would be,
+
+1081
+00:59:02,806 --> 00:59:06,341
+maybe thinking that you would want to, get the destination,
+
+1082
+00:59:06,410 --> 00:59:10,044
+like you usually do, and call it public, API. But
+
+1083
+00:59:10,113 --> 00:59:12,814
+I actually recommend against this. And
+
+1084
+00:59:12,883 --> 00:59:17,151
+why is that? Because MVC's that you present
+
+1085
+00:59:17,220 --> 00:59:19,253
+are essentially part of your view, and
+
+1086
+00:59:19,322 --> 00:59:22,724
+you don't really want to know about them by name. Which you
+
+1087
+00:59:22,793 --> 00:59:24,493
+have to have here, because you have to say destination,
+
+1088
+00:59:24,561 --> 00:59:28,963
+as some MVC. So I kind of recommend against this,
+
+1089
+00:59:29,032 --> 00:59:32,934
+it a little bit violates MVC. So how do you have
+
+1090
+00:59:33,003 --> 00:59:37,672
+the unwinding segue talk to the MVC that presented it?
+
+1091
+00:59:37,741 --> 00:59:40,575
+Well, what you do is you have the one that presented it talk
+
+1092
+00:59:40,644 --> 00:59:44,912
+to it. And you can do that through that special method.
+
+1093
+00:59:44,981 --> 00:59:46,381
+Here's the special method.
+
+1094
+00:59:46,449 --> 00:59:49,851
+Go back, takes the segue as the argument. Has IB action.
+
+1095
+00:59:49,920 --> 00:59:52,054
+And in here, I'm looking at the source
+
+1096
+00:59:52,122 --> 00:59:54,656
+segue which is where we're unwinding from and
+
+1097
+00:59:54,725 --> 00:59:57,092
+getting something out of this public API.
+
+1098
+00:59:57,160 --> 01:00:01,129
+So in case of the contacts example, this would be asking
+
+1099
+01:00:01,197 --> 01:00:05,534
+the add contact MVC, okay what contact did you get? Which
+
+1100
+01:00:05,602 --> 01:00:08,303
+perfectly obeys MVC because when you present something,
+
+1101
+01:00:08,371 --> 01:00:12,674
+you're certainly allowed to talk to what you present. So
+
+1102
+01:00:12,743 --> 01:00:16,244
+that's how it works. Notice that when the unwind happens,
+
+1103
+01:00:16,312 --> 01:00:18,613
+the presented one gets dismissed.
+
+1104
+01:00:18,681 --> 01:00:20,549
+And will presently leave the heap.
+
+1105
+01:00:20,617 --> 01:00:25,119
+After this special method finishes. All right? So
+
+1106
+01:00:25,188 --> 01:00:27,989
+let's go and get demo of that. What are we gonna do for this?
+
+1107
+01:00:28,057 --> 01:00:30,959
+I'm gonna add a close document button to our inspectors.
+
+1108
+01:00:31,027 --> 01:00:33,628
+So all right, so we're inspecting the document, and
+
+1109
+01:00:33,697 --> 01:00:35,163
+what if I just wanna close it right away?
+
+1110
+01:00:35,232 --> 01:00:37,565
+Right now, I have to return to document and then hit done.
+
+1111
+01:00:37,634 --> 01:00:40,769
+But it'd be cool if I could just in the inspector say, eh,
+
+1112
+01:00:40,837 --> 01:00:43,471
+close this document, go right back to the document user.
+
+1113
+01:00:43,540 --> 01:00:46,474
+So that's what we're gonna do, I'm gonna go to my storyboard
+
+1114
+01:00:46,543 --> 01:00:48,910
+right here. And I'm just gonna,
+
+1115
+01:00:48,978 --> 01:00:51,446
+just to kind of give you an idea of what I'm doing here,
+
+1116
+01:00:51,515 --> 01:00:53,982
+I'm taking a button, I'm gonna put it right in here.
+
+1117
+01:00:54,051 --> 01:00:57,785
+This button is gonna be called close document.
+
+1118
+01:00:57,854 --> 01:01:01,756
+I'm gonna make it red, so it's clear that it somewhat
+
+1119
+01:01:01,825 --> 01:01:05,293
+destructive to doing this. And what I want this one to do,
+
+1120
+01:01:05,362 --> 01:01:07,495
+is close the document. Well, how am I gonna do that?
+
+1121
+01:01:07,564 --> 01:01:09,731
+Well, I'm gonna do it with unwind, so
+
+1122
+01:01:09,800 --> 01:01:12,934
+that means I wanna Ctrl Drag up to this little exit button
+
+1123
+01:01:13,003 --> 01:01:15,803
+up here. But if I Ctrl Drag to it now, in fact, let's do it
+
+1124
+01:01:15,872 --> 01:01:18,640
+you'll see that there's no choices. Look, Ctrl Drag and
+
+1125
+01:01:18,708 --> 01:01:22,243
+it won't even let me do it because there's nothing there.
+
+1126
+01:01:22,312 --> 01:01:24,412
+That's because I haven't created any of these special
+
+1127
+01:01:24,481 --> 01:01:25,914
+methods anywhere. So
+
+1128
+01:01:25,983 --> 01:01:28,617
+let's go over to our EmojiArtViewController and
+
+1129
+01:01:28,685 --> 01:01:31,452
+create one of those special methods here. I'm gonna call
+
+1130
+01:01:31,521 --> 01:01:35,623
+it, @IBaction gotta have that piece of it. I'm gonna call
+
+1131
+01:01:35,692 --> 01:01:39,194
+it, close(bySegue, is what's it's gonna be called and
+
+1132
+01:01:39,262 --> 01:01:42,364
+it's got to have the UIStoryboardSeque) as its only
+
+1133
+01:01:42,432 --> 01:01:45,901
+argument right here. This is the special method and
+
+1134
+01:01:45,969 --> 01:01:49,137
+it's a func. And what I'm gonna do inside here is,
+
+1135
+01:01:49,206 --> 01:01:53,675
+close. Close myself. Now, I could do other things in here,
+
+1136
+01:01:53,744 --> 01:01:58,947
+I could get the seg, this bySegue.source.
+
+1137
+01:01:59,016 --> 01:02:01,682
+This is the MVC that I'm unwinding from.
+
+1138
+01:02:01,751 --> 01:02:03,017
+I could go talk to it, whatever.
+
+1139
+01:02:03,086 --> 01:02:05,286
+I don't need to here, because I'm just gonna close,
+
+1140
+01:02:05,355 --> 01:02:08,456
+like just click. And of course, close is this method
+
+1141
+01:02:08,525 --> 01:02:11,726
+down here. It takes a bar button item as the argument.
+
+1142
+01:02:11,794 --> 01:02:13,962
+I'm gonna do the trick of making that optional and
+
+1143
+01:02:14,030 --> 01:02:19,033
+having it default to nil. That way I can say close(), and
+
+1144
+01:02:19,102 --> 01:02:22,971
+this will work. Now that I've created this special method.
+
+1145
+01:02:23,040 --> 01:02:25,406
+Now if I go back to my story board. And
+
+1146
+01:02:25,475 --> 01:02:30,412
+Ctrl Drag from this document button. Up to here.
+
+1147
+01:02:30,480 --> 01:02:32,814
+Woo hoo, there it is closeBySegue.
+
+1148
+01:02:32,883 --> 01:02:35,183
+Notice it kinda mangles the name a little bit.
+
+1149
+01:02:35,252 --> 01:02:38,953
+But there it is closeBySegue. I'm gonna click it. And now,
+
+1150
+01:02:39,022 --> 01:02:42,691
+when I click close button it's gonna search up the people who
+
+1151
+01:02:42,759 --> 01:02:45,326
+presented me looking for that. In this case,
+
+1152
+01:02:45,395 --> 01:02:47,962
+it's gonna find something because of course, our emoji
+
+1153
+01:02:48,031 --> 01:02:50,599
+art document is the one that presents this inspector.
+
+1154
+01:02:57,407 --> 01:02:59,407
+So here we go. We got apple bees. Right?
+
+1155
+01:02:59,476 --> 01:03:02,243
+So right now if we wanted to close the document.
+
+1156
+01:03:02,311 --> 01:03:05,479
+Right here. We have to click back here. Then click done.
+
+1157
+01:03:05,548 --> 01:03:09,084
+Bring it back. But now, we can just say, close this document.
+
+1158
+01:03:10,753 --> 01:03:13,020
+And it unwound to the emoji view controller,
+
+1159
+01:03:13,089 --> 01:03:16,657
+which closed itself. Same thing that at work in here,
+
+1160
+01:03:16,726 --> 01:03:20,095
+right? Unwind and notice that the unwind works both in
+
+1161
+01:03:20,163 --> 01:03:25,666
+popovers and it also works from modal presentation.
+
+1162
+01:03:25,735 --> 01:03:28,603
+All right? That's it for unwind,
+
+1163
+01:03:28,672 --> 01:03:31,706
+it's a really easy one. Let's go back to our slides.
+
+1164
+01:03:39,349 --> 01:03:42,483
+All right, the last Segue we're gonna talk about is,
+
+1165
+01:03:42,552 --> 01:03:45,820
+Embed Segue, alright? So an Embed Segue is
+
+1166
+01:03:45,889 --> 01:03:50,125
+really cool Segue. It allows you to take the self.view,
+
+1167
+01:03:50,193 --> 01:03:54,295
+the top of a view in a view controller, and put it
+
+1168
+01:03:54,364 --> 01:03:56,298
+inside the view hierarchy of another view controller.
+
+1169
+01:03:57,767 --> 01:04:00,568
+So it's essentially embedding one view controller, inside
+
+1170
+01:04:00,637 --> 01:04:04,438
+another. Okay, which is really a powerful encapsulation
+
+1171
+01:04:04,507 --> 01:04:07,108
+technique to be able to do that, because you could have
+
+1172
+01:04:07,177 --> 01:04:09,844
+a very complicated view inside your view controller,
+
+1173
+01:04:09,913 --> 01:04:13,147
+completely controlled by a full view controller suite,
+
+1174
+01:04:13,216 --> 01:04:15,149
+right? It has a model, it knows how to update its UI,
+
+1175
+01:04:15,218 --> 01:04:17,952
+it has outlets, everything. It's all over there
+
+1176
+01:04:18,021 --> 01:04:20,555
+controlling this view that's embedded in another view
+
+1177
+01:04:20,624 --> 01:04:23,791
+controller's view hierarchy. So it's super powerful.
+
+1178
+01:04:23,860 --> 01:04:27,862
+Xcode makes this super easy to do. You just go down to
+
+1179
+01:04:27,931 --> 01:04:30,731
+your utilities window. Same place you drag out a button or
+
+1180
+01:04:30,800 --> 01:04:33,100
+whatever, you drag out what's called a container view.
+
+1181
+01:04:33,169 --> 01:04:34,669
+So just search for container and
+
+1182
+01:04:34,737 --> 01:04:37,939
+you'll find it. You drag that out, and when you do,
+
+1183
+01:04:38,008 --> 01:04:41,142
+it's gonna automatically create this embed segue.
+
+1184
+01:04:41,211 --> 01:04:44,512
+You see how it made the little S-shaped segue right there,
+
+1185
+01:04:44,581 --> 01:04:46,314
+to another view controller. And
+
+1186
+01:04:46,383 --> 01:04:48,283
+then you can do whatever you want in that view controller.
+
+1187
+01:04:48,352 --> 01:04:50,618
+Set its identity to whatever put UI in there,
+
+1188
+01:04:50,687 --> 01:04:52,453
+hook up outlets, do whatever.
+
+1189
+01:04:52,522 --> 01:04:57,591
+It's completely its own view controller. Now it works just
+
+1190
+01:04:57,660 --> 01:05:01,128
+like other segues in that you get to prepare for it, right?
+
+1191
+01:05:01,197 --> 01:05:03,498
+So you're gonna get prepare for segue, and
+
+1192
+01:05:03,566 --> 01:05:06,734
+you're gonna set the segue identifier right there.
+
+1193
+01:05:06,803 --> 01:05:09,938
+However, one thing to consider about embed segues is
+
+1194
+01:05:10,006 --> 01:05:14,509
+the timing there. Just like other segues, the outlets of
+
+1195
+01:05:14,578 --> 01:05:18,112
+the thing that you're connecting to are not set. So
+
+1196
+01:05:18,181 --> 01:05:20,448
+you can't really update it there. So
+
+1197
+01:05:20,517 --> 01:05:24,285
+a lot of times when we segue to an embed segue, what we do
+
+1198
+01:05:24,354 --> 01:05:28,355
+in the prepare is we grab a hold of the embedded segue, or
+
+1199
+01:05:28,424 --> 01:05:31,792
+embedded MVC. We grab ahold of that view controller so we can
+
+1200
+01:05:31,861 --> 01:05:34,529
+talk to it later because we might need to update it or
+
+1201
+01:05:34,598 --> 01:05:37,932
+set something about this model or whatever as time goes on.
+
+1202
+01:05:38,000 --> 01:05:40,535
+So we actually usually have a var and we grab on to it,
+
+1203
+01:05:40,603 --> 01:05:43,270
+and we talk to it later. And that what's I'm gonna
+
+1204
+01:05:43,339 --> 01:05:46,407
+do in our demo here. And after the demo, we're done for
+
+1205
+01:05:46,475 --> 01:05:49,076
+this week and actually done for quite a while cuz we've
+
+1206
+01:05:49,145 --> 01:05:52,880
+got Thanksgiving next week. But what we're gonna do in
+
+1207
+01:05:52,949 --> 01:05:56,484
+this demo is I'm gonna take the inspector stuff that
+
+1208
+01:05:56,553 --> 01:06:00,054
+we did and I'm gonna embed it as a little overlay in my
+
+1209
+01:06:00,123 --> 01:06:02,456
+EmojiArt document. So I'm gonna be able to see
+
+1210
+01:06:02,525 --> 01:06:07,528
+the size and creation date of my document at all times.
+
+1211
+01:06:07,597 --> 01:06:09,496
+I won't have to click either of those buttons,
+
+1212
+01:06:09,565 --> 01:06:12,233
+Pop or Inspect, to do it. I'll just be able to always see it
+
+1213
+01:06:12,302 --> 01:06:14,268
+in the bottom. And now, to do that, of course,
+
+1214
+01:06:14,337 --> 01:06:17,372
+I'm gonna have to update it every time my document saves,
+
+1215
+01:06:17,440 --> 01:06:19,607
+right? Because it shows the size of the document.
+
+1216
+01:06:19,675 --> 01:06:21,843
+And when it auto saves, woot, that's gonna change.
+
+1217
+01:06:21,911 --> 01:06:22,910
+So I have to be able to change it.
+
+1218
+01:06:22,979 --> 01:06:26,047
+So I'm gonna have to grab onto this embedded thing and
+
+1219
+01:06:26,116 --> 01:06:31,086
+update its model, as my model changes basically.
+
+1220
+01:06:32,788 --> 01:06:36,390
+All right, so let's hop back in here and do this.
+
+1221
+01:06:36,459 --> 01:06:37,792
+So what do we need to do this?
+
+1222
+01:06:37,861 --> 01:06:39,694
+Well, we're just gonna grab that container view.
+
+1223
+01:06:39,762 --> 01:06:42,563
+Let's go do it, container view. Here it is, right?
+
+1224
+01:06:42,632 --> 01:06:44,232
+And I'm gonna drag it in here.
+
+1225
+01:06:44,301 --> 01:06:47,902
+Now this is kinda difficult to drag where you want.
+
+1226
+01:06:47,971 --> 01:06:50,671
+I'm gonna put it over, well, let's scroll this over so
+
+1227
+01:06:50,740 --> 01:06:53,474
+you can see it better. It's a little hard to drag this in
+
+1228
+01:06:53,543 --> 01:06:54,975
+here because when I try and drop this,
+
+1229
+01:06:55,044 --> 01:06:58,379
+look, it's always trying to drop it in my drop zone or
+
+1230
+01:06:58,447 --> 01:07:00,247
+in the scroll view. See how it's saying drop zone,
+
+1231
+01:07:00,316 --> 01:07:02,383
+scroll view? It's trying to drop it in there. And
+
+1232
+01:07:02,452 --> 01:07:05,186
+there's just no way to drop it. I don't want it in either
+
+1233
+01:07:05,254 --> 01:07:08,155
+of those. I want it to be at the same level as all these
+
+1234
+01:07:08,224 --> 01:07:11,392
+other views, and overlaying everything. So all right,
+
+1235
+01:07:11,461 --> 01:07:14,429
+I'm gonna give up and just drop it in here. At least it
+
+1236
+01:07:14,497 --> 01:07:16,964
+put it in there. And you can see here is the little view
+
+1237
+01:07:17,033 --> 01:07:20,601
+controller that it created for me. So here's where I'm gonna
+
+1238
+01:07:20,670 --> 01:07:24,405
+do all my, I'm gonna basically do this stuff in here.
+
+1239
+01:07:24,474 --> 01:07:26,741
+But let's fix the fact that this got added,
+
+1240
+01:07:26,810 --> 01:07:28,142
+looks like to my drop zone or
+
+1241
+01:07:28,211 --> 01:07:30,878
+something. And we are gonna do that with a document outline.
+
+1242
+01:07:30,947 --> 01:07:33,748
+And I've kind of reminded you of this before that document
+
+1243
+01:07:33,816 --> 01:07:36,517
+outlining is a great place to fix problems like this. So
+
+1244
+01:07:36,586 --> 01:07:39,219
+you can see it actually added it as something, as a subview
+
+1245
+01:07:39,288 --> 01:07:43,290
+of my scroll view. But I want it to be up at the same level
+
+1246
+01:07:43,359 --> 01:07:45,526
+as the drop zone and the emoji collection views.
+
+1247
+01:07:45,595 --> 01:07:49,764
+So I'm just gonna drag it out, stop being a subview there.
+
+1248
+01:07:49,833 --> 01:07:52,366
+Now, drop zone, emoji, and container view are all at
+
+1249
+01:07:52,435 --> 01:07:58,339
+the same level. Now we need to do some constraints because
+
+1250
+01:07:58,408 --> 01:07:59,941
+I don't want this thing sitting in the middle here.
+
+1251
+01:08:00,009 --> 01:08:01,542
+I actually want it down in the bottom edge.
+
+1252
+01:08:01,611 --> 01:08:04,879
+So I'm gonna do that. I'm gonna set constraints 00.
+
+1253
+01:08:04,947 --> 01:08:08,482
+And I'm gonna hope my nearest neighbor is the safe area,
+
+1254
+01:08:08,551 --> 01:08:11,285
+let's hope. Maybe it was, maybe it wasn't, we'll see.
+
+1255
+01:08:11,354 --> 01:08:13,354
+Now it wants to know about width and
+
+1256
+01:08:13,423 --> 01:08:16,590
+height. This thing needs to know width and height. So
+
+1257
+01:08:16,659 --> 01:08:20,394
+I'm going to have my width and height set to the preferred
+
+1258
+01:08:20,463 --> 01:08:23,397
+content size of my view, of course, right,
+
+1259
+01:08:23,466 --> 01:08:26,968
+same size that the popover is. But to do that I'm gonna
+
+1260
+01:08:27,037 --> 01:08:29,236
+have to set a width and height here and
+
+1261
+01:08:29,305 --> 01:08:32,473
+have outlets to them like we saw before. And look at that?
+
+1262
+01:08:32,542 --> 01:08:36,177
+It jumped and it looks like it did the safe area. Let's look.
+
+1263
+01:08:36,245 --> 01:08:38,746
+It is, safe area right there and fixed width and height.
+
+1264
+01:08:38,815 --> 01:08:40,848
+Well, of course we don't want fixed width and height.
+
+1265
+01:08:40,917 --> 01:08:42,916
+We want to have outlets to these, so
+
+1266
+01:08:42,985 --> 01:08:47,421
+let's add outlets for these things. Put it right here.
+
+1267
+01:08:47,490 --> 01:08:51,159
+We'll control drag, oops, not from there, from here.
+
+1268
+01:08:52,461 --> 01:08:55,997
+This is our embedded,
+
+1269
+01:08:56,066 --> 01:09:01,201
+embeddedDockInfoHeight. And
+
+1270
+01:09:01,270 --> 01:09:09,210
+this one is our embeddedDocInfoWidth.
+
+1271
+01:09:09,279 --> 01:09:11,212
+So we're gonna have to set this width and
+
+1272
+01:09:11,280 --> 01:09:16,283
+height to be the preferred content size of our doc info.
+
+1273
+01:09:16,352 --> 01:09:20,421
+So let's go back to our view, or to our storyboard here, and
+
+1274
+01:09:20,490 --> 01:09:24,058
+do our UI. We've got this UI here. First of all, we have to
+
+1275
+01:09:24,127 --> 01:09:28,029
+set its identity to be a DocInfoViewController. This is
+
+1276
+01:09:28,098 --> 01:09:30,665
+the great thing about embedded is we're gonna get all
+
+1277
+01:09:30,733 --> 01:09:33,667
+the benefit of the code we wrote to do the size and
+
+1278
+01:09:33,736 --> 01:09:35,436
+the created by, and all that stuff.
+
+1279
+01:09:35,505 --> 01:09:37,672
+We're gonna get all that benefit here essentially for
+
+1280
+01:09:37,740 --> 01:09:41,609
+free. Now, here, embedded, I don't need, obviously, this
+
+1281
+01:09:41,678 --> 01:09:44,045
+view. And I don't need closed document or return document.
+
+1282
+01:09:44,114 --> 01:09:45,412
+So I'm gonna do another kind of tricky thing,
+
+1283
+01:09:45,481 --> 01:09:52,019
+which I'm gonna grab this whole Stack view here,
+
+1284
+01:09:52,088 --> 01:09:54,521
+which is this one, I think, yes. I'm gonna drag this over
+
+1285
+01:09:54,590 --> 01:09:59,093
+here and copy it and paste it down here. Then I'm
+
+1286
+01:09:59,162 --> 01:10:04,265
+gonna center it in the middle. So that it's centered.
+
+1287
+01:10:04,333 --> 01:10:06,900
+I'm going to, of course, wire up my outlets to it.
+
+1288
+01:10:06,969 --> 01:10:10,604
+So let's do that. Let's go over here.
+
+1289
+01:10:10,673 --> 01:10:15,342
+Go down here to where our outlets are. Here they are.
+
+1290
+01:10:15,411 --> 01:10:18,146
+So let's, this is our, let's zoom in a little so
+
+1291
+01:10:18,214 --> 01:10:21,448
+you can see better here. So here's our size label,
+
+1292
+01:10:21,517 --> 01:10:25,720
+let's drag it in there. Here's our created label, right here.
+
+1293
+01:10:25,788 --> 01:10:29,824
+And our top level view is actually now this stack view.
+
+1294
+01:10:29,893 --> 01:10:34,027
+So let's do that one to toplevelView. So we've wired
+
+1295
+01:10:34,096 --> 01:10:37,665
+up our UI. All this other code is just going to work because
+
+1296
+01:10:37,734 --> 01:10:42,103
+we set this thing to be a doc.info view controller.
+
+1297
+01:10:42,171 --> 01:10:45,473
+So now let's go back to our EmojiArtViewController, and
+
+1298
+01:10:45,541 --> 01:10:46,874
+we need to prepare it.
+
+1299
+01:10:46,943 --> 01:10:48,876
+So it's gonna need its own identifier cuz
+
+1300
+01:10:48,944 --> 01:10:52,113
+we want a little bit different preparation for this embed
+
+1301
+01:10:52,182 --> 01:10:55,282
+one. So I'm gonna click on this, and inspect it. And
+
+1302
+01:10:55,351 --> 01:10:57,351
+the only thing I can inspect here is its identifier.
+
+1303
+01:10:57,420 --> 01:11:01,923
+So I'm gonna call this my Embed Document Info Segue.
+
+1304
+01:11:03,259 --> 01:11:07,328
+Let's go back here. Now I'm gonna say,
+
+1305
+01:11:07,397 --> 01:11:13,500
+my segue else if it is the Embed Document Info segue,
+
+1306
+01:11:13,569 --> 01:11:18,405
+then all I'm gonna do here if that segue,
+
+1307
+01:11:18,474 --> 01:11:25,379
+is I'm gonna grab on to that document MVC. So I'm gonna
+
+1308
+01:11:25,448 --> 01:11:29,049
+create a local var here, which I'm gonna call private var.
+
+1309
+01:11:29,118 --> 01:11:33,921
+I'm gonna call it, what did I call it here?
+
+1310
+01:11:33,990 --> 01:11:37,425
+I called it my embedded document info,
+
+1311
+01:11:37,493 --> 01:11:41,428
+embeddedDocInfo, we'll call it. And
+
+1312
+01:11:41,497 --> 01:11:45,933
+it's of type DocumentInfoViewController. So
+
+1313
+01:11:46,001 --> 01:11:51,705
+here I'm just gonna say that my embeddedDoc,
+
+1314
+01:11:51,774 --> 01:11:57,177
+DocInfo = segue.destination.contents
+
+1315
+01:11:57,246 --> 01:12:02,049
+probably as a doc You meant InfoViewController.
+
+1316
+01:12:02,118 --> 01:12:03,584
+Cuz if it's not a document info controller,
+
+1317
+01:12:03,653 --> 01:12:06,988
+I don't even wanna set this bar. Then all I need to do is,
+
+1318
+01:12:07,056 --> 01:12:08,723
+every time my document auto saves,
+
+1319
+01:12:08,792 --> 01:12:09,823
+I need to update this thing.
+
+1320
+01:12:09,892 --> 01:12:12,793
+So let's go down here to where we know where auto saving is.
+
+1321
+01:12:12,862 --> 01:12:14,895
+It's right here where we're observing.
+
+1322
+01:12:14,964 --> 01:12:17,031
+Here's where we're observing the document state,
+
+1323
+01:12:17,100 --> 01:12:18,565
+state, state change. So,
+
+1324
+01:12:18,634 --> 01:12:21,535
+every time the document state changes to normal,
+
+1325
+01:12:21,604 --> 01:12:24,371
+I'm going to update it. Cuz we know that when it auto saves,
+
+1326
+01:12:24,440 --> 01:12:26,574
+it goes to progress available and then back to normal, and
+
+1327
+01:12:26,642 --> 01:12:29,777
+it'll also work when I first open the document. So
+
+1328
+01:12:29,846 --> 01:12:34,848
+I'm just gonna say here if self.document,
+
+1329
+01:12:34,917 --> 01:12:38,986
+.documentState, State == normal,
+
+1330
+01:12:39,055 --> 01:12:45,426
+then I'm gonna let docInfoVC = my self.embeddedDocInfo,
+
+1331
+01:12:47,063 --> 01:12:51,832
+embeddedDocInfo. So I got that. Then, I'm gonna
+
+1332
+01:12:51,900 --> 01:12:56,537
+set my docInfoVC's model to be myself, in case it's not
+
+1333
+01:12:56,606 --> 01:12:59,473
+already set there. This will also cause it to update.
+
+1334
+01:12:59,542 --> 01:13:02,910
+Then I'm also gonna set the width and height of that
+
+1335
+01:13:02,978 --> 01:13:06,980
+embedded document based on those constraints, all right?
+
+1336
+01:13:07,049 --> 01:13:12,486
+So, that was the self.embeddedDocInfoWidth
+
+1337
+01:13:12,555 --> 01:13:16,490
+is .constant = the docInfoVC's
+
+1338
+01:13:16,559 --> 01:13:22,930
+.preferredContentSize.width. And the same thing here,
+
+1339
+01:13:22,998 --> 01:13:27,334
+this will have embeddedDocInfoHeight.constant
+
+1340
+01:13:27,403 --> 01:13:31,038
+= the docInfoVC.preferredContentSiz-
+
+1341
+01:13:31,106 --> 01:13:36,611
+e.height. The crowd's outside the door here,
+
+1342
+01:13:36,679 --> 01:13:38,246
+so let me show you this real quick.
+
+1343
+01:13:44,254 --> 01:13:46,821
+Here we are, Apple Bees, and there it is.
+
+1344
+01:13:46,889 --> 01:13:49,790
+Now it doesn't quite look right. It got the size right,
+
+1345
+01:13:49,859 --> 01:13:51,792
+but it's got this white background.
+
+1346
+01:13:51,860 --> 01:13:54,761
+Also watch this, if I move this apple down here and
+
+1347
+01:13:54,830 --> 01:13:56,664
+then I try to pick the apple up,
+
+1348
+01:13:56,732 --> 01:14:00,067
+no, I can't pick it up. So even if it were clear,
+
+1349
+01:14:00,136 --> 01:14:02,570
+this would be a problem. So I need two things I need to fix.
+
+1350
+01:14:02,638 --> 01:14:05,339
+I don't want this white, and I want it not to
+
+1351
+01:14:05,407 --> 01:14:08,843
+grab any gestures. So let's look and see how we do that,
+
+1352
+01:14:08,911 --> 01:14:12,113
+we go to our story board right here. We're gonna make it
+
+1353
+01:14:12,181 --> 01:14:15,282
+clear by just having this view controller right here have
+
+1354
+01:14:15,351 --> 01:14:18,786
+a clear background. So that's gonna make it clear. And
+
+1355
+01:14:18,854 --> 01:14:22,756
+then we're gonna make it not intercept gestures by
+
+1356
+01:14:22,825 --> 01:14:25,526
+clicking this button here off. See it says user interaction
+
+1357
+01:14:25,595 --> 01:14:30,064
+enabled in this embedded view? I'm gonna turn that off. And
+
+1358
+01:14:30,133 --> 01:14:30,831
+that's gonna make it so
+
+1359
+01:14:30,900 --> 01:14:33,533
+that it doesn't have any user interaction, so of course it
+
+1360
+01:14:33,602 --> 01:14:39,606
+won't grab any of the gesture stuff. Here we go, look,
+
+1361
+01:14:39,675 --> 01:14:43,744
+it's clear. It's not going to, let's put an apple over there.
+
+1362
+01:14:43,813 --> 01:14:46,880
+I can pick the apple up even if it's right on top of it, so
+
+1363
+01:14:46,949 --> 01:14:48,282
+that's good. So that's all fixed.
+
+1364
+01:14:48,351 --> 01:14:52,219
+It works beautifully here on iPad. If we change
+
+1365
+01:14:52,288 --> 01:14:55,122
+something, which we did, we moved the apple, but let's add
+
+1366
+01:14:55,191 --> 01:14:58,025
+something that's gonna change the size. So we go here,
+
+1367
+01:14:58,094 --> 01:14:58,892
+I'll put this in.
+
+1368
+01:14:58,961 --> 01:15:01,394
+We have to wait a little bit for it to autosave, and
+
+1369
+01:15:01,463 --> 01:15:04,832
+then hopefully this 718 bytes will change to something else,
+
+1370
+01:15:08,838 --> 01:15:13,540
+Before the hoards come in. There it is,
+
+1371
+01:15:13,609 --> 01:15:18,145
+760 bytes. And also, last thing, it works on iPhone.
+
+1372
+01:15:18,213 --> 01:15:20,948
+This all works on iPhone as well because the embed segue
+
+1373
+01:15:21,017 --> 01:15:23,951
+completely independent of the platform that it's on.
+
+1374
+01:15:29,959 --> 01:15:33,393
+There it is there. Also, this stuff is all still working.
+
+1375
+01:15:33,462 --> 01:15:36,997
+Close document, select work, Space Dog, Pop Over,
+
+1376
+01:15:37,066 --> 01:15:41,668
+all still working. That's segues. So hope,
+
+1377
+01:15:41,737 --> 01:15:44,405
+you'll be using segues all over in your final project.
+
+1378
+01:15:44,473 --> 01:15:48,175
+So good luck with that. And I will see you all in
+祝你们好运。我们几周后见
+
+1379
+01:15:48,244 --> 01:15:51,044
+a couple of weeks. >> For more,
+>> 更多课程
+
+1380
+01:15:51,113 --> 01:15:54,815
+please visit us at stanford.edu.
+详见 stanford.edu
