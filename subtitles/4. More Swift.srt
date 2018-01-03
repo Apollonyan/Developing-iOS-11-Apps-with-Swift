@@ -21,158 +21,199 @@ No. Yes, four of Stanford CS193P, Fall of 2017.
 5
 00:00:15,249 --> 00:00:18,583
 Today, we're gonna continue to talk about Swift.
+今天我们会继续学习Swift
 
 6
 00:00:18,652 --> 00:00:21,019
 This will be the last we talk about Swift. After this,
+这会是最后一节讲Swift 的课程，在本节课之后
 
 7
 00:00:21,088 --> 00:00:23,655
 we're pretty much gonna kinda assume you know Swift.
+我会默认你们已经掌握Swift 了
 
 8
 00:00:23,724 --> 00:00:26,491
 Obviously you'll be learning on the fly as you go, but
+当然在之后的课程中你也会学到Swift
 
 9
 00:00:26,560 --> 00:00:27,592
 starting next week,
+但从下周的课程开始，
 
 10
 00:00:27,661 --> 00:00:29,861
 we're gonna dive right into iOS, UI kit and
+我们将会专注于iOS，UIKit等
 
 11
 00:00:29,930 --> 00:00:33,198
 all that. So I'm gonna do the quick demo that I postponed
+我将会做一个我们上周三留下来的关于
 
 12
 00:00:33,267 --> 00:00:36,968
 from Wednesday of this mutating keyword that we have
+当我们将一个类改为结构体时
 
 13
 00:00:37,037 --> 00:00:39,771
 to add when we make something a struct versus a class. Then
+必须要使用的mutating 关键字
 
 14
 00:00:39,840 --> 00:00:43,274
 we're gonna talk about two very important topics today.
+接着我会讲今天两个非常重要的主题
 
 15
 00:00:43,343 --> 00:00:45,910
 Protocols and closures.
-
+协议和闭包
+#TODO
 16
 00:00:45,979 --> 00:00:48,647
 Functions as types of general those two and in between, I'm
+函数是
 
 17
 00:00:48,715 --> 00:00:52,384
 gonna talk about string which is important in a way but
+我将会讲字符串，字符串也很重要
 
 18
 00:00:52,452 --> 00:00:55,553
 it's not like the monstrous important topics like
+但它不像超级重要的主题，协议和闭包
 
 19
 00:00:55,622 --> 00:01:00,859
 prototypes and closures are. So start right into that demo
+那样重要。那么现在从我们已经做好的
 
+#TODO: And i had remembered ?
 20
 00:01:00,928 --> 00:01:05,096
 that I had. And remember, we were talking at the time about
+示例程序开始。我记得我们那时正在讲
 
 21
 00:01:05,165 --> 00:01:09,400
 making things a struct and that it's a little different
+如何写一个结构体，结构体与类不一样
 
 22
 00:01:09,469 --> 00:01:13,172
 then a class because that copy on write. Swift needs to know
+因为它是写时复制（copy on write）的。
 
 23
 00:01:13,240 --> 00:01:15,674
 when a function might actually modify the thing so
+Swift 需要知道一个函数何时会改变变量的值
 
 24
 00:01:15,743 --> 00:01:18,576
 that it knows to actually make a real copy. So
+它才能知道何时应当真正的去复制这个结构体
 
 25
 00:01:18,645 --> 00:01:22,147
 let's go back here to our app, Concentration, where we were.
+那么让我们回到我们的的翻牌游戏
 
 26
 00:01:22,216 --> 00:01:26,751
 Let's go to Concentration, which if you recall,
+来到我们的Concentration，如果你还记得
 
 27
 00:01:26,820 --> 00:01:30,422
 we made be a class. A class Concentration. And
+我们写了一个类，叫做Concentration
 
 28
 00:01:30,491 --> 00:01:32,857
 this could have just as easily been a struct.
+并且我们可以很轻松地将它改为一个结构体
 
 29
 00:01:32,926 --> 00:01:35,326
 I really made it a class just so when we're doing
+我将它写做类只是为了当我们在
 
 30
 00:01:35,395 --> 00:01:37,428
 the initialize and stuff, you could see the difference
+做像初始化的时候，你可以看出
 
 31
 00:01:37,497 --> 00:01:40,331
 between Concentration and card because card was a struct and
+Concentration 和 Card 的不同，因为Card 是结构体
 
 32
 00:01:40,400 --> 00:01:42,267
 Concentration was a class. But there's
+而Concentration 是一个类，但也没有什么
 
 33
 00:01:42,336 --> 00:01:44,136
 no reason Concentration wouldn't have been a struct.
+理由不让Concentration 成为一个结构体
 
 34
 00:01:44,204 --> 00:01:47,572
 It's probably, it might even be better as a struct here.
+也许这里是一个结构体的话还会更好一些
 
 35
 00:01:47,641 --> 00:01:51,376
 Now we don't pass Concentration games around and
+现在我们不会讲翻牌游戏到处传递
 
 36
 00:01:51,445 --> 00:01:55,113
 all that, it just kinda sits in our controller.
+它差不多就是一直待在我们的控制器中
 
 37
 00:01:55,182 --> 00:01:58,716
 Not really a pointer to our model but this would embed
+并不是指向模型的指针，但它会将模型
 
 38
 00:01:58,785 --> 00:02:01,320
 the model there. So it doesn't really matter too much.
+嵌入在这里。所以其实没有什么太大影响
 
 39
 00:02:01,388 --> 00:02:06,124
 But when I change this from class to struct, notice here
+但当我将它改为结构体后，注意在这里我
 
 40
 00:02:06,193 --> 00:02:09,194
 that I get an error. And let's scroll down and here they are,
+得到了一个错误。让我们翻下去，这些错误在这里
+
 
 41
 00:02:09,263 --> 00:02:11,363
 here's the error and this error is saying,
+这些是错误，它说：
 
 42
 00:02:11,431 --> 00:02:15,533
 cannot assign to property, self is immutable. Why is this
+不能给属性赋值，self 是不可改变的。 为什么
 
 43
 00:02:15,602 --> 00:02:18,970
 saying self is immutable? I'm trying to change the card here
+它说self 是不可改变的？我在尝试
 
 44
 00:02:19,039 --> 00:02:21,273
