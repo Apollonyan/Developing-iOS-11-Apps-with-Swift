@@ -21,22 +21,22 @@ No. Yes, four of Stanford CS193P, Fall of 2017.
 5
 00:00:15,249 --> 00:00:18,583
 Today, we're gonna continue to talk about Swift.
-今天我们会继续学习Swift
+今天我们会继续学习 Swift
 
 6
 00:00:18,652 --> 00:00:21,019
 This will be the last we talk about Swift. After this,
-这会是最后一节讲Swift 的课程，在本节课之后
+这会是最后一节讲 Swift 的课程，在本节课之后
 
 7
 00:00:21,088 --> 00:00:23,655
 we're pretty much gonna kinda assume you know Swift.
-我会默认你们已经掌握Swift 了
+我会默认你们已经掌握 Swift 了
 
 8
 00:00:23,724 --> 00:00:26,491
 Obviously you'll be learning on the fly as you go, but
-当然在之后的课程中你也会学到Swift
+当然在之后的课程中你也会学到 Swift
 
 9
 00:00:26,560 --> 00:00:27,592
@@ -46,7 +46,7 @@ starting next week,
 10
 00:00:27,661 --> 00:00:29,861
 we're gonna dive right into iOS, UI kit and
-我们将会专注于iOS，UIKit等
+我们将会专注于 iOS，UIKit等
 
 11
 00:00:29,930 --> 00:00:33,198
@@ -61,7 +61,7 @@ from Wednesday of this mutating keyword that we have
 13
 00:00:37,037 --> 00:00:39,771
 to add when we make something a struct versus a class. Then
-必须要使用的mutating 关键字
+必须要使用的 mutating 关键字
 
 14
 00:00:39,840 --> 00:00:43,274
@@ -127,12 +127,12 @@ let's go back here to our app, Concentration, where we were.
 26
 00:01:22,216 --> 00:01:26,751
 Let's go to Concentration, which if you recall,
-来到我们的Concentration，如果你还记得
+来到我们的 Concentration，如果你还记得
 
 27
 00:01:26,820 --> 00:01:30,422
 we made be a class. A class Concentration. And
-我们写了一个类，叫做Concentration
+我们写了一个类，叫做 Concentration
 
 28
 00:01:30,491 --> 00:01:32,857
@@ -147,32 +147,32 @@ I really made it a class just so when we're doing
 30
 00:01:35,395 --> 00:01:37,428
 the initialize and stuff, you could see the difference
-做像初始化的时候，你可以看出
+做初始化之类的操作时，你可以看出
 
 31
 00:01:37,497 --> 00:01:40,331
 between Concentration and card because card was a struct and
-Concentration 和 Card 的不同，因为Card 是结构体
+Concentration 和 Card 的不同，因为 Card 是结构体
 
 32
 00:01:40,400 --> 00:01:42,267
 Concentration was a class. But there's
-而Concentration 是一个类，但也没有什么
+而 Concentration 是一个类，但也没有什么
 
 33
 00:01:42,336 --> 00:01:44,136
 no reason Concentration wouldn't have been a struct.
-理由不让Concentration 成为一个结构体
+理由不让 Concentration 成为一个结构体
 
 34
 00:01:44,204 --> 00:01:47,572
 It's probably, it might even be better as a struct here.
-也许这里是一个结构体的话还会更好一些
+也许这里它是一个结构体的话还会更好一些
 
 35
 00:01:47,641 --> 00:01:51,376
 Now we don't pass Concentration games around and
-现在我们不会讲翻牌游戏到处传递
+我们不会将翻牌游戏到处传递
 
 36
 00:01:51,445 --> 00:01:55,113
@@ -213,235 +213,291 @@ cannot assign to property, self is immutable. Why is this
 43
 00:02:15,602 --> 00:02:18,970
 saying self is immutable? I'm trying to change the card here
-它说self 是不可改变的？我在尝试
+它说 self 是不可改变的？我在尝试改变 card 的值
 
 44
 00:02:19,039 --> 00:02:21,273
 to say that they've match, for example.
+来表示它们是一样的
 
 45
 00:02:21,342 --> 00:02:24,442
 Well, self is immutable because this function right
+self 之所以是不可改变的，是因为这个函数
 
 46
 00:02:24,511 --> 00:02:29,514
 is not marked mutable, and so it is assumed to not mutate,
+没有被标记为可改变的，所提它被默认为是不可改变的
 
 47
 00:02:29,583 --> 00:02:34,152
 not change this Concentration object. So
+不会改变这个 Concentration 对象
 
 48
 00:02:34,220 --> 00:02:37,722
 of course we need chooseCard to change the Concentration
-
+当然我们需要这个函数改变 Concentration 对象，
+#TODO: The change of the game 如何翻译
 49
 00:02:37,791 --> 00:02:40,325
 object cuz it's the main thing. The change of the game,
+因为这就是这个函数的主要功能，改变游戏中的值
 
 50
 00:02:40,394 --> 00:02:43,795
 so all we need to do is add mutable right here, that
+所以我们只需要在这里加上mutable
 
 51
 00:02:43,864 --> 00:02:47,932
 marks, sorry, mutating, not mutable, you add that here and
+抱歉，不是mutable，应该是mutating，将它加在这里
 
 52
 00:02:48,001 --> 00:02:51,470
 that says that this is a mutating function,
+表示这是一个可变(mutating)函数
 
 53
 00:02:51,538 --> 00:02:54,372
 all the errors go away, and we're all good to go.
+所以错误都没有了，我们可以继续
 
 54
 00:02:54,441 --> 00:02:59,544
 Question? >> [INAUDIBLE]
+有问题吗? >>[学生提问]
 
 55
 00:02:59,613 --> 00:03:00,479
 >> Okay, the question is why
+>> 好的，他问的问题是为什么
 
 56
 00:03:00,547 --> 00:03:01,680
 does this not need it?
-
+这个不需要添加 mutating
+#TODO: get and set 如何翻译
 57
 00:03:01,749 --> 00:03:05,784
 This is a var. And this var is get and set, so
+因为它是一个变量，并且它可以被获取和赋值，所以
 
 58
 00:03:05,852 --> 00:03:10,121
 Swift already knows this is mutating, cuz it's settable.
+Swift 已经知道它是可变的了，因为它是可以被赋值的
 
 59
 00:03:10,190 --> 00:03:12,357
 If this was get only, then it wouldn't be mutating and
+如果它是只能被获取的，那么他就不是可变的，并且
 
 60
 00:03:12,426 --> 00:03:16,028
 Swift would know that. So for vars, Swift knows. And
+Swift 知道它不是可变的。所以对于变量，Swift 是知道的
 
 61
 00:03:16,096 --> 00:03:19,264
 if it's not a computed var, like look at this var,
+如果它不是一个演算型变量(computed var)，像这个变量
 
 62
 00:03:19,332 --> 00:03:22,701
 how does this one know? That's because, well, this one is
+它是如何判断是否为可变的呢？这个变量是外部只读的
 
 63
 00:03:22,770 --> 00:03:26,871
 read only externally but for us it's writable. Here,
+但对我们来说它是可以被改变的
 
 64
 00:03:26,940 --> 00:03:29,641
 anything that's a var it assumed it's writable. If it
+在这里所有的变量都是默认可以被改变的
 
 65
 00:03:29,709 --> 00:03:34,846
 were a let, a let, then it would think it's not writable.
+如果它是一个常量，它会被认为是不可改变的
 
 66
 00:03:34,914 --> 00:03:39,450
 So that's how you do mutating, or mutable. If for vars is
+所以这就是你们如何处理可变类型，对于变量
 
 67
 00:03:39,519 --> 00:03:42,620
 whether they're vars or let, or for computer property,
-
+关注它是可变的(var)还是不可变的(let)，对于演算属性
+#Everybody got all that？
 68
 00:03:42,689 --> 00:03:47,192
 whether it has both get and set. Where we got all that? So
+关注它是否可以获取和赋值。大家都听懂了吗
 
 69
 00:03:47,260 --> 00:03:49,060
 it's only funcs that we have to put that on.
+所以只需要将 mutating 放在函数的前面
 
 70
 00:03:49,129 --> 00:03:52,297
 Yeah, question. >> [INAUDIBLE]
+>> [学生提问]
 
 71
 00:03:52,366 --> 00:03:52,931
 >> Yes, so the question is,
+>> 好的，那位同学的问题是
 
 72
 00:03:52,999 --> 00:03:55,733
 why is this you need to a struct and not a class, why do
+为什么你需要一个结构体而不是类，为什么
 
 73
 00:03:55,802 --> 00:03:58,002
 I need to struct? And that's very important to understand,
+我需要一个结构体，理解这个是很重要的
 
 74
 00:03:58,071 --> 00:04:02,974
 very good question. Structs are value types, not reference
+非常好的问题。结构体是值类型而不是引用类型
 
 75
 00:04:03,043 --> 00:04:05,844
 types. So structs don't live in the heap. As we pass
+所以结构体并不是被存储在堆中。当我们传递
 
 76
 00:04:05,913 --> 00:04:09,013
 the struct around since it's a value type, it gets copied.
+结构体的时候，因为它是值类型，它会被复制
 
 77
 00:04:09,082 --> 00:04:11,649
 Constantly copied everywhere. Pass through a function,
+它会不断地复制到很多地方，传递给一个函数
 
 78
 00:04:11,718 --> 00:04:14,486
 a copy is made. Put in a var, a copy is made. Well,
+它被复制了一次，放到一个变量中，它又被复制了一次
 
 79
 00:04:14,554 --> 00:04:17,222
 soon, that would be incredibly inefficient if it actually
+那么，如果每次复制时，它的每一个位(bits) 都被复制
 
 80
 00:04:17,291 --> 00:04:21,159
 copy the bits of this entire thing every time. So instead,
+程序就会变得非常低效。 所以 Swift 不那样做
 
 81
 00:04:21,228 --> 00:04:24,028
 Swift is smart. It only actually copies the bits when
+Swift 很聪明。它只复制你设置为可变的
 
 82
 00:04:24,097 --> 00:04:27,799
 you mutate it. That's called copy-on-write semantics.
+那一部分，这就叫做写时复制(copy on write)
 
 83
 00:04:27,867 --> 00:04:29,434
 This is why structs are different,
+这就是结构体不同的原因
 
 84
 00:04:29,503 --> 00:04:31,903
 because they have that copy-on-write semantics.
+因为他们是写时复制的
 
 85
 00:04:31,972 --> 00:04:35,106
 A class doesn't have that, cuz when you pass a class around,
+类不是那样的，因为当你传递一个类时
 
 86
 00:04:35,175 --> 00:04:37,075
 the class just lives once in the heap,
+那个类只在堆中存在一次
 
 87
 00:04:37,144 --> 00:04:38,810
 and you're passing pointers to it around.
+而你是在传递指向它的指针
 
 88
 00:04:38,878 --> 00:04:41,213
 And there could be 20 pointers to the same object.
+那么可能就会有20个指针指向同一个对象
 
 89
 00:04:41,281 --> 00:04:44,683
 Totally different kinda model for memory. So that's why,
+这是完全不同的两种内存模型。这就是原因
 
 90
 00:04:44,751 --> 00:04:48,719
 it's because it's a value type that copy on writes stuff,
+是因为结构体是值类型，值类型是写时复制的
 
 91
 00:04:48,788 --> 00:04:51,523
 that's why we care that it's mutating.
+这就是我们关注它是可变的的原因
 
 92
 00:04:51,592 --> 00:04:56,828
 Let's go back to our slides and talk about the first very,
+让我们回到我们的幻灯片，并且开始第一个非常
 
 93
 00:04:56,897 --> 00:05:01,900
 very important topic today which is protocols.
-
+非常重要的主题，协议(protocol)
+#TODO: 这里不会翻译 fourth pillar
 94
 00:05:01,968 --> 00:05:05,737
 It's the fourth pillar of building data structures
-
+那是在 Swift 中建立数据结构的第四支柱
 95
 00:05:05,805 --> 00:05:09,307
 inside of Swift. You already know a lot now about class,
+你们已经学到很多关于类、结构体和枚举的知识了
 
 96
 00:05:09,375 --> 00:05:14,679
 struct and enum. And a protocol is something where
+而一个协议就是一个非常简单的
 
 97
 00:05:14,748 --> 00:05:18,382
 its a very simple concept. A protocol is basically just
+概念，它基本上就是一个
 
 98
 00:05:18,451 --> 00:05:21,453
 a list of methods and vars with no implementation. But
+方法和变量的清单，而不包含任何实现
 
 99
 00:05:21,522 --> 00:05:23,722
 it's the use of having protocols. It's so
+但是协议的使用，它在 Swift 语言中
 
 100
 00:05:23,790 --> 00:05:27,025
 pervasively used throughout the Swift language and
+被普遍的应用并且
 
 101
 00:05:27,093 --> 00:05:30,529
