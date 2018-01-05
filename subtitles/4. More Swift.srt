@@ -248,17 +248,17 @@ object cuz it's the main thing. The change of the game,
 50
 00:02:40,394 --> 00:02:43,795
 so all we need to do is add mutable right here, that
-所以我们只需要在这里加上mutable
+所以我们只需要在这里加上 mutable
 
 51
 00:02:43,864 --> 00:02:47,932
 marks, sorry, mutating, not mutable, you add that here and
-抱歉，不是mutable，应该是mutating，将它加在这里
+抱歉，不是 mutable，应该是 mutating，将它加在这里
 
 52
 00:02:48,001 --> 00:02:51,470
 that says that this is a mutating function,
-表示这是一个可变(mutating)函数
+表示这是一个可变（mutating）函数
 
 53
 00:02:51,538 --> 00:02:54,372
@@ -303,7 +303,7 @@ Swift 知道它不是可变的。所以对于变量，Swift 是知道的
 61
 00:03:16,096 --> 00:03:19,264
 if it's not a computed var, like look at this var,
-如果它不是一个演算型变量(computed var)，像这个变量
+如果它不是一个演算型变量（computed var），像这个变量
 
 62
 00:03:19,332 --> 00:03:22,701
@@ -323,7 +323,7 @@ anything that's a var it assumed it's writable. If it
 65
 00:03:29,709 --> 00:03:34,846
 were a let, a let, then it would think it's not writable.
-如果它是一个常量，它会被认为是不可改变的
+如果它是一个常量（let），它会被认为是不可改变的
 
 66
 00:03:34,914 --> 00:03:39,450
@@ -333,7 +333,7 @@ So that's how you do mutating, or mutable. If for vars is
 67
 00:03:39,519 --> 00:03:42,620
 whether they're vars or let, or for computer property,
-关注它是可变的(var)还是不可变的(let)，对于演算属性
+关注它是可变的（var）还是不可变的（let），对于演算属性
 #Everybody got all that？
 68
 00:03:42,689 --> 00:03:47,192
@@ -393,7 +393,7 @@ a copy is made. Put in a var, a copy is made. Well,
 79
 00:04:14,554 --> 00:04:17,222
 soon, that would be incredibly inefficient if it actually
-那么，如果每次复制时，它的每一个位(bits) 都被复制
+那么，如果每次复制时，它的每一个位（bit）都被复制
 
 80
 00:04:17,291 --> 00:04:21,159
@@ -408,7 +408,7 @@ Swift 很聪明。它只复制你设置为可变的
 82
 00:04:24,097 --> 00:04:27,799
 you mutate it. That's called copy-on-write semantics.
-那一部分，这就叫做写时复制(copy on write)
+那一部分，这就叫做写时复制（copy on write）
 
 83
 00:04:27,867 --> 00:04:29,434
@@ -438,7 +438,7 @@ and you're passing pointers to it around.
 88
 00:04:38,878 --> 00:04:41,213
 And there could be 20 pointers to the same object.
-那么可能就会有20个指针指向同一个对象
+那么可能就会有 20 个指针指向同一个对象
 
 89
 00:04:41,281 --> 00:04:44,683
@@ -463,7 +463,7 @@ Let's go back to our slides and talk about the first very,
 93
 00:04:56,897 --> 00:05:01,900
 very important topic today which is protocols.
-非常重要的主题，协议(protocol)
+非常重要的主题，协议（protocol）
 #TODO: 这里不会翻译 fourth pillar
 94
 00:05:01,968 --> 00:05:05,737
@@ -492,816 +492,1015 @@ a list of methods and vars with no implementation. But
 99
 00:05:21,522 --> 00:05:23,722
 it's the use of having protocols. It's so
-但是协议的使用，它在 Swift 语言中
+但是协议的使用，它在 Swift 语言与运行时
 
 100
 00:05:23,790 --> 00:05:27,025
 pervasively used throughout the Swift language and
-被普遍的应用并且
+中被普遍的应用
 
 101
 00:05:27,093 --> 00:05:30,529
 the runtime that makes it so powerful. So first I'm just
+让它变得十分强大。那么首先我会
 
 102
 00:05:30,597 --> 00:05:32,664
 gonna go through a little bit of why we have protocols.
+简单讲一下为什么我们要用协议
 
 103
 00:05:32,733 --> 00:05:35,133
 Then I'll show you the syntax of protocols.
+接着我会向你们展示协议的语法
 
 104
 00:05:35,201 --> 00:05:37,635
 What it looks like to type in a protocol and define one.
+协议是什么样子的与如何定义一个协议
 
 105
 00:05:37,704 --> 00:05:40,005
 Then we'll start talking about the use of protocols.
+接下来我会讲如何协议的用法
 
 106
 00:05:40,073 --> 00:05:43,674
 Where do we use them? Why are they so valuable? So
+我们会在哪里用到协议，为何它们这么重要？
 
 107
 00:05:43,743 --> 00:05:47,178
 let's start with, what protocols are all about?
+那么我们现在开始将，协议到底是什么
 
 108
 00:05:47,247 --> 00:05:51,616
 Protocols are essentially a way for
+协议本质是是就是让调用者用任何它想的
 
 109
 00:05:51,685 --> 00:05:55,219
 callers to call an API with anything they want.
+东西调用一个应用程序接口（API）的方法
 
 110
 00:05:55,288 --> 00:05:57,122
 Any struct, enum, class,
+任何结构体，枚举类型，类
 
 111
 00:05:57,190 --> 00:06:00,391
 it can pass anything they want in. And at the same time
+它可以传递任何它想的的参数。并且同时
 
 112
 00:06:00,460 --> 00:06:04,596
 the receiving method can specify what it really wants.
+接收这些参数的方法可以判别它到底是想要什么
 
 113
 00:06:04,665 --> 00:06:08,132
 So both sides get to do what they want. The receiving thing
-
+这样两边都可以做它们想做的。接收者
+#TODO: gets to say what it wants the thing you're passing in to do
 114
 00:06:08,201 --> 00:06:10,868
 gets to say what it wants the thing you're passing and
+来决定它应该用你传递给它的参数做什么
 
 115
 00:06:10,937 --> 00:06:13,772
 to do and the thing passing in can pass whatever it wants as
+而传递者可以向它传任何它想传的参数，只要
 
 116
 00:06:13,840 --> 00:06:17,409
 long as it does that thing. And to do all this all
+接受者可以处理被传的参数。而要做到这样
 
 117
 00:06:17,478 --> 00:06:22,380
 a protocol is, is a list of vars and functions.
+协议实际上就是一个变量和函数的清单
 
 118
 00:06:22,449 --> 00:06:24,649
 That's all a protocol is. It's just a list of them.
+这就是协议。就是一个变量和函数的清单
 
 119
 00:06:24,718 --> 00:06:27,251
 Not an implementation or anything, just a list of them.
+不是实现或者其它什么，只是一个清单
 
 120
 00:06:27,320 --> 00:06:30,622
 And it's how we use them in the API that let's us get this
+而是我们如何在应用程序接口中使用它们，让我们得到
 
 121
 00:06:30,691 --> 00:06:33,558
 behavior of having the callers and the callees.
+调用者和被调用者能表达他们想表达
 
 122
 00:06:33,626 --> 00:06:37,028
 Get to express things the way they want. Now, what
+的行为。那么，
 
 123
 00:06:37,096 --> 00:06:40,532
 are protocols good for? They make APIs very flexible and
+用协议有什么好处呢？它们让应用程序接口变得非常灵活
 
 124
 00:06:40,600 --> 00:06:42,500
 expressive, as you're going to see.
+并且非常易于表达，你们接着就会感受到
 
 125
 00:06:42,569 --> 00:06:45,870
 They're super good for blind structured communication.
+它们对标准化匿名通讯机制是非常有好处的
 
 126
 00:06:45,939 --> 00:06:48,439
 Like, remember back to my MVC talk.
+就像，还记得我们曾经讲过的 MVC 间的通信吗
 
 127
 00:06:48,508 --> 00:06:50,542
 The communication between the view and the controller.
+视图和控制器之间的通信
 
 128
 00:06:50,611 --> 00:06:54,011
 All those will, did, shoulds. And the data at count,
+那些will, did, should, data, at,count 方法
 
 129
 00:06:54,080 --> 00:06:56,982
 those kind of communications between a view controller.
+那些视图与控制器之间同行的方式
 
 130
 00:06:57,050 --> 00:06:59,784
 That all had to be blind, because the views are generic
+那些都应该是匿名的，因为视图是通用的
 
 131
 00:06:59,853 --> 00:07:03,721
 and the controllers are very specific, and protocols is how
+而控制器是非常具体的。而协议就是我们如何让
 
 132
 00:07:03,790 --> 00:07:07,792
 we make that work. It's also great for mandating behavior,
+他们工作的。协议也对控制行为有很大用处
 
 133
 00:07:07,861 --> 00:07:11,529
 for example, in a dictionary, a dictionary's a hash table,
+举个例子，在一个字典类型中，一个字典是哈希表（hash table）
 
 134
 00:07:11,597 --> 00:07:15,032
 raise your hand if you know what a hash table is when I
+如果你知道什么事哈希表，请举手
 
 135
 00:07:15,101 --> 00:07:19,037
 say that. Okay, everybody. Good. So it's a hash table.
+好的，所有人都知道。那么它是一个哈希表
 
 136
 00:07:19,105 --> 00:07:22,407
 So the keys of a dictionary clearly have to be hashable.
+所以字典的键（key）应该具有哈希性（hashable）
 
 137
 00:07:22,476 --> 00:07:25,509
 You have to be able to get a hash value otherwise you can't
+你必须要有一个哈希值否则
 
 138
 00:07:25,578 --> 00:07:28,580
 hash them and put them in as keys of this hash table.
+你不能哈希它们，并且将它们放在这个哈希表的键中
 
 139
 00:07:28,649 --> 00:07:31,983
 Well, protocols let us define dictionary in a way so
+协议让我们这样定义字典
 
 140
 00:07:32,052 --> 00:07:35,319
 that we don't use any keys that aren't hashable.
-
+我们就不能用任何不具哈希性的键
+#passibility -> hashability
 141
 00:07:35,388 --> 00:07:38,056
 So mandating behavior passibility, for example,
+那么协议在限制键的
 
 142
 00:07:38,125 --> 00:07:40,992
 of the key it's great for that. It's also great for
+可哈希性方面很好用。协议还可以用于
 
 143
 00:07:41,061 --> 00:07:43,994
 sharing functionality between very disparate types,
+在非常不同的类型间共享相同的功能，
 
 144
 00:07:44,063 --> 00:07:47,064
 types that you would never use object oriented inheritance to
+这些类型你可能从来不会用面向对象的继承让他们
 
 145
 00:07:47,133 --> 00:07:50,501
 make them share a base class, but they are very similar, for
+共同继承一个基础的类，但它们非常的相像，举个例子
 
 146
 00:07:50,570 --> 00:07:54,472
 example, string, array, countable range. They are all
+字符串，数组，可数区间（countable range）它们都是
 
 147
 00:07:54,540 --> 00:07:57,475
 collections of things. Now they're completely different.
+一些东西的集合。虽然它们完全不同
 
 148
 00:07:57,544 --> 00:07:58,943
 Come one, a countable range and
+一个可数区间和
 
 149
 00:07:59,012 --> 00:08:01,446
 a string are completely different. But they are both
+字符串当然是完全不同的。但是它们都
 
 150
 00:08:01,515 --> 00:08:04,182
 collections, a string is a collection of characters,
-
+是一个集合。一个字符串是字符的集合
+#TODO: a countable range
 151
 00:08:04,251 --> 00:08:06,584
 accountable range is a collection of integers if it's
+当可数区间是整数的可数区间时
 
 152
 00:08:06,653 --> 00:08:09,487
 an accountable range of int. So they do share some and
+它是一个字符的集合。那么它们的确都有一些共性
 
 153
 00:08:09,555 --> 00:08:12,624
 protocols has a mechanism to allow you to share that kind
+而协议是一种途径让你可以共享那些共性
 
 154
 00:08:12,693 --> 00:08:15,426
 of similarity without having to have all those thing
+而不用让这些东西都
 
 155
 00:08:15,495 --> 00:08:18,763
 inherit from some kind common base class that knows about
+继承一个公共的关于集合的
 
 156
 00:08:18,832 --> 00:08:21,666
 collections of things. You see what I'm saying? And so
+基础类。你能理解我在说什么吗？那么
 
 157
 00:08:21,735 --> 00:08:25,536
 in a way, protocols provide multiple inheritance. Now,
+从一方面来讲，协议提供了多重继承
 
 158
 00:08:25,605 --> 00:08:28,873
 since protocols are only doing the declaration of the vars
+既然协议只是做了变量和函数的声明
 
 159
 00:08:28,942 --> 00:08:32,277
 and functions, there's no storage of, of those things,
+它不负责储存那些东西
 
 160
 00:08:32,345 --> 00:08:34,378
 so there's no inheritance of data,
+所以它不是数据的继承
 
 161
 00:08:34,447 --> 00:08:36,447
 it's purely just inheritance of,
+单纯的只是
 
 162
 00:08:36,516 --> 00:08:41,152
 inheritance of functionality. All right, as I go
+功能的继承。好的，正如我刚刚解释的
 
 163
 00:08:41,221 --> 00:08:43,688
 through this explanation, it's super important to understand
+理解协议只不过是一种类型是非常重要的
 
 164
 00:08:43,757 --> 00:08:47,258
 that protocols are just a type. Just like a class is
+就像类是一种类型
 
 165
 00:08:47,327 --> 00:08:50,194
 a type, a struct, an enum, a protocol is a type.
+结构体，枚举类型，协议是一种类型
 
 166
 00:08:50,263 --> 00:08:52,730
 A first-class type, just like all the rest of these types,
+协议就像其他这些类型一样，是头等类型（first-class type）
 
 167
 00:08:52,799 --> 00:08:54,398
 that's very important to understand.
+理解这是非常重要的
 
 168
 00:08:54,467 --> 00:08:58,103
 All right, so let's dive into what a protocol is.
+好了，我们开始讲协议是什么
 
 169
 00:08:58,171 --> 00:08:59,804
 There's three parts to a protocol.
+一个协议有三个部分
 
 170
 00:08:59,873 --> 00:09:02,974
 One, there's the declaration of the protocol, just like you
+第一部分是协议的声明，就像
 
 171
 00:09:03,043 --> 00:09:05,443
 have a declaration of a class or an enum or a struct. For
+你的类、枚举类型、结构体有各自的声明一样
 
 172
 00:09:05,511 --> 00:09:07,245
 a protocol, that's just a list of
+对于协议来说，那就是一个方法
 
 173
 00:09:07,313 --> 00:09:09,781
 methods with their arguments and return values and
-
+和它的参数和返回值的清单。和
 174
 00:09:09,850 --> 00:09:13,284
 a list of vars. That's it, that's what a protocol is,
+一个变量的清单。就是这样，这就是一个协议
 
 175
 00:09:13,353 --> 00:09:16,620
 it's a declaration. Second part of a protocol though
-
+它是一个声明。一个协议的第二部分
 176
 00:09:16,689 --> 00:09:21,259
 is a class or a struct or an enum raises its hand and
+是一个类、结构体或枚举类型举起手来并且
 
 177
 00:09:21,327 --> 00:09:24,628
 claims to implement those methods in vars in that
+宣称要来实现协议中的那些对变量的处理方法
 
 178
 00:09:24,697 --> 00:09:27,832
 protocol. So there's the claim to implement a protocol,
+那么这里有要实现这个协议的声明
 
 179
 00:09:27,901 --> 00:09:30,701
 that's the second part. Cuz somebody has to actually
+这是第二部分。因为有人要真正的去
 
 180
 00:09:30,770 --> 00:09:33,437
 implement those methods that the protocol is a list of, and
+实现协议中列出的那些方法
 
 181
 00:09:33,506 --> 00:09:36,274
 that's classes, structs and enums, so they have to claim.
+而这可以使类、结构体、和枚举类型。所以他们要去声明
 
 182
 00:09:36,343 --> 00:09:39,377
 And then the third part is the code in those classes,
+接着第三部分是是在那些类、结构体和枚举类型中
 
 183
 00:09:39,446 --> 00:09:42,246
 structs and in in enums that actually implements
+的代码，这些代码真正地实现了
 
 184
 00:09:42,315 --> 00:09:45,115
 the protocol methods in vars. Okay, so
+协议中对变量的处理的方法
 
 185
 00:09:45,184 --> 00:09:47,852
 notice I'm mentioning vars. The vars,
+注意到我提到了变量。那些变量
 
 186
 00:09:47,921 --> 00:09:51,289
 the storage of the vars, if they're not computed vars,
+那些变量，如果他们不是演算变量的话
 
 187
 00:09:51,358 --> 00:09:54,592
 has to be in some struct, enum or a class. Because,
+必须要存储在结构体、枚举类型或或一个类中。因为
 
 188
 00:09:54,661 --> 00:09:58,596
 that's the only places you can have any storage, all right?
+那些是唯一可以有存储空间的地方，对吧
 
 189
 00:09:58,665 --> 00:10:00,364
 Okay, so that's it, those are the three parts of a protocol.
+好的，这就是协议的三个部分了
 
 190
 00:10:00,433 --> 00:10:03,401
 Now I'm gonna take a little aside, and
+现在我先要将一点别的
 
 191
 00:10:03,470 --> 00:10:07,037
 not even gonna spend too much time on this, but
+并且不会在这上面花费太多时间
 
 192
 00:10:07,106 --> 00:10:11,209
 all the methods and vars in a protocol are mandatory.
+一个协议中的所有方法和变量都是具有强制性的
 
 193
 00:10:11,278 --> 00:10:12,810
 If you're wanna raise your hand and
+如果你要举起手来并
 
 194
 00:10:12,879 --> 00:10:14,378
 say, I implement this protocol.
+说，我要实现这个协议
 
 195
 00:10:14,447 --> 00:10:18,015
 If you're a struct or enum or a class, you have to implement
+如果你是一个结构体、枚举类型、或类，你必须要实现所有的
 
 196
 00:10:18,084 --> 00:10:22,187
 all of the methods and all the vars in Swift. However,
+方法和所有的变量，在 Swift 中是这样的，但是
 
 197
 00:10:22,255 --> 00:10:27,024
 in Objective-C, that was not true. In Objective-C,
+在 Objective-C 中，并不是这样的。 在 Objective-C 中
 
 198
 00:10:27,093 --> 00:10:31,762
 protocols could have optional methods. Methods or
+协议可以有可选方法。协议中的
 
 199
 00:10:31,831 --> 00:10:34,432
 vars in the protocol that you could choose to implement or
+方法或变量你可以选择去实现或者不去实现
 
 200
 00:10:34,500 --> 00:10:38,970
 not. Now, that's quite a big difference and the way Swift
-
+那么这是与 Swift 的很大的不同，而 Swift 处理它的方式
 201
 00:10:39,039 --> 00:10:42,306
 deals with that is it allows you to put @objc, in front of
+是它允许你将 @ojbc 放在
 
 202
 00:10:42,375 --> 00:10:45,276
 you declaration of a protocol to make it so that this
+你的协议的声明的前面，以表示这是一个
 
 203
 00:10:45,344 --> 00:10:48,746
 is an Objective-C protocol instead of a switch protocol.
+Objective-C 协议而不是一个 Swift 协议
 
 204
 00:10:48,815 --> 00:10:51,216
 And the only difference is that now,
+而唯一区别是，现在
 
 205
 00:10:51,284 --> 00:10:54,252
 methods inside of your protocol can be marked
+你协议中的方法可以被标记为
 
 206
 00:10:54,321 --> 00:10:57,088
 optional. Not optional like you know question mark,
+可选的。不是像问号、感叹号那样的可选类型
 
 207
 00:10:57,157 --> 00:10:59,057
 exclamation point, that kind of optional enum.
+那是一种可选的枚举类型
 
 208
 00:10:59,125 --> 00:11:01,292
 I'm talking about optional like you can optionally
+我正讲的是像你可以选择去实现但你不一定要实现
 
 209
 00:11:01,361 --> 00:11:03,728
 implement the method but you don't have to implement if you
+这个方法，如果你
 
 210
 00:11:03,797 --> 00:11:07,498
 don't want to. Okay, so that's a special kind of backwards
+不想去实现的话。好的那么那就是一种特殊的对
 
 211
 00:11:07,567 --> 00:11:09,533
 compatibility mode to Objective-C, but
+Objective-C 的向后兼容
 
 212
 00:11:09,602 --> 00:11:12,470
 in Swift, we don't do that. So the only time we're ever gonna
+但是在 Swift 中，我们不会那样做。所以在这们课中
 
 213
 00:11:12,538 --> 00:11:15,673
 have this going on in this class is when we're using iOS
+我们只有在我们用到到了在 Objective-C 中
 
 214
 00:11:15,742 --> 00:11:18,642
 API that was designed back in the Objective-C world.
+设计的应用程序接口的时候才会这样做
 
 215
 00:11:18,711 --> 00:11:21,111
 Specifically, delegation,
+具体来讲，是代理（delegation）
 
 216
 00:11:21,180 --> 00:11:24,348
 which is that blind view to controller communication.
+它是那个匿名的视图和控制器的通信
 
 217
 00:11:24,417 --> 00:11:29,086
 That is all Objective-C style protocols and so
+那些都是 Objective-C 风格的协议
 
 218
 00:11:29,155 --> 00:11:32,423
 when you start using that down the road in the coming weeks,
+所以在接下来几周，当你开始去那些东西的时候
 
 219
 00:11:32,492 --> 00:11:34,191
 you're gonna see these protocols that are marked
+你会看到那些协议被标记为
 
 220
 00:11:34,260 --> 00:11:36,694
 Objective-C and some of them are marked optional
+Objective-C 并且有一些被标记为可选的
 
 221
 00:11:36,763 --> 00:11:38,429
 that you don't have to implement a method.
+可选的方法你不必须要去实现
 
 222
 00:11:38,497 --> 00:11:42,366
 That's not Swift. That's Objective-C compatibility.
+那不是 Swift，那是 Objective-C 的兼容性
 
 223
 00:11:42,435 --> 00:11:44,502
 So just put that in the back of your brain so
+所以先把这些记下来
 
 224
 00:11:44,571 --> 00:11:46,570
 that when you see it, you're like, whoa. I thought I had to
+当你看到它时，你就会，哇，我本以为我必须要
 
 225
 00:11:46,639 --> 00:11:48,973
 implement all the methods in your protocol. Yes, you do in
+实现你协议中的所有方法。是的，在 Swift 中你是要的
 
 226
 00:11:49,042 --> 00:11:54,211
 Swift. Only this exception, all right, back to protocols.
+除了这个例外。好的，回到协议
 
 227
 00:11:54,280 --> 00:11:57,682
 Okay, so how do we declare a protocol? What does the syntax
+那么我们应当如何声明一个协议呢？那个语法是什么样的
 
 228
 00:11:57,750 --> 00:12:00,851
 look like? Well, it looks a lot like declaring a class.
+它跟声明一个类很像
 
 229
 00:12:00,920 --> 00:12:05,022
 Protocol, SomeProtocol, SomeProtocol is the name
+protocol SomeProtocol，SomeProtocol 协议的
 
 230
 00:12:05,091 --> 00:12:07,858
 of that protocol just like if you say at class whatever
+名字，就像 class whatever 中
 
 231
 00:12:07,927 --> 00:12:09,627
 that would be the name of the class.
+whatever 是类的名字
 
 232
 00:12:09,695 --> 00:12:12,897
 Notice that there's also colon, InheritedProtocol1,
+注意这里还有 :InheritedProtocol1, InheritedProtocol2
 
 233
 00:12:12,966 --> 00:12:16,667
 InheritedProtocol2 actually it can be any number of these.
+事实上这里可以有任意数量的这些东西
 
 234
 00:12:16,736 --> 00:12:22,273
 These are the other protocols that SomeProtocol inherits.
+这些是 SomeProtocol 继承的那些协议
 
 235
 00:12:22,342 --> 00:12:25,276
 Okay, so there is inheritance in protocols. It means
+所以说，协议中也是有继承的，这
 
 236
 00:12:25,344 --> 00:12:28,346
 a little bit different thing then in a class.
+与类中的继承有一点不同
 
 237
 00:12:28,415 --> 00:12:30,782
 Okay, inheritance in the protocol world means,
-
+在协议中的继承的意思是
+#TODO: some protocol -> SomeProtocol
 238
 00:12:30,850 --> 00:12:34,219
 if you wanna claim to implement some protocol. You
+如果你声明要实现 SomeProtocol，你
 
 239
 00:12:34,287 --> 00:12:37,355
 also have have to implement InheritedProtocol1 and
+同时要实现 InheritedProtocol1 和
 
 240
 00:12:37,423 --> 00:12:41,759
 InheritedProtocol2. So it's almost like it's a mandatory
+InheritedProtocol2。所以那差不多就是一些必须的
 
 241
 00:12:41,827 --> 00:12:44,629
 additional protocols you must implement if you wanna say
+额外的协议，你必须要去实现，当你声明要
 
 242
 00:12:44,697 --> 00:12:47,398
 you implement this protocol. We call that protocol
+实现这个协议时。我们称这位协议继承
+
 
 243
 00:12:47,467 --> 00:12:52,270
 inheritance. We call it that because some protocol inherits
+我们这样叫它是因为一些协议继承了
 
 244
 00:12:52,338 --> 00:12:57,842
 the requirement to implement these other protocols. Now,
+要实现它所继承的那些协议的要求
 
 245
 00:12:57,911 --> 00:13:01,712
 once you go inside the definition of protocol,
+当你进入一个协议的声明
 
 246
 00:13:01,781 --> 00:13:05,483
 you can see there's no code. Protocols have no code,
+你会发现这里没有代码。协议不包含代码
 
 247
 00:13:05,552 --> 00:13:06,884
 they are not implementations,
+它们不是实现
 
 248
 00:13:06,953 --> 00:13:10,854
 they are purely declarations. And, in fact, when you declare
+它们单纯的只是声明。并且事实上当你声明
 
 249
 00:13:10,923 --> 00:13:13,925
 that you're gonna have a var be part of your protocol,
+一个变量将会作为这个协议中的一部分时
 
 250
 00:13:13,994 --> 00:13:16,894
 all you get to say is whether it's a read-only var,
+你只能决定它是一个只读变量
 
 251
 00:13:16,962 --> 00:13:18,296
 which would be get or
+也就是 get ，或者是
 
 252
 00:13:18,364 --> 00:13:20,865
 a read-and-write var with get set like this.
+一个可读可写的变量，也就是 get 和 set，像这个
 
 253
 00:13:20,934 --> 00:13:24,435
 So this one right here some property would be get and set.
+那么这里的东西表示它是这是一个可获取与赋值的属性
 
 254
 00:13:24,504 --> 00:13:27,104
 So if you wanna implement this protocol, your class or
+如果你希望实现这个协议，你的类
 
 255
 00:13:27,173 --> 00:13:29,640
 struct and you wanna implement this, you would have to have
+或者结构体和你想要实现这个，你必须要有一个
 
 256
 00:13:29,709 --> 00:13:36,013
 a var that can be get and set. Okay, that's what that means.
+可以获取与赋值的变量。这就是它的意思
 
 257
 00:13:36,082 --> 00:13:39,283
 Any methods that you have in your protocol
+你协议中的所有可能被结构体实现
 
 258
 00:13:39,352 --> 00:13:43,321
 that might be implemented by a struct and modified the thing
+的方法，如果它会改变那个东西的话
 
 259
 00:13:43,389 --> 00:13:46,791
 have to be marked mutating of course, right?
+当然必须要被标记为可变的（mutating）
 
 260
 00:13:46,860 --> 00:13:50,361
 Because again Swift needs to know oh
+因为 Swift 需要知道，喔
 
 261
 00:13:50,430 --> 00:13:53,264
 this method might change the thing that implements it.
+这个方法可能会改变实现它的那个东西
 
 262
 00:13:53,332 --> 00:13:56,534
 Now there's a little trick if you want, if you know
+如果你想知道的话，这有一个技巧。如果你确定
 
 263
 00:13:56,602 --> 00:13:59,436
 this protocol's never gonna be implemented by a struct,
+这个协议绝不会被一个结构体实现
 
 264
 00:13:59,505 --> 00:14:02,339
 then you don't need the mutating. But you have to mark
+那么你就不需要 mutating。但你必须要去标记
 
 265
 00:14:02,408 --> 00:14:06,143
 the protocol to say this is a class only protocol. You do
+这个协议来表示这是一个只会被类实现的协议
 
 266
 00:14:06,212 --> 00:14:09,914
 that by saying colon class as the first thing right after
+你可以通过将 : class 放在协议声明的后的第一位
 
 267
 00:14:09,982 --> 00:14:13,251
 the protocol declaration. You see how I put that yellow
+你看到我将那个黄色的
 
 268
 00:14:13,319 --> 00:14:16,253
 colon class up there? Okay, so then if you did that then
+冒号放在那了吗？好的如果你这样做了
 
 269
 00:14:16,322 --> 00:14:18,456
 you would not have to put the mutating because of course,
+你自然就不需要放 mutating 在那里了
 
 270
 00:14:18,525 --> 00:14:20,224
 you never have to put mutating in a class, but
+你在类中从不需要 mutating
 
 271
 00:14:20,292 --> 00:14:22,426
 then this protocol could not be implemented by a struct.
+但之后这个协议就不能被结构体实现了
 
 272
 00:14:22,495 --> 00:14:25,829
 It could only be implemented by a class, we rarely do this.
+它只能被类实现，我们很少这样做
 
 273
 00:14:25,898 --> 00:14:28,732
 Okay we don't usually make a protocol, be restricted to
+我不通常不讲一个协议限制为只能
 
 274
 00:14:28,801 --> 00:14:31,435
 a class and in fact 99% of all the protocols you're gonna see
+由类实现，并且实际上 iOS 中 99% 的协议
 
 275
 00:14:31,504 --> 00:14:36,207
 in iOS could be implemented by anybody. Okay,
+可以被任何东西实现
 
 276
 00:14:36,276 --> 00:14:40,544
 what else we got here. Yes,
+这里还有什么，对了
 
 277
 00:14:40,613 --> 00:14:44,748
 you can an even add an init to your protocol. And that means
+你甚至可以在你的协议中加上初始化（init），这意味着
 
 278
 00:14:44,817 --> 00:14:47,551
 if you're a class or a struct that implements this protocol,
+如果一个类或者结构体要来实现这个协议
 
 279
 00:14:47,620 --> 00:14:49,086
 you have to implement this init.
+它必须要实现这个初始化
 
 280
 00:14:49,155 --> 00:14:53,056
 So, I have to be able to initialize you. So, that
+我必须能够初始化这个协议
 
 281
 00:14:53,125 --> 00:14:57,194
 was how we declare a protocol, now let's look how a class or
+那就是我们声明一个协议的方法，现在让我们来看看一个类
 
 282
 00:14:57,263 --> 00:15:00,965
 a struct says, raises his hand and says yes, I will
+或者结构体要如何举起手来，说好，我将
 
 283
 00:15:01,033 --> 00:15:03,968
 implement this protocol. All it does is in a class after
+实现这个协议。一个类需要做的只是
 
 284
 00:15:04,036 --> 00:15:07,505
 the superclass, you just say comma all the protocols you
+在它的父类后面，加上逗号和所以他
 
 285
 00:15:07,574 --> 00:15:12,243
 claim to implement. It's as simple as that, of course, for
+声明要实现的协议。这是这样简单，当然
 
 286
 00:15:12,312 --> 00:15:15,279
 a struct there is no superclass, so
+对于结构体来说，它没有父类
 
 287
 00:15:15,347 --> 00:15:19,717
 you would just say enum or struct, whatever, colon
+所以你只用 enum 或 struct whatever（名字）:
 
 288
 00:15:19,786 --> 00:15:24,055
 the protocols you implement. Okay, so that's how you claim.
+再加所以你要实现的协议。好的，那就是你如何声明实现
 
 289
 00:15:24,123 --> 00:15:26,657
 This is you raising your hand and say I implement that.
-
+这就是你举起手来并说你要实现那个
+#TODO: the Swift compiler
 290
 00:15:26,726 --> 00:15:28,759
 As soon as you say that the source compiler is gonna check
+你一这样说，Swift 的编译器就会去确定
 
 291
 00:15:28,828 --> 00:15:30,961
 to make sure you actually implement those methods and
+你真的实现了在那个协议中的方法和
 
 292
 00:15:31,030 --> 00:15:33,397
 vars in that protocol. And if you don't, you're going to get
+变量。如果你没有，你会得到
 
 293
 00:15:33,466 --> 00:15:36,734
 errors. It's gonna say you do not implement this on protocol
+错误。它会说你们有实现这个协议中的
 
 294
 00:15:36,803 --> 00:15:41,338
 method whatever. And you're have to go do that, all right?
+某个方法什么的。而你必须要去实现它们，对吧
 
 295
 00:15:41,407 --> 00:15:43,240
 You can do any number of protocols that you want.
+你可以实现任意你想要的数量的协议
 
 296
 00:15:43,309 --> 00:15:46,310
 That's sometimes why we say that protocols can provide
+那就是有时我们说协议可以提供
 
 297
 00:15:46,379 --> 00:15:48,546
 multiple inheritance because you can have as many of these
+多重继承，因为你可以放
 
 298
 00:15:48,615 --> 00:15:51,616
 ah, as you want going on there. Ah, by the way,
+任何你想要的数量的协议在那里，还有
 
 299
 00:15:51,685 --> 00:15:53,551
 if there is an init in the protocol and
+如果在协议中有初始化
 
 300
 00:15:53,620 --> 00:15:56,487
 you're a class and you say, implement that protocol,
+而一个类要实现这个这个协议
 
 301
 00:15:56,555 --> 00:15:59,623
 you have to mark there, your init required.
+你必须要在那里标注 required
 
 302
 00:15:59,692 --> 00:16:01,859
