@@ -72,7 +72,7 @@ we're gonna talk about two very important topics today.
 00:00:43,343 --> 00:00:45,910
 Protocols and closures.
 协议和闭包
-#TODO
+#TODO: 这里不会翻译
 16
 00:00:45,979 --> 00:00:48,647
 Functions as types of general those two and in between, I'm
@@ -239,7 +239,7 @@ not change this Concentration object. So
 00:02:34,220 --> 00:02:37,722
 of course we need chooseCard to change the Concentration
 当然我们需要这个函数改变 Concentration 对象，
-#TODO: The change of the game 如何翻译
+
 49
 00:02:37,791 --> 00:02:40,325
 object cuz it's the main thing. The change of the game,
@@ -279,7 +279,7 @@ Question? >> [INAUDIBLE]
 00:03:00,547 --> 00:03:01,680
 does this not need it?
 这个不需要添加 mutating
-#TODO: get and set 如何翻译
+#TODO: get and set 暂时翻译成获取和赋值
 57
 00:03:01,749 --> 00:03:05,784
 This is a var. And this var is get and set, so
@@ -464,7 +464,7 @@ Let's go back to our slides and talk about the first very,
 00:04:56,897 --> 00:05:01,900
 very important topic today which is protocols.
 非常重要的主题，协议（protocol）
-#TODO: 这里不会翻译 fourth pillar
+
 94
 00:05:01,968 --> 00:05:05,737
 It's the fourth pillar of building data structures
@@ -563,7 +563,7 @@ the receiving method can specify what it really wants.
 00:06:04,665 --> 00:06:08,132
 So both sides get to do what they want. The receiving thing
 这样两边都可以做它们想做的。接收者
-#TODO: gets to say what it wants the thing you're passing in to do
+#TODO: 因该是gets to say what it wants the thing you're passing in to do
 114
 00:06:08,201 --> 00:06:10,868
 gets to say what it wants the thing you're passing and
@@ -748,7 +748,7 @@ a string are completely different. But they are both
 00:08:01,515 --> 00:08:04,182
 collections, a string is a collection of characters,
 是一个集合。一个字符串是字符的集合
-#TODO: a countable range
+#TODO: a countable range 暂时翻译为可数区间
 151
 00:08:04,251 --> 00:08:06,584
 accountable range is a collection of integers if it's
@@ -1441,7 +1441,7 @@ the protocols you implement. Okay, so that's how you claim.
 00:15:24,123 --> 00:15:26,657
 This is you raising your hand and say I implement that.
 这就是你举起手来并说你要实现那个
-#TODO: the Swift compiler
+#TODO: 应该是the Swift compiler
 290
 00:15:26,726 --> 00:15:28,759
 As soon as you say that the source compiler is gonna check
