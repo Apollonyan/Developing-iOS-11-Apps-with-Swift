@@ -93,7 +93,7 @@ it's not like the monstrous important topics like
 prototypes and closures are. So start right into that demo
 那样重要。那么现在从我们已经做好的
 
-#TODO: And i had remembered ?
+#TODO: 应该是And I had remembered?
 20
 00:01:00,928 --> 00:01:05,096
 that I had. And remember, we were talking at the time about
