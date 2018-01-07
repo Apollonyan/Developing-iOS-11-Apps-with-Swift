@@ -72,6 +72,7 @@ we're gonna talk about two very important topics today.
 00:00:43,343 --> 00:00:45,910
 Protocols and closures.
 协议和闭包
+
 #TODO: 这里不会翻译
 16
 00:00:45,979 --> 00:00:48,647
@@ -93,10 +94,9 @@ it's not like the monstrous important topics like
 prototypes and closures are. So start right into that demo
 那样重要。那么现在从我们已经做好的
 
-#TODO: 应该是And I had remembered?
 20
 00:01:00,928 --> 00:01:05,096
-that I had. And remember, we were talking at the time about
+that I had. And I had remembered, we were talking at the time about
 示例程序开始。我记得我们那时正在讲
 
 21
@@ -279,6 +279,7 @@ Question? >> [INAUDIBLE]
 00:03:00,547 --> 00:03:01,680
 does this not need it?
 这个不需要添加 mutating
+
 #TODO: get and set 暂时翻译成获取和赋值
 57
 00:03:01,749 --> 00:03:05,784
@@ -563,10 +564,10 @@ the receiving method can specify what it really wants.
 00:06:04,665 --> 00:06:08,132
 So both sides get to do what they want. The receiving thing
 这样两边都可以做它们想做的。接收者
-#TODO: 因该是gets to say what it wants the thing you're passing in to do
+
 114
 00:06:08,201 --> 00:06:10,868
-gets to say what it wants the thing you're passing and
+gets to say what it wants the thing you're pass in
 来决定它应该用你传递给它的参数做什么
 
 115
@@ -1552,7 +1553,7 @@ all it's subclasses have to as well, so all init would have
 311
 00:16:24,317 --> 00:16:26,684
 to be required. Cuz init kind of special,
-都要被标为 required 因为初始化有些特殊
+都要被标为 required，因为初始化有些特殊
 
 312
 00:16:26,753 --> 00:16:28,719
@@ -1667,7 +1668,7 @@ the protocol we wanted int to implement and then in there,
 334
 00:17:35,721 --> 00:17:39,556
 and the extension we would put all the implementations of
-并且在扩展中，我们回将所有变量与方法
+并且在扩展中，我们会将所有变量与方法
 
 335
 00:17:39,625 --> 00:17:42,926
@@ -1678,6 +1679,7 @@ the vars and methods in that protocol. And
 00:17:42,995 --> 00:17:46,163
 this is actually quite common to use in extension just for
 这样用扩展是相当普遍的方法
+
 #TODO: code book keeping 不会翻译
 337
 00:17:46,232 --> 00:17:49,700
@@ -1702,12 +1704,12 @@ the type they are. Okay, protocols are types. So
 341
 00:18:01,113 --> 00:18:04,114
 let's see, here I have a protocol called Moveable.
-来看，我这里有一个协议，叫做 Moveable
+看，我这里有一个协议，叫做 Moveable
 
 342
 00:18:04,183 --> 00:18:08,018
 It has one method in it called, move to, all right?
-它其中有一个方法叫做 move(to )
+它其中有一个方法叫做 move(to:)
 
 343
 00:18:08,087 --> 00:18:11,188
@@ -1767,7 +1769,7 @@ All right, now I'm going to declare a var, thingToMove.
 354
 00:18:39,318 --> 00:18:44,288
 It's gonna be of type Moveable. Remember I said,
-它的类型应该是 Movable 还记得我说过
+它的类型应该是 Movable，还记得我说过
 
 355
 00:18:44,356 --> 00:18:47,391
@@ -1792,7 +1794,7 @@ because a prius implements the Moveable protocol.
 359
 00:18:58,237 --> 00:19:00,304
 It implements that move to over there and it and
-它实现了那个 move(to) 方法并且
+它实现了那个 move(to:) 方法并且
 
 360
 00:19:00,372 --> 00:19:02,273
@@ -1827,7 +1829,7 @@ I can not say thingToMove.changeOil,
 366
 00:19:21,694 --> 00:19:25,930
 even though a prius is a Car and Car implements changeOil.
-尽管 prius 是一个 Car 类型，并且实现了 changeOil()
+尽管 prius 是一个 Car，并且实现了 changeOil()
 
 367
 00:19:25,998 --> 00:19:29,200
@@ -1867,12 +1869,12 @@ mind is just a Moveable. The only thing Swift knows
 374
 00:19:47,820 --> 00:19:50,421
 that it can do is move to, right?
-知道它只能做到 move(to )
+知道它只能做到 move(to:)
 
 375
 00:19:50,490 --> 00:19:53,056
 So this is the most important thing on this entire slide,
-这是这也幻灯片中最重要的东西
+这是这页幻灯片中最重要的东西
 
 376
 00:19:53,125 --> 00:19:57,394
@@ -1887,7 +1889,7 @@ changeOil()。但是你能做什么呢
 378
 00:20:02,101 --> 00:20:05,169
 can do? Well, I can say thingToMove equals square.
-我我可以写 thingToMove = square
+我可以写 thingToMove = square
 
 379
 00:20:05,237 --> 00:20:08,272
@@ -1937,7 +1939,7 @@ Moveables as an argument. Here's slide,
 388
 00:20:29,295 --> 00:20:32,029
 which takes a slider, which is a type of Moveable. And
-它接收一个 slider 类型是 Moveable
+它接收一个 slider，类型是 Moveable
 
 389
 00:20:32,097 --> 00:20:35,132
@@ -1982,12 +1984,12 @@ do the exact same thing like perform the same action? Okay,
 397
 00:20:51,551 --> 00:20:55,452
 so the question is, does this mean that move to in Car and
-那么他的问题是，在 Car 中的 move(to) 和 Shape
+那么他的问题是，在 Car 中的 move(to:) 和 Shape
 
 398
 00:20:55,521 --> 00:20:58,321
 move to in Shape, do they have to do exact same thing?
-中的 move(to) 它们是不是要做同样的事
+中的 move(to:) 它们是不是要做同样的事
 
 399
 00:20:58,390 --> 00:21:00,824
@@ -1997,12 +1999,12 @@ And the answer is, no. They can do anything they want.
 400
 00:21:00,893 --> 00:21:03,760
 They can do whatever move to makes sense for a Car or
-它们可以做任何对车看起来有道理的 move(to)
+它们可以做任何对车看起来有道理的 move(to:)
 
 401
 00:21:03,829 --> 00:21:05,162
 whatever move to makes sense for
-和对形状看起来有道理的 move(to)
+和对形状看起来有道理的 move(to:)
 
 402
 00:21:05,231 --> 00:21:07,898
@@ -2037,7 +2039,7 @@ then I say something are movable.
 408
 00:21:19,211 --> 00:21:21,311
 They are called move to, how does it know which one to use?
-并且以它们调用 move(to)，它怎么知道要使用哪个 move(to) 方法
+并且以它们调用 move(to:)，它怎么知道要使用哪个 move(to:) 方法
 
 409
 00:21:21,380 --> 00:21:25,883
@@ -2067,7 +2069,7 @@ But when it comes to actually executing the code now Swift
 414
 00:21:36,462 --> 00:21:40,030
 looks and says, oh it's a Car, so I'm gonna use Car's moveTo.
-喔，这是一个 Car 类型，那我将用 Car 的 move(to)
+喔，这是一个 Car 类型，那我将用 Car 的 move(to:)
 
 415
 00:21:40,099 --> 00:21:42,232
@@ -2082,7 +2084,7 @@ But the whole reason that we're typing thingToMove
 417
 00:21:44,870 --> 00:21:47,538
 to be of type thing to move is cuz we're telling everyone
-Moveable 类型是因为我们希望告诉所以读
+Moveable 类型，是因为我们希望告诉所以读
 
 418
 00:21:47,607 --> 00:21:50,207
@@ -2092,7 +2094,7 @@ who's reading our code, I'm just using this thing as
 419
 00:21:50,276 --> 00:21:53,611
 a Moveable thing. I don't care that it's a car.
-Moveable 类型的。我不管他是是不是 Car
+Moveable 类型的。我不管他是不是 Car
 
 420
 00:21:53,679 --> 00:21:56,480
@@ -2102,7 +2104,7 @@ My code works on anything that's Movable. So
 421
 00:21:56,549 --> 00:22:00,183
 I'm just communicating to people reading my code and
-所有我正与阅读我的代码的人和我自己交流
+所以我正与阅读我的代码的人和我自己交流
 
 422
 00:22:00,252 --> 00:22:03,387
@@ -2112,7 +2114,7 @@ to myself in all that but Swift under the covers
 423
 00:22:03,455 --> 00:22:07,090
 of course knows which move to execute. It is possible by
-知道要去执行哪个 move(to) 的。同时
+知道要去执行哪个 move(to:) 的。同时
 
 424
 00:22:07,159 --> 00:22:10,561
@@ -2223,12 +2225,12 @@ Okay, so what was that?
 446
 00:23:13,859 --> 00:23:18,328
 thingToMove. [INAUDIBLE] >> Okay, so he's saying,
->>[学生提问] >>好的，他是问
+[学生提问] >>好的，他是问
 
 447
 00:23:18,397 --> 00:23:23,500
 look, I set thingToMove to be a prius. Then I call move to,
-看，我将 thingToMove 赋值为 prius，接着我调用 move(to)
+看，我将 thingToMove 赋值为 prius，接着我调用 move(to:)
 
 448
 00:23:23,569 --> 00:23:24,334
@@ -2243,7 +2245,7 @@ Obviously the prius. Then I set thingToMove to be square.
 450
 00:23:28,107 --> 00:23:31,307
 Now if I called move to, it would use the square's one.
-现在我再调用 move(to)，它会执行 square 的那个
+现在我再调用 move(to:)，它会执行 square 的那个
 
 451
 00:23:31,376 --> 00:23:34,211
@@ -2278,12 +2280,12 @@ Are you allowed to just drop that whenever valid-
 457
 00:23:44,189 --> 00:23:48,025
 he's saying up here look in Car, move to, no mutating.
-他是问，看这里 Car 的 move(to )，没有 mutating
+他是问，看这里 Car 的 move(to:)，没有 mutating
 
 458
 00:23:48,094 --> 00:23:50,627
 See, down here in Shape, we've got mutating. Up here,
-再看到 Shape 中的 move(to)，有 mutating 这上面
+再看到 Shape 中的 move(to:)，有 mutating 这上面
 
 459
 00:23:50,696 --> 00:23:55,131
@@ -2369,6 +2371,7 @@ so like simple, so this is the will, did, shoulds, data at
 00:24:40,112 --> 00:24:41,378
 So let's take a look how we do this, all right? So
 那么我们来看看该怎么做
+
 #TODO: 476 多了，不该有这一句的
 476
 00:24:41,379 --> 00:24:42,645
@@ -2482,7 +2485,7 @@ type that protocol, all is good, okay. And then,
 498
 00:25:51,784 --> 00:25:54,384
 of course, the controller has to implement all the methods
-控制当然要去实现这个协议中的
+控制器当然要去实现这个协议中的
 
 499
 00:25:54,453 --> 00:25:56,886
@@ -2602,7 +2605,7 @@ have this blind communication. All right, so
 522
 00:27:03,722 --> 00:27:06,824
 let's look at the example of UIScrollView. So this is what
-让我们来看看 UIScrollview 这个例子，那么这个就是
+让我们来看看 UIScrollView 这个例子，那么这个就是
 
 523
 00:27:06,892 --> 00:27:10,527
@@ -2659,7 +2662,7 @@ that's fine by me, just set this to nil and
 I'll stop sending messages to it. Okay, so that way,
 而我会停止向它传递信息。好的，通过这样的方式
 
-#TODO: keep controller in the heat 翻译成一直使用？
+#TODO: keep controller in the heat 翻译成一直使用控制器？
 534
 00:27:40,259 --> 00:27:42,759
 the view won't keep the controller in the heat.
@@ -2668,7 +2671,7 @@ the view won't keep the controller in the heat.
 535
 00:27:42,828 --> 00:27:45,495
 So anyway, notice this is optional because it's weak.
-那么，留心这是一个可选类型应为它是 weak 的
+那么，留心这是一个可选类型因为它是 weak 的
 
 536
 00:27:45,564 --> 00:27:47,430
@@ -2898,7 +2901,7 @@ which is static. Meaning it's on the type, like get unique
 581
 00:30:01,500 --> 00:30:05,401
 identifier was in card, remember that? And its name is
-就像 card 中的 getUniqueIdentifier 还记得吗
+就像 card 中的 getUniqueIdentifier，还记得吗
 
 582
 00:30:05,470 --> 00:30:09,506
@@ -2923,7 +2926,7 @@ the arguments are a left-hand side and a right-hand side,
 586
 00:30:20,352 --> 00:30:24,454
 notice that the type is Self, this is a type method, so self
-留心它们的类型是 Self 这是一个定义在类型上的函数，因此 Self
+留心它们的类型是 Self，这是一个定义在类型上的函数，因此 Self
 
 587
 00:30:24,523 --> 00:30:27,824
@@ -3048,7 +3051,7 @@ it's Hashable. So this is how we use protocols to constrain
 611
 00:31:47,305 --> 00:31:50,874
 these generic types, right? Now Value, right there
-这些泛型的。同时 Vaule
+这些泛型的。同时 Value
 
 612
 00:31:50,943 --> 00:31:53,343
@@ -3093,7 +3096,7 @@ Int 是可哈希的，这是可以的，而值是
 620
 00:32:16,434 --> 00:32:19,802
 are the emoji. And the int is our card.identifier.
-那些表情，而 Int 就是我们的 card.identifer
+那些表情，而 Int 就是我们的 card.identifier
 
 621
 00:32:19,871 --> 00:32:22,839
@@ -3153,7 +3156,7 @@ I don't want to use the identifier,
 632
 00:32:47,599 --> 00:32:51,134
 I am just going to take this identifier right off of here
-我要直接就把这里的 identifer 删去
+我要直接就把这里的 identifier 删去
 
 633
 00:32:51,203 --> 00:32:54,036
@@ -3193,7 +3196,7 @@ int string with a card. Of course okay,
 640
 00:33:17,062 --> 00:33:20,530
 I said that the keys were int, and here I'm trying to do it
-我我这里写的是键的类型应该是 Int，而在这里我正
+我这里写的是键的类型应该是 Int，而在这里我正
 
 641
 00:33:20,599 --> 00:33:22,031
@@ -3329,7 +3332,7 @@ an extremely good hash for a card because it's unique for
 667
 00:34:51,056 --> 00:34:54,291
 that card. And the equals equals is also really easy
-而那 ==  也是非常简单的
+而那 == 也是非常简单的
 
 668
 00:34:54,359 --> 00:34:56,526
@@ -3444,7 +3447,8 @@ two cards match, oh, well cards implement equatable now.
 690
 00:36:01,459 --> 00:36:05,328
 So I can just go like this card matchIndex
-那么我就只用这样做
+那么我就只用这样写
+
 691
 00:36:05,397 --> 00:36:10,033
 =cards[index] because I can compare cards directly,
@@ -3593,7 +3597,7 @@ so these two protocols define a lot of fun things like
 720
 00:37:36,888 --> 00:37:41,057
 sequence defines really only one method,
-像 Sequence 值定义了一个方法
+像 Sequence 只定义了一个方法
 
 721
 00:37:41,125 --> 00:37:44,127
@@ -3678,7 +3682,7 @@ in over has to be a sequence. So I can just look to see does
 737
 00:38:32,710 --> 00:38:34,243
 this thing implement that protocol? Or
-这些东西是否实现了那个协议
+这东西是否实现了那个协议
 
 738
 00:38:34,312 --> 00:38:37,947
@@ -3773,7 +3777,7 @@ us to implement indexOf for
 756
 00:39:39,777 --> 00:39:45,014
 all of these classes in one place. So that's why,
-indexOf，在一个地方，这就是原因
+indexOf，在一个地方，这就是为什么
 
 757
 00:39:45,082 --> 00:39:47,617
@@ -3833,12 +3837,12 @@ We know that, right? No vars, so that's certainly
 768
 00:40:17,782 --> 00:40:21,117
 a restriction. Also in the extension, really the only
-并且，在扩展中你能实现的方法
+并且，在扩展中
 
 769
 00:40:21,186 --> 00:40:24,119
 method you could use to implement it are the methods
-只能是
+你能用的方法只能是
 
 770
 00:40:24,188 --> 00:40:26,990
@@ -3893,7 +3897,7 @@ forEach 差不多就是 for in 的功能。 joined by
 780
 00:40:54,852 --> 00:40:57,586
 separator, which takes all the things in the sequence,
-separating 用来获取序列中的所有元素，并
+separator 用来获取序列中的所有元素，并
 
 781
 00:40:57,655 --> 00:41:00,356
@@ -3908,7 +3912,7 @@ joined by a separator like comma or space. It has min,
 783
 00:41:04,362 --> 00:41:06,729
 find me the minimum thing in this sequence, max,
-它还有 min 用来找到序列中的最小元素，max
+它还有 min 用来找到序列中的最小元素
 
 784
 00:41:06,798 --> 00:41:10,133
@@ -3973,7 +3977,7 @@ the implementations of min and max and all these things.
 796
 00:41:42,466 --> 00:41:45,134
 Now, these are only default implementations.
-这些知识默认实现
+这些只是默认实现
 
 797
 00:41:45,203 --> 00:41:48,337
@@ -4108,7 +4112,7 @@ different way of thinking about dividing things up.
 823
 00:42:56,607 --> 00:42:58,774
 It allows you to get things like multiple inheritance
-它允许你使用剁成继承
+它允许你使用多重继承
 
 824
 00:42:58,843 --> 00:43:00,977
@@ -4198,7 +4202,7 @@ which is really great. So it's kind of your best,
 841
 00:43:44,288 --> 00:43:46,088
 it's a mix between languages like Haskell,
-它有是 Haskell 和 Java 的结合
+它可以说是 Haskell 和 Java 的结合
 
 842
 00:43:46,156 --> 00:43:48,457
@@ -4308,7 +4312,7 @@ an underlying built with character, it's built with
 863
 00:44:52,423 --> 00:44:56,659
 unicodes. Okay, unicodes are just little bite size chunks
-它是以 Unicodes 为基础建立的，Unicode 就是那几个字节
+它是以 Unicode 为基础建立的，Unicode 就是那几个字节
 
 864
 00:44:56,728 --> 00:45:00,162
@@ -4618,12 +4622,12 @@ we do it by indexing that first space over by one.
 925
 00:48:12,123 --> 00:48:15,390
 And I am gonna assume there is one space in between words,
-这么为了能找到下一个单词，我在这里
+为了能找到下一个单词，我在这里
 
 926
 00:48:15,459 --> 00:48:18,593
 go to the next one. And now, I am going to get the whole word
-假定了单词之间是有空格的，而现在我将要得到整个 pesto
+假定了单词之间是有空格的。而现在我将要得到整个 pesto
 
 927
 00:48:18,662 --> 00:48:25,201
@@ -4638,12 +4642,12 @@ of a string doesn't have to be an individual index.
 929
 00:48:27,972 --> 00:48:31,040
 It could be a range of indexes. Now you notice to
-他可以是一个由所以构成的区间
+他可以是一个由索引构成的区间
 
 930
 00:48:31,109 --> 00:48:35,511
 make a range, I'm using exactly the same dot,
-主要到这里要创建一个区间，我是用的是之前
+注意到这里要创建一个区间，我是用的是之前
 
 931
 00:48:35,580 --> 00:48:38,247
@@ -4688,7 +4692,7 @@ it is perfectly legal to use a range inside subscripting, and
 939
 00:49:02,806 --> 00:49:05,441
 that's true anywhere there's subscripting of collections.
-并且这是在任何下标是集合的地方都是正确的
+并且在任何下标是集合的地方都是正确的
 
 940
 00:49:07,011 --> 00:49:08,844
@@ -4738,7 +4742,7 @@ to get the second word, and probably what we would use, is
 949
 00:49:31,702 --> 00:49:35,570
 a more complicated method like component separated by. So
-一个更复杂的方法， components.(separatedBy:)
+一个更复杂的方法， components(separatedBy:)
 
 950
 00:49:35,639 --> 00:49:39,508
@@ -4773,7 +4777,7 @@ of all the words separated by a space. Then I would grab
 956
 00:49:55,926 --> 00:49:59,294
 index one, which would be the second word. Okay,
-接着我使用 [1] 这就是第二个单词了
+接着我使用 [1]，这就是第二个单词了
 
 957
 00:49:59,363 --> 00:50:02,031
@@ -4783,7 +4787,7 @@ so I'm showing you how to do the indexing directly, but
 958
 00:50:02,100 --> 00:50:04,000
 a lot of times we use much higher level
-但更多实惠我们都会用更加高级的
+但更多时候我们都会用更加高级的
 
 959
 00:50:05,302 --> 00:50:09,871
@@ -4873,7 +4877,7 @@ array of string, you'll get an array of its characters. And
 976
 00:50:59,390 --> 00:51:03,592
 now you can use int to index them if you want. So sometimes
-现在如果你想要，你就可以使用 Int 来所以这个数组了
+现在如果你想要，你就可以使用 Int 来索引这个数组了
 
 977
 00:51:03,661 --> 00:51:06,194
