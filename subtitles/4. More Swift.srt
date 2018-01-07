@@ -637,17 +637,17 @@ The communication between the view and the controller.
 128
 00:06:50,611 --> 00:06:54,011
 All those will, did, shoulds. And the data at count,
-那些will, did, should, data, at,count 方法
+那些will, did, should, data, at, count 方法
 
 129
 00:06:54,080 --> 00:06:56,982
 those kind of communications between a view controller.
-那些视图与控制器之间同行的方式
+那些视图与控制器之间通信的方式
 
 130
 00:06:57,050 --> 00:06:59,784
 That all had to be blind, because the views are generic
-那些都应该是匿名的，因为视图是通用的
+那些都应该是匿名的，因为视图是泛型的
 
 131
 00:06:59,853 --> 00:07:03,721
@@ -698,10 +698,10 @@ Well, protocols let us define dictionary in a way so
 00:07:32,052 --> 00:07:35,319
 that we don't use any keys that aren't hashable.
 我们就不能用任何不具哈希性的键
-#passibility -> hashability
+
 141
 00:07:35,388 --> 00:07:38,056
-So mandating behavior passibility, for example,
+So mandating behavior hashbility, for example,
 那么协议在限制键的
 
 142
@@ -748,7 +748,7 @@ a string are completely different. But they are both
 00:08:01,515 --> 00:08:04,182
 collections, a string is a collection of characters,
 是一个集合。一个字符串是字符的集合
-#TODO: a countable range 暂时翻译为可数区间
+
 151
 00:08:04,251 --> 00:08:06,584
 accountable range is a collection of integers if it's
@@ -757,7 +757,7 @@ accountable range is a collection of integers if it's
 152
 00:08:06,653 --> 00:08:09,487
 an accountable range of int. So they do share some and
-它是一个字符的集合。那么它们的确都有一些共性
+它是一个整数的集合。那么它们的确都有一些共性
 
 153
 00:08:09,555 --> 00:08:12,624
@@ -863,6 +863,7 @@ a protocol, that's just a list of
 00:09:07,313 --> 00:09:09,781
 methods with their arguments and return values and
 和它的参数和返回值的清单。和
+
 174
 00:09:09,850 --> 00:09:13,284
 a list of vars. That's it, that's what a protocol is,
@@ -872,6 +873,7 @@ a list of vars. That's it, that's what a protocol is,
 00:09:13,353 --> 00:09:16,620
 it's a declaration. Second part of a protocol though
 它是一个声明。一个协议的第二部分
+
 176
 00:09:16,689 --> 00:09:21,259
 is a class or a struct or an enum raises its hand and
@@ -880,7 +882,7 @@ is a class or a struct or an enum raises its hand and
 177
 00:09:21,327 --> 00:09:24,628
 claims to implement those methods in vars in that
-宣称要来实现协议中的那些对变量的处理方法
+声明要来实现协议中的那些对变量的处理方法
 
 178
 00:09:24,697 --> 00:09:27,832
@@ -900,7 +902,7 @@ implement those methods that the protocol is a list of, and
 181
 00:09:33,506 --> 00:09:36,274
 that's classes, structs and enums, so they have to claim.
-而这可以使类、结构体、和枚举类型。所以他们要去声明
+而这可以是类、结构体、和枚举类型。所以他们要去声明
 
 182
 00:09:36,343 --> 00:09:39,377
@@ -945,7 +947,7 @@ Okay, so that's it, those are the three parts of a protocol.
 190
 00:10:00,433 --> 00:10:03,401
 Now I'm gonna take a little aside, and
-现在我先要将一点别的
+现在我先要讲一点别的
 
 191
 00:10:03,470 --> 00:10:07,037
@@ -996,6 +998,7 @@ vars in the protocol that you could choose to implement or
 00:10:34,500 --> 00:10:38,970
 not. Now, that's quite a big difference and the way Swift
 那么这是与 Swift 的很大的不同，而 Swift 处理它的方式
+
 201
 00:10:39,039 --> 00:10:42,306
 deals with that is it allows you to put @objc, in front of
@@ -1044,7 +1047,7 @@ implement the method but you don't have to implement if you
 210
 00:11:03,797 --> 00:11:07,498
 don't want to. Okay, so that's a special kind of backwards
-不想去实现的话。好的那么那就是一种特殊的对
+不想去实现的话。好的那么这就是一种特殊的对
 
 211
 00:11:07,567 --> 00:11:09,533
@@ -1059,12 +1062,12 @@ in Swift, we don't do that. So the only time we're ever gonna
 213
 00:11:12,538 --> 00:11:15,673
 have this going on in this class is when we're using iOS
-我们只有在我们用到到了在 Objective-C 中
+我们只有在我们用到了在 Objective-C 中
 
 214
 00:11:15,742 --> 00:11:18,642
 API that was designed back in the Objective-C world.
-设计的应用程序接口的时候才会这样做
+设计的 iOS 应用程序接口的时候才会这样做
 
 215
 00:11:18,711 --> 00:11:21,111
@@ -1139,7 +1142,7 @@ look like? Well, it looks a lot like declaring a class.
 229
 00:12:00,920 --> 00:12:05,022
 Protocol, SomeProtocol, SomeProtocol is the name
-protocol SomeProtocol，SomeProtocol 协议的
+protocol SomeProtocol，SomeProtocol 是协议的
 
 230
 00:12:05,091 --> 00:12:07,858
@@ -1180,10 +1183,10 @@ a little bit different thing then in a class.
 00:12:28,415 --> 00:12:30,782
 Okay, inheritance in the protocol world means,
 在协议中的继承的意思是
-#TODO: some protocol -> SomeProtocol
+
 238
 00:12:30,850 --> 00:12:34,219
-if you wanna claim to implement some protocol. You
+if you wanna claim to implement SomeProtocol. You
 如果你声明要实现 SomeProtocol，你
 
 239
@@ -1205,7 +1208,6 @@ additional protocols you must implement if you wanna say
 00:12:44,697 --> 00:12:47,398
 you implement this protocol. We call that protocol
 实现这个协议时。我们称这位协议继承
-
 
 243
 00:12:47,467 --> 00:12:52,270
@@ -1335,7 +1337,7 @@ the protocol declaration. You see how I put that yellow
 268
 00:14:13,319 --> 00:14:16,253
 colon class up there? Okay, so then if you did that then
-冒号放在那了吗？好的如果你这样做了
+: class 放在那了吗？好的如果你这样做了
 
 269
 00:14:16,322 --> 00:14:18,456
@@ -1440,11 +1442,11 @@ the protocols you implement. Okay, so that's how you claim.
 289
 00:15:24,123 --> 00:15:26,657
 This is you raising your hand and say I implement that.
-这就是你举起手来并说你要实现那个
-#TODO: 应该是the Swift compiler
+这就是你举起手来并说你要实现那协议
+
 290
 00:15:26,726 --> 00:15:28,759
-As soon as you say that the source compiler is gonna check
+As soon as you say that the Swift compiler is gonna check
 你一这样说，Swift 的编译器就会去确定
 
 291
@@ -1505,699 +1507,869 @@ you have to mark there, your init required.
 302
 00:15:59,692 --> 00:16:01,859
 That's because you wouldn't want a subclass to come along.
+那是因为你不想让一个子类跑出来
 
 303
 00:16:01,927 --> 00:16:05,696
 Subclass you, subclass that init away which is possible.
+继承你，并且将那个初始化继承了，这是可能的
 
 304
 00:16:05,765 --> 00:16:07,131
 It's possible to subclass and make it so
+子类可能这样做
 
 305
 00:16:07,199 --> 00:16:09,867
 an init doesn't work anymore from your superclass.
+那么这个继承自父类的初始化就不再有效
 
 306
 00:16:09,936 --> 00:16:11,935
 You don't want to allow subclasses to do that because
+你不希望允许你的子类这样做
 
 307
 00:16:12,004 --> 00:16:14,972
 then a subclass would no longer implement this protocol
+因为如果这样做了，子类不会再实现这个协议
 
 308
 00:16:15,041 --> 00:16:17,374
 and yet people might think it does because it inherits from
+但人们可能会认为它依然实现了协议，因为它继承
 
 309
 00:16:17,443 --> 00:16:21,445
 something that does. So, once a class implements protocol,
+的父类实现了。因此每当一个类实现了协议
 
 310
 00:16:21,514 --> 00:16:24,248
 all it's subclasses have to as well, so all init would have
+它的所有子类必须也要能实现，所以所有的初始化
 
 311
 00:16:24,317 --> 00:16:26,684
 to be required. Cuz init kind of special,
+都要被标为 required 因为初始化有些特殊
 
 312
 00:16:26,753 --> 00:16:28,719
 in that it's possible in your subclass, to make it so
+在你的子类中，是有可能让某些来自父类的初始化
 
 313
 00:16:28,788 --> 00:16:30,921
 you no longer implement a certain init with certain
+不被实现的
 
 314
 00:16:30,990 --> 00:16:35,393
 arguments. By the way, in your reading, there's a whole bunch
+顺带，在你们的阅读作业中，有许多关于
 
 315
 00:16:35,461 --> 00:16:39,229
 about making inits in classes. It's probably
+在类中做初始化的东西，这可能是
 
 316
 00:16:39,298 --> 00:16:42,266
 the most complicated long part of your reading for this week.
+你们这周最复杂的，最长的阅读部分
 
 317
 00:16:42,334 --> 00:16:46,303
 You gonna have to fight through it cuz it's pretty
+你们要坚持下来，因为
 
 318
 00:16:46,372 --> 00:16:49,607
 complicated. Inheritance makes initialization really
+这是挺复杂的，继承让初始化变得非常
 
 319
 00:16:49,676 --> 00:16:51,809
 difficult because you've got your own vars, you've got your
+难，因为你有自己的变量，你有你的
 
 320
 00:16:51,877 --> 00:16:54,511
 superclasses vars. You've got to get things initialized
+父类变量，你要让初始化以
 
 321
 00:16:54,580 --> 00:16:57,882
 in the right order, all that, it's quite complicated.
+正确的顺序进行，之类的东西，那是挺复杂的
 
 322
 00:16:57,950 --> 00:17:00,584
-So, unfortunately one of the things the day you subclass
+So, unfortunately one of the things that you subclass
+而很不幸的是，这其中的一件你子类可以做
 
 323
 00:17:00,653 --> 00:17:03,086
-can make it so you don't have to form an init anymore.
+can make it so you don't implement an init anymore.
+的事情就是不去实现一个初始化
 
 324
 00:17:03,155 --> 00:17:09,060
 So that's why you have to mark it required. One thing
+那就是你必须将它标记为 required 的原因
 
 325
 00:17:09,128 --> 00:17:13,097
 is you don't have to add your conformance to a protocol.
+还有就是你不一定要将实现协议的部分
 
 326
 00:17:13,166 --> 00:17:14,865
 You don't have to add all the methods, and
+不一定要将一个协议的方法和
 
 327
 00:17:14,934 --> 00:17:17,968
 vars in that protocol. In your actual class declaration, or
+变量放在你的类声明中
 
 328
 00:17:18,037 --> 00:17:20,671
 your struct declaration you can add it with an extension,
+或者你的结构体的声明中，你可以将他们放在扩展（extension）中
 
 329
 00:17:20,740 --> 00:17:23,073
 you know how we can extend Int to add arc4random.
+你知道我们扩展 Int 并且添加 arc4random 的方法
 
 330
 00:17:23,142 --> 00:17:27,144
 Well we could extend Int to conform to some protocol.
+我们也可以扩展 Int，让他来实现某些协议
 
 331
 00:17:27,212 --> 00:17:29,013
 Okay, that would be perfectly fine.
+这是非常好的
 
 332
 00:17:29,081 --> 00:17:31,682
 We would just say extension Int :,
+我们只用写 extension Int:
 
 333
 00:17:31,751 --> 00:17:35,653
 the protocol we wanted int to implement and then in there,
+加上我们希望 Int 实现的协议
 
 334
 00:17:35,721 --> 00:17:39,556
 and the extension we would put all the implementations of
+并且在扩展中，我们回将所有变量与方法
 
 335
 00:17:39,625 --> 00:17:42,926
 the vars and methods in that protocol. And
+的实现放在那里
 
 336
 00:17:42,995 --> 00:17:46,163
 this is actually quite common to use in extension just for
-
+这样用扩展是相当普遍的方法
+#TODO: code book keeping 不会翻译
 337
 00:17:46,232 --> 00:17:49,700
-code book keeping. Well some use an extension to implement
+code book keeping. Well sometimes use an extension to implement
+我们有时会用扩展来实现
 
 338
 00:17:49,769 --> 00:17:53,304
 a whole protocol. It's just nice groups it all nicely.
+整个协议，这样可以很好的将它们聚集在一起
 
 339
 00:17:54,740 --> 00:17:57,441
 Okay, let's see an example of using protocols like
+好的，我们来看一个例子，将协议看做
 
 340
 00:17:57,510 --> 00:18:01,045
 the type they are. Okay, protocols are types. So
+类型来使用。协议是类型
 
 341
 00:18:01,113 --> 00:18:04,114
 let's see, here I have a protocol called Moveable.
+来看，我这里有一个协议，叫做 Moveable
 
 342
 00:18:04,183 --> 00:18:08,018
 It has one method in it called, move to, all right?
+它其中有一个方法叫做 move(to )
 
 343
 00:18:08,087 --> 00:18:11,188
 And I've created a class called Car, which can be moved
+并且我创建了一个叫做 Car 的类，车可以被移动
 
 344
 00:18:11,257 --> 00:18:14,024
 and another class called Shape, like triangle or
+和另一个叫做 Shape 的类，像三角形或
 
 345
 00:18:14,093 --> 00:18:16,694
 square, which can also be moved. Now a Car and
+正方形，它也可以被移动。现在一个车
 
 346
 00:18:16,763 --> 00:18:20,263
 a Shape, incredibly different things and one is class and
+和一个形状，完全不同的两个东西，一个是类
 
 347
 00:18:20,332 --> 00:18:24,335
 one is struct but both of them implement this same protocol.
+一个是结构体，但它们都实现了同一个协议
 
 348
 00:18:24,404 --> 00:18:26,070
 Okay, we're gonna see what it looks like in the code,
+我们将会看到在这种情况下
 
 349
 00:18:26,139 --> 00:18:27,738
 when you have this kind of situation,
+的代码看起来是什么样的
 
 350
 00:18:27,806 --> 00:18:29,940
 which it's perfectly legal to do this. And so
+这样做是完全合法的。并且
 
 351
 00:18:30,008 --> 00:18:31,842
 I've created a couple of vars down at the bottom there,
+我在这下面创建了一些变量
 
 352
 00:18:31,910 --> 00:18:36,980
 a prius, which is a Car, and a square, which is a Shape.
+prius 是一个 Car 和一个 square 是一个 Shape
 
 353
 00:18:37,049 --> 00:18:39,249
-All right, now I'm going to declare a var, thing to move.
+All right, now I'm going to declare a var, thingToMove.
+好的，那么我现在要声明一个变量， thingToMove
 
 354
 00:18:39,318 --> 00:18:44,288
 It's gonna be of type Moveable. Remember I said,
+它的类型应该是 Movable 还记得我说过
 
 355
 00:18:44,356 --> 00:18:47,391
-protocols are types. So I made thing to move be of type
+protocols are types. So I made thingToMove be of type
+协议是类型，我将 thingToMove 声明为
 
 356
 00:18:47,459 --> 00:18:50,862
 Moveable and assigned it to prius, is this allowed?
+Moveable 类型，并且将 prius 赋值给它，这样是合法吗
 
 357
 00:18:52,198 --> 00:18:54,898
-Can I assign prius to the thing to move? Sure,
+Can I assign prius to the thingToMove? Sure,
+我能将 prius 赋值给 thingToMove 吗？当然可以
 
 358
 00:18:54,967 --> 00:18:58,168
 because a prius implements the Moveable protocol.
+因为 prius 实现了 Moveable 协议
 
 359
 00:18:58,237 --> 00:19:00,304
 It implements that move to over there and it and
+它实现了那个 move(to) 方法并且
 
 360
 00:19:00,372 --> 00:19:02,273
 it also claims to implement the Moveable. So
+它声明实现了 Movable
 
 361
 00:19:02,342 --> 00:19:05,075
 this is a perfectly legal statement right here, but
+所以这个是一个合法的语句
 
 362
 00:19:05,144 --> 00:19:09,847
 this has made a variable that is not of type Car, or
+但这一个不是 Car 类型或类似类型的变量
 
 363
 00:19:09,916 --> 00:19:13,851
 something like that, it's of type Moveable. So, I can send
+它是 Moveable 类型的变量，所以我可以给它
 
 364
 00:19:13,920 --> 00:19:18,655
 messages like thingToMove.move that's perfectly legal, but
+发消息，像 thingToMove.move() 这是完全合法的
 
 365
 00:19:18,724 --> 00:19:21,625
 I can not say thingToMove.changeOil,
+但我不能写 thingToMove.changeOil()
 
 366
 00:19:21,694 --> 00:19:25,930
 even though a prius is a Car and Car implements changeOil.
+尽管 prius 是一个 Car 类型，并且实现了 changeOil()
 
 367
 00:19:25,998 --> 00:19:29,200
 You see why I can't send that to thingToMove?
+你能理解为什么不能向 thingToMove 传递那个信息吗
 
 368
 00:19:29,268 --> 00:19:33,937
 Because thingToMove is a Moveable. It's not a Car,
+因为 thingToMove 是 Moveable 类型，不是 Car 类型
 
 369
 00:19:34,006 --> 00:19:36,673
 it's a Moveable. So even though the car that happens to
+它是一个 Moveable 类型。所以尽管 Car 是
 
 370
 00:19:36,742 --> 00:19:40,311
 be in that variable, it can do changeOil, I can't send it.
+这个变量的一部分，Car 可以 changeOil()，我不能传递它
 
 371
 00:19:40,380 --> 00:19:42,947
 Swift will not allow me to send that message because
+Swift 不允许我传递这个信息，因为
 
 372
 00:19:43,015 --> 00:19:44,282
 thingToMove in Swift's
+在 Swift 的认知中 thingToMove
 
 373
 00:19:44,350 --> 00:19:47,751
 mind is just a Moveable. The only thing Swift knows
+是一个 Moveable 类型，Swift 只知道这一点
 
 374
 00:19:47,820 --> 00:19:50,421
 that it can do is move to, right?
+知道它只能做到 move(to )
 
 375
 00:19:50,490 --> 00:19:53,056
 So this is the most important thing on this entire slide,
+这是这也幻灯片中最重要的东西
 
 376
 00:19:53,125 --> 00:19:57,394
 is that red thing. You cannot do changeOil if you have a var
+这红色的部分，你不能让 thingToMove 类型变量去
 
 377
 00:19:57,463 --> 00:20:02,033
 which is of type thingToMove. But what are some things you
+changeOil()。但是你能做什么呢
 
 378
 00:20:02,101 --> 00:20:05,169
 can do? Well, I can say thingToMove equals square.
+我我可以写 thingToMove = square
 
 379
 00:20:05,237 --> 00:20:08,272
-Cuz a square is a Shape,and a Shape implements Moveable.
+Cuz a square is a Shape, and a Shape implements Moveable.
+因为 square 是 Shape 型，而 Shape 实现了 Moveable
 
 380
 00:20:08,341 --> 00:20:11,375
 I could even have an array of Moveable and put a prius and
+我甚至可以有一个 Moveable 类型的数组，并将 prius
 
 381
 00:20:11,443 --> 00:20:14,311
 a square inside of it. Cuz even though a prius and
+和 square 放进去。因为尽管 prius 和
 
 382
 00:20:14,380 --> 00:20:15,579
 square are completely different,
+square 是完全不同的
 
 383
 00:20:15,648 --> 00:20:17,882
 one's a struct, one's a class, one's a Car, one's a Shape.
+一个是结构体，另一个是类，一个是 Car，另一个是 Shape
 
 384
 00:20:17,951 --> 00:20:20,150
 They're completely not really different,
+它们不是完全不同的
 
 385
 00:20:20,219 --> 00:20:23,320
 they can be in the same array, because they're both Moveable,
+它们都可以放进同一个数组中，因为他们都是 Moveable 的
 
 386
 00:20:23,389 --> 00:20:26,957
 you see that? And of course I can have functions that take
+能理解吗？当然我也可以有接收 Moveable
 
 387
 00:20:27,026 --> 00:20:29,226
 Moveables as an argument. Here's slide,
+作为参数的函数，这是 slide(slider: Moveable)
 
 388
 00:20:29,295 --> 00:20:32,029
 which takes a slider, which is a type of Moveable. And
+它接收一个 slider 类型是 Moveable
 
 389
 00:20:32,097 --> 00:20:35,132
-inside I can say slider move to positionToSlideTo,
+inside I can say slider.move(to: positionToSlideTo),
+而在里面我可以写 slider.move(to: positionToSlideTo)
 
 390
 00:20:35,201 --> 00:20:37,501
 and then I can call slide the prius,
+而我可以调用 slide(prius)
 
 391
 00:20:37,570 --> 00:20:40,637
 slide the square. Perfectly legal to say because those
+slide(square)，这是完全合法的，因为
 
 392
 00:20:40,706 --> 00:20:43,473
 are Moveables. Yeah, question? >> Does that mean that move
+它们都是 Moveable 的，请问。 >> 这是否意味着
 
 393
 00:20:43,542 --> 00:20:44,842
 to function where Car and
+在 Car 中的 move(to)
 
 394
 00:20:44,911 --> 00:20:47,044
 Shape have to do the exact same thing, or
+和在 Shape 中的 move(to) 必须要做同样的事吗
 
 395
 00:20:47,113 --> 00:20:48,479
 do they just- >> You mean,
+或者.. >>你是问
 
 396
 00:20:48,548 --> 00:20:51,482
 do the exact same thing like perform the same action? Okay,
+像完成同样的行为的那样的同样的事吗？好的
 
 397
 00:20:51,551 --> 00:20:55,452
 so the question is, does this mean that move to in Car and
+那么他的问题是，在 Car 中的 move(to) 和 Shape
 
 398
 00:20:55,521 --> 00:20:58,321
 move to in Shape, do they have to do exact same thing?
+中的 move(to) 它们是不是要做同样的事
 
 399
 00:20:58,390 --> 00:21:00,824
 And the answer is, no. They can do anything they want.
+答案是，不是，它们可以做任何它们想的事
 
 400
 00:21:00,893 --> 00:21:03,760
 They can do whatever move to makes sense for a Car or
+它们可以做任何对车看起来有道理的 move(to)
 
 401
 00:21:03,829 --> 00:21:05,162
 whatever move to makes sense for
+和对形状看起来有道理的 move(to)
 
 402
 00:21:05,231 --> 00:21:07,898
 a Shape. >> If you assign it to
+>>[学生提问]
 
 403
 00:21:07,967 --> 00:21:10,434
 squares. And you call move to,
+[学生提问]
 
 404
 00:21:10,503 --> 00:21:13,404
 how does it decide which move to to use?
+[学生提问]
 
 405
 00:21:13,473 --> 00:21:14,237
 >> Okay, so
+>>好的
 
 406
 00:21:14,306 --> 00:21:17,340
 the question is if I declare this Movable protocol and
+>>他的问题是，如果我声明了这个 Moveable 协议
 
 407
 00:21:17,409 --> 00:21:19,142
 then I say something are movable.
+并且我说某物是 Moveable 的
 
 408
 00:21:19,211 --> 00:21:21,311
 They are called move to, how does it know which one to use?
+并且以它们调用 move(to)，它怎么知道要使用哪个 move(to) 方法
 
 409
 00:21:21,380 --> 00:21:25,883
 Well, because Swift underneath knows which type it is, okay.
+那是因为 Swift 知道它是什么类型的
 
 410
 00:21:25,951 --> 00:21:28,919
 When we say thingToMove.something
+当我们写 thingToMove.something
 
 411
 00:21:28,988 --> 00:21:30,587
 at that level we're the programmer and
+在这个层面我们是程序员
 
 412
 00:21:30,656 --> 00:21:33,023
 Swift is enforcing that it has to be a movable.
+并且 Swift 要求这必须是一个 Moveable 类型的
 
 413
 00:21:33,092 --> 00:21:36,393
 But when it comes to actually executing the code now Swift
+但当代码真正在执行的时候 Swift 看了并说
 
 414
 00:21:36,462 --> 00:21:40,030
 looks and says, oh it's a Car, so I'm gonna use Car's moveTo.
+喔，这是一个 Car 类型，那我将用 Car 的 move(to)
 
 415
 00:21:40,099 --> 00:21:42,232
 So Swift behind the scenes is doing it.
+所以 Swift 在背后是这样做的
 
 416
 00:21:42,301 --> 00:21:44,801
-But the whole reason that we're typing thing to move
+But the whole reason that we're typing thingToMove
+但我们写 thingToMove 是
 
 417
 00:21:44,870 --> 00:21:47,538
 to be of type thing to move is cuz we're telling everyone
+Moveable 类型是因为我们希望告诉所以读
 
 418
 00:21:47,607 --> 00:21:50,207
 who's reading our code, I'm just using this thing as
+这段代码的人，我正用这东西作为一个
 
 419
 00:21:50,276 --> 00:21:53,611
 a Moveable thing. I don't care that it's a car.
+Moveable 类型的。我不管他是是不是 Car
 
 420
 00:21:53,679 --> 00:21:56,480
 My code works on anything that's Movable. So
+我的代码对所有 Moveable 类型都适用
 
 421
 00:21:56,549 --> 00:22:00,183
 I'm just communicating to people reading my code and
+所有我正与阅读我的代码的人和我自己交流
 
 422
 00:22:00,252 --> 00:22:03,387
 to myself in all that but Swift under the covers
+但 Swift 是
 
 423
 00:22:03,455 --> 00:22:07,090
 of course knows which move to execute. It is possible by
+知道要去执行哪个 move(to) 的。同时
 
 424
 00:22:07,159 --> 00:22:10,561
 the way to have functions that take an argument that has to
+一个函数可以接受一个实现了
 
 425
 00:22:10,630 --> 00:22:13,964
 implement multiple protocols. So here the slipAndSlide is
+多个协议的参数。那么这里 slipAndSlide
 
 426
 00:22:14,033 --> 00:22:17,968
 it's function it's argument x. Those things have to implement
+是一个函数并且接受参数 x，x 必须要实现
 
 427
 00:22:18,036 --> 00:22:20,503
 Movable and they have to implement something called
+Moveable 并且它也必须要实现另一个叫做
 
 428
 00:22:20,572 --> 00:22:23,574
 slippery which is not shown on the slide. So now I cannot say
+slippery 的协议，这个协议不在我们幻灯片里
 
 429
 00:22:23,643 --> 00:22:26,543
 slipAndSlide(prius) because while prius is Movable,
+所以我现在不能写 slipAndSlide(prius)，尽管 prius
 
 430
 00:22:26,612 --> 00:22:29,512
 it's not slippery. And so this would not be allowed,
+是 Moveable 但它不是 slippery，所以这样是不被允许的
 
 431
 00:22:29,581 --> 00:22:34,518
 Swift would complain here. But that's how this &. That's how
+Swift 在这里会报错。这就是 & 的意思
 
 432
 00:22:34,586 --> 00:22:40,123
 you make it so it requires multiple protocol conformists.
+用它来表示参数需要能实现多个协议
 
 433
 00:22:40,192 --> 00:22:43,561
 So you're getting a feel for how we use a protocol init by
+所以你能理解我们如何使用协议
 
 434
 00:22:43,629 --> 00:22:46,897
 declaring vars and arguments to functions. So
+以声明变量，作为函数的参数等形式
 
 435
 00:22:46,966 --> 00:22:49,633
 it's only scratching the surface of protocols.
+这只是协议的表面的东西
 
 436
 00:22:49,702 --> 00:22:51,301
 Yeah, question. >> [INAUDIBLE]
-
+请问 >>[学生提问]
 437
 00:22:51,370 --> 00:22:54,004
 The thing to move [INAUDIBLE]
-
+[学生提问]
 438
 00:22:54,073 --> 00:22:55,405
 square. >> Yeah.
-
+[学生提问]
 439
 00:22:55,474 --> 00:22:56,240
 >> So when you
-
+[学生提问]
 440
 00:22:56,309 --> 00:22:58,876
 call function [INAUDIBLE] >> Here let me back up to
+[学生提问] >> 让我翻回这里
 
 441
 00:23:05,618 --> 00:23:06,816
 Okay, so what was that?
+好你的问题是什么
 
 442
 00:23:06,885 --> 00:23:09,019
 >> [INAUDIBLE] >> Yeah.
+>>[学生提问]
 
 443
 00:23:09,088 --> 00:23:09,686
 >> [INAUDIBLE]
+[学生提问]
 
 444
 00:23:09,755 --> 00:23:11,321
 >> Yeah, up there.
+>>对，在这里
 
 445
 00:23:11,390 --> 00:23:13,790
 >> So when you call method on
+>>[学生提问]
 
 446
 00:23:13,859 --> 00:23:18,328
 thingToMove. [INAUDIBLE] >> Okay, so he's saying,
+>>[学生提问] >>好的，他是问
 
 447
 00:23:18,397 --> 00:23:23,500
 look, I set thingToMove to be a prius. Then I call move to,
+看，我将 thingToMove 赋值为 prius，接着我调用 move(to)
 
 448
 00:23:23,569 --> 00:23:24,334
 which one did it do?
+它执行了哪个
 
 449
 00:23:24,403 --> 00:23:28,038
 Obviously the prius. Then I set thingToMove to be square.
+很明显是 prius 的那个，接着我将 thingToMove 赋值为 square
 
 450
 00:23:28,107 --> 00:23:31,307
 Now if I called move to, it would use the square's one.
+现在我再调用 move(to)，它会执行 square 的那个
 
 451
 00:23:31,376 --> 00:23:34,211
 So whatever the last thing it was set to, that's what it'll
+所以就是他最后被赋值为什么，就会用哪个的
 
 452
 00:23:34,279 --> 00:23:37,848
 use. Question? >> [INAUDIBLE]
+请问 >>[学生提问]
 
 453
 00:23:37,917 --> 00:23:38,515
 have to take it up here,
+[学生提问]
 
 454
 00:23:38,584 --> 00:23:40,284
 doesn't have to be mutating actually?
+[学生提问]
 
 455
 00:23:40,352 --> 00:23:42,886
 Are you allowed to just drop that whenever valid-
+[学生提问]
 
 456
 00:23:42,955 --> 00:23:44,120
 >> Great question,
+>> 很好的问题
 
 457
 00:23:44,189 --> 00:23:48,025
 he's saying up here look in Car, move to, no mutating.
+他是问，看这里 Car 的 move(to )，没有 mutating
 
 458
 00:23:48,094 --> 00:23:50,627
 See, down here in Shape, we've got mutating. Up here,
+再看到 Shape 中的 move(to)，有 mutating 这上面
 
 459
 00:23:50,696 --> 00:23:55,131
 we've got no mutating, that's because Car is a class.
+我们没有放 mutating，那是因为 Car 是一个类
 
 460
 00:23:55,200 --> 00:23:58,101
-Class is a reference site, they don't need mutating, so
+Class is a reference type, they don't need mutating, so
+类是引用类型，它们不需要 mutatitng
 
 461
 00:23:58,170 --> 00:24:03,407
 it's perfectly fine. Any other questions about this? Okay,
+所以这是没问题的。大家还有什么问题吗？好的
 
 462
 00:24:03,475 --> 00:24:07,244
 excellent. So now let's talk about the uses of protocol.
+很棒。那么我们来讲协议的用法
 
 463
 00:24:07,313 --> 00:24:09,646
 Now we kinda know what protocols are and
+现在我们知道协议是什么
 
 464
 00:24:09,715 --> 00:24:12,782
 how we can put them in our API, how do we use it? Well,
+也知道我们如何将它放到我们的应用程序接口，我们要如何使用它
 
 465
 00:24:12,851 --> 00:24:16,086
 of super important to use is this MVC delegation thing,
+这个 MVC 代理是很重要的
 
 466
 00:24:16,155 --> 00:24:18,656
 right? We've got these generic view things,
+我们有泛型视图
 
 467
 00:24:18,724 --> 00:24:21,324
 like scroll views and table views and things like that.
+像滚动视图（scroll view）和表格视图（table view）
 
 468
 00:24:21,393 --> 00:24:24,227
 And then we've got these very specific controller things,
+然后我们还有这些非常具体的控制器
 
 469
 00:24:24,296 --> 00:24:26,897
 how does a generic thing talk to a specific thing without
+在不知到对方是什么时，一个泛型如何
 
 470
 00:24:26,966 --> 00:24:29,132
 knowing anything about that specific thing?
+与一个具体类型通信呢
 
 471
 00:24:29,201 --> 00:24:31,902
 Because obviously, when scroll view shifts from Apple,
+因为，很显然的，滚动视图是由苹果发布的
 
 472
 00:24:31,971 --> 00:24:34,704
 it knows nothing about Concentration games. So
+它对我们的翻牌游戏完全不了解
 
 473
 00:24:34,773 --> 00:24:36,673
 how do we do that? Well, we use protocols, okay,
+所以我们如何做到这一点呢？我们使用协议
 
 474
 00:24:36,742 --> 00:24:40,044
-so like simple, so this is the will, did, shoulds and
+so like simple, so this is the will, did, shoulds, data at
+这很简单。这就是 will, did, should, data at 方法
 
 475
 00:24:40,112 --> 00:24:41,378
 So let's take a look how we do this, all right? So
-
+那么我们来看看该怎么做
+#TODO: 476 多了，不该有这一句的
 476
 00:24:41,379 --> 00:24:42,645
 the data at.
@@ -2205,951 +2377,1190 @@ the data at.
 477
 00:24:42,715 --> 00:24:46,050
 kinda six steps. First a view, like a scroll view or
+这有差不多六步。第一，视图，像滚动视图或
 
 478
 00:24:46,118 --> 00:24:49,285
 table view, it declares it's delegation protocol.
+表格视图，它声明它的代理协议
 
 479
 00:24:49,354 --> 00:24:51,721
-That's just a protocol with a list of all the well, dids and
+That's just a protocol with a list of all the will, dids and
+那就是一个有一系列 will, did, should
 
 480
 00:24:51,790 --> 00:24:55,225
 shoulds that it wants to send. Remember protocols just a list
+那些它希望传递的东西的协议，记得协议只是一个
 
 481
 00:24:55,294 --> 00:24:58,161
 of methods, right? So it creates that protocol. Then
+方法的清单，对吧。那么它创建了这个协议，接着
 
 482
 00:24:58,230 --> 00:25:01,465
 the view, the scroll view, it creates a var in itself,
+视图，像滚动视图，它在自己内部创建一个变量
 
 483
 00:25:01,534 --> 00:25:05,669
 a public var, it's weak, turns out. And so
+一个公开变量，是 weak 型的。所以
 
 484
 00:25:05,737 --> 00:25:10,573
 it's an optional and that is of type that protocol. Okay,
+它是可选类型的，并且这个变量的类型是那个协议
 
 485
 00:25:10,642 --> 00:25:13,711
 now that's great because now the view whenever it wants
+这样很棒，因为现在每当视图想要传递
 
 486
 00:25:13,779 --> 00:25:16,980
 to send will, did, should, it just sends it to that var.
+will, did, should，它只需要传递给那个变量就可以了
 
 487
 00:25:17,049 --> 00:25:19,083
 And that works because that var is of type that protocol,
+因这个变量的类型是那个协议，这是可行的
 
 488
 00:25:19,151 --> 00:25:20,918
 so of course it can understand all the will, did,
+所以当然它可以理解那些 will, did, should
 
 489
 00:25:20,986 --> 00:25:24,855
 should. Then the controller comes along says, raises its
+然后控制器过来并说，举起它的手来
 
 490
 00:25:24,924 --> 00:25:27,824
 hand and says, I implement that scroll view delegate
+说，我实现了滚动视图代理协议
 
 491
 00:25:27,893 --> 00:25:31,395
 protocol by putting it on this little class line right there.
+通过将它放在这个 class 的那一行
 
 492
 00:25:31,464 --> 00:25:35,765
 And the controller sets itself as that delegate var,
+接着控制器将那个代理的变量赋值为自己
 
 493
 00:25:35,834 --> 00:25:38,802
 it literally says that delegate var equals self.
+它实际上就是让那个代理变量等于自己
 
 494
 00:25:38,870 --> 00:25:41,939
 So it's setting itself as the delegate and that's legal.
+所以它让自己成为了那个代理变量，这是合法的
 
 495
 00:25:42,008 --> 00:25:43,940
 Because the controller has claimed, hey,
+因为那个控制器已经声明
 
 496
 00:25:44,009 --> 00:25:47,844
 I implement that delegate and so, and that delegate is of
+我将实现这个代理，并且这个代理的类型是
 
 497
 00:25:47,913 --> 00:25:51,715
 type that protocol, all is good, okay. And then,
+那个协议，一切都很好。接着
 
 498
 00:25:51,784 --> 00:25:54,384
 of course, the controller has to implement all the methods
+控制当然要去实现这个协议中的
 
 499
 00:25:54,453 --> 00:25:56,886
 in the protocol. But since this is an Objective-C
+所有方法，但因为这是一个 Objective-C 协议
 
 500
 00:25:56,955 --> 00:25:59,790
 protocol, it actually only has to implement the none optional
+它只需要去实现那些非可选的方法
 
 501
 00:25:59,858 --> 00:26:02,659
 ones. Okay and actually in delegation in iOS,
+并且事实上，iOS 中的代理中
 
 502
 00:26:02,728 --> 00:26:05,261
 almost all the methods are optional. So usually,
+几乎所有的方法都是可选的，所以通常来说
 
 503
 00:26:05,330 --> 00:26:08,699
 you only have to implement the one you really want. But
+你只需要实现那些你需要的方法
 
 504
 00:26:08,767 --> 00:26:11,135
 the controller implements the methods so they did
+控制器实现了那些方法
 
 505
 00:26:11,203 --> 00:26:14,004
 successfully fills out its claim to have implemented it.
+因此它成功的完成了声明要去实现协议的任务
 
 506
 00:26:14,073 --> 00:26:17,808
 And that's it. Now the view is hooked up to the controller.
+就是这样。现在视图已与控制器建立了连接
 
 507
 00:26:17,877 --> 00:26:19,943
 The view can send will, did, and should all it wants.
+视图可以任意传递 will, did, should
 
 508
 00:26:20,012 --> 00:26:22,980
 It has no idea what kind of class is doing it.
+它不知道是什么样的类正在处理它
 
 509
 00:26:23,048 --> 00:26:25,015
 All it knows about, it doesn't even know if it's a class,
+它只知道，它甚至都不知道那是不是一个类
 
 510
 00:26:25,083 --> 00:26:26,884
 could be a struct, it knows nothing about it.
+可能是一个结构体，它对此一无所知
 
 511
 00:26:26,952 --> 00:26:29,219
 All it knows is that that thing implements its protocol,
+它只知道那个东西实现了它的协议
 
 512
 00:26:29,287 --> 00:26:30,955
-so it knows that it can send well, did, and
+so it knows that it can send will, did, and
+因此它可以向它传递 will, did, should
 
 513
 00:26:31,023 --> 00:26:33,790
 should to it through that delegate var. Okay,
+通过那个代理变量
 
 514
 00:26:33,859 --> 00:26:37,761
 make sense? So let's look at the code for
+好的，能理解吗？那么让我们以滚动视图为例子来看看
 
 515
 00:26:37,830 --> 00:26:41,098
 this with the example of a scroll view, okay. Oh, yeah,
+实现这个的代码。噢，
 
 516
 00:26:41,166 --> 00:26:45,368
 sorry. Yeah, you find this delegation everywhere in iOS,
+抱歉，还有，你会在 iOS 中经常遇到这样的代理
 
 517
 00:26:45,437 --> 00:26:49,840
 it was designed in Objective-C world. In Swift, we have
+它是在 Objective-C 的世界中设计的。在 Swift 中，我们有
 
 518
 00:26:49,909 --> 00:26:52,375
 closure, which I'm gonna talk about later in this lecture.
+闭包，这个我等一下就会讲到
 
 519
 00:26:52,444 --> 00:26:56,846
 And you could use closures for some of this stuff. But
+而你可以用闭包来做这一些事情
 
 520
 00:26:56,915 --> 00:27:00,451
 even with closures, delegation is pretty cool way to do this,
+但是就算是用闭包，代理也是一个完成这件事的很好的方法
 
 521
 00:27:00,519 --> 00:27:03,653
 have this blind communication. All right, so
+通过这样的匿名通信。好的
 
 522
 00:27:03,722 --> 00:27:06,824
 let's look at the example of UIScrollView. So this is what
+让我们来看看 UIScrollview 这个例子，那么这个就是
 
 523
 00:27:06,892 --> 00:27:10,527
 the var that the scroll view would have in itself.
+那个在滚动视图内部的变量
 
 524
 00:27:10,595 --> 00:27:13,363
 Okay, this is a scroll view var. It's a weak,
+这是一个滚动视图中的变量，它是 weak 型的
 
 525
 00:27:13,431 --> 00:27:17,034
 why is it weak, by the way? Because here the view
+为什么它是 weak 型的？因为在这里，这个视图
 
 526
 00:27:17,103 --> 00:27:19,236
 is gonna have a pointers to the controller, and
+会有指向控制器的指针
 
 527
 00:27:19,305 --> 00:27:21,838
 we know that the controller has a lot of pointers to
+并且我们知道控制器有许多指向视图的指针
 
 528
 00:27:21,907 --> 00:27:25,141
 the view. They'd be keeping themselves in the heap. Okay,
+它们被存储在堆中
 
 529
 00:27:25,210 --> 00:27:28,478
 so what this view is saying here is, I wanna point to
+这个视图在这里是说，我想要指向
 
 530
 00:27:28,547 --> 00:27:32,483
 whoever receives my will, did, and shoulds. But if that will,
+接收我的 will, did, should 的东西，但如果
 
 531
 00:27:32,551 --> 00:27:34,684
 did, and should guy wants to leave the heap,
+它想离开堆
 
 532
 00:27:34,753 --> 00:27:36,787
 that's fine by me, just set this to nil and
+我没有意见，只要将这个设为 nil 就好了
 
 533
 00:27:36,856 --> 00:27:40,190
 I'll stop sending messages to it. Okay, so that way,
+而我会停止向它传递信息。好的，通过这样的方式
 
+#TODO: keep controller in the heat 翻译成一直使用？
 534
 00:27:40,259 --> 00:27:42,759
 the view won't keep the controller in the heat.
+视图不会一直使用控制器
 
 535
 00:27:42,828 --> 00:27:45,495
 So anyway, notice this is optional because it's weak.
+那么，留心这是一个可选类型应为它是 weak 的
 
 536
 00:27:45,564 --> 00:27:47,430
 This is the delegate, it's of type UIScrollview delegate.
+这是代理，它的类型是 UIScrollViewDelegate
 
 537
 00:27:47,499 --> 00:27:49,332
 This is what that protocol looks like,
+这就是那个协议的样子
 
 538
 00:27:49,401 --> 00:27:52,769
 it's an Objective-C protocol. It's called UIScrollDelegate,
+它是一个 Objective-C 协议，叫做 UIScrollDelegate
 
 539
 00:27:52,838 --> 00:27:54,338
 and it's got all those funcs in there.
+而它有那些函数
 
 540
 00:27:54,406 --> 00:27:57,207
 ScrollView did scroll to here. Give me the view for
+ScrollView 刚刚滚到了这里，给我在这里
 
 541
 00:27:57,276 --> 00:28:00,010
 zooming over here. It's got about 15 of them in there,
+缩放的视图。这大概有15个这样的函数
 
 542
 00:28:00,079 --> 00:28:02,212
 if you go look at the documentation. So
+如果你去看一下文档的话
 
 543
 00:28:02,281 --> 00:28:05,148
 now the controller comes along, MyViewController,
+那么现在控制器过来，MyViewController
 
 544
 00:28:05,217 --> 00:28:09,920
 and it puts comma, UIViewCont, UIScrollViewDelegate on
+并且它的最后有 ,UIScrollViewDelegate
 
 545
 00:28:09,989 --> 00:28:13,157
 the end and claiming I implement that protocol.
+这表示它要实现这个协议
 
 546
 00:28:13,225 --> 00:28:15,893
 Then, in its probably in its outlet setter,
+接着，应该是在它的出口（outlet）设置器
 
 547
 00:28:15,961 --> 00:28:19,530
 we'll see an example of this today. When that scrollView
+我们今天会看这样的例子。当这个滚动视图
 
 548
 00:28:19,598 --> 00:28:22,499
 gets hooked up on iOS, in the didSet of that,
+与 iOS 建立连接后，在它的 didSet 中
 
 549
 00:28:22,568 --> 00:28:26,036
 it probably says, scrollView.delegate = self.
+应该会有这样一段: scrollView.delegate = self
 
 550
 00:28:26,105 --> 00:28:29,706
 This is a legal statement to say because delegate, which is
+这是一个合法的语句，因为代理
 
 551
 00:28:29,774 --> 00:28:34,111
 this thing up here, is of type UIScrollViewDelegate. And
+也就是这个东西，它的类型是 UIScrollViewDelegate 而
 
 552
 00:28:34,179 --> 00:28:38,315
 MyViewController says over here that it implemented that.
+MyViewController 声明它实现了这个协议
 
 553
 00:28:38,384 --> 00:28:42,252
 So it's legal for it to set itself as the delegate. Okay,
+所以它将自己赋值给代理是合法的
 
 554
 00:28:42,321 --> 00:28:44,655
 and once it does this, they are hooked up, and
+它这样做之后，它们就建立了连接
 
 555
 00:28:44,723 --> 00:28:47,524
 now the view can send will, did, said to the controller
+现在视图就可以传递 will, did, should
 
 556
 00:28:47,593 --> 00:28:50,894
 all at once. Okay, so that's delegation,
+给控制器了。好的，这就是代理
 
 557
 00:28:50,962 --> 00:28:54,765
 probably one of the most obvious uses of protocols.
+大概是最明显的协议的用处之一
 
 558
 00:28:54,833 --> 00:28:57,066
 What's another one? Okay, remember, I talked about that
+另一个是什么？还记得我讲过的
 
 559
 00:28:57,135 --> 00:28:59,803
 key in the dictionary in the hashable business, right?
+在字典类型中的键和它的可哈希性吗
 
 560
 00:28:59,872 --> 00:29:02,406
 So of course, the key in the dictionary has to be hashable.
+当然，字典中的键必须是可哈希的
 
 561
 00:29:02,475 --> 00:29:05,442
 How do we enforce this in our API? Well,
+我们如何在我们的应用程序结构中强制做到这点呢
 
 562
 00:29:05,511 --> 00:29:08,211
 there is a protocol called Hashable.
+有一个协议的名字叫做 Hashable
 
 563
 00:29:08,280 --> 00:29:10,781
 It inherits from another protocol called Equatable, and
+它继承了另一个叫做 Equatable 的协议
 
 564
 00:29:10,849 --> 00:29:13,149
 that's because you know anything about Hashtables.
+那是因为，你知道关于哈希表的那些
 
 565
 00:29:13,218 --> 00:29:16,319
 When you hash something, it's likely to be a unique hash but
+当你哈希什么东西是，它很有可能是一个唯一哈希值
 
 566
 00:29:16,388 --> 00:29:17,888
 it's not gonna guaranteed.
+但这不是一定的
 
 567
 00:29:17,956 --> 00:29:21,324
 You have to follow it up by actually using equals to see
+你必须要接着用等于去比较一下
 
 568
 00:29:21,393 --> 00:29:25,529
 if the two things are actually equal, so we hash in works.
+来看是不是有两个东西确实是相等的，这就是哈希的做法
 
 569
 00:29:25,598 --> 00:29:28,332
 So that's why Hashable inherits from Equatable.
+因此 Hashable 是继承 Equatable 的
 
 570
 00:29:28,400 --> 00:29:30,333
 So if you wanna be Hashable, you also have to be able to
+如果你是可哈希的，那么你一定也是可以
 
 571
 00:29:30,402 --> 00:29:32,702
 check if you're equal to something else. Now this is of
+被确定是否与什么相等
 
 572
 00:29:32,771 --> 00:29:35,606
 super simple protocol, it only has one var in it.
+这是一个非常简单的协议，它其中只有一个变量
 
 573
 00:29:35,674 --> 00:29:40,176
 It's a get only var, which is the hash value.
+那是一个只能被获取的变量，这个变量就是哈希值
 
 574
 00:29:40,245 --> 00:29:44,314
 Some integer, that hopefully, uniquely represents you,
+一个整数，幸运的话，能唯一表示你
 
 575
 00:29:44,382 --> 00:29:47,918
 that's what this is. Now, let's look at Equatable, okay,
+这就是它的意思。那么现在我们来看看 Equatable
 
 576
 00:29:47,986 --> 00:29:50,453
 which, cuz that's another protocol that is inherited and
+因为这是另一被继承的协议
 
 577
 00:29:50,522 --> 00:29:53,022
 thus, required here. What does that look like?
+因此它也是需要被实现的，那么看看它是怎样的
 
 578
 00:29:53,091 --> 00:29:55,258
 That's a very simple protocol as well.
+这也是一个非常简单的协议
 
 579
 00:29:55,327 --> 00:29:57,861
 It has one function in it, one method,
+它其中只有一个函数，一个方法
 
 580
 00:29:57,930 --> 00:30:01,431
 which is static. Meaning it's on the type, like get unique
+这是一个静态（static）方法，意味着这是定义在这个类型上的
 
 581
 00:30:01,500 --> 00:30:05,401
 identifier was in card, remember that? And its name is
+就像 card 中的 getUniqueIdentifier 还记得吗
 
 582
 00:30:05,470 --> 00:30:09,506
 ==. In Swift, remember, names of methods can be like emoji.
+它的名字是 ==。在 Swift 中，记得名字甚至可以是表情（emoji）
 
 583
 00:30:09,575 --> 00:30:12,709
 It's not required to be alpha numeric characters, so
+它不一定要是字母和数字
 
 584
 00:30:12,777 --> 00:30:17,080
 they chooses to be called ==, which is kind of cool. And
+它被叫做 == 这挺酷的
 
 585
 00:30:17,149 --> 00:30:20,283
 the arguments are a left-hand side and a right-hand side,
+它的参数是 lhs（等号左边）和 rhs（等号右边）
 
 586
 00:30:20,352 --> 00:30:24,454
-notice that the type itself, this is a type method, so self
+notice that the type is Self, this is a type method, so self
+留心它们的类型是 Self 这是一个定义在类型上的函数，因此 Self
 
 587
 00:30:24,523 --> 00:30:27,824
 is the type. So if this were implemented by int, if int
+就是那个类型。因此如果这个协议被 Int 实现，如果 Int
 
 588
 00:30:27,893 --> 00:30:32,262
 were implementing equitable, self would be int. Okay,
+要实现 Equatable，Self 就是 Int
 
 589
 00:30:32,331 --> 00:30:34,498
 cuz it would be a type function on int, and so
+因为这就是一个在 Int 类型上定义的函数
 
 590
 00:30:34,566 --> 00:30:35,231
 the left-hand side and
+所以 lhs 和
 
 591
 00:30:35,300 --> 00:30:37,233
 the right-hand side would be ints of course. So
+rhs 自然就是 Int 类型了
 
 592
 00:30:37,302 --> 00:30:40,503
 this is basically saying, that your type has to have an ==
+所以这就是再说，你的类型中必须有一个 == 方法
 
 593
 00:30:40,572 --> 00:30:44,173
-method that compares to ints, or whatever you are. And sees
+method that compares two ints, or whatever you are. And sees
+这个方法可以比较两个整数或者其它什么
 
 594
 00:30:44,242 --> 00:30:48,111
 if they're equal, and returns a bool, yes or no. Okay, now,
+并看看它们是否相等，并且返回一个布尔类型，真或者假
 
 595
 00:30:48,180 --> 00:30:51,047
 this is, that's so that's what you have to do to be Hashable.
+这就是如果你想成为可哈希的类型需要满足的条件
 
 596
 00:30:51,116 --> 00:30:55,485
 But what's really cool, that the == operator in Swift,
+但还有一点很酷，在 Swift 中，== 这个操作符
 
 597
 00:30:55,553 --> 00:30:59,389
 okay, when you say like x == y, that's actually not like
+当你使用 x == y 是，那并不是像
 
 598
 00:30:59,457 --> 00:31:02,125
 built into Swift or anything. All that does is look for
+在 Swift 中内置好的，Swift 只是去找
 
 599
 00:31:02,194 --> 00:31:06,162
 this method, okay. So any two, any class can use,
+这个方法。所以任何类都可以使用
 
 600
 00:31:06,231 --> 00:31:10,200
 can do == as long as you implements this protocol. So
+==，只要你实现了这个协议
 
 601
 00:31:10,268 --> 00:31:13,069
 this protocol is required to make the Hashable work, but
+这个协议是 Hashable 的条件，但
 
 602
 00:31:13,138 --> 00:31:16,506
 it also makes the == operator work. And we're gonna see this
+它也可以让 == 这个运算符工作。我们将看到这样的例子
 
 603
 00:31:16,575 --> 00:31:20,977
 in our concentration demo when I go to implement this. So,
+当我在我们的翻牌游戏中去实现它的时候
 
 604
 00:31:21,046 --> 00:31:25,048
 now that we know that Hashable means you can be a key
+现在我们知道可哈希意味着你可以作为一个键
 
 605
 00:31:25,116 --> 00:31:27,750
 in a dictionary, how is this expressed? Well,
+传给字典，但这是如果表达的呢
 
 606
 00:31:27,819 --> 00:31:31,054
 dictionary which is a generic type, right? It's got these
+字典是个泛型（generic type），对吧
 
 607
 00:31:31,122 --> 00:31:33,256
 two types, the type of the key and the type of the value.
+它其中有这两个类型，键的类型和值的类型
 
 608
 00:31:33,325 --> 00:31:37,693
 It declares itself as Dictionary<Key: Hashable,
+字典是这样被声明的 Dictionary<Key: Hashable, Value>
 
 609
 00:31:37,762 --> 00:31:42,031
 Value>, and that means that key can only work there if
+这就说明一个键必须是 Hashable 的
 
 610
 00:31:42,100 --> 00:31:47,237
 it's Hashable. So this is how we use protocols to constrain
+才能被放在那里，这就是我们用协议来限制
 
 611
 00:31:47,305 --> 00:31:50,874
 these generic types, right? Now Value, right there
+这些泛型的。同时 Vaule
 
 612
 00:31:50,943 --> 00:31:53,343
 in the dictionary, it doesn't have any colon anything, so
+在字典中，它没有 :Anything
 
 613
 00:31:53,412 --> 00:31:54,645
 Value could be any type.
+因此 Value 可以是任何类型
 
 614
 00:31:54,713 --> 00:31:57,147
 You can put any type whatsoever as the value
+你可以吧任何类型放在那当做值
 
 615
 00:31:57,216 --> 00:32:01,918
 in a dictionary. But the key has to implement hashable. So
+但键必须要实现了 Hashable 这个协议
 
 616
 00:32:01,987 --> 00:32:07,324
 let's go into concentration and do this very thing.
+那么我们回到我们的翻牌游戏并实现这个
 
 617
 00:32:07,392 --> 00:32:09,992
 What do we have in a dictionary? Well, we have one
+我们字典中有什么？我们有一个
 
 618
 00:32:10,061 --> 00:32:13,530
 dictionary, it's that emoji thing. It's, keys are int,
+字典，就是表情的那个，它的键是 Int 型
 
 619
 00:32:13,599 --> 00:32:16,366
 ints are hashable so we're good, and the values
+Int 是可哈希的，这是可以的，而值是
 
 620
 00:32:16,434 --> 00:32:19,802
-are the emoji. And the int is our cards identifier.
+are the emoji. And the int is our card.identifier.
+那些表情，而 Int 就是我们的 card.identifer
 
 621
 00:32:19,871 --> 00:32:22,839
 Remember that card identifier? So, I don't want to do that.
+还记得我们的 card.identifier 吗，我不想这么做
 
 622
 00:32:22,907 --> 00:32:27,210
 I want my keys in my emoji dictionary to be cards.
+我想在我的表情字典中，键就是牌
 
 623
 00:32:27,279 --> 00:32:29,046
 I want to look up the cards directly,
+我想直接去查找那些牌
 
 624
 00:32:29,114 --> 00:32:30,980
 I don't want any of that looking at the int thing,
+我不想再去找那个整形
 
 625
 00:32:31,049 --> 00:32:34,183
-that's ridiculous. So, if I go over here to view controller.
+that's ridiculous. So, if I go over here to ViewController.
+这很没有逻辑，因此我们来到我的 ViewController
 
 626
 00:32:34,252 --> 00:32:35,518
 Here it is right here, actually.
+它在这里
 
 627
 00:32:35,587 --> 00:32:39,489
 See, here is my emoji thing, int to string, int keys,
+看，这就我们的表情的那东西，从 Int 到 String，Int 型的键
 
 628
 00:32:39,557 --> 00:32:43,627
 string values, this has to be hashable, it is right now.
+String 型的值。这里的类型必须要是可哈希的，它现在是的
 
 629
 00:32:43,695 --> 00:32:44,594
 But I don't want that,
+但我不想要它
 
 630
 00:32:44,663 --> 00:32:46,329
 i just want to look up the cards directly.
+我想直接在 cards 中查找
 
 631
 00:32:46,398 --> 00:32:47,531
 I don't want to use the identifier,
+我不想再用这个识别符
 
 632
 00:32:47,599 --> 00:32:51,134
 I am just going to take this identifier right off of here
+我要直接就把这里的 identifer 删去
 
 633
 00:32:51,203 --> 00:32:54,036
 and when I do this, I'm gonna get errors.
+并且当我这样做了之后，我会得到错误
 
 634
 00:32:54,105 --> 00:32:58,508
 And why am I gonna get errors? Because card, see right here?
+而我为什么会得到错误呢？因为 card，看到这了吗
 
 635
 00:32:58,577 --> 00:33:01,811
 Let's see if we can make this a little wider so
+让我看看能不能把它变宽点
 
 636
 00:33:01,880 --> 00:33:06,683
 you can see it a little better down here.
+你可以看得更清楚
 
 637
 00:33:06,752 --> 00:33:11,421
-It says right here that we cannot substitute,
+It says right here that we cannot subscript,
+这里它说我不能...
 
 638
 00:33:11,490 --> 00:33:14,691
 oh, sorry. Okay, it says cannot subscript a value of
+啊抱歉，它说在 [Int:String] 类型变量中
 
 639
 00:33:14,760 --> 00:33:16,993
 int string with a card. Of course okay,
+我们不能用 card 作为下标。当然
 
 640
 00:33:17,062 --> 00:33:20,530
 I said that the keys were int, and here I'm trying to do it
+我我这里写的是键的类型应该是 Int，而在这里我正
 
 641
 00:33:20,599 --> 00:33:22,031
 by card. So I'm just gonna say okay,
+试图将 card 型作为键，那么我就说
 
 642
 00:33:22,100 --> 00:33:25,001
 that I'm gonna have them be cards instead. So I'm just
+好啊，那我就把这里改成 Card， 那么
 
 643
 00:33:25,070 --> 00:33:28,772
 gonna have my dictionary, have keys of card,values of string.
+我就让我的字典以 Card 为键，以 String 为值
 
 644
 00:33:30,175 --> 00:33:36,979
 So now, what do we got here? It says type card
+那么现在这个错误是什么呢？它说 Card 这个类型
 
 645
 00:33:37,048 --> 00:33:40,449
 does not conform to protocol hashable, it worked, okay.
+没有遵从 Hashable 这个协议，这生效了！
 
 646
 00:33:40,518 --> 00:33:44,221
 I tried to make a card be the key of my dictionary and
+我尝试让我的 Card 作为我的字典的键，
 
 647
 00:33:44,289 --> 00:33:47,290
 it says, no, card does not conform the protocol hashable.
+而它说，不行，Card 没有遵从 Hashable 这个协议
 
 648
 00:33:47,359 --> 00:33:50,293
 So the declaration dictionary which you can go look up in
+字典的声明，
 
 649
 00:33:50,362 --> 00:33:52,028
 the documentation,
+你们可以去文档中看
 
 650
 00:33:52,097 --> 00:33:55,465
 it says card, the key has to be hashable and it wasn't. So
+它会说键必须要是可哈希的，而这里的不是
 
 651
 00:33:55,533 --> 00:33:58,368
 let's go make card be hashable, so
+那么我们现在来让我们 Card 成为可哈希的
 
 652
 00:33:58,437 --> 00:34:00,303
 we won't have this error any more, so
+我们就不会再有这个错误了
 
 653
 00:34:00,371 --> 00:34:03,740
 I'm gonna go over to card, here it is. And here is card,
+我们来到 Card，它在这，这是 Card
 
 654
 00:34:03,808 --> 00:34:09,912
 I'm just gonna say, okay, card is hashable.
+我只用写 Card : Hashable
 
 655
 00:34:09,981 --> 00:34:12,983
 So I just made card hashable, now of course Swift is gonna
+我就让 Card 成为可哈希的，当然现在 Swift 会
 
 656
 00:34:13,051 --> 00:34:16,486
 look at this and say whoa wait a second errors here, card
+发现这个然后说，等等，有错误
 
 657
 00:34:16,555 --> 00:34:19,222
 does not conform to hashable. Card does not conform
+Card 没有遵从协议 Hashable。Card 没有遵从协议
 
 658
 00:34:19,290 --> 00:34:22,058
 to equatable which it doesn't because I don't implement
+Equatable，它确实没有，因为我还没有实现
 
 659
 00:34:22,127 --> 00:34:25,528
 those methods the hash value or the equals equal thing.
+那个哈希值和 == 的方法
 
 660
 00:34:25,596 --> 00:34:28,264
 What's really cool in Swift, look at the fix button here.
+Swift 中很酷的东西，看到了这个 Fix 按钮了吗
 
+#TODO: stub 暂时翻译为桩代码
 661
 00:34:28,333 --> 00:34:32,669
 Do you wanna add protocol stubs? Oh, yes please. And
+你想要添加协议的桩代码（protocol stub）吗，哦好的。
 
 662
 00:34:32,737 --> 00:34:35,538
 look what it did. It added a stub for hashable, and
+来看看它做了什么，它将 Hashable 和 Equatable 的
 
 663
 00:34:35,607 --> 00:34:38,808
 a stub for equitables. Now I just have to implement these.
+桩代码添加了进来。现在我只需要实现这个
 
 664
 00:34:38,877 --> 00:34:41,611
 So, making hash value, which has to be get only,
+那么，得到 hashValue，这是只能被获取的
 
 665
 00:34:41,679 --> 00:34:46,149
 that's easy. I'm just gonna return my identifier. That's
+这很容易，我只需要返回我的 identifier 那是一个
 
 666
 00:34:46,217 --> 00:34:50,987
 an extremely good hash for a card because it's unique for
+对一张牌来说非常好的哈希值，因为它是唯一确定那张牌的
 
 667
 00:34:51,056 --> 00:34:54,291
-that card. And the equals, equals is also really easy
+that card. And the equals equals is also really easy
+而那 ==  也是非常简单的
 
 668
 00:34:54,359 --> 00:34:56,526
 too. I just have to compare these two cards.
+我只需要比较这两张牌
 
 669
 00:34:56,594 --> 00:34:59,462
 I'm gonna return if the left hand side's identifier
+我只用返回 lhs.identifer == rhs.identifier
 
 670
 00:34:59,530 --> 00:35:03,433
 equals the right hand side's identifier. So there we go.
+就可以了
 
 671
 00:35:03,501 --> 00:35:06,069
 I've implemented hashable and equatable. So
+我已经实现了 Hashable 和 Equatable
 
 672
 00:35:06,138 --> 00:35:08,538
-now if I go back to my view controller,
+now if I go back to my ViewController,
+现在如果回到我们的 ViewController
 
 673
 00:35:08,607 --> 00:35:11,507
 will that error be gone? Here's the error over here.
+那个错误会消失吗，那个错误在这里
 
 674
 00:35:11,576 --> 00:35:15,611
 So let's make Xcode recompile, and sure enough look,
+现在我们来让 Xcode 重新编译，看
 
 675
 00:35:15,680 --> 00:35:19,015
 no problems. It's completely fine with that, okay, and
+没有问题。它是完全能接受这个的
 
 676
 00:35:19,084 --> 00:35:23,053
 that's because I made this hashable. Now,
+那是因为，我让这个成为可哈希的了
 
 677
 00:35:23,121 --> 00:35:24,787
 we can get another benefit of this.
+这么做还有一个好处
 
 678
 00:35:24,856 --> 00:35:28,291
 Let me go back to card. And I told you before, I didn't like
+让我们回到 Card，我曾讲过，我不希望
 
 679
 00:35:28,360 --> 00:35:30,861
 that this identifier was public. I see no reason for
+这个 identifier 是公开的，我找不到任何理由
 
 680
 00:35:30,929 --> 00:35:32,495
 it to be public. And we know we don't need it
+让它成为公开的，我们现在在我们的
 
 681
 00:35:32,564 --> 00:35:35,064
 now to look in our emoji thing, so I'm just gonna make
+表情那里也不需要访问它了，所以我将让它成为
 
 682
 00:35:35,133 --> 00:35:38,534
 it private. And let's see if that's gonna work.
+私有的，让我们来看看这能不能生效
 
 683
 00:35:38,603 --> 00:35:40,069
 So is private gonna work?
+它是私有的能生效吗
 
 684
 00:35:40,138 --> 00:35:43,139
 Let's build and see. Oh, no, we have some errors over here.
+让我们组建然后看看，哦不好，我们这有一些错误
 
 685
 00:35:43,207 --> 00:35:45,942
 So let's go look at them. Here's an error here, it says,
+让我们去看看它们，错误在这里，它说
 
 686
 00:35:46,011 --> 00:35:49,512
 identifier is inaccessible due to private protection level.
+identifier 是不可访问的，因为它是私有的
 
 687
 00:35:49,581 --> 00:35:51,714
 That's right, I made identifier private.
+是的，我将它变为了私有的
 
 688
 00:35:51,783 --> 00:35:56,086
 What's it trying to do here? Oh, here I'm trying to see if
+我们这里在尝试做什么？哦，这里我正在尝试去看
 
 689
 00:35:56,154 --> 00:36:01,390
 two cards match, oh, well cards implement equatable now.
+这两张牌是否能配对上，现在 Card 已经实现了 Equatable
 
 690
 00:36:01,459 --> 00:36:05,328
 So I can just go like this card matchIndex
-
+那么我就只用这样做
 691
 00:36:05,397 --> 00:36:10,033
 =cards[index] because I can compare cards directly,
+cards[matchIndex] == cards[index]，因为我现在可以
 
 692
 00:36:10,102 --> 00:36:12,268
 now. They implement equatable, right?
+直接比较牌了，它们实现了 Equatable
 
 693
 00:36:12,337 --> 00:36:15,305
 Now if we build, that's gone away. So
+如果现在我们组建，错误就消失了
 
 694
 00:36:15,373 --> 00:36:17,440
 we had a huge benefit by making that equatable and
+所以让它成为 Equatable 和 Hashable
 
 695
 00:36:17,508 --> 00:36:20,943
 hashable. We got to use it directly in our emoji thing to
+是有很大好处的。我们可以直接在我们的表情里使用它
 
 696
 00:36:21,012 --> 00:36:24,147
 make that code look nice and look how nice this code looks.
+让代码看起来非常的好，看这代码多棒
 
 697
 00:36:24,216 --> 00:36:26,549
 Compared to how it used to look with that identifier,
+相比我们之前用那 identifier
 
 698
 00:36:26,618 --> 00:36:30,020
 right, so we cleaned up our code on the use side and
+所以我们在调用的地方简洁了我们的代码
 
 699
 00:36:30,088 --> 00:36:31,354
 we were able to go back to card and
+并且我们在 Card 中
 
 700
 00:36:31,423 --> 00:36:33,789
 make something that really didn't need to be public,
+让不需要公开的东西私有了
 
 701
 00:36:33,858 --> 00:36:38,194
 completely private. Pretty cool with that? Okay,
+这样挺酷的吧
 
 702
 00:36:38,263 --> 00:36:41,164
 so you're starting to see the power of protocols a building
+你们会渐渐感受到协议在这里是多么的强大
 
 703
 00:36:41,233 --> 00:36:45,402
 here. So let's go back and look at even more protocol
+那么让我们回到这里来看更多酷的
 
 704
 00:36:45,470 --> 00:36:50,139
 stuff that's cool. All right, there
+协议的那些东西。好的，这是
 
 705
 00:36:50,208 --> 00:36:54,610
 is the demo, okay, let's talk a little about this multiple
+那个示例。让我们来讲讲这个多重
 
 706
 00:36:54,679 --> 00:36:59,782
 inheritance kind of trick. Consider countable range,
+继承的技巧，想想可数区间
 
 707
 00:36:59,851 --> 00:37:02,652
 remember countable range zero dot dot less than something
+还记得可数区间就是 0..<Something 这样就会
 
 708
 00:37:02,720 --> 00:37:06,055
 creates this countable range of ints from zero that thing
+创建一个从 0 到 Something - 1 的可数区间
 
 709
 00:37:06,123 --> 00:37:10,293
 minus one. Countable range implements a lot of protocols.
+可数区间实现了非常多的协议
 
 710
 00:37:10,362 --> 00:37:14,063
 If you go look at countable range, it may have 12 or
+如果你去看看可数区间的代码，它大概会有 12
 
 711
 00:37:14,132 --> 00:37:16,866
 15 different protocols. Well, two of the most interesting
+还是 15 个不同的协议。那么其中两个最有趣的的
 
 712
 00:37:16,935 --> 00:37:19,135
 ones it implements are sequence.
+一个是序列（Sequence）
 
 713
 00:37:20,772 --> 00:37:22,088
 right? A countable range is a sequence of numbers from zero
+对吧，一个可数区间一个从 0 开始
 
+#TODO: 714 这条是多的
 714
 00:37:22,089 --> 00:37:23,405
 Which makes sense,
@@ -3157,1146 +3568,1432 @@ Which makes sense,
 715
 00:37:23,474 --> 00:37:26,643
 to something else. And also collection,
+到某个数字的数字序列。还有集合（Collection）
 
 716
 00:37:26,711 --> 00:37:29,345
 because accountable range is also a collection of things.
+因为可数区间是是一个一些东西的集合
 
 717
 00:37:29,413 --> 00:37:30,713
 If it's accountable range of int,
+如果它是一个 Int 型的可数区间
 
 718
 00:37:30,782 --> 00:37:32,815
 it's a collection of int or whatever. And
+那么它就是 Int 型的集合，其他同理
 
 719
 00:37:32,884 --> 00:37:36,819
 so these two protocols define a lot of fun things like
+而这两个协议定义了许多好玩的东西
 
 720
 00:37:36,888 --> 00:37:41,057
 sequence defines really only one method,
+像 Sequence 值定义了一个方法
 
 721
 00:37:41,125 --> 00:37:44,127
 next, which goes to the next thing in the sequence.
+next，到一个序列中的下一个元素的位置
 
 722
 00:37:44,196 --> 00:37:46,862
 But that let you do for in, anything that implements
+但它允许你做 for in，任何实现了
 
 723
 00:37:46,931 --> 00:37:49,799
 the sequence protocol could do for in, okay, just like
+Sequence 这个协议的东西都可以做 for in
 
 724
 00:37:49,867 --> 00:37:53,269
 anything that's hashable can be a key in the dictionary.
+就像任何可哈希的东西可以作为字典的键
 
 725
 00:37:53,338 --> 00:37:55,571
 And then, collection has even more methods,
+接着， Collection 有更多的方法
 
 726
 00:37:55,640 --> 00:37:59,509
 all the indexing, sub-scripts, all that stuff is all
+那些索引，下标，那些东西
 
 727
 00:37:59,578 --> 00:38:03,345
 in the collection protocol. Now, why do we do this?
+都在 Collection 这个协议中，那么为什么我们要这样做？
 
 728
 00:38:03,414 --> 00:38:06,216
 Why do we have countable range implement all these protocols?
+为什么我们有可数区间来实现这些协议
 
 729
 00:38:06,284 --> 00:38:09,652
 Well, because array implements all those as well, and so
+因为数组也实现了它们，同样
 
 730
 00:38:09,721 --> 00:38:13,990
 does dictionary and set and string. All these classes
+字典、集合（Set）和字符串也实现了它们。所以这些类
 
 731
 00:38:14,059 --> 00:38:17,593
 that are sequences of things or collections of things
+它们是一些东西的序列，或者一些东西的集合
 
 732
 00:38:17,662 --> 00:38:20,129
 implement all these exact same things. And
+它们实现了同样的东西
 
 733
 00:38:20,198 --> 00:38:23,799
 so I as a programmer only have to learn these things once.
+所以我作为一个程序员只用学一次这些东西
 
 734
 00:38:23,868 --> 00:38:26,902
 Okay, I only have to learn learn for in once. And
+我只用学 for in 一次
 
 735
 00:38:26,971 --> 00:38:29,672
 all I need to know is that the thing I wanna for
+并且我只需要知道我想对其进行 for in 操作
 
 736
 00:38:29,741 --> 00:38:32,641
 in over has to be a sequence. So I can just look to see does
+的东西，必须是一个序列。所以我可以只去看看
 
 737
 00:38:32,710 --> 00:38:34,243
 this thing implement that protocol? Or
+这些东西是否实现了那个协议
 
 738
 00:38:34,312 --> 00:38:37,947
 I can even invent my own things that I can for in over.
+或者我甚至可以创造我自己的类型，我能for in 它
 
 739
 00:38:38,016 --> 00:38:40,750
 All I have to do is implement the sequencing, the sequence
+所有我需要做的只是实现这个 Sequence 协议
 
 740
 00:38:40,819 --> 00:38:43,820
 protocol which really only has one method in it ultimately.
+Sequence 这个协议中只有一个方法
 
 741
 00:38:45,423 --> 00:38:49,392
 So that's one good reason why because I learned indexing,
+这很好的解释了为什么我学了索引
 
 742
 00:38:49,461 --> 00:38:52,662
 indexOf to get things and I can now do indexOf
+indexOf 来获得一些东西，那么现在就可以 indexOf
 
 743
 00:38:52,731 --> 00:38:54,630
 on a string and find a character on a string or
+一个字符串并找到一个字符，或
 
 744
 00:38:54,699 --> 00:38:57,667
 I can do indexOf in an array and find in there.
+我可以 indexOf 一个数组并在其中查找
 
 745
 00:38:57,736 --> 00:39:01,070
 I can even do indexOf on accountable range not super
+我甚至可以 indexOf 一个可数区间
 
 746
 00:39:01,139 --> 00:39:04,273
 valuable but if the count of a range wasn't of int,
+这不是很有用，但如果这个可数区间不是 Int 型的
 
 747
 00:39:04,342 --> 00:39:06,976
 then it might be interesting to do index of to try and
+这可能也会很有趣，去 indexOf
 
 748
 00:39:07,044 --> 00:39:10,847
 find something where it is in the range, okay. But
+并在这个区间中找到某物在哪
 
 749
 00:39:10,915 --> 00:39:13,816
 there's a bigger and better reason why we do this.
+但我们这么做还有个更重要的原因
 
 750
 00:39:13,885 --> 00:39:17,854
 And that's because there's a little bit of magic in, or not
+那是因为在 Swift 中，有一点小魔法，或者说
 
 751
 00:39:17,923 --> 00:39:21,590
 magic but really good design implementation in Swift.
+不是魔法，但是非常好的设计实现
 
 752
 00:39:21,659 --> 00:39:25,061
 Which is that for protocols it is possible to provide default
+对于协议来说，协议是可以提供默认
 
 753
 00:39:25,130 --> 00:39:31,868
 implementations of methods. Default implementations
+的方法的实现的。默认的方法
 
 754
 00:39:31,937 --> 00:39:37,006
 of methods. So this makes it possible for
+实现，这让我们有可能
 
 755
 00:39:37,075 --> 00:39:39,709
 us to implement indexOf for
+来为这些所有的类实现
 
 756
 00:39:39,777 --> 00:39:45,014
 all of these classes in one place. So that's why,
+indexOf，在一个地方，这就是原因
 
 757
 00:39:45,082 --> 00:39:47,617
 again, we think it's like multiple inheritance cuz
+我们认为它像多重继承
 
 758
 00:39:47,686 --> 00:39:51,120
 they're actually gonna inherit implementation. So where do
+因为它们实际上是会继承实现的。那么我们将
 
 759
 00:39:51,188 --> 00:39:53,623
 you put this implementation? Cuz we know protocol is just
+这样的实现放在哪里呢？因为我们知道协议只是
 
 760
 00:39:53,691 --> 00:39:56,525
 a declaration method with no implementation. Well,
+方法的声明，而不包含实现
 
 761
 00:39:56,594 --> 00:39:59,962
 the answer is you put them in an extension to your protocol.
+答案是，将它们放在你的协议的扩展中
 
 762
 00:40:00,031 --> 00:40:03,066
 You know how we can have extension int? You can also do
+你知道我们是如何为 Int 添加扩展的。你也可以
 
 763
 00:40:03,134 --> 00:40:07,336
 extension protocol. And in that extension you can
+为协议添加扩展。并在这个扩展中，你可以
 
 764
 00:40:07,405 --> 00:40:10,206
 implement as many other protocol methods as you want.
+实现任意数量的协议中的方法
 
 765
 00:40:10,275 --> 00:40:12,709
 Now you're little bit restricted there because
+不过你在这里有些受限，因为
 
 766
 00:40:12,777 --> 00:40:14,877
 extensions can't have any storage.
+扩展不能有任何的存储
 
 767
 00:40:14,946 --> 00:40:17,713
 We know that, right? No vars, so that's certainly
+我们知道这点，没有变量，那肯定是一个限制
 
 768
 00:40:17,782 --> 00:40:21,117
 a restriction. Also in the extension, really the only
+并且，在扩展中你能实现的方法
 
 769
 00:40:21,186 --> 00:40:24,119
 method you could use to implement it are the methods
+只能是
 
 770
 00:40:24,188 --> 00:40:26,990
 in the protocol or in the protocols you inherit.
+在这个协议中的方法，或者是这个协议继承的协议中的方法
 
 771
 00:40:27,058 --> 00:40:30,126
 So, like collection, happens to inherit from sequence so
+就像 Collection，它是继承了 Sequence 的
 
 772
 00:40:30,194 --> 00:40:32,729
 a lot of the collection methods can be implemented
+因此很多的 Collection 的方法，都可以用
 
 773
 00:40:32,797 --> 00:40:35,364
 using the sequence by just going through the whole
+Sequence 实现，通过遍历整个
 
 774
 00:40:35,433 --> 00:40:39,301
 sequence of the collection and finding things, or whatever.
+集合的序列，找到一些东西，或其他什么
 
 775
 00:40:39,370 --> 00:40:44,173
 So if you look here, sequence has that one important method
+如果你看看这里，Sequence 有那个重要的方法
 
 776
 00:40:44,242 --> 00:40:46,609
 next goes to the next thing in the sequence. But
+next，它可以去到这个序列中的下一个元素，但
 
 777
 00:40:46,678 --> 00:40:48,711
 sequence also has all these other methods,
+序列也有其他的这些方法
 
 778
 00:40:48,779 --> 00:40:51,414
 contains which finds whether somethings in the sequence,
+contains 用来确认序列中是否包含某个元素
 
 779
 00:40:51,483 --> 00:40:54,783
 forEach which kind of does what for n does. Joined by
+forEach 差不多就是 for in 的功能。 joined by
 
 780
 00:40:54,852 --> 00:40:57,586
 separator, which takes all the things in the sequence,
+separating 用来获取序列中的所有元素，并
 
 781
 00:40:57,655 --> 00:41:00,356
 converts it to a string and creates a big string
+转换成一个字符串，它会创建一个大字符串
 
 782
 00:41:00,425 --> 00:41:04,293
 joined by a separator like comma or space. It has min,
+这个字符串被 separator 分割，像逗号或者空格
 
 783
 00:41:04,362 --> 00:41:06,729
 find me the minimum thing in this sequence, max,
+它还有 min 用来找到序列中的最小元素，max
 
 784
 00:41:06,798 --> 00:41:10,133
 the maximum thing. Even has functions that take closures,
+max 找到最大元素。甚至还有函数接收闭包为参数
 
 785
 00:41:10,201 --> 00:41:12,001
 which I'm going to talk about soon like filter and
+闭包我等一下就会讲到，像 filter 和 map
 
 786
 00:41:12,070 --> 00:41:15,171
 map, that do major operations on the sequence.
+它们可以对序列做一些主要操作
 
 787
 00:41:15,240 --> 00:41:17,740
 Well, all the implementation of all those things contains,
+所有的这些东西的实现，contains
 
 788
 00:41:17,808 --> 00:41:19,909
 forEach, joined, min, max all those things.
+forEach, joined, min, max 所有这些东西
 
 789
 00:41:19,978 --> 00:41:23,512
 Those are all implemented in an extension to sequence that
+它们都在 Sequence 这个协议的扩展中被实现了
 
 790
 00:41:23,581 --> 00:41:27,583
 Apple provides so that if you want to have a sequence,
+这是苹果提供的扩展。因此如果你想要有一个序列
 
 791
 00:41:27,652 --> 00:41:30,586
 as long as you implement that next thing to go to the next
+你只需要实现那个 next 方法，它可以去到
 
 792
 00:41:30,655 --> 00:41:33,222
 thing in the sequence you get implementations of all those
+序列中下个元素，实现了它，你就可以得到整个
 
 793
 00:41:33,291 --> 00:41:36,892
 other things for free. That also means that array, and set
+Sequence 协议的实现，这也意味着数组，集合
 
 794
 00:41:36,961 --> 00:41:39,595
 and dictionary, and countable range are all sharing
+字典和可数区间都在共享 min, max 这些
 
 795
 00:41:39,663 --> 00:41:42,398
 the implementations of min and max and all these things.
+方法的实现
 
 796
 00:41:42,466 --> 00:41:45,134
 Now, these are only default implementations.
+这些知识默认实现
 
 797
 00:41:45,203 --> 00:41:48,337
 If an array you actually implement min or max or
+如果一个数组真的去实现了 min 或者 max
 
 798
 00:41:48,405 --> 00:41:50,740
 something like that. Maybe you can do it more efficiently
+或者其他的方法，也许你可以比默认实现
 
 799
 00:41:50,808 --> 00:41:51,941
 than the default implementation or
+做得更有效率或者
 
 800
 00:41:52,010 --> 00:41:55,978
 whatever. You can do it. But it's replace the default
+其他什么，你可以这样去做，但这样会替代扩展中的
 
 801
 00:41:56,047 --> 00:41:58,915
 implementation that's in the extension.
+默认实现
 
 802
 00:41:58,983 --> 00:42:00,983
 Okay, but are you getting the feel for what I'm saying?
+你能理解我在讲的是什么吗
 
 803
 00:42:01,052 --> 00:42:03,385
-Why this is valuable to have these default imitations.
+Why this is valuable to have these default implementations.
+为什么默认实现很有价值
 
 804
 00:42:03,454 --> 00:42:05,921
 You can have these really powerful protocols and
+你可以有这些非常强大的协议
 
 805
 00:42:05,990 --> 00:42:07,690
 you'll only have to implement one of the methods and
+而你只要实现其中一个方法
 
 806
 00:42:07,759 --> 00:42:08,690
 you'll get implementations for
+你就可以得到整个的实现
 
 807
 00:42:08,759 --> 00:42:11,293
 all of them. And then they're shared across all these weird
+而它们被这些奇怪的
 
 808
 00:42:11,362 --> 00:42:13,061
 different classes like array, string,
+不同的类共享，像数组，字符串
 
 809
 00:42:13,130 --> 00:42:16,765
 countable range. They all get all these implementations they
+可数区间，它们的可以获得这些实现
 
 810
 00:42:16,834 --> 00:42:18,801
 don't have to implement any of that and they get it for free.
+而自己本身不用去实现什么，免费地获得了这些实现
 
 811
 00:42:20,971 --> 00:42:23,739
 Now all of these that I'm talking about generics,
+那么所以这些我讲的，泛型
 
 812
 00:42:23,808 --> 00:42:28,678
 value typing, var versus let immutability
+数值类型，变量与常量控制
 
 813
 00:42:28,746 --> 00:42:33,750
 control, constraining things by protocols, extensions or
+通过协议来限制，扩展
 
 814
 00:42:33,818 --> 00:42:36,685
 protocols. All these things add up to support a kind of
+还有协议，所有的这些东西共同支撑着一种编程模式
 
 815
 00:42:36,754 --> 00:42:39,322
 programming called functional programming. How many people
+叫做函数式编程，这有多少人听说过
 
 816
 00:42:39,391 --> 00:42:42,591
 here have heard about functional programming?
+函数式编程
 
 817
 00:42:42,660 --> 00:42:43,993
 About half of you, see? So
+大概一半左右
 
 818
 00:42:44,062 --> 00:42:46,062
 I encourage you at your Stanford careers,
+我推荐你在你斯坦福大学的学习中
 
 819
 00:42:46,130 --> 00:42:48,765
 go take a class and learn about functional programming.
+去上节关于函数式编程的课程
 
 820
 00:42:48,833 --> 00:42:51,467
 It's really kind of the evolution, some would say,
+有人会是它是面向对象编程的
 
 821
 00:42:51,535 --> 00:42:54,270
 of object-oriented programming. It's a little
+一个进化
 
 822
 00:42:54,339 --> 00:42:56,538
 different way of thinking about dividing things up.
+它在如何将事物分开有不同的想法
 
 823
 00:42:56,607 --> 00:42:58,774
 It allows you to get things like multiple inheritance
+它允许你使用剁成继承
 
 824
 00:42:58,843 --> 00:43:00,977
 without things getting completely out of control.
+而不会让事情变得完全超出掌控
 
 825
 00:43:01,046 --> 00:43:02,744
 Since things aren't living in the heap,
+因为那些东西不是在堆中
 
 826
 00:43:02,813 --> 00:43:05,414
 you don't have 20 pointers to something and you're not sure
+你不会有像20个指针指向某个东西
 
 827
 00:43:05,483 --> 00:43:07,950
 who's gonna modify things, so your programs are much more
+而你不确定哪个指针会改变这东西，所以你的程序会变得更加
 
 828
 00:43:08,018 --> 00:43:10,552
-provable,right? You can prove that they do what they do.
+provable, right? You can prove that they do what they do.
+可证明，你可以证明它们会做它们应该做的事情
 
 829
 00:43:10,621 --> 00:43:13,322
 You don't have to worry about what pointers are messing this
+你不需要担心哪个指针会把堆中
 
 830
 00:43:13,390 --> 00:43:15,758
 thing up in the heap lot of advantages of it. Now,
+的哪一个东西搞砸。这有很大的优势
 
 831
 00:43:15,827 --> 00:43:17,560
 what's really cool about Swift,
+而 Swift 很酷的一点是
 
 832
 00:43:17,629 --> 00:43:20,329
 it supports both these programming models.
+这两个编程方法它都支持
 
 833
 00:43:20,397 --> 00:43:22,898
 Object oriented programming, which is all I'm gonna
+面向对象编程，这个我将会在
 
 834
 00:43:22,967 --> 00:43:24,967
 use in this class because that's the prerequisite for
+这整门课中讲到，因为这是参加这门课的前提
 
 835
 00:43:25,036 --> 00:43:27,203
 this class, and functional programming,
+还有函数式编程
 
 836
 00:43:27,271 --> 00:43:31,373
 which is what pretty much all of the foundation of
+这差不多就是那些基础框架框架，像字典、数组
 
 837
 00:43:31,442 --> 00:43:35,545
 foundation framework like dictionary, array, string,
+字符串这些东西的基础
 
 838
 00:43:35,613 --> 00:43:38,380
 all those things. Those are all built with a functional
+它们都是以函数式编程
 
 839
 00:43:38,449 --> 00:43:42,117
 programming model. Swift supports them both equally,
+模型建立的，Swift 两个都支持
 
 840
 00:43:42,186 --> 00:43:44,219
 which is really great. So it's kind of your best,
+这很好。这是可以说是最好的
 
 841
 00:43:44,288 --> 00:43:46,088
 it's a mix between languages like Haskell,
+它有是 Haskell 和 Java 的结合
 
 842
 00:43:46,156 --> 00:43:48,457
 how many of you have ever heard of the language Haskell?
+有多少人听说过 Haskell 这门语言
 
 843
 00:43:48,525 --> 00:43:51,160
 Okay, same people who know about functional programming,
+好的，同样是听说过函数式编程的那些人
 
 844
 00:43:51,229 --> 00:43:53,863
 right, so Haskell which is a purely functional programming
+Haskell 是纯粹的函数式编程语言
 
 845
 00:43:53,932 --> 00:43:56,532
 language, and you know, like Java which is a purely object
+而 Java 是纯粹的面向对象
 
 846
 00:43:56,600 --> 00:44:01,137
 oriented language. It's a good mix of two. That's all I'm
+编程语言，而 Swift 是它们两的结合
 
 847
 00:44:01,205 --> 00:44:03,773
 going to say about functional programming, just so
+这是我关于函数式编程所有要讲的部分
 
 848
 00:44:03,841 --> 00:44:07,509
 that you know it's there. That's it for protocols.
+只是为了让你们知道有这个东西，协议我们就讲到这里
 
 849
 00:44:07,578 --> 00:44:11,113
 When you see it all in action it will make a lot more sense.
+当你在实战中遇到它，你就能理解了
 
 850
 00:44:11,181 --> 00:44:12,114
 Hopefully it makes a lot of sense.
+希望你就能理解了
 
 851
 00:44:12,183 --> 00:44:14,016
 Now it's really, protocols are very simple.
+协议非常的简单
 
 852
 00:44:14,085 --> 00:44:16,485
 Just those lists but we can use them in powerful ways,
+就是那些清单，但我们可以将它用作非常强大的途径
 
 853
 00:44:16,553 --> 00:44:20,522
 all right. Now let's go talk for briefly about something
+好的，那么现在我们来简要的讲讲
 
 854
 00:44:20,591 --> 00:44:23,459
 that's not super important, but strings are in almost
+一个不是那么重要的东西，字符串，字符串在每个
 
 855
 00:44:23,528 --> 00:44:26,028
 every app. And I just wanna talk a little bit about how we
+应用程序都存在，而我只想讲讲关于
 
 856
 00:44:26,097 --> 00:44:28,531
 index in to strings, cuz it is not what you would
+我们如何索引字符串，因为这不会像你们第一眼
 
 857
 00:44:28,599 --> 00:44:33,035
 think it is at first glance. In addition to string,
+看到所想的那样，除了字符串
 
 858
 00:44:33,104 --> 00:44:36,572
 the struct string, there's another struct in foundation
+结构体字符串，在 Foundation 中有另外一个
 
 859
 00:44:36,641 --> 00:44:40,543
 called character. Now, a character is what we humans
+叫做 Character 的结构体，一个 Character 就是
 
 860
 00:44:40,611 --> 00:44:44,580
 would perceive of as a character. On the screen or
+我们所看到的一个字符，在屏幕上
 
 861
 00:44:44,649 --> 00:44:49,519
 whatever. However, a string is not a sequence. A string is
+或是其他什么东西上。但是，一个字符串并不是一个序列
 
 862
 00:44:49,587 --> 00:44:52,355
 an underlying built with character, it's built with
+字符串是以字符为基础建立的
 
 863
 00:44:52,423 --> 00:44:56,659
 unicodes. Okay, unicodes are just little bite size chunks
+它是以 Unicodes 为基础建立的，Unicode 就是那几个字节
 
 864
 00:44:56,728 --> 00:45:00,162
 that can represent pretty much any language on earth. Okay,
+的数据，而它可以表示基本上地球上的所有语言
 
 865
 00:45:00,231 --> 00:45:02,631
 it's international. You know, like ASCII.
+它是国际化的，像 ASCII
 
 866
 00:45:02,700 --> 00:45:05,501
 We used to have ASCII, you can only really do English.
+我们以前用 ASCII，它只能表达英语
 
 867
 00:45:05,569 --> 00:45:07,870
 Unicodes do all All the languages on Earth.
+Unicode 可以表示地球上的所有语言
 
 868
 00:45:07,939 --> 00:45:10,773
 So that's what's in a string. So we have a little bit
+这就是字符串中的东西，我们就好像正在
 
 869
 00:45:10,841 --> 00:45:13,976
 of trying to bridge the world between Unicodes and
+尝试在Unicode 的世界与 Character 的世界
 
 870
 00:45:14,045 --> 00:45:17,212
 characters. So let me show you by example here,
+搭建桥梁，让我为你们展示一个例子
 
 871
 00:45:17,281 --> 00:45:22,351
 if we have the word cafe, C-A-F-E, right?
+如果我们有 cafe 对吧
 
 872
 00:45:22,419 --> 00:45:25,054
 That we perceive to have four characters, the C, the A,
+那么我认为它由 4 个字符组成，c、a
 
 873
 00:45:25,122 --> 00:45:27,290
 the F, and the E with the accent on it. But
+f、e 其中 e 的上方有重音符号
 
 874
 00:45:27,358 --> 00:45:30,526
 it might be represented by five Unicodes, because there's
+但是它可能是被 5 个 Unicode 字符表示的
 
 875
 00:45:30,595 --> 00:45:33,162
 a Unicode which is put an accent on the previous
+以为有一个 Unicode 的字符是在前一个字符上加上重音符号
 
 876
 00:45:33,231 --> 00:45:38,434
 character, okay, so, it could have five Unicodes. Well, So
+所以它可能会有 5 个 Unicode 字符
 
 877
 00:45:38,503 --> 00:45:41,704
 how do we deal with this? Well, the main problem or
+那么我们如何处理这个呢？那么现在
 
 878
 00:45:41,772 --> 00:45:46,175
 the main ramification of this is that string
+的主要问题是，字符串
 
 879
 00:45:46,243 --> 00:45:50,980
 cannot indexed by int. Because if we had a phrase,
+不可以通过 Int 类型来索引，因为如果我们有一个词组
 
 880
 00:45:51,049 --> 00:45:54,449
 cafe pesto, right there. One of my favorite pizza joints in
+cafe pesto，我喜欢的一个比萨店
 
 881
 00:45:54,518 --> 00:45:58,020
 Hawaii, Cafe Pesto. The p is that in index 5 or
+cafe pesto，p 这个字母的索引应该是 5
 
 882
 00:45:58,088 --> 00:46:02,925
 is that in index 6? It depends on whether that e is
+还是 6，这取决于 e
 
 883
 00:46:02,993 --> 00:46:07,029
 an e with an accent or two Unicode here there's the e and
+是 e 和重音符号组成的一个字符，还是两个字符，分别是
 
 884
 00:46:07,097 --> 00:46:11,634
 the accent. So ugh, what are we gonna do here? So
+e 和那个重音符号。那么我们这里该怎么做呢
 
 885
 00:46:11,702 --> 00:46:16,138
 what we do is we don't index strings by int.
+我们做法是，不允许使用 Int 来索引字符串
 
 886
 00:46:16,207 --> 00:46:19,708
 Instead strings are indexed by their own special type,
+字符串是用一个特殊的类型来索引的
 
 887
 00:46:19,777 --> 00:46:23,979
 String.Index. And that's the only way
+String.Index 并且这是对字符串使用
 
 888
 00:46:24,048 --> 00:46:26,215
 to use subscripting on a String,
+下标的唯一方法
 
 889
 00:46:26,283 --> 00:46:30,285
 you need a String.Index, not an Int. So this makes this,
+你需要一个 String.Index，而不是 Int。那么这就会
 
 890
 00:46:30,354 --> 00:46:33,022
 people don't like this. They wanna index Strings by Int and
+让人们不太喜欢这样。人们喜欢用 Int 来索引字符串
 
 891
 00:46:33,090 --> 00:46:36,358
 I understand why, but you can't do that. So
+我也能理解原因，但你不能这么做
 
 892
 00:46:36,427 --> 00:46:39,362
 what does that mean? Well, we have to get an index, so
+那么这意味着什么呢，这意味着我们必须要获得一个索引
 
 893
 00:46:39,430 --> 00:46:42,565
 how do we get an index? Well, you can get the startIndex
+我们如何获得一个索引呢？你可以得到你个字符串的
 
 894
 00:46:42,633 --> 00:46:45,834
 of a string, you can get the endIndex of a string.
+startIndex（开始索引） 和它的 endIndex（结束索引）
 
 895
 00:46:45,903 --> 00:46:49,438
 You can also use index(of:) a character to find the first
+你可以用 index(of:) 一个字符来找到这个字符
 
 896
 00:46:49,506 --> 00:46:52,241
 index of that character. So there's a bunch of different
+的第一个索引。所以这样许多不同的方法
 
 897
 00:46:52,309 --> 00:46:55,144
 methods and vars on strings to get an index.
+和变量来让我们获得一个索引
 
 898
 00:46:55,212 --> 00:46:58,814
 Once you have an index in your hand, now you can offset
+一旦你手头有了一个索引，你就可以用 Int 移动（offset）
 
 899
 00:46:58,883 --> 00:47:02,951
 that index by an Int. So if you want to get the fourth
+那个索引。所以如果你想要的到这个字符串的第四个
 
 900
 00:47:03,020 --> 00:47:05,454
 character in the string you have to get the startIndex and
+字符，你必须要得到它的 startIndex
 
 901
 00:47:05,522 --> 00:47:08,323
 then offset it by three to get to the fourth index, from
+并用 3 offset 它这样就能获得第四个下标
 
 902
 00:47:08,392 --> 00:47:11,960
 the first to the fourth. So it was let's get to the code that
+从第一个到第四个，然我们来看看这样的代码
 
 903
 00:47:12,029 --> 00:47:14,597
 makes that work. So here's my pizzaJoint cafe pesto here,
+这是我的 pizzaJoint = "cafe pesto"
 
 904
 00:47:14,665 --> 00:47:17,733
 I'm gonna get the index of the first character by saying
+我将通过使用 pizzaJoint.startIndex
 
 905
 00:47:17,802 --> 00:47:20,769
 pizzaJoint.startIndex that's not an Int.
+的方式来得到第一个索引，而它不是 Int 型
 
 906
 00:47:20,838 --> 00:47:23,438
 It's of type String.Index.
+它是 String.Index
 
 907
 00:47:23,507 --> 00:47:25,374
 Now I'm gonna get the fourth character by taking
+而我通过得到第一个字符的索引
 
 908
 00:47:25,443 --> 00:47:28,010
 the first character and offsetting it by three.
+并 offset 它 3 就可以得到第四个字符的索引
 
 909
 00:47:28,079 --> 00:47:29,444
 Now I've got the index of the fourth character.
+那么现在我有了第四个字符的索引
 
 910
 00:47:29,513 --> 00:47:32,881
 Now I'm gonna get the actual fourth character by using
+那么我就可以通过下标的方式
 
 911
 00:47:32,950 --> 00:47:36,952
 subscripting. PizzaJoint, subscript, fourth character,
+pizzaJoint[fourthCharacterIndex] 这样
 
 912
 00:47:37,021 --> 00:47:40,222
 index, fourth character index of subtype String.index,
+fourthCharacterIndex 的类型是 String.Index
 
 913
 00:47:40,290 --> 00:47:43,525
 not of type int. And I can also do index (of:), so
+而不是 Int。而我也可以用 index(of:)
 
 914
 00:47:43,594 --> 00:47:46,695
 here I'm gonna say The firstSpace character in
+那么我这里要得到第一个空格的位置可以这样写：
 
 915
 00:47:46,764 --> 00:47:50,032
 cafe pesto is pizzaJoint.index(of: " ").
+firstSpace = pizzaJoint.index(of:" ")
 
 916
 00:47:50,101 --> 00:47:51,767
 Now the reason I have to say if let there is,
+我之所以要使用 if let
 
 917
 00:47:51,836 --> 00:47:53,836
 of course, index(of: " ") could return nil.
+是因为，index(of:" ") 当然可能返回 nil
 
 918
 00:47:53,904 --> 00:47:56,672
 There might not be any spaces in pizzaJoint.
+pizzaJoint 中可能根本没有空格
 
 919
 00:47:56,740 --> 00:47:58,507
 There happens to be but there might not be.
+这里碰巧有，但是可能没有的
 
 920
 00:47:58,575 --> 00:48:01,410
 So it would return nil then. And so I'm doing if let Now,
+所以它可能返回 nil 也因此我在这里用了 if let
 
 921
 00:48:01,479 --> 00:48:03,412
 I've got the index of that space.
+现在我有了那个空格的索引
 
 922
 00:48:03,480 --> 00:48:06,181
 Now I'm going to get the index to the start of the second
+现在我想得到第二个单词的开始的索引
 
 923
 00:48:06,250 --> 00:48:08,417
 word, the word pesto there. And
+也就是 pesto 这个单词
 
 924
 00:48:08,485 --> 00:48:12,054
 we do it by indexing that first space over by one.
+我们通过 index（注：这里应该是 offset） firstSpace 1
 
 925
 00:48:12,123 --> 00:48:15,390
 And I am gonna assume there is one space in between words,
+这么为了能找到下一个单词，我在这里
 
 926
 00:48:15,459 --> 00:48:18,593
 go to the next one. And now, I am going to get the whole word
+假定了单词之间是有空格的，而现在我将要得到整个 pesto
 
 927
 00:48:18,662 --> 00:48:25,201
 pesto by indexing string with a range, okay. The index
+这个单词，通过用区间的方法来所以这个字符串
 
 928
 00:48:25,269 --> 00:48:27,903
 of a string doesn't have to be an individual index.
+字符串的所以不一定要是一个独立的索引
 
 929
 00:48:27,972 --> 00:48:31,040
 It could be a range of indexes. Now you notice to
+他可以是一个由所以构成的区间
 
 930
 00:48:31,109 --> 00:48:35,511
 make a range, I'm using exactly the same dot,
+主要到这里要创建一个区间，我是用的是之前
 
 931
 00:48:35,580 --> 00:48:38,247
 dot, less than thing that I did when I made that countable
+在我们创建 Int 型的可数区间用过的 ..< 的方法
 
 932
 00:48:38,315 --> 00:48:42,585
 range of INTs. Ranges are generic types. They don't have
+区间是泛型，它们不一定要是
 
 933
 00:48:42,653 --> 00:48:45,787
 to be of INTs. They can be a range of string.index.
+Int， 它可以是一个由 String.Index 构成的区间
 
 934
 00:48:45,856 --> 00:48:50,325
 Perfectly legal. As though we saw before, we had a range,
+这是完全合法的，就像我们曾经见过的
 
 935
 00:48:50,394 --> 00:48:52,727
 countable range, of double precision floating points.
+我们有一个由双精度浮点型组成的可数区间
 
 936
 00:48:52,796 --> 00:48:55,196
 Remember that at the beginning of the last lecture? So
+记得在我们上节课的开始讲的那样吗
 
 937
 00:48:55,265 --> 00:48:58,767
 range is generic type. So
+区间是泛型
 
 938
 00:48:58,836 --> 00:49:02,738
 it is perfectly legal to use a range inside subscripting, and
+在下标中使用区间是完全合法的
 
 939
 00:49:02,806 --> 00:49:05,441
 that's true anywhere there's subscripting of collections.
+并且这是在任何下标是集合的地方都是正确的
 
 940
 00:49:07,011 --> 00:49:08,844
 These methods, by the way, these index,
+这些方法，index()
 
 941
 00:49:08,913 --> 00:49:11,646
 offsetBy, those are not methods in string,
+offsetBy() 这些不是字符串中的方法
 
 942
 00:49:11,715 --> 00:49:13,582
 those are methods in collection. Okay,
+这些是集合中的方法
 
 943
 00:49:13,651 --> 00:49:15,284
-the selection protocol, string may or
+the collection protocol, string may or
+在 Collection 这个协议中的方法，String 可以
 
 944
 00:49:15,352 --> 00:49:18,087
 may not implement it itself, it's up to the string.
+选择去实现或不实现它，这由 String 来决定
 
 945
 00:49:18,155 --> 00:49:21,156
 The collection protocol is also generic, and so the index
+Collection 这个协议也是泛型的，因此在
 
 946
 00:49:21,225 --> 00:49:25,160
 you use in the collection is configurable. For
+Collection 中使用的索引是可配置的
 
 947
 00:49:25,229 --> 00:49:28,664
 a string it's a string.index. By the way, another way
+对字符串来说那是 String.Index。另外一种
 
 948
 00:49:28,733 --> 00:49:31,634
 to get the second word, and probably what we would use, is
+获得第二个单词的方式，我们也可能这样做，是
 
 949
 00:49:31,702 --> 00:49:35,570
 a more complicated method like component separated by. So
+一个更复杂的方法， components.(separatedBy:)
 
 950
 00:49:35,639 --> 00:49:39,508
 components separated by, is a collection method. You give it
+它是一个集合中的方法，你像它传递一个
 
 951
 00:49:39,577 --> 00:49:42,979
 an element that would be in that collection and
+会在这个集合中的元素
 
 952
 00:49:43,047 --> 00:49:46,282
 it will create an array with all the things,
+而它会创建一个数组来装所有东西
 
 953
 00:49:46,351 --> 00:49:48,751
 all the elements in an array grouped and
+数组中的所有元素都会被那个东西
 
 954
 00:49:48,819 --> 00:49:52,588
 separated by that thing. So this would give you an array
+分割，这样做就会得到一个由空格分割的
 
 955
 00:49:52,656 --> 00:49:55,857
 of all the words separated by a space. Then I would grab
+单词组成的数组
 
 956
 00:49:55,926 --> 00:49:59,294
 index one, which would be the second word. Okay,
+接着我使用 [1] 这就是第二个单词了
 
 957
 00:49:59,363 --> 00:50:02,031
 so I'm showing you how to do the indexing directly, but
+我给你们讲了如何直接使用索引
 
 958
 00:50:02,100 --> 00:50:04,000
 a lot of times we use much higher level
+但更多实惠我们都会用更加高级的
 
 959
 00:50:05,302 --> 00:50:09,871
 things in string. Okay, so string,
+字符串中的东西，那么一个字符串
 
 960
 00:50:09,940 --> 00:50:14,109
 like I say, is a collection of character. Just like an array
+就像我说的，是一些字符的集合，就像数组是一个
 
 961
 00:50:14,178 --> 00:50:15,978
 is a collection of arbitrary things,
+随意某些东西的集合
 
 962
 00:50:16,046 --> 00:50:19,214
 accountable range of int is a collection of ints, and so
+Int 类型的可数区间是 Int 类型的集合
 
 963
 00:50:19,283 --> 00:50:22,017
 all that stuff is coming from collection. And collection is
+那些东西都是来自 Collection 这个协议
 
 964
 00:50:22,086 --> 00:50:24,686
 a sequence we know, so of course you can do for
+而正如我们知道的，Collection 又是一个序列
 
 965
 00:50:24,755 --> 00:50:28,657
 c and if s is a string c will be a tight character and you
+所以你当然可以用 for c in s，当 s 是字符串时，c 是字符
 
 966
 00:50:28,725 --> 00:50:31,460
 can iterate with a four loop through all the characters.
+那你就可以用一个 for 循环来遍历所有的字符
 
 967
 00:50:31,529 --> 00:50:34,930
 There's also really cool initializer for array
+同时数组也有一个非常酷的初始化方法
 
 968
 00:50:34,998 --> 00:50:39,067
 that takes a sequence, as the argument. So you can say,
+它接收一个序列作为参数，那么你就可以写 Array(s)
 
 969
 00:50:39,136 --> 00:50:42,638
 array of any sequence and what it will do is go through that
+s 是序列，这样就会遍历这整个
 
 970
 00:50:42,706 --> 00:50:45,774
 sequence and take each element and put it into the array.
+序列，并将它的每个元素放入这个字符串中
 
 971
 00:50:45,842 --> 00:50:47,209
 So it creates a big array for you,
+这将为你创建一个大数组
 
 972
 00:50:47,277 --> 00:50:48,978
 cuz it's an array initializer. And
+因为这是一个数组初始化方法
 
 973
 00:50:49,046 --> 00:50:52,214
 in the array will be all the elements of the sequence. So
+并且在这个数组是由这个序列的所有的元素组成
 
 974
 00:50:52,283 --> 00:50:54,883
 since a string is a sequence of characters, if you say
+既然字符串是字符的序列
 
 975
 00:50:54,952 --> 00:50:59,321
 array of string, you'll get an array of its characters. And
+如果你使用 Array(SomeString) 你就会得到由它所有字符组成的数组
 
 976
 00:50:59,390 --> 00:51:03,592
 now you can use int to index them if you want. So sometimes
+现在如果你想要，你就可以使用 Int 来所以这个数组了
 
 977
 00:51:03,661 --> 00:51:06,194
 people, they get tired of all this string index stuff.
+有时人们被这个 String.Index 弄得很烦
 
 978
 00:51:06,263 --> 00:51:08,229
 They just create an array of the characters. And
+他们就创建一个由字符组成的数组
 
 979
 00:51:08,298 --> 00:51:11,967
 then now they can use ints to get at the various characters.
+这样他们就可以使用 Int 来索引这个数组并获得许多字符
 
 980
 00:51:13,204 --> 00:51:16,071
 That's kind of a trick as well.
+这也能算是一个技巧
 
 981
 00:51:16,140 --> 00:51:19,374
 Ah, remember that a string is a value type, it's a struct,
+记得 String 是数值类型，它是一个类
 
 982
 00:51:19,443 --> 00:51:22,177
 we almost always use immutable strings like let s equal
+我们几乎一只会用不可改变的字符串像 let s = something
 
 983
 00:51:22,246 --> 00:51:24,213
 something, we're working with it immutably,
+我们就在不可改变地处理它
 
 984
 00:51:24,281 --> 00:51:26,781
 but of course there are mutable versions, mutable
+但当然也有可改变的版本，可改变的
 
 985
 00:51:26,850 --> 00:51:30,519
 methods. There's another kind of protocol called range
+方法，这有另一个叫做 RangeReplaceableCollection
 
 986
 00:51:30,587 --> 00:51:33,121
 replaceable collection. That's kind of a collections that
+的协议，它就是一些可变的东西的集合
 
 987
 00:51:33,190 --> 00:51:37,793
 can be mutated. Ranges of the things can be replaced. And so
+那些可以被替代的东西的区间
 
 988
 00:51:37,862 --> 00:51:40,862
 here's a method in that insert the contents of
+那么这里就有一个方法，可以插入 contentsOf
 
 989
 00:51:40,931 --> 00:51:45,233
 a collection of characters, which string is, at an index,
+一个字符的集合，比如说 String，at 一个索引
 
 990
 00:51:45,302 --> 00:51:47,336
 so in this case it's index of space,
+在这里是 index(of:" ")
 
 991
 00:51:47,404 --> 00:51:49,871
 that's gotta be a string.index right there.
+这里必须是一个 String.Index 类型
 
 992
 00:51:49,940 --> 00:51:54,477
-And so I can insert the word foo into Cafe Pastel. So
+And so I can insert the word foo into Cafe Pesto. So
+那么我就可以将 foo 这个单词插入 cafe pesto
 
 993
 00:51:54,545 --> 00:51:56,111
 you can do this, we don't do this that much.
+你可以这么做，但我们不经常这么做
 
 994
 00:51:56,180 --> 00:51:58,814
 We tend to just use them immutably, and we use plus to
+我们倾向于就不可变地使用它们，而我们用 + 来将他们
 
 995
 00:51:58,882 --> 00:52:04,052
 add them together and stuff like that. So that's string,
+合并，和其他类似的操作。这就是字符串
 
 996
 00:52:04,121 --> 00:52:06,088
 it's that little weirdness about the indexing.
+它在索引的方面有一点奇怪
 
 997
 00:52:06,156 --> 00:52:09,858
 Now, There are lots of other methods in string, I want to
+字符串中有许多其他的方法
 
 998
 00:52:09,927 --> 00:52:11,427
 show you an interesting thing about one of them.
+我想想你展示其中一个有趣的
 
 999
 00:52:11,495 --> 00:52:16,265
 So here is replace range, which, my pointer doesn't work
+这是 replaceSubrange 啊我的笔用不了了
 
 1000
 00:52:16,333 --> 00:52:18,133
 any more, but if you look at replace range,
+那你看一下 replaceSubrange那里
 
 1001
 00:52:18,201 --> 00:52:21,069
