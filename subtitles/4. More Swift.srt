@@ -470,6 +470,7 @@ very important topic today which is protocols.
 00:05:01,968 --> 00:05:05,737
 It's the fourth pillar of building data structures
 那是在 Swift 中建立数据结构的第四支柱
+
 95
 00:05:05,805 --> 00:05:09,307
 inside of Swift. You already know a lot now about class,
@@ -608,7 +609,7 @@ behavior of having the callers and the callees.
 122
 00:06:33,626 --> 00:06:37,028
 Get to express things the way they want. Now, what
-的行为。那么，
+的行为。那么
 
 123
 00:06:37,096 --> 00:06:40,532
@@ -863,7 +864,7 @@ a protocol, that's just a list of
 173
 00:09:07,313 --> 00:09:09,781
 methods with their arguments and return values and
-和它的参数和返回值的清单。和
+和它的参数和返回值的清单，和
 
 174
 00:09:09,850 --> 00:09:13,284
@@ -928,7 +929,7 @@ notice I'm mentioning vars. The vars,
 186
 00:09:47,921 --> 00:09:51,289
 the storage of the vars, if they're not computed vars,
-那些变量，如果他们不是演算变量的话
+如果他们不是演算变量的话
 
 187
 00:09:51,358 --> 00:09:54,592
@@ -1208,7 +1209,7 @@ additional protocols you must implement if you wanna say
 242
 00:12:44,697 --> 00:12:47,398
 you implement this protocol. We call that protocol
-实现这个协议时。我们称这位协议继承
+实现这个协议时。我们称这为协议继承
 
 243
 00:12:47,467 --> 00:12:52,270
@@ -1363,7 +1364,7 @@ It could only be implemented by a class, we rarely do this.
 273
 00:14:25,898 --> 00:14:28,732
 Okay we don't usually make a protocol, be restricted to
-我不通常不讲一个协议限制为只能
+我们不通常不将一个协议限制为只能
 
 274
 00:14:28,801 --> 00:14:31,435
@@ -1398,7 +1399,7 @@ you have to implement this init.
 280
 00:14:49,155 --> 00:14:53,056
 So, I have to be able to initialize you. So, that
-我必须能够初始化这个协议
+我必须能够初始化这个它
 
 281
 00:14:53,125 --> 00:14:57,194
@@ -1423,7 +1424,7 @@ the superclass, you just say comma all the protocols you
 285
 00:15:07,574 --> 00:15:12,243
 claim to implement. It's as simple as that, of course, for
-声明要实现的协议。这是这样简单，当然
+声明要实现的协议。就是这样简单，当然
 
 286
 00:15:12,312 --> 00:15:15,279
@@ -1463,7 +1464,7 @@ vars in that protocol. And if you don't, you're going to get
 293
 00:15:33,466 --> 00:15:36,734
 errors. It's gonna say you do not implement this on protocol
-错误。它会说你们有实现这个协议中的
+错误。它会说你没有实现这个协议中的
 
 294
 00:15:36,803 --> 00:15:41,338
@@ -1964,12 +1965,12 @@ are Moveables. Yeah, question? >> Does that mean that move
 393
 00:20:43,542 --> 00:20:44,842
 to function where Car and
-在 Car 中的 move(to)
+在 Car 中的 move(to:)
 
 394
 00:20:44,911 --> 00:20:47,044
 Shape have to do the exact same thing, or
-和在 Shape 中的 move(to) 必须要做同样的事吗
+和在 Shape 中的 move(to:) 必须要做同样的事吗
 
 395
 00:20:47,113 --> 00:20:48,479
@@ -2084,7 +2085,7 @@ But the whole reason that we're typing thingToMove
 417
 00:21:44,870 --> 00:21:47,538
 to be of type thing to move is cuz we're telling everyone
-Moveable 类型，是因为我们希望告诉所以读
+Moveable 类型，是因为我们希望告诉所有读
 
 418
 00:21:47,607 --> 00:21:50,207
@@ -2180,18 +2181,22 @@ it's only scratching the surface of protocols.
 00:22:49,702 --> 00:22:51,301
 Yeah, question. >> [INAUDIBLE]
 请问 >>[学生提问]
+
 437
 00:22:51,370 --> 00:22:54,004
 The thing to move [INAUDIBLE]
 [学生提问]
+
 438
 00:22:54,073 --> 00:22:55,405
 square. >> Yeah.
 [学生提问]
+
 439
 00:22:55,474 --> 00:22:56,240
 >> So when you
 [学生提问]
+
 440
 00:22:56,309 --> 00:22:58,876
 call function [INAUDIBLE] >> Here let me back up to
@@ -3021,7 +3026,7 @@ now that we know that Hashable means you can be a key
 605
 00:31:25,116 --> 00:31:27,750
 in a dictionary, how is this expressed? Well,
-传给字典，但这是如果表达的呢
+传给字典，但这是如何表达的呢
 
 606
 00:31:27,819 --> 00:31:31,054
