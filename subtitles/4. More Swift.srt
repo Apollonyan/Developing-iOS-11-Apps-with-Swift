@@ -41,7 +41,7 @@ Obviously you'll be learning on the fly as you go, but
 9
 00:00:26,560 --> 00:00:27,592
 starting next week,
-但从下周的课程开始，
+但从下周的课程开始
 
 10
 00:00:27,661 --> 00:00:29,861
@@ -107,7 +107,7 @@ making things a struct and that it's a little different
 22
 00:01:09,469 --> 00:01:13,172
 then a class because that copy on write. Swift needs to know
-因为它是写时复制（copy on write）的。
+因为它是写时复制（copy on write）的
 
 23
 00:01:13,240 --> 00:01:15,674
@@ -238,7 +238,7 @@ not change this Concentration object. So
 48
 00:02:34,220 --> 00:02:37,722
 of course we need chooseCard to change the Concentration
-当然我们需要这个函数改变 Concentration 对象，
+当然我们需要这个函数改变 Concentration 对象
 
 49
 00:02:37,791 --> 00:02:40,325
@@ -714,7 +714,7 @@ of the key it's great for that. It's also great for
 143
 00:07:41,061 --> 00:07:43,994
 sharing functionality between very disparate types,
-在非常不同的类型间共享相同的功能，
+在非常不同的类型间共享相同的功能
 
 144
 00:07:44,063 --> 00:07:47,064
@@ -2575,7 +2575,7 @@ make sense? So let's look at the code for
 515
 00:26:37,830 --> 00:26:41,098
 this with the example of a scroll view, okay. Oh, yeah,
-实现这个的代码。噢，
+实现这个的代码。噢
 
 516
 00:26:41,166 --> 00:26:45,368
@@ -3231,7 +3231,7 @@ does not conform to protocol hashable, it worked, okay.
 646
 00:33:40,518 --> 00:33:44,221
 I tried to make a card be the key of my dictionary and
-我尝试让我的 Card 作为我的字典的键，
+我尝试让我的 Card 作为我的字典的键
 
 647
 00:33:44,289 --> 00:33:47,290
@@ -3241,7 +3241,7 @@ it says, no, card does not conform the protocol hashable.
 648
 00:33:47,359 --> 00:33:50,293
 So the declaration dictionary which you can go look up in
-字典的声明，
+字典的声明
 
 649
 00:33:50,362 --> 00:33:52,028
@@ -3307,7 +3307,7 @@ Swift 中很酷的东西，看到了这个 Fix 按钮了吗
 661
 00:34:28,333 --> 00:34:32,669
 Do you wanna add protocol stubs? Oh, yes please. And
-你想要添加协议的桩代码（protocol stub）吗，哦好的。
+你想要添加协议的桩代码（protocol stub）吗，哦好的
 
 662
 00:34:32,737 --> 00:34:35,538
