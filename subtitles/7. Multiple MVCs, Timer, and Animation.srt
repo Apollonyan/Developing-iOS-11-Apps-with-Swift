@@ -16,26 +16,32 @@ welcome to Lecture number 7, Stanford CS193P, Fall 2017. So
 4
 00:00:14,080 --> 00:00:19,351
 our primary topic today is combining MVCs to make bigger,
+今天，我们的主要任务显然就是将多个 MVC 组合成组件更多，
 
 5
 00:00:19,420 --> 00:00:22,153
 more powerful applications, obviously. And
+功能更强大的应用程序。
 
 6
 00:00:22,222 --> 00:00:24,890
 then I'm gonna do a big demo that shows you how to do that.
+同时，我也将示范编写一个更大的样例程序来向你们展示该如何完成这项工作。
 
 7
 00:00:24,959 --> 00:00:27,559
 We're gonna do it with Concentration, we're gonna add
+本次的示范将以 Concentration 这个 app 为基础，我们将来要向其添加
 
 8
 00:00:27,627 --> 00:00:30,929
 an MVC into that app. Then I'll come back to the slides,
+一个 MVC。然后我会回到幻灯片上，
 
 9
 00:00:30,998 --> 00:00:33,865
 and talk I'll about timer and choose classes, some of you
+
 
 10
 00:00:33,934 --> 00:00:37,169
