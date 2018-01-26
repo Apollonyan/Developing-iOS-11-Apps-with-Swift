@@ -6221,900 +6221,1126 @@ switching on our optional and doing case this, case that.
 1404
 01:12:29,945 --> 01:12:31,812
 But that's all it's doing under the covers,
+但这就是它内部的实现
 
 1405
 01:12:31,881 --> 01:12:33,781
 it's just syntactic sugar that is doing that.
+这些都只是完成这些操作的语法糖
 
 1406
 01:12:33,850 --> 01:12:35,382
 It's not doing anything else,
+并没有干其他什么的
 
 1407
 01:12:35,451 --> 01:12:39,019
 it's not, nothing special. And so I'm gonna show you what all
+就是这样，没什么特别的。让我来给你们看看
 
 1408
 01:12:39,088 --> 01:12:42,189
 these special characters look like in enum land.
+用枚举而不是这些特殊字符会是什么样的
 
 1409
 01:12:42,258 --> 01:12:44,759
 And, and I'm even gonna show you a new enum or
+同时我还要给你展示个新的和枚举
 
 1410
 01:12:44,827 --> 01:12:47,428
 a new optional thing, which is this thing at the bottom
+和可选类型相关的东西，就是最底下这个
 
 1411
 01:12:47,497 --> 01:12:50,497
 called optional chaining. And it's where you use a single
+叫做可选链接（optional chaining）的。你可以用一个
 
 1412
 01:12:50,566 --> 01:12:52,900
 question mark when you're accessing an optional.
+问号来访问可选类型
 
 1413
 01:12:52,969 --> 01:12:55,436
 Which that's the one thing we have not seen, and I'm gonna
+这个是我们还没有见到的，这个我也会
 
 1414
 01:12:55,505 --> 01:12:57,605
 show you how that works by showing you in enum land.
+展示给你们看用枚举实现会是什么样的
 
 1415
 01:12:57,673 --> 01:13:02,477
 All right? So, declaring optionals, obvious, right?
+好吧？好，声明一个可选类型，显然是这样的，对吧？
 
 1416
 01:13:02,545 --> 01:13:04,412
 If I say hello, which is an optional string,
+如果是 "hello"，那就是可选的字符串
 
 1417
 01:13:04,481 --> 01:13:08,181
 that's just optional angle brackets string. And
+那就是 Optional<String>
 
 1418
 01:13:08,250 --> 01:13:11,485
 remember that optionals always start out nil. So, I'm gonna,
+然后记住可选类型默认值为 nil，所以我要
 
 1419
 01:13:11,554 --> 01:13:15,990
 it's gonna start out none. Couldn't be simpler.
+让其他的刚开始都是 .none，很简单
 
 1420
 01:13:16,059 --> 01:13:18,959
 Unwrapping, also very simple, that's just switching
+解包，也很简单，我就 switch
 
 1421
 01:13:19,028 --> 01:13:22,063
 on the thing. So, if I have an optional string hello, and I
+这个东西。如果我有个可选的字符串 hello，那我就
 
 1422
 01:13:22,131 --> 01:13:25,366
 say print(hello!), exclamation point to unwrap it,
+print(hello!)，感叹号强制解包
 
 1423
 01:13:25,435 --> 01:13:27,834
 I'm just switching on hello. And if it's in the none case,
+我就用 switch 判断 hello。如果是 .none 的情况的话
 
 1424
 01:13:27,903 --> 01:13:30,438
 I crash. And if it's in the some case,
+我就让程序崩溃。如果是 .some 的情况
 
 1425
 01:13:30,506 --> 01:13:33,240
 then I print whatever the associated data is. Same thing
+我就让它打印这个关联值。同样的
 
 1426
 01:13:33,309 --> 01:13:36,577
-down with if let at the bottom there. I'm switching on hello.
+done with if let at the bottom there. I'm switching on hello.
+下面的 if-let 也是这样。我 switch hello
 
 1427
 01:13:36,645 --> 01:13:38,445
 If it's in the some case, I do it.
+如果是 .some 的情况，我就执行它
 
 1428
 01:13:38,514 --> 01:13:39,413
 If it's in the none case,
+如果是 .none 的情况
 
 1429
 01:13:39,481 --> 01:13:44,619
 I do the else part of the if. Everybody got that?
+我就执行 else 里面的代码。大家都还听得懂吧？
 
 1430
 01:13:44,687 --> 01:13:47,188
 Implicitly unwrapped optionals are exactly the same. It's
+隐式解析的可选类型也是这样
 
 1431
 01:13:47,256 --> 01:13:49,956
 just that when I say print hello over here on this side,
+只不过我这边 print(hello) 的时候
 
 1432
 01:13:50,025 --> 01:13:53,193
 this print hello, I don't have to put the exclamation point.
+这个 print(hello) 我不需要加感叹
 
 1433
 01:13:53,262 --> 01:13:57,731
 And it still switches on hello and crashes if it's none. So
+它还是 switch 判断，是 .none 就崩溃
 
 1434
 01:13:57,800 --> 01:14:01,168
 that's implicitly unwrapped. Those start out as nil too
+这就是隐式解析。他们也默认是 nil
 
 1435
 01:14:01,236 --> 01:14:04,105
 because they're just optionals. The nil-coalescing
+毕竟它们也只是可选类型。空值合并（nil-coalescing）
 
 1436
 01:14:04,173 --> 01:14:06,340
 operator, which is that defaulting thing we used,
+运算符，我们使用过这个 ?? 来提供默认值
 
 1437
 01:14:06,409 --> 01:14:09,076
 if you remember, in our code. We looked in our emoji
+如果你还记得我们的代码的话。我们查找 emoji
 
 1438
 01:14:09,145 --> 01:14:11,245
 dictionary, and if it wasn't there,
+字典，如果里面没有的话
 
 1439
 01:14:11,313 --> 01:14:14,081
 then we returned question mark. That's just
+我们就返回个问号，这其实就是
 
 1440
 01:14:14,150 --> 01:14:16,918
 switching on it. And if it's in the case none, then it uses
+switch 判断，如果是 .none 的话，就用
 
 1441
 01:14:16,986 --> 01:14:19,386
 the default, okay, the thing on the other side. And
+默认值，?? 右边的那个
 
 1442
 01:14:19,455 --> 01:14:24,125
 if it's in the case some, then it uses the thing it found.
+如果是 .some 的情况，那就用关联值
 
 1443
 01:14:24,193 --> 01:14:27,861
 This is optional chaining. So optional chaining, imagine
+然后这个是可选链接（optional chaining）
 
 1444
 01:14:27,930 --> 01:14:31,065
 right here, okay, if you look at this little let x equal,
+你看这里，你看这个 let x =
 
 1445
 01:14:31,134 --> 01:14:34,635
 imagine that x and the method foo and
+假设 x 有 foo 这个方法（的返回值）
 
 1446
 01:14:34,704 --> 01:14:39,040
 the var bar, all three of those, imagine those return
+有 bar 这个变量。假设这三个都返回
 
 1447
 01:14:39,108 --> 01:14:42,476
 an optional string. Okay, so we don't know what they do,
+可选类型的字符串。我们不知道具体是干什么的
 
 1448
 01:14:42,545 --> 01:14:43,878
 but they return an optional string.
+但它们都是可选类型的字符串
 
 1449
 01:14:43,946 --> 01:14:46,913
 They may or may not return nil. Okay, well, what optional
+可能会，也可能不会返回 nil。好，其实
 
 1450
 01:14:46,982 --> 01:14:49,350
 chaining there allows us to do is to call those thing,
+可选链接让我们能够调用这些
 
 1451
 01:14:49,418 --> 01:14:50,985
 things in sequence called one. And
+只用一串代码。先调用一个
 
 1452
 01:14:51,053 --> 01:14:53,320
 then when we get the value, call the next thing on that.
+得到了返回值之后，再调用第二个
 
 1453
 01:14:53,389 --> 01:14:55,523
 And we get the value, call the next thing on that. And
+我们得到了之后，再调用下一个
 
 1454
 01:14:55,591 --> 01:14:58,525
 if at any time any of those things is nil, we just bail
+如果其中任何一个环节返回了 nil，我们就马上结束
 
 1455
 01:14:58,594 --> 01:15:02,796
 out and return nil. So the way that works in optional land is
+然后返回 nil。而这用 Optional 枚举写就是
 
 1456
 01:15:02,865 --> 01:15:06,634
 we switch on that first. If it's none, we return nil.
+我们 switch 判断第一个，如果是 .none 就返回 nil
 
 1457
 01:15:06,703 --> 01:15:09,637
 But if it's not, we get the data and call foo.
+如果不是的话，我们就那关联值调用 foo
 
 1458
 01:15:09,705 --> 01:15:12,139
 If that works, we get the, that data from foo, and
+如果可行的话，我们从 foo 得到数据
 
 1459
 01:15:12,208 --> 01:15:14,475
 we call bar. And then eventually,
+我们调用 bar。最终
 
 1460
 01:15:14,543 --> 01:15:17,311
 we set y equal to z that comes out of that, right?
+我们把 y 赋值为结果 z，好吧？
 
 1461
 01:15:17,380 --> 01:15:20,581
 We're just moving across the chain. If, at any time,
+我们只是沿着链条走。如果任何时候
 
 1462
 01:15:20,649 --> 01:15:22,883
 any of those things is nil, look at all the case nones.
+其中任何一个是 nil 的话，你看看这些 case .none
 
 1463
 01:15:22,951 --> 01:15:25,486
 Case .none, case .none, case .none, y gets to be nil, and
+case .none, case .none, case .none，y 都是 nil
 
 1464
 01:15:25,554 --> 01:15:28,322
 we're done and move along. Okay, so that's optional
+然后就完成了，接着执行下一条。好，这就是可选链接
 
 1465
 01:15:28,390 --> 01:15:32,493
 chaining. I made it optional, no pun intended, for
+我让你可选，这并不是双关，你可以
 
 1466
 01:15:32,561 --> 01:15:35,462
 you to read about that in your current assignment.
+选择在现在的作业里阅读这个部分
 
 1467
 01:15:35,531 --> 01:15:38,532
 I recommend you do because you can make really beautiful code
+我建议你读一读，因为你能写出优雅的代码
 
 1468
 01:15:38,601 --> 01:15:41,835
 using optional chaining. It's really nice.
+可选链接非常的好用
 
 1469
 01:15:41,904 --> 01:15:46,273
 Okay, so we're gonna finish up today with a little review and
+好，我们今天最后来复习
 
 1470
 01:15:46,342 --> 01:15:49,910
 a look forward to the data structures to use to build
+然后预习下写 Swift 程序用到的
 
 1471
 01:15:49,979 --> 01:15:54,548
 an app in Swift. These are the four, class,
+数据结构一共有四个，类
 
 1472
 01:15:54,616 --> 01:15:57,451
 struct, enum, and protocol. Protocol is the new one that
+结构体、枚举、和协议（protocol）。协议是个新的内容
 
 1473
 01:15:57,519 --> 01:16:01,055
 I'm gonna talk about starting on Wednesday. So a class,
+这个我周三会讲。所以，一个类
 
 1474
 01:16:01,124 --> 01:16:04,458
 as we know, supports an object-oriented design.
+我们知道，支持面向对象的设计
 
 1475
 01:16:04,526 --> 01:16:07,060
 It has single inheritance of both functionality and data.
+它是单一继承功能和数据
 
 1476
 01:16:07,129 --> 01:16:09,563
 You inherit the data, your vars.
+你继承了所有的数据，变量
 
 1477
 01:16:09,632 --> 01:16:13,667
 Stored vars get inherited, um, as well as all your methods
+继承了存储变量，同时还有方法
 
 1478
 01:16:13,736 --> 01:16:17,939
 and stuff. It's a reference type, lives in the heap.
+这些。它是引用类型，存在堆里
 
 1479
 01:16:18,007 --> 01:16:20,073
 Now one thing we didn't talk about, though,
+但我们又一个没有讲的是
 
 1480
 01:16:20,142 --> 01:16:23,510
 this class lives in the heap. When does it get cleaned up
+这些类都在堆里，但它什么时候被释放
 
 1481
 01:16:23,579 --> 01:16:28,048
 out of the heap? And how does that happen? Okay, so yeah, so
+离开堆呢？那是怎么发生的呢？是的
 
 1482
 01:16:28,117 --> 01:16:30,016
 if, people who are coming from Java, you're probably like,
+学过 Java 的人，多半会想
 
 1483
 01:16:30,085 --> 01:16:32,919
 oh, garbage collection maybe? Okay, um, but no, okay,
+哦，大概就是 Garbage Collection？其实不是
 
 1484
 01:16:32,988 --> 01:16:35,722
 Swift does not use garbage collection.
+Swift 不用垃圾回收
 
 1485
 01:16:35,791 --> 01:16:40,528
 It uses a very awesome system called reference counting. And
+它采用的是个很棒的引用计数系统，更准确的说是
 
 1486
 01:16:40,596 --> 01:16:42,329
 in fact, it's automatic reference counting,
+自动引用计数（Automatic Reference Counting，ARC）
 
 1487
 01:16:42,397 --> 01:16:44,965
 it's all handled for you. So how does reference counting
+它会帮你把一切都处理了。那引用计数是怎么回事呢？
 
 1488
 01:16:45,034 --> 01:16:47,434
 work? Okay, we need to talk a little bit about that.
+这个我们需要讲一讲
 
 1489
 01:16:47,503 --> 01:16:51,739
 So let's take a little detour here. By the way, examples of
+让我们来讲讲这个题外话。顺便一提
 
 1490
 01:16:51,807 --> 01:16:54,809
 classes that we've seen of course are UI view controller,
+我们看到的类的例子是 UIViewController
 
 1491
 01:16:54,877 --> 01:16:57,845
 view controller, which is our subclass of it, UI button,
+我们继承它的子类 ViewController, UIButton
 
 1492
 01:16:57,914 --> 01:17:00,614
 UI label, concentration, we made that a class. Those
+UILabel，我们自己写的 Concentration。这些
 
 1493
 01:17:00,682 --> 01:17:03,150
 are all classes, not structs, right? All right, so let's
+都是类，不是结构体，好吧？好，让我们
 
 1494
 01:17:03,219 --> 01:17:05,786
 talk about how this automatic reference counting thing
+来讲讲自动引用计数是怎么工作的
 
 1495
 01:17:05,854 --> 01:17:09,389
 works. It's really simple, every time, somehow magically,
+它其实非常简单，每次，很神奇的
 
 1496
 01:17:09,458 --> 01:17:13,227
 every time that you create a pointer to a reference type in
+每次你创建一个到引用类型的指针
 
 1497
 01:17:13,295 --> 01:17:17,665
 the heap, Swift adds one to some counter somewhere. And
+到堆里，Swift 就会把某处的计数器加一
 
 1498
 01:17:17,733 --> 01:17:22,035
 every time that pointer to it goes out of scope or
+每当有指针的作用域结束了
 
 1499
 01:17:22,104 --> 01:17:24,371
 is not pointed to it anymore, like it was an optional,
+或者不再指向某个对象的时候，就好像可选类型
 
 1500
 01:17:24,440 --> 01:17:26,072
 it got set to nil, for example,
+变为 nil 了一样，打个比方就是这样
 
 1501
 01:17:26,141 --> 01:17:29,676
 then it decrements that count. And when that count goes to 0,
+Swift 就会把记录减一。当这个数变为 0 之后
 
 1502
 01:17:29,745 --> 01:17:32,580
 it takes it out of the heap instantly. It's not like
+它马上就会离开堆。并不像是
 
 1503
 01:17:32,648 --> 01:17:34,614
 it's keeping track, and it's doing any marking and
+它会去监视，然后做标记
 
 1504
 01:17:34,683 --> 01:17:37,250
 sweeping, like a garbage collection. It actually
+换内存，并不会像 GC 这样做。它其实会
 
 1505
 01:17:37,319 --> 01:17:40,453
 instantly removes it as soon as no one points to it. So
+只要没人指向它就立刻把它移除
 
 1506
 01:17:40,522 --> 01:17:42,689
 it couldn't be simpler, it's exact way you would think,
+不能再简单了，和你预想的一样
 
 1507
 01:17:42,758 --> 01:17:44,291
 conceptually, to make it work.
+概念上它就是这样的
 
 1508
 01:17:44,360 --> 01:17:47,861
 It's actually quite difficult under the covers to do that.
+其实它背后的实现还挺复杂的
 
 1509
 01:17:47,930 --> 01:17:50,097
 Swift was designed with it in mind from start.
+Swift 从一开始设计的时候就考虑到了 ARC
 
 1510
 01:17:50,165 --> 01:17:55,069
 So it's an awesome system. You can influence
+这是个很好的系统。你是可以稍微影响
 
 1511
 01:17:55,138 --> 01:17:57,104
 this automatic reference counting a little bit.
+自动引用计数的过程的
 
 1512
 01:17:57,172 --> 01:17:59,807
 You can't really control it, but you can influence,
+你并不能控制它，但你可以影响它
 
 1513
 01:17:59,875 --> 01:18:02,409
 with these three key words when you declare a var,
+在声明变量的时候用这三个关键字中的一个
 
 1514
 01:18:02,477 --> 01:18:04,612
 okay, a strong, weak, and unowned.
+分别是 strong、weak 和 unowned
 
 1515
 01:18:04,680 --> 01:18:08,081
 These are the three kind of influencers you can do.
+这是你能影响它的三种方式
 
 1516
 01:18:08,150 --> 01:18:11,151
 The first one, strong, is normal reference counting.
+第一个 strong 是普通的引用计数
 
 1517
 01:18:11,220 --> 01:18:15,522
 So that just means if there's a, this pointer is strong, and
+意思就是，这是一个强引用的指针
 
 1518
 01:18:15,590 --> 01:18:19,025
 so keep that thing in the heap as long as this is around,
+只要我这个变量还在就把那个对象留在堆里
 
 1519
 01:18:19,094 --> 01:18:20,794
 because I need it, I'm pointing to it.
+因为我指向了它，我还需要它
 
 1520
 01:18:20,863 --> 01:18:21,795
 That's the default.
+这是默认的行为
 
 1521
 01:18:21,864 --> 01:18:24,431
 So, we never actually type the keyword strong.
+所以我们从来不用 strong（注：也不是关键字）
 
 1522
 01:18:24,500 --> 01:18:25,666
 It's the default. It's always there.
+这是默认的，总是会在那里
 
 1523
 01:18:25,735 --> 01:18:27,501
 It's kind of like internal with that access control.
+就好像 internal 这个访问级别一样
 
 1524
 01:18:27,569 --> 01:18:29,736
 We don't actually ever type that.
+我们从来不把它写出来
 
 1525
 01:18:29,805 --> 01:18:33,340
 Now weak, you've actually seen before. You all remember weak?
+然后是 weak。你其实之前已经见到过了，你们还记得 weak 吗？
 
 1526
 01:18:33,409 --> 01:18:35,109
 It was on the outlets. Okay,
+@IBOutlet 就是弱引用的
 
 1527
 01:18:35,178 --> 01:18:37,510
 when we made that outlet connection, I said oh,
+当我们链接出口的时候，我说过
 
 1528
 01:18:37,579 --> 01:18:40,214
 that, see that weak? I'm gonna tell you about that next week.
+看到那个 weak 了吗？我下周给你讲
 
 1529
 01:18:40,282 --> 01:18:43,017
 Well, I'm living up to my promise, I'm telling you about
+这不，我遵守了我的诺言，我现在给你讲
 
 1530
 01:18:43,086 --> 01:18:47,121
 weak. What does weak mean? Weak means I'm
+weak。weak 是什么意思？弱引用表示我
 
 1531
 01:18:47,189 --> 01:18:50,690
 pointing to this thing in the heap, but I'm only really
+指向堆里的这个对象，但我只会
 
 1532
 01:18:50,759 --> 01:18:54,628
 interested in it if someone else is interested in it.
+在别人也对它感兴趣的时候才感兴趣
 
 1533
 01:18:54,697 --> 01:18:57,697
 In other words, if someone else has a strong pointer to
+换句话说，如果别人有一个到它的强指针
 
 1534
 01:18:57,766 --> 01:19:00,534
 it, keep it in the heap. But as soon as no one else is
+把它留在了堆里。但只要其他人对它
 
 1535
 01:19:00,603 --> 01:19:01,802
 interested in this, in other words,
+不感兴趣了，也就是
 
 1536
 01:19:01,871 --> 01:19:05,505
 all other strong pointers go away. Set me to nil and
+所有其他的强引用都没了，就把我这个设为 nil
 
 1537
 01:19:05,574 --> 01:19:10,243
 throw the thing out of the heap. So this is the don't
+然后把它从堆中释放。所以这就是
 
 1538
 01:19:10,312 --> 01:19:14,414
 keep that thing in the heap on my account kind of pointer.
+“不要因为我而把它留在堆里”这种指针
 
 1539
 01:19:14,483 --> 01:19:17,384
 And notice that it gets set to nil if all the other strong
+然后注意它会被设为 nil，当其他强引用
 
 1540
 01:19:17,453 --> 01:19:20,253
 pointers go away. So what kind of type does this have to be?
+都没了的话设为 nil。那这个变量的类型是什么？
 
 1541
 01:19:20,322 --> 01:19:23,457
 It has to be an optional.
+它必须要是可选类型
 
 1542
 01:19:23,525 --> 01:19:28,362
 So this weak only works with optional pointers to
+所以 weak 来弱引用只适用于可选类型的
 
 1543
 01:19:28,430 --> 01:19:31,966
 reference types, okay, things that are in the heap,
+引用类型的指针，指向堆里的对象
 
 1544
 01:19:32,034 --> 01:19:34,901
 which our outlets are. If you remember our outlets,
+就比如我们的出口变量。如果你还记得那些 @IBOutlet
 
 1545
 01:19:34,970 --> 01:19:38,839
 like flip count label was a UI label exclamation point. That
+比如 flipCountLabel 是个 UILabel!
 
 1546
 01:19:38,908 --> 01:19:41,875
 was an implicitly unwrapped optional. It was an optional,
+这是隐式解析的可选类型，它是可选类型的
 
 1547
 01:19:41,944 --> 01:19:44,945
 right? Same thing card buttons was an implicitly unwrapped
+对吧？同样的，cardButtons 是隐式解析的
 
 1548
 01:19:45,014 --> 01:19:49,817
 optional. So those pointers to things in the UI.
+可选类型，所以弱引用的指针指向 UI 里的内容
 
 1549
 01:19:49,885 --> 01:19:52,619
 If for some reason those things left the UI, okay,
+如果这些控件因为某种原因离开了用户界面
 
 1550
 01:19:52,688 --> 01:19:55,589
 got removed from the UI somehow, which is possible,
+被从 UI 上移除了，这确实可能发生
 
 1551
 01:19:55,657 --> 01:19:59,660
 but rare. Then those things would get set to nil, okay?
+虽然很少见，但这时它们就会被设为 nil，好吧？
 
 1552
 01:19:59,728 --> 01:20:00,994
 And you would no longer be pointing to them,
+你也不会再引用它们
 
 1553
 01:20:01,063 --> 01:20:01,828
 and that's what they want.
+这也是他们想要的效果
 
 1554
 01:20:01,897 --> 01:20:04,130
 Because if there's no flip count label,
+因为如果没有 flipCountLabel
 
 1555
 01:20:04,199 --> 01:20:07,234
 there's no use trying to update it. So
+那就不用尝试去更新它
 
 1556
 01:20:07,303 --> 01:20:10,170
 that's why they make those weak All right, now, weak,
+这就是为什么这些 UI 控件都是 weak 引用。总之，weak
 
 1557
 01:20:10,239 --> 01:20:12,772
-there's only a couple of places that we use we
+there's only a couple of places that we use weak
+我们只有几个地方会常用弱引用
 
 1558
 01:20:12,841 --> 01:20:15,842
 commonly. One is for outlets, another one is for delegation.
+其中之一就是 @IBOutlet 出口，另一个是代理
 
 1559
 01:20:15,911 --> 01:20:19,246
-Remember back to my NBC talk, I talked about the delegation,
+Remember back to my MVC talk, I talked about the delegation,
+还记得我之前讲 MVC，我谈到了委托代理
 
 1560
 01:20:19,314 --> 01:20:21,815
 the data source. And we have these pointers from the view
+数据源，然后我们这些从视图
 
 1561
 01:20:21,883 --> 01:20:23,950
 back to the controller where there's that blind and
+指回控制器的匿名的
 
 1562
 01:20:24,019 --> 01:20:25,552
 structure of communication all that,
+标准化的通讯这些
 
 1563
 01:20:25,621 --> 01:20:27,320
 which I'm gonna talk about on Wednesday.
+就是我周三讲的
 
 1564
 01:20:27,389 --> 01:20:30,090
 Those pointers are weak, because the view,
+那些指针都是弱引用，因为视图
 
 1565
 01:20:30,159 --> 01:20:32,959
 if the thing that they're sending will did and
+如果它们发送这些 will、did
 
 1566
 01:20:33,028 --> 01:20:36,563
 should to goes away, well, they're not gonna send those
+should 去的目标对象不在了，那视图就不用再发送
 
 1567
 01:20:36,632 --> 01:20:40,400
 messages anymore, so they want to be nil, okay. There's no
+这些消息了，所以它们要是能够为 nil 的。没有
 
 1568
 01:20:40,469 --> 01:20:43,970
 one to send their messages to then they just want to be nil,
+人需要发送消息给它，那我们就希望它是 nil
 
 1569
 01:20:44,039 --> 01:20:45,872
 okay. They don't want to be pointed to something.
+这个变量就不希望指向任何东西
 
 1570
 01:20:45,941 --> 01:20:48,475
 They certainly don't want a thing it points to,
+视图肯定不希望因为它的引用的对象
 
 1571
 01:20:48,544 --> 01:20:50,543
 to get stuck in the heap because of it.
+因为这些引用而被困在堆里
 
 1572
 01:20:50,612 --> 01:20:53,179
 Because they're happy to just not send the messages if
+因为它们很乐意就不发消息
 
 1573
 01:20:53,248 --> 01:20:55,882
 that thing wants to leave the heap, otherwise we don't
+如果它们要离开堆就离开吧。其他时候我们一般
 
 1574
 01:20:55,951 --> 01:21:00,754
 use weak that much. Okay, last is unowned.
+不会怎么使用 weak。最后是 unowned
 
 1575
 01:21:00,823 --> 01:21:03,223
 Unowned is don't reference count this,
+无主引用是就不把它算到引用计数里
 
 1576
 01:21:03,292 --> 01:21:06,659
 in other words I'm pointing to something in the heap, but
+换句话说我引用了堆里的某个对象，但是
 
 1577
 01:21:06,728 --> 01:21:10,163
 don't count it as a strong pointer. And I promise I'll
+不要把它算作强引用。我保证我
 
 1578
 01:21:10,232 --> 01:21:14,668
 never access this thing when it's gone from the heap. Now,
+从来不会在这个对象释放之后再使用它
 
 1579
 01:21:14,737 --> 01:21:17,537
 this is very dangerous, this is basically trying to
+这个是非常危险的，这基本就是尝试
 
 1580
 01:21:17,606 --> 01:21:20,474
 outsmart the automatic reference counting system.
+证明自己比自动引用计数更厉害
 
 1581
 01:21:20,542 --> 01:21:23,877
 You're saying, you know when it's in the heap or not, and
+你在说我清楚的知道这对象是否在堆里
 
 1582
 01:21:23,946 --> 01:21:26,113
 this is really rare. And the way,
+这种情况是很少见的。使用这个方法
 
 1583
 01:21:26,182 --> 01:21:30,584
 the one time we use this is to avoid a memory cycle, okay.
+我们唯一一种情况是用来避免引用循环
 
 1584
 01:21:30,653 --> 01:21:32,052
 Everyone know what a memory cycle is,
+大家都知道引用循环是什么
 
 1585
 01:21:32,121 --> 01:21:33,854
 that's where you have something in the heap and
+那是你有个在堆里的对象
 
 1586
 01:21:33,922 --> 01:21:35,522
 it points to something else in the heap, and
+它引用了堆里的另一个对象
 
 1587
 01:21:35,591 --> 01:21:36,657
 that thing points back to it.
+然后那另一个对象又引用了回来
 
 1588
 01:21:36,725 --> 01:21:39,159
 So, they're pointing to each other, keeping each other in
+这样它们就相互引用，把对方留在
 
 1589
 01:21:39,228 --> 01:21:41,728
 the heap. But no one else is interested in them. No one
+堆里。但其他人对它们都不感兴趣了
 
 1590
 01:21:41,797 --> 01:21:44,465
 points to either of them. They only just point to each other.
+其他人并没有指向它们中的任何一个，只有它们互相引用
 
 1591
 01:21:44,533 --> 01:21:46,533
 So they're just sitting in the heap for no reason.
+它们就这样无缘无故地留在了堆里
 
 1592
 01:21:46,601 --> 01:21:49,769
 No one's even accessing them, that's a memory cycle. And
+其他人都不会访问它们，这就是引用循环
 
 1593
 01:21:49,838 --> 01:21:53,540
 memory cycles aren't generally created in Swift normally but
+Swift 里一般不会有引用循环
 
 1594
 01:21:53,609 --> 01:21:56,443
 there's one way they're easy to create which is
+但是有一种方法我们能够简单地创建一个
 
 1595
 01:21:56,511 --> 01:21:57,577
 closures, okay.
+那就是闭包
 
 1596
 01:21:57,646 --> 01:22:00,113
 Which is a feature I'm gonna talk about on Wednesday, okay.
+这是我周三要讲的特性
 
 1597
 01:22:00,182 --> 01:22:05,285
 And so we will use unowned with closures. All right,
+所以我们会在闭包里使用无主引用。好
 
 1598
 01:22:05,353 --> 01:22:07,821
 back to our list of data structures here, of course
+我们回到这个数据结构列表。当然
 
 1599
 01:22:07,889 --> 01:22:10,590
 there's struct we know all about that. It's a value type,
+我们知道了关于结构体的全部内容，它是值类型
 
 1600
 01:22:10,659 --> 01:22:12,893
-it's copy owned right, there's no inheritance of data.
+it's copy on write, there's no inheritance of data.
+它会在写时复制，不存在继承
 
 1601
 01:22:12,962 --> 01:22:15,495
 But you're gonna learn with protocols there is inheritance
+但你会学到可以通过 protocol，用协议来继承
 
 1602
 01:22:15,564 --> 01:22:16,330
 of functionality,
+功能
 
 1603
 01:22:16,398 --> 01:22:19,432
 in fact multiple inheritance of functionality. And you've
+更准确的说是功能的多重继承。你也已经
 
 1604
 01:22:19,501 --> 01:22:24,905
 seen examples of struct cards, dictionary, string, character,
+看到过很多结构体的例子了，Card, Dictionary, String, Character
 
 1605
 01:22:24,973 --> 01:22:29,476
 int, double, UInt32, lots of structs have happened
+Int, Double, UInt32 等等这些结构体都在这里
 
 1606
 01:22:29,545 --> 01:22:32,378
 there. And I have here, let's jump over to concentrations
+然后我们这里有，让我们到 Concentration 里
 
 1607
 01:22:32,447 --> 01:22:35,315
 see what happens when we make concentration of struct.
+看看我们把 Concentration 改为 struct 会发生什么
 
 1608
 01:22:35,384 --> 01:22:37,017
-I start off the next one with that because we're pretty much
+How about
+要不
 
 1609
 01:22:37,018 --> 01:22:38,651
-How about
+I start off the next one with that because we're pretty much
+我们下节课开始再讲这个，因为我们已经基本上
 
 1610
 01:22:38,721 --> 01:22:41,121
 out of time here. Enum, I'm not going to,
+没有时间了。枚举，我不准备
+
 
 1611
 01:22:41,189 --> 01:22:44,624
 oh yes, this is the demo, which I will do next time. And
+哦，这是个演示，我下节课再来展示
+
 
 1612
 01:22:44,693 --> 01:22:47,794
 then enum here we already just covered, so I'm not going to
+然后枚举我们刚刚才讲完，我不准备
 
 1613
 01:22:47,863 --> 01:22:51,497
 talk about it, another value type, discrete values. It also
+再讲一遍，这就是另外一种值类型，有不同的值。它还
 
 1614
 01:22:51,566 --> 01:22:55,702
 can have inherit the same kind of functionality inheritance.
+可以继承功能
 
 1615
 01:22:55,771 --> 01:22:59,172
 This functionality inheritance that I keep kind of mentioning
+这个我一直在提到的功能的继承
 
 1616
 01:22:59,241 --> 01:23:02,342
 is done using this last one, which is called protocols.
+是通过最后一个 protocol，也就是协议来实现的
 
 1617
 01:23:02,411 --> 01:23:04,845
 So I'm gonna start off on Wednesday with a detailed
+所以我周三回开始细讲
 
 1618
 01:23:04,913 --> 01:23:06,613
 explanation of what a protocol is.
+协议是什么
 
 1619
 01:23:06,682 --> 01:23:10,016
 It's fundamental to the design of all of foundation,
+它是最基础的设计模式，用到了 Foundation
 
 1620
 01:23:10,085 --> 01:23:12,819
 all the array, dictionary, string, int.
+所有的 Array, Dictionary, String, Int
 
 1621
 01:23:12,888 --> 01:23:15,522
 And all of those things fundamentally using protocols
+所有这些基础的内容都用到了 protocol
 
 1622
 01:23:15,591 --> 01:23:17,758
 everywhere, massive number of protocols.
+到处都是，大量的协议
 
 1623
 01:23:17,826 --> 01:23:20,093
 And it's also fundamental with things like delegation and
+同时这也是委托代理模式的基础
 
 1624
 01:23:20,162 --> 01:23:22,796
 stuff like that, so it's very, very important. And to round
+就像这样的内容，非常非常重要。这让我们能
 
 1625
 01:23:22,865 --> 01:23:26,332
 out our full understanding of how to build data structures
+完整地了解如何在 Swift 里构建数据结构
 
 1626
 01:23:26,401 --> 01:23:30,436
 in Swift. Okay, so we'll start off on Wednesday with that and
+我们星期三会先讲这些
 
 1627
 01:23:30,505 --> 01:23:32,739
 I will see you then. >> For more,
+到时候再见。 >> 更多课程
 
 1628
 01:23:32,808 --> 01:23:41,314
 please visit us at stanford.edu.
->> 更多课程详见 stanford.edu
+详见 stanford.edu
