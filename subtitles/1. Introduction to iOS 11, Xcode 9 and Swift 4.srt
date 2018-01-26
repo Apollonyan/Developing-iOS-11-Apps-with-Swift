@@ -6661,12 +6661,12 @@ Array<UIButton>，这个看起来像 Java 里
 1333
 01:06:44,801 --> 01:06:49,537
 you from Java, right? So array is a generic class, everyone
-声明数组的语法吧？所以数组是范型（generic）
+声明数组的语法吧？所以数组是泛型（generic）
 
 1334
 01:06:49,606 --> 01:06:52,806
 know about generics in Java, hopefully. It means that
-希望大家都知道 Java 里的范型，意思是
+希望大家都知道 Java 里的泛型，意思是
 
 1335
 01:06:52,875 --> 01:06:56,577

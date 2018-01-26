@@ -5715,406 +5715,508 @@ each of the associated pieces of data. Now,
 1303
 01:07:18,334 --> 01:07:21,702
 that little name that you use, so if this were a coke see it
+现在你就可以使用那个名字了。比如这里是可乐的话
 
 1304
 01:07:21,771 --> 01:07:25,306
 would print whatever ounces coke right there, cuz just
+那就会打印出有多少盎司的可乐。因为它把
 
 1305
 01:07:25,374 --> 01:07:28,409
 getting the Coke into brand. It's getting the ounces into
+brand 赋值为 "Coke"，把 ounces 赋值为
 
 1306
 01:07:28,477 --> 01:07:31,145
 something called ounces, and then it's doing that print.
+有多少升，然后执行那条 print 语句
 
 1307
 01:07:31,214 --> 01:07:35,716
 This naming does not have to be the same names
+这里的不一定非要用同样的命名
 
 1308
 01:07:35,785 --> 01:07:38,419
 as you declared the enum from. In fact,
+可以和枚举定义时不一样。事实上
 
 1309
 01:07:38,487 --> 01:07:42,723
 if we look at this Coke one right here, this let brand,
+如果我们看到刚才的可乐，这里用 let brand
 
 1310
 01:07:42,792 --> 01:07:45,827
 remember in the original enum that didn't even have a name,
+但我们原本的枚举是甚至是没有给它名字的
 
 1311
 01:07:45,896 --> 01:07:48,929
 it was just a string, right? And it had ounces,
+只说了它是 String 类型，好吧？但 ounces 是有的
 
 1312
 01:07:48,998 --> 01:07:52,399
 colon ounces, and up here with hamburger, pattyCount,
+ounces: Int。上面 hamburger 的 pattyCount
 
 1313
 01:07:52,468 --> 01:07:56,837
 that was called patties in the original declaration. So
+那个本来的定义里叫 numberOfPatties
 
 1314
 01:07:56,906 --> 01:08:00,641
 again, does this not look familiar to tuples, right?
+你们不觉得这个和元组很像吗？
 
 1315
 01:08:00,710 --> 01:08:03,878
 You can rename them when you're getting the information
+当你从其中获取数据的时候可以重命名
 
 1316
 01:08:03,946 --> 01:08:07,549
 out of them. So this is how you extract data
+所以这就是你怎么获得
 
 1317
 01:08:07,617 --> 01:08:11,953
 out of the associated types. Very simple, and
+关联值里的数据，非常简单
 
 1318
 01:08:12,022 --> 01:08:14,756
 again it's optional you don't have to have it there.
+再次说一下这个不是必须的，你不一定非要有关联值
 
 1319
 01:08:15,992 --> 01:08:19,126
 Also enums, they're like structs and classes.
+然后枚举与类和结构体一样
 
 1320
 01:08:19,195 --> 01:08:23,431
 They can have methods and they can have vars, but no storage.
+它们可以有方法，也可以有变量，但是没有存储空间
 
 1321
 01:08:23,500 --> 01:08:26,600
-All the stories of an enum is in which case it is and
+All the storage of an enum is in which case it is and
+枚举的存储空间是属于每个 case
 
 1322
 01:08:26,669 --> 01:08:28,035
-that case is associated data.
+that case's associated data.
+和那个 case 的关联值
+
 
 1323
 01:08:28,104 --> 01:08:30,872
 That's it, you can't have many other vars or anything else.
+就这些，你不能有其他的变量
 
 1324
 01:08:30,940 --> 01:08:34,275
 So the only vars you could have are computed vars.
+所以你能有的变量都是计算变量
 
 1325
 01:08:34,344 --> 01:08:37,245
 So see the example I have here where it's calories,
+比如你看我这里的例子，卡路里
 
 1326
 01:08:37,313 --> 01:08:40,148
 where you'd compute the calories of that menu item
+你会计算那个菜单项的卡路里
 
 1327
 01:08:40,216 --> 01:08:43,618
 that would have to be a computed type. Can't store
+那必须要是计算属性。枚举不能
 
 1328
 01:08:43,686 --> 01:08:47,422
 anything in an enum except for the associated data right
+存储任何内容，唯一的是可以有像这里的关联值
 
 1329
 01:08:47,490 --> 01:08:50,291
 there. Now if you're writing a func like this one,
+如果你在写一个像这样的方法
 
 1330
 01:08:50,360 --> 01:08:53,495
 isIncludedInSpecialOrder number one or number two or
+isIncludedInSpecialOrder，number 是 1、2 等
 
 1331
 01:08:53,563 --> 01:08:56,164
 whatever. If you're doing that, then you can
+如果你要这样做的话，那你可以
 
 1332
 01:08:56,232 --> 01:09:01,336
 get your own associated data using switch on self.
+通过 switch self 来获取自己的关联值
 
 1333
 01:09:01,404 --> 01:09:03,972
-Cuz I'm inside the enum to permutation here, right?
+Cuz I'm inside the enum implementation here, right?
+因为我还在 enum 实现的内部
 
 1334
 01:09:04,040 --> 01:09:05,573
 So I can switch on self, and then,
+所以我可以对 self 进行 switch，然后
 
 1335
 01:09:05,642 --> 01:09:07,241
 I could get my associated data out so
+我能够得到个关联值
 
 1336
 01:09:07,310 --> 01:09:08,743
 I can calculate my calories. Or
+然后我就可以计算卡路里了
 
 1337
 01:09:08,811 --> 01:09:11,445
 in this case, I'm calculating whether the hamburger with
+这里我在判断一个汉堡
 
 1338
 01:09:11,514 --> 01:09:14,015
 two patties is included in special order number two.
+有两个肉饼的话是不是二号套餐
 
 1339
 01:09:14,084 --> 01:09:17,285
 And my code here says yes because pretty much,
+而我的代码会说“是的”，因为这里说
 
 1340
 01:09:17,353 --> 01:09:19,120
 special order number one is a single burger,
+一号套餐是单层汉堡
 
 1341
 01:09:19,189 --> 01:09:21,789
 and/or number two is a double. Now there's some other
+二号套餐就是双层的。现在还有些其他
 
 1342
 01:09:21,858 --> 01:09:24,358
 interesting things to look at in this code. Notice that
+有趣的地方。注意这里的代码
 
 1343
 01:09:24,427 --> 01:09:27,629
 fries and cookie right there. Right in the middle, fries and
+薯条和饼干，中间的 .fries 和 .cookie
 
 1344
 01:09:27,697 --> 01:09:31,565
 cookie. Those I combine them into one case,
+我把这两个合并为了同一个 case
 
 1345
 01:09:31,634 --> 01:09:34,468
 which that's allowed with commas you can have multiple
+这是可以的，你可以用英文逗号分隔多个
 
 1346
 01:09:34,537 --> 01:09:38,206
 going on there. Also noticing drink, okay, I'm
+不同的情况。同时看这个 .drink
 
 1347
 01:09:38,274 --> 01:09:41,042
 getting the number of ounces in a drink but evidently in
+我们知道了饮料有多少盎司。显然
 
 1348
 01:09:41,110 --> 01:09:44,145
 a special order you can have any drink that's 16 ounces.
+套餐里所有的饮料都是 16 盎司的
 
 1349
 01:09:44,214 --> 01:09:47,314
 So I don't care what kind of drink it is, I don't care for
+所以我并不在乎是什么种类的饮料，我不在意
 
 1350
 01:09:47,383 --> 01:09:51,152
 that brand. So I use the universal i don't care symbol
+brand 是什么，所以我就用了通用的“我不关心它”这个符号
 
 1351
 01:09:51,221 --> 01:09:54,722
 in Swift which is under bar, right? Remember, we used
+也就是 Swift 里的英文下划线 _，对吧？记得我们
 
 1352
 01:09:54,791 --> 01:09:58,359
-underbar when we didn't care what the external name and
+underbar when we didn't care what the external name in
+在不想要 touchCard 的实参标签时用下划线代替
 
 1353
 01:09:58,427 --> 01:10:01,662
-touch card was. We used it in a four loop when we didn't
+touch card was. We used it in a for loop when we didn't
+Concentration 在 for 循环里使用下划线
 
 1354
 01:10:01,731 --> 01:10:04,065
 care what the identifier was anymore in concentration,
+表示并不在意那个循环变量是多少
 
 1355
 01:10:04,134 --> 01:10:07,535
 so we can use it here as well, all right?
+所以我们这里也可以用，好吧？
 
 1356
 01:10:09,239 --> 01:10:14,074
 You can modify self in an enum as long as it's in a var. If
+你在枚举里是可以改变 self 的，当然它得是个 var
 
 1357
 01:10:14,143 --> 01:10:17,845
 it's modifiable, you just say self equals some other case.
+如果是可变的，你就说 self = 某个其他的 case
 
 1358
 01:10:17,914 --> 01:10:19,847
 And if that other case requires associated data,
+如果那个其他的 case 有关联值
 
 1359
 01:10:19,915 --> 01:10:23,083
 you'll have to provide it then, you can say self equals.
+你同时把它们也初始化了，这样你就可以用 self = 来改变了
 
 1360
 01:10:23,152 --> 01:10:25,720
 Now, a very important thing to notice here, if you're going
+这里有个要注意的，非常重要的是，如果你要
 
 1361
 01:10:25,789 --> 01:10:28,890
 to modify yourself in an enum by saying self equals,
+通过 self = 来更改枚举的话
 
 1362
 01:10:28,959 --> 01:10:30,357
 that's the only way to modify yourself,
+顺便说这是唯一的方法
 
 1363
 01:10:30,426 --> 01:10:34,195
 by the way. Then you have to put mutating
+你必须要用 mutating
 
 1364
 01:10:34,264 --> 01:10:37,197
 in front of the function that mutates you,
+修饰这个改变你的方法
 
 1365
 01:10:37,266 --> 01:10:38,566
 that modifies self.
+修饰这个更改 self 的方法
 
 1366
 01:10:38,634 --> 01:10:43,304
 That's because fast enum is a value type and
+这是因为枚举是值类型
 
 1367
 01:10:43,372 --> 01:10:46,073
 remember the value types are passed around by copying but
+你看值类型是通过拷贝传递的
 
 1368
 01:10:46,142 --> 01:10:49,810
-there is copy on write. So if it doesn't copy on write which
+there is copy on write. Swift does copy on write which
+不过我们有写时复制。Swift 的写时复制意味着
 
 1369
 01:10:49,879 --> 01:10:52,546
 means it doesn't actually make a copy until you write.
+它在你改写之前并不会进行拷贝
 
 1370
 01:10:52,615 --> 01:10:53,615
 Well if it's gonna do that,
+为了能实现这个功能
 
 1371
 01:10:53,683 --> 01:10:58,519
 it needs to know which funcs might write. So
+Swift 需要知道哪些函数是会写数据的
 
 1372
 01:10:58,588 --> 01:11:01,388
 that's what mutating means, it means this func might write,
+这就是 mutating 的意思，表示这个函数可能会写数据
 
 1373
 01:11:01,457 --> 01:11:05,025
 it might change this. You have to do exactly the same thing
+可能会更改 self。在结构体里，你也要做同样的事情
 
 1374
 01:11:05,094 --> 01:11:08,996
 in a struct. If you have a func in a struct, and
+如果你的结构体里有个方法
 
 1375
 01:11:09,064 --> 01:11:10,965
 it modifies any internal state of
+它更改了任意一个结构体的内部状态
 
 1376
 01:11:11,033 --> 01:11:13,100
 the struct, it has to be marked mutating, so
+那它就必须被标为 mutating
 
 1377
 01:11:13,169 --> 01:11:16,370
 the Swift knows to copy and write. And not to worry, Swift
+这样 Swift 就能够写时复制了。不用担心，Swift
 
 1378
 01:11:16,439 --> 01:11:19,440
 is super smart, it'll see your code, it'll see you're saying
+很聪明，它会看你的代码，如果发现你说
 
 1379
 01:11:19,508 --> 01:11:22,142
-self equal, it'll see that you're modifying your bars in
+self equal, it'll see that you're modifying your var in
+self = 的话，它就知道你在更改结构体
 
 1380
 01:11:22,211 --> 01:11:26,046
 a struct And it will complain and say this is protected you
+里的变量，然后就给你抱怨说 self 是被保护的
 
 1381
 01:11:26,115 --> 01:11:29,183
 can't write to this thing coz this is not a mutating func.
+你不能更改这个内容，因为这个函数不是 mutating 的
 
 1382
 01:11:29,251 --> 01:11:31,418
 And you can fix it by making it mutating and
+你只要把它改成 mutating 就可以了
 
 1383
 01:11:31,487 --> 01:11:34,555
 in fact you can see that concentration demo in a second
+其实我们等会儿会用 Concentration 来演示下
 
 1384
 01:11:34,624 --> 01:11:37,758
-here. All right so let's see if for enums, very simple.
+here. All right so that's it for enums, very simple.
+好，这就是枚举，很简单
 
 1385
 01:11:37,826 --> 01:11:41,562
 So an optional then is just an enum, it looks like this,
+所以其实可选类型，就是个枚举，看起来是这样的
 
 1386
 01:11:41,631 --> 01:11:44,398
 kind of, conceptually. It's an optional,
+概念上就是这样的。这就是 Optional
 
 1387
 01:11:44,467 --> 01:11:47,435
 it's a generic type like array is. Array can have anything in
+和 Array 一样的泛型。数组可以存储任何类型的元素
 
 1388
 01:11:47,504 --> 01:11:49,103
 it, an optional can be an optional Int,
+Optional 可以是可选的 Int
 
 1389
 01:11:49,172 --> 01:11:51,739
 an optional string, whatever it's a generic type. And
+可选的 String，等等，因为它是个泛型
 
 1390
 01:11:51,808 --> 01:11:53,941
 it has two cases in the enum,
+这个枚举有两种情况
 
 1391
 01:11:54,009 --> 01:11:58,713
-the case none which is not set, nill, and the other case
+the case none which is not set, nil, and the other case
+case none 就是没有值，nil；另一个是 case some
 
 1392
 01:11:58,781 --> 01:12:01,782
 some in which it has some associated data of that type.
+它会有相应的关联值
 
 1393
 01:12:01,851 --> 01:12:04,352
 So an optional int that would mean int, so that's it,
+比如可选 Int 的关联值就是 Int。就是这样
 
 1394
 01:12:04,420 --> 01:12:07,588
 that's what an optional is. Now an optional, Why don't,
+这就是个可选类型。那我们为什么不能
 
 1395
 01:12:07,657 --> 01:12:09,190
 why didn't we just leave it in enum?
+就让可选作为枚举就行了呢？
 
 1396
 01:12:09,259 --> 01:12:10,624
 Well, God, can you imagine,
+哇哦，天呐，你想像一下
 
 1397
 01:12:10,693 --> 01:12:13,360
 every time you wanna unwrap an optional, you're having to
+每次你要解包可选类型的时候，你都要
 
 1398
 01:12:13,429 --> 01:12:16,029
 switch on that thing in case some get the associated data?
+用 switch 来判断是哪个 case，然后再得到关联值？
 
 1399
 01:12:16,098 --> 01:12:18,866
 That would be so much typing. So all of these special
+那我们得写很多代码。所以所有这些特殊的
 
 1400
 01:12:18,935 --> 01:12:21,135
 characters we have are optionals, question marks,
+字符，在可选类型上使用的问号
 
 1401
 01:12:21,204 --> 01:12:23,470
 exclamation points, ifs, double question marks.
+感叹号，if 的语法，?? 提供默认值等
 
 1402
 01:12:23,539 --> 01:12:26,674
 All that stuff is just so that we don't have to be constantly
+这些都是为了让我们不需要总是
 
 1403
 01:12:26,743 --> 01:12:29,877
 switching on our optional and doing case this, case that.
+用 switch 来判断可选类型然后 case 这个 case 那个的
 
 1404
 01:12:29,945 --> 01:12:31,812

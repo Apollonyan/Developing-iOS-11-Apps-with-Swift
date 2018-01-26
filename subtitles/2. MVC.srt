@@ -4682,7 +4682,7 @@ and its type is gonna be a dictionary.
 937
 00:50:33,897 --> 00:50:36,965
 Now, dictionary is also a generic type like array, but
-注意，字典和数组一样都是范型，但
+注意，字典和数组一样都是泛型，但
 
 938
 00:50:37,034 --> 00:50:40,035
