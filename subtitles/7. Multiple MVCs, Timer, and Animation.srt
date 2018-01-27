@@ -41,59 +41,72 @@ an MVC into that app. Then I'll come back to the slides,
 9
 00:00:30,998 --> 00:00:33,865
 and talk I'll about timer and choose classes, some of you
-
+（这里疑似all about）我会讲授有关计时器和选择类的相关内容，
 
 10
 00:00:33,934 --> 00:00:37,169
 used in the extra credit of the homework assignments. And
+这部分内容你们可能会在作业的选做部分需要用到。
 
 11
 00:00:37,237 --> 00:00:39,004
 then I'm gonna dive into the next topic and try and
+然后的时间我会尽可能深入讲解下一个主题，也就是动画部分，
 
 12
 00:00:39,073 --> 00:00:41,373
 get as far as I can which is animation.
+能讲多少讲多少。
 
 13
 00:00:41,442 --> 00:00:43,275
 Which will be our topic on Wednesday and
+这也将是我们在周三的课程上的主要内容，
 
 14
 00:00:43,343 --> 00:00:45,376
 I'll get to much more detail, do a big demo.
+并且我会更深入地讲解更多细节性内容，做一个更大的示范程序。
 
 15
 00:00:45,445 --> 00:00:47,512
 But I wanna kinda get in as far as I can today just so
+我今天会尽可能地讲解理论部分的内容，
 
 16
 00:00:47,581 --> 00:00:50,916
 we have more time for a demo on Wednesday.
+这样我们周三上课时就会有足够的时间进行操作示范。
 
 17
 00:00:50,984 --> 00:00:54,486
 Alright so combining MVCs, remember this slide from when
+回到整合 MVC 上来，还记得我们讲解 MVC 时使用的这张幻灯片吗？
 
 18
 00:00:54,555 --> 00:00:58,190
 I talked about MVC. This is the MVCs working together, and
+这就是多个 MVCs 协同工作的示意图，
 
 19
 00:00:58,259 --> 00:01:01,193
 we saw that when we have MVCs working together,
+我们可以看到，当多个 MVCs 协同工作时，
 
 20
 00:01:01,261 --> 00:01:04,862
 these other MVCs. Let me get my thing under control here,
+其他的 MVC……（此处幻灯片动画出错）让我把它修好……
 
 21
 00:01:04,931 --> 00:01:08,967
 well, can't do it. Okay, these other MVCs down in the corner,
+好吧，它彻底坏掉了。其他的角落里的 MVCs
 
 22
 00:01:09,036 --> 00:01:12,170
 they serve as part of the view of another MVC. That's
+
 
 23
 00:01:12,239 --> 00:01:16,608
@@ -1174,17 +1187,22 @@ the calculator there.
 292
 00:14:29,969 --> 00:14:32,469
 By the way, you can also put the detail, wrap it in
+另外，你也可以
 
 293
 00:14:32,538 --> 00:14:34,839
 a navigationController. The only reason you would ever
+你想做这件事，唯一的原因就是
 
 294
 00:14:34,908 --> 00:14:37,908
 want to do that is to give it a title bar, cuz you don't,
+想给它一个标题栏。
 
 295
 00:14:37,977 --> 00:14:40,445
+you always navigate from the master, that's why it's called
+你总是从导航来
 you always navigate from the master, that's why it's called
 
 296
@@ -1203,9 +1221,11 @@ it's a navigationController, you need to look inside and
 00:14:48,721 --> 00:14:51,488
 see the thing that's inside of it, the rootViewController.
 
+
 300
 00:14:51,557 --> 00:14:53,223
 Or you can also use visibleViewController
+或者你也可以用 visibleViewController
 
 301
 00:14:53,292 --> 00:14:54,392
