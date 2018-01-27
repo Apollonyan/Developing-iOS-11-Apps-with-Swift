@@ -73,11 +73,10 @@ we're gonna talk about two very important topics today.
 Protocols and closures.
 协议和闭包
 
-#TODO: 这里不会翻译
 16
 00:00:45,979 --> 00:00:48,647
 Functions as types of general those two and in between, I'm
-函数是
+以及简单地讲讲函数。期间
 
 17
 00:00:48,715 --> 00:00:52,384
@@ -280,7 +279,6 @@ Question? >> [INAUDIBLE]
 does this not need it?
 这个不需要添加 mutating
 
-#TODO: get and set 暂时翻译成获取和赋值
 57
 00:03:01,749 --> 00:03:05,784
 This is a var. And this var is get and set, so
@@ -1678,19 +1676,18 @@ the vars and methods in that protocol. And
 
 336
 00:17:42,995 --> 00:17:46,163
-this is actually quite common to use in extension just for
+this is actually quite common to use an extension just for
 这样用扩展是相当普遍的方法
 
-#TODO: code book keeping 不会翻译
 337
 00:17:46,232 --> 00:17:49,700
 code book keeping. Well sometimes use an extension to implement
-我们有时会用扩展来实现
+为了让代码更有序，用扩展来实现
 
 338
 00:17:49,769 --> 00:17:53,304
 a whole protocol. It's just nice groups it all nicely.
-整个协议，这样可以很好的将它们聚集在一起
+整个协议。这样可以很好的将它们聚集在一起
 
 339
 00:17:54,740 --> 00:17:57,441
@@ -2369,18 +2366,18 @@ how do we do that? Well, we use protocols, okay,
 
 474
 00:24:36,742 --> 00:24:40,044
-so like simple, so this is the will, did, shoulds, data at
-这很简单。这就是 will, did, should, data at 方法
+so like simple, so this is the will, did, should
+这很简单。这就是 will、did、should
 
 475
 00:24:40,112 --> 00:24:41,378
-So let's take a look how we do this, all right? So
-那么我们来看看该怎么做
+and the data at.
+和 data at 方法
 
-#TODO: 476 多了，不该有这一句的
 476
 00:24:41,379 --> 00:24:42,645
-the data at.
+So let's take a look how we do this, all right? So
+那么我们来看看该怎么做
 
 477
 00:24:42,715 --> 00:24:46,050
@@ -2667,11 +2664,10 @@ that's fine by me, just set this to nil and
 I'll stop sending messages to it. Okay, so that way,
 而我会停止向它传递信息。好的，通过这样的方式
 
-#TODO: keep controller in the heat 翻译成一直使用控制器？
 534
 00:27:40,259 --> 00:27:42,759
-the view won't keep the controller in the heat.
-视图不会一直使用控制器
+the view won't keep the controller in the heap.
+视图不会导致控制器一直被留在堆里
 
 535
 00:27:42,828 --> 00:27:45,495
@@ -2680,7 +2676,7 @@ So anyway, notice this is optional because it's weak.
 
 536
 00:27:45,564 --> 00:27:47,430
-This is the delegate, it's of type UIScrollview delegate.
+This is the delegate, it's of type UIScrollView delegate.
 这是代理，它的类型是 UIScrollViewDelegate
 
 537
@@ -3303,11 +3299,10 @@ those methods the hash value or the equals equal thing.
 What's really cool in Swift, look at the fix button here.
 Swift 中很酷的东西，看到了这个 Fix 按钮了吗
 
-#TODO: stub 暂时翻译为桩代码
 661
 00:34:28,333 --> 00:34:32,669
 Do you wanna add protocol stubs? Oh, yes please. And
-你想要添加协议的桩代码（protocol stub）吗，哦好的
+你想要添加协议的默认实现吗？哦，好的
 
 662
 00:34:32,737 --> 00:34:35,538
@@ -3566,13 +3561,13 @@ ones it implements are sequence.
 
 713
 00:37:20,772 --> 00:37:22,088
-right? A countable range is a sequence of numbers from zero
-对吧，一个可数区间一个从 0 开始
+Which makes sense,
+这是有道理的
 
-#TODO: 714 这条是多的
 714
 00:37:22,089 --> 00:37:23,405
-Which makes sense,
+right? A countable range is a sequence of numbers from zero
+对吧，一个可数区间一个从 0 开始
 
 715
 00:37:23,474 --> 00:37:26,643
@@ -5002,7 +4997,7 @@ So here is replace range, which, my pointer doesn't work
 1000
 00:52:16,333 --> 00:52:18,133
 any more, but if you look at replace range,
-那你看一下 replaceSubrange那里
+那你看一下 replaceSubrange 那里
 
 1001
 00:52:18,201 --> 00:52:21,069
