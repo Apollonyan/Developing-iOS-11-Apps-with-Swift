@@ -12,22 +12,24 @@ let iTunesUCourseID = 1309275316
 
 enum ResourceType: String, CustomStringConvertible {
     // Raw Type: video/x-m4v, video/mp4
-    case video = "Video"
+    case lecture = "."
+    case friday = "Friday Session"
     // Raw Type: application/pdf
     case slides = "Slides"
-    case demoCode = "Demo Code"
-    case readingAssignment = "Reading"
-    case programmingProject = "Programming Project"
+    case demo = "Demo Code"
+    case reading = "Reading"
+    case project = "Programming Project"
     
-    static let all: [ResourceType] = [.video, .slides, .demoCode, .readingAssignment, .programmingProject]
+    static let all: [ResourceType] = [.lecture, .friday, .slides, .demo, .reading, .project]
     
     var description: String {
         switch self {
-        case .video: return "课程视频 / Videos"
-        case .slides: return "课程讲义 / Slides"
-        case .demoCode: return "示例代码 / Demo Code"
-        case .readingAssignment: return "阅读作业 / Readings"
-        case .programmingProject: return "编程作业 / Programming Projects"
+        case .lecture: return "课程视频 / Lecture Videos"
+        case .friday:  return "周五课程 / Friday Sessions"
+        case .slides:  return "课程讲义 / Slides"
+        case .demo:    return "示例代码 / Demo Code"
+        case .reading: return "阅读作业 / Readings"
+        case .project: return "编程作业 / Programming Projects"
         }
     }
 }
@@ -39,30 +41,27 @@ struct Resource: CustomStringConvertible {
     let url: String
     let summary: String?
     
-    init?(title: String, rawType: String, url: String, summary: String?) {
+    init?(title: String, url: String, summary: String?) {
         self.url = url
-        
-        if rawType.contains("video") {
-            type = .video
-        } else if let resType = ResourceType.all.first(where: { title.contains($0.rawValue) }) {
-            type = resType
-        } else {
-            fatalError("Unknown Raw Type \(rawType)")
-        }
-        
+
+        let optional = ResourceType.all.first { title.contains($0.rawValue) }
+        if let type = optional { self.type = type } else { return nil }
+
         var parts: [String]
-        if type == .video {
+        switch type {
+        case .lecture:
             // 4. Views -> index: 4, title: Views
             parts = title.components(separatedBy: ". ")
-        } else if type == .readingAssignment {
+        case .reading:
             // Reading 1: Intro to Swift -> index: 1, title: Intro to Swift
             parts = title.components(separatedBy: ": ")
             parts[0] = parts[0].components(separatedBy: " ")[1]
-        } else if type == .programmingProject {
+        case .project, .friday:
             // Programming Project 2: Calculator Brain -> index: 2, title: Calculator Brain
+            // Friday Session 3: Instruments
             parts = title.components(separatedBy: ": ")
             parts[0] = parts[0].components(separatedBy: " ")[2]
-        } else {
+        default:
             // Lecture 6 Slides -> index: 6, title: Lecture 6 Slides
             // Lecture 9 Demo Code: Smashtag -> index: 9, title: Lecture 9 Demo Code: Smashtag
             parts = [title.components(separatedBy: " ")[1], title]
@@ -102,7 +101,6 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
     
     var title: String?
     var isParsingTitle = false
-    var type: String?
     var url: String?
     var summary: String?
     var isParsingSummary = false
@@ -116,7 +114,6 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
         case "summary":
             isParsingSummary = true
         case "link":
-            type = attributeDict["type"]
             url = attributeDict["href"]
         default:
             break
@@ -145,7 +142,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             isParsingSummary = false
         case "entry":
             total += 1
-            if let res = Resource(title: title!, rawType: type!, url: url!, summary: summary) {
+            if let res = Resource(title: title!, url: url!, summary: summary) {
                 resources.append(res)
             } else {
                 totalSkipped += 1
@@ -153,7 +150,6 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
             }
             title = nil
             isParsingTitle = false
-            type = nil
             url = nil
             summary = nil
             isParsingSummary = false
@@ -189,6 +185,7 @@ class ParsingDelegate: NSObject, XMLParserDelegate {
                 let workspace = NSWorkspace.shared()
             #endif
             workspace.activateFileViewerSelecting([url])
+            print("Written to \(url.path)")
         } catch {
             print(out)
         }

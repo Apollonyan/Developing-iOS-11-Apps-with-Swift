@@ -1,0 +1,3138 @@
+﻿1
+00:00:00,401 --> 00:00:04,769
+[MUSIC]                         
+
+2
+00:00:04,838 --> 00:00:09,307
+Stanford University.            
+>> All right welcome class,     
+
+3
+00:00:09,376 --> 00:00:12,244
+everybody, to iPhone            
+section about instruments.      
+
+4
+00:00:12,313 --> 00:00:14,212
+We're gonna learn today about   
+instruments which is a tool     
+
+5
+00:00:14,281 --> 00:00:17,382
+that helps you with figuring    
+how to profile your code, and   
+
+6
+00:00:17,451 --> 00:00:20,185
+profiling means a few           
+different things. So we'll get  
+
+7
+00:00:20,254 --> 00:00:22,387
+started with a little bit of    
+background on what it means to  
+
+8
+00:00:22,455 --> 00:00:24,422
+even profile code in the first  
+place cuz that may not be       
+
+9
+00:00:24,491 --> 00:00:27,726
+something you've done before.   
+Even outside of Xcode in        
+
+10
+00:00:27,794 --> 00:00:31,964
+general with your programming   
+career. So, I want you to       
+
+11
+00:00:32,032 --> 00:00:34,833
+rewind back to kinda when       
+people were building OS' back   
+
+12
+00:00:34,902 --> 00:00:37,702
+in the day and people had all   
+kinds of questions that they    
+
+13
+00:00:37,771 --> 00:00:40,806
+wanted to ask about their code  
+as it was running in their OS.  
+
+14
+00:00:40,874 --> 00:00:43,575
+And those questions would       
+range across things from like   
+
+15
+00:00:43,644 --> 00:00:46,210
+the hard disk to main memory    
+to the CPU and just to try to   
+
+16
+00:00:46,279 --> 00:00:49,280
+figure out like how the OS was  
+allocating various resources.   
+
+17
+00:00:49,349 --> 00:00:51,649
+For the disk you might          
+ask something like, what,       
+
+18
+00:00:51,718 --> 00:00:54,486
+what processes are asking for   
+a given resource right now and  
+
+19
+00:00:54,555 --> 00:00:56,989
+which command requested that    
+resource from the OS so         
+
+20
+00:00:57,057 --> 00:00:59,291
+you could figure out whether    
+there are some bug or           
+
+21
+00:00:59,360 --> 00:01:00,325
+what was going on.              
+
+22
+00:01:00,394 --> 00:01:02,661
+You might have a problem in     
+memory like there's a leak or   
+
+23
+00:01:02,730 --> 00:01:03,661
+something like that and         
+
+24
+00:01:03,730 --> 00:01:05,931
+you wanna figure out how you    
+can trace down that leak.       
+
+25
+00:01:05,999 --> 00:01:08,634
+And then very importantly you   
+might wanna figure out how      
+
+26
+00:01:08,702 --> 00:01:11,202
+long certain processes are      
+taking on the CPU compared to   
+
+27
+00:01:11,271 --> 00:01:13,972
+other processes or how long a   
+process is taking in general.   
+
+28
+00:01:14,040 --> 00:01:16,542
+Or, when it spikes to 100%      
+usage or something like         
+
+29
+00:01:16,610 --> 00:01:19,143
+that so, these are all          
+really important questions.     
+
+30
+00:01:19,212 --> 00:01:21,179
+But, in order to figure it      
+out, you'd have to go in and    
+
+31
+00:01:21,247 --> 00:01:23,915
+manually write a bunch of       
+code, and that's not very fun.  
+
+32
+00:01:23,984 --> 00:01:26,385
+So if somebody came along       
+around the early 2000s, and     
+
+33
+00:01:26,454 --> 00:01:29,054
+said hey, there must            
+be a better way. And            
+
+34
+00:01:29,122 --> 00:01:30,956
+so I believe at                 
+Sun Microsystems,               
+
+35
+00:01:31,024 --> 00:01:33,958
+they created this thing called  
+DTrace, which is a little       
+
+36
+00:01:34,027 --> 00:01:36,962
+lightweight scripting language  
+that looks kind of like C, so   
+
+37
+00:01:37,030 --> 00:01:39,398
+it fit right in with your       
+operating systems code.         
+
+38
+00:01:39,466 --> 00:01:42,233
+And DTrace would do is like     
+you would place this little     
+
+39
+00:01:42,302 --> 00:01:45,369
+things called probes which are  
+little of code inside your,     
+
+40
+00:01:45,438 --> 00:01:46,872
+inside your bigger system.      
+
+41
+00:01:46,940 --> 00:01:49,507
+And then they would trigger     
+output about how long it was    
+
+42
+00:01:49,576 --> 00:01:52,110
+taking to run various things    
+and you could figure how        
+
+43
+00:01:52,179 --> 00:01:54,913
+much memory was being used by   
+given resource and what not.    
+
+44
+00:01:54,982 --> 00:01:57,249
+And what is great is really,    
+really expressive which meant   
+
+45
+00:01:57,318 --> 00:01:59,350
+that you could do a lot of      
+different things with it,       
+
+46
+00:01:59,419 --> 00:02:01,386
+by writing very little code     
+and you could deploy it to      
+
+47
+00:02:01,455 --> 00:02:03,422
+production no problem because   
+when it was running in          
+
+48
+00:02:03,490 --> 00:02:05,423
+production mode. It wouldn't    
+take any hit on the CPU, so     
+
+49
+00:02:05,492 --> 00:02:07,191
+you can just leave              
+your code in there,             
+
+50
+00:02:07,260 --> 00:02:10,595
+in the live production system.  
+So, that's a super great step   
+
+51
+00:02:10,664 --> 00:02:13,265
+in the right direction, but I   
+had a little bit of a problem,  
+
+52
+00:02:14,601 --> 00:02:16,435
+which is that,                  
+for example here,               
+
+53
+00:02:16,503 --> 00:02:18,703
+when you see this one that      
+compares process times,         
+
+54
+00:02:18,772 --> 00:02:20,939
+you see this one in             
+the center here is,             
+
+55
+00:02:21,008 --> 00:02:25,043
+is outputting a distributing    
+of processes as Atsy text. So   
+
+56
+00:02:25,111 --> 00:02:27,178
+it's showing you these little   
+at signs to say that that,      
+
+57
+00:02:27,247 --> 00:02:29,447
+that process in the center is   
+taking up half of the overall   
+
+58
+00:02:29,516 --> 00:02:31,215
+time and the other ones         
+are taking up the rest,         
+
+59
+00:02:31,284 --> 00:02:32,884
+it's not the best GUI. So       
+
+60
+00:02:32,953 --> 00:02:37,823
+you end up with this non-ideal  
+situation where you kinda got   
+
+61
+00:02:37,891 --> 00:02:41,826
+all this console of output and  
+we really didn't want that      
+
+62
+00:02:41,895 --> 00:02:44,595
+with Apple when we were         
+creating, you know Xcode and    
+
+63
+00:02:44,664 --> 00:02:46,765
+IOS because in most cases,      
+
+64
+00:02:46,833 --> 00:02:48,467
+people who are using it         
+are maybe programming for       
+
+65
+00:02:48,535 --> 00:02:50,735
+the first time. They've         
+never made apps before and      
+
+66
+00:02:50,804 --> 00:02:53,204
+this is just something that     
+you don't wanna have to go and  
+
+67
+00:02:53,273 --> 00:02:57,108
+deal with. So, This is kind     
+of the vision in my head        
+
+68
+00:02:57,177 --> 00:02:59,644
+of DTrace, it's like this very  
+powerful machine that has way   
+
+69
+00:02:59,713 --> 00:03:00,645
+too many knobs and, and         
+
+70
+00:03:00,714 --> 00:03:01,946
+buttons to get                  
+used to easily and              
+
+71
+00:03:02,015 --> 00:03:04,649
+you have to kinda learn it up   
+front to be able to use it.     
+
+72
+00:03:04,718 --> 00:03:07,652
+And the solution instead, is    
+to have something happier and   
+
+73
+00:03:07,721 --> 00:03:09,888
+friendlier like our             
+friend Eve here,                
+
+74
+00:03:09,957 --> 00:03:12,257
+or Eva,                         
+I forget how you say it. And    
+
+75
+00:03:12,326 --> 00:03:17,228
+the solution is called          
+Instruments, Instruments,       
+
+76
+00:03:17,297 --> 00:03:21,800
+Instruments. And so what        
+Instruments is, is it's a GUI,  
+
+77
+00:03:21,869 --> 00:03:24,469
+and it sits on top of DTrace,   
+that same little programming    
+
+78
+00:03:24,538 --> 00:03:27,238
+language, scripting language    
+that we just talked about.      
+
+79
+00:03:27,307 --> 00:03:30,041
+And it's built right into       
+Xcode and so it, it kinda       
+
+80
+00:03:30,109 --> 00:03:33,078
+democratized this idea that     
+you could do CPU analysis or    
+
+81
+00:03:33,147 --> 00:03:35,079
+memory analysis or              
+disc analysis and               
+
+82
+00:03:35,148 --> 00:03:39,317
+things like these. And one of   
+the interesting differences     
+
+83
+00:03:39,386 --> 00:03:43,154
+between instruments and using   
+something like DTrace is that.  
+
+84
+00:03:43,223 --> 00:03:45,557
+Since it's a GUI we now         
+can't do all of these,          
+
+85
+00:03:45,626 --> 00:03:48,427
+all of the D Trace tasks that   
+we would wanna do within one    
+
+86
+00:03:48,495 --> 00:03:51,863
+single window because there're  
+just too many of them. So       
+
+87
+00:03:51,932 --> 00:03:54,900
+what instruments does instead,  
+is it splits off                
+
+88
+00:03:54,968 --> 00:03:58,003
+all of all of the thing that    
+you'd possibly wanna do with    
+
+89
+00:03:58,071 --> 00:04:00,838
+an iOS app with profiling into  
+lots of different flavors.      
+
+90
+00:04:00,907 --> 00:04:04,509
+So, you see that we have these  
+things like the activity        
+
+91
+00:04:04,578 --> 00:04:07,145
+monitor, which is, you may be   
+used to from your actual OS,    
+
+92
+00:04:07,214 --> 00:04:10,381
+which shows you how             
+much stuff different,           
+
+93
+00:04:10,450 --> 00:04:12,784
+processes are taking up,        
+how many different resources.   
+
+94
+00:04:12,852 --> 00:04:14,353
+And you might have this thing   
+called the time profiler,       
+
+95
+00:04:14,421 --> 00:04:17,489
+which tells you how long        
+it takes for a given            
+
+96
+00:04:17,557 --> 00:04:21,025
+CPU process to do a certain     
+task or something like that.    
+
+97
+00:04:21,094 --> 00:04:22,894
+But, you can't have all of      
+them within one window, or      
+
+98
+00:04:22,963 --> 00:04:24,729
+it would just be too much       
+clutter and too much stuff.     
+
+99
+00:04:24,798 --> 00:04:27,565
+So, the way an instruments      
+works from a high level is,     
+
+100
+00:04:27,634 --> 00:04:30,902
+you're gonna launch a specific  
+subpar, sub module like this.   
+
+101
+00:04:30,971 --> 00:04:32,870
+And then you're going to        
+focus on only that for          
+
+102
+00:04:32,939 --> 00:04:34,139
+the duration of your app, and   
+
+103
+00:04:34,207 --> 00:04:37,242
+that way you get this nice      
+GUI, that's not cluttered up.   
+
+104
+00:04:37,310 --> 00:04:40,445
+And in particular with these    
+instruments what we'll focus    
+
+105
+00:04:40,514 --> 00:04:43,681
+on today are the ones that are  
+most useful for probably 95%    
+
+106
+00:04:43,750 --> 00:04:46,484
+of the use cases that you'd     
+ever use instruments for        
+
+107
+00:04:46,553 --> 00:04:48,820
+you'll be using these           
+four instruments.               
+
+108
+00:04:48,888 --> 00:04:50,922
+So you'll notice that four of   
+them are blue because they      
+
+109
+00:04:50,991 --> 00:04:53,658
+have more to do with CPU        
+stuff. And then two of them     
+
+110
+00:04:53,727 --> 00:04:55,694
+are orange because they have    
+more to do with RAM stuff       
+
+111
+00:04:55,762 --> 00:04:58,162
+with memory. So, we'll go       
+through these four today        
+
+112
+00:04:58,231 --> 00:05:00,999
+starting with the two CPU ones  
+and then we'll end up talking   
+
+113
+00:05:01,067 --> 00:05:04,770
+about memory stuff with         
+allocations and leaks. And      
+
+114
+00:05:04,838 --> 00:05:06,737
+the one big takeaway            
+from today, that I want         
+
+115
+00:05:06,806 --> 00:05:08,407
+you to have is that             
+instruments is not              
+
+116
+00:05:08,475 --> 00:05:10,675
+some kind of like, nice to      
+have optional thing that        
+
+117
+00:05:10,743 --> 00:05:13,511
+sometimes people go off and     
+use if they have a problem.     
+
+118
+00:05:13,580 --> 00:05:15,780
+It's actually very critical,    
+even if you think you've        
+
+119
+00:05:15,849 --> 00:05:18,116
+created your app properly and   
+you don't have any problems or  
+
+120
+00:05:18,185 --> 00:05:20,252
+memory leaks or anything        
+like that. Going through and    
+
+121
+00:05:20,320 --> 00:05:22,487
+profiling it before you deploy  
+a real production app and       
+
+122
+00:05:22,556 --> 00:05:24,856
+making sure that it's using     
+memory properly and that it's   
+
+123
+00:05:24,925 --> 00:05:26,958
+not taking too much CPU time    
+when it shouldn't be and        
+
+124
+00:05:27,027 --> 00:05:28,560
+things like that                
+that really matters.            
+
+125
+00:05:28,628 --> 00:05:30,161
+So, Instruments is              
+something that's                
+
+126
+00:05:30,230 --> 00:05:33,098
+a necessary thing to learn if   
+you're trying to become a real  
+
+127
+00:05:33,166 --> 00:05:35,400
+iOS programmer. So don't        
+consider this as like this      
+
+128
+00:05:35,468 --> 00:05:38,269
+optional thing that you         
+may not need some day. So       
+
+129
+00:05:38,338 --> 00:05:40,371
+we're gonna go into right       
+into a demo here and            
+
+130
+00:05:40,440 --> 00:05:43,207
+we're gonna show a little app,  
+a little mobile app and it's    
+
+131
+00:05:43,276 --> 00:05:46,210
+gonna have a few, few issues    
+with it that we're gonna track  
+
+132
+00:05:46,279 --> 00:05:48,379
+down like little detectives     
+inside of Instruments and       
+
+133
+00:05:48,448 --> 00:05:50,181
+it'll illustrate                
+how those four                  
+
+134
+00:05:50,250 --> 00:05:54,786
+flavors of Instruments work     
+that I was speaking about. So,  
+
+135
+00:05:57,724 --> 00:06:00,791
+The first thing I'll do         
+is I'll run this app in         
+
+136
+00:06:00,860 --> 00:06:03,428
+the most basic version of       
+Instruments and we'll kinda     
+
+137
+00:06:03,497 --> 00:06:07,232
+just give you a little tour of  
+what this app is doing. And     
+
+138
+00:06:07,301 --> 00:06:10,568
+the idea with Instruments       
+is that you go up to this       
+
+139
+00:06:10,637 --> 00:06:13,238
+Product menu and                
+you click on Profile,           
+
+140
+00:06:13,306 --> 00:06:16,708
+which you can access with Cmd   
++ I. And then when you run      
+
+141
+00:06:16,777 --> 00:06:19,511
+Profile it builds a version     
+of your app with certain        
+
+142
+00:06:19,579 --> 00:06:22,147
+debugging stuff built in and    
+pops up in the same so          
+
+143
+00:06:22,215 --> 00:06:24,950
+many flavors thing that I       
+showed you from earlier.        
+
+144
+00:06:25,018 --> 00:06:27,252
+And then we'll select           
+the Activity Monitor,           
+
+145
+00:06:27,320 --> 00:06:29,587
+which just as it says           
+monitor CPU memory disk and     
+
+146
+00:06:29,656 --> 00:06:32,657
+network usage statistics for    
+processes and the file system.  
+
+147
+00:06:32,725 --> 00:06:36,895
+So just general statistics      
+about stuff going               
+
+148
+00:06:36,964 --> 00:06:40,732
+on on your system, and          
+in this case we click Choose.   
+
+149
+00:06:40,801 --> 00:06:43,734
+This is the instruments GUI     
+that pops up that's gonna show  
+
+150
+00:06:43,803 --> 00:06:45,236
+us all of our statistics.       
+
+151
+00:06:45,304 --> 00:06:48,172
+And in order to run your app    
+while recording all of these    
+
+152
+00:06:48,241 --> 00:06:51,342
+statistics, you click the       
+Record button. It's kind of     
+
+153
+00:06:51,411 --> 00:06:55,413
+like using iTunes or something  
+but for debugging information,  
+
+154
+00:06:55,482 --> 00:06:58,783
+and then we'll pop open         
+our simulator here. And         
+
+155
+00:06:58,852 --> 00:07:01,686
+first thing I'll do is explain  
+what this app is just briefly,  
+
+156
+00:07:01,754 --> 00:07:04,355
+the idea is that we're          
+number theorists here.          
+
+157
+00:07:04,424 --> 00:07:07,992
+And we've got some big prime    
+number that you see right here  
+
+158
+00:07:08,061 --> 00:07:10,895
+at the top, and we want to      
+figure out what its prime       
+
+159
+00:07:10,964 --> 00:07:12,763
+factors are.                    
+So since the number's so        
+
+160
+00:07:12,832 --> 00:07:15,566
+big that's gonna take a lot     
+of CPU time to compute so       
+
+161
+00:07:15,635 --> 00:07:18,903
+let's see what happens when we  
+try to compute it. And I also   
+
+162
+00:07:18,972 --> 00:07:21,272
+have two options here for       
+how we're gonna factor this,    
+
+163
+00:07:21,341 --> 00:07:22,740
+one is to do it                 
+the main thread, and            
+
+164
+00:07:22,809 --> 00:07:24,876
+the other one is to do it       
+on the background thread.       
+
+165
+00:07:24,944 --> 00:07:27,479
+Now the first thing we'll       
+experience is what Paul talked  
+
+166
+00:07:27,547 --> 00:07:28,446
+about in lecture this           
+
+167
+00:07:28,515 --> 00:07:31,049
+week which is that when you do  
+things on the main thread, and  
+
+168
+00:07:31,118 --> 00:07:33,685
+they're really CPU intensive,   
+you actually block the main     
+
+169
+00:07:33,753 --> 00:07:37,989
+thread. So when we click on     
+this button here, We notice     
+
+170
+00:07:38,057 --> 00:07:40,358
+that the UI is completely       
+blocked I can't click anywhere  
+
+171
+00:07:40,426 --> 00:07:42,460
+else, because it's off          
+factoring this number,          
+
+172
+00:07:42,528 --> 00:07:45,129
+figuring out the prime          
+factors on the main thread.     
+
+173
+00:07:45,198 --> 00:07:47,164
+You'll also notice over here,   
+we have a list of all           
+
+174
+00:07:47,233 --> 00:07:49,200
+of the processes running        
+on my machine right now.        
+
+175
+00:07:49,269 --> 00:07:52,370
+Since we're in the simulator    
+this is my actual Mac Book all  
+
+176
+00:07:52,439 --> 00:07:54,339
+of the processes and            
+the name of this app            
+
+177
+00:07:54,408 --> 00:07:56,974
+as you can see up here          
+is instruments demo. So         
+
+178
+00:07:57,043 --> 00:08:00,011
+one of the first things we can  
+do is instruments demo here is  
+
+179
+00:08:00,080 --> 00:08:02,847
+taking up a lot of              
+the CPU time in fact,           
+
+180
+00:08:02,916 --> 00:08:05,717
+Twice as much as the total      
+percentage, because it's off    
+
+181
+00:08:05,786 --> 00:08:08,352
+finding the prime factors       
+of this large number. And       
+
+182
+00:08:08,421 --> 00:08:11,656
+if we want we can even filter   
+to get rid of all the noise,    
+
+183
+00:08:11,724 --> 00:08:14,859
+by typing in the name of the    
+process we want to inspect.     
+
+184
+00:08:14,928 --> 00:08:18,763
+You'll also notice              
+that there's other              
+
+185
+00:08:18,831 --> 00:08:20,598
+information displayed here      
+in the activity monitor         
+
+186
+00:08:20,667 --> 00:08:22,299
+like the number of threads      
+that are currently running.     
+
+187
+00:08:22,368 --> 00:08:25,970
+So since I have this. Forking   
+on a background thread options  
+
+188
+00:08:26,039 --> 00:08:28,039
+down here at the bottom.        
+To solve this problem,          
+
+189
+00:08:28,107 --> 00:08:29,707
+I'll go ahead and               
+click on this a few times,      
+
+190
+00:08:29,776 --> 00:08:33,911
+fork up a bunch of threads.     
+And                             
+
+191
+00:08:33,980 --> 00:08:36,481
+you can see I hover over        
+here inside instruments for     
+
+192
+00:08:36,550 --> 00:08:39,784
+seeing the number of threads    
+pop up. Now we have a bunch of  
+
+193
+00:08:39,852 --> 00:08:42,120
+different threads all going     
+off in the background to try    
+
+194
+00:08:42,189 --> 00:08:44,288
+to figure out these prime       
+factors all on their own.       
+
+195
+00:08:44,357 --> 00:08:46,691
+And then they're gonna report   
+back when done. And we'll see   
+
+196
+00:08:46,759 --> 00:08:48,359
+these number of threads         
+go down when they finish.       
+
+197
+00:08:48,428 --> 00:08:50,494
+So this just kind of gives      
+you a general sense of what     
+
+198
+00:08:50,563 --> 00:08:52,897
+instruments is like. The        
+activity monitor you can see,   
+
+199
+00:08:52,966 --> 00:08:55,132
+doesn't give you superfine      
+grained information.            
+
+200
+00:08:55,201 --> 00:08:57,402
+It kinda just gives you         
+the high level, like. You know  
+
+201
+00:08:57,470 --> 00:08:59,537
+what the name of the process    
+is and how much CPU time and    
+
+202
+00:08:59,606 --> 00:09:02,373
+the number of threads and the   
+memory, just basic stats, but   
+
+203
+00:09:02,442 --> 00:09:03,941
+it doesn't allow you to         
+dig deeper. To do that,         
+
+204
+00:09:04,010 --> 00:09:05,944
+you have to as I said earlier   
+you have to go back and         
+
+205
+00:09:06,013 --> 00:09:07,612
+run instruments with            
+a different flavor,             
+
+206
+00:09:07,681 --> 00:09:10,215
+so that you can inspect         
+that particular thing.          
+
+207
+00:09:10,283 --> 00:09:15,119
+So, let's do that.              
+We'll stop this                 
+
+208
+00:09:15,188 --> 00:09:18,056
+here. And                       
+you can actually save           
+
+209
+00:09:18,124 --> 00:09:21,092
+off what's called the trace.    
+So the actual record of what    
+
+210
+00:09:21,161 --> 00:09:22,226
+happened with that              
+run of instrument.              
+
+211
+00:09:22,295 --> 00:09:24,695
+So you can maybe compare        
+across multiple runs. Or        
+
+212
+00:09:24,764 --> 00:09:31,002
+do additional analysis later.   
+And we will                     
+
+213
+00:09:31,070 --> 00:09:35,206
+go back to profile. And the     
+next time we want to profile    
+
+214
+00:09:35,275 --> 00:09:37,842
+on what's actually taking so    
+long to factor this prime       
+
+215
+00:09:37,911 --> 00:09:40,344
+number? Maybe there's some way  
+we can optimize this algorithm  
+
+216
+00:09:40,413 --> 00:09:43,047
+to make it faster for example   
+and we've looked at our code    
+
+217
+00:09:43,116 --> 00:09:46,117
+a bunch. They aren't quite      
+sure what's going on.           
+
+218
+00:09:46,186 --> 00:09:48,453
+Why is it taking so long to     
+factor this prime number?       
+
+219
+00:09:48,522 --> 00:09:51,022
+And so we don't have a theory   
+we're not sure why but          
+
+220
+00:09:51,091 --> 00:09:52,823
+we know figure on               
+the time profiler.              
+
+221
+00:09:52,892 --> 00:09:55,159
+Maybe it will help us dig in    
+to exactly what's taken so      
+
+222
+00:09:55,228 --> 00:09:58,363
+much time on the CPU. And like  
+of us more algorithmic insight  
+
+223
+00:09:58,432 --> 00:10:01,165
+into what we're doing wrong,    
+with our, with our              
+
+224
+00:10:01,234 --> 00:10:04,268
+factorization methods. So       
+we'll run the time profiler.    
+
+225
+00:10:04,337 --> 00:10:06,404
+Okay, so here we are in         
+the time profiler, and          
+
+226
+00:10:06,472 --> 00:10:08,873
+we can see we have this nice    
+graph at the top that says,     
+
+227
+00:10:08,942 --> 00:10:10,441
+CPU usage, and                  
+it's also showing               
+
+228
+00:10:10,510 --> 00:10:13,010
+us how much usage in            
+the main thread, versus this    
+
+229
+00:10:13,079 --> 00:10:15,880
+dispatch worker thread that's   
+running in the background and   
+
+230
+00:10:15,948 --> 00:10:20,051
+these other threads. And like   
+earlier, we'll notice that      
+
+231
+00:10:20,120 --> 00:10:22,620
+when we click do it on          
+the main thread, and we block   
+
+232
+00:10:22,689 --> 00:10:26,557
+the UI here, we see that the    
+CP usage skyrockets. So you'll  
+
+233
+00:10:26,626 --> 00:10:29,127
+got this long running process.  
+And if we wait long enough,     
+
+234
+00:10:29,196 --> 00:10:31,395
+eventually we should see        
+the factorization complete.     
+
+235
+00:10:31,464 --> 00:10:33,931
+And that CP usage should        
+drop back down to zero.         
+
+236
+00:10:34,000 --> 00:10:36,667
+So this is the general idea     
+behind the time profiler.       
+
+237
+00:10:36,736 --> 00:10:38,102
+Also at the bottom              
+while this is going on,         
+
+238
+00:10:38,171 --> 00:10:40,872
+you'll see that we have this    
+sort of call trace here.        
+
+239
+00:10:40,940 --> 00:10:45,142
+This call stack, which is       
+actually it's a tree of calls.  
+
+240
+00:10:45,211 --> 00:10:47,846
+And it shows you what's going   
+on nested inside all of         
+
+241
+00:10:49,049 --> 00:10:51,215
+this apps different threads.    
+
+242
+00:10:51,284 --> 00:10:54,151
+So if you'll notice we're       
+done factoring here.            
+
+243
+00:10:54,220 --> 00:10:56,888
+We've found all the prime       
+factors of this number. And     
+
+244
+00:10:58,925 --> 00:11:03,127
+it took a 99% of the CPU time   
+within the main thread and      
+
+245
+00:11:03,196 --> 00:11:06,464
+99.3 within the start method.   
+And then so on and so forth.    
+
+246
+00:11:06,532 --> 00:11:09,067
+And so it's showing us the      
+percentage of total CPU time,   
+
+247
+00:11:09,135 --> 00:11:12,970
+that's happening within         
+all this different stuff.       
+
+248
+00:11:13,039 --> 00:11:14,305
+this is not a very fun process  
+to dig through all these        
+
+249
+00:11:14,306 --> 00:11:15,572
+But obviously,                  
+
+250
+00:11:15,641 --> 00:11:16,507
+system methods right,           
+
+251
+00:11:16,576 --> 00:11:17,809
+because we didn't even          
+write these methods.            
+
+252
+00:11:17,878 --> 00:11:19,677
+We're just, we're just          
+curious about our code.         
+
+253
+00:11:19,746 --> 00:11:21,846
+All we care about is            
+the app what I wrote.           
+
+254
+00:11:21,915 --> 00:11:23,781
+Where is all the information    
+for that stuff? So              
+
+255
+00:11:23,849 --> 00:11:26,317
+there's a nice set of options   
+down here inside this call      
+
+256
+00:11:26,385 --> 00:11:28,519
+tree menu, so                   
+if I click on this,             
+
+257
+00:11:28,588 --> 00:11:31,656
+you'll notice there's already   
+this option checked by default  
+
+258
+00:11:31,724 --> 00:11:34,259
+to separate things by thread    
+as we've seen up at the top.    
+
+259
+00:11:34,327 --> 00:11:37,128
+But another thing we can do     
+is hide system libraries. So    
+
+260
+00:11:37,196 --> 00:11:40,131
+the moment that we click,       
+hide system libraries, you'll   
+
+261
+00:11:40,200 --> 00:11:42,766
+notice that it collapsed all    
+of that junk that we were just  
+
+262
+00:11:42,835 --> 00:11:45,470
+look at into just the stuff     
+inside of our application.      
+
+263
+00:11:45,538 --> 00:11:47,371
+So we see stuff inside of       
+our view controller for         
+
+264
+00:11:47,440 --> 00:11:50,140
+example, like factor on mean    
+thread which is the method      
+
+265
+00:11:50,209 --> 00:11:52,776
+that went off to do factoring   
+of this prime number on         
+
+266
+00:11:52,845 --> 00:11:55,280
+the mean thread as opposed to   
+on the background thread. And   
+
+267
+00:11:55,348 --> 00:11:56,547
+then inside of there,           
+
+268
+00:11:56,616 --> 00:11:59,183
+there was part of it that       
+was taking a lot of time. So    
+
+269
+00:11:59,252 --> 00:12:02,453
+we'll go dig into our methods   
+and we see this prime factors   
+
+270
+00:12:02,521 --> 00:12:04,355
+method that we've written       
+apparently is taking up a lot   
+
+271
+00:12:04,424 --> 00:12:07,292
+of time. And then there is      
+what some method in there       
+
+272
+00:12:07,360 --> 00:12:10,494
+taking up a quarter of the      
+time that's testing a divisor.  
+
+273
+00:12:10,563 --> 00:12:13,231
+So at some point we we we're    
+down to a part of the code      
+
+274
+00:12:13,300 --> 00:12:14,932
+that seems more granular and    
+
+275
+00:12:15,001 --> 00:12:17,068
+this is where the actual        
+problem is happening.           
+
+276
+00:12:17,136 --> 00:12:20,371
+And we can actually go into     
+code level detail from          
+
+277
+00:12:20,439 --> 00:12:23,674
+instruments by double           
+clicking on that method. So     
+
+278
+00:12:23,743 --> 00:12:26,544
+the moment I click on that, or  
+thrown into our code base, and  
+
+279
+00:12:26,613 --> 00:12:29,013
+we look at this, we have        
+on the right side here,         
+
+280
+00:12:29,082 --> 00:12:32,016
+we have different percentages   
+of what lines were taking so    
+
+281
+00:12:32,085 --> 00:12:34,886
+long to run. So if we're        
+looking at our algorithm here   
+
+282
+00:12:34,954 --> 00:12:39,357
+for factoring prime numbers,    
+this is the overall function    
+
+283
+00:12:39,426 --> 00:12:41,392
+that computes it.               
+We pass in some big integer,    
+
+284
+00:12:41,461 --> 00:12:44,462
+and or a long long in this      
+case just because it's so       
+
+285
+00:12:44,530 --> 00:12:46,964
+large and then we have          
+an enter function here          
+
+286
+00:12:47,033 --> 00:12:49,433
+called test which is gonna      
+test a given divisor.           
+
+287
+00:12:49,502 --> 00:12:52,770
+To see is that large number     
+divisible by this divisor? And  
+
+288
+00:12:52,838 --> 00:12:56,774
+since that divisor can be       
+a divisor multiple times of of  
+
+289
+00:12:56,843 --> 00:12:59,243
+a given number maybe,           
+you know,                       
+
+290
+00:12:59,312 --> 00:13:02,313
+the number 31 that actually is  
+2 times 31 times 31, right?     
+
+291
+00:13:02,382 --> 00:13:04,448
+So we have this while loop      
+here which checks that same     
+
+292
+00:13:04,517 --> 00:13:08,052
+number multiple times, and      
+then appends it to a result     
+
+293
+00:13:08,121 --> 00:13:10,354
+array which is that thing that  
+we were outputting in the app   
+
+294
+00:13:10,423 --> 00:13:14,525
+earlier. And then what we do    
+to figure out the overall       
+
+295
+00:13:14,594 --> 00:13:17,362
+total set of prime factors      
+here in this algorithm is we    
+
+296
+00:13:17,430 --> 00:13:22,766
+go from i b 2 up by ones        
+all the way up to N,            
+
+297
+00:13:22,835 --> 00:13:25,103
+which is the number. So we're   
+checking every number from 2,   
+
+298
+00:13:25,171 --> 00:13:27,371
+3, 4, 5, 6 all the way up       
+to this large number N.         
+
+299
+00:13:27,440 --> 00:13:30,207
+And we're testing each of them  
+to see whether it's a divisor   
+
+300
+00:13:30,276 --> 00:13:34,244
+of that number. And what our    
+instruments demo here is        
+
+301
+00:13:34,313 --> 00:13:39,183
+saying is that 43.5%            
+of it is taken up,              
+
+302
+00:13:39,251 --> 00:13:40,952
+I think this line               
+should actually                 
+
+303
+00:13:41,021 --> 00:13:43,253
+be referring to the line        
+immediately following it, so    
+
+304
+00:13:43,322 --> 00:13:45,356
+the line that's actually doing  
+the stride. So just doing this  
+
+305
+00:13:45,425 --> 00:13:47,992
+many iterations of a loop is    
+taking a lot of time. And       
+
+306
+00:13:48,060 --> 00:13:50,661
+then inside of here, we're      
+doing, we're spending a lot of  
+
+307
+00:13:50,730 --> 00:13:53,598
+time iterating on these loops.  
+So it's just as                 
+
+308
+00:13:53,666 --> 00:13:58,102
+if the total number of          
+loops that we're doing          
+
+309
+00:13:58,171 --> 00:13:59,938
+is just too many. So that       
+might give us the insight.      
+
+310
+00:14:00,006 --> 00:14:01,972
+Maybe we're just trying to      
+divide too many numbers,        
+
+311
+00:14:02,041 --> 00:14:04,509
+right. Which of course we are,  
+because we're going all         
+
+312
+00:14:04,577 --> 00:14:07,879
+the way from two to             
+the actual number and itself,   
+
+313
+00:14:07,947 --> 00:14:09,413
+which is kind of crazy          
+if you think about it.          
+
+314
+00:14:09,482 --> 00:14:12,783
+Because first off,              
+if we were to go over           
+
+315
+00:14:12,852 --> 00:14:15,787
+n divided by 2, that's already  
+kind of crazy because we        
+
+316
+00:14:15,855 --> 00:14:17,488
+already tried all the numbers   
+that were less than that.       
+
+317
+00:14:17,557 --> 00:14:20,391
+So we would have found them     
+already by that point. And      
+
+318
+00:14:20,459 --> 00:14:23,061
+if you think it a little        
+bit harder actually,            
+
+319
+00:14:23,129 --> 00:14:26,096
+the more standard mathematical  
+way to solve this problem       
+
+320
+00:14:26,165 --> 00:14:29,100
+would actually be to only       
+go up the square root of N.     
+
+321
+00:14:29,169 --> 00:14:31,302
+You can think about that from   
+a math perspective with like    
+
+322
+00:14:31,371 --> 00:14:33,371
+a proof by contradiction where  
+you you assume that if there    
+
+323
+00:14:33,440 --> 00:14:35,706
+were some. Prime factor of      
+a number that were larger       
+
+324
+00:14:35,774 --> 00:14:39,110
+than the square root of n       
+that that number in order for   
+
+325
+00:14:39,179 --> 00:14:40,945
+it to be multiplied by another  
+number to reach that number     
+
+326
+00:14:41,013 --> 00:14:43,213
+would need to be larger than    
+the square root of n which,     
+
+327
+00:14:43,282 --> 00:14:45,316
+is a contradiction so           
+it doesn't make sense. So       
+
+328
+00:14:45,385 --> 00:14:49,053
+anyway we have that already     
+typed down here for             
+
+329
+00:14:49,121 --> 00:14:53,991
+you so. I will prove that       
+instruments has done it's task  
+
+330
+00:14:54,060 --> 00:14:58,295
+correctly by, instead of        
+iterating over every number,    
+
+331
+00:14:58,364 --> 00:15:01,665
+doing it by starting            
+with the divisor two,           
+
+332
+00:15:01,734 --> 00:15:05,002
+because that's our              
+first prime number, and         
+
+333
+00:15:05,071 --> 00:15:08,906
+testing two. And then           
+starting at the number three,   
+
+334
+00:15:08,974 --> 00:15:11,809
+because only odd numbers can    
+be prime numbers after two.     
+
+335
+00:15:11,877 --> 00:15:13,877
+And then going up to            
+the square root of n by 2, so   
+
+336
+00:15:13,946 --> 00:15:16,713
+we're gonna try 3 5 7 all the   
+way up to the square root of n  
+
+337
+00:15:16,782 --> 00:15:17,949
+which should be a much          
+smaller number.                 
+
+338
+00:15:18,018 --> 00:15:19,250
+And then when we go off and     
+
+339
+00:15:19,318 --> 00:15:27,591
+we profile this.                
+We'll notice that,              
+
+340
+00:15:27,660 --> 00:15:29,961
+when we click on factor         
+on the main thread              
+
+341
+00:15:30,029 --> 00:15:32,930
+we're done immediately, yay.    
+So instruments did its job,     
+
+342
+00:15:32,999 --> 00:15:34,932
+the time profiler's very        
+useful, and it can help you     
+
+343
+00:15:35,001 --> 00:15:37,101
+find what's taking up           
+a lot of your CPU time,         
+
+344
+00:15:37,170 --> 00:15:40,170
+it's about that simple. You     
+can bumble around in all these  
+
+345
+00:15:40,239 --> 00:15:42,073
+other options inside here to    
+see what they afford you.       
+
+346
+00:15:42,141 --> 00:15:45,476
+But the main ones are the ones  
+that I just showed you. So      
+
+347
+00:15:45,545 --> 00:15:47,978
+let's switch gears for a        
+moment. I've shown you kind of  
+
+348
+00:15:48,047 --> 00:15:54,351
+the two first instruments that  
+have to do with CPU time and    
+
+349
+00:15:54,420 --> 00:15:56,420
+what we'll do instead is start  
+looking more into memory. So    
+
+350
+00:15:56,421 --> 00:15:58,421
+processes. And                  
+
+351
+00:15:58,491 --> 00:16:00,224
+like I mentioned earlier, the   
+two that are most useful for    
+
+352
+00:16:00,293 --> 00:16:03,828
+this are going to be            
+allocations and leaks. So       
+
+353
+00:16:03,896 --> 00:16:05,629
+the simpler of the two          
+would be allocations.           
+
+354
+00:16:05,698 --> 00:16:07,832
+We're just gonna see how much   
+memory is getting allocated at  
+
+355
+00:16:07,900 --> 00:16:11,936
+various times in the program.   
+And we will hit Choose and      
+
+356
+00:16:12,004 --> 00:16:17,041
+Run. We will go over to this    
+classroom section here. And     
+
+357
+00:16:17,110 --> 00:16:19,010
+the first thing that we'll      
+notice about allocations,       
+
+358
+00:16:19,078 --> 00:16:20,844
+which is showing us             
+the memory that's being used,   
+
+359
+00:16:20,913 --> 00:16:22,313
+is that when we                 
+go off to a new                 
+
+360
+00:16:22,382 --> 00:16:24,048
+view controller, the number,    
+
+361
+00:16:24,116 --> 00:16:26,384
+the amount of memory being      
+used currently sky rockets up   
+
+362
+00:16:26,452 --> 00:16:28,152
+because we have a stack of      
+navigation controllers.         
+
+363
+00:16:28,221 --> 00:16:29,820
+We have the one that's still    
+allocated that's still on       
+
+364
+00:16:29,889 --> 00:16:31,088
+the stack and                   
+then we have this new one.      
+
+365
+00:16:31,157 --> 00:16:33,991
+So we should see this go up.    
+And likewise, when we go back   
+
+366
+00:16:34,059 --> 00:16:36,527
+we should see it go down        
+a little bit. And it does.      
+
+367
+00:16:36,595 --> 00:16:39,864
+So that's great. As we go to    
+the classroom controller and    
+
+368
+00:16:39,932 --> 00:16:41,999
+from it we see allocations      
+going up and down.              
+
+369
+00:16:42,067 --> 00:16:43,701
+Sometimes if you have some      
+kind of bug in your app         
+
+370
+00:16:43,770 --> 00:16:46,403
+you might have it that when     
+you go back from a view         
+
+371
+00:16:46,472 --> 00:16:49,506
+controller. All of a sudden     
+you don't see the allocations   
+
+372
+00:16:49,575 --> 00:16:50,475
+go down, which would be a bug.  
+
+373
+00:16:50,543 --> 00:16:53,711
+So that's something that        
+you might wanna check for.      
+
+374
+00:16:53,780 --> 00:16:55,779
+And what we'll do               
+here in this case is,           
+
+375
+00:16:55,848 --> 00:16:58,583
+is explain what's going on in   
+this tab of the app. And then   
+
+376
+00:16:58,651 --> 00:17:02,052
+we'll kind of look for, for     
+any possible errors. So when    
+
+377
+00:17:02,121 --> 00:17:06,457
+we click this little button     
+here, we will show a hint. And  
+
+378
+00:17:06,525 --> 00:17:09,393
+the hint is that Jack, this     
+friendly student here who is    
+
+379
+00:17:09,462 --> 00:17:11,028
+an image we fetched             
+from online,                    
+
+380
+00:17:11,097 --> 00:17:13,831
+is asking what tips can we use  
+to speed up prime fact-finding  
+
+381
+00:17:13,900 --> 00:17:16,266
+prime factors? Paul says, have  
+you considered the domain or    
+
+382
+00:17:16,335 --> 00:17:17,835
+possible factors?               
+Maybe you're trying too many,   
+
+383
+00:17:17,904 --> 00:17:20,337
+which is the exact bug that we  
+went and fixed earlier with     
+
+384
+00:17:20,406 --> 00:17:23,373
+the time profiling so. We       
+noticed that when we clicked    
+
+385
+00:17:23,442 --> 00:17:26,811
+on Show Hint, this really       
+skyrocketed up a lot because    
+
+386
+00:17:26,880 --> 00:17:28,379
+here we are loading             
+an image into the app and       
+
+387
+00:17:28,448 --> 00:17:29,980
+that contains a lot of data.    
+So                              
+
+388
+00:17:30,049 --> 00:17:32,849
+what we might do is just play   
+around with all the operations  
+
+389
+00:17:32,918 --> 00:17:38,389
+we can do inside the app. And   
+just see what's going on here.  
+
+390
+00:17:38,458 --> 00:17:39,823
+And we immediately              
+find something kind of          
+
+391
+00:17:39,892 --> 00:17:42,893
+suspicious which is that every  
+time I click Show Hint, we see  
+
+392
+00:17:42,961 --> 00:17:45,662
+our memory usage is going up,   
+but when we unclick it and      
+
+393
+00:17:45,731 --> 00:17:48,399
+click it again, it doesn't go   
+back down. So that seems like   
+
+394
+00:17:48,467 --> 00:17:51,202
+we've got some kind of problem  
+here, seems kinda strange.      
+
+395
+00:17:51,270 --> 00:17:53,237
+Why would it be going up each   
+time you click Show Hint?       
+
+396
+00:17:53,305 --> 00:17:55,172
+All that happens each time is   
+we display an image on the      
+
+397
+00:17:55,240 --> 00:17:58,042
+screen, and then we put these   
+two labels on the screen.       
+
+398
+00:17:58,111 --> 00:18:01,645
+So why would there not be       
+memory being, being freed?      
+
+399
+00:18:01,714 --> 00:18:02,346
+In this case it's not like,     
+
+400
+00:18:02,414 --> 00:18:04,482
+not like necessary that         
+we have a leak, but             
+
+401
+00:18:04,550 --> 00:18:06,917
+we're just using too much       
+memory for some reason. And so  
+
+402
+00:18:06,986 --> 00:18:10,454
+let's go off into               
+the code here. And              
+
+403
+00:18:10,523 --> 00:18:12,690
+we're inside this               
+ClassroomViewController,        
+
+404
+00:18:12,758 --> 00:18:17,361
+which I will kinda show how     
+it works at the high level.     
+
+405
+00:18:17,430 --> 00:18:21,632
+It's pretty simple. We have     
+this UI switch, which is that   
+
+406
+00:18:21,701 --> 00:18:24,869
+button at the top that appears  
+next to the show hint text.     
+
+407
+00:18:24,937 --> 00:18:27,838
+And when we tap on it and it's  
+on, we fetch this hint. So      
+
+408
+00:18:27,907 --> 00:18:30,474
+the idea is we're simulating    
+doing a number of requests and  
+
+409
+00:18:30,543 --> 00:18:31,409
+getting this data back for      
+
+410
+00:18:31,477 --> 00:18:32,710
+this particular                 
+hint from online.               
+
+411
+00:18:32,779 --> 00:18:35,045
+And then we're displaying       
+it on the screen and            
+
+412
+00:18:35,114 --> 00:18:39,050
+otherwise we're going to null   
+out this stuff that existed.    
+
+413
+00:18:41,620 --> 00:18:43,888
+So when we call fetch hint,     
+what we do is we                
+
+414
+00:18:45,624 --> 00:18:47,824
+allocate this thing called      
+the factorization question,     
+
+415
+00:18:47,893 --> 00:18:51,395
+which is this class down here   
+at the bottom. And we allocate  
+
+416
+00:18:51,464 --> 00:18:54,165
+a factorization answer which    
+is this other class down here   
+
+417
+00:18:54,234 --> 00:18:55,899
+at the bottom, which has        
+text for the answers.           
+
+418
+00:18:55,968 --> 00:18:58,535
+So these two labels being       
+displayed at the bottom. And    
+
+419
+00:18:58,604 --> 00:19:01,038
+then on the answer itself,      
+
+420
+00:19:01,107 --> 00:19:03,707
+we give a handle back           
+to the question.                
+
+421
+00:19:03,776 --> 00:19:08,345
+And then inside of              
+the question itself,            
+
+422
+00:19:08,414 --> 00:19:11,515
+we also have an array, which    
+is trying to store references   
+
+423
+00:19:11,584 --> 00:19:13,484
+off to all the answers for      
+that particular question.       
+
+424
+00:19:13,552 --> 00:19:15,953
+In this case, there's just      
+one. But we can imagine a data  
+
+425
+00:19:16,022 --> 00:19:17,321
+structure needing               
+many answers,                   
+
+426
+00:19:17,390 --> 00:19:19,623
+because we might have many      
+answers to a given question.    
+
+427
+00:19:19,692 --> 00:19:21,325
+So that's what's                
+going on there.                 
+
+428
+00:19:21,394 --> 00:19:23,694
+And then we have this thing     
+called the askerImgUrl,         
+
+429
+00:19:23,763 --> 00:19:26,196
+which is the, the image that's  
+gonna get displayed for         
+
+430
+00:19:26,265 --> 00:19:30,667
+the person asking the current   
+question. And that is the URL   
+
+431
+00:19:30,736 --> 00:19:34,805
+of some image from the web.     
+And so once we fetch the hint,  
+
+432
+00:19:34,874 --> 00:19:37,007
+and we update the UI,           
+we go off and                   
+
+433
+00:19:37,076 --> 00:19:40,844
+we set off all the text on      
+those labels. We set that       
+
+434
+00:19:40,913 --> 00:19:44,081
+the whole bottom section on     
+the screen should be mapped to  
+
+435
+00:19:44,149 --> 00:19:47,651
+whether that's reach up the     
+top is enabled or disabled.     
+
+436
+00:19:47,720 --> 00:19:51,488
+And then, if it has just        
+been turn on we go often and    
+
+437
+00:19:51,557 --> 00:19:54,925
+fetch this image online.        
+So, that's what this code is    
+
+438
+00:19:54,993 --> 00:19:57,761
+doing here and when we're       
+done way inside here and        
+
+439
+00:19:57,830 --> 00:20:00,298
+may have the data from this     
+image, we're making image for   
+
+440
+00:20:00,366 --> 00:20:03,300
+you. And we set it off          
+as an image with data,          
+
+441
+00:20:03,369 --> 00:20:06,236
+like Paul did in lecture. And   
+then we set its contentMode,    
+
+442
+00:20:06,305 --> 00:20:10,408
+and we add a subview. So every  
+time that the hintSwitch gets   
+
+443
+00:20:10,476 --> 00:20:12,843
+turns on, we go off and fetch   
+the image from online, and      
+
+444
+00:20:12,912 --> 00:20:14,711
+we add a subview to             
+the screen. So, of course,      
+
+445
+00:20:14,780 --> 00:20:15,645
+we have a problem here,         
+
+446
+00:20:15,714 --> 00:20:17,948
+which is that if you keep       
+adding successive subviews,     
+
+447
+00:20:18,017 --> 00:20:20,017
+you are adding memory to        
+your app, repeatedly.           
+
+448
+00:20:22,154 --> 00:20:24,455
+That's why we saw the blue      
+line going up and up and        
+
+449
+00:20:24,524 --> 00:20:27,225
+up and up and up, right?        
+So that kinda tipped us off,    
+
+450
+00:20:27,293 --> 00:20:28,659
+since it's going up and         
+up we should go look            
+
+451
+00:20:28,728 --> 00:20:30,461
+inside the code and see if      
+there is any reason why we      
+
+452
+00:20:30,529 --> 00:20:32,563
+would just be repeatedly        
+allocating memory without       
+
+453
+00:20:32,631 --> 00:20:34,598
+ever freeing it. And            
+here is our answer right here,  
+
+454
+00:20:34,667 --> 00:20:36,534
+its this highlighted            
+line of code. So it's           
+
+455
+00:20:36,602 --> 00:20:38,502
+kind of how the allocation      
+still works, it's for kind of   
+
+456
+00:20:38,571 --> 00:20:40,604
+generally figuring out where    
+memory is being allocated.      
+
+457
+00:20:40,673 --> 00:20:42,673
+But it doesn't actually         
+go that much deeper into        
+
+458
+00:20:42,741 --> 00:20:45,342
+figuring out did you leak       
+memory or anything like that.   
+
+459
+00:20:45,410 --> 00:20:47,578
+So that's what the next and     
+final instrument that we're     
+
+460
+00:20:47,647 --> 00:20:50,347
+going to show today is for,     
+which is the lease instrument.  
+
+461
+00:20:50,416 --> 00:20:54,285
+So let's pop open               
+instruments again,              
+
+462
+00:20:54,353 --> 00:20:56,787
+stop our previous run.          
+
+463
+00:21:01,994 --> 00:21:04,428
+And we will click on the next   
+and final leaks tool.           
+
+464
+00:21:10,836 --> 00:21:14,004
+And then we will head on over   
+to the classroom again and      
+
+465
+00:21:14,073 --> 00:21:16,706
+we'll notice that at            
+the bottom here we have this    
+
+466
+00:21:16,775 --> 00:21:19,877
+kind of like, periodic little   
+green check mark saying,        
+
+467
+00:21:19,946 --> 00:21:22,979
+you have no memory leaks,       
+good job. So far for this,      
+
+468
+00:21:23,048 --> 00:21:25,816
+one of the instrument's trees   
+we haven't detected any leaked  
+
+469
+00:21:25,885 --> 00:21:27,351
+memory and you can see          
+it's still green and            
+
+470
+00:21:27,419 --> 00:21:28,218
+that's great. So                
+
+471
+00:21:28,287 --> 00:21:30,754
+what you might do in this case  
+is just go off through normal   
+
+472
+00:21:30,823 --> 00:21:32,022
+use cases of your app and       
+
+473
+00:21:32,091 --> 00:21:34,458
+just try things out and         
+see if you have any problems.   
+
+474
+00:21:34,526 --> 00:21:38,362
+So we might, like, show this    
+hint, unshow this hint, and     
+
+475
+00:21:38,431 --> 00:21:40,498
+the moment that we do that we   
+actually see that we already    
+
+476
+00:21:40,566 --> 00:21:43,033
+have a red x here which means   
+that the leak checker has       
+
+477
+00:21:43,102 --> 00:21:46,871
+detected we have a memory leak  
+somehow. That's no good. So     
+
+478
+00:21:46,939 --> 00:21:48,939
+if we want to figure out more   
+details about what's going      
+
+479
+00:21:49,008 --> 00:21:51,108
+on let's say that we go onto    
+one of these x's where it says  
+
+480
+00:21:51,176 --> 00:21:53,944
+look there are twenty new       
+leaks. And we click on it and   
+
+481
+00:21:54,013 --> 00:21:56,280
+wow look at all these           
+leaks that are happening,       
+
+482
+00:21:56,348 --> 00:21:58,281
+and how could so many leaks     
+be happening within a single    
+
+483
+00:21:58,350 --> 00:22:00,851
+simple application? But         
+it turns out that these leaks   
+
+484
+00:22:00,920 --> 00:22:04,821
+are all happening very under    
+the hood like malic this malic  
+
+485
+00:22:04,890 --> 00:22:08,259
+leak to this leak. So those     
+might be caused by one general  
+
+486
+00:22:08,327 --> 00:22:11,394
+greater leak inside of our      
+app which is things like        
+
+487
+00:22:11,463 --> 00:22:14,465
+question and answer which were  
+those classes that we created.  
+
+488
+00:22:14,534 --> 00:22:17,233
+You can see them here inside    
+that view controller. So        
+
+489
+00:22:17,302 --> 00:22:19,803
+these are the things that are   
+the root cause of these leaks.  
+
+490
+00:22:19,872 --> 00:22:21,739
+But still looking at this       
+trace right here it's not       
+
+491
+00:22:21,807 --> 00:22:22,839
+exactly obvious                 
+
+492
+00:22:22,908 --> 00:22:24,475
+why that leak happened. And so  
+
+493
+00:22:24,543 --> 00:22:26,209
+we might want to go into        
+a little bit more detail,       
+
+494
+00:22:26,278 --> 00:22:28,745
+and figure out, what the heck,  
+why, where is this thing        
+
+495
+00:22:28,814 --> 00:22:31,715
+coming from and what's going    
+on here. And if you'll notice   
+
+496
+00:22:31,783 --> 00:22:35,085
+up here on this tab, which      
+exists in all the instruments,  
+
+497
+00:22:35,153 --> 00:22:37,922
+we can actually select the way  
+that we want it to display      
+
+498
+00:22:37,990 --> 00:22:40,758
+this data. So right here we     
+just have this kind of big,     
+
+499
+00:22:40,827 --> 00:22:41,859
+set of all the information,     
+
+500
+00:22:41,927 --> 00:22:44,862
+but we can also do this thing   
+called cycles and routes,       
+
+501
+00:22:44,930 --> 00:22:47,698
+inside the leak checker.        
+So when we go inside here,      
+
+502
+00:22:47,766 --> 00:22:51,001
+we see that we have some        
+kind of MallocBlock             
+
+503
+00:22:51,070 --> 00:22:53,203
+right here that is referencing  
+something else that was         
+
+504
+00:22:53,272 --> 00:22:56,740
+referenced up here earlier.     
+And that there is overall some  
+
+505
+00:22:56,809 --> 00:22:59,343
+circular reference of memory,   
+some circular dependency. And   
+
+506
+00:22:59,411 --> 00:23:01,545
+so maybe when we're freeing     
+memory from one thing,          
+
+507
+00:23:01,614 --> 00:23:04,415
+it's not actually freeing       
+everything because things       
+
+508
+00:23:04,483 --> 00:23:07,017
+still have references to        
+things that don't exist in      
+
+509
+00:23:07,086 --> 00:23:09,353
+memory. So we're actually       
+getting rid of all of our       
+
+510
+00:23:09,422 --> 00:23:12,289
+references. And sometimes when  
+you run instruments it won't    
+
+511
+00:23:12,358 --> 00:23:16,393
+actually symbolicate your, the  
+names of your code classes,     
+
+512
+00:23:16,462 --> 00:23:19,663
+or objects in memory,           
+into the cycle checker,         
+
+513
+00:23:19,731 --> 00:23:21,498
+and sometimes it will           
+properly do that. So,           
+
+514
+00:23:21,567 --> 00:23:26,736
+if I run it again here We'll    
+start, we'll restart the app,   
+
+515
+00:23:26,805 --> 00:23:31,308
+maybe we'll get                 
+luckier this time. And          
+
+516
+00:23:31,377 --> 00:23:37,848
+when we show a hint, And        
+then we unshow a hint.          
+
+517
+00:23:41,687 --> 00:23:45,055
+We'll see that there's a leak   
+here. Oops, I guess we          
+
+518
+00:23:45,123 --> 00:23:48,659
+have the same problem. So,      
+first lesson of instruments is  
+
+519
+00:23:48,728 --> 00:23:50,527
+that sometimes in the leaks     
+checker you'll notice that it   
+
+520
+00:23:50,596 --> 00:23:53,630
+doesn't actually symbolicate    
+this. In some use cases of      
+
+521
+00:23:53,699 --> 00:23:57,334
+this you might see it show      
+that the questions arrayed      
+
+522
+00:23:57,403 --> 00:23:59,136
+down here in the answers        
+array are up at the top and     
+
+523
+00:23:59,204 --> 00:24:01,104
+that they have a circular       
+reference to each other.        
+
+524
+00:24:01,173 --> 00:24:03,741
+It might actually show that if  
+it symbolicates the debugging   
+
+525
+00:24:03,809 --> 00:24:06,977
+information. But you're not     
+guaranteed to have that. But    
+
+526
+00:24:07,046 --> 00:24:08,912
+in any case, we know that       
+we have a cycle here.           
+
+527
+00:24:08,981 --> 00:24:11,515
+So what we can do now is        
+go off knowing that we have     
+
+528
+00:24:11,583 --> 00:24:15,919
+a memory cycle somehow, and     
+look at our code and go hm,     
+
+529
+00:24:15,988 --> 00:24:18,789
+something about questions and   
+answers has a memory cycle.     
+
+530
+00:24:18,857 --> 00:24:21,391
+And so I, you can see I have    
+these helpful comments here     
+
+531
+00:24:21,460 --> 00:24:24,027
+after each line like the        
+factorization reference count   
+
+532
+00:24:24,096 --> 00:24:26,397
+is 1. So                        
+when we allocate when we        
+
+533
+00:24:26,465 --> 00:24:29,399
+allocate a question to set off  
+to this instance variable,      
+
+534
+00:24:29,468 --> 00:24:33,370
+which is the optional question  
+here, factorization question,   
+
+535
+00:24:33,439 --> 00:24:38,075
+then there's also an answer.    
+We're making one here and       
+
+536
+00:24:38,144 --> 00:24:40,477
+one here, which means           
+the reference count is one for  
+
+537
+00:24:40,546 --> 00:24:42,345
+each of them because            
+these are classes,              
+
+538
+00:24:42,414 --> 00:24:45,282
+which means they're reference   
+types, so they're allocated     
+
+539
+00:24:45,351 --> 00:24:48,418
+with reference counting. And    
+then you see down here when we  
+
+540
+00:24:48,487 --> 00:24:52,122
+set off the factorization       
+answers question property,      
+
+541
+00:24:52,191 --> 00:24:55,525
+now factorization question has  
+a reference count of 2 because  
+
+542
+00:24:55,594 --> 00:24:58,595
+we actually stored it off on    
+the answer. And then the same   
+
+543
+00:24:58,664 --> 00:25:01,598
+thing is true for               
+setting off on the answers.     
+
+544
+00:25:01,667 --> 00:25:04,467
+So in theory, it makes sense    
+we could have a cycle here      
+
+545
+00:25:04,536 --> 00:25:06,570
+because we have the answer      
+referencing the question and    
+
+546
+00:25:06,639 --> 00:25:08,705
+the question referencing        
+the answers. So                 
+
+547
+00:25:08,774 --> 00:25:11,541
+there is circularity going on.  
+
+548
+00:25:11,610 --> 00:25:15,645
+And of course, we do because    
+we are never actually, when we  
+
+549
+00:25:15,714 --> 00:25:20,383
+uncheck the hint switch up at   
+the top, that's this else case  
+
+550
+00:25:20,452 --> 00:25:23,753
+right here, we're nilling       
+out the factorization answer    
+
+551
+00:25:23,822 --> 00:25:28,057
+optional and                    
+the question optional. But      
+
+552
+00:25:28,126 --> 00:25:31,028
+the reference counts were two,  
+not one, because we internally  
+
+553
+00:25:31,097 --> 00:25:34,264
+set references to each of       
+them off on each other. So      
+
+554
+00:25:34,332 --> 00:25:36,233
+we never actually get the       
+reference counts down to zero,  
+
+555
+00:25:36,302 --> 00:25:38,701
+which would cause them          
+to be fully deallocated,        
+
+556
+00:25:38,770 --> 00:25:40,971
+which is why we have a memory   
+leak popping up due to what's   
+
+557
+00:25:41,040 --> 00:25:43,073
+called a complex cycle. That's  
+what instruments was telling    
+
+558
+00:25:43,142 --> 00:25:46,409
+us. So now our question         
+becomes, how on earth do we     
+
+559
+00:25:46,478 --> 00:25:48,612
+solve this problem? And there   
+are lots of ways that we could  
+
+560
+00:25:48,681 --> 00:25:51,248
+solve this problem. One of      
+the ways is we could say,       
+
+561
+00:25:51,317 --> 00:25:53,149
+the problem has to do with      
+reference counts. What we       
+
+562
+00:25:53,218 --> 00:25:55,552
+really need to do is get these  
+reference counts down to zero.  
+
+563
+00:25:55,621 --> 00:25:59,957
+So manually we can go in        
+like it's 1995 and say          
+
+564
+00:26:00,025 --> 00:26:03,727
+factorizationAnswer.question =  
+nil,                            
+
+565
+00:26:03,795 --> 00:26:08,899
+which will cause the reference  
+count to actually be zero.      
+
+566
+00:26:08,967 --> 00:26:11,301
+And then that will cause the    
+reference count to hit zero.    
+
+567
+00:26:11,370 --> 00:26:13,436
+And then it will get            
+deallocated properly. But       
+
+568
+00:26:13,505 --> 00:26:15,639
+imagine if every time you ever  
+wrote a code that used classes  
+
+569
+00:26:15,707 --> 00:26:17,707
+and allocated things on the     
+heap, you had to manually go    
+
+570
+00:26:17,776 --> 00:26:19,342
+make sure your reference        
+counts were zero,               
+
+571
+00:26:19,411 --> 00:26:21,678
+that would be really gross.     
+And it would be nice if         
+
+572
+00:26:21,747 --> 00:26:23,947
+the programming language        
+itself gave you constructs to   
+
+573
+00:26:24,016 --> 00:26:26,683
+avoid this problem in the       
+first place. And of course,     
+
+574
+00:26:26,752 --> 00:26:30,520
+Swift does. It affords you      
+many. So the first and          
+
+575
+00:26:30,589 --> 00:26:33,190
+simplest way that Paul has      
+gone over in lecture with       
+
+576
+00:26:33,258 --> 00:26:37,126
+regard to closures is to use    
+this keyword called weak. So    
+
+577
+00:26:37,195 --> 00:26:41,064
+if we store off the reference   
+to the question inside answer   
+
+578
+00:26:41,133 --> 00:26:44,901
+as a weak variable, then it     
+doesn't actually increment      
+
+579
+00:26:44,970 --> 00:26:47,704
+that reference count.           
+And there's actually no reason  
+
+580
+00:26:47,773 --> 00:26:49,806
+that why when the answer        
+itself is set to nil,           
+
+581
+00:26:49,875 --> 00:26:50,874
+it won't go down to zero and    
+
+582
+00:26:50,943 --> 00:26:53,410
+get deallocated properly.       
+So all we really need to do     
+
+583
+00:26:53,479 --> 00:26:56,212
+is add weak in order to get     
+the same behavior as manually   
+
+584
+00:26:56,281 --> 00:26:59,316
+going off and                   
+
+585
+00:26:59,384 --> 00:27:01,851
+So that's a nice thing that     
+Swift provides you to solve     
+
+586
+00:27:01,920 --> 00:27:03,654
+a reference counting            
+problem like that. But          
+
+587
+00:27:03,722 --> 00:27:06,656
+there's one more way that       
+Swift gives you to solve this   
+
+588
+00:27:06,725 --> 00:27:09,859
+problem up front in the very    
+first place. Which is to say,   
+
+589
+00:27:09,928 --> 00:27:12,562
+you know, we have this          
+distinction between             
+
+590
+00:27:12,631 --> 00:27:16,466
+classes and structs, reference  
+types and value types. And why  
+
+591
+00:27:16,535 --> 00:27:20,270
+on earth are we using classes   
+here to increment reference     
+
+592
+00:27:20,339 --> 00:27:24,207
+types when a struct would have  
+done just the same. This is,    
+
+593
+00:27:24,276 --> 00:27:26,042
+there's no reason that this     
+needs to be a class. We don't   
+
+594
+00:27:26,111 --> 00:27:27,944
+need a handle on it anywhere    
+else in the application.        
+
+595
+00:27:28,013 --> 00:27:30,614
+We don't need a pointer to it.  
+We don't need to worry about    
+
+596
+00:27:30,683 --> 00:27:33,483
+the fact that making many       
+of them is going to cause       
+
+597
+00:27:33,552 --> 00:27:35,686
+way too much memory to happen   
+cuz they're just questions and  
+
+598
+00:27:35,754 --> 00:27:38,188
+answers which are tiny amounts  
+of data. So what the heck?      
+
+599
+00:27:38,256 --> 00:27:40,456
+Why are these classes in the    
+first place? All righty, so     
+
+600
+00:27:40,525 --> 00:27:43,426
+since we've changed these two   
+structs now, we should have no  
+
+601
+00:27:43,495 --> 00:27:45,829
+more reference kind of going    
+on anywhere with questions and  
+
+602
+00:27:45,898 --> 00:27:48,799
+answers. Which means that       
+value typing has solved our     
+
+603
+00:27:48,868 --> 00:27:51,568
+whole allocation leak           
+problem outright,               
+
+604
+00:27:51,637 --> 00:27:54,705
+which is a great feature        
+of the Swift language           
+
+605
+00:27:54,773 --> 00:27:57,006
+in the first place. So          
+that's actually kind of the,    
+
+606
+00:27:57,075 --> 00:27:58,675
+the nuclear bomb and            
+great solution to,              
+
+607
+00:27:58,743 --> 00:28:01,145
+to this problem which is        
+that you should just use,       
+
+608
+00:28:01,213 --> 00:28:03,880
+you should use value types      
+when, when possible, and        
+
+609
+00:28:03,949 --> 00:28:05,983
+when it makes sense to. If you  
+don't need a reference type,    
+
+610
+00:28:06,052 --> 00:28:09,086
+then you should use             
+the value type. And             
+
+611
+00:28:09,154 --> 00:28:11,754
+that's kind of the end of       
+the leaks demonstration here.   
+
+612
+00:28:11,823 --> 00:28:16,459
+So as you can, as you can see,  
+we've been through these four   
+
+613
+00:28:16,528 --> 00:28:19,929
+main types of instruments       
+here, the activity monitor,     
+
+614
+00:28:19,998 --> 00:28:22,266
+the time profiler,              
+allocations, and leaks.         
+
+615
+00:28:22,334 --> 00:28:23,333
+And you've gotten               
+a kind of taste                 
+
+616
+00:28:23,402 --> 00:28:24,601
+of how they work.               
+If you wanna go off and         
+
+617
+00:28:24,670 --> 00:28:27,037
+learn how more of them work,    
+maybe you're going off,         
+
+618
+00:28:27,106 --> 00:28:28,772
+you wanna figure out what's     
+going over the network.         
+
+619
+00:28:28,841 --> 00:28:30,974
+You can learn more about the    
+Network tab on your own time,   
+
+620
+00:28:31,042 --> 00:28:33,777
+or you're making some kind      
+of graphics application,        
+
+621
+00:28:33,845 --> 00:28:37,080
+you might use these purple      
+colored ones, like scene kit,   
+
+622
+00:28:37,149 --> 00:28:38,948
+or metal system trace,          
+or core animation.              
+
+623
+00:28:39,017 --> 00:28:40,917
+So there's lots more that       
+you can do with instruments.    
+
+624
+00:28:40,986 --> 00:28:42,653
+And it's very fun to            
+go off and use it.              
+
+625
+00:28:42,721 --> 00:28:45,222
+So I encourage you to go off    
+and try all of them out and     
+
+626
+00:28:45,290 --> 00:28:47,290
+figure out how you              
+can Introduce it                
+
+627
+00:28:47,359 --> 00:28:49,626
+into your debugging process so  
+that you're not sitting there   
+
+628
+00:28:49,695 --> 00:28:52,296
+really confused by your most    
+complex bugs. And instead,      
+
+629
+00:28:52,364 --> 00:28:54,631
+you're going off and just       
+getting more data and figuring  
+
+630
+00:28:54,700 --> 00:28:56,866
+out what's true and not true    
+about your application.         
+
+631
+00:28:56,935 --> 00:28:58,902
+So that's it for the            
+instruments demo for today.     
+
+632
+00:28:58,971 --> 00:29:01,805
+I hope this has been useful,    
+and we'll see you in class on   
+
+633
+00:29:01,874 --> 00:29:03,806
+Monday.                         
+>> For                          
+
+634
+00:29:03,875 --> 00:29:13,282
+more, please visit              
+us at stanford.edu.             
+

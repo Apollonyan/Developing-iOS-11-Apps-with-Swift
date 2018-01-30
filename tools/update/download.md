@@ -1,6 +1,6 @@
 [返回主页](../../README.md) / [Back to Main Page](../../en/README.md)
 
-# 课程视频 / Videos
+# 课程视频 / Lecture Videos
 
 1. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/c2/81/f1/c281f1aa-3abd-e87e-e16d-7eb0d4b1a5d8/311-6554896743492737986-01_9_25_17_1080p_CS193p_1080p_3mb_cc.m4v">Introduction to iOS 11, Xcode 9 and Swift 4</a></summary>Paul Hegarty provides an overview of the lecture series and introduces the different components in iOS. He concludes with a demo of Concentration Game.</details>
 2. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/a3/0f/1e/a30f1e6c-66b6-35da-ca51-321d272f0444/309-2503760600607007728-02_9_27_17_CS193p_720p_3mb_cc.m4v">MVC</a></summary>Paul Hegarty explains the Model-View-Controller (MVC) concept. He then continues the Concentration demo: demonstrating the application of MVC to the Concentration Game.</details>
@@ -18,6 +18,13 @@
 14. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/0b/fe/9f/0bfe9fe6-faae-0470-a9b0-81c1908cf484/305-1366423083051400424-14_11_08_17_prores_1_CS193p_1080p_3mb_cc.m4v">Persistence and Documents Demo</a></summary>Paul Hegarty extends his coverage of Documents. He then does a demonstration of using Codable to create a JSON representation, storing it in the filesystem then letting UIDocument store it instead, and then using UIDocumentBrowserViewController to choose/create/rename/move documents.</details>
 15. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/ca/bd/dc/cabddc02-88ed-f3b1-42df-a9efb8271e48/532-3346936006580998385-15_11_13_17_prores_CS193p_1080p_3mb_cc.m4v">Alerts, Notifications, Application Lifecycle</a></summary>Paul Hegarty covers alerts and action sheets, notifications and KVO, and the application lifecycle.</details>
 16. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/53/9b/4d/539b4d08-12e4-e0ff-8429-21d3b3df534a/511-8983128522622077657-16_11_15_17_prores_CS193p_1080p_3mb.m4v">More Segues</a></summary>Paul Hegarty talks about modal, popover, unwind, and embed segues.</details>
+17. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/e9/be/0c/e9be0c8d-28dc-a6fd-8e71-8515c2f78ca5/506-4176003801724267012-17_11_29_17_WIP02_CS193p_1080p_3mb_cc.m4v">Core Motion and Camera</a></summary>Paul Hegarty introduces Core Motion – detecting the position and movement of the device – and then does a demo with Gravity-Driven Playing Card. He then covers taking pictures within your app.</details>
+
+# 周五课程 / Friday Sessions
+
+1. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/05/6b/ee/056beea1-11c6-13da-e46a-56952ed2c733/504-8815564797834236275-Friday_01_9_29_17_WIP02_CS193p_1080p_3mb_cc.m4v">Debugging and Xcode Tips and Tricks</a></summary>Jason Riggs talks about debugging and shares Xcode tips and tricks.</details>
+2. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/7b/61/60/7b616031-b2f8-bf76-5171-9dd7c29109ba/533-6252825471341223932-Friday_02_WIP02_1080p_CS193p_1080p_3mb_cc.m4v">Github and Source Control Workflow</a></summary>Junjie Ke covers Github and the source control workflow.</details>
+3. <details><summary><a href="https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/30/9a/56/309a56d3-b57a-0bb1-c465-d80ec6740160/531-9139141023410630962-Friday_03_10_27_17_WIP02_CS193p_1080p_3mb_cc.m4v">Instruments</a></summary>Jason Riggs explains instruments.</details>
 
 # 课程讲义 / Slides
 
@@ -37,6 +44,7 @@
 14. [Lecture 14 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/fa/71/a4/fa71a463-d836-f2d2-005d-e00ca2d84b48/322-5794459892624250293-CS193P_F17_Lecture_14.pdf)
 15. [Lecture 15 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/1d/4d/19/1d4d19f2-e6de-0cb4-d7c7-f33d68f66b23/522-830176750758320683-CS193P_F17_Lecture_15.pdf)
 16. [Lecture 16 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/71/df/17/71df17c8-daa9-747c-cc0e-610303b1129d/512-802352814004650525-CS193P_F17_Lecture_16.pdf)
+17. [Lecture 17 Slides](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/2c/43/84/2c438427-46b9-efb4-d774-0edc98073f3b/520-5280642336803569160-CS193P_F17_Lecture_17_Slides.pdf)
 
 # 阅读作业 / Readings
 
@@ -53,4 +61,4 @@
 5. [Image Gallery](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic118/v4/22/c3/00/22c30013-28dd-41eb-e104-a4594ec95dad/308-8518403617003934463-CS193P_F17_Assignment_5.pdf)
 6. [Persistent Image Gallery](https://itunesu-assets.itunes.apple.com/apple-assets-us-std-000001/CobaltPublic128/v4/5a/46/19/5a4619d5-bee0-1379-e204-731912cea353/307-9138746427331321981-CS193P_F17_Assignment_6.pdf)
 
-<details><summary>已收录 41/41 Entries</summary><script type="text/javascript"> window.onload = function () { document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials"; } </script></details>
+<details><summary>已收录 46/46 Entries</summary><script type="text/javascript"> window.onload = function () { document.getElementsByClassName("project-name")[0].innerHTML = "下载列表 / Course Materials"; } </script></details>
