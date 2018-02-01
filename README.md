@@ -14,7 +14,7 @@
 
 ----
 
-翻译进度: ![2集](http://progressed.io/bar/2?scale=20&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。其他文档等可以查看[下载列表](./tools/update/download.md)（从 iTunes U 提取）
+翻译进度: ![3集](http://progressed.io/bar/3?scale=20&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。其他文档等可以查看[下载列表](./tools/update/download.md)（从 iTunes U 提取）
 
 课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)；字幕会在每集校对后作为弹幕上传。
 
@@ -29,7 +29,7 @@
 |[Paul Hegarty](https://piazza.com/professors/show/paul_hegarty)|iTunes U（仅 iOS）|Podcasts（多平台）|
 |--:|:--:|:--:|
 |[CS 193P](http://web.stanford.edu/class/cs193p/cgi-bin/drupal/) [iPhone Application Development](https://explorecourses.stanford.edu/search?q=CS+193P%3A+iOS+Application+Development)|[Developing iOS 11 Apps with Swift - Free Course by Stanford](https://itunes.apple.com/course/id1309275316) |[Developing iOS 11 Apps with Swift By Paul Hegarty](https://itunes.apple.com/podcast/id1315130780)|
-|RSS 源|[隔周三更新两集](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)|未知|
+|RSS 源|[每周三更新，更新完毕](https://p1-u.itunes.apple.com/WebObjects/LZStudent.woa/ra/feed/CODOAOSRJY0GOAQH)|[结束后统一更新，更新完毕](http://podcasts.apple.com/stanford/developing_ios11_apps.xml)|
 |课程封面|[![iTunes U](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/466x570.png)](https://is3-ssl.mzstatic.com/image/thumb/course/CobaltPublic128/v4/81/d0/9c/81d09ca1-ec7b-19b2-a215-4ae39df215c5/source/466x570.png)|[![Podcasts](http://is1.mzstatic.com/image/thumb/Music128/v4/fa/b1/5c/fab15cf7-b968-7e65-0f32-9955ae02fc3e/source/1024x1024bb.jpg)](http://is1.mzstatic.com/image/thumb/Music128/v4/fa/b1/5c/fab15cf7-b968-7e65-0f32-9955ae02fc3e/source/1024x1024bb.jpg)|
 |[![首页推广](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg)|[![带英文](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)](http://is5.mzstatic.com/image/thumb/comp/Features118/v4/b5/ad/37/b5ad3702-1d82-94b6-3056-787cbf98c41b/temp..lejovgyc.png/1360x520fa.jpg?fbl=en-GB&cdt=cdt-1-326037343&cte=cte-1504292368040-10000&dk=dk-20209947-1474866501&l=en-GB)|[![Twitter](https://pbs.twimg.com/media/DPz9KZ4VQAAyUwJ.jpg)](https://pbs.twimg.com/media/DPz9KZ4VQAAyUwJ.jpg)| 
 
