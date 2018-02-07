@@ -106,15 +106,17 @@ well, can't do it. Okay, these other MVCs down in the corner,
 22
 00:01:09,036 --> 00:01:12,170
 they serve as part of the view of another MVC. That's
-
+他们通过控制其他 MVC 中的一个 view，来为整个 app 服务。
 
 23
 00:01:12,239 --> 00:01:16,608
 the way MVC's relate. An MVC is a view, part of a view
+这就是 MVC 之间相互联系的方法。一个 MVC 就是一个 view，同时也是其他类中的 view 的一部分。
 
 24
 00:01:16,677 --> 00:01:19,811
 of another class. And that has some ramifications for MVC,
+
 
 25
 00:01:19,880 --> 00:01:22,781
@@ -1160,34 +1162,41 @@ which is often nice to have a title of your master of
 00:14:10,183 --> 00:14:13,517
 your split view. Now you can- One thing to notice about this
 
+
 286
 00:14:13,586 --> 00:14:16,420
 of course, is that now the master of your split view is
+现在你的 Split View 的主视图控制器不再是 Calculator 了，
 
 287
 00:14:16,489 --> 00:14:19,757
 no longer the calculator, it's a navigationController.
+而是一个 navigationController。
 
 288
 00:14:19,826 --> 00:14:21,492
 So if you actually wanted to get out the calculator,
+如果你确实想要获取到 calculator，
 
 289
 00:14:21,561 --> 00:14:23,394
 you would have to get the master and
+你必须先获取到主视图控制器，
 
 290
 00:14:23,463 --> 00:14:27,465
 then look at the master's rootViewController to find
+然后找到它的 rootViewController，
 
 291
 00:14:27,533 --> 00:14:29,901
 the calculator there.
+你要找的 calculator 在那里。
 
 292
 00:14:29,969 --> 00:14:32,469
 By the way, you can also put the detail, wrap it in
-另外，你也可以
+另外，你也可以把你的细节视图控制器放在一个 navigationController 中
 
 293
 00:14:32,538 --> 00:14:34,839
@@ -1202,25 +1211,27 @@ want to do that is to give it a title bar, cuz you don't,
 295
 00:14:37,977 --> 00:14:40,445
 you always navigate from the master, that's why it's called
-你总是从导航来
-you always navigate from the master, that's why it's called
+你总是从主视图控制器导入的，这也是他被称为“主”的原因。
 
 296
 00:14:40,513 --> 00:14:43,313
 the master. So you can do it, but again if you do that,
+所以你可以这么做，不过再一次，如果你这么做的话
 
 297
 00:14:43,382 --> 00:14:45,716
 make sure when you look at the detail, if you find that
+确保当你关注 detail 的时候，
 
 298
 00:14:45,784 --> 00:14:48,652
 it's a navigationController, you need to look inside and
+如果你发现他是一个 navigationController，你就需要向里看，
 
 299
 00:14:48,721 --> 00:14:51,488
 see the thing that's inside of it, the rootViewController.
-
+找到它内部的视图控制器，rootViewController。
 
 300
 00:14:51,557 --> 00:14:53,223
