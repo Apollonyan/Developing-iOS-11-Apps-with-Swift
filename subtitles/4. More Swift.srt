@@ -4992,172 +4992,212 @@ show you an interesting thing about one of them.
 999
 00:52:11,495 --> 00:52:16,265
 So here is replace range, which, my pointer doesn't work
-这是 replaceSubrange 啊我的笔用不了了
+这是 replaceSubrange。啊我的控制器用不了了
 
 1000
 00:52:16,333 --> 00:52:18,133
 any more, but if you look at replace range,
-那你看一下 replaceSubrange 那里
+但你看一下 replaceSubrange 那里
 
 1001
 00:52:18,201 --> 00:52:21,069
 do you see where it's red, right there? That's that dot,
+看到红色的这个吗？那个
 
 1002
 00:52:21,138 --> 00:52:23,905
 dot less than thing, look, I forgot to put something on
+点点小于富豪，我是不是忘了放点东西
 
 1003
 00:52:23,974 --> 00:52:28,076
 the left. So what does that range go from? Okay,
+在左边？那这个区间是从哪里开始的呢？
 
 1004
 00:52:28,145 --> 00:52:31,613
 we know it goes to s.endIndex. Well, Swift is smart enough to
+但我们知道它是在 s.endIndex 结束。其实 Swift 很聪明
 
 1005
 00:52:31,682 --> 00:52:35,150
 know that that is a range of str-, the strings indexes,
+知道这是这个字符串的索引
 
 1006
 00:52:35,219 --> 00:52:38,854
 so it will automatically put start index at the beginning.
+所以它会自动认为开始的索引是在字符串的开头
 
 1007
 00:52:38,923 --> 00:52:40,155
 And if you left off the other side,
+如果你是只省略右边的话
 
 1008
 00:52:40,224 --> 00:52:43,659
 it will automatically put ending index at the end. So
+它会自动把字符串的结尾当作结束的索引
 
 1009
 00:52:43,728 --> 00:52:46,228
 you can oh, leave those arranged things open ended.
+也就是，你可以省略其中一个的边界
 
 1010
 00:52:46,297 --> 00:52:48,764
 But Swift has to be able to infer the type of whats going
+但 Swift 得先要能够判断发生了什么
 
 1011
 00:52:48,833 --> 00:52:50,065
 on there. So you can't always do it,
+所以你并不总是这样做
 
 1012
 00:52:50,134 --> 00:52:53,702
 but in that case you could. Okay, so
+但这里你是可以的。好
 
 1013
 00:52:53,771 --> 00:52:58,274
 that's string. I guess we'll go like this. So, to
+这就是字符串，就讲到这里。
 
 1014
 00:52:58,342 --> 00:53:02,611
 make this all understandable let's go back to our,
+为了让这个更容易理解，我们回到我们的
 
 1015
 00:53:02,679 --> 00:53:08,249
 um, concentration. And we're gonna make this
+Concentration 里，我们要把这个
 
 1016
 00:53:08,318 --> 00:53:12,421
 thing right here, this emoji choices,
+这里这个 emojiChoices 
 
 1017
 00:53:12,489 --> 00:53:15,424
 which is currently an array of emoji strings.
+它现在是一个表情字符串的数组
 
 1018
 00:53:15,492 --> 00:53:17,759
 I'm gonna change that. I'm gonna copy and paste it here.
+我要把它改掉，我复制粘贴一下
 
 1019
 00:53:17,828 --> 00:53:21,730
 I'm gonna change it from being an array, to being a string.
+我把它从数组改为字符串
 
 1020
 00:53:21,799 --> 00:53:24,433
 So I'm gonna take off the array things.
+所以我把数组的这些先去掉
 
 1021
 00:53:24,501 --> 00:53:29,304
 And I'm gonna get rid of all of these little commas. And
+我去掉这些逗号
 
 1022
 00:53:29,373 --> 00:53:32,707
 now emojiChoices is gonna be a string.
+现在 emojiChoices 就是个字符串了
 
 1023
 00:53:32,776 --> 00:53:35,577
 And I'm gonna have my code be the same,
+我就保持代码不变
 
 1024
 00:53:35,646 --> 00:53:38,179
 but instead of grab it out of the array, it's gonna grab it
+但不从数组里取值了。我获得这些值
 
 1025
 00:53:38,248 --> 00:53:41,250
 out of the string. Now as soon as I change that to a string,
+改成从字符串里。现在我把它改成字符串之后
 
 1026
 00:53:41,319 --> 00:53:44,853
 look what happens. Cannot convert value of type
+你看会发生什么？不能转换类型为 Int 的值
 
 1027
 00:53:44,921 --> 00:53:49,625
 int to expected argument, string.index. Okay, remove at,
+为期待的参数类型 String.Index。好吧，remove(at:)
 
 1028
 00:53:49,694 --> 00:53:52,027
 right here, which we moved to remove the thing,
+就这个，我们用来移除表情的
 
 1029
 00:53:52,095 --> 00:53:57,365
 where do you think that's declared? Anyone wanna guess?
+你认为这个方法是在哪里定义的？有谁想猜一下吗？
 
 1030
 00:53:57,434 --> 00:54:02,437
 Is that an array thing? A string? No,
+那是 Array 类的吗？还是 String 的？不
 
 1031
 00:54:02,506 --> 00:54:04,973
 that's in collection, range replaceable collection, right?
+它是 RangeReplaceableCollection 实现的
 
 1032
 00:54:05,042 --> 00:54:07,142
 So it's in a protocol somewhere that both string and
+是在这个 protocol 里某个地方，而且 String
 
 1033
 00:54:07,211 --> 00:54:07,976
 array implement. So
+和 Array 的遵守了这个协议。所以
 
 1034
 00:54:08,045 --> 00:54:10,178
 you would think it should just work here,
+你会认为这个应该可以直接行得通
 
 1035
 00:54:10,247 --> 00:54:13,315
 because emoji choices, yeah, now it's a string, but remove
+因为 emojiChoices 只不过现在变成了字符串，即使
 
 1036
 00:54:13,384 --> 00:54:15,884
 at is in range replaceable collection, they're range
+remove(at:) 是 RangeReplaceableCollection 里定义的
 
 1037
 00:54:15,952 --> 00:54:18,454
 replaceable collection. Why does this work? Well,
+但它们也都遵守这个协议，为什么这个行不通？
 
 1038
 00:54:18,522 --> 00:54:21,823
 because strings are not indexed by ints. And
+因为字符串不是靠 Int 索引的
 
 1039
 00:54:21,892 --> 00:54:25,494
 so this doesn't work. So we have to create a string.index,
+所以这个不能用。我们必须构造一个 String.Index
 
 1040
 00:54:25,562 --> 00:54:29,465
 I'm gonna do that. I'm gonna create a random string index
+那我就这样做，创建一个随机的字符串索引
 
 1041
 00:54:29,533 --> 00:54:34,002
@@ -6194,6 +6234,7 @@ I'm gonna assign operation = sqrt. Okay,
 1299
 01:08:12,922 --> 01:08:16,724
 sqrt is a function that takes a double and returns a double.
+sqrt 是个函数，接受一个 Double，返回一个 Double
 
 1300
 01:08:16,792 --> 01:08:20,161
