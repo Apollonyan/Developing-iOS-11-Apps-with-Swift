@@ -21,3186 +21,3985 @@ fall of 2017 and 18 academic year.
 5
 00:00:16,516 --> 00:00:19,885
 Today mostly, we're gonna talk about some Swift stuff.
+今天，大部分时间我们将要讨论一些 Swift 的事项
 
 6
 00:00:19,953 --> 00:00:23,321
 Now, you've hopefully done your homework for the reading,
+现在，希望你已经完成了你的阅读家庭作业
 
 7
 00:00:23,390 --> 00:00:25,891
 so some of the stuff will be kinda summary, but
+它们当中的一部分内容将会是总结
 
 8
 00:00:25,959 --> 00:00:28,560
 some of this is really not covered in the reading.
+而一部分语法并没有在阅读材料中涵盖
 
 9
 00:00:28,629 --> 00:00:32,197
 So I'm trying to give you the full picture of stuff,
+所以我将试图给你展示这些内容的全貌
 
 10
 00:00:32,266 --> 00:00:36,201
 that reading is really great but it is great concise.
+阅读材料是很棒的，但是它是非常简洁的
 
 11
 00:00:36,270 --> 00:00:37,201
 I know you probably feel like well,
+我知道你可能会觉得 
 
 12
 00:00:37,270 --> 00:00:39,171
 that was a lot of reading for something that's concise, but
+这里有太多的一些很简明的阅读内容
 
 13
 00:00:39,240 --> 00:00:41,473
 it is quite concise. So I'm gonna try and
+但是它是非常简明的，所以我要尝试
 
 14
 00:00:41,541 --> 00:00:43,909
 cover some of the other stuff. But before I do all that,
+涵盖一些其他的东西。在我开始之前
 
 15
 00:00:43,977 --> 00:00:46,912
 I'm gonna do a little, what I call a teaser demo of
+我要做些小事情，我管它叫做 auto-layout 的预告示例  
 
 16
 00:00:46,981 --> 00:00:50,115
 auto-layout where I'm gonna show you how we can make
+在这里我将展示，在翻牌游戏中
 
 17
 00:00:50,184 --> 00:00:53,919
 our UI in concentration look good when we rotate the phone,
+当我们旋转手机或者在不同尺寸的手机上运行程序的时候
 
 18
 00:00:53,987 --> 00:00:57,355
 or when we a run on little bit different sized iPhone, or
+如何令我们的 UI 看起来很不错
 
 19
 00:00:57,424 --> 00:01:01,226
 whatever. I call it a teaser because I don't intend to
+我把它叫做一个预告示例是因为我不想现在
 
 20
 00:01:01,295 --> 00:01:04,295
 teach you auto layout which is the feature that allows
+教你 auto layout 的内容，是它的特性才让我们
 
 21
 00:01:04,364 --> 00:01:06,765
 us to do that. It's just to show you what's possible.
+能够这么做。这个示例仅仅是向你展示一些可能性
 
 22
 00:01:06,833 --> 00:01:09,034
 We'll actually have a whole lecture on auto
+事实上我们会在三周后有完整的关于 auto layout
 
 23
 00:01:09,103 --> 00:01:13,204
 layout in about three weeks I think. But then,
+的一堂课。那时候
 
 24
 00:01:13,273 --> 00:01:15,907
 after I do that little demo, I'll be back. I'm first gonna
+在我做完那个小示例程序之后，我就会回来。我会
 
 25
 00:01:15,976 --> 00:01:18,577
 take just one minute to review what you should have
+先用一小会儿时间复习你应该
 
 26
 00:01:18,645 --> 00:01:21,513
 learned by what we did last week and I'm literally just
+在上周已经学会的内容，我会仅仅
 
 27
 00:01:21,582 --> 00:01:24,482
 gonna read it off a list with quick examples. And you can
+通过一个个快速的例子念一条条的内容
 
 28
 00:01:24,551 --> 00:01:26,818
 kind of say in your head, oh yeah, yeah I got that,
+你可以在心里默念，是的，是的我掌握了那条内容
 
 29
 00:01:26,887 --> 00:01:29,454
 I got that or oh wait, I did not really understand that and
+我掌握了那条，噢等等，我并没有真的理解那条内容
 
 30
 00:01:29,523 --> 00:01:31,390
 that's a prompt to go back and look at it.
+那会促使你返回去查看
 
 31
 00:01:31,458 --> 00:01:34,626
 Then we'll dive into this long list that you see up here,
+之后我们会深入这个长长的列表，就是在这里你看到的这个
 
 32
 00:01:34,694 --> 00:01:38,163
 of various Swift things. So let's start with this demo I
+上面有各种各样的 Swift 内容。让我们以这个我当时谈论的
 
 33
 00:01:38,232 --> 00:01:41,232
 was talking about, this auto-layout demo.
+auto-layout 示例程序开始吧
 
 34
 00:01:41,301 --> 00:01:45,770
 What we're gonna do here, and I apologize for any technical
+至于我们现在要做的，我对于我们现在存在的任何技术问题
 
 35
 00:01:45,839 --> 00:01:48,873
 problems we have here because, actually, my computer died,
+向你们道歉，因为实际上我的电脑死机了
 
 36
 00:01:48,942 --> 00:01:51,008
 and I had to put it. This is all brand new computer, so
+我不得不用这台全新的电脑，所以
 
 37
 00:01:51,077 --> 00:01:54,512
 I hope everything's installed properly. But here's the code,
+我希望一切都正常安装好了。这是我们的代码
 
 38
 00:01:54,581 --> 00:01:58,016
 I think, that we had at the end of the last lecture.
+我们在上节课结束时的代码
 
 39
 00:01:58,085 --> 00:02:01,986
 And the UI looks pretty good. We laid it out.
+UI 看起来很不错。我们把它布局起来
 
 40
 00:02:02,055 --> 00:02:04,156
 But I just did this by dragging these things and
+我仅仅是通过拖拽这些东西
 
 41
 00:02:04,224 --> 00:02:06,624
 using the little dash blue lines to put them
+利用这些蓝色的虚线把它们放到了正确的
 
 42
 00:02:06,693 --> 00:02:11,763
 in position. And when we run this thing, it looks okay but
+位置。当我们运行它的时候，它看起来很不错
 
 43
 00:02:11,832 --> 00:02:13,464
 only on an iPhone X and
+不过只是在 iPhone X 上
 
 44
 00:02:13,533 --> 00:02:16,534
 only in portrait mode like this. If I were to for
+并且只是在 纵向模式下像这样子。如果我打算
 
 45
 00:02:16,603 --> 00:02:20,772
 example, rotate this iPhone to the side which I can do
+举个例子，沿着侧边旋转这台 iPhone ，我可以这样子在模拟器上
 
 46
 00:02:20,841 --> 00:02:23,742
 in a simulator by going, Hardware, rotate left or
+操作，通过去到-硬件，旋转向左或
 
 47
 00:02:23,811 --> 00:02:28,579
 right, you can see that my UI looks like this. My buttons
+向右，你可以看到我的 UI 界面看起来是这样子。我的按钮
 
 48
 00:02:28,648 --> 00:02:31,983
 are kind of all jammed in the corner here. I've lost flips,
+都拥挤在了这个角落里。我已经丢失了一些卡片
 
 49
 00:02:32,052 --> 00:02:34,285
 it's down here somewhere. I can't even see it.
+它们在下面某个地方。我甚至都看不见它了
 
 50
 00:02:34,354 --> 00:02:37,756
 Still works, but it's kind of off in the middle of nowhere.
+仍然可以工作，但是它远离了我们的界面
 
 51
 00:02:37,824 --> 00:02:40,826
 What we really want is for this UI to spread itself
+我们真正想要的是让 UI 能够伸展开来
 
 52
 00:02:40,894 --> 00:02:44,762
 out and fill the whole space that's involved. By the way,
+填满它被包含的整个空间。顺便说一下
 
 53
 00:02:44,831 --> 00:02:47,766
 you can also rotate your device with Command and
+你可以用 Command 键 和 方向键
 
 54
 00:02:47,835 --> 00:02:51,102
 the arrows. Kind of a cool way to flip back and
+来旋转设备。这是用来翻转设备的比较酷的方式
 
 55
 00:02:51,171 --> 00:02:54,305
 forth. All right, so how are we gonna do that?
+好的，接下来我们该如何做呢？
 
 56
 00:02:54,374 --> 00:02:57,209
 How are we gonna make our UI expand? Let's go ahead and
+我们该如何让我们的 UI 展开？让我们向前进行
 
 57
 00:02:57,277 --> 00:02:59,444
 open up here, give ourselves some more space.
+打开这个，给我们更多的空间
 
 58
 00:02:59,513 --> 00:03:00,846
 And also I'm gonna zoom in a little so
+我还想再放大一点让你们
 
 59
 00:03:00,914 --> 00:03:03,949
 you can see. Another thing I'm gonna do is we're gonna be
+可以看到。我要做的另一件事情是我们将要
 
 60
 00:03:04,018 --> 00:03:06,150
 using these blue lines, the dashed blue
+利用这些蓝色的线，这些当你移动组件的时候出现的这些
 
 61
 00:03:06,219 --> 00:03:09,488
 line that appears as you move things around as part of this.
+虚线作为我们方案的一部分
 
 62
 00:03:09,556 --> 00:03:12,256
-So I'm gonna change my background from black
+So I'm gonna change my background from 
+我要将我的背景
 
 63
 00:03:12,325 --> 00:03:15,494
 to back to white temporarily, just so
+暂时从黑色变成白色，仅仅是让
 
 64
 00:03:15,563 --> 00:03:18,296
 that we can see that those blue lines and
+我们能够更好的看到那些蓝色的线
 
 65
 00:03:18,364 --> 00:03:20,331
 stuff a little bit better. So I'm just gonna go to white.
+和组件。所以我仅需要设置成白色
 
 66
 00:03:20,400 --> 00:03:22,400
 When we come to run, I'll turn it back to black.
+当我们运行的时候，它会从黑色变到白色
 
 67
 00:03:22,469 --> 00:03:27,104
 So this is purely for dealing development issues here. So
+这完全是为了处理开发事项而做的
 
 68
 00:03:27,173 --> 00:03:31,009
 it's really kinda two things I need to do to make this work.
+为了让它能够工作，我需要做的是两件事情
 
 69
 00:03:31,077 --> 00:03:35,246
 One is, I need to kinda take all those buttons and
+第一件事，我需要选中所有的按钮并
 
 70
 00:03:35,315 --> 00:03:37,249
 make them stick to the edges, right?
+让它们粘在屏幕的边缘，对么？
 
 71
 00:03:37,318 --> 00:03:38,483
 So that when they rotate and
+这样子当它们旋转
 
 72
 00:03:38,552 --> 00:03:42,287
 the edges get longer and skinnier, they stick.
+屏幕边缘变得更加细长，它们可以粘在上面
 
 73
 00:03:42,355 --> 00:03:45,390
 Right now, everything's stuck to the upper left corner.
+现在，所有东西都黏在了左上角
 
 74
 00:03:45,458 --> 00:03:47,258
 The upper left corner, you're gonna find out next week,
+左上角，你会在下周发现
 
 75
 00:03:47,327 --> 00:03:50,829
 is the origin of drawing. In IOS where everything is kinda
+它正是绘图的原点。在 iOS 里，任何东西都
 
 76
 00:03:50,897 --> 00:03:52,998
 stuck up to the upper left and then just, so
+粘在左上角，所以
 
 77
 00:03:53,066 --> 00:03:55,600
 when we rotate it all, it just goes off the bottom,
+当我们将屏幕整个旋转的时候，它就会赶走那些按钮
 
 78
 00:03:55,668 --> 00:03:58,536
 we can't see it. So that's really what we need to do, but
+我们没法看到它。所以那的确是我们需要做的事情
 
 79
 00:03:58,605 --> 00:03:59,904
 to stick them to the edges,
+将按钮粘连到边缘
 
 80
 00:03:59,973 --> 00:04:02,807
 we also kind of need to group them together. Because when
+我们也需要把它们组在一起。因为当
 
 81
 00:04:02,876 --> 00:04:05,544
 the edges pull this group of 12 buttons apart,
+边缘把这12个一组的按钮拉开的时候
 
 82
 00:04:05,613 --> 00:04:07,812
 they all need to kinda share that space.
+它们需要分享这个空间
 
 83
 00:04:07,881 --> 00:04:09,581
 So there's two things we have to do.
+所以这里一共有两件事情我们必须要做
 
 84
 00:04:09,650 --> 00:04:12,584
 One is group them together, one is pin them to the edges.
+一件是把他们组在一起，一件是把它们钉在边缘上
 
 85
 00:04:12,653 --> 00:04:17,756
 So we're gonna do that with two different features in IOS.
+我们将要用 iOS 中两个不同的特性来做这件事
 
 86
 00:04:17,824 --> 00:04:19,257
 One, the grouping things together,
+第一件，把按钮组合在一起
 
 87
 00:04:19,326 --> 00:04:22,227
 we're gonna do with stack view. Okay, so UI stack view
+我们要用 stack view 来做。UIStackView 是
 
 88
 00:04:22,296 --> 00:04:26,231
 is just another class in IOS like UI Button is a class and
+iOS 中另一个类，就像 UIButton 是一个类，UILabel 实际上是
 
 89
 00:04:26,300 --> 00:04:29,734
 UI label is just another view in fact. And
+另一个视图
 
 90
 00:04:29,803 --> 00:04:32,770
 what it does is it will take other views, like let's
+它所做的就是它将选择其他的视图，像这
 
 91
 00:04:32,839 --> 00:04:36,508
 say these four buttons and it will stack them together.
+四个按钮，然后把它们堆叠在一起 
 
 92
 00:04:36,577 --> 00:04:39,244
 Now, it only knows how to stack horizontally or
+现在，它只知道如何横向的或竖向地堆叠
 
 93
 00:04:39,313 --> 00:04:42,981
 vertically. It can't stack 12 of these things in two
+它无法像这样子在两个房间，将这12个按钮堆叠起来
 
 94
 00:04:43,050 --> 00:04:45,950
 dimensions like this. So I'm gonna have to make three
+所以我不得不创建三个
 
 95
 00:04:46,019 --> 00:04:50,155
 horizontal stacks out of this group, out of this group, and
+横向的栈，这些一组，这些一组，这些一组
 
 96
 00:04:50,223 --> 00:04:53,024
 out of this group. But then I'll take those three stacks
+之后我再讲这三个栈
 
 97
 00:04:53,092 --> 00:04:55,794
 and stack them vertically. Cuz it's perfectly fine to put
+竖向地堆在一起。因为把栈放到栈里
 
 98
 00:04:55,863 --> 00:04:59,230
 stacks inside stacks, all right? And once I do that,
+是完全可行的，好么？一旦我这么做了
 
 99
 00:04:59,299 --> 00:05:02,667
 I'll have all 12 of these kinda stocked together. And
+我将把全部的12个按钮都堆叠在了一起
 
 100
 00:05:02,736 --> 00:05:05,803
 then I can pin it to the edges and they'll stretch out. So
+那时我将能够把它钉在边缘，伸展开来
 
 101
 00:05:05,872 --> 00:05:07,405
 how do we make this stack use?
+我们该如何创建这个栈呢？
 
 102
 00:05:07,473 --> 00:05:10,074
 Super simple, you just select it here. Let me zoom in so
+非常简单，你仅需要选中这里。让我放大一点
 
 103
 00:05:10,143 --> 00:05:12,977
 we can really see what's going on here. We only need the top
+我们能够看到现在进行的东西。我们暂时仅需要
 
 104
 00:05:13,046 --> 00:05:15,347
-part for now. So I deselected these four things.
+part for now. So I selected these four things.
+顶端的部分。所以我选中了这四个按钮
 
 105
 00:05:15,416 --> 00:05:17,215
 I'm going down to this button right here.
+我去到下面这里的这个按钮
 
 106
 00:05:17,284 --> 00:05:19,751
-You see this button, embed and stack?
+You see this button, embed in stack?
+你看到这个按钮了么，写着 embed in stack（嵌入栈中）？
 
 107
 00:05:19,820 --> 00:05:22,020
 Well, that's what it does. It embeds in stack.
+好的，那就是它所做的事情。它把东西嵌入栈中
 
 108
 00:05:22,089 --> 00:05:24,188
 And it embedded it. Now, couple of things.
+它把这四个按钮嵌进去了。现在，有几件事情
 
 109
 00:05:24,257 --> 00:05:27,392
 One is, it made the buttons as small as it could when you put
+一件是，当你把它放到栈中的时候，它令按钮变得足够的小
 
 110
 00:05:27,460 --> 00:05:30,028
 in the stack. It has 50 point font, remember, for
+记得么，那些 emoji 有50像素点大
 
 111
 00:05:30,097 --> 00:05:32,730
 those emojis. So that's just as small as they'll go.
+所以它会把它们变得足够的小
 
 112
 00:05:32,799 --> 00:05:36,434
 It also has no spacing between. But I can put spacing
+其次它们之间也没有空间，但是我可以在它们之间
 
 113
 00:05:36,503 --> 00:05:40,638
 in-between by just selecting it. It was left selected after
+放置空间，通过选中它。在我把它们堆到一起之后它们就是选中的
 
 114
 00:05:40,707 --> 00:05:43,809
 I stacked. And going over here to the inspector because this
+去到这里检查器，因为这个
 
 115
 00:05:43,877 --> 00:05:47,145
 stack view, just like a button, can be inspected,
+栈视图，就像一个按钮一样，是可以被检查的
 
 116
 00:05:47,213 --> 00:05:49,881
 right? And you can see it made it horizontal,
+好么？你可以看到它把它横向堆叠
 
 117
 00:05:49,950 --> 00:05:52,617
 it kinda noticed my buttons were mostly horizontal. So
+它大概注意到我的按钮大致是以横向分布的，所以它
 
 118
 00:05:52,686 --> 00:05:57,522
 it picked horizontal. And so here's how I set the spacing.
+选择了横向模式。所以这里是我该如何设置空间的地方
 
 119
 00:05:57,590 --> 00:06:00,492
 I go down here. I'm gonna use a standard spacing.
+点击向下的按钮，我会使用一个标准间距
 
 120
 00:06:00,560 --> 00:06:03,027
 There's a lot of places when you're doing UI design where
+当你进行 UI 设计的时候，有很多地方你可以选择一种
 
 121
 00:06:03,096 --> 00:06:05,463
 you can pick an UI standard value and
+UI 标准值
 
 122
 00:06:05,532 --> 00:06:07,498
 it'll pick a standard spacing.
+它会选择一个标准间距
 
 123
 00:06:07,567 --> 00:06:09,167
 This is a standard spacing between buttons.
+这就是按钮间的标准间距
 
 124
 00:06:09,235 --> 00:06:11,336
 And you wanna use that pretty much as much as possible.
+你会想着尽可能多的使用这个功能
 
 125
 00:06:11,404 --> 00:06:14,005
 That way, your UI will be spaced like other UI and
+以这种方式，你的 UI 将像其他 UI 一样布局
 
 126
 00:06:14,074 --> 00:06:17,609
 you will feel like rolling on the same page as
+当 UI 设计师翻阅所有那些应用的时候，你会感到像
 
 127
 00:06:17,678 --> 00:06:21,746
 UI designers across all these apps. Also I wanna make sure
+在一张页面上滚动。我还想确定
 
 128
 00:06:21,814 --> 00:06:26,317
 that these four buttons get equal amount of space. Okay,
+这四个按钮有着相同的间距。
 
 129
 00:06:26,386 --> 00:06:29,421
 whatever space I am given here gets equally distributed and
+无论这里给了多大的间距都能够均匀分布
 
 130
 00:06:29,489 --> 00:06:31,322
 I do that with this distribution thing here,
+我通过这里的分布选项来做这件事
 
 131
 00:06:31,391 --> 00:06:36,228
 I say fill equally. Alignment just means I fill the whole
+我选择 均匀填满。Alignment 意味着填满整个
 
 132
 00:06:36,296 --> 00:06:38,563
 space, I could have these things being centered or
+空间，我本可以令这些东西居中或者
 
 133
 00:06:38,632 --> 00:06:40,431
 kinda pushed up to the top of the stack but
+把它们推到栈的顶端
 
 134
 00:06:40,500 --> 00:06:42,801
 I'm gonna have it fill the whole space. So that's it.
+但是我要把它填满整个空间。所以这就是它了
 
 135
 00:06:42,869 --> 00:06:45,503
 So I'm just gonna do the same thing with these two rows.
+我要对这两行做相同的事情
 
 136
 00:06:45,572 --> 00:06:48,373
 So this one go down here, embed in stack,
+这一行下到这里，嵌入栈中
 
 137
 00:06:48,441 --> 00:06:52,210
 this group right here embed in stack. Oops,
+这里这一组嵌入栈中。噢
 
 138
 00:06:52,279 --> 00:06:56,080
 I did it twice there. Now I'm gonna select both of these.
+这里我做了两次。现在我要选中这两个
 
 139
 00:06:56,149 --> 00:07:00,851
 Make them fill equally and standard value spacing. So
+让它们均匀填满并且标准间距分布
 
 140
 00:07:00,920 --> 00:07:04,756
 now I've got three horizontal stacks. I'm gonna stack these
+现在我得到了三个横向的栈。我要把它们堆叠
 
 141
 00:07:04,824 --> 00:07:06,991
 together, I'm gonna select them. By the way,
+在一起，我要选中它们。顺便说
 
 142
 00:07:07,060 --> 00:07:09,694
 dragging to select is really an awesome way to select.
+拖拽选中真的是一种很酷的选中方式
 
 143
 00:07:09,763 --> 00:07:12,163
 I highly recommend you do that rather than trying to click on
+我高度推荐你们这样做而不是尝试点击
 
 144
 00:07:12,231 --> 00:07:15,433
 things. Because by the way, let's say I try to click on
+东西。因为通过这样做，比如说我尝试点击这里
 
 145
 00:07:15,502 --> 00:07:19,370
 here to select this row. Oops, I selected the button inside.
+来选择这一行。噢，我选中了里面的按钮
 
 146
 00:07:19,439 --> 00:07:21,940
 I didn't want that, I wanted the whole row. But
+我并不想这么做，我想要这一整行。但是
 
 147
 00:07:22,008 --> 00:07:25,610
 if I just drag, not control drag but regular drag here,
+如果我只是拖拽，正常的拖拽而不是按住 Control 键来拖拽
 
 148
 00:07:25,679 --> 00:07:30,048
 it selects the thing that I intercepted with my drag.
+它会选中我拖拽截取的东西
 
 149
 00:07:30,117 --> 00:07:32,650
 Anyway, so I'm gonna select all three of these with drag.
+总之，我会通过拖拽选中所有三个栈
 
 150
 00:07:32,719 --> 00:07:35,086
 And I'm gonna go embed in stack. You put them in
+然后去到 嵌入栈中。你把它们
 
 151
 00:07:35,155 --> 00:07:37,622
 a vertical stack. You notice this time it's vertical,
+放到了一个竖向的栈中。你注意到这次它是竖向的
 
 152
 00:07:37,691 --> 00:07:39,623
 cuz it noticed those three things are vertical.
+因为它注意到了这三个东西是竖向的
 
 153
 00:07:39,692 --> 00:07:40,925
 If your things are random,
+如果你的东西是随机分布的
 
 154
 00:07:40,994 --> 00:07:43,461
 it'll pick the one that it thinks is the most likely.
+它会选择一个它认为最可能的方向
 
 155
 00:07:43,530 --> 00:07:44,863
 You can always change it by going here and
+你可以一直通过去到这里来改变它
 
 156
 00:07:44,931 --> 00:07:47,932
 changing it to the other one. So we have vertical,
+改成另一个。所以我们有了竖向排布
 
 157
 00:07:48,001 --> 00:07:51,135
 we also wanna fill equally, top to bottom here, and
+我们还想要均匀填满，从上到下
 
 158
 00:07:51,204 --> 00:07:53,271
 we also want standard spacing. So
+我们还想要标准间距
 
 159
 00:07:53,340 --> 00:07:56,607
 it's great. We got our buttons in this nice grid.
+这太棒了。我们让按钮放置到了这个很好的栅格中
 
 160
 00:07:56,676 --> 00:08:02,046
 They're all Perfectly laid out in this rectangle. Now,
+它们都完美的布局在了这个矩形中。现在
 
 161
 00:08:02,115 --> 00:08:05,483
 we want to pin this rectangle to the edges. Okay, so
+我们想要把这个矩形钉在边缘。好的
 
 162
 00:08:05,552 --> 00:08:08,820
 that when the device rotates, or if the device was bigger,
+因此当设备旋转的时候，或者如果设备更大的时候
 
 163
 00:08:08,888 --> 00:08:10,388
 like if it was an iPhone 8 Plus, or
+比如它是一台 iPhone 8 plus 或者
 
 164
 00:08:10,457 --> 00:08:12,223
 something like that and it was wider, so
+更宽的东西
 
 165
 00:08:12,292 --> 00:08:15,026
 that it would all just stretch out. So, the way we do
+以便它能够伸展开来。所以
 
 166
 00:08:15,095 --> 00:08:17,529
 that is first I'm going to use those dash blue lines.
+我们要做的就是首先，我要利用这些蓝色的虚线
 
 167
 00:08:17,598 --> 00:08:21,065
 I picked up this thing. Again, picking it up,
+我捡起这个东西，再一次，捡起这个东西
 
 168
 00:08:21,134 --> 00:08:23,601
 you wanna select it first, then pick it up.
+你会先选中它，然后捡起来
 
 169
 00:08:23,669 --> 00:08:26,538
 If you don't select it first and try to pick it up, oops,
+如果你不先选中它，尝试去捡起来的话，噢
 
 170
 00:08:26,606 --> 00:08:28,706
 you might try and pull one of these things out of there.
+你可能把其中一个东西拉出来
 
 171
 00:08:28,775 --> 00:08:30,742
 Okay? So, be careful about that. All right.
+好么？所以，小心一点。好的
 
 172
 00:08:30,810 --> 00:08:32,176
 So, I'm gonna use the blue lines. I'm gonna
+我要利用这些蓝色的线，我要
 
 173
 00:08:32,245 --> 00:08:35,013
 put this where it kinda suggests for
+把它放置到它建议的
 
 174
 00:08:35,082 --> 00:08:36,147
 the upper left hand corner.
+左上角的角落里
 
 175
 00:08:36,216 --> 00:08:39,484
 You see that? That's pretty much where the blue line,
+你看到了它了么？那就是蓝线所在的地方
 
 176
 00:08:39,552 --> 00:08:41,953
 that would be the standard spacing from the edges.
+和边缘有着标准的间距
 
 177
 00:08:42,022 --> 00:08:43,387
 That's what the blue lines are telling you.
+那就是蓝线正告诉你的东西
 
 178
 00:08:43,456 --> 00:08:45,857
 This is a standard place to put this. Now,
+这是放置它的标准位置
 
 179
 00:08:45,926 --> 00:08:49,227
 I need to pin it and the way we make relationships between
+我需要把它钉在这里，我们把视图和 UI 关联起来
 
 180
 00:08:49,296 --> 00:08:52,764
 views and the UI like pinning them to each other and
+的方式，比如让它们相互定位在一起
 
 181
 00:08:52,832 --> 00:08:56,200
 stuff is with control drag. Exact same way that we made
+是通过按住 Control 键拖拽。和我们将 UI 
 
 182
 00:08:56,269 --> 00:08:58,202
 a relationship between our UI and our code,
+和代码关联起来的方式完全一样
 
 183
 00:08:58,271 --> 00:09:01,239
 by dragging the code, we do the same thing between views.
+通过拖拽代码，我们在视图间做相同的事情
 
 184
 00:09:01,308 --> 00:09:04,675
 So, I'm gonna control drag from this already selected
+所以，我将要按住 Control 键从这里已经选中的盒子拖拽到
 
 185
 00:09:04,744 --> 00:09:09,047
 box here to the top. Okay, so I'm just dragging up towards
+顶部，好的，所以我只是正向上拖拽到顶部
 
 186
 00:09:09,115 --> 00:09:11,750
 the top, and when I let go it's going to say, okay,
+当我松开鼠标的时候，它会问，
 
 187
 00:09:11,818 --> 00:09:14,619
 what relationship do you want between that view and
+你想要视图和顶端用什么关系关联
 
 188
 00:09:14,687 --> 00:09:17,588
 the top. And there's various relationships you can have,
+这里有各种关系你可以选择
 
 189
 00:09:17,657 --> 00:09:19,090
 like I said, in three weeks we're going to have
+正如我说过，三周后我们将有
 
 190
 00:09:19,159 --> 00:09:21,159
 a whole lecture on these relationships, but
+一整节课来讨论这些关系
 
 191
 00:09:21,227 --> 00:09:24,962
 at the very top is the one Top Space to Safe Area.
+在最顶部的是 Top Space to Safe Area
 
 192
 00:09:25,031 --> 00:09:28,132
 You see that Top Space to Space Area? The safe area
+你看到它了么？ Safe Area (安全区域)
 
 193
 00:09:28,201 --> 00:09:31,336
 is a safe edge around the screen where you can
+是一个安全的屏幕边缘，在那里你可以
 
 194
 00:09:31,405 --> 00:09:34,639
 safely draw without overlapping some other UI.
+安全的绘制空间而不和其他 UI 重叠
 
 195
 00:09:34,707 --> 00:09:37,241
 So, here it's putting it right under the place where all
+所以，在这里把它放在了所有的摄像头
 
 196
 00:09:37,310 --> 00:09:40,578
 the cameras and face recognition stuff is all in
+面部识别模块等所有东西的正下方
 
 197
 00:09:40,647 --> 00:09:44,883
 here. So, it's to keeping it below that. Now, if I had
+所以，它是为了保持在那些东西正下方。现在如果我有
 
 198
 00:09:44,951 --> 00:09:47,752
 other UI on this, like tab bars, or title bars, or
+其他 UI 在上面，比如 tab bars 或者 title bars
 
 199
 00:09:47,820 --> 00:09:51,455
 whatever, then the safety area would be inside those. So,
+或其他任意东西，safe area 会在他们内部
 
 200
 00:09:51,524 --> 00:09:54,325
 we wouldn't overlap our titles and stuff. It's really cool.
+所以我们不会和我们的标题和其他东西重叠。这是非常棒的
 
 201
 00:09:54,394 --> 00:10:00,264
 So, I'm gonna put this top space little pin, so
+所以我要在这个顶端空间放置一个别针
 
 202
 00:10:00,333 --> 00:10:03,501
 I'm kinda connected it and you can see this blue line appears
+所以我就把它连接了起来，你可以看到这个蓝色的线出现在
 
 203
 00:10:03,570 --> 00:10:07,371
 right here. Okay? This blue line here, long blue line.
+这里，好么？这里的蓝色的线，这条长长的蓝色的线
 
 204
 00:10:07,440 --> 00:10:11,375
 It represents that pinning and I can even click on it. Okay,
+它代表着那个别针，我甚至可以点击它
 
 205
 00:10:11,444 --> 00:10:14,045
 and when I click on it, look, it's inspectable in the top
+当我点击它的时候，它变成了可被检查的
 
 206
 00:10:14,113 --> 00:10:17,248
 half here. Okay? And it's just telling me that un-pinned
+在这上半部分。好么？它就是告诉我这个别针连接着
 
 207
 00:10:17,317 --> 00:10:20,284
 from the safe area top to the top of that stack view. And
+从安全区域的顶端到栈视图的顶端
 
 208
 00:10:20,353 --> 00:10:23,321
 we're zero points away from it.
+它们的距离是0像素点
 
 209
 00:10:23,389 --> 00:10:25,824
 We wanna be right up against that safe edge.
+我们就在安全边缘的正上方
 
 210
 00:10:25,892 --> 00:10:28,058
 That's where the blue dashed lines told me to put it, so
+那里就是蓝色的虚线告诉我放置的地方，所以
 
 211
 00:10:28,127 --> 00:10:30,661
 that's where I'm gonna put it. Now, we can do the same thing
+我就放置到了那里。现在我们可以对
 
 212
 00:10:30,730 --> 00:10:34,032
 to the left edge over here, so I'm gonna control drag over.
+左边缘做相同的事情，所以我要按住 Control 拖到那里
 
 213
 00:10:34,101 --> 00:10:37,001
 This time it says, Leading Space to Safe Area.
+这次它写着，Leading Space to Safe Area（到安全区域的前导间距）
 
 214
 00:10:37,069 --> 00:10:40,872
 Now, why do you think that says leading instead of left?
+现在，你认为为什么它写的是前而不是左呢？
 
 215
 00:10:40,941 --> 00:10:45,743
 Anyone wanna guess? It says leading instead of left,
+有人想猜猜么？它写的是前而不是左
 
 216
 00:10:45,812 --> 00:10:50,081
 because some languages Hebrew, Arabic, they go right to
+因为一些语言，比如希伯来语，阿拉伯语，它们是从右向左
 
 217
 00:10:50,150 --> 00:10:53,117
 left. The letters come from the right, and they flow
+念的。字母从右边来，流向左边
 
 218
 00:10:53,186 --> 00:10:55,820
 out towards the left. In those cases, you want pretty much
+在这些例子里，你非常想要
 
 219
 00:10:55,889 --> 00:10:58,656
 your whole UI flipped over. So, you would want these
+你的整个 UI 翻转过来。所以你想要
 
 220
 00:10:58,725 --> 00:11:01,259
 buttons pinned to the other side, because the text on
+这些按钮钉到另一边，因为按钮
 
 221
 00:11:01,328 --> 00:11:03,761
 the buttons is gonna be coming from the right. Okay?
+上的文本是从右边来的，好么？
 
 222
 00:11:03,830 --> 00:11:05,830
 Now, it doesn't matter with our emojis, but
+现在，对于 emoji 来说并不重要，但是
 
 223
 00:11:05,898 --> 00:11:08,332
 that's why we do leading and trailing instead of left and
+这是为什么我们使用前导和后导而不是左和右
 
 224
 00:11:08,401 --> 00:11:11,435
 right. Okay? So, I'm gonna click this Leading Space to
+的原因。好么？所以，我要点击这里的 到安全区域的
 
 225
 00:11:11,504 --> 00:11:14,405
 Save Area right here. Connect it, I get another little blue
+前导距离。连接它，在这里我得到了另一个小的蓝色的
 
 226
 00:11:14,474 --> 00:11:17,141
 thing right here. You see this one? If I click on it,
+东西。你看到这个了么？如果我点击它
 
 227
 00:11:17,210 --> 00:11:19,143
 it looks like a little eyebeam,
+它看起来就像一个小眼睛
 
 228
 00:11:19,212 --> 00:11:22,947
 it's pinning these 2 and it's pinned it with 16 points.
+它正钉着这两个并且间距是16个像素点
 
 229
 00:11:23,016 --> 00:11:25,950
 You see 16 points, evidently the blue lines think from
+你看这是16个像素点的距离，明显的，这些蓝色的线认为从左边边缘
 
 230
 00:11:26,019 --> 00:11:28,986
 the left edge, or the leading edge you want 16 points.
+或者前导边缘的距离，你想要的是16个像素点
 
 231
 00:11:29,055 --> 00:11:31,489
 Okay, I'll take that. And then, of course,
+好的，我会采用它。之后，当然
 
 232
 00:11:31,557 --> 00:11:36,026
 I could pin to the other side. Ctrl+drag over here.
+我能够钉到另一边。按 Ctrl 拖拽到这里
 
 233
 00:11:36,095 --> 00:11:39,397
 And now, here I didn't use the blue line for that edge.
+现在，在这里我不利用蓝线来处理这个边缘
 
 234
 00:11:39,466 --> 00:11:42,634
 So, here if I say trailing space to safe area.
+如果我选择 trailing space to safe area（到安全区域的后导间距）
 
 235
 00:11:42,702 --> 00:11:44,635
 I get an eyebeam, this huge, okay.
+我得到了一个小眼睛，这个大的，好的
 
 236
 00:11:44,704 --> 00:11:46,537
 So, it goes all the way across like that.
+所以它伸展到了它穿过的所有地方
 
 237
 00:11:46,606 --> 00:11:50,241
 And I don't want that, I want it to be the same as the other
+但是我不想要这样子，我要它和其他边一样
 
 238
 00:11:50,310 --> 00:11:53,444
 side, 16 points. So, in my inspector right here,
+16像素点。所以在这里的检查器
 
 239
 00:11:53,513 --> 00:11:56,681
 this distance is this constant right here, 215 points.
+这段距离就是这里的这个常数，215像素点
 
 240
 00:11:56,749 --> 00:11:58,882
 So, I'm gonna change that to be 16,
+所以我要把它改成16
 
 241
 00:11:58,951 --> 00:12:02,219
 so it matches the other side. Oh, and look what happened, it
+所以它会和另一边匹配。噢，看发生了什么
 
 242
 00:12:02,288 --> 00:12:06,223
 pinned the edge of my buttons and they spread out, equally,
+它钉到了我的按钮的边缘然后等距离伸展开来
 
 243
 00:12:06,292 --> 00:12:09,727
 filling equally, because we told we want to fill equally.
+均匀填充起来，因为我们说过我们想要均匀的填满
 
 244
 00:12:09,796 --> 00:12:13,664
 Okay, so that's pretty cool, now we have the bottom.
+好的，这是非常酷的，现在我还剩下底部
 
 245
 00:12:13,733 --> 00:12:16,467
 So, the bottom is a little trickier, because we've got
+处理底部有一点小技巧，因为我们
 
 246
 00:12:16,536 --> 00:12:20,771
 flips down here. So, we want flips to be on the bottom, and
+在底部有 Flips 标签。所以我们想要 Flips 处于底部并且
 
 247
 00:12:20,840 --> 00:12:23,874
 we want this thing to be above flips. So,
+让这个东西在 Flips 上方。所以
 
 248
 00:12:23,943 --> 00:12:26,310
 let's work on flips first, let's just get it, so
+让我们先对 Flips 展开工作 
 
 249
 00:12:26,379 --> 00:12:28,947
 that flips is on the bottom and we're gonna do exact same
+Flips 位于底部，我们要做完全一样的工作
 
 250
 00:12:29,015 --> 00:12:31,549
 thing. So, I'm gonna grab flips and use the blue lines,
+所以我要抓住 Flips 然后利用这些蓝色的线
 
 251
 00:12:31,618 --> 00:12:33,517
 okay, put it in the center on the bottom.
+把它放到底部的中央
 
 252
 00:12:33,586 --> 00:12:36,520
 And then a controlled drag to the bottom,
+然后按住 Ctrl 键拖拽到底部
 
 253
 00:12:36,589 --> 00:12:40,658
 and say that I want the bottom space to be pinned to the safe
+选择安全区域的底部间距
 
 254
 00:12:40,726 --> 00:12:44,962
 area. So, that's good. Now, when I did that,
+所以，那是好的。现在，当我完成后
 
 255
 00:12:45,031 --> 00:12:47,632
 look I got this yellow and red lines and
+看我得到了这条黄色和红色的线
 
 256
 00:12:47,701 --> 00:12:50,434
 I got a warning up here. See a warning this warning,
+并且在这里我得到了一个警告。看这个警告
 
 257
 00:12:50,503 --> 00:12:53,037
 this means there is a warning and it can be red if you have
+它意味着这里有一个警告，并且如果你有一个错误，它会是红色的
 
 258
 00:12:53,106 --> 00:12:56,140
 an error. And if you click on it it will tell you what all
+并且如果你点击它，它会告诉你你全部的警告是什么
 
 259
 00:12:56,209 --> 00:12:59,210
 your warnings are kind of a quick summary there, and
+有一点像一个快速的概要
 
 260
 00:12:59,278 --> 00:13:02,179
 here it says horizontal position is ambiguous for
+这里它写到 你的翻牌计数表现的
 
 261
 00:13:02,248 --> 00:13:06,183
 your flip count label. In fact, it is ambiguous.
+横向位置是模棱两可的。事实上，它是模棱两可的
 
 262
 00:13:06,252 --> 00:13:08,052
 I never told it where it horizontally,
+我从没告诉过它在横向要位于哪里
 
 263
 00:13:08,121 --> 00:13:09,587
 I pinned it to the bottom, but
+我把它钉在了底部，但是
 
 264
 00:13:09,656 --> 00:13:11,322
 I didn't say it was in the middle, or left, or
+我没有告诉它是处于中央，还是左边，还是
 
 265
 00:13:11,390 --> 00:13:14,625
-right now I dragged it there with a blue lines, but
+right. Nor I dragged it there with a blue lines, but
+右边。我也没有用蓝色的线拖拽它
 
 266
 00:13:14,694 --> 00:13:18,362
-starting with blue lines, it doesn't pin it there. So
+distract with blue lines, just put there, it doesn't pin it there. So
+蓝色的线会分散你的注意力，它只是放到了那里，而没有钉在那里
 
 267
 00:13:18,431 --> 00:13:19,897
 really what I want with flips is,
+所以我真正想要 flips 成为的
 
 268
 00:13:19,966 --> 00:13:22,599
 I want it to be in the center. Okay, I want it to be in
+我想要它位于中央。好的，我想要它位于
 
 269
 00:13:22,668 --> 00:13:24,134
 center. Just to show you something a little different.
+中央。恰好给你们展示一些不一样的东西
 
 270
 00:13:24,203 --> 00:13:27,738
 And to do that, again, I Control+drag from flips right
+为了做这件事，再一次的，我按住 Ctrl 键拖拽 flips 标签到
 
 271
 00:13:27,807 --> 00:13:30,808
 here, to the thing I wanted to be in the center of,
+我想要它位于其中心的东西，
 
 272
 00:13:30,876 --> 00:13:33,144
 which is this background here. So,
+即这里的背景
 
 273
 00:13:33,212 --> 00:13:35,112
 I'm just gonna Control+drag to the background. And
+所以我仅是 按住 Control 键拖拽到背景
 
 274
 00:13:35,181 --> 00:13:39,750
 another option is center this horizontally in the safe area.
+另一个选项是 在安全区域横向居中
 
 275
 00:13:39,819 --> 00:13:44,621
 So, I'm gonna do that. Now, it, it puts it in the middle.
+所以我要这么做。现在，它居中了
 
 276
 00:13:44,690 --> 00:13:47,758
 It's still yellow here. So, what does this yellow say?
+它仍是黄色的。所以，这个黄色警告说了什么
 
 277
 00:13:47,827 --> 00:13:50,727
 It says the frame for the Flip Count Label will be different
+它说 这个翻转计数标签的框架
 
 278
 00:13:50,796 --> 00:13:55,332
 at run time. That's, because I have not constrained the size
+在运行时将会不懂。那是，因为我还没有为标签的尺寸
 
 279
 00:13:55,401 --> 00:13:58,168
 of this Flip Count Label. I've let it be any size it wants.
+添加约束。我让它可以是它想要的任意尺寸
 
 280
 00:13:58,237 --> 00:13:59,536
 And since it can be any size it wants,
+正因为这样子
 
 281
 00:13:59,605 --> 00:14:02,206
 it's gonna want to be its natural size,
+它将想变成它的自然尺寸
 
 282
 00:14:02,274 --> 00:14:03,841
 whatever size fits it.
+只要适合它无论多大
 
 283
 00:14:03,910 --> 00:14:07,211
 Now, I can fix this warning down here in this button right
+现在，我能够在这里这个按钮，修理这个警告
 
 284
 00:14:07,280 --> 00:14:09,813
 here. This is where all your constraints.
+这里是你所有的约束所在的地方
 
 285
 00:14:09,882 --> 00:14:12,984
 All this pinning things to edges is called constraints
+所有这些把东西钉到边缘的东西叫做约束
 
 286
 00:14:13,052 --> 00:14:15,686
 we're constraining these views to be in a certain place,
+我们将要约束这些视图到一个具体的位置
 
 287
 00:14:15,755 --> 00:14:18,522
 that we can just, um, actually we don't fix it there,
+我们能够仅仅，呃...实际上我们不在这里修补
 
 288
 00:14:18,591 --> 00:14:20,458
 but we're gonna fix that over here.
+但是我们要在这里修补
 
 289
 00:14:20,526 --> 00:14:23,627
 So, remember, our document outline that we had over here
+所以记得，我们这里的的文件大纲
 
 290
 00:14:23,696 --> 00:14:26,464
 this little thing we hide. If you unhide that and
+这个我们隐藏的小东西。如果你取消隐藏
 
 291
 00:14:26,533 --> 00:14:29,500
 look in the upper right, if there are any of these little
+并且向右上方看，如果这里有任何的小的警告
 
 292
 00:14:29,569 --> 00:14:32,436
 warnings you have this little button, if you click on it,
+你会得到这个小的按钮，如果你点击它
 
 293
 00:14:32,505 --> 00:14:34,338
 it will tell you all the problems. So,
+它会告诉你所有的问题。所以
 
 294
 00:14:34,407 --> 00:14:39,310
 this one is a misplaced view, cuz this flip is too big. For
+它是一个错误放置的视图，因为这个 flip 标签太大了，对于应该
 
 295
 00:14:39,379 --> 00:14:41,345
 what it should be. So, again, if you click on this little
+是什么样子来说。所以再一次，如果你点击这个小的
 
 296
 00:14:41,414 --> 00:14:44,715
 triangle, it'll offer, hey, you wanna fix this? And
+三角形，它会提供给你，嘿，你想要修补这个警告？
 
 297
 00:14:44,784 --> 00:14:47,051
 you can fix it by updating the frames, which we want,
+你可以通过更新框架来修补，这是我们需要的
 
 298
 00:14:47,120 --> 00:14:49,653
 cuz we don't care what the frame this is, the rectangle
+因为我们并不关心它的框架是什么，围绕它的
 
 299
 00:14:49,722 --> 00:14:51,389
 that encloses it. It could be anything as long as it's
+这个矩形，可以是任何样子只要它
 
 300
 00:14:51,457 --> 00:14:54,058
 pinned to the bottom and in the center. And we can
+钉在底部和中央。
 
 301
 00:14:54,126 --> 00:14:56,160
-do other things too, we'll talk about a couple of weeks.
+do other things too, we'll talk about in a couple of weeks.
+我们还可以做其他事情，我们会在几周后讨论
 
 302
 00:14:56,229 --> 00:14:58,129
 So, I am just gonna update frame drive here fix
+所以，我要更新框架来解决
 
 303
 00:14:58,198 --> 00:15:01,032
 missplacement. Look at moved flips down,
+这个错位问题。看它把 flips 标签向下移动了
 
 304
 00:15:01,100 --> 00:15:04,168
 it made the frame around it just barely contain it.
+令它周围的框架刚好包含着它
 
 305
 00:15:04,237 --> 00:15:07,171
 Okay, and now they frame around that flip zero is it's
+现在围绕在 flip 标签周围的框架就是
 
 306
 00:15:07,240 --> 00:15:10,407
 natural size. If I run this and do a hundred flips, so
+它的自然尺寸。如果我运行程序并且翻一百张牌的话
 
 307
 00:15:10,476 --> 00:15:12,810
 that it has to be bigger it will naturally get bigger.
+它一定会变更大，自然地变更大
 
 308
 00:15:12,879 --> 00:15:15,079
 Because it's size is not constrained.
+因为它的尺寸并没有被约束
 
 309
 00:15:15,147 --> 00:15:17,482
 It's not pinned to anything, only its location. So,
+并没有钉到任何东西上，只有它的位置是。
 
 310
 00:15:17,550 --> 00:15:20,818
 its size will get as big, or small it needs to to contain
+所以它的尺寸会根据它所包含事物的大小
 
 311
 00:15:20,887 --> 00:15:23,521
 its stuff. And now, we see we have no auto layout issues.
+来变大或变小。现在我们就没有了 auto-layout 的问题
 
 312
 00:15:23,590 --> 00:15:27,591
 We have no warning up here, all is well. One last thing we
+这里没有了警告，一切都正常。我们需要做的最后一件事是
 
 313
 00:15:27,660 --> 00:15:30,661
 need to do is the relationship between the top of the flips,
+flips 标签顶部和
 
 314
 00:15:30,730 --> 00:15:34,632
 and the bottom of this. Now, I could just take this thing up
+按钮组底部之间的关系。现在，我可以选中上面的东西
 
 315
 00:15:34,701 --> 00:15:38,336
 here and control drag between that and the flips, right?,
+按住 Control 键拖动到 flips 标签，对吧？
 
 316
 00:15:38,405 --> 00:15:40,837
 that's a good idea. And we could, for example,
+那是一个好主意。举个例子，我们可以
 
 317
 00:15:40,906 --> 00:15:43,875
 constrain the vertical spacing between the two, so I'm gonna
+为两者间的垂直间距添加约束
 
 318
 00:15:43,943 --> 00:15:48,679
 click Vertical Spacing, there it is. It's this huge bar.
+点击 Vertical Spacing，就可以了。它就是这根巨大的条状物
 
 319
 00:15:48,748 --> 00:15:52,917
 I could go over here and change it from 454 to 0, and
+我可以去到这里把它从 454 改为 0
 
 320
 00:15:52,985 --> 00:15:55,986
 use all the space here. But that didn't look very good.
+利用这里所有的空间。但是那看起来并不好
 
 321
 00:15:56,055 --> 00:15:58,722
 I don't really like tall thin buttons like that.
+我真的不太喜欢像这样子的高瘦的按钮
 
 322
 00:15:58,791 --> 00:16:01,492
 So I'm gonna leave this constraint in here. But I'm
+所以我会把这个约束放到一边
 
 323
 00:16:01,561 --> 00:16:04,962
 gonna change it from equal, where it has to be equal,
+不过我要改变它，它原本的关系是等于
 
 324
 00:16:05,031 --> 00:16:08,899
 to 0 with the flips. Also I probably don't want 0, I want
+其值是 0，可能我也不想要 0，我想要
 
 325
 00:16:08,968 --> 00:16:11,936
 a standard value here so I'm gonna change to standard value
+一个标准值所以我要改成标准值
 
 326
 00:16:12,004 --> 00:16:14,605
 difference, okay, this, this, this distance.
+好的，就是这段距离
 
 327
 00:16:14,674 --> 00:16:17,007
 And I don't it to be equal, I want it to be greater than or
+我不想要它是等于，我想要大于等于
 
 328
 00:16:17,076 --> 00:16:19,677
 equal. So I just wanna make sure that these things on
+我只是想要确认上方的这些东西
 
 329
 00:16:19,746 --> 00:16:23,113
 the top are always above the flips, greater than or equal.
+总是在 flips 标签上方，即为大于等于
 
 330
 00:16:23,182 --> 00:16:25,716
 But it doesn't have to be right above it like that. So
+但它没有必要恰好在它上方
 
 331
 00:16:25,785 --> 00:16:28,318
 you don't have to always have these constraints be equal.
+所以你没有必要总是把这些约束设定为等于
 
 332
 00:16:28,387 --> 00:16:31,388
 They can be greater than or equal, less than or
+它们可以是大于等于，小于等于
 
 333
 00:16:31,457 --> 00:16:35,526
 equal kind of relative constraints. You see all this?
+之类的约束。看到全部的布局了么？
 
 334
 00:16:35,594 --> 00:16:37,795
 Now, we can run the app and this should all work.
+现在，我们可以运行这个程序，它应该全部都可以正常工作
 
 335
 00:16:37,864 --> 00:16:40,097
 Everything is kind of constrained to each other.
+一切都互相约束
 
 336
 00:16:40,165 --> 00:16:43,834
 We can actually kinda take a look at it here in interface
+实际上我们可以看一眼 interface builder 的这个地方
 
 337
 00:16:43,903 --> 00:16:46,470
 builder. Right, remember this button down here that showed
+记得按下这个按钮就会展示
 
 338
 00:16:46,538 --> 00:16:49,373
 us all these phones? We can say, okay, what's this thing
+所有的手机么？我们可以说，它在 
 
 339
 00:16:49,442 --> 00:16:52,810
 gonna look like on an iPhone 8? Here's iPhone 8,
+iPhone 8 上看起来怎么样？这里是 iPhone 8
 
 340
 00:16:52,879 --> 00:16:55,346
 we click on it, and sometimes when it does it,
+我们点击它，有时当你点击它的时候
 
 341
 00:16:55,415 --> 00:16:58,015
 you can kind of zoom in and out to get it to redraw.
+你会稍微放大和缩小来让它重新绘制
 
 342
 00:16:58,084 --> 00:17:00,284
 So this is what it's gonna look like on iPhone 8.
+所以这就是它在 iPhone 8 上看起来的样子
 
 343
 00:17:00,353 --> 00:17:03,988
 We can look at, back on iPhone X, but rotate it.
+我们返回查看在 iPhone X 上的效果，只不过旋转它
 
 344
 00:17:04,056 --> 00:17:06,557
 So here's what it's gonna look like rotated on iPhone X,
+这就是它在 iPhone X 旋转下的样子
 
 345
 00:17:06,626 --> 00:17:08,960
 that looks like that's gonna look okay. So
+它看起来还不错
 
 346
 00:17:09,028 --> 00:17:11,963
 we can kind of preview a little bit what's going on
+我们可以在 Interface Builder 中稍微预览
 
 347
 00:17:12,031 --> 00:17:13,997
 here in interface builder, but there's no substitute for
+现在展示的东西，但是对于运行程序来说
 
 348
 00:17:14,066 --> 00:17:16,667
 running it. So let's just run it on our simulator and
+这里没有替代品。所以让我们在模拟器上运行它
 
 349
 00:17:16,736 --> 00:17:19,537
 see if it looks like what we expect.
+看看它看起来是否和我们期待的一样
 
 350
 00:17:21,040 --> 00:17:23,340
 Right here it is, app seems to be working. Oh,
+这就是了，应用看起来正在运行
 
 351
 00:17:23,409 --> 00:17:27,678
 let's go make our background black again. So go back here,
+让我们把北京再次设为黑色。回到这里
 
 352
 00:17:27,746 --> 00:17:32,183
 background black, keep our Halloween theme intact.
+背景为黑色，保持我们的万圣节主题完整
 
 353
 00:17:35,488 --> 00:17:38,655
 Right now here, okay, so this thing is working we can still
+就是现在，应用正在运行我们仍然
 
 354
 00:17:38,724 --> 00:17:41,458
 match things, etc. But now when we rotate,
+可以匹配卡片，等等，但是当我们旋转的时候
 
 355
 00:17:41,527 --> 00:17:45,496
 remember Command+Arrow, look, it re-lays out the entire UI
+记得按住 Command 加方向键，看，它重新布局在整个 UI 上
 
 356
 00:17:45,565 --> 00:17:48,766
 to fit the space. And it's doing this, it's relaying
+来适应空间，它正在做者减轻，它正在重新布局
 
 357
 00:17:48,835 --> 00:17:50,868
 it out because of those constraints we put it.
+正是由于我们放置的那些约束
 
 358
 00:17:50,936 --> 00:17:53,337
 We constrained this edge to be stuck to here,
+我们约束这个边粘到这里
 
 359
 00:17:53,405 --> 00:17:55,573
 we constrained this edge to be stuck up here.
+我们约束这个边粘到这里
 
 360
 00:17:55,641 --> 00:17:57,541
 We constrained this distance to be
+我们约束这段距离
 
 361
 00:17:57,610 --> 00:17:59,610
 greater than or equal to a standard distance.
+大于等于一个标准距离
 
 362
 00:17:59,679 --> 00:18:02,980
 We constrained the bottom of this to be a distance down
+我们约束它的底部到下面一段距离
 
 363
 00:18:03,049 --> 00:18:05,783
 here. We constrained the x position of this to be in
+我们约束它的 x 位置处在中央
 
 364
 00:18:05,852 --> 00:18:08,319
 the center. We put those constraints on here, and so
+我们把这些约束放到这里
 
 365
 00:18:08,388 --> 00:18:12,756
 that when we flip this thing around, it's living with those
+以便当我们翻转手机的时候，它能够
 
 366
 00:18:12,825 --> 00:18:18,095
 constraints. Got it? So like I said, this is just a teaser
+和这些约束友好相处。明白了么？所以正如我说的
 
 367
 00:18:18,163 --> 00:18:21,031
 of this constraint stuff. It's a very powerful system for
+它仅是这些约束的一个预告示例。完成这些
 
 368
 00:18:21,100 --> 00:18:23,768
 doing these constraints and we'll talk all about that,
+约束是一个非常庞大的系统，正如我说的
 
 369
 00:18:23,837 --> 00:18:27,738
 like I said, in about three weeks. Okay,
+我们会在大约三个星期后讨论它的全部内容
 
 370
 00:18:27,806 --> 00:18:30,441
 back to the slides. All right, so
+返回去幻灯片
 
 371
 00:18:30,510 --> 00:18:32,876
 here's your brief review of week 1, okay,
+这里是第一周的一个简单回顾
 
 372
 00:18:32,945 --> 00:18:35,846
 hyperspeed review. Of course you know about target action,
+超快速的回顾。你了解了目标操作
 
 373
 00:18:35,914 --> 00:18:38,015
 outlet out to out collection, outlet collections.
+出口变量，出口变量集合
 
 374
 00:18:38,083 --> 00:18:40,651
 The card buttons, your flip count label. The touch card,
+卡片按钮，你的计数标签，触摸卡片
 
 375
 00:18:40,720 --> 00:18:43,454
 you know about that. You learned all about methods and
+你了解了它们。你学习了关于方法
 
 376
 00:18:43,523 --> 00:18:46,056
 properties, what their syntax was for all of those things.
+和属性的一切，它们的语法是什么
 
 377
 00:18:46,125 --> 00:18:49,794
 Properties like flip count and tons of methods all the ones
+属性例如 flipCount 还有在
 
 378
 00:18:49,862 --> 00:18:53,397
 in concentration in card and view controller. You learned
+Concentration Card ViewController 里所有的方法。
 
 379
 00:18:53,466 --> 00:18:56,367
 about property observing right when the flip count changed,
+你学习了关于属性观察的内容，当 flipCount 改变的时候
 
 380
 00:18:56,435 --> 00:18:58,902
 we have that didSet that would cause the UI to change as
+我们有 didSet，它可以导致 UI 也发生变化
 
 381
 00:18:58,971 --> 00:19:01,138
 well. You obviously learned about arrays,
+显然你学习了数组
 
 382
 00:19:01,207 --> 00:19:04,041
 how to put things in arrays, how to declare an array.
+如何把东西放到数组里，如果声明一个数组
 
 383
 00:19:04,110 --> 00:19:06,477
-You'll learned a ton about model view controller.
+You learned a ton about model view controller.
+你学会了关于 MVC 的很多知识
 
 384
 00:19:06,545 --> 00:19:09,646
 We went and made the Concentration game have
+我们令翻牌游戏拥有了一个
 
 385
 00:19:09,715 --> 00:19:12,816
 a model like concentration on the card.
+模型，像基于 Card 的 Concentration 文件
 
 386
 00:19:12,885 --> 00:19:15,986
 You learned about value types versus reference types, right?
+你学习了值类型和引用类型，对吧？
 
 387
 00:19:16,055 --> 00:19:18,655
 The card, which is a struct, a value type that gets copied
+Card，它是一个结构体，一个值类型，当你把它丢到其他地方
 
 388
 00:19:18,724 --> 00:19:21,525
 when you throw it around. So when we put them in the array
+它会被拷贝。所以当我们把它们放到数组里时
 
 389
 00:19:21,594 --> 00:19:23,961
 there, we made the copy by just putting it in twice.
+我们通过放置两次来完成这次拷贝的操作
 
 390
 00:19:24,029 --> 00:19:25,729
 And they copied it each time you put it in there,
+并且每次你把它放到那里都会拷贝
 
 391
 00:19:25,798 --> 00:19:28,265
 remember that? You learned about initializers,
+记得么？你学习了构造器
 
 392
 00:19:28,334 --> 00:19:31,001
-we had initializers both for
+we had initializers both for Card 
+对于 Card 和
 
 393
-00:19:31,069 --> 00:19:32,469
-for concentration, they each did different things to get
+00:19:32,069 --> 00:19: 32,469
+and for Concentration
+Concentration来说
 
 394
 00:19:32,470 --> 00:19:33,870
-card and
-
+they each did different things to get
+我们都实现了构造器，它们每个都做了不同的事情来
+    
 395
 00:19:33,940 --> 00:19:36,741
-themselves an initializer. We didn't initializer for
+themselves an initializer. We didn't do initializer for
+让自己被初始化。  我们并没有对我们的 UIViewController 实现构造器
 
 396
 00:19:36,809 --> 00:19:40,278
 our UI view controller and we probably never will.
+而且我们大概永远都不会这么做
 
 397
 00:19:40,346 --> 00:19:44,548
 UI view controllers initialization is messy. Okay,
+UIViewController 的构造过程是混乱的
 
 398
 00:19:44,617 --> 00:19:47,585
 so we try at all possible not to use init for our view
+所以我们尝试尽可能地不要对我们的试图控制器
 
 399
 00:19:47,653 --> 00:19:50,154
 controller. And I explained that in your homework
+使用 init 方法。而且我在你们的家庭作业里解释了这件事
 
 400
 00:19:50,223 --> 00:19:53,557
 that's going out today, you can read about it. You learned
+它会在今天发布，你们可以阅读相关内容。你们学习了
 
 401
 00:19:53,625 --> 00:19:56,327
 about static methods like get unique identifier, static
+关于静态方法的知识，比如获取唯一识别码的方法，还有静态
 
 402
 00:19:56,395 --> 00:19:58,829
 vars like the identifier factory that we've created
+变量，比如我们创建的识别码工厂
 
 403
 00:19:58,898 --> 00:20:01,698
 there. You learned about lazy properties like game, which
+你们学习了惰性属性，比如 game 变量
 
 404
 00:20:01,767 --> 00:20:05,736
 depended on another property, and so it couldn't initialize.
+它依赖于另一个属性以至于它不能被初始化
 
 405
 00:20:05,804 --> 00:20:07,838
 We just made it lazy so that it wouldn't actually
+我们只是懒加载它所以它不会
 
 406
 00:20:07,907 --> 00:20:09,606
 initialize until someone asked for it,
+被初始化直到某人要求它这么做
 
 407
 00:20:09,675 --> 00:20:12,776
 which would of course be after the thing is all initialized.
+而这件事当然会在一切都被初始化之后发生
 
 408
 00:20:12,845 --> 00:20:15,946
 You learned about for in loops, which in Swift only
+你们学习了 for 循环，它在 Swift 中
 
 409
 00:20:16,015 --> 00:20:19,183
 work by iterating over what's called a sequence.
+只通过迭代序列工作
 
 410
 00:20:19,252 --> 00:20:21,852
 And we learned that countable range is a sequence, right?
+我们学习了 countableRange 是一个序列，对吧？
 
 411
 00:20:21,921 --> 00:20:24,421
 0..< than whatever is a countable range,
+0..< 是一个 countableRange
 
 412
 00:20:24,490 --> 00:20:26,923
 that's a sequence. But also array is a sequence,
+它是一个序列。而且数组也是一个序列
 
 413
 00:20:26,992 --> 00:20:28,893
 and string is a sequence of characters.
+String 是字符的序列
 
 414
 00:20:28,961 --> 00:20:31,862
 A lot of things are sequences, you can for in over them.
+很多事物都是序列，你可以对它们进行 for 循环
 
 415
 00:20:31,931 --> 00:20:34,464
 We're gonna talk about what it means to be a sequence
+之后我们将会讨论成为一个序列意味着什么
 
 416
 00:20:34,533 --> 00:20:37,734
 little later, probably on Wednesday. You learned about
+大概是在周三。你们学习了
 
 417
 00:20:37,803 --> 00:20:40,637
 dictionary. Of course our emoji were in a dictionary.
+字典。当然我们的 emoji 是在一个字典里
 
 418
 00:20:40,706 --> 00:20:41,839
 We learned about type conversion.
+我们学习了类型转换
 
 419
 00:20:41,908 --> 00:20:45,342
 We convert types by creating a new thing. And using an init
+我们通过创建一个新的事物来转换类型
 
 420
 00:20:45,411 --> 00:20:49,480
 with the old thing like uint 32 of an int makes a uint,
+通过一个 UInt32 来创建一个 init 方法，这个 UInt32 则是通过
 
 421
 00:20:49,548 --> 00:20:53,016
 convert into a uint 32. And of course, you learned a lot
+一个 Int 转变而来。 当然，你们学习了很多
 
 422
 00:20:53,085 --> 00:20:55,852
 about optionals which I'm sure are all still new to you and
+关于可选类型的只是，我确定它对你们来说还十分陌生
 
 423
 00:20:55,921 --> 00:20:58,522
 I'm gonna talk a lot today about optionals and how they
+我会在今天讨论很多关于可选类型的内容，它们是如何
 
 424
 00:20:58,591 --> 00:21:01,058
 really work. And what's really going on with optionals, okay?
+工作的，它们到底发生了什么，好么？
 
 425
 00:21:01,126 --> 00:21:02,759
 So that's your review of week one.
+这就是你们的第一周回顾
 
 426
 00:21:02,828 --> 00:21:04,995
 If for some of these, if you don't feel like you understand
+对于一部分内容来说，如果你感到你还没明白这些内容
 
 427
 00:21:05,063 --> 00:21:08,799
 these, probably haven't done your homework yet, then you
+你们可能还没有做完家庭作业
 
 428
 00:21:08,868 --> 00:21:11,402
 won't understand this, very important. Okay, the first two
+那么你不会理解它，这是非常重要的。好的，在这里
 
 429
 00:21:11,470 --> 00:21:13,804
 things I'm gonna talk about here are just a little quick
+我要讨论的前两个事情仅仅是两件
 
 430
 00:21:13,873 --> 00:21:17,741
 minor things, asides. I mentioned doing a for
+小事。我提到过用浮点数 
 
 431
 00:21:17,810 --> 00:21:22,279
 loop over floats. So this for i = 0.5, i < 15.25 whatever,
+做 for 循环。比如 for i = 0.5，i < 15.25
 
 432
 00:21:22,348 --> 00:21:26,083
 that's something you might see in C. You can't do that
+这是你可能会在 C 语言中看到的东西。你不可以
 
 433
 00:21:26,151 --> 00:21:28,919
 in Swift, okay? Swift doesn't have, it only has for in,
+在 Swift 中这么做，好么？Swift 只有 for in
 
 434
 00:21:28,988 --> 00:21:32,589
 that's all it has. But how do we create a countable range or
+这是它拥有的全部。但是我们该如何创建一个 CountableRange 或者
 
 435
 00:21:32,658 --> 00:21:36,026
 some kind of sequence of those floats because 0.5...15.25,
+类似的浮点数序列？因为 0.5...15.25
 
 436
 00:21:36,094 --> 00:21:40,163
 that's actually legal to say, but
+事实上这么说是合法的，但是
 
 437
 00:21:40,232 --> 00:21:44,134
 that's only a range in Swift not a countable range. And
+在 Swift 中它只是一个 Range 而不是 CountableRange
 
 438
 00:21:44,203 --> 00:21:47,071
 that's because we don't know what to count by there,
+这是因为我们不知道间隔数是多少
 
 439
 00:21:47,140 --> 00:21:49,739
 so it can't create a countable range. So
+所以它没办法创建一个 CountableRange
 
 440
 00:21:49,808 --> 00:21:52,977
 the way we do that is using a global function called stride.
+我们实现它的方法就是使用一个叫做 stride 的全局函数
 
 441
 00:21:54,547 --> 00:21:58,114
 Stride has form, through or from and
+Stride 有 from，through 或者 from，to
 
 442
 00:21:58,183 --> 00:22:00,784
 to depending on whether you are gonna include the last
+关键词，依赖于你是否要包含最后一个
 
 443
 00:22:00,852 --> 00:22:04,588
 thing, and a by tells you what it strides by. Stride is
+事物，还有一个 by 关键词告诉你每一步的跨度是多少。Stride
 
 444
 00:22:04,656 --> 00:22:08,492
 function that creates a countable range. Countable
+是一个创建 CountableRange 的函数。
 
 445
 00:22:08,561 --> 00:22:11,461
 range is a generic type like array is a generic type.
+CountableRange 是一个泛型正如数组是一个泛型
 
 446
 00:22:11,530 --> 00:22:13,296
 It can count over not just ints,
+它不仅能够在整数间计数
 
 447
 00:22:13,365 --> 00:22:15,932
 it could count over floats, it could even count over indexes
+还能够计数浮点数，它甚至可以计数
 
 448
 00:22:16,001 --> 00:22:18,535
 into a string, all kinds of things it can count over.
+字符串的索引，所有种类的事物它都可以计数
 
 449
 00:22:18,604 --> 00:22:22,172
 And this stride knows how to create a countable range,
+Stride 了解如何创建一个 CountableRange
 
 450
 00:22:22,241 --> 00:22:25,476
 in this case a closed countable range because I did
+在这个例子里是一个 ClosedCountableRange 因为
 
 451
 00:22:25,545 --> 00:22:28,345
 through 15.25, not to 15.25.
+我写的是 through 15.25 而不是 to 15.25
 
 452
 00:22:28,414 --> 00:22:31,581
 It creates one that goes over floats and knows to step by
+它创建了一个知道以 0.3 为幅度跨越的浮点数区间，
 
 453
 00:22:31,650 --> 00:22:34,951
 three, 0.3 there. So that's how you do floating point.
+所以它就是你该如何处理浮点数的方法
 
 454
 00:22:35,020 --> 00:22:37,020
 And you don't have to do that for your homework or anything,
+你没有必要在你的家庭昨夜里这么做
 
 455
 00:22:37,089 --> 00:22:38,555
 but I just wanted to be complete about how we do
+我只是想要完整的讲述我们该如何处理
 
 456
 00:22:38,624 --> 00:22:41,892
 a countable range for floats. All right, tuples.
+浮点数的 CountableRange。元组
 
 457
 00:22:41,961 --> 00:22:45,262
 I try to fit everything into Concentration that I can,
+我尽力尝试把一切都纳入 Concentration 中去
 
 458
 00:22:45,331 --> 00:22:48,332
 an example of everything. But I couldn't figure out
+一个包含一切的例子。但是我没法想出
 
 459
 00:22:48,400 --> 00:22:51,101
 how to fit a tuple in even though tuple is a very simple
+如何把元组融入进去，即使元组是一个非常
 
 460
 00:22:51,170 --> 00:22:55,572
 little data structure. And all that tuple is, essentially,,
+简单的数据结构。元组的一切，基本上
 
 461
 00:22:55,641 --> 00:22:59,943
 like a mini struct that has no methods or vars or anything.
+就像一个迷你的没有方法，变量的结构体	
 
 462
 00:23:00,012 --> 00:23:04,114
 Just has values in it. So it's kind of like struct in other
+在里面只有值。所以它有点像其他语言中的结构体
 
 463
 00:23:04,183 --> 00:23:06,784
 languages, like C structs. They don't have methods or
+比如 C 语言结构体。它们没有方法
 
 464
 00:23:06,852 --> 00:23:08,719
 vars or anything, or they kind of have vars,
+变量或其他东西，或者说它们在某种程度上拥有变量
 
 465
 00:23:08,788 --> 00:23:10,554
 they have the data stores and that's it.
+它们有储存的数据，那就是它了
 
 466
 00:23:10,623 --> 00:23:12,956
 So but the tuple is super lightweight and
+但是元组是非常轻量的
 
 467
 00:23:13,025 --> 00:23:15,392
 you kinda define everything in line.
+你可以整齐地定义任何事物
 
 468
 00:23:15,461 --> 00:23:19,296
 So here's what a tuple looks like. Here's a tuple x. x,
+这是一个元组看起来的样子。这是一个元组 x
 
 469
 00:23:19,365 --> 00:23:23,734
 is up here, is of type tuple. And this tuple has three
+x 的类型是元组。这个元组里有三个
 
 470
 00:23:23,802 --> 00:23:26,437
 things in it. A string, an int, and a double. And
+部分。一个 String，一个 int，一个 double
 
 471
 00:23:26,505 --> 00:23:29,839
 I set its value by just saying equals parentheses,
+通过 = （三个值）
 
 472
 00:23:29,908 --> 00:23:33,544
 the three things, okay, the three values. Now, what's
+来给它赋值。现在
 
 473
 00:23:33,612 --> 00:23:37,214
 kinda cool about a tuple, as a lightweight struct kinda
+关于元组，一个轻量的数据结构来说，酷的事情是
 
 474
 00:23:37,283 --> 00:23:41,451
 thing, is that the names of the elements is very flexible.
+其元素的名称是非常灵活的
 
 475
 00:23:41,520 --> 00:23:44,855
 You can define the names when you get the values, like this,
+你能够在当你获得值的时候定义名称，像这样子
 
 476
 00:23:44,924 --> 00:23:49,092
 let parentheses word number value equal x. And
+let（word，number，value）= x
 
 477
 00:23:49,161 --> 00:23:52,062
 that actually assigns each of the values of x to the three
+它们实际上把 x 的每个值都赋给了
 
 478
 00:23:52,131 --> 00:23:55,833
 variables word, number and value. Okay? So I'm kind of
+word，number，value 三个变量，好么？
 
 479
 00:23:55,901 --> 00:23:59,603
 giving these struct elements names as I grab them out, or
+有点像当我揪出这些元素的时候给了它们名字
 
 480
 00:23:59,672 --> 00:24:02,506
 we can do the other way around. When I define x,
+或者我们可以用另一宗方式来做。当我定义 x 的时候
 
 481
 00:24:02,574 --> 00:24:05,042
 I can say x is a tuple that has a string and
+我可以写 x 是一个有着 String
 
 482
 00:24:05,110 --> 00:24:09,045
-Internet double called winv. Then,
+Int and double called w i and v. Then,
+Int 和 double 的元组，它们分别称为 w i 和 v
+
 
 483
 00:24:09,114 --> 00:24:13,484
 when I have x in my hands, I can get w,
+当我拥有 x 在手上的时候，我可以
 
 484
 00:24:13,552 --> 00:24:16,186
 i and v with using, using this dot notation,
+通过使用点语法来获得 w i 和 v 的值
 
 485
 00:24:16,255 --> 00:24:20,057
 kind of like it's a var almost in a struct, x.w, x.i, x.v.
+它有点像是一个结构体中的变量，x.w，x.i，x.v
 
 486
 00:24:20,125 --> 00:24:23,026
 See, so now I'm declaring the names when I declare
+所以现在当我声明变量的时候，我就在声明名称
 
 487
 00:24:23,095 --> 00:24:27,131
 the thing. But, and even if you do this, you can still
+但是即使你这么做，你仍可以
 
 488
 00:24:27,199 --> 00:24:29,766
 redeclare the names to be something else by saying, let
+重新声明这些名字，通过写
 
 489
 00:24:29,835 --> 00:24:33,904
 word num val = x, it'll crate those three local variables so
+let（word，num，val）= x，它会创建这三个局部变量
 
 490
 00:24:33,972 --> 00:24:37,273
 super flexible on the naming of those three things.
+所以命名这三个事物是非常灵活的
 
 491
 00:24:37,342 --> 00:24:39,943
 Usually when we crate a tuple we want to use the second way
+通常当我们创建一个元组的时候，我们想要用第二种方法
 
 492
 00:24:40,012 --> 00:24:43,146
 the x : i : v way although we probably would not use x,
+x：i：v，即使我们可能不会使用 x
 
 493
 00:24:43,215 --> 00:24:45,615
 i and v those are terrible names that is just my
+i 和 v，这些是糟糕的名字，那是因为
 
 494
 00:24:45,684 --> 00:24:47,350
 slide only has so much space.
+我的幻灯片横向的只有这么多空间
 
 495
 00:24:47,419 --> 00:24:49,386
 Horizontally, probably word, number or
+大概 word，number 和 value
 
 496
 00:24:49,455 --> 00:24:51,789
 value would have been better names. Usually we do that, and
+会是更好的名字。通常我们这样做
 
 497
 00:24:51,858 --> 00:24:53,457
 that's mostly because of documentation,
+是因为文档需求
 
 498
 00:24:53,526 --> 00:24:56,226
 we want people to know what those three things are. If we
+我们想要人们了解那三个东西是什么
 
 499
 00:24:56,295 --> 00:24:59,163
 just declare it like x at the very top there, string, int,
+如果我们仅仅声明它，像上面的那个 x 那样，String，Int
 
 500
 00:24:59,231 --> 00:25:01,865
 double, people are like, hm, what are those three things?
+Double，人们会说，这些东西到底是什么？
 
 501
 00:25:01,933 --> 00:25:03,266
 So, what's a tuple good for? Well,
+所以，元组的优点是什么？
 
 502
 00:25:03,335 --> 00:25:06,336
 it's good any time you wanna group some stuff together
+对于任何时候你想要把一些事物组织在一起，它是非常好的
 
 503
 00:25:06,404 --> 00:25:08,205
 that's really lightweight, it doesn't have any methods or
+它是非常轻量的，它没有任何方法或者
 
 504
 00:25:08,274 --> 00:25:10,974
 anything associated with it. It's also very good for
+关联的东西。对一个函数返回多个值来说
 
 505
 00:25:11,042 --> 00:25:14,945
 returning multiple values from a function. A function of
+它也是非常好的。
 
 506
 00:25:15,014 --> 00:25:17,781
 Swift can only return a single thing, but
+一个 Swift 函数只能返回一个单独的事物
 
 507
 00:25:17,850 --> 00:25:21,251
 that thing could be a tuple, and now you can return as many
+但是它可以是一个元组，现在你就可以返回尽可能多的
 
 508
 00:25:21,319 --> 00:25:24,821
 things as you want, okay? So if I had a function getSize,
+事物，好么？所以如果我有一个函数 getSize
 
 509
 00:25:24,890 --> 00:25:28,158
 get's a person's size, their height and their weight.
+获得一个人的尺寸，身高和体重
 
 510
 00:25:28,227 --> 00:25:32,229
 Let's say I can return a tuple with weight and height, and
+我可以返回一个包含体重和身高的元组
 
 511
 00:25:32,298 --> 00:25:34,898
 so when I got it back I just x.weight or
+所以当我得到返回值的时候，我只需要 x.weight
 
 512
 00:25:34,966 --> 00:25:38,902
 even just getSize.weight or getSize.height, access
+甚至只需要 getSize.weight 或者 getSize.height
 
 513
 00:25:38,970 --> 00:25:42,773
 it directly. So that's what tuples, is I didn't make you
+直接获取它。所以这就是元组，我没有在你们的
 
 514
 00:25:42,841 --> 00:25:45,109
 read about it tuple in your first reading assignment but
+第一个阅读作业中让你们阅读元组
 
 515
 00:25:45,177 --> 00:25:46,376
 you'll be reading about it in your next one.
+但是你会在下一个作业里阅读它的内容
 
 516
 00:25:46,445 --> 00:25:48,178
 it's very simple, it's exactly what it seems,
+它是非常简单的，它完全是它看起来的样子
 
 517
 00:25:48,247 --> 00:25:50,981
-there;s nothing magical here, there's no hidden things, it's
+there's nothing magical here, there's no hidden things, it's
+这里没有魔法，没有隐藏的内容
 
 518
 00:25:51,049 --> 00:25:56,120
 just a simple little struct, yeah? Sorry? Do they support
+它就是一个简单的小结构。抱歉？>> 它们支持索引么？
 
 519
 00:25:57,523 --> 00:25:59,589
 indexing? Do tuples support indexing, you mean like,
+>> 元组支持索引么，你的意思是，像
 
 520
 00:25:59,658 --> 00:26:04,194
 get thing number 1, or get thing number 2? Not really,
+得到第一个元素，第二个元素？算不上这样
 
 521
 00:26:04,262 --> 00:26:06,730
 and we wouldn't really wanna do it that way. If we really
+我们并不十分想要用这种方式做。如果我们十分
 
 522
 00:26:06,798 --> 00:26:09,299
 had something we'd index, we'd wanna use an array there,
+需要被索引的事物，我们会在那里使用一个数组
 
 523
 00:26:09,368 --> 00:26:12,369
 because, you know what I'm saying? It would obfuscate
+因为，你知道我在讲什么么？它会混淆
 
 524
 00:26:12,438 --> 00:26:14,204
 what's going on. The whole great thing about tuples,
+现在进行的事情。关于元组，所有美妙的地方在于
 
 525
 00:26:14,273 --> 00:26:16,740
 you can name each one and let people know what they are, so.
+你可以命名每一个元素让人们知道它们是什么，所以你懂的
 
 526
 00:26:18,477 --> 00:26:21,111
 All right, now, okay, that was it for
+好的，这就是那些小知识
 
 527
 00:26:21,180 --> 00:26:23,813
 little things, now we're back to something very important.
+现在我们返回一些非常重要的事情
 
 528
 00:26:23,882 --> 00:26:27,651
 This is a big thing. This is computed properties.
+这是一个重要的事情。它是演算属性
 
 529
 00:26:27,720 --> 00:26:30,888
 So all the properties that you saw in Concentration,
+你在 Concentration 中看到的所有属性
 
 530
 00:26:30,956 --> 00:26:34,057
 were stored properties. They were just normal vars
+都是演算属性。它们就是正常的变量
 
 531
 00:26:34,126 --> 00:26:36,126
 like you're used to in another languages, right?
+就像你在其他语言中用的那些一样，好么？
 
 532
 00:26:36,195 --> 00:26:39,429
 Like this var foo: Double, that's a double precision
+像这个变量 foo: Double，它是一个双精度
 
 533
 00:26:39,498 --> 00:26:42,332
 floating point number, and it's just stored in memory.
+浮点数，它只是储存在内存中
 
 534
 00:26:42,400 --> 00:26:45,536
 It's stored with whatever struct or class it's part of.
+它储存在任何它属于的结构体或类里面
 
 535
 00:26:45,604 --> 00:26:48,405
 But it is possible to declare foo like this,
+但是也可以像这样子声明 foo
 
 536
 00:26:48,474 --> 00:26:53,410
 foo Double open curly brace, get with the curly brace, set,
+for: Double { get {} 
 
 537
 00:26:53,478 --> 00:26:55,445
-with some curly brace.
+with some curly brace
+set {} }.
 
 538
 00:26:55,514 --> 00:26:59,316
 In that case, foo is never stored anywhere, instead,
+在这个例子中，foo 从没有被储存，相反
 
 539
 00:26:59,385 --> 00:27:00,751
 every time someone asks for
+每次人们请求 foo 的时候
 
 540
 00:27:00,820 --> 00:27:05,255
 foo, it gets calculated with the code inside get. And
+它被 get 中的代码所计算
 
 541
 00:27:05,324 --> 00:27:07,624
 every time someone sets the value of foo,
+每次人们设置 foo 的值
 
 542
 00:27:07,692 --> 00:27:13,196
 this code that's in here inside set gets executed.
+在 set 里面的代码得到执行
 
 543
 00:27:13,265 --> 00:27:14,531
 Okay, so I got a little pointer here. So
+好的，我现在有了一个小的指示器
 
 544
 00:27:14,600 --> 00:27:17,801
 this code gets executed when you set, this code up here
+这行代码当你设置 foo 的值时得到执行，这行代码当你
 
 545
 00:27:17,870 --> 00:27:21,070
 gets executed when you get. Instead of it being stored
+获取 foo 的值时得到执行。而不是被储存在某个地方
 
 546
 00:27:21,139 --> 00:27:25,942
 somewhere. Now, the set by the way, that set(newValue) part,
+顺便说一下，set（newValue）部分
 
 547
 00:27:26,011 --> 00:27:28,478
 that's optional. So you can have computed properties
+是可选择的。所以你可以拥有只有 get 部分的
 
 548
 00:27:28,547 --> 00:27:32,215
 that are only get, call those read only computed properties.
+演算属性，成为只读演算属性
 
 549
 00:27:32,284 --> 00:27:34,618
 You can't have ones that are only set,
+你无法拥有只有 set 的演算属性
 
 550
 00:27:34,687 --> 00:27:36,920
 you can have get only but not set only.
+你可以只拥有 get 但不能只拥有 set
 
 551
 00:27:36,988 --> 00:27:40,523
 If you have set only make a function set whatever.
+如果你要只拥有 set，把它做成一个函数或任意其他东西
 
 552
 00:27:40,592 --> 00:27:44,894
 You wouldn't use a var like that. Okay, so why a computed
+你不会像那样子使用一个变量。所以为什么演算属性
 
 553
 00:27:44,963 --> 00:27:49,065
 properties important? What do you use them for?
+如此重要？我们用它来做什么？
 
 554
 00:27:49,134 --> 00:27:51,835
 Well, a lot of times you have something that is perceived as
+很多很多次，你有一些被看作是结构体或者类的属性的东西
 
 555
 00:27:51,904 --> 00:27:56,940
 a property of your struct or class that actually is derived
+它们实际上源自你的结构体的
 
 556
 00:27:57,008 --> 00:28:00,510
 from other state inside of your struct. And when you have
+其他状态。当你遇到这种情况时
 
 557
 00:28:00,578 --> 00:28:03,313
 that situation, you do not want to have a stored property
+你不希望拥有一个寄存属性
 
 558
 00:28:03,382 --> 00:28:04,881
 because you don't want to have the same
+因为你不想在两个不同的变量里
 
 559
 00:28:04,950 --> 00:28:09,886
 information in two different vars. Because they can get
+储存着相同的信息。因为它们会
 
 560
 00:28:09,955 --> 00:28:11,755
 out of sync, all kinds of problems happens, so
+无法同步，还有各种各样的问题发生，
 
 561
 00:28:11,824 --> 00:28:14,257
 you one way or the other wants to derive itself
+你的某一个变量会想从另一个中推导出自身
 
 562
 00:28:14,326 --> 00:28:17,761
 from the other one. Here's an incredibly good example
+这里是一个非常好的例子
 
 563
 00:28:17,829 --> 00:28:21,765
 indexOfOneAndOnlyFaceUpCard in concentration.
+Concentration 中的 indexOfOneAndOnlyFaceUpCard 
 
 564
 00:28:21,833 --> 00:28:26,736
 That is easily derived by looking at the cards. So
+它可以轻松的通过观察卡片得到
 
 565
 00:28:26,805 --> 00:28:30,373
 you really, we'll really kind of bad to have made that
+所以让它成为一个寄存属性对我们来说是不太好的
 
 566
 00:28:30,442 --> 00:28:33,143
 a stored property, becauase we have to keep that thing
+因为我们不得不保持它
 
 567
 00:28:33,211 --> 00:28:37,146
 exactly in sync with the face up state of all the cards.
+与所有卡片正面朝上的状态完全同步
 
 568
 00:28:37,215 --> 00:28:41,184
 That's really error prone way to design. So, we could
+那是一个非常糟糕的设计方式。所以我们可以试着想象
 
 569
 00:28:41,253 --> 00:28:44,654
 imagine doing, implementing indexOfOneAndOnlyFaceUpCard as
+实现 indexOfOneAndOnlyFaceUpCard 成为一个
 
 570
 00:28:44,723 --> 00:28:45,822
 computed property
+演算属性
 
 571
 00:28:45,891 --> 00:28:48,591
 with the get just looks at all the cards. And if you'll
+它的 get 用来观察所有的卡片。如果你
 
 572
 00:28:48,660 --> 00:28:51,862
 only find one FaceUpCard it returns that index, otherwise
+只发现一张正面向上的卡片，它返回那个索引，否则
 
 573
 00:28:51,930 --> 00:28:56,332
 it it returns nil. And the set just looked to that index,
+它返回 nil。set 查看那个缩影
 
 574
 00:28:56,401 --> 00:28:59,035
 make sure that card face up and all the rest will face
+确认那张卡片为正面朝上而其他卡片正面朝下
 
 575
 00:28:59,104 --> 00:29:03,940
 down, you see? So, we're just using this computed property
+看到了么？本质上我们正使用这个演算属性
 
 576
 00:29:04,009 --> 00:29:07,678
 to essentially provide this conceptual property,
+来提供这个概念上的属性
 
 577
 00:29:07,747 --> 00:29:09,546
 which is the indexOfOneAndOnlyFaceUpCard,
+也就是 indexOfOneAndOnlyFaceUpCard
 
 578
 00:29:09,615 --> 00:29:11,982
 that is the property of our game, but
+它是我们游戏的一个属性
 
 579
 00:29:12,050 --> 00:29:14,885
 it's computed from the other one. Everyone get what
+但是它从另一个属性计算而来。所有人都
 
 580
 00:29:14,953 --> 00:29:18,354
 I'm saying there? Okay, so let's go to Concentration and
+理解我在说什么么？好的，让我们去到 Concentration
 
 581
 00:29:18,423 --> 00:29:20,290
 make this change, see what this would look like
+进行这个修改，看看如果使用一个演算属性的话，就像
 
 582
 00:29:20,358 --> 00:29:22,426
 if you used a computed property here like we
+起初我们本应就这么做
 
 583
 00:29:22,495 --> 00:29:25,228
 should've in the first place, all right?
+它会是什么样子，好么？
 
 584
 00:29:25,297 --> 00:29:30,700
-So let's go back here to X code,
+So let's go back here to Xcode,
+我们回到 Xcode
 
-585
+585  
 00:29:30,769 --> 00:29:33,971
-here we go spring our code back up, get rid of that.
+here we go bring our code back up, get rid of that.
+把我们的代码拿回来，摆脱掉它
 
 586
 00:29:34,039 --> 00:29:38,208
 Let's go, oops, let's go to concentration, that's where
+让我们去到 Concentration，我们代码所在
 
 587
 00:29:38,277 --> 00:29:41,811
 this is all right? So everyone recognize this code, right?
+的地方，好么？每个人都认得出这些代码，对么？
 
 588
 00:29:41,880 --> 00:29:43,680
 This is our entire concentration,
+这是我们完整的 concentration
 
 589
 00:29:43,748 --> 00:29:45,882
 pretty efficient code as is but it's actually gonna look
+已经是足够有效率的代码了，但是它会看起来更好
 
 590
 00:29:45,951 --> 00:29:49,586
 even better once we do this as you'll see. So we're here,
+一旦我们实现这个功能，你马上就会看到
 
 591
 00:29:49,655 --> 00:29:51,354
-we have index and one only FaceUpCard. So
+we have index of one and only FaceUpCard. So
+我们有 indexOfOneAndOnyFaceUpCard
 
 592
 00:29:51,423 --> 00:29:54,557
 I'm gonna make it computed by putting these curly braces in,
+我要把它写成演算属性，通过放置这些大括号
 
 593
 00:29:54,626 --> 00:29:57,827
 as soon as I do that, now it's a computed property. Actually,
+我一完成它，它就变成了一个演算属性
 
 594
 00:29:57,896 --> 00:30:00,330
 before we do that, let me show you even simpler case of this
+事实上，在我们做之前，让我给你们展示一个更简单的例子
 
 595
 00:30:00,399 --> 00:30:04,401
 just to kinda get you warmed up on computed property.
+仅仅是让你们熟悉一下演算属性
 
 596
 00:30:04,469 --> 00:30:07,804
 Sometimes, you have just a simple calculation like this.
+有时候，你有一个像这样子的简单计算
 
 597
 00:30:07,873 --> 00:30:11,040
 The number of pairs of cards which are calculated from
+numberOfPairsOfCard，它由 cardButtons
 
 598
 00:30:11,109 --> 00:30:14,444
 the card buttons, all right? There might be other times
+计算出来。可能在我们的 ViewController 里还有其他时候
 
 599
 00:30:14,513 --> 00:30:17,013
 inside our view controller, we wanna know this number,
+我们想要知道这个数字
 
 600
 00:30:17,082 --> 00:30:19,949
 how many pairs of cards do we have. So
+我们拥有多少对卡片。所以
 
 601
 00:30:20,018 --> 00:30:23,787
 that's kind of a property and is derived from this data. So
+它是一种属性，并且通过这个数据推导出来
 
 602
 00:30:23,856 --> 00:30:25,789
 I'm gonna take this out of here and
+所以我要把它拿出来而且
 
 603
 00:30:25,857 --> 00:30:30,127
 have number of pairs of cards be a property.
+把 numberOfPairsOfCard 写成一个属性
 
 604
 00:30:30,195 --> 00:30:35,766
 It's gonna be a new var numberOfPairsOfCards, and
+它会是一个新的变量 numberOfPairsOfCard
 
 605
 00:30:35,834 --> 00:30:39,870
 it's gonna be of type Int, and it's gonna be computed, so
+它的类型是 Int，它是一个演算属性
 
 606
 00:30:39,938 --> 00:30:43,339
 I'm gonna have a get. It's gonna be read only, so
+我会拥有一个 get，它会是只读的，所以
 
 607
 00:30:43,408 --> 00:30:45,976
 I'm gonna return this. It's not gonna have a set,
+我会返回这个，它不会有一个 set
 
 608
 00:30:46,044 --> 00:30:49,112
 there's no, there's not gonna be any set right here. And
+这里没有，也不会再有任何的 set
 
 609
 00:30:49,181 --> 00:30:52,950
 voila I've created a simple computed property that's read
+我已经创建一个简单的只读的演算属性
 
 610
 00:30:53,018 --> 00:30:56,119
 only. By the way if you have a read only property,
+顺便说如果你有一个只读属性
 
 611
 00:30:56,187 --> 00:31:00,456
 you do not actually have to have the word get there. So
+实际上你不必须在这里写 get 关键词
 
 612
 00:31:00,525 --> 00:31:01,190
 a read only property
+所以一个只读属性
 
 613
 00:31:01,259 --> 00:31:04,094
 can look like that. Only if you only have a get,
+可以是这个样子。只有你仅有一个 get 的时候可以这么做
 
 614
 00:31:04,162 --> 00:31:07,663
 if you have a set can't do that. So this is a super
+如果你有一个 set 不能这么做。所以这是一个非常
 
 615
 00:31:07,732 --> 00:31:10,567
 simple little one. So now let's go back over here and
+简单的演算属性。现在让我们返回这里
 
 616
 00:31:10,635 --> 00:31:12,436
 do the little more complicated one over here.
+完成这个稍微复杂的演算属性
 
 617
 00:31:12,504 --> 00:31:16,840
 This one does have a get and it also has a set. And
+这个属性既有一个 get 也有一个 set
 
 618
 00:31:16,909 --> 00:31:20,577
 set right here, I put in the slide that has newValue.
+set 就在这里，我放到幻灯片里的那个有一个 newValue
 
 619
 00:31:20,646 --> 00:31:23,146
 This is just gonna be the local variable inside here
+这只是里面一个局部变量
 
 620
 00:31:23,215 --> 00:31:25,482
 that contains the new value that someone set,
+包含着某个人设置的新的数值
 
 621
 00:31:25,551 --> 00:31:29,018
 indexOfTheOneAndOnlyFaceUpCard two. A lot of times we don't
+第二个 indexOfTheOneAndOnlyFaceUpCard。大部分时候
 
 622
 00:31:29,087 --> 00:31:31,421
 put anything there, if you do that,
+我们在这里不放任何东西，如果你这么做了
 
 623
 00:31:31,490 --> 00:31:34,858
 it defaults to newValue. That's the name of the locals,
+它的默认值就是 newValue。它是那个局部变量的名字
 
 624
 00:31:34,926 --> 00:31:36,960
 there's a special variable in here called newValue.
+这里有一个特殊的变量叫做 newValue
 
 625
 00:31:37,028 --> 00:31:39,562
 But if you wanted to call it something like index,
+但是如果你想称呼它，比如 index
 
 626
 00:31:39,631 --> 00:31:42,632
 you could do that, it's totally up to you,
+你可以那么做，这完全取决于你
 
 627
 00:31:42,701 --> 00:31:46,936
 a lot of times we just say use newValue though. Okay,
+不过大部分时候我们都使用 newValue
 
 628
 00:31:47,005 --> 00:31:50,173
 so getting the index what do we have to do
+至于获取 index 的值，我们必须这么做
 
 629
 00:31:50,241 --> 00:31:53,110
-to calculate the index of code. So I'm just gonna
+to calculate the index of faceup card. So I'm just gonna
+来计算正面朝上卡片的索引。我要
 
 630
 00:31:53,178 --> 00:31:56,346
-write the little code and have a little look of variable,
+write the little code and have a little localvariable,
+写一小段代码，得到一个局部变量
 
 631
 00:31:56,415 --> 00:32:00,417
 say foundIndex which is gonna be an optional Int. So
+叫做 foundIndex，它会是一个可选类型的 Int
 
 632
 00:32:00,485 --> 00:32:03,453
 I'm gonna look through all the face cards and
+我会遍历所有的卡片
 
 633
 00:32:03,522 --> 00:32:05,622
 see if I can find one that's gonna be the one I found.
+查看是否能找到我翻开的那张卡片
 
 634
 00:32:05,691 --> 00:32:07,490
-So I'm gonna use a for loop here and
+So I'm gonna use a for loop here 
+所以我要使用一个 for 循环
 
 635
 00:32:07,559 --> 00:32:10,227
 go through all the cards.indicises, all right?
+遍历所有的 cards.indices
 
 636
 00:32:10,295 --> 00:32:15,398
 I'm gonna look at each card, and if that card is FaceUp.
+我会查看每一张卡牌，如果那张卡牌是正面朝上的
 
 637
 00:32:15,467 --> 00:32:17,667
 So I found the FaceUp card, whoo-hoo.
+我就找到了它
 
 638
 00:32:17,735 --> 00:32:20,870
 I'm gonna say, if foundOne is nil, in other words,
+如果 foundOne 是 nil，换句话说
 
 639
 00:32:20,939 --> 00:32:24,041
 I haven't found the card yet and this is my first one.
+我便没能找到那张卡片，那么这就是我的第一张卡片
 
 640
 00:32:24,109 --> 00:32:28,211
 Then I'm gonna set not foundOne, what is it called,
+不是 foundOne，它被叫做
 
 641
 00:32:28,280 --> 00:32:32,849
 foundIndex = index, all right? So here I'm just saying if I
+foundIndex = index，好么？所以这里我写的是
 
 642
 00:32:32,918 --> 00:32:35,985
 just found my first one let's remember it.
+如果我找到了我的第一张卡片，让我们记住它
 
 643
 00:32:36,054 --> 00:32:39,522
 Otherwise, if foundIndex is not nil that means this is
+否则，如果 foundIndex 不是 nil，它意味着
 
 644
 00:32:39,591 --> 00:32:41,958
 the second FaceUpCard that I found.
+这是我找到的第二张正面朝上的卡片
 
 645
 00:32:42,027 --> 00:32:44,494
 Cuz I already found one and I found another one, so
+因为我已经找到了一张并且找到了另一张
 
 646
 00:32:44,563 --> 00:32:47,431
 here I am just gonna to return nil. Because if there's two
+所以这里我会返回 nil。因为如果这里有两张
 
 647
 00:32:47,499 --> 00:32:49,900
 FaceUpCards then obviously the index of the one and
+正面朝上的卡片，那么显然 indexOfOneAndOnlyFaceUpCard
 
 648
 00:32:49,968 --> 00:32:53,270
 only FaceUpCard is nil, there's no such thing. And
+是 nil，这里没有这样的东西。
 
 649
 00:32:53,339 --> 00:32:55,371
 if I make it all the way through this for
+如果我完成了整个 for 循环的路径
 
 650
 00:32:55,440 --> 00:32:58,708
 loop I'm just gonna return the foundIndex, which is either
+我会返回 foundIndex，它要么
 
 651
 00:32:58,776 --> 00:33:01,211
 going to have been set to the one card I found or
+被设定成了我找到的那张卡片或者
 
 652
 00:33:01,280 --> 00:33:03,680
 it'll still be nil from this declaration.
+仍然是 nil，通过这个声明来说的话
 
 653
 00:33:03,748 --> 00:33:05,682
 Remember that optionals always get
+还记得可选类型在声明的时候总是自动
 
 654
 00:33:05,750 --> 00:33:09,051
 this free equals nil when they're declared, right? So it
+获得这个缺省值，对吧？所以
 
 655
 00:33:09,120 --> 00:33:12,222
 starts out nil and if I never found one, it'll still be nil,
+它以 nil 开始，如果我没有找到一张卡片，它将仍是 nil
 
 656
 00:33:12,291 --> 00:33:15,692
 which is right cuz that means there'll be no FaceUpCards.
+这是正确的因为它意味着这里没有正面朝上的卡片
 
 657
 00:33:15,761 --> 00:33:18,395
 We're gonna understand this simple code right here,
+我们将理解这里的这块简单的代码
 
 658
 00:33:18,464 --> 00:33:20,730
 how about the set case? On the set case,
+至于 set 的情况呢？在 set 例子中
 
 659
 00:33:20,799 --> 00:33:22,198
 I'm just gonna loop through all the cards and
+我要遍历所有的卡片
 
 660
 00:33:22,267 --> 00:33:26,236
 turn all face down except for this one that they just set it
+把它们全部翻到背面，除了这张，它刚刚
 
 661
 00:33:26,304 --> 00:33:29,338
 to, which is gonna be new value, all right? So I'm just
+被设置成了 newValue，对么？
 
 662
 00:33:29,407 --> 00:33:33,243
 gonna go through my cards for index in cards.indices.
+我要遍历我的卡片，for index in cards.indices
 
 663
 00:33:33,312 --> 00:33:36,412
 Great way to go iterate through this countable
+这是一个很棒的方式来迭代这个包含
 
 664
 00:33:36,481 --> 00:33:39,348
 range of all the indexes in my array. I'm gonna say,
+数组里所有索引的 CountableRange。我会写
 
 665
 00:33:39,417 --> 00:33:45,756
 cards.index.isFaceUp = false,
+cards.index.isFaceUp = false
 
 666
 00:33:45,824 --> 00:33:50,327
 for most cards. But in case the index here,
+对于大部分卡片来说。但是对于这个索引来说
 
 667
 00:33:50,395 --> 00:33:54,264
 this index equals the new value of this, then I'm gonna
+它等于 newValue，
 
 668
 00:33:54,332 --> 00:33:59,369
 set it to true. Okay, so here this is an expression
+我把它设置为 true。好的，这里是一个表达式
 
 669
 00:33:59,438 --> 00:34:03,874
 that's true if someone said indexOfTheOneAndOnlyFaceUpCard
+如果某个人说 indexOfTheOneAndOnlyFaceUpCard 等于
 
 670
 00:34:03,942 --> 00:34:07,210
 equals whatever. If this is the whatever they said,
+无论什么 ，如果这是 indexOfTheOneAndOnlyFaceUpCard 的值
 
 671
 00:34:07,279 --> 00:34:10,547
 then we're gonna have this be true if the card's face up,
+那么我们会让它是 true，如果卡片正面朝上的话
 
 672
 00:34:10,615 --> 00:34:13,549
 o therwise this will always be false. Everybody got this
+否则它会一直是 false。每个人都理解了
 
 673
 00:34:13,618 --> 00:34:17,553
 little code right there? Come through with that? All right,
+这一小段代码么？能够理解它么？好的
 
 674
 00:34:17,622 --> 00:34:21,391
 that's it. Okay, now the indexOfTheOneAndOnlyFaceUpCard
+这就是它了。现在 indexOfTheOneAndOnlyFaceUpCard
 
 675
 00:34:21,459 --> 00:34:22,859
 is computed like this,
+就像这样子被计算了
 
 676
 00:34:22,927 --> 00:34:26,329
 from the card, we do not need to take responsibility for
+我们没有必要负责去做一些像
 
 677
 00:34:26,398 --> 00:34:30,233
 doing things like setting it to nil here. This is the case
+把它设为 nil 之类的事情。这是一个例子
 
 678
 00:34:30,302 --> 00:34:33,136
 where we found two cards, we got two cards that we're
+在这里我们找到了两张卡片，我们有两张要尝试匹配
 
 679
 00:34:33,204 --> 00:34:36,273
 trying to match, well, obviously there's two cards.
+的卡片，很明显这里是两张卡片
 
 680
 00:34:36,341 --> 00:34:38,474
 So we had to set the indexOfTheOneAndOnlyFaceUpCard
+所以我们不得不设置 indexOfTheOneAndOnlyFaceUpCard
 
 681
 00:34:38,543 --> 00:34:40,744
 to nil cuz there were two. But we don't have to do that
+为 nil 因为这里有两张。但是我们现在再也不必这么做了
 
 682
 00:34:40,812 --> 00:34:42,912
 anymore, because it's always computing that,
+因为它总是会计算它的值
 
 683
 00:34:42,981 --> 00:34:45,749
 every time we ask, it goes and looks at the card. And
+每一次我们请求，它去到程序里查看卡片
 
 684
 00:34:45,817 --> 00:34:49,418
 even better than that is this case down here. Okay,
+比这更好的是下面这个例子
 
 685
 00:34:49,487 --> 00:34:51,520
 this case down here, we are setting the
+下面这个例子里，我们正在设置
 
 686
 00:34:51,589 --> 00:34:53,523
 indexOfTheOneAndOnlyFaceupCard to
+indexOfTheOneAndOnlyFaceUpCard 为
 
 687
 00:34:53,592 --> 00:34:56,259
 be the index. That's because this was the case where there
+index。那是因为在这种情况下
 
 688
 00:34:56,328 --> 00:34:57,894
 were already two or there were none,
+已经有了两张卡片或者没有卡片正面朝上
 
 689
 00:34:57,963 --> 00:35:01,364
 and now we turn those faceDown and do this new one.
+我们把它们翻转朝下然后进行新的选择
 
 690
 00:35:01,433 --> 00:35:04,734
 So we're already setting this and it does all of this.
+我们已经设置过它了，程序做了所有的事情
 
 691
 00:35:04,802 --> 00:35:07,470
 Setting this thing to something already turns all
+设置它为某个值已经把所有其他的卡片
 
 692
 00:35:07,539 --> 00:35:11,641
 the other cards faceDown. And already sets that card faceUp,
+翻到了背面。而且已经设置那张卡片朝上
 
 693
 00:35:11,709 --> 00:35:16,178
 so we don't need any of that code. So you see how making
+所以我们不需要这里任何的代码。所以你看
 
 694
 00:35:16,247 --> 00:35:20,083
 the computed property makes this code much simpler and
+演算属性令我们的代码多么的简洁和直接
 
 695
 00:35:20,152 --> 00:35:23,819
 straightforward. Cuz it really gets at the heart of what's
+因为它完全接触到了正在发生的事情的核心
 
 696
 00:35:23,888 --> 00:35:26,656
 going on. I'm just setting the indexOfTheOneAndOnlyFaceUpCard
+我只需要设置 indexOfTheOneAndOnlyFaceUpCard 的值
 
 697
 00:35:26,725 --> 00:35:27,223
 to this index
+为这个
 
 698
 00:35:27,292 --> 00:35:28,191
 that I just clicked on or
+我点击的 index
+
 
 699
 00:35:28,260 --> 00:35:30,727
 I'm just turning this card faceUp. And the next time
+我正把这张卡片翻到正面。下一次某人
 
 700
 00:35:30,795 --> 00:35:34,063
 someone asks for the indexOfTheOneAndOnlyFaceUpCard
+请求 indexOfTheOneAndOnlyFaceUpCard 的时候
 
 701
 00:35:34,132 --> 00:35:36,466
 it's gonna do the right thing, right?
+它就会是正确的事情，对么？
 
 702
 00:35:36,535 --> 00:35:39,302
 So let's go and run, make sure we didn't break
+让我们运行程序，确保我们在把它创建成一个演算属性
 
 703
 00:35:39,371 --> 00:35:43,306
 anything making this into a computed property. Here we go,
+过程中没有打破任何东西。让我们开始吧
 
 704
 00:35:43,374 --> 00:35:46,009
 hopefully we can still match, yeap, that matches,
+希望我们仍然可以匹配，好的，它匹配了
 
 705
 00:35:46,077 --> 00:35:48,645
 and the matching is working, and the mismatching is also
+匹配程序正在工作，不匹配程序也在
 
 706
 00:35:48,714 --> 00:35:52,982
 working. Really cool computed properties,
+工作。演算属性真的很酷
 
 707
 00:35:53,050 --> 00:35:55,718
 you're gonna see computed properties everywhere in iOS,
+你将会在 iOS 的每个地方看到演算属性的身影
 
 708
 00:35:55,787 --> 00:36:01,223
 they get very common, yeah. >> [INAUDIBLE]
+它们是非常常见的
 
 709
 00:36:01,292 --> 00:36:02,258
 >> Okay great question, so
+>> 好的，非常棒的问题。所以
 
 710
 00:36:02,326 --> 00:36:04,995
 when would I reuse this var versus
+什么时候我改重新使用这个变量而不是
 
 711
 00:36:05,063 --> 00:36:07,664
 having two methods, one which get's the index and
+用两个方法，一个得到 index 的值
 
 712
 00:36:07,732 --> 00:36:09,833
 one really [INAUDIBLE] and one that sets it.
+一个设置 index 的值
 
 713
 00:36:09,901 --> 00:36:14,003
 Okay, it's all about whether it's perceived as property.
+好的，它只和是否它被理解成一个属性有关
 
 714
 00:36:14,072 --> 00:36:17,807
 This index in effect is perceived by us as programmers
+这个 index 实际上被我们程序员视为
 
 715
 00:36:17,875 --> 00:36:20,710
 it's a property right? It's, it's a property of the game
+一个属性，对么？它是翻牌游戏的一个属性
 
 716
 00:36:20,779 --> 00:36:22,379
 is the index on the face of the card, so
+它是 indexOfOneAndOnlyFaceUpCard
 
 717
 00:36:22,447 --> 00:36:27,049
 that's what you would do here. If another way of kind of
+所以这是你要在这里做的事情。另一种决定的方法是
 
 718
 00:36:27,118 --> 00:36:32,021
 deciding is if the set or the get really does a lot of work.
+是否 set 和 get 的确做了很多的工作
 
 719
 00:36:32,090 --> 00:36:35,158
 Like it's really crunching on something,
+比如它的确处理了很多事情
 
 720
 00:36:35,227 --> 00:36:36,826
 you might wanna make that a function.
+你可能想把它做成一个函数
 
 721
 00:36:36,895 --> 00:36:38,628
 Just so the people don't think, oh it's a lightweight
+那样子的话，人们就不会认为，它是一个轻量
 
 722
 00:36:38,696 --> 00:36:41,731
 little property that I can get. Now, this might seem like
+的我能够获取的属性。现在，它可能看起来
 
 723
 00:36:41,800 --> 00:36:43,966
 a lot of work but it's actually very very simple.
+做了很多的工作但是实际上非常非常简单
 
 724
 00:36:44,035 --> 00:36:46,703
 And then later in the lecture, probably on Wednesday,
+之后可能在周三的课堂上
 
 725
 00:36:46,771 --> 00:36:50,073
 I'm gonna show you an even much simpler version of this.
+我会展示给你们一个更简单的版本
 
 726
 00:36:50,141 --> 00:36:51,775
 When we learn a little bit more about Swift.
+当我们学习更多一点 Swift 的内容后
 
 727
 00:36:51,843 --> 00:36:53,676
 But it really is not that much work it's just looking at
+不过它真的不是那么多的工作，它只是查找
 
 728
 00:36:53,745 --> 00:36:56,412
 another data structure. But if you were doing a lot of work
+另一个数据结构。但是如果你正在做很多的工作
 
 729
 00:36:56,481 --> 00:36:58,114
 then you probably want to do set and
+那么你可能想要做 set 和 get 
 
 730
 00:36:58,182 --> 00:37:01,651
 get to make it clear. But otherwise if it is
+来让它清晰。否则的话如果他是一个变量
+
 
 731
 00:37:01,720 --> 00:37:06,322
 a var if it seems like a var make it a var. Good question.
+如果它看起来是一个变量就让它成为一个变量。非常好的问题。
 
 732
 00:37:06,391 --> 00:37:09,892
 Alright where is my, here it is, keynote,
+好的，这里是我的 keynote
 
 733
 00:37:09,961 --> 00:37:13,897
 lets go back here, back to our slides. All right,
+让我们返回这里，返回我们的幻灯片。好的
 
 734
 00:37:13,965 --> 00:37:17,199
 so the next thing we're gonna talk about is here,
+我们要讨论的下一件事情就在这里
 
 735
 00:37:17,268 --> 00:37:20,303
 is another topic something we knew, access control. Okay, so
+它是我们所了解的另一个主题，访问控制
 
 736
 00:37:20,372 --> 00:37:23,372
 what is access control? So, how many people have worked on
+什么是访问控制？有多少人工作过一个项目
 
 737
 00:37:23,441 --> 00:37:27,243
 a project, an object oriented program project of more
+一个面向对象编程的包含多余一打类的项目？
 
 738
 00:37:27,312 --> 00:37:31,147
 than a dozen classes? Okay, like two or
+好的，像是两三个
 
 739
 00:37:31,216 --> 00:37:35,284
 three of you, four maybe, so, not very many of you. Okay,
+同学，四个可能，总之并不是非常多
 
 740
 00:37:35,353 --> 00:37:37,853
 well when you're working on a very small project like that,
+当你从事一个像它一样的小项目的时候
 
 741
 00:37:37,922 --> 00:37:40,056
 you can call any method in any class, whatever,
+你可以随意地在任何类里调用任何方法
 
 742
 00:37:40,124 --> 00:37:42,224
 you're probably the only programmer working on it.
+你可能是工作的唯一的程序员
 
 743
 00:37:42,293 --> 00:37:44,627
 Or maybe you're working out with a buddy, and so
+或者你和一个好朋友一起从事
 
 744
 00:37:44,695 --> 00:37:47,229
 you can talk to each other. Okay, but now imagine
+所以你们可以互相交谈。但是想象
 
 745
 00:37:47,298 --> 00:37:50,967
 that you're working for Google. Or Facebook, or Apple,
+你为 Google 工作，或者 Facebook 或者 Apple
 
 746
 00:37:51,035 --> 00:37:54,471
 or something like that, and this is kind of ridiculous.
+等其他差不多的大公司，那这就有点荒唐了
 
 747
 00:37:54,539 --> 00:37:57,273
 But let's say you're working on concentration there. And
+你正从事于翻牌游戏这个项目
 
 748
 00:37:57,342 --> 00:37:59,942
 there's a whole another group in another building that does
+这里有另外一整个团队在另一幢建筑里从事
 
 749
 00:38:00,011 --> 00:38:03,546
 game design and they write the model. And
+游戏设计并且它们编码模型
 
 750
 00:38:03,615 --> 00:38:05,848
 you are just the UI team for IOS,
+你仅仅为 iOS 的 UI 团队工作
 
 751
 00:38:05,917 --> 00:38:08,050
 until you're only writing the view controller.
+知道你正在编码视图控制器
 
 752
 00:38:08,119 --> 00:38:11,054
 Okay, well now, you don't wanna be calling each others
+好的，现在你不想只是混乱地互相调用
 
 753
 00:38:11,122 --> 00:38:13,656
 code just willy-nilly. Calling any old method like
+代码。调用任何老旧的方法，比如你不会想
 
 754
 00:38:13,724 --> 00:38:16,225
 you wouldn't want your view controller cal someone like
+要你的视图控制器调用
 
 755
 00:38:16,294 --> 00:38:17,761
 indexOfOneAndOnlyFaceUpCard.
+indexOfOneAndOnlyFaceUpCard
 
 756
 00:38:17,829 --> 00:38:20,363
 If those guys are like they got rid of that method
+如果某些人摆脱了那个方法到
 
 757
 00:38:20,431 --> 00:38:23,566
 into the next month, and now your code broke. Now,
+下一个月，那么你的代码就会崩溃
 
 758
 00:38:23,634 --> 00:38:26,236
 there are some methods that you have to be able to call
+现在，这里有一些方法你一定能够去调用
 
 759
 00:38:26,304 --> 00:38:29,172
 over there and their code, and we're gonna make it clear
+我们将会通过使用访问控制来弄清楚
 
 760
 00:38:29,241 --> 00:38:31,541
 which ones of those are using access control.
+哪些代码可以被我们调用
 
 761
 00:38:31,610 --> 00:38:35,244
-So access control about having keyword that we're gonna put
+So access control is about having keyword that we're gonna put
+所以访问控制是关于拥有我们可以放到 API 中的关键词
 
 762
 00:38:35,313 --> 00:38:37,981
-into our API, put it on the methods and bars,
+into our API, put it on the methods and vars,
+把它放到方法和变量上
 
 763
 00:38:38,049 --> 00:38:41,684
 it says to other groups that we're programming with, yes,
+它对其他小组说我们正在编码它
 
 764
 00:38:41,753 --> 00:38:45,088
 you are allowed to call this, I promise not to break this
+你被允许调用这个，我保证它不会让你程序崩溃
 
 765
 00:38:45,156 --> 00:38:48,892
 on you. It also tells them how to use your thing because
+它也告诉他们如何使用你的东西因为
 
 766
 00:38:48,960 --> 00:38:51,794
 the ones they're allowed to call or the ones they should
+他们被允许调用的东西或者他们应该正在使用的东西
 
 767
 00:38:51,863 --> 00:38:54,997
 be using to use your concentration game or
+是为了使用你的翻牌游戏
 
 768
 00:38:55,066 --> 00:38:57,300
 whatever. So what are these keywords?
+所以这些关键词是什么？
 
 769
 00:38:57,368 --> 00:39:01,237
 Well the first one is called internal. These are keywords
+第一个叫做 internal（内部的）。这些是关键词你可以放到
 
 770
 00:39:01,306 --> 00:39:04,541
 you put in front of vars and funcs. Or even classes and
+变量和函数前面，或者甚至是类和
 
 771
 00:39:04,609 --> 00:39:07,176
 structs, you can make entire classes and structs,
+结构体前面，你可以对整个类和结构体
 
 772
 00:39:07,245 --> 00:39:10,813
 have their access controlled. So the default internal,
+进行访问控制。所以默认的 internal
 
 773
 00:39:10,881 --> 00:39:12,682
 this one we never actually type in
+实际上我们没来没敲过这个关键词
 
 774
 00:39:12,751 --> 00:39:15,485
 because it's the default. So all of the methods and
+因为它是默认的。所以我们现在在翻牌游戏里完成的
 
 775
 00:39:15,554 --> 00:39:17,653
 vars that we've done so far in Concentration are all
+所有方法和变量都是
 
 776
 00:39:17,722 --> 00:39:20,656
 internal. Now what does internal Access Control mean?
+internal。internal 在访问控制中意味着什么呢？
 
 777
 00:39:20,725 --> 00:39:26,061
 It means anyone in your app, any object, any code anywhere
+它意味着在你的应用中的任何人，任何对象，任何代码
 
 778
 00:39:26,130 --> 00:39:29,665
-can call that method or access that bar. So it's pretty much
+can call that method or access that var. So it's pretty much
+都可以调用这个方法或者访问这个变量。所以它在你的应用里是
 
 779
 00:39:29,734 --> 00:39:33,335
 unlimited control inside your app. Now as we start talking
+非常不受限的一种控制。现在当我们谈论
 
 780
 00:39:33,404 --> 00:39:35,772
 about access control, we have to realise there's always two
+访问控制的时候，我们不得不意识到这里总有两种
 
 781
 00:39:35,841 --> 00:39:39,442
 kinds of programming, there's writing an app,
+编程类型，一种是编写应用
 
 782
 00:39:39,510 --> 00:39:42,445
 then there's writing a framework. Like Apple does,
+一种是编写框架，像 Apple 做的
 
 783
 00:39:42,514 --> 00:39:46,582
 UI kit, okay? That's framework. A lot more access
+UIKit，好么？那是框架。如果你在编写框架的时候
 
 784
 00:39:46,651 --> 00:39:49,285
 control issues if you're writing a framework. So
+会有更多的访问控制事项
 
 785
 00:39:49,354 --> 00:39:51,120
 I'm gonna tell you what the things are for
+所以我要告诉你对于编写一个框架来说
 
 786
 00:39:51,188 --> 00:39:53,789
 writing a framework but, We're not gonna really pay much
+访问控制是什么，但是我们并不会花费太多
 
 787
 00:39:53,858 --> 00:39:55,625
 attention to them because we are only going to learn to
+注意力到上面，因为我们将只学习如何
 
 788
 00:39:55,694 --> 00:39:59,228
 write apps in this course. So internal means everything in
+编写应用。所以 internal 意味着你的应用
 
 789
 00:39:59,296 --> 00:40:02,699
 your app, or in your framework is, can access this code.
+或者你的框架里的任何事物可以访问这块代码
 
 790
 00:40:02,767 --> 00:40:05,000
 So it's pretty much almost unlimited inside
+所以它在你的框架里是非常不受限制的
 
 791
 00:40:05,069 --> 00:40:08,671
 your Apple framework. Then there's the three privates.
+之后这里有三种 private（私有的）
 
 792
 00:40:08,740 --> 00:40:10,473
 These are very important, these are the ones you're
+它们是非常重要的，它们是你会一直
 
 793
 00:40:10,542 --> 00:40:14,143
 gonna be using all the time. One is just private,
+使用的。一个就叫 private
 
 794
 00:40:14,212 --> 00:40:17,313
 that means its internal implementation to this object,
+它意味着这个对象的内部实现
 
 795
 00:40:17,381 --> 00:40:22,384
 no other objects can call it. This is a good one to set,
+没有其他的对象可以调用它。对于赋值来说是非常好的
 
 796
 00:40:22,453 --> 00:40:25,722
 it keeps someone in the other group at Google and the other
+它让在 Google 的和其他建筑的小组远离
 
 797
 00:40:25,790 --> 00:40:28,858
 building from accessing that code. Because you're
+访问那块代码。因为
 
 798
 00:40:28,927 --> 00:40:31,527
 keeping it private, it's your private implementation.
+你已经为它保持了私有化，这是你的私有实现
 
 799
 00:40:31,596 --> 00:40:35,164
 Private set is almost exactly the same, it's only for vars,
+private（set）大致上是一样的，它只针对变量
 
 800
 00:40:35,232 --> 00:40:39,201
 it means that setting this var is private, but getting it
+它意味着赋值这个变量是私有的，但是访问它
 
 801
 00:40:39,270 --> 00:40:43,639
@@ -5715,1304 +6514,1632 @@ each of the associated pieces of data. Now,
 1303
 01:07:18,334 --> 01:07:21,702
 that little name that you use, so if this were a coke see it
+现在你就可以使用那个名字了。比如这里是可乐的话
 
 1304
 01:07:21,771 --> 01:07:25,306
 would print whatever ounces coke right there, cuz just
+那就会打印出有多少盎司的可乐。因为它把
 
 1305
 01:07:25,374 --> 01:07:28,409
 getting the Coke into brand. It's getting the ounces into
+brand 赋值为 "Coke"，把 ounces 赋值为
 
 1306
 01:07:28,477 --> 01:07:31,145
 something called ounces, and then it's doing that print.
+有多少升，然后执行那条 print 语句
 
 1307
 01:07:31,214 --> 01:07:35,716
 This naming does not have to be the same names
+这里的不一定非要用同样的命名
 
 1308
 01:07:35,785 --> 01:07:38,419
 as you declared the enum from. In fact,
+可以和枚举定义时不一样。事实上
 
 1309
 01:07:38,487 --> 01:07:42,723
 if we look at this Coke one right here, this let brand,
+如果我们看到刚才的可乐，这里用 let brand
 
 1310
 01:07:42,792 --> 01:07:45,827
 remember in the original enum that didn't even have a name,
+但我们原本的枚举是甚至是没有给它名字的
 
 1311
 01:07:45,896 --> 01:07:48,929
 it was just a string, right? And it had ounces,
+只说了它是 String 类型，好吧？但 ounces 是有的
 
 1312
 01:07:48,998 --> 01:07:52,399
 colon ounces, and up here with hamburger, pattyCount,
+ounces: Int。上面 hamburger 的 pattyCount
 
 1313
 01:07:52,468 --> 01:07:56,837
 that was called patties in the original declaration. So
+那个本来的定义里叫 numberOfPatties
 
 1314
 01:07:56,906 --> 01:08:00,641
 again, does this not look familiar to tuples, right?
+你们不觉得这个和元组很像吗？
 
 1315
 01:08:00,710 --> 01:08:03,878
 You can rename them when you're getting the information
+当你从其中获取数据的时候可以重命名
 
 1316
 01:08:03,946 --> 01:08:07,549
 out of them. So this is how you extract data
+所以这就是你怎么获得
 
 1317
 01:08:07,617 --> 01:08:11,953
 out of the associated types. Very simple, and
+关联值里的数据，非常简单
 
 1318
 01:08:12,022 --> 01:08:14,756
 again it's optional you don't have to have it there.
+再次说一下这个不是必须的，你不一定非要有关联值
 
 1319
 01:08:15,992 --> 01:08:19,126
 Also enums, they're like structs and classes.
+然后枚举与类和结构体一样
 
 1320
 01:08:19,195 --> 01:08:23,431
 They can have methods and they can have vars, but no storage.
+它们可以有方法，也可以有变量，但是没有存储空间
 
 1321
 01:08:23,500 --> 01:08:26,600
-All the stories of an enum is in which case it is and
+All the storage of an enum is in which case it is and
+枚举的存储空间是属于每个 case
 
 1322
 01:08:26,669 --> 01:08:28,035
-that case is associated data.
+that case's associated data.
+和那个 case 的关联值
+
 
 1323
 01:08:28,104 --> 01:08:30,872
 That's it, you can't have many other vars or anything else.
+就这些，你不能有其他的变量
 
 1324
 01:08:30,940 --> 01:08:34,275
 So the only vars you could have are computed vars.
+所以你能有的变量都是计算变量
 
 1325
 01:08:34,344 --> 01:08:37,245
 So see the example I have here where it's calories,
+比如你看我这里的例子，卡路里
 
 1326
 01:08:37,313 --> 01:08:40,148
 where you'd compute the calories of that menu item
+你会计算那个菜单项的卡路里
 
 1327
 01:08:40,216 --> 01:08:43,618
 that would have to be a computed type. Can't store
+那必须要是计算属性。枚举不能
 
 1328
 01:08:43,686 --> 01:08:47,422
 anything in an enum except for the associated data right
+存储任何内容，唯一的是可以有像这里的关联值
 
 1329
 01:08:47,490 --> 01:08:50,291
 there. Now if you're writing a func like this one,
+如果你在写一个像这样的方法
 
 1330
 01:08:50,360 --> 01:08:53,495
 isIncludedInSpecialOrder number one or number two or
+isIncludedInSpecialOrder，number 是 1、2 等
 
 1331
 01:08:53,563 --> 01:08:56,164
 whatever. If you're doing that, then you can
+如果你要这样做的话，那你可以
 
 1332
 01:08:56,232 --> 01:09:01,336
 get your own associated data using switch on self.
+通过 switch self 来获取自己的关联值
 
 1333
 01:09:01,404 --> 01:09:03,972
-Cuz I'm inside the enum to permutation here, right?
+Cuz I'm inside the enum implementation here, right?
+因为我还在 enum 实现的内部
 
 1334
 01:09:04,040 --> 01:09:05,573
 So I can switch on self, and then,
+所以我可以对 self 进行 switch，然后
 
 1335
 01:09:05,642 --> 01:09:07,241
 I could get my associated data out so
+我能够得到个关联值
 
 1336
 01:09:07,310 --> 01:09:08,743
 I can calculate my calories. Or
+然后我就可以计算卡路里了
 
 1337
 01:09:08,811 --> 01:09:11,445
 in this case, I'm calculating whether the hamburger with
+这里我在判断一个汉堡
 
 1338
 01:09:11,514 --> 01:09:14,015
 two patties is included in special order number two.
+有两个肉饼的话是不是二号套餐
 
 1339
 01:09:14,084 --> 01:09:17,285
 And my code here says yes because pretty much,
+而我的代码会说“是的”，因为这里说
 
 1340
 01:09:17,353 --> 01:09:19,120
 special order number one is a single burger,
+一号套餐是单层汉堡
 
 1341
 01:09:19,189 --> 01:09:21,789
 and/or number two is a double. Now there's some other
+二号套餐就是双层的。现在还有些其他
 
 1342
 01:09:21,858 --> 01:09:24,358
 interesting things to look at in this code. Notice that
+有趣的地方。注意这里的代码
 
 1343
 01:09:24,427 --> 01:09:27,629
 fries and cookie right there. Right in the middle, fries and
+薯条和饼干，中间的 .fries 和 .cookie
 
 1344
 01:09:27,697 --> 01:09:31,565
 cookie. Those I combine them into one case,
+我把这两个合并为了同一个 case
 
 1345
 01:09:31,634 --> 01:09:34,468
 which that's allowed with commas you can have multiple
+这是可以的，你可以用英文逗号分隔多个
 
 1346
 01:09:34,537 --> 01:09:38,206
 going on there. Also noticing drink, okay, I'm
+不同的情况。同时看这个 .drink
 
 1347
 01:09:38,274 --> 01:09:41,042
 getting the number of ounces in a drink but evidently in
+我们知道了饮料有多少盎司。显然
 
 1348
 01:09:41,110 --> 01:09:44,145
 a special order you can have any drink that's 16 ounces.
+套餐里所有的饮料都是 16 盎司的
 
 1349
 01:09:44,214 --> 01:09:47,314
 So I don't care what kind of drink it is, I don't care for
+所以我并不在乎是什么种类的饮料，我不在意
 
 1350
 01:09:47,383 --> 01:09:51,152
 that brand. So I use the universal i don't care symbol
+brand 是什么，所以我就用了通用的“我不关心它”这个符号
 
 1351
 01:09:51,221 --> 01:09:54,722
 in Swift which is under bar, right? Remember, we used
+也就是 Swift 里的英文下划线 _，对吧？记得我们
 
 1352
 01:09:54,791 --> 01:09:58,359
-underbar when we didn't care what the external name and
+underbar when we didn't care what the external name in
+在不想要 touchCard 的实参标签时用下划线代替
 
 1353
 01:09:58,427 --> 01:10:01,662
-touch card was. We used it in a four loop when we didn't
+touch card was. We used it in a for loop when we didn't
+Concentration 在 for 循环里使用下划线
 
 1354
 01:10:01,731 --> 01:10:04,065
 care what the identifier was anymore in concentration,
+表示并不在意那个循环变量是多少
 
 1355
 01:10:04,134 --> 01:10:07,535
 so we can use it here as well, all right?
+所以我们这里也可以用，好吧？
 
 1356
 01:10:09,239 --> 01:10:14,074
 You can modify self in an enum as long as it's in a var. If
+你在枚举里是可以改变 self 的，当然它得是个 var
 
 1357
 01:10:14,143 --> 01:10:17,845
 it's modifiable, you just say self equals some other case.
+如果是可变的，你就说 self = 某个其他的 case
 
 1358
 01:10:17,914 --> 01:10:19,847
 And if that other case requires associated data,
+如果那个其他的 case 有关联值
 
 1359
 01:10:19,915 --> 01:10:23,083
 you'll have to provide it then, you can say self equals.
+你同时把它们也初始化了，这样你就可以用 self = 来改变了
 
 1360
 01:10:23,152 --> 01:10:25,720
 Now, a very important thing to notice here, if you're going
+这里有个要注意的，非常重要的是，如果你要
 
 1361
 01:10:25,789 --> 01:10:28,890
 to modify yourself in an enum by saying self equals,
+通过 self = 来更改枚举的话
 
 1362
 01:10:28,959 --> 01:10:30,357
 that's the only way to modify yourself,
+顺便说这是唯一的方法
 
 1363
 01:10:30,426 --> 01:10:34,195
 by the way. Then you have to put mutating
+你必须要用 mutating
 
 1364
 01:10:34,264 --> 01:10:37,197
 in front of the function that mutates you,
+修饰这个改变你的方法
 
 1365
 01:10:37,266 --> 01:10:38,566
 that modifies self.
+修饰这个更改 self 的方法
 
 1366
 01:10:38,634 --> 01:10:43,304
 That's because fast enum is a value type and
+这是因为枚举是值类型
 
 1367
 01:10:43,372 --> 01:10:46,073
 remember the value types are passed around by copying but
+你看值类型是通过拷贝传递的
 
 1368
 01:10:46,142 --> 01:10:49,810
-there is copy on write. So if it doesn't copy on write which
+there is copy on write. Swift does copy on write which
+不过我们有写时复制。Swift 的写时复制意味着
 
 1369
 01:10:49,879 --> 01:10:52,546
 means it doesn't actually make a copy until you write.
+它在你改写之前并不会进行拷贝
 
 1370
 01:10:52,615 --> 01:10:53,615
 Well if it's gonna do that,
+为了能实现这个功能
 
 1371
 01:10:53,683 --> 01:10:58,519
 it needs to know which funcs might write. So
+Swift 需要知道哪些函数是会写数据的
 
 1372
 01:10:58,588 --> 01:11:01,388
 that's what mutating means, it means this func might write,
+这就是 mutating 的意思，表示这个函数可能会写数据
 
 1373
 01:11:01,457 --> 01:11:05,025
 it might change this. You have to do exactly the same thing
+可能会更改 self。在结构体里，你也要做同样的事情
 
 1374
 01:11:05,094 --> 01:11:08,996
 in a struct. If you have a func in a struct, and
+如果你的结构体里有个方法
 
 1375
 01:11:09,064 --> 01:11:10,965
 it modifies any internal state of
+它更改了任意一个结构体的内部状态
 
 1376
 01:11:11,033 --> 01:11:13,100
 the struct, it has to be marked mutating, so
+那它就必须被标为 mutating
 
 1377
 01:11:13,169 --> 01:11:16,370
 the Swift knows to copy and write. And not to worry, Swift
+这样 Swift 就能够写时复制了。不用担心，Swift
 
 1378
 01:11:16,439 --> 01:11:19,440
 is super smart, it'll see your code, it'll see you're saying
+很聪明，它会看你的代码，如果发现你说
 
 1379
 01:11:19,508 --> 01:11:22,142
-self equal, it'll see that you're modifying your bars in
+self equal, it'll see that you're modifying your var in
+self = 的话，它就知道你在更改结构体
 
 1380
 01:11:22,211 --> 01:11:26,046
 a struct And it will complain and say this is protected you
+里的变量，然后就给你抱怨说 self 是被保护的
 
 1381
 01:11:26,115 --> 01:11:29,183
 can't write to this thing coz this is not a mutating func.
+你不能更改这个内容，因为这个函数不是 mutating 的
 
 1382
 01:11:29,251 --> 01:11:31,418
 And you can fix it by making it mutating and
+你只要把它改成 mutating 就可以了
 
 1383
 01:11:31,487 --> 01:11:34,555
 in fact you can see that concentration demo in a second
+其实我们等会儿会用 Concentration 来演示下
 
 1384
 01:11:34,624 --> 01:11:37,758
-here. All right so let's see if for enums, very simple.
+here. All right so that's it for enums, very simple.
+好，这就是枚举，很简单
 
 1385
 01:11:37,826 --> 01:11:41,562
 So an optional then is just an enum, it looks like this,
+所以其实可选类型，就是个枚举，看起来是这样的
 
 1386
 01:11:41,631 --> 01:11:44,398
 kind of, conceptually. It's an optional,
+概念上就是这样的。这就是 Optional
 
 1387
 01:11:44,467 --> 01:11:47,435
 it's a generic type like array is. Array can have anything in
+和 Array 一样的泛型。数组可以存储任何类型的元素
 
 1388
 01:11:47,504 --> 01:11:49,103
 it, an optional can be an optional Int,
+Optional 可以是可选的 Int
 
 1389
 01:11:49,172 --> 01:11:51,739
 an optional string, whatever it's a generic type. And
+可选的 String，等等，因为它是个泛型
 
 1390
 01:11:51,808 --> 01:11:53,941
 it has two cases in the enum,
+这个枚举有两种情况
 
 1391
 01:11:54,009 --> 01:11:58,713
-the case none which is not set, nill, and the other case
+the case none which is not set, nil, and the other case
+case none 就是没有值，nil；另一个是 case some
 
 1392
 01:11:58,781 --> 01:12:01,782
 some in which it has some associated data of that type.
+它会有相应的关联值
 
 1393
 01:12:01,851 --> 01:12:04,352
 So an optional int that would mean int, so that's it,
+比如可选 Int 的关联值就是 Int。就是这样
 
 1394
 01:12:04,420 --> 01:12:07,588
 that's what an optional is. Now an optional, Why don't,
+这就是个可选类型。那我们为什么不能
 
 1395
 01:12:07,657 --> 01:12:09,190
 why didn't we just leave it in enum?
+就让可选作为枚举就行了呢？
 
 1396
 01:12:09,259 --> 01:12:10,624
 Well, God, can you imagine,
+哇哦，天呐，你想像一下
 
 1397
 01:12:10,693 --> 01:12:13,360
 every time you wanna unwrap an optional, you're having to
+每次你要解包可选类型的时候，你都要
 
 1398
 01:12:13,429 --> 01:12:16,029
 switch on that thing in case some get the associated data?
+用 switch 来判断是哪个 case，然后再得到关联值？
 
 1399
 01:12:16,098 --> 01:12:18,866
 That would be so much typing. So all of these special
+那我们得写很多代码。所以所有这些特殊的
 
 1400
 01:12:18,935 --> 01:12:21,135
 characters we have are optionals, question marks,
+字符，在可选类型上使用的问号
 
 1401
 01:12:21,204 --> 01:12:23,470
 exclamation points, ifs, double question marks.
+感叹号，if 的语法，?? 提供默认值等
 
 1402
 01:12:23,539 --> 01:12:26,674
 All that stuff is just so that we don't have to be constantly
+这些都是为了让我们不需要总是
 
 1403
 01:12:26,743 --> 01:12:29,877
 switching on our optional and doing case this, case that.
+用 switch 来判断可选类型然后 case 这个 case 那个的
 
 1404
 01:12:29,945 --> 01:12:31,812
 But that's all it's doing under the covers,
+但这就是它内部的实现
 
 1405
 01:12:31,881 --> 01:12:33,781
 it's just syntactic sugar that is doing that.
+这些都只是完成这些操作的语法糖
 
 1406
 01:12:33,850 --> 01:12:35,382
 It's not doing anything else,
+并没有干其他什么的
 
 1407
 01:12:35,451 --> 01:12:39,019
 it's not, nothing special. And so I'm gonna show you what all
+就是这样，没什么特别的。让我来给你们看看
 
 1408
 01:12:39,088 --> 01:12:42,189
 these special characters look like in enum land.
+用枚举而不是这些特殊字符会是什么样的
 
 1409
 01:12:42,258 --> 01:12:44,759
 And, and I'm even gonna show you a new enum or
+同时我还要给你展示个新的和枚举
 
 1410
 01:12:44,827 --> 01:12:47,428
 a new optional thing, which is this thing at the bottom
+和可选类型相关的东西，就是最底下这个
 
 1411
 01:12:47,497 --> 01:12:50,497
 called optional chaining. And it's where you use a single
+叫做可选链接（optional chaining）的。你可以用一个
 
 1412
 01:12:50,566 --> 01:12:52,900
 question mark when you're accessing an optional.
+问号来访问可选类型
 
 1413
 01:12:52,969 --> 01:12:55,436
 Which that's the one thing we have not seen, and I'm gonna
+这个是我们还没有见到的，这个我也会
 
 1414
 01:12:55,505 --> 01:12:57,605
 show you how that works by showing you in enum land.
+展示给你们看用枚举实现会是什么样的
 
 1415
 01:12:57,673 --> 01:13:02,477
 All right? So, declaring optionals, obvious, right?
+好吧？好，声明一个可选类型，显然是这样的，对吧？
 
 1416
 01:13:02,545 --> 01:13:04,412
 If I say hello, which is an optional string,
+如果是 "hello"，那就是可选的字符串
 
 1417
 01:13:04,481 --> 01:13:08,181
 that's just optional angle brackets string. And
+那就是 Optional<String>
 
 1418
 01:13:08,250 --> 01:13:11,485
 remember that optionals always start out nil. So, I'm gonna,
+然后记住可选类型默认值为 nil，所以我要
 
 1419
 01:13:11,554 --> 01:13:15,990
 it's gonna start out none. Couldn't be simpler.
+让其他的刚开始都是 .none，很简单
 
 1420
 01:13:16,059 --> 01:13:18,959
 Unwrapping, also very simple, that's just switching
+解包，也很简单，我就 switch
 
 1421
 01:13:19,028 --> 01:13:22,063
 on the thing. So, if I have an optional string hello, and I
+这个东西。如果我有个可选的字符串 hello，那我就
 
 1422
 01:13:22,131 --> 01:13:25,366
 say print(hello!), exclamation point to unwrap it,
+print(hello!)，感叹号强制解包
 
 1423
 01:13:25,435 --> 01:13:27,834
 I'm just switching on hello. And if it's in the none case,
+我就用 switch 判断 hello。如果是 .none 的情况的话
 
 1424
 01:13:27,903 --> 01:13:30,438
 I crash. And if it's in the some case,
+我就让程序崩溃。如果是 .some 的情况
 
 1425
 01:13:30,506 --> 01:13:33,240
 then I print whatever the associated data is. Same thing
+我就让它打印这个关联值。同样的
 
 1426
 01:13:33,309 --> 01:13:36,577
-down with if let at the bottom there. I'm switching on hello.
+done with if let at the bottom there. I'm switching on hello.
+下面的 if-let 也是这样。我 switch hello
 
 1427
 01:13:36,645 --> 01:13:38,445
 If it's in the some case, I do it.
+如果是 .some 的情况，我就执行它
 
 1428
 01:13:38,514 --> 01:13:39,413
 If it's in the none case,
+如果是 .none 的情况
 
 1429
 01:13:39,481 --> 01:13:44,619
 I do the else part of the if. Everybody got that?
+我就执行 else 里面的代码。大家都还听得懂吧？
 
 1430
 01:13:44,687 --> 01:13:47,188
 Implicitly unwrapped optionals are exactly the same. It's
+隐式解析的可选类型也是这样
 
 1431
 01:13:47,256 --> 01:13:49,956
 just that when I say print hello over here on this side,
+只不过我这边 print(hello) 的时候
 
 1432
 01:13:50,025 --> 01:13:53,193
 this print hello, I don't have to put the exclamation point.
+这个 print(hello) 我不需要加感叹
 
 1433
 01:13:53,262 --> 01:13:57,731
 And it still switches on hello and crashes if it's none. So
+它还是 switch 判断，是 .none 就崩溃
 
 1434
 01:13:57,800 --> 01:14:01,168
 that's implicitly unwrapped. Those start out as nil too
+这就是隐式解析。他们也默认是 nil
 
 1435
 01:14:01,236 --> 01:14:04,105
 because they're just optionals. The nil-coalescing
+毕竟它们也只是可选类型。空值合并（nil-coalescing）
 
 1436
 01:14:04,173 --> 01:14:06,340
 operator, which is that defaulting thing we used,
+运算符，我们使用过这个 ?? 来提供默认值
 
 1437
 01:14:06,409 --> 01:14:09,076
 if you remember, in our code. We looked in our emoji
+如果你还记得我们的代码的话。我们查找 emoji
 
 1438
 01:14:09,145 --> 01:14:11,245
 dictionary, and if it wasn't there,
+字典，如果里面没有的话
 
 1439
 01:14:11,313 --> 01:14:14,081
 then we returned question mark. That's just
+我们就返回个问号，这其实就是
 
 1440
 01:14:14,150 --> 01:14:16,918
 switching on it. And if it's in the case none, then it uses
+switch 判断，如果是 .none 的话，就用
 
 1441
 01:14:16,986 --> 01:14:19,386
 the default, okay, the thing on the other side. And
+默认值，?? 右边的那个
 
 1442
 01:14:19,455 --> 01:14:24,125
 if it's in the case some, then it uses the thing it found.
+如果是 .some 的情况，那就用关联值
 
 1443
 01:14:24,193 --> 01:14:27,861
 This is optional chaining. So optional chaining, imagine
+然后这个是可选链接（optional chaining）
 
 1444
 01:14:27,930 --> 01:14:31,065
 right here, okay, if you look at this little let x equal,
+你看这里，你看这个 let x =
 
 1445
 01:14:31,134 --> 01:14:34,635
 imagine that x and the method foo and
+假设 x 有 foo 这个方法（的返回值）
 
 1446
 01:14:34,704 --> 01:14:39,040
 the var bar, all three of those, imagine those return
+有 bar 这个变量。假设这三个都返回
 
 1447
 01:14:39,108 --> 01:14:42,476
 an optional string. Okay, so we don't know what they do,
+可选类型的字符串。我们不知道具体是干什么的
 
 1448
 01:14:42,545 --> 01:14:43,878
 but they return an optional string.
+但它们都是可选类型的字符串
 
 1449
 01:14:43,946 --> 01:14:46,913
 They may or may not return nil. Okay, well, what optional
+可能会，也可能不会返回 nil。好，其实
 
 1450
 01:14:46,982 --> 01:14:49,350
 chaining there allows us to do is to call those thing,
+可选链接让我们能够调用这些
 
 1451
 01:14:49,418 --> 01:14:50,985
 things in sequence called one. And
+只用一串代码。先调用一个
 
 1452
 01:14:51,053 --> 01:14:53,320
 then when we get the value, call the next thing on that.
+得到了返回值之后，再调用第二个
 
 1453
 01:14:53,389 --> 01:14:55,523
 And we get the value, call the next thing on that. And
+我们得到了之后，再调用下一个
 
 1454
 01:14:55,591 --> 01:14:58,525
 if at any time any of those things is nil, we just bail
+如果其中任何一个环节返回了 nil，我们就马上结束
 
 1455
 01:14:58,594 --> 01:15:02,796
 out and return nil. So the way that works in optional land is
+然后返回 nil。而这用 Optional 枚举写就是
 
 1456
 01:15:02,865 --> 01:15:06,634
 we switch on that first. If it's none, we return nil.
+我们 switch 判断第一个，如果是 .none 就返回 nil
 
 1457
 01:15:06,703 --> 01:15:09,637
 But if it's not, we get the data and call foo.
+如果不是的话，我们就那关联值调用 foo
 
 1458
 01:15:09,705 --> 01:15:12,139
 If that works, we get the, that data from foo, and
+如果可行的话，我们从 foo 得到数据
 
 1459
 01:15:12,208 --> 01:15:14,475
 we call bar. And then eventually,
+我们调用 bar。最终
 
 1460
 01:15:14,543 --> 01:15:17,311
 we set y equal to z that comes out of that, right?
+我们把 y 赋值为结果 z，好吧？
 
 1461
 01:15:17,380 --> 01:15:20,581
 We're just moving across the chain. If, at any time,
+我们只是沿着链条走。如果任何时候
 
 1462
 01:15:20,649 --> 01:15:22,883
 any of those things is nil, look at all the case nones.
+其中任何一个是 nil 的话，你看看这些 case .none
 
 1463
 01:15:22,951 --> 01:15:25,486
 Case .none, case .none, case .none, y gets to be nil, and
+case .none, case .none, case .none，y 都是 nil
 
 1464
 01:15:25,554 --> 01:15:28,322
 we're done and move along. Okay, so that's optional
+然后就完成了，接着执行下一条。好，这就是可选链接
 
 1465
 01:15:28,390 --> 01:15:32,493
 chaining. I made it optional, no pun intended, for
+我让你可选，这并不是双关，你可以
 
 1466
 01:15:32,561 --> 01:15:35,462
 you to read about that in your current assignment.
+选择在现在的作业里阅读这个部分
 
 1467
 01:15:35,531 --> 01:15:38,532
 I recommend you do because you can make really beautiful code
+我建议你读一读，因为你能写出优雅的代码
 
 1468
 01:15:38,601 --> 01:15:41,835
 using optional chaining. It's really nice.
+可选链接非常的好用
 
 1469
 01:15:41,904 --> 01:15:46,273
 Okay, so we're gonna finish up today with a little review and
+好，我们今天最后来复习
 
 1470
 01:15:46,342 --> 01:15:49,910
 a look forward to the data structures to use to build
+然后预习下写 Swift 程序用到的
 
 1471
 01:15:49,979 --> 01:15:54,548
 an app in Swift. These are the four, class,
+数据结构一共有四个，类
 
 1472
 01:15:54,616 --> 01:15:57,451
 struct, enum, and protocol. Protocol is the new one that
+结构体、枚举、和协议（protocol）。协议是个新的内容
 
 1473
 01:15:57,519 --> 01:16:01,055
 I'm gonna talk about starting on Wednesday. So a class,
+这个我周三会讲。所以，一个类
 
 1474
 01:16:01,124 --> 01:16:04,458
 as we know, supports an object-oriented design.
+我们知道，支持面向对象的设计
 
 1475
 01:16:04,526 --> 01:16:07,060
 It has single inheritance of both functionality and data.
+它是单一继承功能和数据
 
 1476
 01:16:07,129 --> 01:16:09,563
 You inherit the data, your vars.
+你继承了所有的数据，变量
 
 1477
 01:16:09,632 --> 01:16:13,667
 Stored vars get inherited, um, as well as all your methods
+继承了存储变量，同时还有方法
 
 1478
 01:16:13,736 --> 01:16:17,939
 and stuff. It's a reference type, lives in the heap.
+这些。它是引用类型，存在堆里
 
 1479
 01:16:18,007 --> 01:16:20,073
 Now one thing we didn't talk about, though,
+但我们又一个没有讲的是
 
 1480
 01:16:20,142 --> 01:16:23,510
 this class lives in the heap. When does it get cleaned up
+这些类都在堆里，但它什么时候被释放
 
 1481
 01:16:23,579 --> 01:16:28,048
 out of the heap? And how does that happen? Okay, so yeah, so
+离开堆呢？那是怎么发生的呢？是的
 
 1482
 01:16:28,117 --> 01:16:30,016
 if, people who are coming from Java, you're probably like,
+学过 Java 的人，多半会想
 
 1483
 01:16:30,085 --> 01:16:32,919
 oh, garbage collection maybe? Okay, um, but no, okay,
+哦，大概就是 Garbage Collection？其实不是
 
 1484
 01:16:32,988 --> 01:16:35,722
 Swift does not use garbage collection.
+Swift 不用垃圾回收
 
 1485
 01:16:35,791 --> 01:16:40,528
 It uses a very awesome system called reference counting. And
+它采用的是个很棒的引用计数系统，更准确的说是
 
 1486
 01:16:40,596 --> 01:16:42,329
 in fact, it's automatic reference counting,
+自动引用计数（Automatic Reference Counting，ARC）
 
 1487
 01:16:42,397 --> 01:16:44,965
 it's all handled for you. So how does reference counting
+它会帮你把一切都处理了。那引用计数是怎么回事呢？
 
 1488
 01:16:45,034 --> 01:16:47,434
 work? Okay, we need to talk a little bit about that.
+这个我们需要讲一讲
 
 1489
 01:16:47,503 --> 01:16:51,739
 So let's take a little detour here. By the way, examples of
+让我们来讲讲这个题外话。顺便一提
 
 1490
 01:16:51,807 --> 01:16:54,809
 classes that we've seen of course are UI view controller,
+我们看到的类的例子是 UIViewController
 
 1491
 01:16:54,877 --> 01:16:57,845
 view controller, which is our subclass of it, UI button,
+我们继承它的子类 ViewController, UIButton
 
 1492
 01:16:57,914 --> 01:17:00,614
 UI label, concentration, we made that a class. Those
+UILabel，我们自己写的 Concentration。这些
 
 1493
 01:17:00,682 --> 01:17:03,150
 are all classes, not structs, right? All right, so let's
+都是类，不是结构体，好吧？好，让我们
 
 1494
 01:17:03,219 --> 01:17:05,786
 talk about how this automatic reference counting thing
+来讲讲自动引用计数是怎么工作的
 
 1495
 01:17:05,854 --> 01:17:09,389
 works. It's really simple, every time, somehow magically,
+它其实非常简单，每次，很神奇的
 
 1496
 01:17:09,458 --> 01:17:13,227
 every time that you create a pointer to a reference type in
+每次你创建一个到引用类型的指针
 
 1497
 01:17:13,295 --> 01:17:17,665
 the heap, Swift adds one to some counter somewhere. And
+到堆里，Swift 就会把某处的计数器加一
 
 1498
 01:17:17,733 --> 01:17:22,035
 every time that pointer to it goes out of scope or
+每当有指针的作用域结束了
 
 1499
 01:17:22,104 --> 01:17:24,371
 is not pointed to it anymore, like it was an optional,
+或者不再指向某个对象的时候，就好像可选类型
 
 1500
 01:17:24,440 --> 01:17:26,072
 it got set to nil, for example,
+变为 nil 了一样，打个比方就是这样
 
 1501
 01:17:26,141 --> 01:17:29,676
 then it decrements that count. And when that count goes to 0,
+Swift 就会把记录减一。当这个数变为 0 之后
 
 1502
 01:17:29,745 --> 01:17:32,580
 it takes it out of the heap instantly. It's not like
+它马上就会离开堆。并不像是
 
 1503
 01:17:32,648 --> 01:17:34,614
 it's keeping track, and it's doing any marking and
+它会去监视，然后做标记
 
 1504
 01:17:34,683 --> 01:17:37,250
 sweeping, like a garbage collection. It actually
+换内存，并不会像 GC 这样做。它其实会
 
 1505
 01:17:37,319 --> 01:17:40,453
 instantly removes it as soon as no one points to it. So
+只要没人指向它就立刻把它移除
 
 1506
 01:17:40,522 --> 01:17:42,689
 it couldn't be simpler, it's exact way you would think,
+不能再简单了，和你预想的一样
 
 1507
 01:17:42,758 --> 01:17:44,291
 conceptually, to make it work.
+概念上它就是这样的
 
 1508
 01:17:44,360 --> 01:17:47,861
 It's actually quite difficult under the covers to do that.
+其实它背后的实现还挺复杂的
 
 1509
 01:17:47,930 --> 01:17:50,097
 Swift was designed with it in mind from start.
+Swift 从一开始设计的时候就考虑到了 ARC
 
 1510
 01:17:50,165 --> 01:17:55,069
 So it's an awesome system. You can influence
+这是个很好的系统。你是可以稍微影响
 
 1511
 01:17:55,138 --> 01:17:57,104
 this automatic reference counting a little bit.
+自动引用计数的过程的
 
 1512
 01:17:57,172 --> 01:17:59,807
 You can't really control it, but you can influence,
+你并不能控制它，但你可以影响它
 
 1513
 01:17:59,875 --> 01:18:02,409
 with these three key words when you declare a var,
+在声明变量的时候用这三个关键字中的一个
 
 1514
 01:18:02,477 --> 01:18:04,612
 okay, a strong, weak, and unowned.
+分别是 strong、weak 和 unowned
 
 1515
 01:18:04,680 --> 01:18:08,081
 These are the three kind of influencers you can do.
+这是你能影响它的三种方式
 
 1516
 01:18:08,150 --> 01:18:11,151
 The first one, strong, is normal reference counting.
+第一个 strong 是普通的引用计数
 
 1517
 01:18:11,220 --> 01:18:15,522
 So that just means if there's a, this pointer is strong, and
+意思就是，这是一个强引用的指针
 
 1518
 01:18:15,590 --> 01:18:19,025
 so keep that thing in the heap as long as this is around,
+只要我这个变量还在就把那个对象留在堆里
 
 1519
 01:18:19,094 --> 01:18:20,794
 because I need it, I'm pointing to it.
+因为我指向了它，我还需要它
 
 1520
 01:18:20,863 --> 01:18:21,795
 That's the default.
+这是默认的行为
 
 1521
 01:18:21,864 --> 01:18:24,431
 So, we never actually type the keyword strong.
+所以我们从来不用 strong（注：也不是关键字）
 
 1522
 01:18:24,500 --> 01:18:25,666
 It's the default. It's always there.
+这是默认的，总是会在那里
 
 1523
 01:18:25,735 --> 01:18:27,501
 It's kind of like internal with that access control.
+就好像 internal 这个访问级别一样
 
 1524
 01:18:27,569 --> 01:18:29,736
 We don't actually ever type that.
+我们从来不把它写出来
 
 1525
 01:18:29,805 --> 01:18:33,340
 Now weak, you've actually seen before. You all remember weak?
+然后是 weak。你其实之前已经见到过了，你们还记得 weak 吗？
 
 1526
 01:18:33,409 --> 01:18:35,109
 It was on the outlets. Okay,
+@IBOutlet 就是弱引用的
 
 1527
 01:18:35,178 --> 01:18:37,510
 when we made that outlet connection, I said oh,
+当我们链接出口的时候，我说过
 
 1528
 01:18:37,579 --> 01:18:40,214
 that, see that weak? I'm gonna tell you about that next week.
+看到那个 weak 了吗？我下周给你讲
 
 1529
 01:18:40,282 --> 01:18:43,017
 Well, I'm living up to my promise, I'm telling you about
+这不，我遵守了我的诺言，我现在给你讲
 
 1530
 01:18:43,086 --> 01:18:47,121
 weak. What does weak mean? Weak means I'm
+weak。weak 是什么意思？弱引用表示我
 
 1531
 01:18:47,189 --> 01:18:50,690
 pointing to this thing in the heap, but I'm only really
+指向堆里的这个对象，但我只会
 
 1532
 01:18:50,759 --> 01:18:54,628
 interested in it if someone else is interested in it.
+在别人也对它感兴趣的时候才感兴趣
 
 1533
 01:18:54,697 --> 01:18:57,697
 In other words, if someone else has a strong pointer to
+换句话说，如果别人有一个到它的强指针
 
 1534
 01:18:57,766 --> 01:19:00,534
 it, keep it in the heap. But as soon as no one else is
+把它留在了堆里。但只要其他人对它
 
 1535
 01:19:00,603 --> 01:19:01,802
 interested in this, in other words,
+不感兴趣了，也就是
 
 1536
 01:19:01,871 --> 01:19:05,505
 all other strong pointers go away. Set me to nil and
+所有其他的强引用都没了，就把我这个设为 nil
 
 1537
 01:19:05,574 --> 01:19:10,243
 throw the thing out of the heap. So this is the don't
+然后把它从堆中释放。所以这就是
 
 1538
 01:19:10,312 --> 01:19:14,414
 keep that thing in the heap on my account kind of pointer.
+“不要因为我而把它留在堆里”这种指针
 
 1539
 01:19:14,483 --> 01:19:17,384
 And notice that it gets set to nil if all the other strong
+然后注意它会被设为 nil，当其他强引用
 
 1540
 01:19:17,453 --> 01:19:20,253
 pointers go away. So what kind of type does this have to be?
+都没了的话设为 nil。那这个变量的类型是什么？
 
 1541
 01:19:20,322 --> 01:19:23,457
 It has to be an optional.
+它必须要是可选类型
 
 1542
 01:19:23,525 --> 01:19:28,362
 So this weak only works with optional pointers to
+所以 weak 来弱引用只适用于可选类型的
 
 1543
 01:19:28,430 --> 01:19:31,966
 reference types, okay, things that are in the heap,
+引用类型的指针，指向堆里的对象
 
 1544
 01:19:32,034 --> 01:19:34,901
 which our outlets are. If you remember our outlets,
+就比如我们的出口变量。如果你还记得那些 @IBOutlet
 
 1545
 01:19:34,970 --> 01:19:38,839
 like flip count label was a UI label exclamation point. That
+比如 flipCountLabel 是个 UILabel!
 
 1546
 01:19:38,908 --> 01:19:41,875
 was an implicitly unwrapped optional. It was an optional,
+这是隐式解析的可选类型，它是可选类型的
 
 1547
 01:19:41,944 --> 01:19:44,945
 right? Same thing card buttons was an implicitly unwrapped
+对吧？同样的，cardButtons 是隐式解析的
 
 1548
 01:19:45,014 --> 01:19:49,817
 optional. So those pointers to things in the UI.
+可选类型，所以弱引用的指针指向 UI 里的内容
 
 1549
 01:19:49,885 --> 01:19:52,619
 If for some reason those things left the UI, okay,
+如果这些控件因为某种原因离开了用户界面
 
 1550
 01:19:52,688 --> 01:19:55,589
 got removed from the UI somehow, which is possible,
+被从 UI 上移除了，这确实可能发生
 
 1551
 01:19:55,657 --> 01:19:59,660
 but rare. Then those things would get set to nil, okay?
+虽然很少见，但这时它们就会被设为 nil，好吧？
 
 1552
 01:19:59,728 --> 01:20:00,994
 And you would no longer be pointing to them,
+你也不会再引用它们
 
 1553
 01:20:01,063 --> 01:20:01,828
 and that's what they want.
+这也是他们想要的效果
 
 1554
 01:20:01,897 --> 01:20:04,130
 Because if there's no flip count label,
+因为如果没有 flipCountLabel
 
 1555
 01:20:04,199 --> 01:20:07,234
 there's no use trying to update it. So
+那就不用尝试去更新它
 
 1556
 01:20:07,303 --> 01:20:10,170
 that's why they make those weak All right, now, weak,
+这就是为什么这些 UI 控件都是 weak 引用。总之，weak
 
 1557
 01:20:10,239 --> 01:20:12,772
-there's only a couple of places that we use we
+there's only a couple of places that we use weak
+我们只有几个地方会常用弱引用
 
 1558
 01:20:12,841 --> 01:20:15,842
 commonly. One is for outlets, another one is for delegation.
+其中之一就是 @IBOutlet 出口，另一个是代理
 
 1559
 01:20:15,911 --> 01:20:19,246
-Remember back to my NBC talk, I talked about the delegation,
+Remember back to my MVC talk, I talked about the delegation,
+还记得我之前讲 MVC，我谈到了委托代理
 
 1560
 01:20:19,314 --> 01:20:21,815
 the data source. And we have these pointers from the view
+数据源，然后我们这些从视图
 
 1561
 01:20:21,883 --> 01:20:23,950
 back to the controller where there's that blind and
+指回控制器的匿名的
 
 1562
 01:20:24,019 --> 01:20:25,552
 structure of communication all that,
+标准化的通讯这些
 
 1563
 01:20:25,621 --> 01:20:27,320
 which I'm gonna talk about on Wednesday.
+就是我周三讲的
 
 1564
 01:20:27,389 --> 01:20:30,090
 Those pointers are weak, because the view,
+那些指针都是弱引用，因为视图
 
 1565
 01:20:30,159 --> 01:20:32,959
 if the thing that they're sending will did and
+如果它们发送这些 will、did
 
 1566
 01:20:33,028 --> 01:20:36,563
 should to goes away, well, they're not gonna send those
+should 去的目标对象不在了，那视图就不用再发送
 
 1567
 01:20:36,632 --> 01:20:40,400
 messages anymore, so they want to be nil, okay. There's no
+这些消息了，所以它们要是能够为 nil 的。没有
 
 1568
 01:20:40,469 --> 01:20:43,970
 one to send their messages to then they just want to be nil,
+人需要发送消息给它，那我们就希望它是 nil
 
 1569
 01:20:44,039 --> 01:20:45,872
 okay. They don't want to be pointed to something.
+这个变量就不希望指向任何东西
 
 1570
 01:20:45,941 --> 01:20:48,475
 They certainly don't want a thing it points to,
+视图肯定不希望因为它的引用的对象
 
 1571
 01:20:48,544 --> 01:20:50,543
 to get stuck in the heap because of it.
+因为这些引用而被困在堆里
 
 1572
 01:20:50,612 --> 01:20:53,179
 Because they're happy to just not send the messages if
+因为它们很乐意就不发消息
 
 1573
 01:20:53,248 --> 01:20:55,882
 that thing wants to leave the heap, otherwise we don't
+如果它们要离开堆就离开吧。其他时候我们一般
 
 1574
 01:20:55,951 --> 01:21:00,754
 use weak that much. Okay, last is unowned.
+不会怎么使用 weak。最后是 unowned
 
 1575
 01:21:00,823 --> 01:21:03,223
 Unowned is don't reference count this,
+无主引用是就不把它算到引用计数里
 
 1576
 01:21:03,292 --> 01:21:06,659
 in other words I'm pointing to something in the heap, but
+换句话说我引用了堆里的某个对象，但是
 
 1577
 01:21:06,728 --> 01:21:10,163
 don't count it as a strong pointer. And I promise I'll
+不要把它算作强引用。我保证我
 
 1578
 01:21:10,232 --> 01:21:14,668
 never access this thing when it's gone from the heap. Now,
+从来不会在这个对象释放之后再使用它
 
 1579
 01:21:14,737 --> 01:21:17,537
 this is very dangerous, this is basically trying to
+这个是非常危险的，这基本就是尝试
 
 1580
 01:21:17,606 --> 01:21:20,474
 outsmart the automatic reference counting system.
+证明自己比自动引用计数更厉害
 
 1581
 01:21:20,542 --> 01:21:23,877
 You're saying, you know when it's in the heap or not, and
+你在说我清楚的知道这对象是否在堆里
 
 1582
 01:21:23,946 --> 01:21:26,113
 this is really rare. And the way,
+这种情况是很少见的。使用这个方法
 
 1583
 01:21:26,182 --> 01:21:30,584
 the one time we use this is to avoid a memory cycle, okay.
+我们唯一一种情况是用来避免引用循环
 
 1584
 01:21:30,653 --> 01:21:32,052
 Everyone know what a memory cycle is,
+大家都知道引用循环是什么
 
 1585
 01:21:32,121 --> 01:21:33,854
 that's where you have something in the heap and
+那是你有个在堆里的对象
 
 1586
 01:21:33,922 --> 01:21:35,522
 it points to something else in the heap, and
+它引用了堆里的另一个对象
 
 1587
 01:21:35,591 --> 01:21:36,657
 that thing points back to it.
+然后那另一个对象又引用了回来
 
 1588
 01:21:36,725 --> 01:21:39,159
 So, they're pointing to each other, keeping each other in
+这样它们就相互引用，把对方留在
 
 1589
 01:21:39,228 --> 01:21:41,728
 the heap. But no one else is interested in them. No one
+堆里。但其他人对它们都不感兴趣了
 
 1590
 01:21:41,797 --> 01:21:44,465
 points to either of them. They only just point to each other.
+其他人并没有指向它们中的任何一个，只有它们互相引用
 
 1591
 01:21:44,533 --> 01:21:46,533
 So they're just sitting in the heap for no reason.
+它们就这样无缘无故地留在了堆里
 
 1592
 01:21:46,601 --> 01:21:49,769
 No one's even accessing them, that's a memory cycle. And
+其他人都不会访问它们，这就是引用循环
 
 1593
 01:21:49,838 --> 01:21:53,540
 memory cycles aren't generally created in Swift normally but
+Swift 里一般不会有引用循环
 
 1594
 01:21:53,609 --> 01:21:56,443
 there's one way they're easy to create which is
+但是有一种方法我们能够简单地创建一个
 
 1595
 01:21:56,511 --> 01:21:57,577
 closures, okay.
+那就是闭包
 
 1596
 01:21:57,646 --> 01:22:00,113
 Which is a feature I'm gonna talk about on Wednesday, okay.
+这是我周三要讲的特性
 
 1597
 01:22:00,182 --> 01:22:05,285
 And so we will use unowned with closures. All right,
+所以我们会在闭包里使用无主引用。好
 
 1598
 01:22:05,353 --> 01:22:07,821
 back to our list of data structures here, of course
+我们回到这个数据结构列表。当然
 
 1599
 01:22:07,889 --> 01:22:10,590
 there's struct we know all about that. It's a value type,
+我们知道了关于结构体的全部内容，它是值类型
 
 1600
 01:22:10,659 --> 01:22:12,893
-it's copy owned right, there's no inheritance of data.
+it's copy on write, there's no inheritance of data.
+它会在写时复制，不存在继承
 
 1601
 01:22:12,962 --> 01:22:15,495
 But you're gonna learn with protocols there is inheritance
+但你会学到可以通过 protocol，用协议来继承
 
 1602
 01:22:15,564 --> 01:22:16,330
 of functionality,
+功能
 
 1603
 01:22:16,398 --> 01:22:19,432
 in fact multiple inheritance of functionality. And you've
+更准确的说是功能的多重继承。你也已经
 
 1604
 01:22:19,501 --> 01:22:24,905
 seen examples of struct cards, dictionary, string, character,
+看到过很多结构体的例子了，Card, Dictionary, String, Character
 
 1605
 01:22:24,973 --> 01:22:29,476
 int, double, UInt32, lots of structs have happened
+Int, Double, UInt32 等等这些结构体都在这里
 
 1606
 01:22:29,545 --> 01:22:32,378
 there. And I have here, let's jump over to concentrations
+然后我们这里有，让我们到 Concentration 里
 
 1607
 01:22:32,447 --> 01:22:35,315
 see what happens when we make concentration of struct.
+看看我们把 Concentration 改为 struct 会发生什么
 
 1608
 01:22:35,384 --> 01:22:37,017
-I start off the next one with that because we're pretty much
+How about
+要不
 
 1609
 01:22:37,018 --> 01:22:38,651
-How about
+I start off the next one with that because we're pretty much
+我们下节课开始再讲这个，因为我们已经基本上
 
 1610
 01:22:38,721 --> 01:22:41,121
 out of time here. Enum, I'm not going to,
+没有时间了。枚举，我不准备
+
 
 1611
 01:22:41,189 --> 01:22:44,624
 oh yes, this is the demo, which I will do next time. And
+哦，这是个演示，我下节课再来展示
+
 
 1612
 01:22:44,693 --> 01:22:47,794
 then enum here we already just covered, so I'm not going to
+然后枚举我们刚刚才讲完，我不准备
 
 1613
 01:22:47,863 --> 01:22:51,497
 talk about it, another value type, discrete values. It also
+再讲一遍，这就是另外一种值类型，有不同的值。它还
 
 1614
 01:22:51,566 --> 01:22:55,702
 can have inherit the same kind of functionality inheritance.
+可以继承功能
 
 1615
 01:22:55,771 --> 01:22:59,172
 This functionality inheritance that I keep kind of mentioning
+这个我一直在提到的功能的继承
 
 1616
 01:22:59,241 --> 01:23:02,342
 is done using this last one, which is called protocols.
+是通过最后一个 protocol，也就是协议来实现的
 
 1617
 01:23:02,411 --> 01:23:04,845
 So I'm gonna start off on Wednesday with a detailed
+所以我周三回开始细讲
 
 1618
 01:23:04,913 --> 01:23:06,613
 explanation of what a protocol is.
+协议是什么
 
 1619
 01:23:06,682 --> 01:23:10,016
 It's fundamental to the design of all of foundation,
+它是最基础的设计模式，用到了 Foundation
 
 1620
 01:23:10,085 --> 01:23:12,819
 all the array, dictionary, string, int.
+所有的 Array, Dictionary, String, Int
 
 1621
 01:23:12,888 --> 01:23:15,522
 And all of those things fundamentally using protocols
+所有这些基础的内容都用到了 protocol
 
 1622
 01:23:15,591 --> 01:23:17,758
 everywhere, massive number of protocols.
+到处都是，大量的协议
 
 1623
 01:23:17,826 --> 01:23:20,093
 And it's also fundamental with things like delegation and
+同时这也是委托代理模式的基础
 
 1624
 01:23:20,162 --> 01:23:22,796
 stuff like that, so it's very, very important. And to round
+就像这样的内容，非常非常重要。这让我们能
 
 1625
 01:23:22,865 --> 01:23:26,332
 out our full understanding of how to build data structures
+完整地了解如何在 Swift 里构建数据结构
 
 1626
 01:23:26,401 --> 01:23:30,436
 in Swift. Okay, so we'll start off on Wednesday with that and
+我们星期三会先讲这些
 
 1627
 01:23:30,505 --> 01:23:32,739
 I will see you then. >> For more,
+到时候再见。 >> 更多课程
 
 1628
 01:23:32,808 --> 01:23:41,314
 please visit us at stanford.edu.
->> 更多课程详见 stanford.edu
+详见 stanford.edu
