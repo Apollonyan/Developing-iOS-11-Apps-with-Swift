@@ -333,10 +333,10 @@ So that's how you do mutating, or mutable. If for vars is
 00:03:39,519 --> 00:03:42,620
 whether they're vars or let, or for computer property,
 关注它是可变的（var）还是不可变的（let），对于演算属性
-#Everybody got all that？
+
 68
 00:03:42,689 --> 00:03:47,192
-whether it has both get and set. Where we got all that? So
+whether it has both get and set.Everybody got all that? So
 关注它是否可以获取和赋值。大家都听懂了吗
 
 69
