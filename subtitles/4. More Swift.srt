@@ -6239,75 +6239,94 @@ sqrt 是个函数，接受一个 Double，返回一个 Double
 1300
 01:08:16,792 --> 01:08:20,161
 So it's perfectly legal for me to say operation = sqrt,
+那么我写 operation = sqrt 是完全合法的
 
 1301
 01:08:20,230 --> 01:08:24,198
 all right? And how do I call it? Well, I call it just like
+那么我如何调用它呢？我可以就像
 
 1302
 01:08:24,266 --> 01:08:27,969
 a function. Operation of 4.0 is gonna call, in this case,
+调用一个函数一样调用它，在这个例子中 operation(4.0)
 
 1303
 01:08:28,037 --> 01:08:31,872
 square root of 4.0, because operation is a function var,
+会调用 sqrt(4.0) 因为 operation 是一个函数类型变量
 
 1304
 01:08:31,941 --> 01:08:33,974
 that's holding a functioning.
+它储存着一个函数
 
 1305
 01:08:34,043 --> 01:08:37,144
 That function is square root, okay. Could not be simpler.
+那个函数就是平方根。这很简单，对吧
 
 1306
 01:08:37,213 --> 01:08:40,114
 Everybody cool with this? Now, other languages have function
+所有人都懂了吧。其他语言中有
 
 1307
 01:08:40,182 --> 01:08:43,017
 pointers and all this stuff, but it's all pretty tortuous
+函数指针啥的，那些用起来都有些拐弯抹角的
 
 1308
 01:08:43,086 --> 01:08:46,020
 to use. But in Swift, it's a first class citizen, okay.
+但在 Swift 中，它就是“一等公民”
 
 1309
 01:08:46,089 --> 01:08:47,355
 Functions are a first class citizen.
+函数是“一等公民”
 
 1310
 01:08:47,424 --> 01:08:50,358
 They will be the argument to many iOS methods,
+它们会作为许多 iOS 函数的参数
 
 1311
 01:08:50,426 --> 01:08:53,628
 functions will be. Okay, now a lot of times,
+好的，那么大多数时候
 
 1312
 01:08:53,696 --> 01:08:57,665
 the function you wanna past doesn't already exist.
+你想作为参数传递的那个函数还不存在
 
 1313
 01:08:57,734 --> 01:09:00,701
 So forces you to go write a function to pass in. For
+那么它就要求你自己写一个函数来传递
 
 1314
 01:09:00,770 --> 01:09:04,639
 example, let's say I had the function changeSign, okay. So
+举个例子，比如说我需要函数 changeSign
 
 1315
 01:09:04,707 --> 01:09:07,942
 there's no thing like square root that does change signs.
+而我们并没有一个函数来实现改变符号，sqrt 也不会改变符号
 
 1316
 01:09:08,010 --> 01:09:10,878
 So I have to write a really simple little function here,
+所以我就需要在这里写一个非常简单的小函数
 
 1317
 01:09:10,946 --> 01:09:11,896
 And all it does, it takes a double and returns a double,
+它做的就是接受一个 Double 型并返回一个 Double 型
 
+#TODO: 1318这里多了
 1318
 01:09:11,897 --> 01:09:12,847
 changeSign.
@@ -6315,726 +6334,907 @@ changeSign.
 1319
 01:09:12,915 --> 01:09:15,983
 just like square root. And it returns minus the operand.
+就像 sqrt 一样。而它返回的是 -operand
 
 1320
 01:09:16,051 --> 01:09:19,020
 So I'm changing the sign of the operand here. So I could
+这样我就可以改变这个 operand 的符号了
 
 1321
 01:09:19,088 --> 01:09:21,588
 use it in the same way. I've got an operation. I'll just
+那么我就可以以同样的方式来使用它了，我这有 operation
 
 1322
 01:09:21,657 --> 01:09:24,358
 say operation = changeSign instead of operation = sqrt.
+我只用写 operation = changeSign，而不是 operation = sqrt
 
 1323
 01:09:24,427 --> 01:09:26,527
 But this is kind of a lot of typing and
+但只为了实现改变符号就来写一个函数
 
 1324
 01:09:26,596 --> 01:09:29,630
-annoyance to have to go create a whole function to do
+annoying to have to go create a whole function to do
+的话要敲不少代码，而且有点令人厌烦
 
 1325
 01:09:29,699 --> 01:09:33,300
 changeSign when all I want is for that thing to change sign.
+因为我想做的就只是改变符号而已
 
 1326
 01:09:33,369 --> 01:09:35,703
 So we can do, use what's called a closure.
+那么我们可以使用闭包(closure)
 
 1327
 01:09:35,772 --> 01:09:37,738
 How many people have heard the phrase closure,
+有多少人听说过闭包
 
 1328
 01:09:37,807 --> 01:09:39,307
 know what a closure is?
+知道闭包是什么
 
 1329
 01:09:39,375 --> 01:09:43,577
 Okay, about half of you again. Okay, so closure is really
+好的，差不多你们当中的一半。那么闭包实际上
 
 1330
 01:09:43,646 --> 01:09:46,580
 like an inlined function. It's a little special in that it
+就像一个内联函数，它有点特别的就是它会
 
 1331
 01:09:46,649 --> 01:09:49,784
 captures the state around it but it's essentially an inline
+捕捉它周围的状态。但它本质上就是一个内联函数
 
 1332
 01:09:49,852 --> 01:09:52,620
 function. So what does the syntax look like if we wanted
+那么我们要用怎样的语法才能
 
 1333
 01:09:52,689 --> 01:09:55,522
 to take changeSign and just drop it right into the middle
+直接获取 changeSign 并将直接放在这段代码中呢
 
 1334
 01:09:55,591 --> 01:09:58,192
 here instead of having a separate function? Okay,
+而不是在另写一个函数
 
 1335
 01:09:58,261 --> 01:10:00,061
 how would we do that? All right,
+我们如何才能做到这一点呢
 
 1336
 01:10:00,130 --> 01:10:02,830
 we're just gonna pick up all of changeSign except for
+我们只需要选中除了名字的 changeSign 函数的全部
 
 1337
 01:10:02,899 --> 01:10:04,365
 its name and move it down.
+部分，并将它移下来
 
 1338
 01:10:04,433 --> 01:10:07,635
 Watch, okay, so I just put it right in there. Now I
+看，我就只用将它放在这里
 
 1339
 01:10:07,704 --> 01:10:11,072
 do have to make one syntactic change here, very important.
+那么我现在还要在改变一处语法，这很重要
 
 1340
 01:10:11,141 --> 01:10:14,275
 I have to move that first curly brace, the one right
+我必须要将这个第一个大括号
 
 1341
 01:10:14,344 --> 01:10:17,345
 before the word return. I had to move it to beginning and
+在 return 前面的那个，我要将它移到开始部分
 
 1342
 01:10:17,413 --> 01:10:20,948
 replace it with the word in, so watch this happen.
+并在它原来的位置用 in 代替，看好了
 
 1343
 01:10:21,017 --> 01:10:24,318
 This moves to the front, put the word in. That's it though.
+这个移到前面去，将 in 放进去，就是这样
 
 1344
 01:10:24,387 --> 01:10:27,654
 Once you make that small syntactic change, you can drop
+一旦你完成了这个小的语法改变，你就可以
 
 1345
 01:10:27,723 --> 01:10:31,359
 any function right in there. But it gets much better on
+将任何函数放在这里。我们这样做会更加的好
 
 1346
 01:10:31,427 --> 01:10:35,629
 this because we have type inference in Swift. And Swift
+因为在 Swift 中有类型推断
 
 1347
 01:10:35,698 --> 01:10:39,734
 can absolutely go to town here because it knows a lot about
+并且 Swift 在这里当然也会这么做，因为它非常了解
 
 1348
 01:10:39,802 --> 01:10:44,138
 what's going on here. For example, Swift knows that this
+这里正在发生着什么。比如说，Swift 知道这个
 
 1349
 01:10:44,207 --> 01:10:47,775
 operation thing returns a double. It knows that, so
+operation 返回一个 Double 型，它知道的。
 
 1350
 01:10:47,843 --> 01:10:50,645
 you don't need to say returns double there, so just take
+所以你不需要在这里写 return double，把它拿去
 
 1351
 01:10:50,713 --> 01:10:54,849
 that out. it also knows that the operand is a double, so
+就好了。Swift 也知道 operand 是 Double 型的
 
 1352
 01:10:54,918 --> 01:10:58,052
 you don't need to say that that operand is a double,
+所以你这里不需要写 operand 是 Double
 
 1353
 01:10:58,121 --> 01:11:00,454
 you can take that out, right?
+你可以把它也拿去
 
 1354
 01:11:00,523 --> 01:11:03,224
 It also knows that this function returns something, so
+Swift 也知道这个函数会返回某个东西
 
 1355
 01:11:03,292 --> 01:11:07,595
 you don't need the keyword return minus operand there. So
+所以你这里也不需要关键字 return -operand
 
 1356
 01:11:07,663 --> 01:11:10,698
 we can take that out as well. Okay, and even more,
+因此我们也可以将它拿去。还有
 
 1357
 01:11:10,766 --> 01:11:13,835
 Swift knows you want to have these embedded functions all
+Swift 知道你希望有这个内嵌函数
 
 1358
 01:11:13,903 --> 01:11:16,938
 the time, and it's a little annoying to have to think up
+而每次都要为那个参数取个名字
 
 1359
 01:11:17,006 --> 01:11:19,740
 a name for the argument to this thing. Okay, that
+也是有点令人厌烦的
 
 1360
 01:11:19,808 --> 01:11:23,210
 operand word that I had to think up there. So it lets you
+就是那个单词 operand，我还要去想它，因此 Swift允许你用
 
 1361
 01:11:23,279 --> 01:11:27,681
 substitute $0 for the first one, $1 for the second, $3 for
+$0 代替第一个参数，$1 代替第二个参数，$3（误：应为 $2） 代替
 
 1362
 01:11:27,750 --> 01:11:32,920
 the third one. So I'm gonna replace operand there with $0.
+第三个参数。那么我在这里可以用 $0 来代替 operand
 
 1363
 01:11:32,988 --> 01:11:35,556
 And when I do that, I don't need the in anymore either.
+那么如果我这样做了，我也不需要这个 in 了
 
 1364
 01:11:38,461 --> 01:11:42,096
 Now you see the power of the closure. Okay,
+现在你们见识到闭包的强大了
 
 1365
 01:11:42,165 --> 01:11:45,265
 I wanted to have an operation that changes the sign.
+当我想要一个操作来改变符号
 
 1366
 01:11:45,334 --> 01:11:47,868
 And I barely had to type any more characters than
+我基本上不用打比 changeSign 这个名字
 
 1367
 01:11:47,937 --> 01:11:52,973
 the changeSign, just the curly braces around it. And that's
+更多的代码，就只用大括号那些就可以了
 
 1368
 01:11:53,042 --> 01:11:56,911
 still gonna do, operation 4.0 is still gonna do -4.0. Okay,
+并且这样仍然可以改变符号，operation(4.0) 仍然会返回 -4.0
 
 1369
 01:11:56,979 --> 01:11:59,380
 so you're gonna be using closures all the time, and
+所以你会经常使用到闭包
 
 1370
 01:11:59,449 --> 01:12:01,949
 you're gonna be using these $0, 1, $1, $2,
+并且你也经常会用 $0, 1, $1, $2
 
 1371
 01:12:02,017 --> 01:12:04,552
 as the argument names. And it's gonna make it so that you
+来当做参数的名字。这样做的话
 
 1372
 01:12:04,620 --> 01:12:07,187
 have to type very little code to put the things in.
+你只用写很少的代码就能将想要的功能放进来
 
 1373
 01:12:07,256 --> 01:12:09,990
 Now why do I want closures, why do I want functions as
+那么为什么我想要闭包呢
 
 1374
 01:12:10,059 --> 01:12:12,626
 arguments? Well, it's usually because you,
+为什么我想要函数能当做参数？那是因为
 
 1375
 01:12:12,695 --> 01:12:15,196
 you're passing something to a function that wants to know
+你时常要向一个函数传递一个参数，它才知道要
 
 1376
 01:12:15,264 --> 01:12:18,365
 what to do. A function is a great way to tell it what to
+做什么。那么用一个作为参数的函数是告诉它要做什么的很好的方式
 
 1377
 01:12:18,434 --> 01:12:21,335
 do. Now why might it want to know what to do? Well,
+那么那个函数想要知道自己该做什么呢
 
 1378
 01:12:21,404 --> 01:12:24,638
 maybe it wants to know what to do if there's an error.
+也许它想知道当出现了一个错误的时候自己该做什么
 
 1379
 01:12:24,707 --> 01:12:27,541
 I'm gonna do something, it might generate an error, and
+我会做某些事情，它可能会产生一个错误
 
 1380
 01:12:27,610 --> 01:12:30,110
 I want to call a function in case there's an error so
+那么当产生错误的时候，我希望调用一个函数
 
 1381
 01:12:30,179 --> 01:12:33,080
 you can handle this function. Maybe it wants to know what to
+来处理这个错误。那个函数也许想知道如果
 
 1382
 01:12:33,149 --> 01:12:35,382
 do if it's gonna do something that takes a long time.
+它要做一个很消耗时间的事情时该做什么
 
 1383
 01:12:35,451 --> 01:12:37,184
 It's gonna go on the network and
+比如说上网
 
 1384
 01:12:37,253 --> 01:12:40,754
 download something off in the background and when it's done,
+并在后台下载某些东西的时候，当下载完成后
 
 1385
 01:12:40,823 --> 01:12:44,525
 it wants to tell you. Okay, we call a function to do that.
+它想要告诉你。那么我们可以调用一个函数来做到这一点
 
 1386
 01:12:44,594 --> 01:12:47,060
 Another thing is, it might be doing something repeatedly,
+另外一件事是，它可能将会重复做某件事
 
 1387
 01:12:47,129 --> 01:12:49,997
 it wants to do the same thing over and over. So it's asking
+它想重复地做同样一件事，那么它就会
 
 1388
 01:12:50,066 --> 01:12:53,100
 you to tell it what to do over and over. So let's take a look
+问你要重复做什么事情。让我来看
 
 1389
 01:12:53,169 --> 01:12:55,937
 at an example of that last one there, doing something over
+最后的一个例子，我们要重复地做
 
 1390
 01:12:56,005 --> 01:13:00,074
 and over. So array, naturally, it's a collection.
+某些事情。那么，数组在本质上是一个集合
 
 1391
 01:13:00,143 --> 01:13:04,378
 Well anyway, array has a method called map. And
+数组有一个叫做 map 的函数
 
 1392
 01:13:04,447 --> 01:13:08,816
 what map does, it takes only one argument, a function. And
+而 map 做的就是，它接收一个参数，一个函数
 
 1393
 01:13:08,885 --> 01:13:12,586
 it applies that function to every element in the array and
+并且它对数组内的每个元素为参数调用那个函数
 
 1394
 01:13:12,655 --> 01:13:15,088
 creates a new array. So
+并创建一个新的数组
 
 1395
 01:13:15,157 --> 01:13:19,160
 map returns a new array where every element in the array you
+所以 map 会返回一个新的数组，它其中的每个元素
 
 1396
 01:13:19,228 --> 01:13:21,995
 send it to gets operated on by some function.
+就是以传入的那个函数对原数组每个元素运算后的返回值
 
 1397
 01:13:22,064 --> 01:13:24,131
 In other words, it's a way to pass a function into array and
+换句话说，这就是一种向数组中传入一个函数
 
 1398
 01:13:24,200 --> 01:13:26,534
 tell it to do it on every element. Okay,
+并用它运算在数组中每个元素的方法
 
 1399
 01:13:26,602 --> 01:13:29,370
 that's what map does, so how does that work? Here I have
+那就是 map 的功能，那么这是如何实现的呢
 
 1400
 01:13:29,439 --> 01:13:32,673
 an array of floating point numbers. They happen to be
+这里我有一个由浮点数组成的数组，它碰巧是
 
 1401
 01:13:32,742 --> 01:13:35,910
 the first 5 prime numbers, right, 2, 3, 5, 7, 11 here.
+前五个素数，对吧，2，3，5，7，11
 
 1402
 01:13:35,978 --> 01:13:39,714
 And what if I wanted to have an array of all negative 2,
+那么如果我想要一个由 -2，-3 那些
 
 1403
 01:13:39,782 --> 01:13:43,317
 negative 3? Well I would just say negativePrimes =
+组成的数组，我只用写 negativePrimes = prime.map( { -$0})
 
 1404
 01:13:43,386 --> 01:13:47,354
 prime.map, the only argument is a function that does change
+map 函数的唯一一个参数
 
 1405
 01:13:47,423 --> 01:13:48,989
 sign, right? Just like we had on the previous slide,
+就是用来改变符号的，对吧，它就像我们上一张幻灯片中的一样
 
 1406
 01:13:49,058 --> 01:13:51,692
 change sign. And now we're getting a new array,
+改变了符号。这样我们就得到了一个新的数组
 
 1407
 01:13:51,761 --> 01:13:56,163
 negativePrimes is gonna be a new array with -2, -3, -5.
+negativePrimes 就是一个包含 -2,-3,-5 的新数组
 
 1408
 01:13:56,231 --> 01:13:59,934
 You see how I used map there? Now, list another example,
+你看到我在这里是如何使用 map 了吧，另一个例子
 
 1409
 01:14:00,002 --> 01:14:02,770
 maybe inverting the primes. So I'm gonna propriate
+我想要得到这些数组的倒数
 
 1410
 01:14:02,839 --> 01:14:06,507
 the closure, 1.0 divided by $0. Now I get 0.5, 0.33,
+那么我就要改变这个闭包为 1.0 / $0，那我就会得到 0.5, 0.33
 
 1411
 01:14:06,575 --> 01:14:09,810
 maybe I even want to convert it to a string.
+也许我甚至想要将它转换为一个字符串
 
 1412
 01:14:09,878 --> 01:14:11,946
 Perfectly legal, doesn't have to be the same type.
+这是完全合法的，新的数组不一定要和老数组为同一个类型
 
 1413
 01:14:12,015 --> 01:14:15,516
 I can return array of string. Now notice the yellow
+我可以返回一个字符串的数组，现在注意到上面这些黄色的代码
 
 1414
 01:14:15,584 --> 01:14:18,519
 things up there, changed a little with each line. You see
+它们在各行是有些不同的
 
 1415
 01:14:18,587 --> 01:14:22,256
 the first one map parentheses the closure. The next one
+第一行闭包在小括号内
 
 1416
 01:14:22,325 --> 01:14:25,025
 map open parentheses, closed parentheses then the closure.
+第二行是 map() 后接着闭包
 
 1417
 01:14:25,094 --> 01:14:28,129
 And the third one map, no parentheses and the closure.
+在第三行中，map 后面没有小括号，紧接的就是闭包
 
 1418
 01:14:28,197 --> 01:14:31,632
 Okay, this is using what's called trailing closure
+这里是用的一个叫做 尾随闭包（trailing closure）
 
 1419
 01:14:31,701 --> 01:14:35,670
 syntax, okay, we almost always use this. The rule here is,
+的语法，我们基本上总是会这么用
 
 1420
 01:14:35,738 --> 01:14:39,907
 if the last argument to any function is a closure,
+它的规则是，如果一个函数的最后一个参数是闭包
 
 1421
 01:14:39,975 --> 01:14:43,343
 you can move the closure outside the parenthesis of
+你就可以将那个闭包移动到那些参数所在
 
 1422
 01:14:43,412 --> 01:14:46,981
 the arguments. So see in the second line, inverted primes?
+的小括号外面。看这里的第二行，当我们要去素数的倒数时
 
 1423
 01:14:47,049 --> 01:14:50,217
 How I moved the closure outside? And furthermore,
+我就把闭包移到括号外面去了
 
 1424
 01:14:50,286 --> 01:14:52,519
 if it's the only argument,
+还有，如果闭包是唯一一个参数
 
 1425
 01:14:52,588 --> 01:14:54,955
 then you can just get rid of the parentheses entirely.
+那么你就完全可以直接不写小括号
 
 1426
 01:14:55,023 --> 01:14:57,991
 That's the third line, okay. And this is just to make our
+就像第三行所展示的那样
 
 1427
 01:14:58,060 --> 01:15:00,627
 code look nice. So we don't have extraneous parenthesis in
+这样做就可以让我们的代码更好看。这样我们就可以将
 
 1428
 01:15:00,696 --> 01:15:03,364
 there that we don't, beccause we've got the curly braces,
+我们不需要的小括号去掉了。因为我们这里已经有大括号了
 
 1429
 01:15:03,433 --> 01:15:05,900
 we kind of don't need those parentheses. Okay,
+我们就不是很需要那些小括号了
 
 1430
 01:15:05,968 --> 01:15:10,204
 so you'll see that in iOS when an argument to a function
+那么你就会在 iOS 开发中看到，当一个函数的
 
 1431
 01:15:10,273 --> 01:15:13,274
 is a function, it'll usually be the last argument. So
+参数是一个函数时，它通常会是最后一个参数
 
 1432
 01:15:13,343 --> 01:15:15,242
 that you can move it outside if you want.
+这样如果你想的话，你就可以将它拿到外面
 
 1433
 01:15:15,311 --> 01:15:16,844
 It's optional, you don't have to.
+这是可选的，你不一定要这样做
 
 1434
 01:15:16,912 --> 01:15:19,079
 All three of those are perfectly valid syntax right
+这里的三种语法都是完全合法的
 
 1435
 01:15:19,148 --> 01:15:23,417
 there. Okay, another cool use of closures,
+好的，闭包的另一个很酷的用处
 
 1436
 01:15:23,485 --> 01:15:27,354
 property initialization. What if you have a property and
+在与属性初始化（property initialization），如果你有一个属性
 
 1437
 01:15:27,423 --> 01:15:29,356
 you wanna initialize it to something but
+并且你想将它初始化为某个东西
 
 1438
 01:15:29,425 --> 01:15:32,159
 it's not like you just can't do one line thing, right.
+但你不能以一行就搞定它
 
 1439
 01:15:32,227 --> 01:15:35,862
 You can't say equals five or equals something simple. You
+你不能就像写 =22 或等于其他什么这样简单
 
 1440
 01:15:35,931 --> 01:15:38,432
 need to do two or three lines of code to get it initialized.
+你需要两三行代码才能将它初始化
 
 1441
 01:15:38,501 --> 01:15:42,002
 No problem, you're allowed to set the property equal to
+没问题，你可以将这个属性赋值为一个
 
 1442
 01:15:42,071 --> 01:15:45,205
 executing a closure. Now that closure is automatically
+要执行的闭包，那么这个闭包自动地就会是
 
 1443
 01:15:45,274 --> 01:15:47,675
 going to be a closure that takes no arguments and
+一个不接受任何参数
 
 1444
 01:15:47,744 --> 01:15:51,412
 returns the right type to initialize that property.
+并且返回一个恰当类型，能初始化这个属性的闭包
 
 1445
 01:15:51,480 --> 01:15:53,347
 So you can do anything you want in that closure and
+所以你在这个闭包中可以做任何你想做的事情
 
 1446
 01:15:53,415 --> 01:15:55,182
 just return something of the right type. And
+只需要在最后返回一个正确的类型的值
 
 1447
 01:15:55,251 --> 01:15:58,652
 then you execute it right away with open parenthesis, closed
+接着你用 () 来立即执行它
 
 1448
 01:15:58,720 --> 01:16:01,522
 parenthesis. See how there's the little open parenthesis,
+看到这里的小括号了吗
 
 1449
 01:16:01,590 --> 01:16:04,625
 closed parenthesis there right at the end of the closure?
+它们就在这个闭包的后面
 
 1450
 01:16:04,694 --> 01:16:06,761
 That's just gonna execute that closure right there.
+它们就会在那里立即执行这个闭包
 
 1451
 01:16:06,829 --> 01:16:09,830
 This is especially cool with lazy properties. Because it
+这用在 lazy 属性中就很棒
 
 1452
 01:16:09,898 --> 01:16:12,433
 means, this closure won't be executed until someone asks
+因为这表示着，在这个属性被访问之前
 
 1453
 01:16:12,502 --> 01:16:16,036
 for this property. Okay, so
+这个闭包就不会执行
 
 1454
 01:16:16,105 --> 01:16:18,638
 you're combining lazy in the closures. So
+那么你就将 lazy 和闭包联系了起来
 
 1455
 01:16:18,707 --> 01:16:22,342
 closures really cool for initializing properties. Now,
+所以说闭包在初始化属性的时候非常有用
 
 1456
 01:16:22,411 --> 01:16:25,079
 one thing about closures to be careful of.
+而关于闭包值得警惕的一点是
 
 1457
 01:16:25,147 --> 01:16:29,483
 They do capture their surrounding variables.
+它们会捕捉它们周围的变量
 
 1458
 01:16:29,552 --> 01:16:32,386
 So if I have a closure, it's just a function embedded right
+所以如果我有一个闭包，它就是一个嵌在我的代码中的
 
 1459
 01:16:32,454 --> 01:16:35,156
 in my code. If there are local variables, or
+函数，如果在闭包所在的这个类中有局部变量
 
 1460
 01:16:35,224 --> 01:16:37,958
 instance variables in the class I'm in, or whatever, and
+或者实例变量，或者其他什么
 
 1461
 01:16:38,027 --> 01:16:42,296
 I use them in the closure it works. And even if that
+我就可以在闭包中使用它们。并且甚至当
 
 1462
 01:16:42,365 --> 01:16:45,966
 closure sticks around, those things still continue to work
+那个闭包被到处传递时，那些变量也仍然是有效的
 
 1463
 01:16:46,035 --> 01:16:49,936
 until the closure goes away. What this means, though,
+直到我的闭包消失。这就意味着
 
 1464
 01:16:50,005 --> 01:16:52,306
 since closures are types and they can put in arrays and
+闭包是类型，并且它们可以被装进数组和字典中
 
 1465
 01:16:52,375 --> 01:16:56,810
 dictionaries, closures are reference types.
+闭包是引用类型
 
 1466
 01:16:56,879 --> 01:17:01,014
 There's only two reference types in Swift, classes and
+Swift 中只有两种引用类型，类和闭包
 
 1467
 01:17:01,083 --> 01:17:02,683
 closures. So what does that mean?
+这意味着什么
 
 1468
 01:17:02,752 --> 01:17:05,285
 It means this closure gets put in the heap if you put it in
+这意味着当你将闭包装入数组时，它就被压入了堆中
 
 1469
 01:17:05,354 --> 01:17:08,856
 an array. So that array actually has pointers to this
+那么这个数组实际上是有指向这个闭包的指针
 
 1470
 01:17:08,925 --> 01:17:13,327
 closure. Now this is a little mind bending. I don't expect
+这里有一点绕弯子。
 
 1471
 01:17:13,395 --> 01:17:16,330
 you to get this right at the top. But it also means that,
+我不要求你们现在马上就理解。但这也意味着
 
 1472
 01:17:16,398 --> 01:17:19,934
 if you capture variables in your closure from your
+如果闭包捕获了它周围代码
 
 1473
 01:17:20,002 --> 01:17:22,803
 surrounding code, they have to go live in the heap too.
+中的变量，它们也要被存入堆中
 
 1474
 01:17:22,872 --> 01:17:25,505
 Because we can't have this closure not function, right?
+因为我们不能让这个闭包错误地工作
 
 1475
 01:17:25,574 --> 01:17:28,842
 Can't if this function has to be a function that executes.
+这个闭包必须要是一个可以执行的函数
 
 1476
 01:17:28,911 --> 01:17:30,644
 So here's an example of that.
+这里有一个例子
 
 1477
 01:17:30,713 --> 01:17:33,848
 Here I have a local variable called ltaue,
+我这里有一个叫做 ltuae 的变量
 
 1478
 01:17:33,916 --> 01:17:35,382
 life the universe and everything,
+生命，宇宙，和其他一切
 
 1479
 01:17:35,451 --> 01:17:38,585
 I think that stands for. It's set to 42. Okay,
+大概是这个意思，它被赋值为42
 
 1480
 01:17:38,654 --> 01:17:41,822
 and my operation, the closure there, says ltuae times $0. So
+并且我的函数也就是这个闭包中写着 ltuae * $0
 
 1481
 01:17:41,891 --> 01:17:47,594
 that closure is actually using a local variable inside it.
+这个闭包实际上在它其中使用着一个局部变量
 
 1482
 01:17:47,663 --> 01:17:51,264
 Now what happens if I put that operation in an array? Okay,
+那么当我将这个 operation 放入数组中会发生什么
 
 1483
 01:17:51,333 --> 01:17:53,700
 and then later go back and get it out of the array, and
+我之后还会从数组中将它取出并
 
 1484
 01:17:53,769 --> 01:17:56,837
 execute it. Well, when it does that, ltuae still needs to be
+执行它。那么为了能做到这一点，ltuae 仍然需要
 
 1485
 01:17:56,905 --> 01:18:00,741
 there. Because otherwise, the closure won't execute. So
+在我们的堆中，否在的话闭包无法执行
 
 1486
 01:18:00,810 --> 01:18:05,079
 ltuau, the ltuae gets captured into the heap and
+那么 ltuae 就会被捕获到堆中
 
 1487
 01:18:05,148 --> 01:18:07,681
 stays there until the closure goes away.
+并且待在堆中，直到闭包离开堆
 
 1488
 01:18:07,749 --> 01:18:10,217
 Now, this is awesome, it all just works magically.
+这很棒，它奇迹般地就可以工作了
 
 1489
 01:18:10,286 --> 01:18:13,487
 You don't have to think about it, except in one case, and
+你不用去考虑它，出来在一种情况下
 
 1490
 01:18:13,555 --> 01:18:15,522
 that's a memory cycle.
+就是引用循环（memory cycle）
 
 1491
 01:18:15,590 --> 01:18:18,391
 This can create a memory cycle because you might capture
+这可能会生成一个引用循环，因为你有可能会捕获
 
 1492
 01:18:18,460 --> 01:18:22,696
 the class that array of operations is in. Okay,
+装有 operation 的数组所在的集合
 
 1493
 01:18:22,764 --> 01:18:26,766
 if you capture the class that array is of operations in,
+如果你捕获了装有 operation 的数组所在的集合
 
 1494
 01:18:26,835 --> 01:18:31,605
 then this closure has captured that class into the heap. And
+闭包接着将那个类捕获进堆
 
 1495
 01:18:31,674 --> 01:18:35,275
 that class through its array is captured
+并且那个类通过它其中的数组
 
 1496
 01:18:35,344 --> 01:18:36,877
 the closure in the heap. So
+也将闭包捕获进了堆
 
 1497
 01:18:36,946 --> 01:18:38,912
 they're pointing to each other through the array,
+以数组为中介，它们在指向对方
 
 1498
 01:18:38,981 --> 01:18:41,448
 you see? They're creating a memory cycle, that closure is
+你能理解吗，它们这样就产生了引用循环
 
 1499
 01:18:41,517 --> 01:18:43,717
 keeping the class, the class is keeping the closure.
+闭包将类留在堆中，类将闭包留在堆中
 
 1500
 01:18:43,786 --> 01:18:44,584
