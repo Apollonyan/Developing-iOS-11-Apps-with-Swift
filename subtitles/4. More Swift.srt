@@ -7199,12 +7199,12 @@ This can create a memory cycle because you might capture
 1492
 01:18:18,460 --> 01:18:22,696
 the class that array of operations is in. Okay,
-装有 operation 的数组所在的集合
+装有 operation 的数组所在的类
 
 1493
 01:18:22,764 --> 01:18:26,766
 if you capture the class that array is of operations in,
-如果你捕获了装有 operation 的数组所在的集合
+如果你捕获了装有 operation 的数组所在的类
 
 1494
 01:18:26,835 --> 01:18:31,605
@@ -7349,7 +7349,7 @@ which it did down here. It made this code really
 1522
 01:19:46,281 --> 01:19:49,716
 beautiful and readable down here. But, it actually added
-非常优美也非常具有可读性，但是，它实际上
+变得非常优美也非常具有可读性，但是，它实际上
 
 1523
 01:19:49,785 --> 01:19:53,754
@@ -7369,12 +7369,12 @@ face card, if you use a method that takes a closure. Now,
 1526
 01:20:00,663 --> 01:20:03,196
 the method we're gonna use, it's kinda like map,
-那么我们用的函数，有点像 map
+那么我们要用的函数，有点像 map
 
 1527
 01:20:03,265 --> 01:20:07,701
 its on collection, it's called filter. So what filter
-这是在 collection 上的函数，它叫做 filter
+它是在 collection 中的函数，它叫做 filter
 
 1528
 01:20:07,769 --> 01:20:10,437
@@ -7424,7 +7424,7 @@ return true from the function. See what I'm saying? So
 1537
 01:20:35,264 --> 01:20:37,564
 that's why it's called filter. Filters the collection,
-那就是它叫作 filter 的原因，过滤这个集合
+这就是它叫作 filter 的原因，过滤这个集合
 
 1538
 01:20:37,633 --> 01:20:40,100
@@ -7579,7 +7579,7 @@ this is an array of all the indices. Now, if this only has
 1568
 01:22:23,506 --> 01:22:26,639
 one thing in it then we have one face up card.
-那么如果它里面有一个元素，我们就以一个朝上的牌
+那么如果它里面有一个元素，我们就有一个朝上的牌
 
 1569
 01:22:26,708 --> 01:22:30,377
@@ -7664,7 +7664,7 @@ a protocol down here. The protocol we're gonna extend is
 1585
 01:23:20,896 --> 01:23:25,832
 collection. So we're gonna add a var. Could be a function,
-collection 那么我们将添加一个变量，可能是函数
+collection 那么我们将添加一个变量，可以是函数
 
 1586
 01:23:25,901 --> 01:23:27,734
@@ -7879,7 +7879,7 @@ characters. And a string is a collection of characters. But
 1628
 01:26:13,368 --> 01:26:17,537
 if I click on it, it's gonna say, it's a String.Element.
-但如果我点一下它，它会说它是 String.element
+但如果我点一下它，它会说它是 String.Element
 
 1629
 01:26:17,606 --> 01:26:21,408
@@ -7889,7 +7889,7 @@ So just like Array.Index is type alias to be int,
 1630
 01:26:21,476 --> 01:26:25,212
 String.Element is type alias to be character.
-String.Element 也是 Character 的类型别名
+String.Element 是 Character 的类型别名
 
 1631
 01:26:25,280 --> 01:26:27,814
