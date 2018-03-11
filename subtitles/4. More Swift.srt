@@ -7184,7 +7184,7 @@ Now, this is awesome, it all just works magically.
 1489
 01:18:10,286 --> 01:18:13,487
 You don't have to think about it, except in one case, and
-你不用去考虑它，出来在一种情况下
+你不用去考虑它，除了在一种情况下
 
 1490
 01:18:13,555 --> 01:18:15,522
