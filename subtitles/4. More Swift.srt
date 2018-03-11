@@ -6239,12 +6239,12 @@ sqrt 是个函数，接受一个 Double，返回一个 Double
 1300
 01:08:16,792 --> 01:08:20,161
 So it's perfectly legal for me to say operation = sqrt,
-那么我写 operation = sqrt 是完全合法的
+因此我写 operation = sqrt 是完全合法的
 
 1301
 01:08:20,230 --> 01:08:24,198
 all right? And how do I call it? Well, I call it just like
-那么我如何调用它呢？我可以就像
+那么我要如何调用它呢？我可以就像
 
 1302
 01:08:24,266 --> 01:08:27,969
@@ -6254,7 +6254,7 @@ a function. Operation of 4.0 is gonna call, in this case,
 1303
 01:08:28,037 --> 01:08:31,872
 square root of 4.0, because operation is a function var,
-会调用 sqrt(4.0) 因为 operation 是一个函数类型变量
+会调用 sqrt(4.0)，因为 operation 是一个函数类型变量
 
 1304
 01:08:31,941 --> 01:08:33,974
@@ -6524,7 +6524,7 @@ we can take that out as well. Okay, and even more,
 1357
 01:11:10,766 --> 01:11:13,835
 Swift knows you want to have these embedded functions all
-Swift 知道你希望有这个内嵌函数
+Swift 知道你希望这有个内嵌函数
 
 1358
 01:11:13,903 --> 01:11:16,938
@@ -6664,7 +6664,7 @@ download something off in the background and when it's done,
 1385
 01:12:40,823 --> 01:12:44,525
 it wants to tell you. Okay, we call a function to do that.
-它想要告诉你。那么我们可以调用一个函数来做到这一点
+它想要提醒你。那么我们可以调用一个函数来做到这一点
 
 1386
 01:12:44,594 --> 01:12:47,060
@@ -6754,7 +6754,7 @@ And what if I wanted to have an array of all negative 2,
 1403
 01:13:39,782 --> 01:13:43,317
 negative 3? Well I would just say negativePrimes =
-组成的数组，我只用写 negativePrimes = prime.map( { -$0})
+组成的数组，我只用写 negativePrimes = prime.map({ -$0})
 
 1404
 01:13:43,386 --> 01:13:47,354
@@ -6799,7 +6799,7 @@ maybe I even want to convert it to a string.
 1412
 01:14:09,878 --> 01:14:11,946
 Perfectly legal, doesn't have to be the same type.
-这是完全合法的，新的数组不一定要和老数组为同一个类型
+这是完全合法的，新的数组不一定要和原来的数组为同一个类型
 
 1413
 01:14:12,015 --> 01:14:15,516
