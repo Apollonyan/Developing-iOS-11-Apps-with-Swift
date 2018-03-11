@@ -3117,7 +3117,7 @@ I want to look up the cards directly,
 624
 00:32:29,114 --> 00:32:30,980
 I don't want any of that looking at the int thing,
-我不想再去找那个整形
+我不想再去找那个整型
 
 625
 00:32:31,049 --> 00:32:34,183
@@ -7239,606 +7239,757 @@ keeping the class, the class is keeping the closure.
 1500
 01:18:43,786 --> 01:18:44,584
 They're staying in the heap,
+这样它们都会被留在堆中
 
 1501
 01:18:44,653 --> 01:18:47,153
 they can never leave until someone removes that closure
+直到有人从数组中移除那个闭包之前
 
 1502
 01:18:47,222 --> 01:18:49,156
 from this array, for example. So,
+它们都不会离开
 
 1503
 01:18:49,225 --> 01:18:52,592
 we can break closure cycles like these. We use that thing,
+我们可以这样打破这个循环：我们用
 
 1504
 01:18:52,661 --> 01:18:54,995
 I talked about last time, unowned. Remember, unowned?
+我之前讲过的那个 unowned，还记得吗
 
 1505
 01:18:55,063 --> 01:18:57,164
 When we talked about weak and strong and unowned.
+当我们讲到 weak 和 strong 和 unowned
 
 1506
 01:18:57,233 --> 01:18:59,266
 And I said, I'll tell you what unowned is. So
+我说下次再告诉你们 unowned 是什么
 
 1507
 01:18:59,335 --> 01:19:01,701
 I'm gonna put these two things together. Unowned and
+我们将会把 unowned
 
 1508
 01:19:01,770 --> 01:19:04,238
 the fact that we can have these cycles. In a couple of
+和这个引用循环放在一起讲
 
 1509
 01:19:04,306 --> 01:19:07,007
 weeks, I'll talk to you, how we break these cycles. Okay,
+几周后我就会教你们如何打破这个引用循环
 
 1510
 01:19:07,076 --> 01:19:09,977
 how we can create a closure that will not keep
+教你们如何写一个不会将别的东西
 
 1511
 01:19:10,046 --> 01:19:14,514
 something else in. Okay so, let's see a demo of closures.
+装进来的闭包。好的，让我们来看闭包的一个示例
 
 1512
 01:19:14,583 --> 01:19:17,851
-I'm gonna improve the method index of the one and only face
+I'm gonna improve the method indexOfOneAndOnlyFaceUpCard
+我会将 indexOfOneAndOnlyFaceUpCard 改进得
 
 1513
 01:19:17,920 --> 01:19:21,021
 card to be way better. And not only am I gonna use closures,
+更好，并且我不仅会用闭包
 
 1514
 01:19:21,090 --> 01:19:23,824
 I'm gonna go back and use extensions to protocols, and
+还会用协议的扩展
 
 1515
 01:19:23,893 --> 01:19:26,493
 I'm gonna tie this all together. Okay, so
+并且我会将它们联系在一起
 
 1516
 01:19:26,562 --> 01:19:30,931
 lets do that. Over here, if we remember,
+让我们开始吧，这儿，如果我们
 
 1517
 01:19:31,000 --> 01:19:35,102
 our, we'll make it one big window here. If we go
+还记得的的话...把这个屏幕放大点
 
 1518
 01:19:35,171 --> 01:19:37,838
 back to our concentration, all right, here's concentration.
+我们来到我们的 concentration 好的，这是 concentration
 
 1519
 01:19:37,907 --> 01:19:39,973
-Remember we had index of one and only face card,
+Remember we had indexOfOneAndOnlyFaceUpCard,
+还记得我们有 indexOfOneAndOnlyFaceUpCard
 
 1520
 01:19:40,042 --> 01:19:43,343
 which, supposedly made our code simpler,
+它本应让我们的代码更加简洁的
 
 1521
 01:19:43,412 --> 01:19:46,213
 which it did down here. It made this code really
+它在这里做到了，它让这里的代码
 
 1522
 01:19:46,281 --> 01:19:49,716
 beautiful and readable down here. But, it actually added
+非常优美也非常具有可读性，但是，它实际上
 
 1523
 01:19:49,785 --> 01:19:53,754
 quite a bit of code here. But this is way more code than you
+在这里加了不少的代码，这超出了你实际需要的代码
 
 1524
 01:19:53,822 --> 01:19:56,657
 actually need To find the index of the oneAndOnly
+如果你用一个接受闭包的函数
 
 1525
 01:19:56,725 --> 01:20:00,594
 face card, if you use a method that takes a closure. Now,
+来找到唯一一张朝上的牌
 
 1526
 01:20:00,663 --> 01:20:03,196
 the method we're gonna use, it's kinda like map,
+那么我们用的函数，有点像 map
 
 1527
 01:20:03,265 --> 01:20:07,701
-its own collection, it's called filter. So what filter
+its on collection, it's called filter. So what filter
+这是在 collection 上的函数，它叫做 filter
 
 1528
 01:20:07,769 --> 01:20:10,437
 does is it goes through every item in the collection and
+它做得就是遍历集合中的每个元素
 
 1529
 01:20:10,505 --> 01:20:13,040
 executes a function that you provide. Filter only has one
+并且对它们执行你提供的那个函数
 
 1530
 01:20:13,108 --> 01:20:16,810
 argument. It's a function. That function returns a bool.
+filter 只接受一个参数，那是一个返回布尔类型的函数
 
 1531
 01:20:16,878 --> 01:20:20,246
 So it executes that function with the argument being each
+那么它以集合中的每个元素为参数来
 
 1532
 01:20:20,315 --> 01:20:23,751
 item in the collection. If that function returns true,
+执行这个函数，如果这个函数的返回值为真
 
 1533
 01:20:23,820 --> 01:20:26,253
 then it puts it in a new array, okay, and
+那么它就将这个元素装进一个新的数组中
 
 1534
 01:20:26,321 --> 01:20:29,089
 if it turns false, it doesn't. So essentially
+而如果返回假，就不装进去
 
 1535
 01:20:29,158 --> 01:20:32,759
 filters the collection into an array, but only the ones that
+那么它本质上就是将这个集合过滤进一个数组中
 
 1536
 01:20:32,828 --> 01:20:35,195
 return true from the function. See what I'm saying? So
+而且只保留了让这个函数返回真的那些元素，能理解吗
 
 1537
 01:20:35,264 --> 01:20:37,564
 that's why it's called filter. Filters the collection,
+那就是它叫作 filter 的原因，过滤这个集合
 
 1538
 01:20:37,633 --> 01:20:40,100
 makes an array out of the ones that return true. Well,
+以返回真的那些元素创建一个数组
 
 1539
 01:20:40,169 --> 01:20:43,069
 that's great for this, because index of oneAndOnly face card.
+我们这里用它非常合适，因为如果我们要唯一朝上的牌的下标
 
 1540
 01:20:43,138 --> 01:20:45,639
 How about I go look at all the indexes of the cards and
+我可以遍历这些牌的下标
 
 1541
 01:20:45,707 --> 01:20:49,876
 just find the indexes that have face up cards? So I just
+然后找到朝上的牌的下标
 
 1542
 01:20:49,945 --> 01:20:52,045
 need a function that says whether a card's face up and
+那么我需要一个函数来判断那张牌是否朝上
 
 1543
 01:20:52,114 --> 01:20:56,083
 I can do it. So let's do that. I'm gonna let index, we'll say
+让我们开始吧，我要 let index
 
 1544
 01:20:56,152 --> 01:21:01,154
 the let the face up card indices I'll call it, okay,
+呃 let faceUpCardIndices 我要这么命名
 
 1545
 01:21:01,223 --> 01:21:05,325
 this is gonna be an array. I'm gonna let it equal to my card
+这会是一个数组，我要让它等于
 
 1546
 01:21:05,394 --> 01:21:09,430
 indices. Card indices, what type is card indices,
+我的 card.indices 它的类型是什么
 
 1547
 01:21:09,498 --> 01:21:14,033
 anyone remember? Oh I just showed you what it was.
+还有人记得吗，哦我让你们看到了
 
 1548
 01:21:14,102 --> 01:21:19,039
 Right, right? It's accountable range of int. It indexes into
+对吧，它是由整型组成的可数区间
 
 1549
 01:21:19,108 --> 01:21:24,144
 the cards array. So I'm gonna filter those indices by
+它可以遍历这个 cards 数组，那么我就要过滤这个 indices
 
 1550
 01:21:24,213 --> 01:21:26,913
 providing a function. And it's the only argument, so
+提供一个函数为参数，并且这个函数是唯一参数
 
 1551
 01:21:26,982 --> 01:21:28,449
 I don't need any parentheses or
+所以我不需要小括号
 
 1552
 01:21:28,517 --> 01:21:31,885
 anything, I'm just gonna put it after. This function just
+或其他什么，我只用将它放在这后面就好了
 
 1553
 01:21:31,954 --> 01:21:35,622
 needs to look at the index and see if that's a face up card.
+这个函数只需要查看这个下标，并看看它是不是一张朝上的牌
 
 1554
 01:21:35,691 --> 01:21:39,726
 So that's cards sub the index, we'll just use $0,
+所以这是 cards[$0] 就可以了
 
 1555
 01:21:39,794 --> 01:21:44,664
 which is the one argumentative function, isFaceup. Okay,
+$0 是这个函数的第一个参数，并加上 isFaceUp
 
 1556
 01:21:44,733 --> 01:21:46,800
 so that's a Boolean function, right here.
+那么这是一个布尔类型的函数
 
 1557
 01:21:46,868 --> 01:21:50,103
 This is a Boolean function, executed by a closure, right
+这是一个布尔类型的函数，它由闭包来执行
 
 1558
 01:21:50,172 --> 01:21:53,506
 in there that returns true, if the card of that index is face
+当那个下标的牌是朝上的牌的时候
 
 1559
 01:21:53,575 --> 01:21:56,676
 up. So, now I've created this which is an array,
+返回真。那么我现在创建了这个，它是一个数组
 
 1560
 01:21:56,745 --> 01:21:59,179
 it's an array of array indexes by the way.
+它是一个由数组下标（Array.Index）组成的数组
 
 1561
 01:21:59,248 --> 01:22:01,948
 Let's take a look, see. Array of array indexes.
+让我们看看，由数组下标组成的数组
 
 1562
 01:22:02,017 --> 01:22:05,819
 This type Array.Index, remember, we had String.Index,
+这个类型，Array.Index 还记得我们有 String.Index
 
 1563
 01:22:05,887 --> 01:22:09,690
 Array.Index, is type aliased or just set equal to be int.
+Array.Index 是 Int 的别名，它被设置为等于 Int
 
 1564
 01:22:09,759 --> 01:22:12,225
 That's why arrays can be indexed by int,
+这是数组可以被整型索引的原因
 
 1565
 01:22:12,294 --> 01:22:15,595
 cuz their Array.Index is int. That's not true for strings.
+因为它们的 Array.Index 就是 Int，对于字符串来说不是这样的
 
 1566
 01:22:15,664 --> 01:22:19,699
 String.Index, unfortunately, is not int. Okay, so
+String.Index 并不是整型
 
 1567
 01:22:19,768 --> 01:22:23,437
 this is an array of all the indices. Now, if this only has
+那么这是一个装着所有（牌朝上的）下标的数组
 
 1568
 01:22:23,506 --> 01:22:26,639
 one thing in it then we have one face up card.
+那么如果它里面有一个元素，我们就以一个朝上的牌
 
 1569
 01:22:26,708 --> 01:22:30,377
 We all agree with that? So I'm just gonna return here,
+你们能理解吧，那么我在这里只需要返回
 
 1570
 01:22:30,446 --> 01:22:34,914
 that if faceUpCardIndices.count ==1,
+if faceUpCardIndices.count == 1
 
 1571
 01:22:34,983 --> 01:22:41,555
 I am going to return the faceUpCardIndices.first,
+我们就返回 faceUpCardIndices.first
 
 1572
 01:22:41,623 --> 01:22:44,024
 first is just a collection method that returns the first
+first 是一个集合中的函数，它返回
 
 1573
 01:22:44,093 --> 01:22:46,960
 thing in the collection. Otherwise, I'm gonna return
+集合中的第一个元素，否则我就会
 
 1574
 01:22:47,029 --> 01:22:49,696
 nil, because we either have zero face up cards or
+返回 nil，因为我们不是没有朝上的牌
 
 1575
 01:22:49,765 --> 01:22:52,966
 we have more than one, in either case, we'll return 0.
+就是有超过一张朝上的牌。这两种情况下，我们都返回 0（误：返回 nil）
 
 1576
 01:22:53,035 --> 01:22:56,770
 So I don't need any of this stuff right here. Okay,
+那么我就不需要这里的这些代码了
 
 1577
 01:22:56,839 --> 01:23:00,473
 so this is a lot cleaner than this whole thing.
+这样就比这看起来就简洁多了
 
 1578
 01:23:00,542 --> 01:23:03,310
 Everybody agree with that? And a little more readable too.
+大家都同意吧，这也更加易读了
 
 1579
 01:23:03,379 --> 01:23:05,979
 Give me all the face card indices by filtering
+给我所有朝上的牌的下标
 
 1580
 01:23:06,048 --> 01:23:09,216
 the indices to show me the ones that are face up. Okay,
+通过过滤所有下标来找到所有朝上的牌
 
 1581
 01:23:09,285 --> 01:23:11,618
 it kind of reads a little better as well, but
+这样读起来就更好一些
 
 1582
 01:23:11,687 --> 01:23:13,586
 we can do better than this even.
+但我们可以做得更好
 
 1583
 01:23:13,655 --> 01:23:16,156
 And we're gonna do better by creating an extension to
+我们可以在这里创建一个协议的扩展
 
 1584
 01:23:16,224 --> 01:23:20,827
 a protocol down here. The protocol we're gonna extend is
+我们要扩展到的协议是
 
 1585
 01:23:20,896 --> 01:23:25,832
 collection. So we're gonna add a var. Could be a function,
+collection 那么我们将添加一个变量，可能是函数
 
 1586
 01:23:25,901 --> 01:23:27,734
 but it's gonna be a var to collection.
+这里是变量
 
 1587
 01:23:27,802 --> 01:23:30,437
 So, I'm gonna be adding it to string, dictionary,
+所以我也会将它添加到字符串，字典和
 
 1588
 01:23:30,506 --> 01:23:33,240
 array, all these things. And what it's gonna do,
+数组，这些实现了集合的类型中。而它会做什么呢
 
 1589
 01:23:33,309 --> 01:23:39,045
 it's gonna be the oneAndOnly. And it's gonna return
+它叫做 oneAndOnly 并且
 
 1590
 01:23:39,114 --> 01:23:43,216
 the one and only thing in that collection, if there's only
+如果集合中只有一个元素它会返回那个集合中
 
 1591
 01:23:43,285 --> 01:23:45,953
 one thing in the collection or it's gonna return nil.
+唯一一个元素，否则它会返回 nil
 
 1592
 01:23:46,021 --> 01:23:47,553
 Now, what is the type,
+那么它的类型
 
 1593
 01:23:47,622 --> 01:23:52,325
 of oneAndOnly gonna be? Well, collection is a generic type.
+应该是什么呢，集合是泛型
 
 1594
 01:23:52,394 --> 01:23:55,695
 And it has one of its generic things as element,
+而它就有它泛型的的那个东西 Element
 
 1595
 01:23:55,764 --> 01:23:59,633
 which is the type of the thing in there. So element is just
+就是集合中所存储的数据的类型，那么 Element
 
 1596
 01:23:59,701 --> 01:24:03,303
 like a placeholder, right, in the array of element.
+就像一个占位符，就比如说由 Element 组成的数组
 
 1597
 01:24:03,371 --> 01:24:06,506
 You recognize that? For in a generic type, it's the type.
+你们能理解吧，对于一个泛型来说，这就是它的类型
 
 1598
 01:24:06,575 --> 01:24:08,208
 And of course I want it to be optional.
+当然我希望它是可选类型
 
 1599
 01:24:08,277 --> 01:24:10,844
 Because I'm only gonna return non nil, if there's one and
+因为我只会在当这个集合中有且只有
 
 1600
 01:24:10,912 --> 01:24:14,181
 only one thing in this collection, this string, or
+一个元素的时候才会返回非 nil，这个字符串
 
 1601
 01:24:14,249 --> 01:24:15,682
 this array, or this dictionary, or
+或数组，或字典
 
 1602
 01:24:15,750 --> 01:24:17,484
 this countable range.
+或这可数区间
 
 1603
 01:24:17,553 --> 01:24:22,088
 And here's how I can implement it, watch this. Return count
+而这时我实现它的方法，看好了
 
 1604
 01:24:22,157 --> 01:24:27,961
 == 1? first : nil. Now how am I able to do this?
+return count == 1 ? first : nil 为什么我能这么做呢
 
 1605
 01:24:28,029 --> 01:24:32,132
 Well count is a collection method, tells how many things
+因为 count 是一个集合中的函数，它表示集合中有多少个元素
 
 1606
 01:24:32,200 --> 01:24:37,504
 in there. first is a collection method, it returns
+first 也是一个集合中的函数，它返回
 
 1607
 01:24:37,572 --> 01:24:41,341
 the first thing in there. So since these are collection
+集合中的第一个元素，那么因为它们都是
 
 1608
 01:24:41,410 --> 01:24:44,844
 methods, I can use them in the implementation of a collection
+集合中的函数，我可以在集合中的变量的实现
 
 1609
 01:24:44,913 --> 01:24:50,951
 var. Seeing the power here of these extensions on protocols.
+中使用它们。看到这协议的扩展的能力了吧
 
 1610
 01:24:51,019 --> 01:24:54,120
 And now, strings, arrays, countable ranges,
+那么现在，字符串，数组，可数区间
 
 1611
 01:24:54,189 --> 01:24:58,525
 they all implement oneAndOnly. So I can go back up here and
+它们都实现了 oneAndOnly，所以我可以回到这里
 
 1612
 01:24:58,593 --> 01:25:05,165
 just return, Return this, remember, it's an array
+只用写return... 返回这个，记住，这是一个
 
 1613
 01:25:05,234 --> 01:25:09,503
 of the indices of face up cards, dot oneAndOnly.
+由朝上的牌的下标组成的数组， 后面接上.oneAndOnly
 
 1614
 01:25:11,239 --> 01:25:16,743
 Okay, and I don't even need this. Okay, even simpler.
+那么我这行代码也不需要了，更加简洁了
 
 1615
 01:25:16,812 --> 01:25:21,614
 By the way, I could absolutely do, let ch
+对了，我当然也可以写 let ch
 
 1616
 01:25:21,683 --> 01:25:26,286
 = hello.oneAndOnly. Okay, now that would return what?
+= hello.oneAndOnly 那么它会返回什么
 
 1617
 01:25:26,355 --> 01:25:30,924
 What would ch be equal to there? Anybody?
+ch 在这里会等于什么
 
 1618
 01:25:32,427 --> 01:25:33,493
->> It would be nil,
+It would be nil,
+它会是 nil
 
 1619
 01:25:33,562 --> 01:25:37,330
 because oneAndOnly returns if there's one and only one
+因为 oneAndOnly 如果有唯一一个元素
 
 1620
 01:25:37,399 --> 01:25:42,769
 element and this string has five elements. If I did this,
+就返回那个元素，而 string 中有五个元素，如果我这样写
 
 1621
 01:25:42,838 --> 01:25:47,874
 what would this return? This will return h, the one and
+这会返回什么，这回返回 h
 
 1622
 01:25:47,943 --> 01:25:52,946
 only thing in that string. So I got that by
+这个字符串中的唯一一个元素，我通过
 
 1623
 01:25:53,015 --> 01:25:56,917
 extending collection, which string and array happen to be.
+扩展集合得到了这个函数，而字符串和数组都是集合
 
 1624
 01:25:56,986 --> 01:25:58,451
 What's the type of this, by the way? ch,
+它的类型是什么
 
 1625
 01:25:58,520 --> 01:26:03,557
 what do you think its type is? It's an optional character.
+你们认为 ch 的类型会是什么，它是一个可选的字符类型
 
 1626
 01:26:05,427 --> 01:26:09,429
 Optional character because the elements of a string are
+它是可选的字符类型，因为字符串的元素
 
 1627
 01:26:09,498 --> 01:26:13,300
 characters. And a string is a collection of characters. But
+是字符，字符串是字符的一个集合
 
 1628
 01:26:13,368 --> 01:26:17,537
 if I click on it, it's gonna say, it's a String.Element.
+但如果我点一下它，它会说它是 String.element
 
 1629
 01:26:17,606 --> 01:26:21,408
 So just like Array.Index is type alias to be int,
+就像 Array.Index 是 Int 的类型别名
 
 1630
 01:26:21,476 --> 01:26:25,212
 String.Element is type alias to be character.
+String.Element 也是 Character 的类型别名
 
 1631
 01:26:25,280 --> 01:26:27,814
 So, you have to look in the documentation to see that or
+所以你要去看看官方文档
 
 1632
 01:26:27,883 --> 01:26:28,981
 you just have to know it.
+才能知道这些
 
 1633
 01:26:29,050 --> 01:26:30,984
 But if you're doing your Alt clicking, I don't want you
+但当你 alt + 点击它的时候
 
 1634
 01:26:31,053 --> 01:26:32,986
 to be surprised when you see that's not a character.
+我希望你不要因为它不是一个字符型感到惊讶
 
 1635
 01:26:34,756 --> 01:26:39,326
 Okay, all right, so a lot of things went on in just this
+好的，在这个小的示例中我们展示了非常多的东西
 
 1636
 01:26:39,395 --> 01:26:42,562
 short demo here. We used the closure right here. And
+我们在这里用了闭包
 
 1637
 01:26:42,631 --> 01:26:46,767
 we also extended a protocol right here to create this
+并且我们也在这里扩展了一个协议，来创建
 
 1638
 01:26:46,835 --> 01:26:49,202
 method here. So hopefully you understand both of those.
+了这个方法。那么希望这两个你们都理解了
 
 1639
 01:26:49,271 --> 01:26:53,039
 If you don't, use Piazza, come up and ask me afterwards or
+如果还没有理解，用 Piazza，下课后上来问我问题或者
 
 1640
 01:26:53,108 --> 01:26:57,811
 whatever. All right, see you next time. Oh,
+其他方式，好吧，我们下次见
 
 1641
 01:26:57,880 --> 01:26:59,212
 wait, sorry one thing, let me go back and
+哦等一下，我要回到这
 
 1642
 01:26:59,281 --> 01:27:02,182
 just show you the coming up. Because there is one thing to
+向你们展示一下接下来的安排，因为有一点值得注意
 
 1643
 01:27:02,251 --> 01:27:05,852
 note here about the coming up. Which is that Friday,
+那就是，周五的时候
 
 1644
 01:27:05,921 --> 01:27:08,088
 we were gonna have the optional section
+我们会有可选的课程
 
 1645
 01:27:08,156 --> 01:27:10,991
 object persistence, we're not gonna do that this Friday.
+对象持久性，我们不会在这周五讲它
 
 1646
 01:27:11,060 --> 01:27:12,125
 We'll do it in a future Friday,
+我们会在下周五讲它
 
 1647
 01:27:12,194 --> 01:27:14,060
 we will do object persistence but in a future Friday.
+我们在下周五再讲对象持久性
 
 1648
 01:27:14,129 --> 01:27:17,197
 So, there's no Friday section at all this week. Next week,
+所以这周没有周五的课
 
 1649
 01:27:17,265 --> 01:27:19,666
 I will be doing views, gestures, multi-touch,
+下周我会讲视图，手势，多点触控
 
 1650
 01:27:19,735 --> 01:27:24,270
 multiple MVCs, all that. >> For more,
+多 MVC 那些。
 
 1651
 01:27:24,339 --> 01:27:26,907
