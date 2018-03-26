@@ -21,30 +21,37 @@ No. Yes, four of Stanford CS193P, Fall of 2017.
 5
 00:00:15,249 --> 00:00:18,583
 Today, we're gonna continue to talk about Swift.
+今天我们将继续谈谈关于 Swift 的一些内容
 
 6
 00:00:18,652 --> 00:00:21,019
 This will be the last we talk about Swift. After this,
+这是最后一节关于 Swift 内容的课。在这之后
 
 7
 00:00:21,088 --> 00:00:23,655
 we're pretty much gonna kinda assume you know Swift.
+我们将认为你们已经了解了 Swift
 
 8
 00:00:23,724 --> 00:00:26,491
 Obviously you'll be learning on the fly as you go, but
+虽然很明显随着这门课的继续你们也会学到很多 Swift 的内容，但是
 
 9
 00:00:26,560 --> 00:00:27,592
 starting next week,
+从下周开始
 
 10
 00:00:27,661 --> 00:00:29,861
 we're gonna dive right into iOS, UI kit and
+我们就将进入 iOS，UIKit 和其他一些 iOS 开发相关的内容
 
 11
 00:00:29,930 --> 00:00:33,198
 all that. So I'm gonna do the quick demo that I postponed
+
 
 12
 00:00:33,267 --> 00:00:36,968
