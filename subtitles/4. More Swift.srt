@@ -7199,12 +7199,12 @@ This can create a memory cycle because you might capture
 1492
 01:18:18,460 --> 01:18:22,696
 the class that array of operations is in. Okay,
-装有 operation 的数组所在的集合
+装有 operation 的数组所在的类
 
 1493
 01:18:22,764 --> 01:18:26,766
 if you capture the class that array is of operations in,
-如果你捕获了装有 operation 的数组所在的集合
+如果你捕获了装有 operation 的数组所在的类
 
 1494
 01:18:26,835 --> 01:18:31,605
@@ -7374,7 +7374,7 @@ the method we're gonna use, it's kinda like map,
 1527
 01:20:03,265 --> 01:20:07,701
 its on collection, it's called filter. So what filter
-这是在 collection 上的函数，它叫做 filter
+这是在 collection 中的函数，它叫做 filter
 
 1528
 01:20:07,769 --> 01:20:10,437
