@@ -16,458 +16,572 @@ welcome to Lecture 5 then of CS193P this Fall of 2017.
 4
 00:00:13,947 --> 00:00:16,981
 So I'm gonna take just a few minutes of the beginning here
+我会在这节课的开始花上几分钟来
 
 5
 00:00:17,050 --> 00:00:19,818
 to go over just a couple of more little Swift things.
+讲讲更多的关于 Swift 的知识
 
 6
 00:00:19,887 --> 00:00:21,786
 These are actually in your reading assignment for
+它们实际上是在你们这周的阅读任务中的
 
 7
 00:00:21,855 --> 00:00:25,090
 this week. So I'm really just kinda emphasizing these
+因此我只会强调一下这些东西
 
 8
 00:00:25,158 --> 00:00:28,693
 things, then we're gonna dive into our main topic today
+接着我们就会进入我们今天的主题的学习
 
 9
 00:00:28,762 --> 00:00:33,098
 which is views, drawings, how you do custom drawing in iOS.
+那就是视图和画图（views, drawings）如何在 iOS 上画东西
 
 10
 00:00:33,166 --> 00:00:36,968
 And I'm gonna start with a huge demo, the only thing I'm
+并且我会写一个非常大的示例程序
 
 11
 00:00:37,037 --> 00:00:40,872
 gonna probably be able to do today is the model of our MVC.
+我今天应该只能写完我们 MVC 中的模型（Model）
 
 12
 00:00:40,940 --> 00:00:43,408
 But that's gonna allow me to show you an example of enum,
+我可以用这个来给你们看看枚举类型的例子
 
 13
 00:00:43,477 --> 00:00:45,677
 which we didn't get to work into concentration.
+我们没有在 Concentration 中使用枚举类型
 
 14
 00:00:45,746 --> 00:00:49,981
 So you only theoretically know enum, and we'll be actually do
+所以你们只是在理论上熟悉枚举类型，我们这节课会
 
 15
 00:00:50,050 --> 00:00:53,918
 enum. All right, so let's do these little minor things.
+实际使用枚举类型。让我们开始这些小块知识的学习
 
 16
 00:00:53,987 --> 00:00:56,455
 One of them is error handling in Swift.
+其中一个是 Swift 的错误处理（error handling）
 
 17
 00:00:56,523 --> 00:00:58,757
 Now, a lot of times you'll have an error and
+很多时候你会得到一个错误
 
 18
 00:00:58,825 --> 00:01:01,626
 it will be something that kind of, could be expected or
+而这些错误在某种意义上是可以被预测的
 
 19
 00:01:01,695 --> 00:01:04,596
 anticipated. You know, you do something over the network and
+比如说，你用网络做些是什么
 
 20
 00:01:04,664 --> 00:01:06,131
 there might be a network time out,
+你可能就会得到连接超时的错误
 
 21
 00:01:06,200 --> 00:01:07,599
 that's kind of a normal error.
+这是非常常见的错误
 
 22
 00:01:07,668 --> 00:01:10,135
 If you have that kind of error, you likely would have
+如果你得到了这样的错误，你可能会
 
 23
 00:01:10,204 --> 00:01:12,136
 an argument to the function that goes and
+向这个函数中传入一个参数
 
 24
 00:01:12,205 --> 00:01:15,507
 does that network call. Maybe it's even a closure that calls
+并且让它来负责网络的调用，那个参数甚至可以是一个闭包
 
 25
 00:01:15,575 --> 00:01:19,177
 you back and said, I found this somewhat expected error.
+它返回并说，我找到了这个预计的错误
 
 26
 00:01:19,246 --> 00:01:22,513
 But sometimes you have errors that you don't expect or
+但有的时候你会有一些你没有预料的的错误
 
 27
 00:01:22,582 --> 00:01:25,783
 that are kind of rare, and really disrupt the usage of
+或者一些很罕见的错误，它们可能会中断一个函数的调用
 
 28
 00:01:25,852 --> 00:01:30,021
 a method or whatever. And in that kind of error,
+或者其他什么。对于这样的错误
 
 29
 00:01:30,090 --> 00:01:33,057
 instead of having to have one of your arguments be an error
+我们不需要用我们的一个参数作为错误处理器
 
 30
 00:01:33,126 --> 00:01:35,927
 handler or returning an error, or something like that.
+或者说返回一个错误，或其他类似的做法
 
 31
 00:01:35,996 --> 00:01:39,030
 You can do something that's called throwing an error.
+你可以直接抛出（throw）一个错误
 
 32
 00:01:39,099 --> 00:01:39,998
 Now, in other languages,
+在其他语言中
 
 33
 00:01:40,067 --> 00:01:42,300
 you might think of this as like raising exceptions or
+你可能会认为这就是抛出一个异常
 
 34
 00:01:42,369 --> 00:01:44,469
 something like that. It's a little simpler and
+或其他类似的东西，但在 Swift 编程中
 
 35
 00:01:44,537 --> 00:01:47,372
 more elegant when you design in Swift. It's as simple as
+这会更加的简单优雅。它就像这样
 
 36
 00:01:47,441 --> 00:01:50,174
 this, a method that could get an error, okay,
+一样简单：一个可能会得到一个错误的函数
 
 37
 00:01:50,243 --> 00:01:53,578
 a significant error that would disrupt what it's doing,
+这个错误可能会打断我们正在执行的任务
 
 38
 00:01:53,647 --> 00:01:56,848
 can decide that it throws errors. And you see these
+而可能得到错误的函数可以选择要抛出这个错误
 
 39
 00:01:56,917 --> 00:01:59,417
 methods very clearly because when they're declared, they'll
+你可以很简单地辨别出这些函数，因为当它们被声明时
 
 40
 00:01:59,486 --> 00:02:03,555
 have the word throws at the end. So this function save
+它们的末尾会有 throws 关键字，那么这样的函数
 
 41
 00:02:03,623 --> 00:02:07,025
 throws. Okay, if it gets an error, it throws this error.
+会保存 throws，如果它得到了一个错误，它会抛出那个错误
 
 42
 00:02:07,094 --> 00:02:11,263
 Now, when it throws an error at you, you need to catch it.
+那么，当它抛出一个错误的时候，你需要接住（catch）它
 
 43
 00:02:11,331 --> 00:02:12,998
 Okay, and you catch this error and
+当你接住错误后
 
 44
 00:02:13,066 --> 00:02:15,066
 then you can look at it and decide what to do. So
+你可以看看它是啥，并且决定要做什么
 
 45
 00:02:15,135 --> 00:02:18,036
 how do you catch an error that has thrown? Well,
+那么，你要如何接住函数抛出的错误呢？
 
 46
 00:02:18,105 --> 00:02:22,674
 you do that by putting this do catch construct around your
+你可以通过将这个 do catch 结构
 
 47
 00:02:22,743 --> 00:02:27,345
 call to the method that might throw. And you say, try, in
+放在那个可能会抛出错误的函数的旁边
 
 48
 00:02:27,414 --> 00:02:31,382
 front of the call. So you're going to try this method
+并且在函数调用前使用 try 关键字，这样表示你会试着调用这个函数
 
 49
 00:02:31,451 --> 00:02:34,552
 that it might throw. But since you've put it inside this do,
+但它可能会抛出错误，但因为你一进将这个调用放在了这个 do catch 中
 
 50
 00:02:34,621 --> 00:02:37,322
 catch thing, that thing you see up there, you're going to
+就像我们幻灯片里写的那个
 
 51
 00:02:37,390 --> 00:02:40,292
 catch that error. Okay, so it's as simple as that.
+你会去接住那个错误，就是这么简单
 
 52
 00:02:40,361 --> 00:02:43,161
 So, any method that throws has to be called with try.
+所有可能会抛出错误的函数必须要用 try 来调用
 
 53
 00:02:43,229 --> 00:02:45,897
 Okay, you have to let Swift know I understand that this
+你要让 Swift 知道你了解这个函数可能会抛出错误
 
 54
 00:02:45,966 --> 00:02:47,666
 can throw, and so I'm trying it.
+所以你正在尝试调用它
 
 55
 00:02:47,734 --> 00:02:50,168
 But it doesn't necessarily have to be kept, caught,
+但实际上那个被抛出的错误不一定必须要被接住
 
 56
 00:02:50,237 --> 00:02:53,638
 and I'll show you in a second how to do it without catching.
+等一下我就给你们展示如何不接住那个错误
 
 57
 00:02:53,707 --> 00:02:56,474
 If you do wanna catch, then you do this do catch, and
+如果你想要接住错误，你就要用这个 do catch 结构
 
 58
 00:02:56,543 --> 00:02:59,778
 in the catch you notice there's the green, let error.
+并注意到在 catch 部分的代码中有一段绿色的 let error
 
 59
 00:02:59,847 --> 00:03:02,914
 Okay, that little error thing, it's just a local variable.
+这个 error 它就是一个局部变量
 
 60
 00:03:02,983 --> 00:03:05,517
 That's the thing that gets thrown at you, okay,
+它就是那个函数抛出来的错误时
 
 61
 00:03:05,585 --> 00:03:08,353
 when it throws an error. And it's going to be
+所抛出的错误，而这个 error 是实现了
 
 62
 00:03:08,421 --> 00:03:12,190
 something that implements the protocol error, but
+Error 这个协议的
 
 63
 00:03:12,259 --> 00:03:14,259
 there's actually nothing in that protocol.
+但实际上那个协议中什么都没有
 
 64
 00:03:14,328 --> 00:03:17,262
 It just identifies, it's just typing this thing as error.
+它只是用来确认这个东西的类型是 Error
 
 65
 00:03:17,330 --> 00:03:20,732
 Now, in iOS when things, errors gets thrown at you,
+在 iOS 中，当你得到错误的时候
 
 66
 00:03:20,801 --> 00:03:23,234
 there almost always going to be NSErrors.
+那些错误绝大多数都会是 NSError
 
 67
 00:03:23,303 --> 00:03:26,271
 So an NSError is just a class, it implements the Error
+NSError 是一个实现了 Error 协议的一个类
 
 68
 00:03:26,340 --> 00:03:29,741
 protocol which is to say that, that nothing in particular.
+Error 这个协议并没有做什么
 
 69
 00:03:29,810 --> 00:03:32,277
 But NSError has a lot of nice methods and vars,
+但是 NSError 这个类中有许多有用的函数和变量
 
 70
 00:03:32,346 --> 00:03:35,213
 like the error code, even a localized description of
+比如说错误代码，它甚至有本地化的错误描述
 
 71
 00:03:35,282 --> 00:03:37,582
 the error that you could present to a user,
+你可以直接将这个本地化的错误描述呈现给用户
 
 72
 00:03:37,651 --> 00:03:40,752
 for example. So the way this goes is if you had a function
+那么如果你有一个
 
 73
 00:03:40,821 --> 00:03:41,686
 save that throws,
+可以抛出错误地函数
 
 74
 00:03:41,755 --> 00:03:44,155
 you're gonna go looking in its documentation and
+你要去看看文档并
 
 75
 00:03:44,224 --> 00:03:47,693
 see what kind of NSError stuff it can throw. And it'll throw
+确定哪些类型的 NSError 是它能抛出的，它可能会抛出
 
 76
 00:03:47,761 --> 00:03:50,127
 certain errors like save, the save maybe it's for
+一些特定类型的错误，比如对于 save 函数
 
 77
 00:03:50,196 --> 00:03:52,964
 saving into a database and the disk is full, so the database
+它可能想要向数据库保存数据，但我们的磁盘已经满了
 
 78
 00:03:53,033 --> 00:03:55,333
 couldn't save so maybe there's an error code for
+因此数据库无法保存，那么这里就可能会有一个关于
 
 79
 00:03:55,402 --> 00:03:58,169
 disk full or whatever. So this is what you do if you want to
+磁盘已满的错误，或其他什么。那么这就是你如何
 
 80
 00:03:58,238 --> 00:04:00,906
 catch a thrown error and kind of handle it, look at it,
+接住一个被抛出的错误，并且处理它
 
 81
 00:04:00,974 --> 00:04:05,410
 see what it is, decide what to do. But you can just say,
+看看它是啥，决定要做什么。但你也可以只写
 
 82
 00:04:05,479 --> 00:04:09,814
 try!, and what that means is, try this and
+try! 这就意味着，尝试调用这个函数
 
 83
 00:04:09,883 --> 00:04:12,583
 if it throws crash my app. Now,
+如果它抛出一个错误，那就让我的程序崩溃
 
 84
 00:04:12,652 --> 00:04:15,887
 you would only do this if you were 100% certain that,
+你们应当只在你们 100% 确定
 
 85
 00:04:15,956 --> 00:04:19,323
 that thing could not throw in the circumstance that you're
+在你们调用这个函数的情境下，它不会抛出错误
 
 86
 00:04:19,392 --> 00:04:22,627
 doing, which is extremely rare, so we rarely do try!.
+才能这样做。这种情况很少见，我们很少会用 try!
 
 87
 00:04:22,696 --> 00:04:27,365
 But a better one if you don't care about the error is try?.
+如果你不关心它抛出的错误是什么，一个更好的方法是用 try?
 
 88
 00:04:27,434 --> 00:04:32,370
 So try?, means please try this and if it throws, don't crash,
+try? 意味着请尝试调用它，如果它抛出了错误，不要崩溃
 
 89
 00:04:32,439 --> 00:04:36,441
 but just ignore the fact that it threw. So
+但也无视它抛出的错误
 
 90
 00:04:36,510 --> 00:04:37,509
 this is kind of like try and
+这就有点像尝试调用
 
 91
 00:04:37,578 --> 00:04:40,445
 ignore. Now the interesting thing is, you might be calling
+并无视错误。而有趣的是，你可能会调用
 
 92
 00:04:40,513 --> 00:04:44,382
 a function that returns a value. An int that can throw.
+一个有返回值的函数，比如说返回一个整形，而这个函数还会抛出错误
 
 93
 00:04:44,451 --> 00:04:47,184
 So here I've got my error prone function that returns
+这里我有这个函数，它会返回一个整形
 
 94
 00:04:47,253 --> 00:04:52,089
 an int, okay, and so what if I wanna try it with try?. Well,
+那么如果我在这里使用 try? 来调用它
 
 95
 00:04:52,158 --> 00:04:55,560
 if it succeeds, I need that int back. But if it fails,
+如果没有错误，我要取得那个整形的值，但如果它失败了
 
 96
 00:04:55,629 --> 00:05:00,198
 I can't get the int back. So what happens when you do try?,
+我无法取得那个整形的值，那么当你用 try? 的时候会发生什么
 
 97
 00:05:00,266 --> 00:05:04,102
 it changes the return value essentially, of the function
+它实际上改变了这个函数的返回值类型
 
 98
 00:05:04,170 --> 00:05:07,405
 to be an optional version of that value. So
+改成了这个函数的返回值类型的可选类型
 
 99
 00:05:07,474 --> 00:05:09,974
 if you have an error prone function returns an int and
+那么如果你有这里这个返回整形的函数
 
 100
 00:05:10,043 --> 00:05:13,144
 you try? it, and you let it equal something, you know,
+并且用 try? 调用它，接着赋值给某个变量
 
 101
 00:05:13,213 --> 00:05:16,347
 let x equal that. This x now becomes an optional int,
+比如说 let x = 那个函数，那么 x 的类型就变成了可选的整形
 
 102
 00:05:16,416 --> 00:05:19,117
 because if it throws, it's gonna give you
+因为如果那个函数抛出了错误
 
 103
 00:05:19,185 --> 00:05:21,786
 nil. If it doesn't throw, you'll get the normal x value
+它会返回 nil 如果它没有抛出错误，x 就是正常
 
 104
 00:05:21,855 --> 00:05:25,756
 that error prone function that returns an int, returns. Okay?
+的那个函数的整形返回值
 
 105
 00:05:25,825 --> 00:05:28,426
 So that's error handling. There's not a lot of methods
+那么这就是错误处理，在 iOS 中并不是有
 
 106
 00:05:28,495 --> 00:05:31,596
 that throw in iOS there, in there occasionally. You know,
+许多的函数会抛出错误，有时
 
 107
 00:05:31,665 --> 00:05:33,965
 you might have a typical app, maybe you have three or
+你可能会有个特定的程序中有一些这样的抛出
 
 108
 00:05:34,034 --> 00:05:36,601
 four of them, somewhere. They're fairly rare but
+错误的函数。它们比较少见
 
 109
 00:05:36,670 --> 00:05:39,137
 you got to know how to handle them. So these are the ways to
+但你也要知道该如何处理它们，就是通过我们刚刚讲到的方法
 
 110
 00:05:39,205 --> 00:05:43,708
 handle them. All right, I wanna circle back now to Any.
+好的，那么让我们现在回去讲 Any
 
 111
 00:05:43,777 --> 00:05:45,309
 This type Any that we saw with
+这个 Any 类型
 
 112
 00:05:45,378 --> 00:05:49,113
 NSAttributedString dictionary. There's another one called any
+我们曾在 NSAttributedString dictionary 中见过。还有一个类型叫做
 
 113
 00:05:49,182 --> 00:05:52,550
 object which is exact the same as Any, it's just for classes
+AnyObject，它和 Any 是完全一样的，只是它只能用于
 
 114
 00:05:52,619 --> 00:05:55,820
 only, and the object is the any of classes only. And
+类，AnyObject 是 Any 的类的表达
 
 115
 00:05:55,889 --> 00:05:58,856
 I told you that Any means, you don't know what type it is,
+我讲过，Any 意味着你不知道这个类型是什么
 
 116
 00:05:58,925 --> 00:06:02,360
 it could be any type. And we also know that that's not
+它可以是任意的类型，并且我们也知道
 
 117
 00:06:02,428 --> 00:06:06,597
 very Swifty, and cuz Swift is strongly tight. So Any and
+它不是很符合 Swift 的风格，因为 Swift 是一个强类型语言
 
 118
 00:06:06,666 --> 00:06:09,601
