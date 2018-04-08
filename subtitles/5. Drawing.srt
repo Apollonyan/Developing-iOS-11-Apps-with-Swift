@@ -586,1130 +586,1412 @@ very Swifty, and cuz Swift is strongly tight. So Any and
 118
 00:06:06,666 --> 00:06:09,601
 AnyObject are in there for compatible with Objective-C.
+AnyObject 只是为了能与 Objective-C 兼容
 
 119
 00:06:09,670 --> 00:06:12,870
 Objective-C had a very important type called ID which
+Objective-C 中有一个非常重要的类型叫做 ID
 
 120
 00:06:12,939 --> 00:06:16,775
 was essentially any and it was built in to all of the APIs.
+它本质上就是 Any，并且它被写入了所有的 API 中
 
 121
 00:06:16,843 --> 00:06:19,777
 So when Swift came along and tried to be strongly typed,
+所以当 Swift 要成为强类型语言
 
 122
 00:06:19,846 --> 00:06:22,213
 it had to have this one concession. So
+它必须要做这个让步
 
 123
 00:06:22,281 --> 00:06:25,483
 we don't use as I've said, any in our own code, it's for
+我们不会再我们自己的代码中用到 Any
 
 124
 00:06:25,552 --> 00:06:29,554
 backwards compatibility. So variables of type any could
+它只是用来向后兼容的。Any 类型的变量可以
 
 125
 00:06:29,622 --> 00:06:34,960
 hold any type. Structs, enums, classes, anything.
+保存任何类型，结构体，枚举类型，类，任何类型都可以
 
 126
 00:06:35,028 --> 00:06:39,096
 And the problem though is, you can't send any messages to
+而问题是你不能向 Any 类型的对象
 
 127
 00:06:39,165 --> 00:06:42,600
 something of type Any, because you don't, in your code,
+传递信息，因为在你的代码中，你不知道它具体
 
 128
 00:06:42,669 --> 00:06:45,537
 know what it is. Okay? Now, Swift, under the covers,
+是什么类型，Swift 知道
 
 129
 00:06:45,606 --> 00:06:48,172
 might know what it is, but since you've typed it Any,
+它是什么类型的，但因为你将它设置为 Any 类型
 
 130
 00:06:48,241 --> 00:06:51,042
 it's assuming you don't want to send any messages to it
+Swift 会假设你不想向它传递任何消息
 
 131
 00:06:51,110 --> 00:06:54,712
 that you don't know what it is. So, how do we
+因为你不知道它是什么。那么，我们如何
 
 132
 00:06:54,781 --> 00:06:57,381
 deal with that case in Swift where we got the strongly type
+在 Swift 这种强类型语言中处理这种
 
 133
 00:06:57,450 --> 00:06:59,250
 language, we can't send a message to Any. Well,
+情况呢，我们现在无法向 Any 传递信息
 
 134
 00:06:59,318 --> 00:07:03,287
 we got to convert it. Now, let's talk about where you're
+实际上，我们需要转变（convert）它，我们先讲讲你们会在哪里
 
 135
 00:07:03,356 --> 00:07:06,391
 gonna see it, you already saw it in NSAttributedString case,
+碰到 Any，你们已经在 NSAttibutedString 中见过 Any
 
 136
 00:07:06,460 --> 00:07:08,159
 right? Well, we have that dictionary.
+我们有那个字典类型
 
 137
 00:07:08,228 --> 00:07:11,796
 Another place you will see it is arguments to methods. So
+另外一个你们会用到 Any 的地方是在函数的参数
 
 138
 00:07:11,864 --> 00:07:13,364
 here is a method called prepare for
+这有个函数叫做 prepare(for segue)
 
 139
 00:07:13,433 --> 00:07:16,667
 segue. It's a UIView controller method, right?
+它是一个在 UIViewController 中的函数
 
 140
 00:07:16,736 --> 00:07:18,069
 You all know what a UIView controller is?
+大家都知道 UIViewController 是什么吧
 
 141
 00:07:18,137 --> 00:07:20,705
 We made one for concentration. And
+我们在 Concentration 中写了一个
 
 142
 00:07:20,774 --> 00:07:24,709
 I talked about when we do MVCs and we have multiple MVCs, and
+我们在我们将多 MVC 的时候讲到当我们有多个 MVC
 
 143
 00:07:24,778 --> 00:07:28,246
 they own a whole screen. Well, we sometimes transition from
+并且它们各自拥有自己的屏幕的时候，我们有时需要从一个
 
 144
 00:07:28,315 --> 00:07:31,682
 one MVC together, to another. And this prepare for segue,
+MVC 跳到另一个 MVC，而这个 prepare(for segue)
 
 145
 00:07:31,751 --> 00:07:34,785
 a segue is a transition from one MVC to the other, this
+一个 segue 就是从一个 MVC 到另一个 MVC 的跳转
 
 146
 00:07:34,854 --> 00:07:38,490
 gets called in a view control when transition happens. Well,
+当跳转发生的时候，这个在对应的 ViewController 的 prepare 函数就会被调用
 
 147
 00:07:38,558 --> 00:07:41,993
 one of the arguments to it there at the end is sender of
+而它的最后的那个参数就是 Any? 类型的 sender
 
 148
 00:07:42,062 --> 00:07:46,564
 type Any?. Okay, an optional Any. And that's basically
+一个可选类型的 Any，它代表的就是
 
 149
 00:07:46,633 --> 00:07:51,269
 what button cause this MVC transfer to a new MVC so.
+使得从一个 MVC 到另一个 MVC 跳转发生的那个按钮
 
 150
 00:07:51,338 --> 00:07:54,072
 So it could well be a button that, that sender is but
+那么这个 sender 可以是一个按钮
 
 151
 00:07:54,141 --> 00:07:56,608
 it can also happen if you click on a row in a table
+但是，这个跳转也可能在你点击一个 UITableView 的一行的时候
 
 152
 00:07:56,676 --> 00:08:00,445
 view. So that's not a button, that's a table view. Cell,
+发生，这种情况下，sender 就不是按钮了，它应该是一个 UITableViewCell
 
 153
 00:08:00,513 --> 00:08:02,980
 okay, or it could happen from something else.
+这个跳转也可能从其他地方发生
 
 154
 00:08:03,049 --> 00:08:06,050
 It could even happen by code, in which case this is a nil.
+甚至可能是由代码直接命令执行的，在这种情况下 sender 应该是 nil
 
 155
 00:08:06,119 --> 00:08:09,220
 So that's why you need Any right there, because you're
+因此你在这里要用到 Any，因为你不确定
 
 156
 00:08:09,288 --> 00:08:12,057
-not sure whether it was a button or a table you cell or
+not sure whether it was a button or a table view cell or
+是一个 UIButton 还是 UITableViewCell 还是
 
 157
 00:08:12,125 --> 00:08:15,025
 something else that caused this thing to happen. So
+其他什么让这个跳转发生的
 
 158
 00:08:15,094 --> 00:08:19,097
 you'll see it as arguments, a case very rarely to a function
+所以你有时会看到一个函数的参数
 
 159
 00:08:19,166 --> 00:08:23,201
 like this where you can kinda pass anything in there,. But
+就像这样，我们可以向它传递任意的参数
 
 160
 00:08:23,270 --> 00:08:27,439
 how are we gonna use this Any stuff? Okay, let's say
+但是我们要如何使用这个 Any 类型的变量呢
 
 161
 00:08:27,507 --> 00:08:30,241
 a button was passed on your table, how do I know what it
+比如说一个按钮或者一个列表视图被传来进来
 
 162
 00:08:30,309 --> 00:08:33,310
 is and talk to it, and all that when it's this Any thing.
+我该如何知道它是什么并且向它传递信息呢
 
 163
 00:08:33,379 --> 00:08:37,816
 Okay, before I show you how to do it, of course don't use Any
+在向你们展示该怎么做之前，请不要在这门课中使用 Any
 
 164
 00:08:37,884 --> 00:08:41,319
 in this course except for to do backwards compatible call
+除非你要做向后兼容或者调用
 
 165
 00:08:41,388 --> 00:08:44,823
 APIs. You don't have your own data structures would not be
+API，你在你自己的数据类型中
 
 166
 00:08:44,892 --> 00:08:47,492
 use Any. Some people try to use Any when
+不要使用 Any，有的人在不知道该如何设计
 
 167
 00:08:47,561 --> 00:08:49,561
 they basically don't know how to design a data structure,
+数据类型的时候就简单地使用 Any
 
 168
 00:08:49,630 --> 00:08:51,395
 and they're like, I'll just make this an Any,
+他们就想，我直接把这个变量设为 Any就好了
 
 169
 00:08:51,464 --> 00:08:52,396
 an array of Any and
+一个 Any 类型的数组
 
 170
 00:08:52,465 --> 00:08:53,965
 I'll just start throwing random things in there.
+这样就可以向数组中存任何东西了
 
 171
 00:08:54,034 --> 00:08:57,535
 No, we don't do that, okay, that's not, Swift. All right,
+我们不会这么做，这不是 Swift 的风格
 
 172
 00:08:57,604 --> 00:09:01,039
 so now how do I use Any. I have to convert it to a type
+那么该如何使用 Any 呢，我必须要将它转变为一个
 
 173
 00:09:01,107 --> 00:09:04,609
 that I do know, since I can't send any messages or vars,
+我认识的类型，因为我不能向它传递任何函数或者变量
 
 174
 00:09:04,678 --> 00:09:07,011
 I have to convert it. And we convert it,
+我必须要转变它。而我们通过
 
 175
 00:09:07,080 --> 00:09:09,847
 with a special keyword and Swift called as,
+一个 Swift 中的特殊的关键字，叫做 as 来转变它
 
 176
 00:09:09,916 --> 00:09:14,385
 as question mark. And what as does, is it just tries to
+as? 它做的就是尝试转变那个 Any 类型变量
 
 177
 00:09:14,453 --> 00:09:18,056
 convert that any to the type you specify and if it can't,
+为你指定的那个类型，如果它不能转变的话
 
 178
 00:09:18,124 --> 00:09:21,326
 it returns a nil. That's why it's as question mark.
+就返回 nil，因此它是 as 后面接问号
 
 179
 00:09:21,394 --> 00:09:23,894
 And it's as simple as that. So here's an example,
+就这么简单，这有一个例子
 
 180
 00:09:23,963 --> 00:09:25,262
 it's best learn by example here.
+我们最后通过例子来学习
 
 181
 00:09:25,331 --> 00:09:29,934
 Let's say, I have a var called unknown, which of type Any, so
+加入我有一个叫做 unknown 的变量，它是 Any 类型的
 
 182
 00:09:30,003 --> 00:09:32,237
-I don't know what's Any. It could be anything in there,
+I don't know what's in it. It could be anything in there,
+我不知道它里面装的是什么，它可以装任何东西
 
 183
 00:09:32,305 --> 00:09:36,941
 and I think that that thing in unknown might be of type,
+而我觉得 unknown 的类型可能是
 
 184
 00:09:37,009 --> 00:09:40,244
-MyType. I'm not sure but I think it might be might type.
+MyType. I'm not sure but I think it might be MyType.
+MyType，我不确定，我我觉得它有可能是 MyType
 
 185
 00:09:40,313 --> 00:09:44,982
 So I'm gonna say if I can let foo, which is a new variable,
+那么我只用写如果我可以 let foo，foo 是一个新的变量
 
 186
 00:09:45,051 --> 00:09:50,055
 equal unknown as MyType. Then inside there,
+let foo = unknown as? MyType 那么在那里
 
 187
 00:09:50,123 --> 00:09:53,391
 I can send messages to foo that MyType understands,
+我可以向 foo 传递 MyType 可以理解的信息
 
 188
 00:09:53,460 --> 00:09:56,460
 right? So I've just converted unknown into
+所以我就是将unknown 转变为了一个新的
 
 189
 00:09:56,529 --> 00:10:00,565
 a new variable of type MyType, if possible by using as.
+MyType 类型的变量，通过使用 as 关键字
 
 190
 00:10:00,634 --> 00:10:02,567
 And you can see this is nice, it reads like English.
+你们可以发现这很棒，读起来就像英语一样
 
 191
 00:10:02,636 --> 00:10:05,703
 If I can let foo equal unknown as MyType,
+如果我可以让 foo 等于 MyType 类型的 unknown
 
 192
 00:10:05,772 --> 00:10:09,674
 then I'm going to use it as MyType. So that's it,
+那么我就接着以 MyType 类型来使用它
 
 193
 00:10:09,743 --> 00:10:12,844
 it's very simple, that's how we access Any. And
+就是这么简单，这就是我们使用 Any 的方法
 
 194
 00:10:12,912 --> 00:10:15,413
 if it wasn't, if unknown was of some other type and
+如果它不是，如果 unknown 是其他什么类型
 
 195
 00:10:15,481 --> 00:10:17,381
 couldn't be interpreted as MyType,
+而不能被转变为 MyType
 
 196
 00:10:17,450 --> 00:10:20,217
 then this the curly braces, that stuff doesn't happen.
+那么这段大括号中的代码就不会被执行
 
 197
 00:10:20,286 --> 00:10:22,253
 You could even say else, and something else, and
+你甚至可以用 else，那么
 
 198
 00:10:22,322 --> 00:10:24,522
 something else would happen, that would be fine too.
+else 中的代码就会被执行
 
 199
 00:10:24,591 --> 00:10:27,258
 Now this casting of As is not just for
+而这个 as 所做的转变
 
 200
 00:10:27,327 --> 00:10:31,295
 Any, we can also cast other things. Why, why else would we
+不仅适用于 Any，它也可以用来做其他类型的转变，为什么
 
 201
 00:10:31,364 --> 00:10:35,533
 ever want to cast? Well one classic one to cast, is to
+我们想要做转变呢，一个很经典转变就是
 
 202
 00:10:35,601 --> 00:10:40,771
 cast from the variable type to one of its subclasses. So
+将一个变量的类型转变为这个类型的子类的类型
 
 203
 00:10:40,840 --> 00:10:44,409
 let's look an example of that. So here I have a variable vc,
+让我们来看看这个的一个例子，我们这有一个叫做 vc 的变量
 
 204
 00:10:44,478 --> 00:10:48,612
 very importantly it's of type UIViewController.
+值得注意的是它的类型是 UIViewController
 
 205
 00:10:48,681 --> 00:10:51,916
 In other words the iOS class, UIViewController that's
+这个 UIViewController 是 iOS 中的一个类
 
 206
 00:10:51,985 --> 00:10:55,720
 the type of vc. Now I'm setting it equal to creating
+它是 vc 的类型。接着我将 vc 赋值为
 
 207
 00:10:55,788 --> 00:10:59,357
 a ConcentrationViewController, which is a subclass, let's
+一个新建的 ConcentrationViewController 假设这是
 
 208
 00:10:59,426 --> 00:11:03,294
 say, of UIViewController. Now the type vc,
+UIViewController 的一个子类
 
 209
 00:11:03,362 --> 00:11:06,163
 even though I assign to it a ConcentrationViewController,
+那么尽管我将 vc 赋值为 ConcentrationViewController
 
 210
 00:11:06,232 --> 00:11:08,432
 that type is still UIViewController not
+它的类型仍然是 UIViewController
 
 211
 00:11:08,501 --> 00:11:10,567
 ConcentrationViewController. That's not its type,
+而不是 ConcentrationViewController
 
 212
 00:11:10,636 --> 00:11:13,938
 its type is UIViewController. But this is a legal statement,
+它的类型是 UIViewController，这是一个合法的声明
 
 213
 00:11:14,007 --> 00:11:15,740
 because of course a ConcentrationViewController
+因为 ConcentrationViewController
 
 214
 00:11:15,808 --> 00:11:18,776
 inherits from UIViewController, and that is
+继承了 UIViewController
 
 215
 00:11:18,845 --> 00:11:22,346
 a UIViewController. Now if I wanted to send flipCard,
+因此它是一个 UIViewController，那么现在如果我想传递
 
 216
 00:11:22,415 --> 00:11:26,117
 lets say that was a method in ConcentrationViewController,
+flipCard，假设它是 ConcentrationViewController 中的一个函数
 
 217
 00:11:26,186 --> 00:11:30,355
 to vc I could not do that. It would not even compile, why?
+将 flipCard 传递给 vc，我不能这么做，这甚至不会通过编译
 
 218
 00:11:30,423 --> 00:11:32,790
 Because vc is subtype UIViewController, and
+因为 vc 的类型是 UIViewController
 
 219
 00:11:32,859 --> 00:11:36,127
 the class UIViewController doesn't have flipCard.
+而 UIViewController 这个类没有 flipCard 这个函数
 
 220
 00:11:36,196 --> 00:11:38,596
 ConcentrationViewController has it, but
+ConcentrationViewController 中才有
 
 221
 00:11:38,664 --> 00:11:41,499
 not UIViewController. So people get confused about
+但 UIViewController 中没有，所以人们会对此感到困惑
 
 222
 00:11:41,568 --> 00:11:43,668
 this, it's kind of like back when we're talking about
+就像我们之前讲的
 
 223
 00:11:43,737 --> 00:11:45,203
 the protocols and I had things to move.
+协议，我有 thingsToMove
 
 224
 00:11:45,271 --> 00:11:47,805
 And it was of type movable, and I had a car in there and
+它的类型是 moveable，并有一个这个类型的变量 car
 
 225
 00:11:47,874 --> 00:11:50,675
 I want it to send a change oil and people were like, why not?
+我想将调用它其中的函数 changeOil，人们可能会觉得这是可以的
 
 226
 00:11:50,743 --> 00:11:53,978
 Well, because the variable was typed to be a movable, and
+但这是不行的，因为这个变量的类型是 moveable
 
 227
 00:11:54,047 --> 00:11:56,914
 movables didn't know how to change oil, cars do.
+而 moveable 并不知道如何实现 changeOil，car 类型才知道
 
 228
 00:11:56,983 --> 00:11:59,517
 This is the same kind of thing here, exactly the same thing
+就和这里的东西是一个意思，完全一个意思
 
 229
 00:11:59,586 --> 00:12:02,954
 just with inheritance instead of protocols. So
+这里只是继承的关系，而不是协议间的关系
 
 230
 00:12:03,022 --> 00:12:05,623
 what if I did wanna send flipCard to vc, how
+那么如果我想将 flipCard 传递给 vc 呢
 
 231
 00:12:05,691 --> 00:12:08,959
-would I do it or I can cast with any in exact same way?
+would I do it? Well, I can cast with any in exact same way?
+我该怎么做呢？我可以像转变 Any 类型一样转变它
 
 232
 00:12:09,028 --> 00:12:13,064
 I can say, if I let some new variable called cvc,
+我可以写 if let cvc = vc as?
 
 233
 00:12:13,133 --> 00:12:15,866
 ConcentrationViewController equal the vc
+cvc 的是 ConcentrationViewController 的缩写
 
 234
 00:12:15,935 --> 00:12:18,202
 as a ConentrationViewController.
+if let cvc = vc as? ConcentrationViewController
 
 235
 00:12:18,271 --> 00:12:21,706
 Now cvc is a ConcentrationViewController,
+那么现在 cvc 就是一个 ConcentrationViewController
 
 236
 00:12:21,775 --> 00:12:25,743
 I can send it flipCard. So same way I did with Any,
+我可以向它传递 flipCard，和我们对 Any 类型做得一样
 
 237
 00:12:25,812 --> 00:12:27,512
 I'm checking to see if it's possible for
+我正在确定这个变量是否
 
 238
 00:12:27,580 --> 00:12:31,983
 this var to be converted, in this case downcasted.
+可以被转变，在这个例子中我们叫它向下转变(downcast)
 
 239
 00:12:32,052 --> 00:12:35,086
 This is called downcasted, to a subclass of that thing, so
+这个叫做向下转变(downcast)，就是转变成那个类型的子类
 
 240
 00:12:35,155 --> 00:12:39,456
 I can interact with it as that subclass. Same thing
+这样我就可以将它当做它的子类的类型使用它
 
 241
 00:12:39,525 --> 00:12:42,026
 happen here with protocols, we could do that same thing with
+在这里，协议也是一样的，我们可以对 moveabl 类型
 
 242
 00:12:42,095 --> 00:12:45,997
 the car in the movable. We could had a movable var and
+的 car 变量做同样的事，我们可以尝试将一个moveable
 
 243
 00:12:46,066 --> 00:12:49,600
 try to cast it as a car. And if you were successful,
+类型的变量并尝试将它转变为 car 类型的变量，如果这成功了
 
 244
 00:12:49,668 --> 00:12:52,803
 then we can send a change oil. But if it was a shape and
+那么我就可以将 changeOil 传递给它，但如果它是一个 shape 类型
 
 245
 00:12:52,872 --> 00:12:54,939
 that failed, we would return nil and
+而这失败了，这就会返回 nil
 
 246
 00:12:55,008 --> 00:12:57,074
 we would not be able to do it. So
+并且我们就我发这么做了
 
 247
 00:12:57,143 --> 00:13:01,045
 you're gonna see us doing this casting not as much with Any,
+那么你们可以看到我们并不一定只对 Any 类型进行转变
 
 248
 00:13:01,113 --> 00:13:04,382
 some with Any, but a lot of time just down casting.
+我们多数情况下是进行向下转变
 
 249
 00:13:04,451 --> 00:13:07,985
 Because we have some function that takes some super class
+因为我们会有一些函数接收一个父类作为参数
 
 250
 00:13:08,054 --> 00:13:10,588
 and we pass a down cast subclass into it.
+我们向他传递一个父类
 
 251
 00:13:10,657 --> 00:13:13,424
 And we're gonna down cast it to look at the subclass
+接着我们试着将它转变为它的子类
 
 252
 00:13:13,493 --> 00:13:16,694
 in case it is that subclass, then we can send it messages.
+如果转换成功了，我们就可以向它传递信息了
 
 253
 00:13:16,763 --> 00:13:17,762
 All right, so that's it for
+好的，Any 和转变对象
 
 254
 00:13:17,831 --> 00:13:18,763
 Any and Castings object.
+就讲到这里
 
 255
 00:13:18,831 --> 00:13:21,566
 The last last slide that I have here before we dive in to
+我们学习视图前的最后
 
 256
 00:13:21,634 --> 00:13:25,136
 views, is just four other interesting classes that
+一页幻灯片是讲其他有趣的类
 
 257
 00:13:25,205 --> 00:13:28,940
 you should know about in foundation. One is NSObject.
+这些类在 Foundation 中，一个是 NSObject
 
 258
 00:13:29,009 --> 00:13:33,278
 NSObject is the root class of all classes from
+NSObject 是所有来自 Objective-C 的类的
 
 259
 00:13:33,346 --> 00:13:37,649
 Objective-C. All the things like UIViewController,
+根类，所有的类，像 UIViewController
 
 260
 00:13:37,717 --> 00:13:40,217
 all the UI kit classes, all those things that were
+所有在 UIKit 中的类，所有我们在
 
 261
 00:13:40,286 --> 00:13:42,453
 developed in the Objective-C world, and
+Objective-C 开发的类
 
 262
 00:13:42,521 --> 00:13:45,757
 are compatible still with Objective-C. Their root class,
+它们都与 Objective-C 兼容，而它们的根类
 
 263
 00:13:45,825 --> 00:13:48,726
 the thing they inherit from eventually at the top,
+就是它们所继承的最顶层的类
 
 264
 00:13:48,795 --> 00:13:52,964
 is NSObject. In Swift, no requirement to subclass from
+是 NSObject，在 Swift 的类中不一定要继承
 
 265
 00:13:53,032 --> 00:13:58,169
 NSObject, although there's a few tiny esoteric APIs that
+NSObject 但是有一小部分的 API 会
 
 266
 00:13:58,237 --> 00:14:00,938
 ask you to pass a class in, that has to implement
+要求你传递一个实现了 NSObject 的类作为参数
 
 267
 00:14:01,006 --> 00:14:03,841
 NSObject. And I'll explain them to you when we get to it,
+当我们用到它们的时候我会再给你们解释
 
 268
 00:14:03,910 --> 00:14:06,778
 but normally your Swift class, like remember concentration
+但通常来说，你的 Swift 的类，就像是 Concentration
 
 269
 00:14:06,846 --> 00:14:09,613
 that class, we originally made it. It didn't inherit from
+这个类，我们在开始的时候写的它，它没有继承
 
 270
 00:14:09,682 --> 00:14:11,949
 NSObject. It didn't inherit from anything.
+NSObject，它没有继承任何东西
 
 271
 00:14:12,018 --> 00:14:13,951
 When it was a class, we converted it to struct later.
+我们之后还将它转变成了一个类
 
 272
 00:14:14,020 --> 00:14:15,920
 And that's perfectly legal in Swift,
+这在 Swift 中是完全合法的
 
 273
 00:14:15,988 --> 00:14:17,722
 that was not true in Objective-C.
+但在 Objective-C 中并不是这样的
 
 274
 00:14:17,791 --> 00:14:20,958
 In Objective-C pretty much all classes had to inherit
+在 Objective-C 中基本上所有的类都要
 
 275
 00:14:21,027 --> 00:14:24,428
 from NSObject, because some of the runtime was built into
+继承 NSObject，因为有些运行时是被写入这个
 
 276
 00:14:24,497 --> 00:14:27,832
 this class rather than being in the actual runtime like it
+类中的，而不是像在 Swift 中一样真正的运行时
 
 277
 00:14:27,900 --> 00:14:31,302
 is in Swift. Okay, second interesting class is NSNumber,
+好的，第二个有趣的类是 NSNumber
 
 278
 00:14:31,370 --> 00:14:34,605
 in Objective-C when you pass numbers around you actually
+在 Objective-C 中当你传递数字的时候
 
 279
 00:14:34,674 --> 00:14:36,140
 pass them with this class.
+你实际上是用的这个类
 
 280
 00:14:36,209 --> 00:14:39,076
 NSNumber, it's a class so it's a reference type.
+NSNumber，它是一个类，因此它是一个引用类型
 
 281
 00:14:39,145 --> 00:14:42,480
 You didn't have double and int as classes.
+在 Objective-C 中没有 Double 或者 Int 类
 
 282
 00:14:42,548 --> 00:14:45,683
 You had C like doubles and ints in Objective-C, but
+Objective-C 中的 Double 和 Int 类型是 C 风格的
 
 283
 00:14:45,751 --> 00:14:48,819
 you didn't have that. So if you wanted to pass something
+Objective-C 没有 Double 类，所以当你想要传递数据
 
 284
 00:14:48,888 --> 00:14:51,789
 in an object oriented way, you had to pass this NSNumnber.
+以面向对象的方式传递的话，你必须要传递这个 NSNumber
 
 285
 00:14:51,857 --> 00:14:54,592
 Now it can represent any kind of number, floating point
+它可以代表任意类型的数字，浮点类型(floating point)
 
 286
 00:14:54,660 --> 00:14:57,695
 number, integer, anything. It's a kind of a generic
+整形，任何类型，它有点像
 
 287
 00:14:57,764 --> 00:15:00,831
 number holder, even a boolean it can hold in there.
+泛型的数字保存器，甚至布尔类型也可以保存在它里面
 
 288
 00:15:00,900 --> 00:15:04,469
 Now it's really awesome is all the API throughout iOS that
+而很酷的一点是 iOS 中的所有接收 NSNumber
 
 289
 00:15:04,537 --> 00:15:07,872
 takes an NSNumber and there's a lot of it, automatically
+的 API，这有很多，它们都会自动地
 
 290
 00:15:07,941 --> 00:15:12,943
 bridged to the Swift types. So if you have an Objective-C
+将它桥接到 Swift 中的对应的类型。如果你在 iOS 中
 
 291
 00:15:13,012 --> 00:15:15,980
 based API somewhere in iOS that takes a number as
+有一个基于 Objective-C的 API，它接收一个数字作为参数
 
 292
 00:15:16,049 --> 00:15:19,383
 an argument, you can pass a double in there. Or an int, or
+那么你可以向它传递一个 Double 类型，或一个 Int 类型
 
 293
 00:15:19,452 --> 00:15:22,587
 whatever it's expecting, whatever it's supposed to be.
+或者任何它所期望的类型，任何应该传的类型
 
 294
 00:15:22,656 --> 00:15:24,221
 You don't even tell, you won't even know,
+你甚至都不会发现
 
 295
 00:15:24,290 --> 00:15:26,390
 you won't even see NSNumber because the documentation
+不会看到 NSNumber，因为有关的文档
 
 296
 00:15:26,459 --> 00:15:29,560
 is already being converted as well to show you.
+是在转换后才展示给你看的
 
 297
 00:15:29,629 --> 00:15:32,129
 And similar, when things come out, if something comes
+类似的，当数字出来的时候，如果某些东西
 
 298
 00:15:32,198 --> 00:15:33,798
 out of the API as an NSNumber,
+作为 NSNumber 从 API 传出
 
 299
 00:15:33,866 --> 00:15:36,534
 you can work on it as a double or an int, or
+你可以直接将它当做 Double 或者 Int 来使用
 
 300
 00:15:36,603 --> 00:15:40,571
 whatever is appropriate and it work just fine. But I just
+或者其他任何合适的类型，它都会做得很好
 
 301
 00:15:40,640 --> 00:15:42,740
 mentioned in case you see it and wonder, what is that?
+我在这里提一下它只是为了让你们在见到它的时候不感觉奇怪
 
 302
 00:15:42,809 --> 00:15:45,710
 Is this old Objective-C generic number holder?
+它是久的 Objective-C 的泛型数字
 
 303
 00:15:45,778 --> 00:15:47,645
 It's easy to see create one from a double or
+使用 Double 或者 Int 类型来新建一个 NSNumber
 
 304
 00:15:47,714 --> 00:15:49,580
 int by just using an initializer, right?
+是很简单的，只需要使用初始化函数
 
 305
 00:15:49,649 --> 00:15:52,482
 NSNumbers sub 35.5, that's gonna give you
+NSNumber(35.5)，它会给你
 
 306
 00:15:52,551 --> 00:15:55,085
 an NSNumber with the double 35.5 in it.
+一个装着 35.5 的 NSNumber
 
 307
 00:15:55,154 --> 00:15:58,189
 And you can get the values out with vars on the number like
+你也可以将这个变量所装的数字取出来
 
 308
 00:15:58,258 --> 00:16:02,026
 intValue, doubleValue, boolValue, they will give you.
+通过就像 n.intValue n.boolValue，这样的方式
 
 309
 00:16:02,095 --> 00:16:05,563
 The return in a Swift type double, int, bool or
+它们会返回 Swift 风格的 Double Int Bool 或其他
 
 310
 00:16:05,632 --> 00:16:08,932
 whatever. Okay, Date. Some of you already know about
+对应的类型。好的，来讲 Date，你们有些人已经了解
 
 311
 00:16:09,001 --> 00:16:11,669
 Date because you did the extra credit maybe, in assignments 1
+Date，因为你们可能已经做了作业 1 或者 2 中的
 
 312
 00:16:11,737 --> 00:16:14,939
 or 2. Date is just a way to represent any date and time.
+额外加分的作业。Date 就是一种表示任意日期和时间的方式
 
 313
 00:16:15,008 --> 00:16:17,842
 You know internally it's represented, I think,
+它内部可能表示的是...我认为是
 
 314
 00:16:17,910 --> 00:16:21,712
 like Number of seconds since 1970 or something like that.
+像秒钟的数字，从 1970 年开始的，或者类似的表示方法
 
 315
 00:16:21,781 --> 00:16:24,281
 It's great for doing that, it's great for even small
+这样做是很棒的，甚至对于一小段时间来说也是很棒的
 
 316
 00:16:24,350 --> 00:16:27,384
 amounts of time because the date includes the time down to
+因为 Date 包含的时间精度小到
 
 317
 00:16:27,453 --> 00:16:30,655
 small you know, sub millisecond times.
+比毫秒还小
 
 318
 00:16:30,723 --> 00:16:32,323
 But I just want you to note that with date there's
+但关于 Date 值得注意的是
 
 319
 00:16:32,391 --> 00:16:34,925
 other classes that go along with it like Calendar,
+另外有一些类和它的经常一起出现，比如说 Calendar
 
 320
 00:16:34,994 --> 00:16:38,129
 DateFormatter, DateComponents. DateComponents will give
+DateFormatter, DateComponents, DateComponents 会给你
 
 321
 00:16:38,198 --> 00:16:40,497
 you things like the month and things like that. And
+比如月份或者其他类似的
 
 322
 00:16:40,566 --> 00:16:44,034
 why are there all those other classes? Well because date,
+为什么会有这些类呢？因为
 
 323
 00:16:44,103 --> 00:16:46,603
 if you're gonna put it in your UI, you have to be very
+如果你想讲 Date 放进你的 UI 里，你必须要非常非常
 
 324
 00:16:46,672 --> 00:16:50,607
 careful. Around the world, dates are represented very,
+小心，因为在全世界日期的表达方式是有
 
 325
 00:16:50,676 --> 00:16:53,744
 very differently, and it's not just that the name of a month
+非常大的差异的。这差异不仅仅是在于在不同的语言中
 
 326
 00:16:53,813 --> 00:16:56,013
 is different in a different language.
+月份等单词的拼写不同
 
 327
 00:16:56,082 --> 00:17:00,651
 It's that other locale, we call them around the world,
+而是在世界上的其他地区
 
 328
 00:17:00,720 --> 00:17:03,521
 use completely different kinds of dating systems. Maybe even
+会用完全不同的日期系统
 
 329
 00:17:03,590 --> 00:17:07,191
 a completely different calendar than we use. So
+甚至是和我们的完全不同的历法
 
 330
 00:17:07,260 --> 00:17:09,293
 you really have to be careful if you're gonna put date in
+因此当你要把日期放进你的 UI 的时候你一定要小心
 
 331
 00:17:09,361 --> 00:17:11,562
 your UI to understand all of these other classes.
+你也一定要了解这些类
 
 332
 00:17:11,630 --> 00:17:13,564
 And there is plenty of documentation how to do it.
+有不少官方文档告诉你如何做到这一点
 
 333
 00:17:13,632 --> 00:17:16,033
 But, and it is extra work. Now if you're just using date
+但这是额外的工作。如果你只是在程序内部使用 Date
 
 334
 00:17:16,102 --> 00:17:17,835
 internally to like keep track of how
+比如说用 Date 来记录
 
 335
 00:17:17,904 --> 00:17:21,338
 long your Concentration move, or set game move is taking,
+移动你的 Concentration 或者设置游戏的步骤花了多少时间
 
 336
 00:17:21,407 --> 00:17:24,208
 obviously you don't need any of that other stuff. And
+你显然不需要其他的那些类
 
 337
 00:17:24,276 --> 00:17:28,679
 finally there's data. Data is just a bag of bits,
+最后我们有 Data, Data 只是一包位(0 与 1)
 
 338
 00:17:28,748 --> 00:17:33,351
 we use it to transfer data around a lot inside iOS API.
+我们很多时候都是用它在 iOS API 中传送数据
 
 339
 00:17:33,419 --> 00:17:36,087
 For example if we got an image from the Internet,
+比如说如果我们从网上下载了一张图片
 
 340
 00:17:36,155 --> 00:17:39,323
 from some URL, it would come in as a big bag of bits. And
+从某个 URL 下载的，它就会像一包位(0 与 1)一样传进来
 
 341
 00:17:39,392 --> 00:17:40,858
 we have classes like UI image,
+然后我们会有像 UIImage 的类
 
 342
 00:17:40,926 --> 00:17:42,293
 which I'm gonna talk about today.
+我今天会讲到 UIImage
 
 343
 00:17:42,362 --> 00:17:43,627
 That can look into the bag a bit and
+它们可以查看这一包位并
 
 344
 00:17:43,696 --> 00:17:46,697
 say, that's jpeg data and make an image out of it. Or
+说，这个是 JPEG 类型数据并且以它来生成一张图片
 
 345
 00:17:46,765 --> 00:17:49,900
 look into a bag of bits, you know we have formatters that
+或者查看这一包类，比如说我们有 Formatter 这个类
 
 346
 00:17:49,969 --> 00:17:54,004
 look and say that's json data. Good, who knows what JSON is,
+它去看看并说，哦这是 JSON 数据。你们有谁知道 JSON 是什么
 
 347
 00:17:54,073 --> 00:17:55,439
 raise your hand if you've heard of JSON, okay,
+如果你听说过 JSON 举起手来
 
 348
 00:17:55,508 --> 00:17:58,909
 great. So that's JSON data, we interpret it as JSON data. So
+很棒，那么它就是 JSON 数据，我们就会把它理解为 JSON 数据
 
 349
 00:17:58,978 --> 00:18:00,577
 that's what this data struct is,
+这就是这个 Data 的结构
 
 350
 00:18:00,646 --> 00:18:03,347
 it's just a bag of bits, and there's lots of methods to
+它就是一包位，并且这儿有许多函数来将它
 
 351
 00:18:03,416 --> 00:18:07,117
 convert it to and from other kinds of things. That's it, so
+转变成或转变自其他东西
 
 352
 00:18:07,186 --> 00:18:09,253
 that's all I wanted to mention is those quick things.
+这就是我所有想要讲的
 
 353
 00:18:09,321 --> 00:18:12,289
 Now we can dive into our main topic today which is
+让我们来开始我们今天的主题
 
 354
 00:18:12,358 --> 00:18:15,392
 a really cool one, which is Views. All right, so
+这是很酷的主题，也就是视图
 
 355
 00:18:15,461 --> 00:18:18,562
 I don't want you to be confused about the word view.
+好的，我不想让你们搞混这个单词视图(view)
 
 356
 00:18:18,631 --> 00:18:21,966
 I'm using it in two contexts. One is MVC.
+我在两种语境下使用了它，一个是 MVC
 
 357
 00:18:22,034 --> 00:18:26,003
 One of the letters there is V for view. That means that
+其中的字母 V 代表着视图(View)，它代表着
 
 358
 00:18:26,071 --> 00:18:30,107
 bunch of generic minions of your controller. That View,
+你的控制器的那些泛型的仆从，这个 View
 
 359
 00:18:30,176 --> 00:18:33,377
 capital V View, contains a lot of views.
+大写 V 的 View，装着许多的视图(view)
 
 360
 00:18:33,446 --> 00:18:37,381
 These views that I'm talking about, and what by these
+我正在讲的这些视图(view)是指
 
 361
 00:18:37,450 --> 00:18:41,652
-Views, I mean a subclass of the iOS class UI view. So
+Views, I mean a subclass of the iOS class UIView. So
+iOS 中的 UIView 这个类的子类
 
 362
 00:18:41,721 --> 00:18:44,588
 that's what we're talking about today is these Views,
+这就是我们今天要讲的主题，这些装在 MVC 中的视图(View)
 
 363
 00:18:44,657 --> 00:18:46,857
 these things in an MVC's view. Sorry for
+中的视图(view)，很抱歉
 
 364
 00:18:46,926 --> 00:18:50,060
 the terminology being the same there but same word,
+它们俩的术语是同一个单词
 
 365
 00:18:50,129 --> 00:18:53,564
 somewhat different meanings there. So what is a view?
+但是它们是有不同的意思的。那么，视图是什么？
 
 366
 00:18:53,633 --> 00:18:56,433
 What is a sub class of UIView? It's essentially just
+UIView 的子类是什么？ 它本质上就是在屏幕上的一个
 
 367
 00:18:56,502 --> 00:18:59,703
 a rectangle on screen that defines a coordinate,
+矩形，这个矩形定义了坐标
 
 368
 00:18:59,772 --> 00:19:00,637
 a coordinate system. And
+定义了一个坐标系
 
 369
 00:19:00,706 --> 00:19:02,372
 this is a coordinate system you're gonna use to draw, and
+并且这个你会用这个坐标系来画图
 
 370
 00:19:02,441 --> 00:19:03,841
 it's also a coordinate system for
+你也会用这个坐标系来
 
 371
 00:19:03,909 --> 00:19:05,843
 getting multi-touch events, right,
+实现多点触控事件
 
 372
 00:19:05,911 --> 00:19:09,546
 with the fingers on the screen. It's hierarchical,
+就是用手指划屏幕。它是有等级的
 
 373
 00:19:09,615 --> 00:19:12,182
 which means these rectangles live inside other rectangles,
+也就是说这个矩形可能被装在另一个矩形内
 
 374
 00:19:12,251 --> 00:19:13,584
 live inside other rectangles, right?
+另一个矩形也可能被装在第三个矩形内
 
 375
 00:19:13,653 --> 00:19:15,252
 So the views inside views inside views.
+也就是在视图里的视图里的视图
 
 376
 00:19:15,321 --> 00:19:16,987
 And you saw this with Concentration.
+你们在 Concentration 中已经见过它了
 
 377
 00:19:17,056 --> 00:19:19,824
 We had that top-level view which was black, and
+我们有顶层的视图，也就是那个黑色区域
 
 378
 00:19:19,892 --> 00:19:22,660
 then inside that we had stack view.
+而在它里面我们有层叠视图(UIStackView)
 
 379
 00:19:22,729 --> 00:19:24,762
 Remember that? So that was another view.
+还记得吗？那就是另外一个视图了
 
 380
 00:19:24,831 --> 00:19:28,165
 Inside that stack view were three more stack views.
+在那个层叠视图里面，我们还有三个层叠视图
 
 381
 00:19:28,234 --> 00:19:31,201
-Inside those three sections were four card buttons. So
+Inside those three stack views were four card buttons. So
+在那三个层叠视图里面，是四个卡片按钮
 
 382
 00:19:31,270 --> 00:19:34,405
 as the UI buttons, right. Plus you had other views like your
+它们是 UIButton，你也有其他的视图
 
 383
 00:19:34,473 --> 00:19:37,975
 new game button, score, flip count, those are all views.
+比如说你的“开始新游戏”按钮，分数，flip count 它们都是视图
 
 384
 00:19:38,043 --> 00:19:40,044
 And they are all kind of in each, you know,
+它们都是被包含在另一个视图里面的
 
 385
 00:19:40,112 --> 00:19:41,779
 in a hierarchical representation.
+就像在那个等级表示中
 
 386
 00:19:41,848 --> 00:19:45,382
 So the way that if you look at a particular view and
+如果你要看指定的视图
 
 387
 00:19:45,451 --> 00:19:47,084
 you wanna see who its superview is,
+并且想知道它的上级视图(superview)是什么
 
 388
 00:19:47,153 --> 00:19:50,154
 in other words the view it's in. You just ask the view for
+也就是包含着它的那个视图，你只用访问那个变量的
 
 389
 00:19:50,223 --> 00:19:53,490
 the var superview. Okay. Now, it's an optional UIView
+superview，它的类型是一个可选类型的 UIView
 
 390
 00:19:53,559 --> 00:19:56,793
 because it might not currently be on screen, right? So, it
+因为这个视图目前可能没有出现在在屏幕上
 
 391
 00:19:56,862 --> 00:20:00,230
 might not be in a superview at this time. You could certainly
+所以它现在可能还没有被装进一个上级视图，你当然可以把它
 
 392
 00:20:00,299 --> 00:20:02,799
 add it. And then the other way around if you have a view and
+装进去。反过来，如果你有一个视图
 
 393
 00:20:02,868 --> 00:20:05,235
 you wanna say, what are all the subviews in it?
+并且你想知道所有它的子视图(subview)都是什么
 
 394
 00:20:05,304 --> 00:20:07,971
 Like you wanna ask our blackview where,
+就像你可能想知道我们那个全黑的视图
 
 395
 00:20:08,040 --> 00:20:11,842
 show me all your subviews like this top level stackview and
+让它展示它所有的子视图，比如说最上层的层叠视图
 
 396
 00:20:11,911 --> 00:20:14,912
 the flip count, label and the score, and the new game
+还有 flip count 这个标签，还有你的得分，还有那个"开始新游戏"
 
 397
 00:20:14,980 --> 00:20:18,815
 button. You get that with another view var called
+按钮，你可以通过另一个叫做 subviews 视图变量来
 
 398
 00:20:18,884 --> 00:20:22,452
 subviews, which is, as you can see, an array of UIView. Okay,
+得到它们，它是一个 UIView 的数组
 
 399
 00:20:22,521 --> 00:20:27,524
 so it's very simple to manage this. There is also a UI
+那么做到这一点是非常简单的。
 
 400
 00:20:27,593 --> 00:20:31,362
