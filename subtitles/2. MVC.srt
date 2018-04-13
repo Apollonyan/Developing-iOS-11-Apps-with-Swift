@@ -2076,7 +2076,7 @@ This is just how the cards behave, how the game works. So
 416
 00:22:02,955 --> 00:22:05,722
 you would never have an emoji in here, in this model. We're
-所以在这个模型里绝不会有一个 emoji 变量，
+所以在这个模型里绝不会有一个 emoji 变量
 
 417
 00:22:05,791 --> 00:22:09,226
@@ -2086,7 +2086,7 @@ in the model here not the UI. Very important to understand.
 418
 00:22:10,862 --> 00:22:15,966
 All right, so now we've got basically all of our API and
-好的，现在我们基本上得到了所有的 API 
+好的，现在我们基本上得到了所有的 API
 
 419
 00:22:16,035 --> 00:22:18,636
@@ -2451,7 +2451,7 @@ and we can't assume that a Concentration game only has 12
 491
 00:25:59,625 --> 00:26:02,559
 cards like we had on the board. Or only has four cards,
-就像我们在面板上的那样子。或者只有四张卡片，
+就像我们在面板上的那样子。或者只有四张卡片
 
 492
 00:26:02,628 --> 00:26:07,231
@@ -2466,7 +2466,7 @@ own init. So let's go, again, make some more space over
 494
 00:26:11,103 --> 00:26:15,238
 here. And add an init to our Concentration class.
-大一点。然后在我们的 Concentration 类里添加一个 init 方法。
+大一点。然后在我们的 Concentration 类里添加一个 init 方法
 
 495
 00:26:15,307 --> 00:26:18,374
@@ -2516,7 +2516,7 @@ let card =, 大概我们比较幸运，我们可以直接
 504
 00:26:48,607 --> 00:26:51,675
 we can just say card. We got, that worked for
-写 Card。写好了，我们写好它让它为 Concentration 
+写 Card。写好了，我们写好它让它为 Concentration
 
 505
 00:26:51,743 --> 00:26:56,212
@@ -2531,7 +2531,7 @@ Because if you look over here to our card.
 507
 00:27:00,152 --> 00:27:04,888
 Let's bring up Mr. Card here. The card,
-让我们把 Card 拿过来。
+让我们把 Card 拿过来
 
 508
 00:27:04,956 --> 00:27:10,227
@@ -2541,7 +2541,7 @@ it has something that has to be initialized there.
 509
 00:27:10,296 --> 00:27:15,198
 Card is a struct. Now, structs get a free initializer
-Card 是一个结构体。现在，结构体也有一个自动获得的构造器（逐一成员构造器）
+Card 是一个结构体，而结构体也有一个自动获得的构造器
 
 510
 00:27:15,267 --> 00:27:17,367
@@ -2556,12 +2556,12 @@ So this is another difference between structs and classes.
 512
 00:27:19,871 --> 00:27:23,807
 Struct, the free initializer they get, initializes all of
-结构体的逐一成员构造器，会初始化它的所有变量
+结构体自动获得的逐一成员构造器会初始化它
 
 513
 00:27:23,876 --> 00:27:26,376
 their vars, even if they're already pre-initialized,
-即使它们已经有了默认值
+所有的变量，即使它们已经有了默认值
 
 514
 00:27:26,445 --> 00:27:28,712
@@ -2601,12 +2601,12 @@ identifier 来做这件事情
 521
 00:27:48,233 --> 00:27:51,034
 So I could initialize a card like that, cuz I get a free
-之所以我能够像这样子初始化一个 card 对象，是因为我得到了逐一成员构造器
+之所以我能够像这样子初始化一个 card 对象，是因为我得到了
 
 522
 00:27:51,103 --> 00:27:54,504
 initializer. Classes never get this kind of free initializer.
-类从来没有这种构造器
+逐一成员构造器。类从来没有这种构造器
 
 523
 00:27:54,573 --> 00:27:56,173
@@ -2666,7 +2666,7 @@ got a couple of problems with that, we're trying to do that.
 534
 00:28:31,276 --> 00:28:34,177
 One is this certainly can't be right. Identifier equals
-其中这个问题一定是不对的。Identifier 等于 
+其中这个问题一定是不对的。Identifier 等于
 
 535
 00:28:34,246 --> 00:28:38,548
@@ -2701,7 +2701,7 @@ that is make the internal name be different, like i.
 541
 00:28:52,598 --> 00:28:54,865
 And then I could say identifier = i.
-这样子我可以说 identifer = i 
+这样子我可以说 identifer = i
 
 542
 00:28:54,933 --> 00:28:57,534
@@ -2761,7 +2761,7 @@ external name. Now, inits are the one method that
 553
 00:29:28,500 --> 00:29:33,336
 usually has the same internal name and external name. Most
-拥有相同的参数标签和参数名称的方法。
+拥有相同的参数标签和参数名称的方法
 
 554
 00:29:33,405 --> 00:29:36,873
@@ -2951,7 +2951,7 @@ And there's special syntax in Swift because it's so
 591
 00:31:31,123 --> 00:31:33,089
 common to wanna make a countable range. And
-创建一个 CountableRange 实在是太常见了。
+创建一个 CountableRange 实在是太常见了
 
 592
 00:31:33,158 --> 00:31:38,294
@@ -3001,7 +3001,7 @@ that means zero to here, including this one.
 601
 00:32:11,663 --> 00:32:14,197
 So, here, if I wanted to use that one, I would say one dot,
-如果我想要使用这个，我会写成从一开始，
+如果我想要使用这个，我会写成从一开始
 
 602
 00:32:14,265 --> 00:32:18,100
@@ -3141,7 +3141,7 @@ and another different copy that gets put here. So
 629
 00:33:53,431 --> 00:33:56,132
 understand that when you pass these structs around,
-理解这个原理，你就会明白，当你传递结构体的时候，
+理解这个原理，你就会明白，当你传递结构体的时候
 
 630
 00:33:56,200 --> 00:33:57,901
@@ -3492,7 +3492,7 @@ Concentration，因为这里我们有一个警告，让我们
 699
 00:37:54,506 --> 00:37:57,040
 see what this warning is all about. It says immutable value
-看看这个警告是关于什么的。它写着 不可变值 
+看看这个警告是关于什么的。它写着 不可变值
 
 700
 00:37:57,108 --> 00:38:00,710
@@ -3542,7 +3542,7 @@ it's external name was underbar. Which means don't
 709
 00:38:26,203 --> 00:38:28,738
 give an external name when you call this because remember
-并没有给它一个参数标签，因为 
+并没有给它一个参数标签，因为
 
 710
 00:38:28,807 --> 00:38:30,873
@@ -3557,7 +3557,7 @@ This target action, and so it didn't have external name and
 712
 00:38:33,444 --> 00:38:34,310
 so we just said, hey,
-所以我们说过，
+所以我们说过
 
 713
 00:38:34,379 --> 00:38:37,179
@@ -3637,7 +3637,7 @@ now we can go back over to our view controller over here. And
 728
 00:39:22,728 --> 00:39:27,063
 find it. There it is. And Concentration
-找到它，它在这儿。并且 Concentration 
+找到它，它在这儿。并且 Concentration
 
 729
 00:39:27,132 --> 00:39:31,066
@@ -3742,7 +3742,7 @@ thing to do but I got a very serious error here. Okay,
 749
 00:40:27,158 --> 00:40:29,993
 let's look at it. It says, cannot use Instance member
-让我们看一下它。它写着，在这里不能使用实例成员 
+让我们看一下它。它写着，在这里不能使用实例成员
 
 750
 00:40:30,061 --> 00:40:33,830
@@ -3867,7 +3867,7 @@ this way, so it's awesome. There is one restriction
 774
 00:41:46,337 --> 00:41:48,437
 about lazy though, that's not so nice.
-lazy 的限制，这不太好。
+lazy 的限制，这不太好
 
 775
 00:41:48,506 --> 00:41:52,909
@@ -6042,7 +6042,7 @@ Cuz you chose a card that was face down, right there so
 1209
 01:05:29,092 --> 01:05:32,193
 I'm gonna say cards sub index is...
-我会写成，那张卡片的 
+我会写成，那张卡片的
 
 1210
 01:05:33,697 --> 01:05:37,198
@@ -6057,7 +6057,7 @@ I'm flipping it up of course. And number two and
 1212
 01:05:39,469 --> 01:05:43,337
 most importantly the index of the one and only face up card
-也是最重要的是，indexOfOneAndOnlyFaceUpCard 
+也是最重要的是，indexOfOneAndOnlyFaceUpCard
 
 1213
 01:05:43,406 --> 01:05:48,542
@@ -6107,7 +6107,7 @@ all be face down but so it's a little of wasted work.
 1222
 01:06:10,867 --> 01:06:15,636
 I'm just gonna go for flip down index in, what?
-我要写 for flipDownIndex in 
+我要写 for flipDownIndex in
 
 1223
 01:06:15,705 --> 01:06:21,943
@@ -6147,7 +6147,7 @@ But now you've chose a card, so I'm gonna turn that card
 1230
 01:06:45,835 --> 01:06:53,541
 that you just chose back to face up. .isFaceUp = true and
-翻到正面，isFaceUp 设为 true 
+翻到正面，isFaceUp 设为 true
 
 1231
 01:06:53,610 --> 01:06:56,944

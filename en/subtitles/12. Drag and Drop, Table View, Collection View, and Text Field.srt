@@ -1,0 +1,6866 @@
+﻿1
+00:00:00,401 --> 00:00:04,937
+[MUSIC]                         
+
+2
+00:00:05,005 --> 00:00:07,439
+Stanford University.            
+>> Okay, well,                  
+
+3
+00:00:07,508 --> 00:00:12,177
+welcome to Lecture number       
+12 of Stanford CS193P,          
+
+4
+00:00:12,246 --> 00:00:16,481
+Fall of 2017. And today,        
+we're gonna continue the demo   
+
+5
+00:00:16,550 --> 00:00:19,251
+we started with Emoji Art and   
+we're gonna,                    
+
+6
+00:00:19,320 --> 00:00:22,787
+we learned a little bit about   
+table view in the last one.     
+
+7
+00:00:22,856 --> 00:00:25,791
+This time, we're gonna learn    
+more about collection view and  
+
+8
+00:00:25,860 --> 00:00:28,293
+also learn a little bit         
+how drag and drop, and          
+
+9
+00:00:28,362 --> 00:00:31,229
+collection view and table view  
+all go together. And then I'm   
+
+10
+00:00:31,298 --> 00:00:33,498
+gonna go back to the slides     
+and talk about TextField.       
+
+11
+00:00:33,567 --> 00:00:36,468
+And I originally had planned    
+to do a demo in Emoji Art,      
+
+12
+00:00:36,537 --> 00:00:38,437
+of adding a TextField           
+in there, but                   
+
+13
+00:00:38,505 --> 00:00:41,673
+we also have to finish early    
+today, because there's some     
+
+14
+00:00:41,742 --> 00:00:44,609
+huge midterm, in this           
+room right after us, and        
+
+15
+00:00:44,678 --> 00:00:46,911
+we have to have time            
+to clear out of here.           
+
+16
+00:00:46,980 --> 00:00:51,082
+So, I will probably do that     
+demo first thing, next Monday,  
+
+17
+00:00:51,151 --> 00:00:54,653
+or I might just skip that       
+demo, we'll see how it goes.    
+
+18
+00:00:55,856 --> 00:00:57,489
+All right, so                   
+back to Emoji Art here.         
+
+19
+00:00:57,558 --> 00:01:01,359
+What we're gonna do is make     
+first I'm gonna make Emoji Art  
+
+20
+00:01:01,428 --> 00:01:04,796
+scrollable, because we didn't,  
+it just currently,              
+
+21
+00:01:04,865 --> 00:01:08,333
+it's fixed. Then we're gonna    
+add a collectionView along      
+
+22
+00:01:08,401 --> 00:01:10,134
+the top there,                  
+you remember it from the demo,  
+
+23
+00:01:10,203 --> 00:01:13,205
+where we're gonna be able to    
+choose our emoji from. And      
+
+24
+00:01:13,273 --> 00:01:16,908
+then we're gonna add some       
+drag and drop from that         
+
+25
+00:01:16,977 --> 00:01:20,912
+collectionView, both into our   
+view and into other apps, and   
+
+26
+00:01:20,981 --> 00:01:26,218
+vice versa, etc.                
+So let's, actually,             
+
+27
+00:01:26,287 --> 00:01:31,589
+let's take a quick look at      
+what our app looks like so      
+
+28
+00:01:31,658 --> 00:01:36,628
+far, okay, and it's             
+basically working nicely and    
+
+29
+00:01:36,697 --> 00:01:41,833
+that we can pick up images.     
+So I pick up an image here and  
+
+30
+00:01:41,902 --> 00:01:44,869
+drag it in and                  
+drop it to change it.           
+
+31
+00:01:44,938 --> 00:01:47,739
+And of course, we have our      
+table view on the left for      
+
+32
+00:01:47,808 --> 00:01:50,242
+choosing documents and          
+adding documents.               
+
+33
+00:01:50,310 --> 00:01:52,677
+Of course, we haven't hooked    
+our table view up, and          
+
+34
+00:01:52,746 --> 00:01:55,847
+that's okay, but because we're  
+gonna do that next week. But    
+
+35
+00:01:55,916 --> 00:01:58,750
+one thing I wanna have you      
+note about this table view      
+
+36
+00:01:58,819 --> 00:02:02,654
+that's kind of annoying is      
+that I can't get rid of it.     
+
+37
+00:02:02,722 --> 00:02:05,157
+See this table view right       
+here? You can't swipe it away,  
+
+38
+00:02:05,226 --> 00:02:07,993
+and that's because              
+essentially, this app thinks    
+
+39
+00:02:08,062 --> 00:02:10,929
+it's in landscape mode on       
+an iPad, and so of course,      
+
+40
+00:02:10,998 --> 00:02:14,098
+this master and the detail to   
+splitView are side by side.     
+
+41
+00:02:14,167 --> 00:02:17,436
+But, since I'm in               
+multi-tasking mode right here,  
+
+42
+00:02:17,504 --> 00:02:19,738
+so much of my                   
+screen is taken up,             
+
+43
+00:02:19,806 --> 00:02:21,973
+with Safari over                
+here on the right,              
+
+44
+00:02:22,041 --> 00:02:26,211
+that it's annoying because I    
+really wanna focusing on my     
+
+45
+00:02:26,279 --> 00:02:29,581
+Emoji Art document. So I'm      
+gonna talk to you a little bit  
+
+46
+00:02:29,649 --> 00:02:32,550
+how to make it so that that     
+splitView on the left can be    
+
+47
+00:02:32,619 --> 00:02:35,887
+slid out of the way, even in    
+splitView and landscape mode.   
+
+48
+00:02:35,955 --> 00:02:39,024
+So that's the first little      
+thing we're gonna do. So let's  
+
+49
+00:02:39,092 --> 00:02:42,661
+hop on over to our code over    
+here and see how we do that.    
+
+50
+00:02:42,730 --> 00:02:46,131
+It's quite easy, actually,      
+splitView has a var,            
+
+51
+00:02:46,200 --> 00:02:49,634
+a property in it called         
+preferred display mode, and     
+
+52
+00:02:49,703 --> 00:02:54,139
+you can control what happens    
+with the master through that.   
+
+53
+00:02:54,208 --> 00:02:56,341
+And, it's just that the         
+default here is not what we     
+
+54
+00:02:56,409 --> 00:02:59,444
+want. Now the kinda             
+kooky thing about that,         
+
+55
+00:02:59,512 --> 00:03:04,016
+I'm gonna set this var in my    
+master code. So I'm gonna go    
+
+56
+00:03:04,084 --> 00:03:07,486
+to my emojiArtDocument          
+TableViewController, right?     
+
+57
+00:03:07,554 --> 00:03:10,088
+That's the TableViewController  
+with the one, two, three,       
+
+58
+00:03:10,157 --> 00:03:11,990
+the thing that we want          
+to slide out. And               
+
+59
+00:03:12,058 --> 00:03:14,626
+what I'm gonna set it is        
+kind of an unusual place.       
+
+60
+00:03:14,695 --> 00:03:18,463
+I'm gonna set it in             
+viewWillLayoutSubviews. And     
+
+61
+00:03:18,532 --> 00:03:20,531
+you might be like, whoa,        
+viewWillLayoutSubviews,         
+
+62
+00:03:20,600 --> 00:03:22,801
+that seems like a weird         
+place to set that. Well,        
+
+63
+00:03:22,869 --> 00:03:25,770
+the reason I'm gonna set it     
+there is cuz when the layout    
+
+64
+00:03:25,839 --> 00:03:28,907
+changes, of a splitView,        
+it often resets that preferred  
+
+65
+00:03:28,976 --> 00:03:32,577
+mode. So if I wanna keep        
+enforcing this thing of it,     
+
+66
+00:03:32,646 --> 00:03:35,814
+the master being in slide       
+on top mode, I have to keep     
+
+67
+00:03:35,883 --> 00:03:38,950
+telling it to do that, but      
+I also have to be careful       
+
+68
+00:03:39,018 --> 00:03:42,587
+because setting that preferred  
+mode can cause it to relay      
+
+69
+00:03:42,656 --> 00:03:44,989
+out. So I don't wanna end up    
+in an infinite loop here,       
+
+70
+00:03:45,058 --> 00:03:46,458
+right, where in                 
+LayoutSubViews,                 
+
+71
+00:03:46,526 --> 00:03:48,760
+I'm setting preferred mode,     
+it's causing a layout,          
+
+72
+00:03:48,828 --> 00:03:52,697
+I'm coming back in. So I'm      
+gonna do this by saying, if my  
+
+73
+00:03:52,766 --> 00:03:56,034
+splitViewController?.prefer-    
+red,                            
+
+74
+00:03:56,103 --> 00:03:59,671
+to call preferredDisplayMode    
+!= the one I                    
+
+75
+00:03:59,740 --> 00:04:03,008
+want. And you can see           
+there's quite a few here,       
+
+76
+00:04:03,077 --> 00:04:06,311
+there's primaryOverlay,         
+there's primaryHidden,          
+
+77
+00:04:06,380 --> 00:04:09,681
+there's Automatic,              
+there's alwaysShowBoth, etc.    
+
+78
+00:04:09,750 --> 00:04:13,318
+But the one I want is           
+primaryOverlay, so if it's not  
+
+79
+00:04:13,387 --> 00:04:18,156
+primaryOverlay, then I'm gonna  
+set my splitViewControllers,    
+
+80
+00:04:18,225 --> 00:04:22,394
+preferredDisplayMode =          
+.primaryOverlay. And so         
+
+81
+00:04:22,463 --> 00:04:25,897
+that'll keep enforcing          
+it every time, even if,         
+
+82
+00:04:25,965 --> 00:04:28,300
+every time we rotate or         
+whatever,                       
+
+83
+00:04:28,368 --> 00:04:32,303
+I'm gonna keep forcing this     
+cuz I always want that, this    
+
+84
+00:04:32,372 --> 00:04:36,408
+table view to be appearing      
+on top of my emoji art view.    
+
+85
+00:04:36,477 --> 00:04:40,211
+But I also wanna be able        
+to swipe it out of the way,     
+
+86
+00:04:40,280 --> 00:04:42,614
+I just swiped it                
+out of the way.                 
+
+87
+00:04:42,682 --> 00:04:46,785
+Wait, you can't see, hold on,   
+I'll show you. Let me hide      
+
+88
+00:04:46,853 --> 00:04:50,522
+here, Hide Others, okay, so     
+here, I'm swiping it in, and    
+
+89
+00:04:50,591 --> 00:04:53,624
+then I'm swiping it away.       
+Swiping it in, swiping it       
+
+90
+00:04:53,693 --> 00:04:56,828
+away, and I always want it to   
+be that way because it's very   
+
+91
+00:04:56,897 --> 00:04:59,830
+unimportant to access this      
+table. I just go in here,       
+
+92
+00:04:59,899 --> 00:05:03,234
+pick the document I want, now   
+that the document's in there,   
+
+93
+00:05:03,303 --> 00:05:05,570
+I wanna be having as            
+much room to you know,          
+
+94
+00:05:05,639 --> 00:05:08,473
+to drag my stuff in and         
+work here as possible.          
+
+95
+00:05:08,541 --> 00:05:12,110
+Do you understand that          
+primary overlay thing?          
+
+96
+00:05:12,179 --> 00:05:14,312
+And I'm gonna ask you to do     
+that in your homework, just so  
+
+97
+00:05:14,381 --> 00:05:18,082
+you kinda see, what it's        
+all about there. All right,     
+
+98
+00:05:18,151 --> 00:05:21,686
+the next thing I wanna          
+do is to make it so             
+
+99
+00:05:21,755 --> 00:05:24,956
+that my EmojiArtView            
+is scrollable and               
+
+100
+00:05:25,024 --> 00:05:29,026
+zoomable, right, cuz right      
+now, it's just a fixed image.   
+
+101
+00:05:29,095 --> 00:05:30,262
+And we already know             
+how to do that, so              
+
+102
+00:05:30,330 --> 00:05:32,830
+I'm not gonna waste too much    
+time showing you how to make    
+
+103
+00:05:32,899 --> 00:05:35,800
+it scrollable, I'm gonna do it  
+quickly. I'm gonna have some    
+
+104
+00:05:35,869 --> 00:05:39,170
+precanned code to do it, but    
+it's nothing new, it's nothing  
+
+105
+00:05:39,239 --> 00:05:42,140
+that you haven't seen before,   
+in our previous demos.          
+
+106
+00:05:42,208 --> 00:05:44,576
+So I'm gonna go back to my      
+storyboard, here it is,         
+
+107
+00:05:44,645 --> 00:05:48,346
+right here. I'm gonna go down   
+to this viewController right    
+
+108
+00:05:48,415 --> 00:05:51,750
+here, and instead of,           
+right now, what we have,        
+
+109
+00:05:51,819 --> 00:05:54,953
+just to remind you,             
+is we have this drop zone.      
+
+110
+00:05:55,021 --> 00:05:57,222
+And inside the drop zone,       
+we just put our EmojiArtView.   
+
+111
+00:05:57,290 --> 00:05:59,925
+That's why it's not scrollable  
+right there. So I'm gonna       
+
+112
+00:05:59,993 --> 00:06:03,427
+delete it, and instead I'm      
+gonna put a scrollView there,   
+
+113
+00:06:03,496 --> 00:06:06,631
+so I'm gonna go down here and   
+search for a scrollView,        
+
+114
+00:06:06,700 --> 00:06:09,667
+here it is. I'm gonna drag the  
+scrollView in here, I'm gonna   
+
+115
+00:06:09,736 --> 00:06:12,070
+pin the the scrollView to       
+the edges of the drop zone,     
+
+116
+00:06:12,139 --> 00:06:13,605
+of course. So I'll go here and  
+
+117
+00:06:13,674 --> 00:06:16,241
+just pin it right up to the     
+edges. We know how to do that   
+
+118
+00:06:16,309 --> 00:06:18,809
+with this little pin thing,     
+bloop, it spins out, that's     
+
+119
+00:06:18,878 --> 00:06:23,048
+great. Now I'm going to create  
+an outlet to this scrollView,   
+
+120
+00:06:23,116 --> 00:06:26,884
+put it up, where are we gonna   
+put it? Let's put it right      
+
+121
+00:06:26,953 --> 00:06:29,754
+under the drop zone, in here.   
+So I'll Ctrl+drag,              
+
+122
+00:06:29,823 --> 00:06:34,993
+create that scrollView.         
+Now we know that when we        
+
+123
+00:06:35,062 --> 00:06:39,064
+have a scrollView outlet like   
+this, by the way, down here,    
+
+124
+00:06:39,132 --> 00:06:42,767
+this emojiArtView is no longer  
+gonna be an outlet. Okay,       
+
+125
+00:06:42,836 --> 00:06:45,337
+it's just gonna be              
+a regular var and               
+
+126
+00:06:45,405 --> 00:06:49,006
+I'll just set it = creating     
+one. This is exactly what we    
+
+127
+00:06:49,075 --> 00:06:52,276
+did with our image view in our  
+other demo. So we haven't done  
+
+128
+00:06:52,345 --> 00:06:55,780
+anything new here. And when we  
+have a scrollView like this,    
+
+129
+00:06:55,849 --> 00:06:57,815
+we remember we've got to set    
+its minimum scroll view,        
+
+130
+00:06:57,884 --> 00:06:59,817
+maximum.                        
+We've gotta set the delegate,   
+
+131
+00:06:59,886 --> 00:07:01,419
+we've gotta implement           
+that view for zoom.             
+
+132
+00:07:01,487 --> 00:07:04,188
+Remember all that? So I'm       
+gonna do all that really quick  
+
+133
+00:07:04,257 --> 00:07:08,259
+here. Trying to remember what   
+I called, yeah, emojiscroll.    
+
+134
+00:07:08,328 --> 00:07:11,029
+So here it is, here's all that  
+code. I just pop it in there.   
+
+135
+00:07:11,098 --> 00:07:14,932
+In fact, let me go over         
+here and show it in big, so     
+
+136
+00:07:15,001 --> 00:07:16,701
+you can see it. So              
+here's the ScrollView Outlet.   
+
+137
+00:07:16,770 --> 00:07:20,037
+So I just added a didSet        
+to it, to set those things,     
+
+138
+00:07:20,106 --> 00:07:22,173
+right, the delegate. And        
+then I added it as a subview.   
+
+139
+00:07:22,241 --> 00:07:23,875
+Here's viewForZooming.          
+
+140
+00:07:23,943 --> 00:07:26,378
+We're obviously zooming         
+in our emojiArtView.            
+
+141
+00:07:26,446 --> 00:07:29,180
+Then I added a var here,        
+emojiArt background image,      
+
+142
+00:07:29,249 --> 00:07:31,816
+which does the stuff we need    
+to do like setting our content  
+
+143
+00:07:31,885 --> 00:07:33,918
+size equal to the frame.        
+
+144
+00:07:33,987 --> 00:07:36,454
+Right, remember we want that.   
+We always want that frame of    
+
+145
+00:07:36,523 --> 00:07:39,023
+our image view to the same      
+as our content size.            
+
+146
+00:07:39,092 --> 00:07:41,025
+I put a little bit of zooming   
+code in here you can go         
+
+147
+00:07:41,094 --> 00:07:42,360
+look at later,                  
+which is kind of fun,           
+
+148
+00:07:42,429 --> 00:07:46,364
+to give it an initial zoom      
+that's good. And then,          
+
+149
+00:07:46,433 --> 00:07:48,700
+of course, we need to go        
+down here and use this.         
+
+150
+00:07:48,769 --> 00:07:51,503
+So instead of just setting the  
+emoji art, we use background    
+
+151
+00:07:51,571 --> 00:07:54,839
+image directly, I'm gonna use   
+this emoji art background       
+
+152
+00:07:54,908 --> 00:07:59,811
+image var that I just created.  
+That's this var right here.     
+
+153
+00:08:01,114 --> 00:08:03,448
+Hey everybody. See everything   
+I did right there?              
+
+154
+00:08:03,517 --> 00:08:06,784
+And of course it's complaining  
+that I'm not a UI split view    
+
+155
+00:08:06,853 --> 00:08:09,954
+or UI scroll view delegate      
+by the way, so I'll do that.    
+
+156
+00:08:10,023 --> 00:08:14,592
+UI scroll view delegate,        
+now I implement that. So        
+
+157
+00:08:14,661 --> 00:08:19,397
+let's make sure this all        
+works. So here I am in my app,  
+
+158
+00:08:19,466 --> 00:08:21,599
+I'm just gonna swipe that       
+thing out of the way.           
+
+159
+00:08:21,668 --> 00:08:23,968
+I'm gonna grab an image         
+here and drag and               
+
+160
+00:08:24,036 --> 00:08:28,072
+drop it in. Here it is and      
+hopefully I can scroll. Whew!   
+
+161
+00:08:28,141 --> 00:08:31,809
+I can I can scroll way          
+in scroll pan around            
+
+162
+00:08:31,878 --> 00:08:35,413
+scroll in but you know what?    
+That looks incredibly ugly      
+
+163
+00:08:35,482 --> 00:08:37,782
+to have that thing in           
+the upper left. Like that,      
+
+164
+00:08:37,850 --> 00:08:40,185
+if I really were working        
+on this thing, and I have       
+
+165
+00:08:40,253 --> 00:08:41,385
+to all my work in               
+the upper left,                 
+
+166
+00:08:41,454 --> 00:08:43,654
+that would be absolutely        
+ridiculous. So                  
+
+167
+00:08:43,723 --> 00:08:46,824
+what I really want is, I want   
+this thing to stay centered.    
+
+168
+00:08:46,893 --> 00:08:49,693
+As I'm zooming in and out,      
+when I'm zoomed out here.       
+
+169
+00:08:49,762 --> 00:08:52,697
+And when I zoom in, I want to   
+say in the center. Not jump up  
+
+170
+00:08:52,766 --> 00:08:55,767
+there to the left like that.    
+So how am I going to do that?   
+
+171
+00:08:55,836 --> 00:08:58,769
+Well, there's a lot of ways to  
+do that, actually. I'm gonna    
+
+172
+00:08:58,838 --> 00:09:01,272
+do it in a simple way that      
+lets me teach your about how    
+
+173
+00:09:01,340 --> 00:09:05,377
+to control the constraints in   
+your storyboard from code.      
+
+174
+00:09:07,047 --> 00:09:09,247
+That's what this little thing   
+is all about that I'm gonna     
+
+175
+00:09:09,315 --> 00:09:12,117
+show you here. So what I'm      
+gonna do is I'm gonna go back   
+
+176
+00:09:12,185 --> 00:09:16,954
+to my storyboard.               
+And I'm going to                
+
+177
+00:09:17,023 --> 00:09:22,093
+have this scroll view right     
+here always be centered.        
+
+178
+00:09:22,162 --> 00:09:24,028
+So I'm going to keep this       
+scroll view in the center,      
+
+179
+00:09:24,097 --> 00:09:26,498
+now, normally that's already    
+happening, because I'm pinned   
+
+180
+00:09:26,566 --> 00:09:29,500
+to the edges. So of course      
+it's in the center, but         
+
+181
+00:09:29,569 --> 00:09:33,370
+what I'm gonna do then is have  
+the scroll view's width and     
+
+182
+00:09:33,439 --> 00:09:37,008
+height stick to its content     
+size. So if you zoom in so      
+
+183
+00:09:37,077 --> 00:09:38,843
+that the content area           
+gets really small,              
+
+184
+00:09:38,912 --> 00:09:40,945
+the scroll view is gonna get    
+small and it's gonna stay       
+
+185
+00:09:41,014 --> 00:09:42,947
+centered. So that's how         
+we're gonna do this, that's     
+
+186
+00:09:43,016 --> 00:09:46,251
+the trick. So how we gonna do   
+that? Well, of course we need   
+
+187
+00:09:46,319 --> 00:09:48,553
+to make it to our scroll view   
+right here stays centered.      
+
+188
+00:09:48,622 --> 00:09:51,789
+So I'm gonna click down here    
+and just pick horizontally and  
+
+189
+00:09:51,858 --> 00:09:54,392
+vertically in the containers,   
+so now it's centered.           
+
+190
+00:09:54,461 --> 00:09:56,494
+Again, that's not doing         
+anything because those other    
+
+191
+00:09:56,563 --> 00:09:59,864
+constraints. But I still want   
+these other constraints over    
+
+192
+00:09:59,933 --> 00:10:02,600
+here. I just don't              
+want them to be fixed.          
+
+193
+00:10:02,669 --> 00:10:04,935
+I want them to be greater than  
+or equal. This is something     
+
+194
+00:10:05,004 --> 00:10:07,638
+we did in the previous one, as  
+well. So I'm gonna edit all of  
+
+195
+00:10:07,707 --> 00:10:10,875
+these ones about the edges to   
+just be greater than equals,    
+
+196
+00:10:10,944 --> 00:10:13,978
+because I really just want      
+my scroll view to never go      
+
+197
+00:10:14,047 --> 00:10:15,546
+outside the bounds.             
+
+198
+00:10:15,615 --> 00:10:18,682
+But I'm fine if my scroll view  
+gets smaller than the bounds,   
+
+199
+00:10:18,751 --> 00:10:20,318
+I just don't want it to get     
+bigger than the bounds, so      
+
+200
+00:10:20,386 --> 00:10:22,921
+that's why I'm putting this     
+greater than or equals into     
+
+201
+00:10:22,989 --> 00:10:27,358
+here. Now you can see that      
+things have turned red. That's  
+
+202
+00:10:27,426 --> 00:10:31,429
+because it's undetermined       
+right now what size the scroll  
+
+203
+00:10:31,498 --> 00:10:36,100
+view is. Because we             
+turned those equals to be       
+
+204
+00:10:36,169 --> 00:10:39,103
+greater than or equal, so it    
+doesn't know how big it is. So  
+
+205
+00:10:39,171 --> 00:10:41,473
+I'm going to fix                
+the size to start.              
+
+206
+00:10:41,541 --> 00:10:43,641
+I'm gonna ctrl drag to itself.  
+And                             
+
+207
+00:10:43,709 --> 00:10:47,612
+fix both it's width and         
+height. That fixes it, but      
+
+208
+00:10:47,681 --> 00:10:51,148
+of course now the scroll view   
+is always gonna be this size    
+
+209
+00:10:51,217 --> 00:10:55,019
+which is, we'll look over here  
+and find out. 748 by 703 and    
+
+210
+00:10:55,088 --> 00:10:57,922
+a half. So I clearly don't      
+want that. What I want to be    
+
+211
+00:10:57,991 --> 00:11:00,091
+able to do is make this         
+is make this width and          
+
+212
+00:11:00,159 --> 00:11:03,694
+height equal to the scroll      
+views content size. Now,        
+
+213
+00:11:03,763 --> 00:11:05,563
+unfortunately I                 
+can't do that here.             
+
+214
+00:11:05,632 --> 00:11:08,032
+I just know the way to          
+control drag. To do that,       
+
+215
+00:11:08,101 --> 00:11:11,936
+I have to do that in code. So,  
+I'm going to make outlets to    
+
+216
+00:11:12,005 --> 00:11:16,907
+these two constraints and then  
+modify those outlets in code.   
+
+217
+00:11:16,976 --> 00:11:19,310
+So, that that within height     
+is controlled by my code.       
+
+218
+00:11:19,378 --> 00:11:21,312
+So, that is the trickery here.  
+And                             
+
+219
+00:11:21,381 --> 00:11:23,982
+the last thing I wanna do       
+though is I'm gonna try and     
+
+220
+00:11:24,050 --> 00:11:27,285
+set the scroll view size to     
+its content size. But if it     
+
+221
+00:11:27,353 --> 00:11:30,888
+gets really big, I want these   
+other constraints to win.       
+
+222
+00:11:30,957 --> 00:11:32,890
+I want the constraints that     
+keep it from going out, so      
+
+223
+00:11:32,959 --> 00:11:33,591
+the edge is to win.             
+
+224
+00:11:33,659 --> 00:11:36,194
+So that's why I'm going to      
+set the priority of these two   
+
+225
+00:11:36,263 --> 00:11:37,461
+height ones, the height and     
+
+226
+00:11:37,530 --> 00:11:41,765
+width ones, to be lower. So     
+here's the priority over here.  
+
+227
+00:11:41,834 --> 00:11:43,534
+It's currently at               
+the required level.             
+
+228
+00:11:43,603 --> 00:11:47,705
+I'm gonna move it down to low   
+priority for both of them. And  
+
+229
+00:11:47,774 --> 00:11:50,841
+so that will be fine when it's  
+inside the bounds because it    
+
+230
+00:11:50,910 --> 00:11:53,544
+won't be conflicting. But once  
+the scroll view gets big cuz I  
+
+231
+00:11:53,613 --> 00:11:56,247
+zoomed way in then it will get  
+pinned to the edges which is    
+
+232
+00:11:56,316 --> 00:11:59,884
+perfect. All right so how       
+do I make outlets to these?     
+
+233
+00:11:59,953 --> 00:12:01,552
+Just control drag of course.    
+So                              
+
+234
+00:12:01,621 --> 00:12:04,689
+I'm going to bring up my code   
+and we'll put it right there.   
+
+235
+00:12:04,757 --> 00:12:06,891
+So I'm gonna ctrl               
+drag from with.                 
+
+236
+00:12:06,959 --> 00:12:10,094
+Over here you can see that      
+the type of this outlet is NS   
+
+237
+00:12:10,163 --> 00:12:14,666
+layout constraint. I'll call    
+this my scroll view width.      
+
+238
+00:12:16,135 --> 00:12:19,204
+Same thing here with            
+the height. We'll ctrl drag.    
+
+239
+00:12:19,272 --> 00:12:24,108
+This one's going to be my       
+scroll view height. Now         
+
+240
+00:12:24,177 --> 00:12:26,410
+what are we going to change     
+about these constraints?        
+
+241
+00:12:26,479 --> 00:12:28,612
+So if you look at the           
+constraints in the inspector,   
+
+242
+00:12:28,681 --> 00:12:30,014
+let's inspect                   
+these constraints,              
+
+243
+00:12:30,083 --> 00:12:32,416
+like constraint width. These    
+are all the things you can      
+
+244
+00:12:32,485 --> 00:12:34,953
+set in a constraint,            
+right, the items involved,      
+
+245
+00:12:35,021 --> 00:12:37,055
+the relationship whether it's   
+equal to, greater than or       
+
+246
+00:12:37,123 --> 00:12:40,224
+less than. And                  
+look you can set the constant   
+
+247
+00:12:40,293 --> 00:12:43,861
+which is currently 703 and a    
+half. This is the thing I want  
+
+248
+00:12:43,930 --> 00:12:47,165
+to change to fix my width,      
+this constant right here. So    
+
+249
+00:12:47,233 --> 00:12:49,200
+I'm just going to change        
+that constant in my code.       
+
+250
+00:12:49,268 --> 00:12:53,304
+Now when do I need to change    
+it? Get so you can see here.    
+
+251
+00:12:53,373 --> 00:12:55,406
+When do I need to               
+change these constants?         
+
+252
+00:12:55,475 --> 00:12:58,409
+Well anytime I zoom I           
+definitely need to change it,   
+
+253
+00:12:58,478 --> 00:12:59,710
+right? Because as I'm zooming,  
+
+254
+00:12:59,779 --> 00:13:02,213
+I want my scroll view to        
+be changing size. So,           
+
+255
+00:13:02,281 --> 00:13:06,918
+let that's in scroll view did   
+zoom delegate method. And       
+
+256
+00:13:06,986 --> 00:13:11,121
+all I'm going to do in here     
+is set my scroll view height    
+
+257
+00:13:11,190 --> 00:13:15,360
+constant equal to the scroll    
+view's content size.            
+
+258
+00:13:16,429 --> 00:13:18,796
+ContentSize.height.             
+
+259
+00:13:18,865 --> 00:13:22,199
+And same thing here, the        
+scrollViewWidth.constant is     
+
+260
+00:13:22,268 --> 00:13:25,703
+equal to the                    
+scrollView.contentSize.Width.   
+
+261
+00:13:25,772 --> 00:13:29,340
+So now I'm just fixing          
+the width of the scrollView to  
+
+262
+00:13:29,409 --> 00:13:32,343
+its content size. Now again,    
+if it gets too big, this,       
+
+263
+00:13:32,412 --> 00:13:35,513
+this constraint is gonna lose,  
+cuz it's low priority.          
+
+264
+00:13:35,582 --> 00:13:37,014
+The other place I need          
+to do it is, obviously,         
+
+265
+00:13:37,083 --> 00:13:39,850
+when I first set up             
+the image down here,            
+
+266
+00:13:39,919 --> 00:13:41,719
+when I'm first setting all      
+these content size and          
+
+267
+00:13:41,788 --> 00:13:45,222
+all that. So right here         
+I'm gonna be careful and        
+
+268
+00:13:45,291 --> 00:13:48,426
+optionally chain in case this   
+gets called during a prepare.   
+
+269
+00:13:48,495 --> 00:13:51,729
+Might, get, do that and then    
+the, I have the content size,   
+
+270
+00:13:51,798 --> 00:13:53,998
+actually, in a local            
+variable here, size,            
+
+271
+00:13:54,067 --> 00:13:57,635
+from setting these things up    
+here. Okay. And that's it.      
+
+272
+00:13:57,703 --> 00:14:02,506
+So let's go see if this is      
+enough to make this work. And   
+
+273
+00:14:02,575 --> 00:14:05,742
+controlling your constraints    
+from code, I'm gonna show you   
+
+274
+00:14:05,811 --> 00:14:07,978
+another example. I'm not gonna  
+actually do the other example,  
+
+275
+00:14:08,047 --> 00:14:09,680
+cuz I don't wanna,              
+I don't have time in the demo   
+
+276
+00:14:09,749 --> 00:14:13,251
+to show you things twice. But,  
+we'll see another place where   
+
+277
+00:14:13,320 --> 00:14:15,185
+it would make sense             
+in this very app. So            
+
+278
+00:14:15,254 --> 00:14:18,322
+here I'm going to drag in,      
+it's sizing it to this size,    
+
+279
+00:14:18,391 --> 00:14:21,592
+now watch, I'm going to         
+zoom in, the scroll view        
+
+280
+00:14:21,661 --> 00:14:24,495
+is staying the size of it's     
+content size. I'm sorry,        
+
+281
+00:14:24,564 --> 00:14:28,132
+you guys can't see, recall,     
+always remind me of that,       
+
+282
+00:14:28,201 --> 00:14:31,001
+because it's hard for me to     
+remember that. So what I did,   
+
+283
+00:14:31,070 --> 00:14:34,505
+I dragged this in,              
+started here, and               
+
+284
+00:14:34,574 --> 00:14:38,343
+now I just shrink it down and   
+you can see that the scroll     
+
+285
+00:14:38,411 --> 00:14:41,345
+views' bounds are staying       
+hooked to its contents.         
+
+286
+00:14:41,414 --> 00:14:43,881
+And even if I make it very      
+large, now the scroll view's    
+
+287
+00:14:43,950 --> 00:14:45,850
+bounds are way bigger           
+than the borders but            
+
+288
+00:14:45,918 --> 00:14:48,085
+those other constraints         
+are higher priority.            
+
+289
+00:14:48,154 --> 00:14:50,621
+So the scroll view is           
+actually, you can see it        
+
+290
+00:14:50,690 --> 00:14:53,725
+the scroll view indicator's     
+there on the right edge,        
+
+291
+00:14:53,793 --> 00:14:58,829
+it's actually staying           
+inside the bounds. Okay. So     
+
+292
+00:14:58,898 --> 00:15:01,665
+pretty simple, cool fix for     
+
+293
+00:15:01,734 --> 00:15:04,869
+keeping this thing centered     
+right here. All right so        
+
+294
+00:15:04,938 --> 00:15:08,839
+that's that little trick to     
+get back to our code and start  
+
+295
+00:15:08,908 --> 00:15:13,144
+talking about our collection    
+view, here it is. So we're      
+
+296
+00:15:13,213 --> 00:15:16,747
+gonna add that collection view  
+along the top that just has     
+
+297
+00:15:16,816 --> 00:15:20,184
+a bunch of emoji that we're     
+going to use to drag in to our  
+
+298
+00:15:20,253 --> 00:15:24,055
+little UI. And how are we       
+gonna do that? Well, it's       
+
+299
+00:15:24,123 --> 00:15:29,060
+pretty easy actually. Let's     
+start in the storyboard. And    
+
+300
+00:15:29,129 --> 00:15:30,961
+here's our, this is where       
+we're gonna be adding it.       
+
+301
+00:15:31,030 --> 00:15:34,799
+Right here,                     
+same place we just were. Now,   
+
+302
+00:15:34,868 --> 00:15:39,503
+one thing about when you're     
+manipulating your views,        
+
+303
+00:15:39,572 --> 00:15:44,075
+there's a really strong         
+tendency to dive right in here  
+
+304
+00:15:44,144 --> 00:15:47,811
+to these things and just        
+start grabbing the handles.     
+
+305
+00:15:47,880 --> 00:15:50,381
+Grab this, like I wanna put     
+this collectionView on top, so  
+
+306
+00:15:50,450 --> 00:15:52,583
+I really just wanna             
+grab this handle and            
+
+307
+00:15:52,652 --> 00:15:55,819
+pull it down to make room. But  
+you cannot do that. Because     
+
+308
+00:15:55,888 --> 00:15:58,823
+you have constraints that are   
+holding that thing to the top.  
+
+309
+00:15:58,892 --> 00:16:00,391
+And if you just start           
+dragging it down,               
+
+310
+00:16:00,460 --> 00:16:01,959
+all your constraints            
+are gonna turn red and          
+
+311
+00:16:02,028 --> 00:16:02,960
+yellow Things like              
+this can be terrible.           
+
+312
+00:16:03,029 --> 00:16:06,296
+So if you really want to pull   
+that down, you've gotta unhook  
+
+313
+00:16:06,365 --> 00:16:09,766
+it first. And really, this      
+requires you go a little bit    
+
+314
+00:16:09,835 --> 00:16:12,970
+slower on your kind of editing  
+to think ahead, am I going to   
+
+315
+00:16:13,038 --> 00:16:16,140
+have to unhook something? So    
+we definitely have to unhook    
+
+316
+00:16:16,209 --> 00:16:18,308
+this top connection             
+here of the drop zone           
+
+317
+00:16:18,377 --> 00:16:20,844
+to the top of the view,         
+because we're gonna put         
+
+318
+00:16:20,913 --> 00:16:23,581
+a a collection view in          
+between there, all right?       
+
+319
+00:16:23,650 --> 00:16:27,584
+So where is that connection     
+to the top? I've got the drop   
+
+320
+00:16:27,653 --> 00:16:30,721
+zones collect, selected         
+here in the outline, and        
+
+321
+00:16:30,790 --> 00:16:35,125
+here we got right here. Align   
+top to the safe area, I'm just  
+
+322
+00:16:35,194 --> 00:16:39,630
+going to delete that. Now it's  
+no longer hooked to the top.    
+
+323
+00:16:39,699 --> 00:16:42,899
+Now I can safely drag it down   
+to make room for my collection  
+
+324
+00:16:42,968 --> 00:16:45,803
+view. And eventually I'm gonna  
+put my collection view in and   
+
+325
+00:16:45,872 --> 00:16:48,172
+put a constraint that hooks     
+the collection view in.         
+
+326
+00:16:48,241 --> 00:16:52,409
+All right, so how do we get     
+a collection view? We just go   
+
+327
+00:16:52,478 --> 00:16:55,379
+down here and search for        
+collection view, this is the,   
+
+328
+00:16:55,448 --> 00:16:58,316
+you know, pre-packaged MVC but  
+I already got my MVC so         
+
+329
+00:16:58,384 --> 00:17:01,052
+I just want this one which      
+is the collection view.         
+
+330
+00:17:01,121 --> 00:17:04,788
+We're gonna drop it in here.    
+Let's go ahead and              
+
+331
+00:17:04,857 --> 00:17:08,358
+do its constraints. So I want   
+it hooked right up to the top,  
+
+332
+00:17:08,427 --> 00:17:11,762
+I want it right to the left,    
+right to the right.             
+
+333
+00:17:11,830 --> 00:17:14,331
+I actually want some standard   
+spacing here to the bottom      
+
+334
+00:17:14,400 --> 00:17:17,134
+which I'm hoping it's going to  
+say it's nearest neighbor is    
+
+335
+00:17:17,202 --> 00:17:17,902
+that drop zone.                 
+
+336
+00:17:17,970 --> 00:17:21,138
+So let's try that.              
+Looks like it worked, but       
+
+337
+00:17:21,207 --> 00:17:24,408
+what happened to my collection  
+view? It disappeared. Why did   
+
+338
+00:17:24,477 --> 00:17:27,678
+my collection disappear?        
+Let's look at its constraints.  
+
+339
+00:17:29,915 --> 00:17:32,783
+Here's its constraints. It's    
+got the trailing, leading,      
+
+340
+00:17:32,852 --> 00:17:36,520
+bottom space to the drop zone,  
+top to the safe area. What's    
+
+341
+00:17:36,588 --> 00:17:39,957
+the height of the collection    
+view? Not specified, right?     
+
+342
+00:17:40,026 --> 00:17:42,526
+It's like zero.                 
+We never set the height.        
+
+343
+00:17:42,595 --> 00:17:44,395
+Now, what do we want            
+the height to be?               
+
+344
+00:17:44,463 --> 00:17:47,731
+Actually we want the height     
+to kind of be big enough to     
+
+345
+00:17:47,800 --> 00:17:51,202
+include those emoji and want    
+those emoji to be whatever      
+
+346
+00:17:51,271 --> 00:17:54,538
+size the user's accessibility   
+font is, right?                 
+
+347
+00:17:54,607 --> 00:17:56,274
+That's what we really want.     
+I don't have time to show you   
+
+348
+00:17:56,342 --> 00:17:58,776
+that but you know what you      
+need to know to make that work  
+
+349
+00:17:58,844 --> 00:18:01,378
+because what we would do is     
+create the height constraint    
+
+350
+00:18:01,447 --> 00:18:04,314
+in here. And then wire          
+it up into our code and         
+
+351
+00:18:04,383 --> 00:18:07,784
+then we would set it based on   
+the size that is necessary to   
+
+352
+00:18:07,853 --> 00:18:10,287
+fit the font,                   
+the accessibility font.         
+
+353
+00:18:10,356 --> 00:18:13,557
+But in this case what we're     
+going to do is we're just       
+
+354
+00:18:13,626 --> 00:18:15,826
+going to fix its height.        
+So I'm gonna go here.           
+
+355
+00:18:15,895 --> 00:18:19,696
+I've got the collection view    
+selected. Oops wrong one.       
+
+356
+00:18:19,765 --> 00:18:20,764
+I'm gonna go here and           
+fix its height.                 
+
+357
+00:18:20,833 --> 00:18:25,536
+I'm gonna fix its height to     
+be about 80 points high or      
+
+358
+00:18:25,604 --> 00:18:28,505
+so. 80 points is enough to      
+make an emoji that kinda fits   
+
+359
+00:18:28,574 --> 00:18:31,242
+under your finger nicely and    
+it's a good default size.       
+
+360
+00:18:31,310 --> 00:18:36,113
+So there's my collection        
+view reappearing. Another       
+
+361
+00:18:36,182 --> 00:18:39,316
+thing we wanna do is set the    
+size of these cells. Cuz we're  
+
+362
+00:18:39,385 --> 00:18:41,251
+gonna have a bunch of cells     
+in our collection view,         
+
+363
+00:18:41,320 --> 00:18:43,487
+that's what a collection view   
+is a bunch of cells in there.   
+
+364
+00:18:43,555 --> 00:18:45,623
+Remember from the food demos,   
+all the food things?            
+
+365
+00:18:45,691 --> 00:18:48,325
+So you do that by               
+inspecting the collection       
+
+366
+00:18:48,394 --> 00:18:51,762
+view under the size inspector   
+over here. And you can see our  
+
+367
+00:18:51,830 --> 00:18:54,531
+cell size is 50 by 50, I'm      
+gonna make it a little bigger.  
+
+368
+00:18:54,600 --> 00:18:56,066
+Let's go whoops, 80 by 80.      
+
+369
+00:18:56,135 --> 00:18:59,737
+And there's one other thing we  
+wanna do about this collection  
+
+370
+00:18:59,806 --> 00:19:02,973
+view, is that we want it        
+be scrollable horizontally.     
+
+371
+00:19:03,041 --> 00:19:06,510
+We want all those emojis to     
+be falling off to the right,    
+
+372
+00:19:06,579 --> 00:19:09,580
+or to the side of the screen.   
+We don't want them              
+
+373
+00:19:09,648 --> 00:19:12,282
+going down, so I'm gonna go     
+back to the normal inspector    
+
+374
+00:19:12,351 --> 00:19:14,952
+collection view and make sure   
+that my scroll direction is     
+
+375
+00:19:15,021 --> 00:19:17,954
+horizontal. So that it's        
+scrolling horizontally.         
+
+376
+00:19:18,023 --> 00:19:18,723
+In collection view,             
+
+377
+00:19:18,791 --> 00:19:20,291
+you can only scroll in          
+one of two directions,          
+
+378
+00:19:20,359 --> 00:19:21,625
+either vertically or            
+horizontally.                   
+
+379
+00:19:21,693 --> 00:19:25,296
+It doesn't do them both. The    
+other thing about collection    
+
+380
+00:19:25,365 --> 00:19:28,366
+view, very important to         
+understand, never make your     
+
+381
+00:19:28,434 --> 00:19:31,201
+cell size bigger than           
+the non-scrollable width or     
+
+382
+00:19:31,270 --> 00:19:34,939
+height of the collection view.  
+Collection view does not        
+
+383
+00:19:35,007 --> 00:19:37,674
+know how to have cells that     
+are bigger than will fit in     
+
+384
+00:19:37,743 --> 00:19:41,412
+the direction it doesn't        
+scroll. So you have to ensure,  
+
+385
+00:19:41,480 --> 00:19:43,948
+like in your homework           
+you're gonna be making your     
+
+386
+00:19:44,016 --> 00:19:46,483
+cells different sizes, make     
+sure you make it bigger than    
+
+387
+00:19:46,552 --> 00:19:48,319
+the width of                    
+the collection view.            
+
+388
+00:19:48,387 --> 00:19:52,089
+It doesn't really know how to   
+deal with that. So this is      
+
+389
+00:19:52,158 --> 00:19:55,492
+nice now. These cells are just  
+gonna have an emoji in them,    
+
+390
+00:19:55,561 --> 00:19:59,463
+remember? So let's go ahead     
+and put a UI label in there so  
+
+391
+00:19:59,532 --> 00:20:04,401
+we can put our emoji in there.  
+We'll just put this in here.    
+
+392
+00:20:04,470 --> 00:20:07,838
+Let's go ahead and just do,     
+how about vertically and        
+
+393
+00:20:07,906 --> 00:20:11,509
+horizontally centered? Let's    
+make the font a lot bigger,     
+
+394
+00:20:11,578 --> 00:20:13,910
+although I'm gonna              
+set the font in code,           
+
+395
+00:20:13,979 --> 00:20:17,648
+again because I want it to be   
+accessibility friendly there,   
+
+396
+00:20:17,717 --> 00:20:20,650
+but just so that it looks       
+nice in my storyboard,          
+
+397
+00:20:20,719 --> 00:20:22,286
+I'll set it to 64 points,       
+
+398
+00:20:22,354 --> 00:20:25,222
+nice and big. And then I'm      
+also going to put just a nice   
+
+399
+00:20:25,291 --> 00:20:27,057
+little smiley face or           
+something in there.             
+
+400
+00:20:27,126 --> 00:20:29,961
+So, again, this is mostly,      
+I'm doing this just so          
+
+401
+00:20:30,029 --> 00:20:32,530
+it looks nice in                
+the storyboard, right here.     
+
+402
+00:20:32,598 --> 00:20:35,933
+So, I can kind of imagine       
+what my thing is gonna,         
+
+403
+00:20:36,001 --> 00:20:40,237
+look like right here. Now,      
+let's go to our code and start  
+
+404
+00:20:40,306 --> 00:20:43,607
+loading up this collection      
+view with some emoji.           
+
+405
+00:20:43,676 --> 00:20:47,143
+All right, let's go over here.  
+Let's bring up our code,        
+
+406
+00:20:47,212 --> 00:20:50,481
+we have to create an outlet to  
+it of course. So let's go down  
+
+407
+00:20:50,550 --> 00:20:52,483
+there, right before all         
+our drop business and           
+
+408
+00:20:52,552 --> 00:20:54,417
+we'll put our collection        
+view stuff here.                
+
+409
+00:20:54,486 --> 00:20:57,921
+So I'm just gonna Control drag  
+from the collection view into   
+
+410
+00:20:57,990 --> 00:21:01,525
+my code, make sure that it's    
+in the collection view, it is.  
+
+411
+00:21:01,594 --> 00:21:06,797
+I'm gonna call it, I'll call    
+it emojiCollectionView.         
+
+412
+00:21:06,865 --> 00:21:08,766
+So there's my                   
+emojiCollectionView.            
+
+413
+00:21:08,835 --> 00:21:12,603
+Now whenever you wire up        
+a collection view like this,    
+
+414
+00:21:12,672 --> 00:21:14,905
+where you've dropped            
+it in to a MVC,                 
+
+415
+00:21:14,974 --> 00:21:19,643
+the very first thing you're     
+gonna wanna do. All the time,   
+
+416
+00:21:19,712 --> 00:21:24,948
+is go and do didSet. And        
+set you new collection view's   
+
+417
+00:21:25,017 --> 00:21:30,154
+data source,                    
+To be yourself and              
+
+418
+00:21:30,223 --> 00:21:35,893
+the emoji collection view's     
+delegate to be yourself.        
+
+419
+00:21:35,962 --> 00:21:38,462
+Now if you do that prepackaged  
+collection view thing where     
+
+420
+00:21:38,531 --> 00:21:40,397
+you get the whole MVC it        
+will do this for you.           
+
+421
+00:21:40,466 --> 00:21:42,065
+But if you drag your            
+own collection view in          
+
+422
+00:21:42,134 --> 00:21:44,635
+your definitely wanna do this,  
+and of course it's complaining  
+
+423
+00:21:44,703 --> 00:21:46,937
+that I don't implement those    
+protocols so we'll go up to     
+
+424
+00:21:47,005 --> 00:21:52,042
+the top and say.                
+UICollectionViewDataSource,     
+
+425
+00:21:52,110 --> 00:21:56,847
+and UICollectionViewDelegate.   
+And                             
+
+426
+00:21:56,916 --> 00:22:00,717
+by the way, while you're here   
+you probably also want to do    
+
+427
+00:22:00,786 --> 00:22:04,488
+UICollectionViewDelegateFlowL-  
+ayout.                          
+
+428
+00:22:04,557 --> 00:22:06,423
+This one you automatically      
+get to be if you're             
+
+429
+00:22:06,492 --> 00:22:08,826
+the CollectionViewDelegate.     
+This is the delegate            
+
+430
+00:22:08,894 --> 00:22:12,062
+of the thing that does all      
+that text-like flowing layout.  
+
+431
+00:22:12,131 --> 00:22:13,597
+Remember the collection's       
+layout is completely            
+
+432
+00:22:13,666 --> 00:22:16,600
+configurable? But this is the   
+default one so I usually throw  
+
+433
+00:22:16,668 --> 00:22:19,336
+this in here, too. It just      
+helps with escape completion,   
+
+434
+00:22:19,404 --> 00:22:22,039
+and all those kinda things.     
+Now it's complaining because    
+
+435
+00:22:22,107 --> 00:22:24,274
+I don't implement one of these  
+protocols. Let's find out       
+
+436
+00:22:24,343 --> 00:22:27,911
+which one. It's the one         
+UICollectionViewDataSource.     
+
+437
+00:22:27,980 --> 00:22:30,448
+I don't implement that.         
+It has required methods in its  
+
+438
+00:22:30,516 --> 00:22:32,916
+protocol, even though it's      
+an Objective-C protocol.        
+
+439
+00:22:32,985 --> 00:22:34,851
+Let's see what they are.        
+I'm gonna hit Fix and           
+
+440
+00:22:34,920 --> 00:22:37,688
+it added them for me right      
+at the top of my file.          
+
+441
+00:22:37,757 --> 00:22:40,757
+I'm gonna move them, but the    
+two are numberOfItemsInSection  
+
+442
+00:22:40,826 --> 00:22:41,825
+and cellForItemAt.              
+
+443
+00:22:41,894 --> 00:22:44,662
+Of course, those are two of     
+the three we talked about.      
+
+444
+00:22:44,730 --> 00:22:46,329
+The other was                   
+number of sections.             
+
+445
+00:22:46,398 --> 00:22:48,832
+We don't have to implement      
+that because it defaults to     
+
+446
+00:22:48,901 --> 00:22:50,968
+one. That's true for            
+tableView, true for             
+
+447
+00:22:51,036 --> 00:22:53,703
+collectionView as well. So      
+I'm gonna move these back down  
+
+448
+00:22:53,772 --> 00:22:56,774
+here where the rest of my       
+collectionView stuff is, and    
+
+449
+00:22:56,842 --> 00:23:00,644
+we're gonna implement those.    
+So we need a model for          
+
+450
+00:23:00,712 --> 00:23:05,882
+this part of our MVC. And       
+I have this as my model, which  
+
+451
+00:23:05,951 --> 00:23:10,855
+is an array of emojis strings   
+so I actually took a string     
+
+452
+00:23:10,923 --> 00:23:16,059
+of emojis and I mapped it       
+to an array of strings.         
+
+453
+00:23:16,128 --> 00:23:17,727
+Hopefully everybody's           
+getting comfortable with map.   
+
+454
+00:23:17,796 --> 00:23:21,164
+Map just takes a collection     
+and turns it into an array      
+
+455
+00:23:21,233 --> 00:23:25,335
+where it executes this closure  
+on each of the items. So        
+
+456
+00:23:25,404 --> 00:23:28,705
+now emojis if you look at its   
+type is array of string, and    
+
+457
+00:23:28,774 --> 00:23:30,273
+each string is one emoji.       
+
+458
+00:23:30,342 --> 00:23:35,111
+Okay, so how many items do I    
+have in my only section? Well,  
+
+459
+00:23:35,180 --> 00:23:39,049
+of course, it's the number of   
+emojis. That's how many items   
+
+460
+00:23:39,118 --> 00:23:42,619
+there are in the collection     
+view. I only have one section,  
+
+461
+00:23:42,688 --> 00:23:46,456
+and that brings us down here    
+to the all-important sell for   
+
+462
+00:23:46,525 --> 00:23:48,492
+item at where we                
+have to let some                
+
+463
+00:23:48,561 --> 00:23:51,294
+cell =                          
+collectionView.dequeueReusabl-  
+
+464
+00:23:51,363 --> 00:23:55,165
+eCell with ReuseIdentifier,     
+right? And we're gonna have to  
+
+465
+00:23:55,234 --> 00:23:59,402
+specify something. I'll call    
+it an EmojiCell, and for        
+
+466
+00:23:59,471 --> 00:24:03,807
+index path. There that's        
+the index path we're creating   
+
+467
+00:24:03,875 --> 00:24:06,310
+the cell for. And we're         
+gonna use the return cell.      
+
+468
+00:24:08,247 --> 00:24:11,915
+Now we need to load up          
+this emoji into that cell.      
+
+469
+00:24:11,983 --> 00:24:14,885
+And for collection view, all    
+the cells are custom cells.     
+
+470
+00:24:14,953 --> 00:24:17,787
+You have to have a subclass     
+of, if you're gonna have any    
+
+471
+00:24:17,856 --> 00:24:20,457
+outlets to anything,            
+you have to have a subclass.    
+
+472
+00:24:20,526 --> 00:24:24,027
+Because we couldn't have        
+an outlook in our collection    
+
+473
+00:24:24,096 --> 00:24:26,430
+view itself that                
+pointed to the emoji            
+
+474
+00:24:26,499 --> 00:24:29,499
+because there could be          
+a hundred cells. And so         
+
+475
+00:24:29,568 --> 00:24:32,969
+we just can't do it, and so     
+instead, we have to go and      
+
+476
+00:24:33,038 --> 00:24:36,807
+create a new file, which is a   
+subclass of UI collection view  
+
+477
+00:24:36,875 --> 00:24:39,143
+cell. This one is actually      
+on the right one.               
+
+478
+00:24:39,211 --> 00:24:42,846
+I'm gonna call this an emoji    
+collection view cell, right?    
+
+479
+00:24:42,915 --> 00:24:47,251
+Subclass of UI collection view  
+cell. So it was created here,   
+
+480
+00:24:47,319 --> 00:24:50,955
+let's put it in the right       
+place. Okay, here it is,        
+
+481
+00:24:51,023 --> 00:24:54,959
+right here. I'm gonna mutely    
+go to my story board,           
+
+482
+00:24:55,928 --> 00:24:56,994
+where's my story board?         
+
+483
+00:24:57,063 --> 00:25:00,865
+Here it is, and I'm going       
+to inspect this cell. And       
+
+484
+00:25:02,300 --> 00:25:07,070
+I'm gonna set its reuse         
+identifier to emoji cell,       
+
+485
+00:25:07,139 --> 00:25:09,472
+that was the thing I dequeue,   
+whatever,                       
+
+486
+00:25:09,541 --> 00:25:10,874
+do reusable cell with, and      
+
+487
+00:25:10,943 --> 00:25:14,411
+I'm gonna set its identity to   
+be an emoji collectivity cell.  
+
+488
+00:25:14,479 --> 00:25:19,650
+All right? So this cell is      
+of type my subclass, and        
+
+489
+00:25:19,718 --> 00:25:23,854
+its identifier of this cell,    
+didn't I type that in there?    
+
+490
+00:25:23,923 --> 00:25:27,491
+Emoji cell? Emoji cell,         
+that's its type.                
+
+491
+00:25:30,362 --> 00:25:33,530
+All right, so now that we have  
+this, let's go ahead and wire   
+
+492
+00:25:33,599 --> 00:25:37,000
+up this little label where      
+we're gonna put the emoji to    
+
+493
+00:25:37,068 --> 00:25:40,704
+that custom cell. Now, a lot    
+of times, Interface Builder     
+
+494
+00:25:40,773 --> 00:25:42,940
+will not get this right,        
+but it did this time.           
+
+495
+00:25:43,008 --> 00:25:44,808
+Where if you go to              
+automatic mode,                 
+
+496
+00:25:44,877 --> 00:25:48,211
+it kinda realizes that that     
+thing that you have selected,   
+
+497
+00:25:48,280 --> 00:25:50,280
+could be hooked up              
+to the controller,              
+
+498
+00:25:50,349 --> 00:25:53,417
+if there were just one of them  
+or more likely, it's hooked up  
+
+499
+00:25:53,485 --> 00:25:57,454
+to this custom cell. So you     
+don't have to use automatic,    
+
+500
+00:25:57,523 --> 00:25:59,756
+you could use manual and        
+go find the file. But           
+
+501
+00:25:59,825 --> 00:26:04,394
+automatic sometimes will work,  
+sometimes not. So here we go.   
+
+502
+00:26:04,463 --> 00:26:07,264
+We've got this label. I'm just  
+going to create an outlet to    
+
+503
+00:26:07,332 --> 00:26:10,901
+it in my custom subclass,       
+so here we go. And              
+
+504
+00:26:10,970 --> 00:26:14,738
+then there into UI label,       
+I'll call it Label.             
+
+505
+00:26:14,807 --> 00:26:17,974
+It's this cell's label and      
+that's it. Now,                 
+
+506
+00:26:18,043 --> 00:26:21,978
+I'm not putting any other code  
+in here, but I could. It would  
+
+507
+00:26:22,047 --> 00:26:25,149
+no be not unreasonable to put   
+a bunch of logic in your cell.  
+
+508
+00:26:25,217 --> 00:26:28,551
+If you have logic that is per   
+cell. Then putting it here      
+
+509
+00:26:28,620 --> 00:26:31,288
+could make a lot of sense.      
+Just because this one           
+
+510
+00:26:31,356 --> 00:26:33,590
+only has an outlet,             
+it's a very, very simple cell,  
+
+511
+00:26:33,659 --> 00:26:36,126
+doesn't mean you couldn't put   
+other code in there. I don't    
+
+512
+00:26:36,194 --> 00:26:39,296
+want you to get the idea these  
+are only outlet bags, they      
+
+513
+00:26:39,365 --> 00:26:41,999
+actually could have logic in    
+them if it made sense as well.  
+
+514
+00:26:42,067 --> 00:26:44,200
+Probably will make sense in     
+your homework test logic in     
+
+515
+00:26:44,269 --> 00:26:48,072
+your cells. All right?          
+So we've got this cell. So      
+
+516
+00:26:48,140 --> 00:26:53,109
+let's go back now to our        
+place where we're creating      
+
+517
+00:26:53,178 --> 00:26:56,814
+this cell. And we've got this   
+dequeued reusable cell. For     
+
+518
+00:26:56,882 --> 00:26:59,683
+us to access the outlets        
+of it, we have to cast it.      
+
+519
+00:26:59,752 --> 00:27:04,020
+We have to say, if let          
+emojiCell equal the cell,       
+
+520
+00:27:04,089 --> 00:27:08,859
+as our custom subclass,         
+EmojiCollectionViewCell.        
+
+521
+00:27:08,928 --> 00:27:12,662
+And if we can successfully      
+cast it, then we can tell       
+
+522
+00:27:12,731 --> 00:27:17,267
+the emojiCell label, okay, to   
+set its attributed text equal   
+
+523
+00:27:17,336 --> 00:27:21,504
+to something, text, so          
+what is that something?         
+
+524
+00:27:21,573 --> 00:27:24,775
+Well, that something is gonna   
+be taking one of these,         
+
+525
+00:27:24,844 --> 00:27:27,277
+whatever thing is at            
+this index path, and            
+
+526
+00:27:27,346 --> 00:27:30,246
+set its font cuz I wanna        
+control its font in code and    
+
+527
+00:27:30,315 --> 00:27:33,250
+then put it in there. So        
+I'm just gonna let text equals  
+
+528
+00:27:33,318 --> 00:27:37,887
+NSAttributedString. The string  
+of it is going to be            
+
+529
+00:27:37,956 --> 00:27:43,894
+the emojis sub indexPath dot    
+item, that tells us which       
+
+530
+00:27:43,963 --> 00:27:47,264
+emoji we're talking about       
+here. And the attributes,       
+
+531
+00:27:47,332 --> 00:27:49,699
+I'm going to just set           
+the attributes of the font,     
+
+532
+00:27:49,768 --> 00:27:52,436
+that's the only attribute I'm   
+gonna set. I'm gonna set it to  
+
+533
+00:27:52,505 --> 00:27:54,571
+this var font, which I'm        
+gonna create up here,           
+
+534
+00:27:54,639 --> 00:27:58,208
+private var font, which         
+is gonna be a UIFont. And       
+
+535
+00:27:58,277 --> 00:28:01,477
+I'm going to do the whole       
+accessibility thing here.       
+
+536
+00:28:01,546 --> 00:28:04,981
+Which is, I have to use         
+UIFontMetrics, all right? And   
+
+537
+00:28:05,050 --> 00:28:10,154
+I want the font metrics for     
+the text style, dot body. And   
+
+538
+00:28:10,222 --> 00:28:15,124
+I'm going to scale the font.    
+Scale font for,                 
+
+539
+00:28:15,193 --> 00:28:19,496
+and the font I'm                
+gonna use is UI font,           
+
+540
+00:28:19,564 --> 00:28:25,669
+preferred font body, but        
+I'm going to scale it up.       
+
+541
+00:28:29,007 --> 00:28:32,275
+I'll say it with size,          
+it's a little easier,           
+
+542
+00:28:32,344 --> 00:28:36,279
+with size 64. So I want 64      
+point, but I'm gonna have it    
+
+543
+00:28:36,348 --> 00:28:39,783
+scaled by whatever the          
+accessibility thing is, right?  
+
+544
+00:28:39,851 --> 00:28:42,619
+So if your accessibility is     
+in the middle, size of font,    
+
+545
+00:28:42,687 --> 00:28:43,554
+I'm gonna do 64 to              
+make it bigger,                 
+
+546
+00:28:43,622 --> 00:28:45,121
+it'll be bigger in 64 and       
+smaller.                        
+
+547
+00:28:45,190 --> 00:28:48,191
+Now, this is not going to work  
+well right now because I don't  
+
+548
+00:28:48,259 --> 00:28:51,361
+change the collection view's    
+size. So if I set this big,     
+
+549
+00:28:51,430 --> 00:28:53,963
+it's gonna be cut off, and      
+if I set it really small,       
+
+550
+00:28:54,032 --> 00:28:56,733
+the collection view won't       
+shrink up to kinda hold it,     
+
+551
+00:28:56,802 --> 00:28:59,436
+do you see what I'm saying? Do  
+you see what I mean by that?    
+
+552
+00:28:59,505 --> 00:29:01,137
+So we'd have to add             
+that later, but again,          
+
+553
+00:29:01,206 --> 00:29:02,405
+I don't wanna show              
+you hooking up                  
+
+554
+00:29:02,474 --> 00:29:05,942
+to a layout constraint twice.   
+So that's it. This is           
+
+555
+00:29:06,011 --> 00:29:08,345
+all we need to do to get our    
+collection view loaded up.      
+
+556
+00:29:08,414 --> 00:29:11,314
+We implemented those            
+data source methods             
+
+557
+00:29:11,383 --> 00:29:12,982
+that are required, right?       
+Number of sections,             
+
+558
+00:29:13,051 --> 00:29:15,952
+number of rows, items in        
+section and then the cell, for  
+
+559
+00:29:16,021 --> 00:29:20,623
+a certain one. And so let's go  
+over here, so you can see. And  
+
+560
+00:29:20,692 --> 00:29:24,928
+sure enough, along the top,     
+we can see right there that we  
+
+561
+00:29:24,996 --> 00:29:29,399
+have our emojis. It's really    
+nice scrolls. The collection    
+
+562
+00:29:29,467 --> 00:29:31,835
+view is a scroll view, so       
+it's scrolling back and forth,  
+
+563
+00:29:31,904 --> 00:29:34,570
+it's very nice. Now,            
+the next thing we wanna do      
+
+564
+00:29:34,639 --> 00:29:37,874
+is be able to pick these        
+things up and drop them in our  
+
+565
+00:29:37,943 --> 00:29:41,478
+nice background, like if        
+this is our background here,    
+
+566
+00:29:41,547 --> 00:29:43,480
+we wanna pick these things up.  
+
+567
+00:29:43,549 --> 00:29:45,682
+Remember, I dropped the bees    
+in there, the apple, or         
+
+568
+00:29:45,751 --> 00:29:49,386
+whatever. We wanna do that. So  
+how are we gonna do drag and    
+
+569
+00:29:49,454 --> 00:29:51,855
+drop? Well, we haven't done     
+drag yet, we only did drop,     
+
+570
+00:29:51,924 --> 00:29:53,856
+the only thing we've done       
+is dropping in there.           
+
+571
+00:29:53,925 --> 00:29:56,893
+So I'm gonna show you drag in   
+collection view's world, which  
+
+572
+00:29:56,962 --> 00:29:59,763
+looks almost exactly as same    
+as non collection view world.   
+
+573
+00:29:59,832 --> 00:30:01,598
+The only difference             
+between drag in collection      
+
+574
+00:30:01,667 --> 00:30:02,732
+view world is,                  
+
+575
+00:30:02,801 --> 00:30:05,769
+collection view helps you out   
+with which index path are you   
+
+576
+00:30:05,837 --> 00:30:09,306
+dragging. It knows where your   
+finger is, and it's like,       
+
+577
+00:30:09,374 --> 00:30:12,242
+you're dragging that index      
+path and you're dropping it at  
+
+578
+00:30:12,310 --> 00:30:15,045
+that index path, so really      
+just providing index path but   
+
+579
+00:30:15,113 --> 00:30:18,148
+otherwise, it's pretty much     
+exactly the same. All right,    
+
+580
+00:30:18,217 --> 00:30:20,984
+any time you wanna do dragging  
+in a collection view,           
+
+581
+00:30:21,053 --> 00:30:23,953
+the first thing you're always   
+gonna do, just like you         
+
+582
+00:30:24,022 --> 00:30:26,790
+do a drop interaction is        
+the first time you do drag and  
+
+583
+00:30:26,859 --> 00:30:29,126
+drop with a view,               
+with a collection view,         
+
+584
+00:30:29,194 --> 00:30:31,694
+you're gonna set your           
+collection view's drag          
+
+585
+00:30:31,763 --> 00:30:34,431
+delegate to be your self.       
+And then, of course, that's,    
+
+586
+00:30:34,499 --> 00:30:36,132
+you're gonna go up here and     
+you're gonna say, yes,          
+
+587
+00:30:36,201 --> 00:30:40,970
+I implement the UI collection   
+view drag delegate. And         
+
+588
+00:30:41,039 --> 00:30:44,308
+as soon as you do that, it's    
+gonna complain, no, you don't,  
+
+589
+00:30:44,376 --> 00:30:46,943
+and you're gonna click on       
+this and it's gonna say,        
+
+590
+00:30:47,012 --> 00:30:49,012
+do you want me to add           
+the protocol stuff?             
+
+591
+00:30:49,080 --> 00:30:51,815
+And you're gonna say, yeah,     
+sure, what do I need to do?     
+
+592
+00:30:51,884 --> 00:30:55,018
+And it's gonna say, you         
+have to implement items for     
+
+593
+00:30:55,087 --> 00:30:58,555
+beginning. If you remember      
+from the lecture, items for     
+
+594
+00:30:58,623 --> 00:31:01,491
+beginning is the thing that     
+tells the drag system,          
+
+595
+00:31:01,559 --> 00:31:05,028
+here's what we're dragging.     
+So we have to provide these     
+
+596
+00:31:05,097 --> 00:31:08,665
+drag items to drag. So let's    
+do that, let's move this down   
+
+597
+00:31:08,734 --> 00:31:13,536
+again. And in here,             
+so what're,                     
+
+598
+00:31:13,605 --> 00:31:15,739
+how are we gonna provide our    
+items for beginning? Now,       
+
+599
+00:31:15,808 --> 00:31:20,811
+notice the collection view      
+one has add index path, so      
+
+600
+00:31:20,879 --> 00:31:25,716
+it tells us which thing, which  
+IndexPath we are dragging       
+
+601
+00:31:25,784 --> 00:31:28,185
+from, which is really,          
+really convenient for us. So    
+
+602
+00:31:28,253 --> 00:31:30,887
+I'm gonna create, I'm gonna     
+call a little function here.    
+
+603
+00:31:30,956 --> 00:31:35,758
+I'm just gonna return           
+dragItems at indexPath.         
+
+604
+00:31:35,827 --> 00:31:37,727
+This is a function I'm          
+gonna have to write,            
+
+605
+00:31:37,796 --> 00:31:43,032
+private func dragItems          
+at indexPath,                   
+
+606
+00:31:43,101 --> 00:31:46,636
+which is an indexPath, which    
+is just the section, an item.   
+
+607
+00:31:46,705 --> 00:31:50,874
+And it returns this             
+array of UIDragItem,            
+
+608
+00:31:50,943 --> 00:31:53,476
+those are the items that        
+we have to return. So           
+
+609
+00:31:53,545 --> 00:31:58,381
+this all we have to do to get   
+started with drag. And for us,  
+
+610
+00:31:58,449 --> 00:32:00,984
+again, it's really, really      
+easy to implement this because  
+
+611
+00:32:01,053 --> 00:32:04,220
+what we're going to drag        
+Is NSAttributedString,          
+
+612
+00:32:04,289 --> 00:32:06,256
+that's what we're gonna drag,   
+
+613
+00:32:06,325 --> 00:32:08,858
+that's an item provider         
+just like NSURL,                
+
+614
+00:32:08,927 --> 00:32:11,795
+UIImage, NSAttributedString.    
+Also, NSString we               
+
+615
+00:32:11,863 --> 00:32:14,497
+could, do but we're gonna do    
+NSAttributedString, gives us    
+
+616
+00:32:14,566 --> 00:32:17,600
+a little more flexibility for   
+what we're dragging around. So  
+
+617
+00:32:17,669 --> 00:32:19,169
+that's going to be              
+our item provider.              
+
+618
+00:32:19,237 --> 00:32:21,971
+So all we have to do is get     
+the attributedString we want    
+
+619
+00:32:22,040 --> 00:32:24,274
+to drag and then return         
+it in the drag item and         
+
+620
+00:32:24,342 --> 00:32:28,211
+that's it. So how do we         
+get that attributedString?      
+
+621
+00:32:28,280 --> 00:32:31,681
+So I'm gonna say, if I can      
+let the attributedString =,     
+
+622
+00:32:31,749 --> 00:32:36,652
+and what I'm gonna have to do   
+is look at this indexPath,      
+
+623
+00:32:36,721 --> 00:32:40,690
+find my custom cell,            
+look at its outlet, get its     
+
+624
+00:32:40,758 --> 00:32:43,793
+attributedText. Everybody cool  
+with that? That's how I'm       
+
+625
+00:32:43,861 --> 00:32:46,462
+gonna do this. So let's do      
+this all in one line of code,   
+
+626
+00:32:46,531 --> 00:32:51,668
+right? So I'm going to first    
+ask my CollectionView for       
+
+627
+00:32:51,737 --> 00:32:56,673
+the cell for                    
+this item at indexPath.         
+
+628
+00:32:56,742 --> 00:33:01,144
+Now this is like                
+TableView's cell for            
+
+629
+00:33:01,212 --> 00:33:03,647
+row at indexPath.               
+Thing, this only works for      
+
+630
+00:33:03,715 --> 00:33:06,216
+visible cells but, of course,   
+that's going to work here.      
+
+631
+00:33:06,285 --> 00:33:09,886
+I'm dragging this thing, it's   
+got to be visible, right? So    
+
+632
+00:33:09,954 --> 00:33:13,122
+I've got this cell that we're   
+dragging from right here.       
+
+633
+00:33:13,191 --> 00:33:19,695
+Now I'm going to as it to       
+be my custom subclass.          
+
+634
+00:33:19,764 --> 00:33:23,333
+And if that works, hopefully    
+it will, I'm gonna get its      
+
+635
+00:33:23,402 --> 00:33:28,971
+outlet, and I'm gonna           
+grab its attributedText.        
+
+636
+00:33:29,040 --> 00:33:32,976
+So if all that works, I just    
+grabbed the emoji at that       
+
+637
+00:33:33,045 --> 00:33:35,578
+indexPath. So                   
+now that I have the emoji,      
+
+638
+00:33:35,647 --> 00:33:38,481
+all I need to do is create      
+one of these UI drag items,     
+
+639
+00:33:38,550 --> 00:33:41,584
+using that attributedString     
+as the provider, right?         
+
+640
+00:33:41,653 --> 00:33:44,988
+The thing that                  
+provides the data. So           
+
+641
+00:33:45,056 --> 00:33:50,326
+I can do that by saying         
+let dragItem = UIDragItem.      
+
+642
+00:33:50,395 --> 00:33:53,863
+And the drag item creator,      
+you can see it right there,     
+
+643
+00:33:53,932 --> 00:33:58,368
+takes an ItemProvider. And we   
+can create an ItemProvider for  
+
+644
+00:33:58,437 --> 00:34:01,570
+an attributedString by          
+saying ItemProvider.            
+
+645
+00:34:01,639 --> 00:34:04,407
+And it has a few constructors   
+but a really nice one is this   
+
+646
+00:34:04,476 --> 00:34:06,710
+one object where you just       
+give it an object and           
+
+647
+00:34:06,778 --> 00:34:08,878
+it knows how to be              
+provider like a UIImage or      
+
+648
+00:34:08,947 --> 00:34:12,115
+NSAttributedString.             
+So that's what I'm gonna do.    
+
+649
+00:34:12,183 --> 00:34:16,018
+And I'm gonna give it this      
+attributedString that I found   
+
+650
+00:34:16,087 --> 00:34:19,389
+in my cell. And that's it.      
+This creates the drag item,     
+
+651
+00:34:19,457 --> 00:34:22,292
+and now we just return this.    
+We return an array of them,     
+
+652
+00:34:22,360 --> 00:34:24,694
+but we're only dragging         
+this one thing. But             
+
+653
+00:34:24,762 --> 00:34:26,729
+before I return it,             
+I'm gonna do one other thing,   
+
+654
+00:34:26,798 --> 00:34:30,433
+I'm gonna set the drag          
+item's local object             
+
+655
+00:34:30,502 --> 00:34:33,836
+to be that attributedString.    
+Now what does this mean? Well,  
+
+656
+00:34:33,905 --> 00:34:36,739
+if your drag is local within    
+your app, you don't have to go  
+
+657
+00:34:36,808 --> 00:34:39,742
+through all that itemProvider   
+stuff, right? The asynchronous  
+
+658
+00:34:39,811 --> 00:34:41,711
+getting the data from that,     
+remember all the stuff we       
+
+659
+00:34:41,779 --> 00:34:43,779
+had to do in the drop? You      
+don't have to do any of that,   
+
+660
+00:34:43,848 --> 00:34:45,015
+you just grab                   
+the local object.               
+
+661
+00:34:45,083 --> 00:34:47,016
+So this is a way of like        
+short-circuiting all that,      
+
+662
+00:34:47,085 --> 00:34:49,518
+if it's a local drag. But it's  
+gonna work to actually drag     
+
+663
+00:34:49,587 --> 00:34:52,088
+out of our CollectionView to    
+other apps, but when we're      
+
+664
+00:34:52,157 --> 00:34:54,591
+dragging locally, we're going   
+to be able to use this.         
+
+665
+00:34:54,659 --> 00:34:57,860
+So here I'm just gonna return   
+an array of just this one       
+
+666
+00:34:57,929 --> 00:35:00,397
+drag item. By the way,          
+if I couldn't                   
+
+667
+00:35:00,465 --> 00:35:03,433
+get the attributedString        
+out of that cell for            
+
+668
+00:35:03,502 --> 00:35:07,737
+some reason. Then I'm just      
+gonna return empty, so no,      
+
+669
+00:35:07,806 --> 00:35:10,573
+don't do any drag then. So      
+
+670
+00:35:10,642 --> 00:35:14,143
+it's gonna know from this       
+not to begin a drag. Now,       
+
+671
+00:35:14,212 --> 00:35:16,412
+remember I also told you        
+that once you start to drag,    
+
+672
+00:35:16,481 --> 00:35:19,281
+you can add more items by just  
+tapping on them. So you could   
+
+673
+00:35:19,350 --> 00:35:22,051
+be dragging multiple things at  
+once. That's easy to implement  
+
+674
+00:35:22,120 --> 00:35:25,989
+as well. Just like we have      
+this items for beginning,       
+
+675
+00:35:26,057 --> 00:35:30,560
+we have another one called      
+itemsforaddingto, which looks   
+
+676
+00:35:30,628 --> 00:35:33,796
+exactly the same as this.       
+And we're gonna return exactly  
+
+677
+00:35:33,865 --> 00:35:36,766
+the same thing. Because it's    
+giving us the indexPath         
+
+678
+00:35:36,835 --> 00:35:38,935
+that someone tapped on          
+while I was dragging and        
+
+679
+00:35:39,003 --> 00:35:41,404
+I'm just going to get the       
+emoji out of it and return it,  
+
+680
+00:35:41,472 --> 00:35:43,839
+and this is all that's          
+required to do the dragging.    
+
+681
+00:35:43,908 --> 00:35:49,078
+Watch this.                     
+I can drag just from that.      
+
+682
+00:35:49,147 --> 00:35:53,383
+Watch, here's the bee           
+hold down and drag. And         
+
+683
+00:35:53,452 --> 00:35:57,621
+the thing about this is if I'm  
+dragging, I can't drop in my    
+
+684
+00:35:57,689 --> 00:35:59,889
+CollectionView because I        
+haven't implemented drop.       
+
+685
+00:35:59,958 --> 00:36:02,592
+But I can drop other places.    
+I'm going to go over here and   
+
+686
+00:36:02,660 --> 00:36:06,329
+just drop this bee in           
+the Google search bar.          
+
+687
+00:36:06,398 --> 00:36:10,734
+And it searched for bee,        
+believe it or not. So that's    
+
+688
+00:36:10,802 --> 00:36:13,302
+pretty cool. So I got dragged   
+up working to other apps,       
+
+689
+00:36:13,371 --> 00:36:15,037
+so I hardly had to do           
+anything in my app,             
+
+690
+00:36:15,106 --> 00:36:17,206
+just provide that               
+attributedString and drag and   
+
+691
+00:36:17,275 --> 00:36:18,708
+drop. So that's one of          
+the cool thing about drag and   
+
+692
+00:36:18,776 --> 00:36:22,512
+drop, it's so easy to get it    
+going in both directions. So    
+
+693
+00:36:22,580 --> 00:36:23,813
+now, we want to drop.           
+
+694
+00:36:23,881 --> 00:36:26,616
+Now we want to be able to pick  
+this bee up right here and      
+
+695
+00:36:26,685 --> 00:36:30,220
+drop it somewhere else in       
+our CollectionView, so          
+
+696
+00:36:30,289 --> 00:36:34,890
+let's go do that. All right,    
+
+697
+00:36:34,959 --> 00:36:39,229
+so to do the drop part of this  
+just like we did when we went   
+
+698
+00:36:39,297 --> 00:36:42,532
+to do the drag delegate here,   
+we have to do                   
+
+699
+00:36:42,601 --> 00:36:46,402
+emojiCollectionView.dropDele-   
+gate = self.                    
+
+700
+00:36:46,471 --> 00:36:49,538
+And up to the top, look at how  
+many protocols we implement.    
+
+701
+00:36:49,607 --> 00:36:52,708
+Woo, we're cruising today.      
+So let's do                     
+
+702
+00:36:52,777 --> 00:36:58,348
+UICollectionViewDropDelegate    
+and when we do that,            
+
+703
+00:36:58,416 --> 00:37:01,017
+wait for it to compile. It's    
+gonna complain, it says you     
+
+704
+00:37:01,086 --> 00:37:04,921
+don't implement that protocol.  
+Sure, fix. And it says, this    
+
+705
+00:37:04,989 --> 00:37:09,192
+one you must implement which    
+is performDrop. Makes sense,    
+
+706
+00:37:09,260 --> 00:37:12,662
+right, you have to do perform   
+drop or you're not even in      
+
+707
+00:37:12,730 --> 00:37:15,798
+doing drop. So let's copy and   
+paste that one down here.       
+
+708
+00:37:15,867 --> 00:37:20,636
+I'm actually gonna implement    
+perform drop last.              
+
+709
+00:37:20,705 --> 00:37:23,305
+Because there's a couple other  
+ones that I need to implement,  
+
+710
+00:37:23,374 --> 00:37:26,275
+if you remember from what we    
+did before? CanHandle and       
+
+711
+00:37:26,344 --> 00:37:30,379
+session moved, the session      
+updated. Gotta, we can          
+
+712
+00:37:30,448 --> 00:37:33,883
+implement those two so that we  
+get the right little plus sign  
+
+713
+00:37:33,952 --> 00:37:36,052
+when we're dragging it around.  
+And so that we don't try and    
+
+714
+00:37:36,121 --> 00:37:38,321
+accept drops that we            
+don't understand. So            
+
+715
+00:37:38,389 --> 00:37:42,191
+let's do the canHandle. Here's  
+canHandle's collectionView      
+
+716
+00:37:42,260 --> 00:37:46,263
+version. Calling it canHandle   
+looks almost exactly the same   
+
+717
+00:37:46,331 --> 00:37:48,931
+and it will be implemented      
+exactly the same,               
+
+718
+00:37:49,000 --> 00:37:52,535
+which is I'm just gonna say     
+if the session.canLoadObjects   
+
+719
+00:37:52,603 --> 00:37:57,306
+ofClass NSAttributedString,     
+then I'm in. Cuz that's what    
+
+720
+00:37:57,375 --> 00:38:00,643
+my CollectionView can accept.   
+This, by the way, means we're   
+
+721
+00:38:00,712 --> 00:38:03,847
+going to be able to drag        
+just random strings into        
+
+722
+00:38:03,915 --> 00:38:07,049
+our CollectionView. Not just    
+emoji, and first I was like,    
+
+723
+00:38:07,118 --> 00:38:09,085
+I don't want that but then I    
+was like that's kind of cool.   
+
+724
+00:38:09,154 --> 00:38:11,621
+What if I wanted to put         
+a label on something down in    
+
+725
+00:38:11,690 --> 00:38:14,891
+my picture. So I decided        
+that's good, so I'm going to    
+
+726
+00:38:14,959 --> 00:38:18,394
+keep doing that. Then we        
+have the sessiondidupdate,      
+
+727
+00:38:18,463 --> 00:38:21,164
+that we have to do,             
+sessiondidupdate.               
+
+728
+00:38:21,233 --> 00:38:24,700
+Is that what is called?         
+DidUpdate, is this the one?     
+
+729
+00:38:24,769 --> 00:38:28,505
+Yes, dropSessionDidUpdate and   
+what do we need to do in here?  
+
+730
+00:38:28,573 --> 00:38:31,407
+This is where we need to        
+return that drop proposal,      
+
+731
+00:38:31,476 --> 00:38:34,744
+either copy move or cancel,     
+that's all we have to do. And   
+
+732
+00:38:34,813 --> 00:38:38,647
+you can see that here it's a    
+UICollectionViewDropProposal.   
+
+733
+00:38:38,716 --> 00:38:40,517
+And why is that different?      
+Well, let take a look at it.    
+
+734
+00:38:40,585 --> 00:38:45,688
+Let to return                   
+a UICollectionView,             
+
+735
+00:38:45,757 --> 00:38:50,527
+CollectionViewDropProposal.     
+
+736
+00:38:50,595 --> 00:38:53,963
+[BLANK AUDIO].                  
+And look at the constructors.   
+
+737
+00:38:54,031 --> 00:38:57,032
+And there's another             
+constructor, second one,        
+
+738
+00:38:57,101 --> 00:39:00,736
+look at that, intent            
+UICollectionViewDropIntent.     
+
+739
+00:39:00,805 --> 00:39:02,872
+Well, the intent in             
+a CollectionView says,          
+
+740
+00:39:02,941 --> 00:39:06,142
+are you dropping this           
+into this cell or               
+
+741
+00:39:06,211 --> 00:39:08,645
+you want to add a cell?         
+You see the difference?         
+
+742
+00:39:08,713 --> 00:39:10,146
+So that's what we               
+have to specify.                
+
+743
+00:39:10,215 --> 00:39:12,915
+Now in our case, we always      
+want to add a cell, so          
+
+744
+00:39:12,984 --> 00:39:15,985
+you'll see that our intent,     
+let's, sorry,                   
+
+745
+00:39:16,054 --> 00:39:19,355
+let's go back and pick that,    
+we want this constructor.       
+
+746
+00:39:19,424 --> 00:39:22,491
+So the drop operation we're     
+gonna do it first is copy,      
+
+747
+00:39:22,560 --> 00:39:24,793
+I'm gonna change that           
+in a second. But                
+
+748
+00:39:24,862 --> 00:39:28,865
+then the drop intent we want    
+is insertAt destination as      
+
+749
+00:39:28,934 --> 00:39:33,903
+opposed as to insert into       
+the destination cell. Now,      
+
+750
+00:39:33,972 --> 00:39:37,673
+let's talk about copy. If I'm   
+moving the bee around inside    
+
+751
+00:39:37,742 --> 00:39:41,410
+my collectionView, I'm not      
+copying it. And I don't want    
+
+752
+00:39:41,479 --> 00:39:43,512
+the user to think that the bee  
+is going to now be copied and   
+
+753
+00:39:43,581 --> 00:39:46,382
+there will be two bees.         
+So it's move.                   
+
+754
+00:39:46,451 --> 00:39:52,188
+So I have to know, somehow,     
+that I am inside my own         
+
+755
+00:39:52,256 --> 00:39:56,993
+CollectionView. Okay, so how    
+am I going to do that? Well,    
+
+756
+00:39:57,061 --> 00:40:00,830
+what I'm gonna do, what's       
+this problem by the way?        
+
+757
+00:40:00,899 --> 00:40:06,569
+Just the indexPath. Yeah,       
+so how I'm gonna do that?       
+
+758
+00:40:06,638 --> 00:40:09,973
+What I'm gonna do is when       
+I start my drag up here in      
+
+759
+00:40:10,041 --> 00:40:14,310
+itemsForBeginning, I'm gonna    
+set something in the session    
+
+760
+00:40:14,379 --> 00:40:18,147
+called the localContext, and    
+this is in any type any.        
+
+761
+00:40:18,215 --> 00:40:22,451
+And I'm gonna set it to be my   
+collectionView. So this is      
+
+762
+00:40:22,520 --> 00:40:25,588
+just something in the drag      
+session that lets droppees,     
+
+763
+00:40:25,656 --> 00:40:27,089
+people who have dropped know,   
+hey,                            
+
+764
+00:40:27,158 --> 00:40:28,357
+this is a local drag, and       
+
+765
+00:40:28,426 --> 00:40:30,059
+here's the context of it.       
+Well,                           
+
+766
+00:40:30,127 --> 00:40:31,894
+since this drag is coming       
+from the collectionView,        
+
+767
+00:40:31,963 --> 00:40:34,597
+I'm gonna use the               
+collectionView as the context.  
+
+768
+00:40:34,666 --> 00:40:37,533
+All right, so now I can look    
+at this local context down      
+
+769
+00:40:37,602 --> 00:40:40,636
+here to determine whether       
+my drag variables should be     
+
+770
+00:40:40,705 --> 00:40:45,474
+a copy or a move.               
+So I wanna say something like,  
+
+771
+00:40:45,543 --> 00:40:50,947
+let isSelf is myself or         
+whatever, = the session,        
+
+772
+00:40:52,783 --> 00:40:57,753
+Session, it has a thing called  
+a local drop DragSession.       
+
+773
+00:40:57,822 --> 00:41:03,226
+That's the session with         
+discharged it, .localContext,   
+
+774
+00:41:03,294 --> 00:41:07,597
+oops, localContext. I really    
+wanna say if that = my          
+
+775
+00:41:07,665 --> 00:41:11,834
+collectionView.                 
+This is what I'd like to do,    
+
+776
+00:41:11,902 --> 00:41:16,038
+but I cannot do this because    
+this, what type is it?          
+
+777
+00:41:16,107 --> 00:41:20,909
+Any, and you cannot do ==       
+with any, because remember,     
+
+778
+00:41:20,978 --> 00:41:24,647
+the == is just using the        
+equatable protocol, right? And  
+
+779
+00:41:24,716 --> 00:41:27,616
+any can't have any methods or   
+vars, it has to be casted to    
+
+780
+00:41:27,685 --> 00:41:29,886
+something before you            
+can do anything on it.          
+
+781
+00:41:29,954 --> 00:41:31,854
+So you certainly can            
+have equitable for any,         
+
+782
+00:41:31,923 --> 00:41:34,189
+you can't have anything for     
+any. So                         
+
+783
+00:41:34,258 --> 00:41:37,927
+what I'm gonna do is take       
+this little thing and           
+
+784
+00:41:37,996 --> 00:41:41,697
+attempt to cast it as           
+a UICollectionView. I mean if   
+
+785
+00:41:41,766 --> 00:41:44,200
+it's not a UICollectionView     
+it's not to be equal anyway so  
+
+786
+00:41:44,269 --> 00:41:47,303
+I might as well try it.         
+Now if that's nil, we can do    
+
+787
+00:41:47,372 --> 00:41:50,106
+equatable with nil because      
+optional can do equatable,      
+
+788
+00:41:50,175 --> 00:41:53,976
+all right? So now I know        
+whether it's myself or not.     
+
+789
+00:41:54,045 --> 00:41:57,547
+So if it's myself,              
+then I'm just gonna do move,    
+
+790
+00:41:57,616 --> 00:42:00,283
+otherwise I'm gonna do copy.    
+Now I'm not,                    
+
+791
+00:42:00,352 --> 00:42:02,451
+I haven't even implemented      
+performed drop yet.             
+
+792
+00:42:02,520 --> 00:42:05,855
+But let's take a look at what   
+the collectionView does just    
+
+793
+00:42:05,924 --> 00:42:08,758
+with this small amount          
+of information from us.         
+
+794
+00:42:14,465 --> 00:42:16,398
+So here's my                    
+collectionView right here,      
+
+795
+00:42:16,467 --> 00:42:19,502
+now watch I'm gonna drag,       
+click the coffee here.          
+
+796
+00:42:19,570 --> 00:42:22,405
+Look at the collectionView,     
+look what it's doing,           
+
+797
+00:42:22,473 --> 00:42:25,074
+it's making space for           
+me to drop in the new spot.     
+
+798
+00:42:25,143 --> 00:42:29,111
+Do you see that? I can still    
+drop drag over here but         
+
+799
+00:42:29,180 --> 00:42:31,948
+now I'm dragging over here.     
+And it knows that, I might      
+
+800
+00:42:32,016 --> 00:42:35,518
+be dropping there. And in fact  
+if I drop, it doesn't work      
+
+801
+00:42:35,587 --> 00:42:38,054
+because I haven't implemented   
+perform drop. But you           
+
+802
+00:42:38,122 --> 00:42:40,723
+could see the collectionView    
+is already knowing what I'm     
+
+803
+00:42:40,792 --> 00:42:43,493
+doing. So                       
+collectionView really cool for  
+
+804
+00:42:43,561 --> 00:42:46,562
+doing drag and drop, it's so    
+powerful. We hardly do any,     
+
+805
+00:42:46,630 --> 00:42:50,666
+we bring four lines of code,    
+to get this far in the drop.    
+
+806
+00:42:50,735 --> 00:42:53,135
+So let's go back here and       
+do perform drop.                
+
+807
+00:42:53,204 --> 00:42:55,871
+Well, our string of four lines  
+that go is going to end,        
+
+808
+00:42:55,940 --> 00:42:58,507
+because perform drop is         
+a little bit more complicated,  
+
+809
+00:42:58,576 --> 00:43:02,244
+not a lot. But when the         
+perform drop happens, we have   
+
+810
+00:43:02,313 --> 00:43:06,381
+to update our model, which      
+is our list of emojis and       
+
+811
+00:43:06,450 --> 00:43:08,384
+we have to update               
+the collectionView,             
+
+812
+00:43:08,453 --> 00:43:11,353
+all right. Also there's two     
+different kinds of drops here,  
+
+813
+00:43:11,422 --> 00:43:14,957
+there's the drop where it's     
+coming from my collectionView.  
+
+814
+00:43:15,026 --> 00:43:17,426
+In which case, I have to        
+drop in the menu place, and     
+
+815
+00:43:17,495 --> 00:43:19,962
+remove it from the old place    
+because I'm moving. And then,   
+
+816
+00:43:20,031 --> 00:43:23,165
+there's a dropping it's         
+coming from some other app.     
+
+817
+00:43:23,234 --> 00:43:25,667
+Which is allowed, watch this,   
+let's go over here and          
+
+818
+00:43:25,736 --> 00:43:28,136
+select some text.               
+>> [INAUDIBLE]                  
+
+819
+00:43:28,205 --> 00:43:28,705
+>> Sorry you're not on the      
+
+820
+00:43:28,773 --> 00:43:33,475
+screen? Yeah, thank you.        
+I will show you this, hide      
+
+821
+00:43:33,544 --> 00:43:37,847
+others. Okay, so I can go over  
+here, and select this bee, and  
+
+822
+00:43:37,915 --> 00:43:41,250
+drag and drop it over here.     
+And look, it's saying plus,     
+
+823
+00:43:41,319 --> 00:43:45,054
+and it's making room for it,    
+and, I didn't do perform drop.  
+
+824
+00:43:45,123 --> 00:43:47,055
+So I have those two cases       
+to do perform drop.             
+
+825
+00:43:47,124 --> 00:43:50,192
+The local case and Mac case so  
+let's go do both those cases.   
+
+826
+00:43:50,261 --> 00:43:51,661
+We'll do the local case first.  
+
+827
+00:43:53,164 --> 00:43:55,531
+Now when we drop,               
+collectionView has              
+
+828
+00:43:55,599 --> 00:43:58,567
+gives us this coordinator.      
+This coordinator,               
+
+829
+00:43:58,636 --> 00:44:01,070
+I'm gonna make this a little    
+easier to read because it's so  
+
+830
+00:44:01,138 --> 00:44:04,373
+long the name here, you can     
+see there's two arguments to    
+
+831
+00:44:04,442 --> 00:44:07,443
+this thing. One, it's just the  
+collectionView is involved and  
+
+832
+00:44:07,512 --> 00:44:09,344
+the one is this coordinator.    
+Now this coordinator is gonna   
+
+833
+00:44:09,413 --> 00:44:12,948
+give us all the information we  
+need to know to do this drop.   
+
+834
+00:44:13,017 --> 00:44:15,551
+The first thing                 
+it's gonna tell us,             
+
+835
+00:44:15,620 --> 00:44:20,857
+the most important thing is     
+the destinationIndexPath.       
+
+836
+00:44:20,925 --> 00:44:23,992
+Okay, this is obviously         
+the IndexPath where we're       
+
+837
+00:44:24,061 --> 00:44:25,661
+dropping. And                   
+
+838
+00:44:25,730 --> 00:44:30,866
+that = to the coordinator,      
+destinationIndexPath.           
+
+839
+00:44:30,935 --> 00:44:33,769
+But that might be nil, because  
+you might be dragging it in     
+
+840
+00:44:33,837 --> 00:44:35,972
+a part of the collectionView    
+that's not in between any of    
+
+841
+00:44:36,040 --> 00:44:38,741
+the existing cell so            
+this could be nil. So if that   
+
+842
+00:44:38,810 --> 00:44:43,045
+happens, I'm just gonna create  
+an IndexPath with item 0 and    
+
+843
+00:44:43,114 --> 00:44:49,752
+section 0. Okay, I could pick   
+some other IndexPath but        
+
+844
+00:44:49,821 --> 00:44:52,822
+that's what I'm using           
+my default. Okay, so            
+
+845
+00:44:52,891 --> 00:44:56,625
+now we know where we are        
+dropping this drop. And now,    
+
+846
+00:44:56,694 --> 00:44:58,428
+it's just a matter              
+of going through all            
+
+847
+00:44:58,496 --> 00:45:03,332
+these items in                  
+the coordinators items. These   
+
+848
+00:45:03,401 --> 00:45:07,403
+items are UICollectionViewDrop  
+items and they have some very   
+
+849
+00:45:07,471 --> 00:45:09,205
+interesting pieces              
+of information.                 
+
+850
+00:45:09,274 --> 00:45:13,876
+For example,                    
+if I can let sourceIndexPath    
+
+851
+00:45:13,945 --> 00:45:17,580
+= this item's sourceIndexPath,  
+
+852
+00:45:17,649 --> 00:45:21,817
+then I know that this drag      
+is coming from myself, and      
+
+853
+00:45:21,885 --> 00:45:24,787
+this is the sourceIndexPath     
+of it. So I don't even need     
+
+854
+00:45:24,855 --> 00:45:27,356
+to look at the local context    
+in this case to know this is    
+
+855
+00:45:27,425 --> 00:45:28,791
+coming from me, awesome.        
+
+856
+00:45:28,860 --> 00:45:31,327
+And I know now the source and   
+the destination,                
+
+857
+00:45:31,396 --> 00:45:34,197
+this is trivial. All I need     
+to do here is update my model   
+
+858
+00:45:34,265 --> 00:45:36,499
+to have the source going        
+to the destination.             
+
+859
+00:45:36,568 --> 00:45:39,134
+And then update                 
+the collectionView to removed   
+
+860
+00:45:39,203 --> 00:45:42,704
+the one from the source and     
+add it to the other one.        
+
+861
+00:45:42,773 --> 00:45:46,008
+So, this is probably the        
+easiest case, this local case   
+
+862
+00:45:46,077 --> 00:45:49,645
+so let's do it. First,          
+lets get the attributed string  
+
+863
+00:45:49,714 --> 00:45:53,382
+that we need so I can say,      
+if I can let the attributed,    
+
+864
+00:45:53,451 --> 00:45:56,118
+this is the attributed string   
+that we're dragging around.     
+
+865
+00:45:56,187 --> 00:45:58,821
+And luckily, I stashed          
+it in that local object,        
+
+866
+00:45:58,889 --> 00:46:03,492
+remember that? So I'm gonna     
+get the drag item, Item and     
+
+867
+00:46:03,560 --> 00:46:07,929
+get it local object. Remember,  
+I can stashed it in local       
+
+868
+00:46:07,998 --> 00:46:11,033
+object up here when I made the  
+drag item. I don't have to do   
+
+869
+00:46:11,102 --> 00:46:14,169
+any of that provider stuff to   
+get it but I am going to have   
+
+870
+00:46:14,238 --> 00:46:17,773
+to say as NSAttributed string   
+because its in any. So I will   
+
+871
+00:46:17,842 --> 00:46:20,442
+get to the attributed string    
+which I'm going to be able to   
+
+872
+00:46:20,511 --> 00:46:23,612
+cuz I know I set that. Then I   
+can put the attributed string   
+
+873
+00:46:23,681 --> 00:46:27,950
+in the new place and move the   
+other one from the old place.   
+
+874
+00:46:28,019 --> 00:46:31,720
+So here we go, I'm gonna say    
+emojis, this is my model,       
+
+875
+00:46:31,789 --> 00:46:37,994
+remove at                       
+the sourceIndexPath.item so     
+
+876
+00:46:38,062 --> 00:46:42,198
+remove where the thing          
+came from. And emojis           
+
+877
+00:46:42,266 --> 00:46:46,468
+insert this attributedString    
+that's being dragged around     
+
+878
+00:46:46,537 --> 00:46:51,239
+at the destinationIndex         
+path.item. Voila, I've updated  
+
+879
+00:46:51,308 --> 00:46:55,578
+my model. Okay, I moved b       
+from one place to the other.    
+
+880
+00:46:55,646 --> 00:47:02,718
+Okay, destinationIndexPath,     
+Path.                           
+
+881
+00:47:02,786 --> 00:47:07,857
+This one probably also          
+up here, curly brace.           
+
+882
+00:47:07,925 --> 00:47:14,029
+Okay, so now I have to update   
+the collectionView itself,      
+
+883
+00:47:14,098 --> 00:47:18,334
+which is no,                    
+that's not a curly brace.       
+
+884
+00:47:18,402 --> 00:47:21,570
+What'd I do up there?           
+Item, yeah, thank you,          
+
+885
+00:47:21,639 --> 00:47:24,773
+item. All right, so             
+now we've built the model.      
+
+886
+00:47:24,842 --> 00:47:26,341
+Now we're gonna update          
+the collectionView.             
+
+887
+00:47:26,410 --> 00:47:27,944
+So that's collectionView.       
+
+888
+00:47:28,012 --> 00:47:30,345
+Now I could, one thing          
+I don't wanna do here,          
+
+889
+00:47:30,414 --> 00:47:33,749
+very important to understand,   
+don't reload data here.         
+
+890
+00:47:33,818 --> 00:47:36,718
+Do not reload data in the       
+middle of a drag, because it    
+
+891
+00:47:36,787 --> 00:47:40,222
+resets the whole world, it's    
+bad, don't do it. So instead,   
+
+892
+00:47:40,291 --> 00:47:43,558
+I gotta remove the rows and     
+insert the rows separately. So  
+
+893
+00:47:43,627 --> 00:47:48,831
+I'm gonna delete the rows       
+at the sourceIndexPath. And     
+
+894
+00:47:48,900 --> 00:47:53,369
+then I'm going to,              
+Insert rows,                    
+
+895
+00:47:54,906 --> 00:47:58,173
+InsertItems, sorry,             
+I keep saying rows,             
+
+896
+00:47:58,242 --> 00:48:03,712
+use the table view at           
+the destinationIndexPath. Now,  
+
+897
+00:48:03,780 --> 00:48:07,649
+This looks like it's.           
+
+898
+00:48:07,718 --> 00:48:12,220
+Insert items. So this looks     
+like this would work fine but   
+
+899
+00:48:12,289 --> 00:48:13,923
+actually this would probably    
+crash your program.             
+
+900
+00:48:13,991 --> 00:48:18,894
+And the reason for that is      
+when you do multiple. This is   
+
+901
+00:48:18,963 --> 00:48:22,898
+indexpath.string. When you      
+do multiple changes to your     
+
+902
+00:48:22,967 --> 00:48:27,102
+collection view, each step      
+would normally have to have     
+
+903
+00:48:27,171 --> 00:48:30,438
+your model completely in sync   
+which it wouldn't be because    
+
+904
+00:48:30,507 --> 00:48:32,041
+until I do both of these,       
+
+905
+00:48:32,110 --> 00:48:34,109
+the table won't be in           
+sync with the model. But        
+
+906
+00:48:34,178 --> 00:48:36,045
+there's a really cool           
+way to get around that,         
+
+907
+00:48:36,114 --> 00:48:38,013
+which is collectionView and     
+
+908
+00:48:38,082 --> 00:48:41,883
+tableView have this method      
+called performBatchUpdates.     
+
+909
+00:48:41,952 --> 00:48:45,887
+And performBatchUpdates just    
+has a closure. Inside that      
+
+910
+00:48:45,956 --> 00:48:50,159
+closure, you can put any        
+number of these delete items,   
+
+911
+00:48:50,228 --> 00:48:52,761
+insert items, move items,       
+whatever you wanna do. And      
+
+912
+00:48:52,830 --> 00:48:55,464
+it will do them all             
+as one operation so             
+
+913
+00:48:55,533 --> 00:48:57,733
+that it never gets out          
+of sync with your model.        
+
+914
+00:48:57,802 --> 00:49:00,469
+See what's happening there?     
+It also has a nice completion   
+
+915
+00:49:00,537 --> 00:49:02,605
+thing here which we             
+don't need in this case.        
+
+916
+00:49:02,673 --> 00:49:04,739
+But when it's all done          
+with all the updates,           
+
+917
+00:49:04,808 --> 00:49:06,909
+it'll call that                 
+completion closer. So           
+
+918
+00:49:06,977 --> 00:49:10,245
+don't forget to do batch        
+updates if you do multiple      
+
+919
+00:49:10,314 --> 00:49:14,150
+adjustments to your tableView   
+or collectionView. And          
+
+920
+00:49:14,218 --> 00:49:16,952
+then the last thing we need     
+to do is ask the coordinator    
+
+921
+00:49:17,021 --> 00:49:20,889
+to do the drop. The reason      
+we need to do this is,          
+
+922
+00:49:20,958 --> 00:49:24,459
+we need to animate the drop     
+happening, right there. So      
+
+923
+00:49:24,528 --> 00:49:28,697
+we're gonna do the drop. The    
+dragItem is the item.dragItem.  
+
+924
+00:49:28,766 --> 00:49:34,904
+And the ItemAt is               
+the destinationIndexPath. So    
+
+925
+00:49:34,972 --> 00:49:36,672
+that's gonna actually           
+make the drop happen.           
+
+926
+00:49:36,740 --> 00:49:40,809
+So this is going to animate     
+and move the bee over.          
+
+927
+00:49:40,878 --> 00:49:44,213
+This is going to, at the same   
+time, be dropping the thing     
+
+928
+00:49:44,281 --> 00:49:47,682
+that's on your finger is going  
+to disappear, and the plus      
+
+929
+00:49:47,751 --> 00:49:52,387
+sign will go away, and all      
+that business. All right, so    
+
+930
+00:49:52,456 --> 00:49:57,659
+let's take a look at this.      
+All right, here we go.          
+
+931
+00:49:57,728 --> 00:50:01,764
+Now we've only done the local   
+case, but here it is, the bee,  
+
+932
+00:50:01,832 --> 00:50:07,069
+moving it around and drop.      
+Woo-hoo, it worked, all right?  
+
+933
+00:50:07,137 --> 00:50:12,641
+This over here, drop. Now this  
+one over here from outside      
+
+934
+00:50:12,710 --> 00:50:16,144
+is still not gonna work.        
+Doesn't work because that's     
+
+935
+00:50:16,213 --> 00:50:19,949
+not the local case, right?      
+So let's do the local case.     
+
+936
+00:50:22,953 --> 00:50:27,723
+All right, so that's the else   
+of this right here. Yeah,       
+
+937
+00:50:27,791 --> 00:50:31,894
+it's the else of,               
+not that one, the else of.      
+
+938
+00:50:31,963 --> 00:50:34,930
+This one, the else of           
+this source index path.         
+
+939
+00:50:34,999 --> 00:50:37,933
+So we don't have a source       
+index path, which means this    
+
+940
+00:50:38,001 --> 00:50:40,803
+thing comes from somewhere      
+else, so how we do this?        
+
+941
+00:50:40,871 --> 00:50:43,405
+Now this turns out to be quite  
+easy to do too amazingly,       
+
+942
+00:50:43,473 --> 00:50:45,774
+but there's a little            
+problem here.                   
+
+943
+00:50:45,843 --> 00:50:49,144
+If you're dragging something    
+from outside and you drop it,   
+
+944
+00:50:49,213 --> 00:50:52,347
+is that information             
+immediately available? No,      
+
+945
+00:50:52,416 --> 00:50:54,950
+you have to asynchronously      
+go fetch it from that thing.    
+
+946
+00:50:55,019 --> 00:50:55,617
+Well, what the heck are you     
+
+947
+00:50:55,686 --> 00:50:58,286
+gonna do with your table        
+while you're off fetching it?   
+
+948
+00:50:58,355 --> 00:51:00,422
+What if it takes ten seconds?   
+So                              
+
+949
+00:51:00,490 --> 00:51:03,425
+what you do is you put          
+a placeholder in your table.    
+
+950
+00:51:03,493 --> 00:51:06,128
+And collection view manages     
+all of that for you, so that    
+
+951
+00:51:06,196 --> 00:51:08,330
+all you have to do is when      
+the data finally does arrive.   
+
+952
+00:51:08,399 --> 00:51:10,633
+You tell the placeholder,       
+context it's called.            
+
+953
+00:51:10,701 --> 00:51:13,001
+Okay, I got the info.           
+Update your model, and          
+
+954
+00:51:13,070 --> 00:51:16,171
+it'll automatically swap out    
+the placeholder cell for        
+
+955
+00:51:16,240 --> 00:51:20,375
+one of your cells that matches  
+the kind of data you have. So   
+
+956
+00:51:20,444 --> 00:51:21,844
+let's see how we do that.       
+
+957
+00:51:21,912 --> 00:51:24,413
+We do this by creating          
+a placeholder context.          
+
+958
+00:51:24,481 --> 00:51:27,816
+This is a thing that's gonna    
+manage that placeholder. And    
+
+959
+00:51:27,884 --> 00:51:32,821
+placeholderContext, you         
+get from the coordinator,       
+
+960
+00:51:32,890 --> 00:51:38,260
+oops, coordinator,              
+by asking it to drop the item   
+
+961
+00:51:38,328 --> 00:51:42,764
+to a placeholder. You see       
+the second initializer there,   
+
+962
+00:51:42,833 --> 00:51:45,934
+dropped item to a placeholder.  
+So I'm gonna do this one. So    
+
+963
+00:51:46,003 --> 00:51:48,737
+the item I'm gonna drag         
+is the item.drag item.          
+
+964
+00:51:48,806 --> 00:51:51,407
+Remember, we're still in this   
+for loop where we're dropping,  
+
+965
+00:51:51,476 --> 00:51:53,174
+cuz we could be dropping        
+multiple items.                 
+
+966
+00:51:53,243 --> 00:51:55,777
+So we're dropping them one      
+by one. So that's what we're    
+
+967
+00:51:55,846 --> 00:51:57,913
+dragging. And then here's       
+the placeholder right here.     
+
+968
+00:51:57,982 --> 00:51:59,081
+So I gotta create               
+one of these.                   
+
+969
+00:51:59,150 --> 00:52:05,020
+Let me make this a little more  
+readable for you here. Okay,    
+
+970
+00:52:05,088 --> 00:52:09,257
+let me put this on another      
+line. All right, so I've gotta  
+
+971
+00:52:09,326 --> 00:52:12,494
+create a UIDropPlaceholder.     
+And to do that, I, it needs to  
+
+972
+00:52:12,563 --> 00:52:15,730
+know where you're gonna         
+insert the placeholder. And     
+
+973
+00:52:15,799 --> 00:52:19,034
+then it has a reuseIdentifier,  
+and I'm gonna talk about that   
+
+974
+00:52:19,102 --> 00:52:21,970
+in a second. So let's put       
+the insertionPathIndex to be,   
+
+975
+00:52:22,039 --> 00:52:24,939
+obviously the destination.      
+Okay. Where                     
+
+976
+00:52:25,008 --> 00:52:28,310
+we're putting this in. That's   
+this thing we calculated right  
+
+977
+00:52:28,379 --> 00:52:30,812
+at the beginning up here.       
+That's the destination. And     
+
+978
+00:52:30,881 --> 00:52:33,582
+look at this reuse identifier.  
+What the heck is that?          
+
+979
+00:52:33,651 --> 00:52:36,885
+Well you get to decide          
+what kind of cell               
+
+980
+00:52:36,954 --> 00:52:40,388
+is the placeholder. It doesn't  
+put some prepackaged one in.    
+
+981
+00:52:40,457 --> 00:52:43,258
+You get to decide. So this      
+is asking you for the reuse     
+
+982
+00:52:43,327 --> 00:52:47,162
+identifier in your storyboard   
+to use to create that thing.    
+
+983
+00:52:47,231 --> 00:52:52,367
+So I'm gonna call mine          
+DropPlaceholderCell.            
+
+984
+00:52:52,436 --> 00:52:55,137
+I can call it anything I want.  
+This is just the string that    
+
+985
+00:52:55,205 --> 00:52:58,773
+I'm gonna use in my storyboard  
+to create this thing. Now       
+
+986
+00:52:58,842 --> 00:53:02,444
+what's interesting also is you  
+can also include at the end of  
+
+987
+00:53:02,513 --> 00:53:07,549
+this a closure. And in that     
+closure you can basically,      
+
+988
+00:53:07,618 --> 00:53:10,186
+initialize this cell or do the  
+same kinda thing you would do,  
+
+989
+00:53:10,254 --> 00:53:12,154
+where you do the                
+dequeueReusableCell, because    
+
+990
+00:53:12,222 --> 00:53:14,089
+that dequeueReusableCell's      
+never gonna be called. This is  
+
+991
+00:53:14,157 --> 00:53:16,291
+the placeholder cell, it's      
+not gonna call that thing. So   
+
+992
+00:53:16,359 --> 00:53:18,427
+here you could do the same      
+kinda setup if you had outlets  
+
+993
+00:53:18,496 --> 00:53:20,562
+in your cell, or whatever,      
+you could set them all up.      
+
+994
+00:53:20,631 --> 00:53:21,663
+We're not gonna have            
+any outlets in our, so          
+
+995
+00:53:21,731 --> 00:53:24,233
+we're not gonna do it, but      
+that's where you would do it.   
+
+996
+00:53:25,802 --> 00:53:30,205
+So did I remember, so I just    
+wanna make sure we got this     
+
+997
+00:53:30,274 --> 00:53:35,577
+all right, no errors. So let's  
+go back to our storyboard and   
+
+998
+00:53:35,646 --> 00:53:37,346
+make that placeholder cell.     
+
+999
+00:53:37,415 --> 00:53:39,448
+The way you make a cell         
+in a collection view,           
+
+1000
+00:53:39,517 --> 00:53:41,783
+you just select                 
+the collection view and         
+
+1001
+00:53:41,852 --> 00:53:44,486
+go over to inspect it. And the  
+very first thing is the items,  
+
+1002
+00:53:44,555 --> 00:53:48,056
+and I want from one item        
+to two items. Okay, and         
+
+1003
+00:53:48,124 --> 00:53:52,060
+it makes a second item right    
+here. And I'm gonna go make     
+
+1004
+00:53:52,129 --> 00:53:57,999
+sure I say it's not an emoji    
+cell, it's a drop placeholder   
+
+1005
+00:53:58,068 --> 00:54:02,504
+cell. That's how I'm linking    
+it to that line of code I       
+
+1006
+00:54:02,572 --> 00:54:06,375
+just wrote. Its type doesn't    
+have to be emoji collection     
+
+1007
+00:54:06,443 --> 00:54:08,977
+view cell because it's not      
+gonna have the emoji in there.  
+
+1008
+00:54:09,045 --> 00:54:12,413
+So I'm gonna make it just be    
+a normal UI collection view     
+
+1009
+00:54:12,482 --> 00:54:17,452
+cell. Nothing special, and it   
+doesn't need this little label  
+
+1010
+00:54:17,521 --> 00:54:19,655
+on the inside because           
+it's a place holder for         
+
+1011
+00:54:19,723 --> 00:54:22,724
+the label, that information     
+hasn't arrived yet. So          
+
+1012
+00:54:22,793 --> 00:54:25,661
+instead I'm gonna put an        
+activity indicator in there.    
+
+1013
+00:54:26,931 --> 00:54:28,230
+So it's spinning there,         
+
+1014
+00:54:28,298 --> 00:54:31,733
+letting the user know I'm       
+waiting on some dropped data.   
+
+1015
+00:54:31,802 --> 00:54:34,103
+So I'm gonna put it in there.   
+Let's go ahead and center it.   
+
+1016
+00:54:35,939 --> 00:54:39,374
+And let's yeah,                 
+that's probably good enough.    
+
+1017
+00:54:39,443 --> 00:54:41,543
+And let's make it so            
+it starts off animating. So,    
+
+1018
+00:54:41,611 --> 00:54:43,545
+I'm gonna click it right here.  
+So it starts off animate,       
+
+1019
+00:54:43,614 --> 00:54:47,416
+so I don't even have to tell    
+it to animate. All right,       
+
+1020
+00:54:47,484 --> 00:54:52,054
+all that. And                   
+what are we using here? Emoji,  
+
+1021
+00:54:52,122 --> 00:54:54,389
+I thought I changed that,       
+I guess not. Yeah.              
+
+1022
+00:54:54,458 --> 00:54:59,194
+Didn't I change that already?   
+I did. Placeholder cell.        
+
+1023
+00:55:00,664 --> 00:55:03,932
+So now that we have this setup  
+for this placeholder cell,      
+
+1024
+00:55:04,001 --> 00:55:09,771
+we go back here to our Code.    
+No, not there. Down here.       
+
+1025
+00:55:09,840 --> 00:55:14,276
+Okay, and we've got this nice   
+placeholder ready to go.        
+
+1026
+00:55:14,345 --> 00:55:16,011
+All we need to do now           
+is go get the data.             
+
+1027
+00:55:16,080 --> 00:55:19,647
+And when it arrives, we just    
+tell the placeholder context,   
+
+1028
+00:55:19,716 --> 00:55:22,084
+here's the,                     
+go swap them out and            
+
+1029
+00:55:22,152 --> 00:55:24,886
+here's my model change.         
+So, I'm gonna get the data      
+
+1030
+00:55:24,955 --> 00:55:26,689
+a little differently            
+than we got before.             
+
+1031
+00:55:26,757 --> 00:55:29,591
+Last time we used that          
+method's load objects,          
+
+1032
+00:55:29,660 --> 00:55:32,827
+plural, on session to load up   
+the objects, remember that?     
+
+1033
+00:55:32,896 --> 00:55:34,763
+When we dropped                 
+the image in there.             
+
+1034
+00:55:34,832 --> 00:55:39,534
+This time I am just gonna grab  
+one thing, not load objects,    
+
+1035
+00:55:39,603 --> 00:55:41,837
+but grab one object             
+that was in my item.            
+
+1036
+00:55:41,905 --> 00:55:45,474
+So I'm gonna say here           
+item.dragItem.itemProvider.     
+
+1037
+00:55:45,542 --> 00:55:49,878
+So this is the item provider,   
+that thing that's provided      
+
+1038
+00:55:49,947 --> 00:55:54,116
+me the item, provides it        
+asynchronously because it's     
+
+1039
+00:55:54,185 --> 00:55:57,519
+outside of my app.              
+Load object,                    
+
+1040
+00:55:57,588 --> 00:56:02,725
+I'm gonna say of class,         
+I want an NSAttributedString.   
+
+1041
+00:56:08,766 --> 00:56:11,934
+And it gives it back to         
+me asynchronously with          
+
+1042
+00:56:12,002 --> 00:56:14,802
+the provider. That's gonna be   
+the attributed string, and      
+
+1043
+00:56:14,871 --> 00:56:17,439
+also possibly and error, which  
+we're gonna ignore the error.   
+
+1044
+00:56:17,507 --> 00:56:19,274
+You can look at the             
+documentation to see what kind  
+
+1045
+00:56:19,343 --> 00:56:21,609
+of errors you can get.          
+But you can imagine right,      
+
+1046
+00:56:21,678 --> 00:56:24,345
+errors providing this data.     
+Now                             
+
+1047
+00:56:24,414 --> 00:56:28,983
+this particular closure is not  
+executed on the main queue. So  
+
+1048
+00:56:29,052 --> 00:56:31,019
+this one we need                
+to unfortunately                
+
+1049
+00:56:31,088 --> 00:56:35,990
+say DispatchQueue.main.async    
+if we wanna do anything,        
+
+1050
+00:56:36,059 --> 00:56:39,394
+to our UI which we do.          
+What we're gonna do here,       
+
+1051
+00:56:39,463 --> 00:56:42,030
+is we are going to change our   
+model which are gonna cause     
+
+1052
+00:56:42,099 --> 00:56:45,033
+some UI stuff to happen.        
+
+1053
+00:56:45,102 --> 00:56:47,636
+Now, it could be actually that  
+the change in this would not    
+
+1054
+00:56:47,704 --> 00:56:50,271
+affect the UI directly cuz      
+we're only changing our model.  
+
+1055
+00:56:50,340 --> 00:56:53,008
+But the problem is we're gonna  
+do it in the context of asking  
+
+1056
+00:56:53,077 --> 00:56:54,976
+the placeholder to              
+replace that cell, and          
+
+1057
+00:56:55,045 --> 00:56:58,213
+that's certainly gonna cause    
+UI. So how do we do this?       
+
+1058
+00:56:58,282 --> 00:57:03,285
+We just say                     
+placeholderContext.commitInse-  
+
+1059
+00:57:03,353 --> 00:57:06,788
+rtion of my data. And           
+
+1060
+00:57:06,857 --> 00:57:11,960
+this right here is              
+the insertionIndexPath,         
+
+1061
+00:57:12,029 --> 00:57:16,264
+and here is the code to fix     
+my model, and that's it.        
+
+1062
+00:57:16,333 --> 00:57:17,866
+This is all we need to do and   
+
+1063
+00:57:17,935 --> 00:57:21,169
+it will automatically           
+replace that placeholder with   
+
+1064
+00:57:21,238 --> 00:57:24,473
+a cell by calling your normal   
+self or item at methods.        
+
+1065
+00:57:24,542 --> 00:57:27,309
+Notice that this                
+insertionIndexPath might        
+
+1066
+00:57:27,377 --> 00:57:30,512
+be different than this          
+destinationIndexPath.           
+
+1067
+00:57:30,581 --> 00:57:35,350
+Why? Because this might have    
+taken ten seconds, not likely,  
+
+1068
+00:57:35,419 --> 00:57:37,953
+but it might have. So it might  
+have changed other things in    
+
+1069
+00:57:38,021 --> 00:57:40,221
+the collection view might       
+have been going on. Okay, and   
+
+1070
+00:57:40,290 --> 00:57:43,758
+new cells adding, other things  
+came faster whatever. So        
+
+1071
+00:57:43,827 --> 00:57:46,794
+always use the insertion index  
+here, and you're only using it  
+
+1072
+00:57:46,863 --> 00:57:49,764
+to update your model. So        
+how do I update my model here?  
+
+1073
+00:57:49,833 --> 00:57:54,502
+Well that's my emojis.insert    
+the thing that                  
+
+1074
+00:57:54,571 --> 00:57:59,341
+came back which is this         
+provider as an attribute        
+
+1075
+00:57:59,409 --> 00:58:04,779
+of strings. So let's say if     
+we can let attributedString     
+
+1076
+00:58:04,848 --> 00:58:08,684
+= provider as                   
+an NSAttributedString.          
+
+1077
+00:58:10,988 --> 00:58:16,224
+Okay, then we can do this.      
+So, insert that                 
+
+1078
+00:58:16,293 --> 00:58:23,064
+attributedString at             
+the insertionIndexPath.item.    
+
+1079
+00:58:23,133 --> 00:58:26,101
+That updates our model,         
+this thing handles the rest.    
+
+1080
+00:58:26,170 --> 00:58:27,035
+You don't have to               
+do anything else,               
+
+1081
+00:58:27,104 --> 00:58:29,204
+you don't have to do            
+any inserting rows,             
+
+1082
+00:58:29,272 --> 00:58:33,741
+any of that business. Yeah,     
+this is attribution.string,     
+
+1083
+00:58:33,810 --> 00:58:36,945
+cuz we have just strings in     
+our model, not attributive      
+
+1084
+00:58:37,014 --> 00:58:39,347
+strings. And of course          
+we need you to do self.,        
+
+1085
+00:58:39,416 --> 00:58:43,251
+right here because we're        
+inside a closure. Now if for    
+
+1086
+00:58:43,320 --> 00:58:46,321
+some reason you couldn't get    
+that attributedString from      
+
+1087
+00:58:46,390 --> 00:58:47,122
+the provider,                   
+
+1088
+00:58:47,190 --> 00:58:50,325
+maybe there's an error          
+instead. Then you wanna let     
+
+1089
+00:58:50,393 --> 00:58:55,496
+the placeholderContext know     
+to delete that placeholder.     
+
+1090
+00:58:55,565 --> 00:58:57,832
+Because you couldn't get        
+the other string after all, so  
+
+1091
+00:58:57,901 --> 00:59:00,735
+you go, and that's it. So       
+all you have to do to accept    
+
+1092
+00:59:00,804 --> 00:59:03,037
+stuff into a collectionView     
+from somewhere else. So         
+
+1093
+00:59:03,106 --> 00:59:08,577
+let's see this in action        
+right here. So we               
+
+1094
+00:59:08,645 --> 00:59:11,947
+haven't hopefully broken our    
+local. Nope, still working,     
+
+1095
+00:59:12,015 --> 00:59:14,683
+and hopefully where you can     
+get our bee and drop it in,     
+
+1096
+00:59:14,751 --> 00:59:17,418
+here we go. Woo-hoo,            
+we got a bee, now our font is   
+
+1097
+00:59:17,487 --> 00:59:20,488
+really big, so we can't see it  
+we'd probably wanna have our    
+
+1098
+00:59:20,557 --> 00:59:23,891
+font self-adjust or whatever.   
+But this is, you know, just     
+
+1099
+00:59:23,960 --> 00:59:27,529
+like anything from now we can   
+move this around, it's part of  
+
+1100
+00:59:27,597 --> 00:59:31,800
+our collectionView etc. So      
+that's collectionView drag and  
+
+1101
+00:59:31,869 --> 00:59:35,269
+drop start to finish not        
+really that complicated it's    
+
+1102
+00:59:35,338 --> 00:59:39,507
+actually they did a pretty      
+good job. Now the next thing    
+
+1103
+00:59:39,576 --> 00:59:44,145
+we wanna do is to drag these    
+things into our image, right?   
+
+1104
+00:59:44,214 --> 00:59:47,749
+We have our, oops let me go     
+back to in my images here,      
+
+1105
+00:59:47,818 --> 00:59:50,485
+and, where's my                 
+favorite image?                 
+
+1106
+00:59:50,553 --> 00:59:53,054
+And well, pick some             
+random image here we go.        
+
+1107
+00:59:53,123 --> 00:59:55,923
+All right, so                   
+I have my image here, and       
+
+1108
+00:59:55,992 --> 00:59:59,127
+we want to be able to pick      
+up an apple and put it          
+
+1109
+00:59:59,196 --> 01:00:02,630
+under the tree. So how are we   
+gonna do that drag and drop?    
+
+1110
+01:00:02,699 --> 01:00:05,633
+Well, we just, all we need to   
+do is implement dropping of     
+
+1111
+01:00:05,702 --> 01:00:09,303
+NSAttributedStrings in our      
+EmojiArtView. That's all you    
+
+1112
+01:00:09,372 --> 01:00:12,841
+need to do and it's so simple   
+let's do that quickly here as   
+
+1113
+01:00:12,910 --> 01:00:16,211
+time is running out. So, let's  
+go to our emoji art view so     
+
+1114
+01:00:16,280 --> 01:00:18,880
+here's our EmojiArtView,        
+it kind of looks very           
+
+1115
+01:00:18,948 --> 01:00:22,684
+simplistic at this point.       
+And I'm going to add or         
+
+1116
+01:00:22,753 --> 01:00:26,721
+drop interaction to it,         
+init's initializers. So         
+
+1117
+01:00:26,789 --> 01:00:31,593
+I have this nice thing I type   
+which is the template for       
+
+1118
+01:00:31,662 --> 01:00:34,295
+having UI view initializers.    
+Remember you have to override   
+
+1119
+01:00:34,364 --> 01:00:36,598
+both these inits,               
+remember that? And              
+
+1120
+01:00:36,666 --> 01:00:39,134
+then I have this nice setup,    
+so in the setup right here,     
+
+1121
+01:00:39,203 --> 01:00:41,903
+I'm just going to add           
+interaction. And remember I'm   
+
+1122
+01:00:41,972 --> 01:00:44,539
+in the UI view now, so          
+I'm adding it to myself.        
+
+1123
+01:00:44,608 --> 01:00:50,578
+UIDropInteraction with          
+the delegate being myself,      
+
+1124
+01:00:50,647 --> 01:00:55,917
+now I'm                         
+a UIDropInteractionDelegate.    
+
+1125
+01:00:55,986 --> 01:00:58,620
+I also have a nice              
+little thing here,              
+
+1126
+01:00:58,689 --> 01:01:01,656
+dropstubs that just             
+gives me the stubs for          
+
+1127
+01:01:01,725 --> 01:01:05,994
+the three methods canHandle,    
+didUpdate, performDrop,         
+
+1128
+01:01:06,063 --> 01:01:08,663
+you should be used to           
+this now. Same as we            
+
+1129
+01:01:08,732 --> 01:01:09,731
+had in the collection view but  
+
+1130
+01:01:09,800 --> 01:01:11,933
+these are the non-collection    
+versions. And                   
+
+1131
+01:01:12,001 --> 01:01:14,702
+so what do I do in canHandle?   
+I just say whether I            
+
+1132
+01:01:14,771 --> 01:01:17,272
+can load the objects of         
+the right class in this case    
+
+1133
+01:01:17,340 --> 01:01:22,210
+attributedStrings. And what     
+do I do in sessionDidUpdate?    
+
+1134
+01:01:22,278 --> 01:01:24,980
+I have to return a drop         
+proposal, here I'm always       
+
+1135
+01:01:25,048 --> 01:01:27,949
+gonna allow dropping            
+an attributedString. And it's   
+
+1136
+01:01:28,017 --> 01:01:30,484
+always gonna be a copy because  
+I'm not gonna move things       
+
+1137
+01:01:30,553 --> 01:01:33,054
+inside myself with drag and     
+drop. I'm gonna move them       
+
+1138
+01:01:33,123 --> 01:01:35,890
+directly, so I'll always do     
+copy here, and then finally I   
+
+1139
+01:01:35,959 --> 01:01:38,059
+just have to load objects       
+of a certain class.             
+
+1140
+01:01:38,127 --> 01:01:39,994
+NSAttributed strings            
+of course, and                  
+
+1141
+01:01:40,063 --> 01:01:42,997
+this is the list of attributed  
+strings, the item providers     
+
+1142
+01:01:43,066 --> 01:01:46,968
+are attributed strings. And     
+here I just need to add these   
+
+1143
+01:01:47,037 --> 01:01:52,474
+things to my view as sub        
+views add labels, sub view.     
+
+1144
+01:01:52,542 --> 01:01:55,076
+So, I'm gonna do this with      
+a little function here,         
+
+1145
+01:01:55,145 --> 01:01:57,178
+add label,                      
+then I'm gonna write.           
+
+1146
+01:01:57,247 --> 01:02:00,849
+And it's going to get           
+the attributed strings so       
+
+1147
+01:02:00,917 --> 01:02:04,152
+let's get the attributedString  
+that we need out of here.       
+
+1148
+01:02:04,221 --> 01:02:06,420
+Actually I also need to         
+know where to drop it so        
+
+1149
+01:02:06,489 --> 01:02:09,191
+let's get the drop              
+point by saying Mr.             
+
+1150
+01:02:09,259 --> 01:02:12,693
+Session, drag session,          
+what is the location of this    
+
+1151
+01:02:12,762 --> 01:02:17,665
+drag in my coordinate system.   
+So I'm just finding out         
+
+1152
+01:02:17,734 --> 01:02:20,168
+where this thing is dropped     
+I obviously need to know,       
+
+1153
+01:02:20,237 --> 01:02:24,205
+where it's dropped to be able   
+to do it. So, then let's add    
+
+1154
+01:02:24,274 --> 01:02:29,076
+all the things that dropped by  
+doing a little for loop for     
+
+1155
+01:02:29,145 --> 01:02:32,780
+attributedString in             
+the providers as?,              
+
+1156
+01:02:32,849 --> 01:02:39,854
+an array of attributedString,   
+which it should be. But maybe   
+
+1157
+01:02:39,923 --> 01:02:42,123
+you didn't know you could       
+do this, but you can say as     
+
+1158
+01:02:42,192 --> 01:02:44,659
+an array right in the middle    
+of a four loop like this. And   
+
+1159
+01:02:44,727 --> 01:02:47,696
+in fact, you can even say if    
+that for some reason is nil,    
+
+1160
+01:02:47,764 --> 01:02:50,598
+cuz you can't as it,            
+then just use an empty array,   
+
+1161
+01:02:50,667 --> 01:02:55,570
+right here. Okay, that's kind   
+of a cool trick. All right,     
+
+1162
+01:02:55,639 --> 01:02:58,539
+so we're gonna add a label      
+with the attributedString,      
+
+1163
+01:02:58,608 --> 01:03:02,343
+we're doing this for each one.  
+And we're going to have it be   
+
+1164
+01:03:02,412 --> 01:03:07,982
+centered at the dropPoint,      
+So we                           
+
+1165
+01:03:08,051 --> 01:03:13,421
+have write this method ourself  
+to do that private func, this   
+
+1166
+01:03:13,490 --> 01:03:18,426
+is an easy one, addLabel(with   
+attributedString:,              
+
+1167
+01:03:18,494 --> 01:03:24,565
+of type NSAttributedString,     
+centeredAt point: CGPoint).     
+
+1168
+01:03:24,634 --> 01:03:29,805
+I'm just gonna create           
+a UILabel. I'm                  
+
+1169
+01:03:29,873 --> 01:03:33,474
+going to set its                
+backgroundColor to clear, =     
+
+1170
+01:03:33,543 --> 01:03:38,479
+clear, Cuz I want you know my   
+image to show through around    
+
+1171
+01:03:38,548 --> 01:03:40,982
+the edges of it I don't want    
+a big white background or       
+
+1172
+01:03:41,050 --> 01:03:44,286
+something. I"m gonna set the    
+attributedText obviously to     
+
+1173
+01:03:44,354 --> 01:03:46,921
+be this attributedString        
+that was passed in.             
+
+1174
+01:03:46,990 --> 01:03:48,923
+I'm going to size to fit it,    
+
+1175
+01:03:48,992 --> 01:03:53,061
+okay I don't want that label    
+to be some large random size.   
+
+1176
+01:03:53,130 --> 01:03:56,197
+I'm going to what else am       
+I gonna do? Yes I'm going       
+
+1177
+01:03:56,266 --> 01:04:00,601
+to position it, label.center    
+= drop point right there, and   
+
+1178
+01:04:00,670 --> 01:04:06,040
+of course I have to addSubView  
+to myself. That's it.           
+
+1179
+01:04:06,109 --> 01:04:12,780
+Let's do it. All right,         
+let's go get an image.          
+
+1180
+01:04:12,849 --> 01:04:16,784
+Did I lose my favorite image?   
+No, my favorite- there it is.   
+
+1181
+01:04:16,853 --> 01:04:19,253
+This is my favorite image       
+right here. Okay, so            
+
+1182
+01:04:19,322 --> 01:04:22,056
+I've got my image right here,   
+we can zoom in and out.         
+
+1183
+01:04:22,125 --> 01:04:26,494
+We can pick up a bee, and drop  
+the bee. Pick up another bee,   
+
+1184
+01:04:26,562 --> 01:04:29,830
+drop the bee. Maybe we'll put   
+an apple down here. Now of      
+
+1185
+01:04:29,899 --> 01:04:32,533
+course we want to be able       
+to resize these things, and     
+
+1186
+01:04:32,602 --> 01:04:35,870
+move them around, right? So,    
+I don't wanna waste your time.  
+
+1187
+01:04:35,939 --> 01:04:38,306
+That's just Jack doing          
+some gesture recognizers.       
+
+1188
+01:04:38,375 --> 01:04:40,642
+I have put those in             
+a little file right here.       
+
+1189
+01:04:40,710 --> 01:04:44,345
+So let's just throw those in.   
+And                             
+
+1190
+01:04:44,414 --> 01:04:46,414
+you can go look at those        
+later at your leisure,          
+
+1191
+01:04:46,483 --> 01:04:50,151
+it's really, it's very simple.  
+Gesture recognizers tap and     
+
+1192
+01:04:50,219 --> 01:04:53,554
+pinch and pan, things like      
+that. And all we need do is to  
+
+1193
+01:04:53,623 --> 01:04:57,024
+turn that on, let's just go     
+down here and say addEmoji      
+
+1194
+01:04:57,093 --> 01:04:59,694
+GestureRecognizers to           
+that label, so                  
+
+1195
+01:04:59,763 --> 01:05:01,963
+that just adds these            
+recognizers to the label.       
+
+1196
+01:05:02,999 --> 01:05:04,599
+Okay, so                        
+let's see that in action.       
+
+1197
+01:05:10,540 --> 01:05:14,843
+Let's just get this out here,   
+drag this in. Now,              
+
+1198
+01:05:14,911 --> 01:05:18,246
+we drag a bee down here.        
+Drag another bee, this is       
+
+1199
+01:05:18,315 --> 01:05:20,849
+what I was doing at the very    
+beginning to demonstrate this.  
+
+1200
+01:05:20,917 --> 01:05:23,551
+And then we can tap on them     
+and make those bigger,          
+
+1201
+01:05:23,619 --> 01:05:25,486
+tap on them and                 
+make them smaller.              
+
+1202
+01:05:25,555 --> 01:05:27,322
+We can even zoom way in,        
+
+1203
+01:05:27,390 --> 01:05:29,857
+before we make some really      
+small, take like apple put it   
+
+1204
+01:05:29,926 --> 01:05:32,860
+down here. Make it              
+very very small, right?         
+
+1205
+01:05:32,929 --> 01:05:37,431
+And then we zoom back out. It   
+will be a tiny little apple,    
+
+1206
+01:05:37,500 --> 01:05:43,637
+etc.. Now, I'm going            
+to back to the slides.          
+
+1207
+01:05:43,706 --> 01:05:45,706
+Like I say,                     
+when I finish the slides,       
+
+1208
+01:05:45,775 --> 01:05:48,809
+we're not gonna be able to do   
+the text demo because we have   
+
+1209
+01:05:48,878 --> 01:05:51,813
+this midterm coming in. But     
+that's pretty much all we need  
+
+1210
+01:05:51,882 --> 01:05:54,182
+to do to make this collection   
+view, do full drag and          
+
+1211
+01:05:54,250 --> 01:05:56,884
+drop and all, so it's quite,    
+quite straightforward.          
+
+1212
+01:05:56,953 --> 01:05:58,252
+And hopefully                   
+it'll make sense.               
+
+1213
+01:05:58,321 --> 01:06:00,621
+If you have any                 
+questions about it,             
+
+1214
+01:06:00,690 --> 01:06:03,258
+Piazza is a great place         
+to ask. All right,              
+
+1215
+01:06:03,326 --> 01:06:08,663
+let's go back to our slides     
+and talk about UITextField.     
+
+1216
+01:06:08,731 --> 01:06:11,966
+All right, UITextField it's     
+a lot like UILabel and          
+
+1217
+01:06:12,035 --> 01:06:16,470
+you might just think,           
+it's just an editable UILabel.  
+
+1218
+01:06:16,539 --> 01:06:19,340
+It's a little more complicated  
+than that, but not much more.   
+
+1219
+01:06:19,409 --> 01:06:21,876
+One thing to really think       
+about conceptionally            
+
+1220
+01:06:21,944 --> 01:06:25,713
+UITextField is having editable  
+text fields, especially on      
+
+1221
+01:06:25,782 --> 01:06:30,418
+the iPhone, is not a very good  
+UI. And it's really easy to     
+
+1222
+01:06:30,486 --> 01:06:33,588
+fall in the trap of throwing    
+text fields into your UI and    
+
+1223
+01:06:33,656 --> 01:06:35,289
+thinking, well, this is         
+a great UI for doing this.      
+
+1224
+01:06:35,358 --> 01:06:36,757
+Because you're running          
+in the simulator and            
+
+1225
+01:06:36,826 --> 01:06:37,458
+you gotta keyboard.             
+
+1226
+01:06:37,527 --> 01:06:39,561
+You're just typing away         
+in those text fields,           
+
+1227
+01:06:39,629 --> 01:06:42,029
+hitting return, going to        
+the next section, whereas,      
+
+1228
+01:06:42,098 --> 01:06:43,865
+the poor user is like,          
+my thumb's like,                
+
+1229
+01:06:43,934 --> 01:06:45,232
+it's another dam text field,    
+
+1230
+01:06:45,301 --> 01:06:49,303
+I hate them. So it's not        
+a primary input source.         
+
+1231
+01:06:49,372 --> 01:06:52,339
+If you can find a way to let    
+them choose from a list or      
+
+1232
+01:06:52,408 --> 01:06:55,076
+otherwise input the data        
+without having to type things,  
+
+1233
+01:06:55,145 --> 01:06:57,945
+it's better.                    
+Now on the iPad it's not so     
+
+1234
+01:06:58,014 --> 01:07:00,948
+bad, at least the keyboard      
+is quite large,                 
+
+1235
+01:07:01,017 --> 01:07:02,784
+it's much more accessible,      
+people can put it down and      
+
+1236
+01:07:02,852 --> 01:07:06,153
+use two hands. So it's not      
+quite as bad on an iPad,        
+
+1237
+01:07:06,222 --> 01:07:08,556
+but on an iPhone,               
+don't get fooled.               
+
+1238
+01:07:08,624 --> 01:07:10,858
+And I see a lot of you doing    
+this in your final projects.    
+
+1239
+01:07:10,927 --> 01:07:13,327
+You submit these projects to    
+us that are just like, my god,  
+
+1240
+01:07:13,396 --> 01:07:15,963
+this is almost unusable.        
+Because we will be testing all  
+
+1241
+01:07:16,032 --> 01:07:18,432
+your final projects             
+on devices.                     
+
+1242
+01:07:18,501 --> 01:07:21,035
+We won't be in the simulator    
+and be able to type away.       
+
+1243
+01:07:21,104 --> 01:07:24,072
+So think about that from your   
+users, whether a text field's   
+
+1244
+01:07:24,140 --> 01:07:27,841
+what you want. Once you've      
+decided you want a text field,  
+
+1245
+01:07:27,910 --> 01:07:32,380
+here's how it works. So a text  
+field is something that,        
+
+1246
+01:07:32,449 --> 01:07:35,549
+obviously, throws               
+a keyboard up and               
+
+1247
+01:07:35,618 --> 01:07:39,353
+lets you enter text. One thing  
+to notice about the keyboard,   
+
+1248
+01:07:39,422 --> 01:07:41,856
+is there's no keyboard          
+object or anything,             
+
+1249
+01:07:41,925 --> 01:07:46,994
+anywhere in iOS.                
+So the keyboard coming up       
+
+1250
+01:07:47,063 --> 01:07:51,465
+happens because an object       
+becomes the first responder.    
+
+1251
+01:07:51,534 --> 01:07:54,201
+So the first responder is the   
+thing that gets the keyboard    
+
+1252
+01:07:54,270 --> 01:07:56,971
+events from the keyboard. And   
+as soon as something becomes    
+
+1253
+01:07:57,040 --> 01:07:59,006
+first responder,                
+it starts getting keyboard and  
+
+1254
+01:07:59,075 --> 01:08:02,009
+the keyboard will appear, all   
+right? So becomeFirstResponder  
+
+1255
+01:08:02,078 --> 01:08:04,145
+is a message you can            
+send to text field and          
+
+1256
+01:08:04,214 --> 01:08:06,414
+it will cause it to be          
+the first responder,            
+
+1257
+01:08:06,482 --> 01:08:09,483
+which will cause                
+the keyboard to come up. And    
+
+1258
+01:08:09,552 --> 01:08:12,119
+similarly, if you send it       
+resignFirstResponder it will    
+
+1259
+01:08:12,188 --> 01:08:14,489
+stop being the first responder  
+and the keyboard will go away.  
+
+1260
+01:08:14,557 --> 01:08:17,958
+So that is how you make the     
+keyboard come and go in iOS,    
+
+1261
+01:08:18,027 --> 01:08:22,163
+is by making things become and  
+resignFirstResponder. So        
+
+1262
+01:08:22,232 --> 01:08:25,700
+that's important to             
+understand about keyboards.     
+
+1263
+01:08:25,768 --> 01:08:28,569
+One thing about text field      
+that's totally different than   
+
+1264
+01:08:28,638 --> 01:08:30,871
+the label,                      
+is that it has a delegate.      
+
+1265
+01:08:30,940 --> 01:08:33,674
+And that its delegate is the    
+primary way you interact with   
+
+1266
+01:08:33,743 --> 01:08:35,743
+the text field.                 
+As supposed to a label,         
+
+1267
+01:08:35,811 --> 01:08:37,712
+label don't even have           
+a delegate. You just ask for    
+
+1268
+01:08:37,780 --> 01:08:42,317
+its text and set its values     
+and that's it. Whereas since    
+
+1269
+01:08:42,385 --> 01:08:45,419
+a text field is editable, as    
+things are being edited like    
+
+1270
+01:08:45,488 --> 01:08:47,922
+a selections changing, or       
+someone types something new,    
+
+1271
+01:08:47,991 --> 01:08:50,291
+you can find out about all      
+of those things going on.       
+
+1272
+01:08:50,360 --> 01:08:55,096
+And another example is a lot    
+of times in the keyboard,       
+
+1273
+01:08:55,164 --> 01:08:58,700
+when the user hits the return   
+key in the keyboard,            
+
+1274
+01:08:58,768 --> 01:09:01,703
+you want the keyboard           
+to go away, right? So,          
+
+1275
+01:09:01,771 --> 01:09:05,173
+textFieldShouldReturn right     
+there, is a method that gets    
+
+1276
+01:09:05,241 --> 01:09:08,109
+called when the Return key is   
+pressed. And inside there,      
+
+1277
+01:09:08,177 --> 01:09:11,178
+you very likely wanna say,      
+resignFirstResponder, and that  
+
+1278
+01:09:11,247 --> 01:09:14,848
+will cause the keyboard to go   
+away. So that's an example of   
+
+1279
+01:09:14,917 --> 01:09:17,918
+what you can do with            
+the delegate. Another really    
+
+1280
+01:09:17,987 --> 01:09:21,555
+important delegate method       
+is textFieldDidEndEditing.      
+
+1281
+01:09:21,624 --> 01:09:25,459
+This gets called when it        
+resigns first responder.        
+
+1282
+01:09:25,528 --> 01:09:29,497
+So if someone is editing in     
+your text field and they touch  
+
+1283
+01:09:29,566 --> 01:09:34,235
+on another text field,          
+you'll resign first responder.  
+
+1284
+01:09:34,304 --> 01:09:36,638
+So if you wanna look at         
+the text at that point,         
+
+1285
+01:09:36,706 --> 01:09:38,673
+you're gonna wanna implement    
+this delegate method.           
+
+1286
+01:09:40,209 --> 01:09:43,244
+Now having said that,           
+text field is a UI control.     
+
+1287
+01:09:43,312 --> 01:09:45,579
+So it does have target          
+action and you can control,     
+
+1288
+01:09:45,648 --> 01:09:48,950
+drag it and have it send        
+certain target action messages  
+
+1289
+01:09:49,018 --> 01:09:51,985
+on certain activities           
+happening in the text field.    
+
+1290
+01:09:52,054 --> 01:09:54,088
+And some time people hook it    
+up that way without doing       
+
+1291
+01:09:54,156 --> 01:09:55,790
+the delegate thing.             
+But you kinda                   
+
+1292
+01:09:55,858 --> 01:09:58,192
+need to know this delegate      
+because you need to know what   
+
+1293
+01:09:58,261 --> 01:10:01,128
+it's capable of doing. So       
+you'll definitely wanna look    
+
+1294
+01:10:01,197 --> 01:10:03,965
+up the UITextField Delegate     
+protocol, and see what are all  
+
+1295
+01:10:04,033 --> 01:10:06,667
+the things you can find out     
+about what's happening when     
+
+1296
+01:10:06,736 --> 01:10:09,237
+editing is happening in         
+a text field. All right,        
+
+1297
+01:10:09,305 --> 01:10:13,040
+the keyboard, so since there's  
+no keyboard object in iOS,      
+
+1298
+01:10:13,109 --> 01:10:16,076
+what if you want to             
+configure the keyboard like,    
+
+1299
+01:10:16,145 --> 01:10:18,679
+set what,                       
+whether it does autocorrect.    
+
+1300
+01:10:18,748 --> 01:10:21,015
+Right, how it does all          
+that annoying autocorrect?      
+
+1301
+01:10:21,084 --> 01:10:23,384
+I didn't say annoying.          
+It does autocorrect and         
+
+1302
+01:10:23,453 --> 01:10:25,953
+you don't want it to do that    
+because it doesn't make sense   
+
+1303
+01:10:26,022 --> 01:10:28,055
+in your text field,             
+you can turn that off. But      
+
+1304
+01:10:28,124 --> 01:10:31,025
+you do all that by talking to   
+the text field, not by talking  
+
+1305
+01:10:31,094 --> 01:10:34,962
+to the keyboard. Anybody who    
+puts up a keyboard is going to  
+
+1306
+01:10:35,031 --> 01:10:38,399
+implement this protocol         
+called UITextInputTraits, and   
+
+1307
+01:10:38,468 --> 01:10:40,234
+it has all these                
+keyboard activities. And        
+
+1308
+01:10:40,302 --> 01:10:42,837
+it's that guy's responsibility  
+to get the keyboard to do       
+
+1309
+01:10:42,905 --> 01:10:43,538
+the right thing.                
+
+1310
+01:10:45,208 --> 01:10:48,242
+The keyboard also has in the    
+text input traits protocol, it  
+
+1311
+01:10:48,311 --> 01:10:51,144
+also has input accessory view   
+which lets you put a little     
+
+1312
+01:10:51,213 --> 01:10:54,348
+view on the keyboard, right at  
+the top of the keyboard. So if  
+
+1313
+01:10:54,417 --> 01:10:57,652
+you had some special buttons    
+or something you want, you can  
+
+1314
+01:10:57,720 --> 01:11:01,321
+put them in there, so that's    
+kinda cool, all right? Now,     
+
+1315
+01:11:01,390 --> 01:11:04,057
+one thing, I'm not gonna even   
+talk about this slide yet, but  
+
+1316
+01:11:04,126 --> 01:11:06,326
+later in the quarter, I will.   
+But I'm putting it up here for  
+
+1317
+01:11:06,395 --> 01:11:09,029
+reference, you can go back and  
+look at it. It's important to   
+
+1318
+01:11:09,098 --> 01:11:12,233
+understand that when            
+the keyboard comes up,          
+
+1319
+01:11:12,302 --> 01:11:15,736
+it covers up your views,        
+right? The keyboard does not    
+
+1320
+01:11:15,805 --> 01:11:18,405
+move things out of the way      
+normally, it comes up.          
+
+1321
+01:11:18,474 --> 01:11:21,742
+Now, there are some classes     
+like the UITableViewController  
+
+1322
+01:11:21,811 --> 01:11:24,412
+bundle, right, the thing that   
+you can drag out and get        
+
+1323
+01:11:24,480 --> 01:11:27,014
+a whole UITableViewController   
+with the table view,            
+
+1324
+01:11:27,083 --> 01:11:30,084
+that does. That will scroll     
+things up out of the way        
+
+1325
+01:11:30,153 --> 01:11:32,553
+of the keyboard. But normally,  
+the keyboard just comes up,     
+
+1326
+01:11:32,622 --> 01:11:35,723
+and your stuff is behind it.    
+And I'll tell you another huge  
+
+1327
+01:11:35,792 --> 01:11:38,259
+problem with final projects is  
+people who've only run them     
+
+1328
+01:11:38,327 --> 01:11:40,861
+in the simulator, and           
+when you run on a device and    
+
+1329
+01:11:40,930 --> 01:11:43,297
+you press on a text field,      
+the keyboard comes up and       
+
+1330
+01:11:43,365 --> 01:11:47,334
+covers that text field. And     
+so you can't even enter any     
+
+1331
+01:11:47,403 --> 01:11:50,004
+information in that text        
+field. That's extremely common  
+
+1332
+01:11:50,073 --> 01:11:53,040
+and we will, basically, not     
+be able to test certain parts   
+
+1333
+01:11:53,109 --> 01:11:56,143
+of your app because we can't    
+even type in, to a text field.  
+
+1334
+01:11:56,212 --> 01:11:59,146
+So it is your responsibility    
+to move things out of the way.  
+
+1335
+01:11:59,215 --> 01:12:01,915
+Now, when I talk                
+about NSNotification,           
+
+1336
+01:12:01,984 --> 01:12:04,718
+hopefully next week,            
+I will tell you how to find     
+
+1337
+01:12:04,787 --> 01:12:07,888
+out that the keyboard has       
+come up, where its come up.     
+
+1338
+01:12:07,957 --> 01:12:09,356
+And then you can                
+react by moving                 
+
+1339
+01:12:09,425 --> 01:12:11,959
+your UI out of the way,         
+hopefully by scrolling it in    
+
+1340
+01:12:12,027 --> 01:12:14,495
+scroll view, but you might      
+have to do it some other way.   
+
+1341
+01:12:16,899 --> 01:12:18,933
+There's a lot of other stuff    
+in text field, you can look in  
+
+1342
+01:12:19,001 --> 01:12:21,235
+the documentation for. You've   
+already seen like the auto      
+
+1343
+01:12:21,303 --> 01:12:24,037
+shrink of UI label. Text        
+field has that as well and      
+
+1344
+01:12:24,106 --> 01:12:26,473
+you can control it like         
+setting the minimum font size,  
+
+1345
+01:12:26,542 --> 01:12:29,877
+and stuff like that. When       
+you click in the text field,    
+
+1346
+01:12:29,945 --> 01:12:31,712
+do you want it to clear out     
+the text that used to be in     
+
+1347
+01:12:31,781 --> 01:12:33,314
+there and start afresh?         
+Or do you want it               
+
+1348
+01:12:33,383 --> 01:12:35,182
+to leave the text that          
+used to be in there?            
+
+1349
+01:12:35,251 --> 01:12:37,985
+Those kinds of things, you      
+can do all that. It has some    
+
+1350
+01:12:38,053 --> 01:12:39,987
+little accessory views that     
+you can put on the left and     
+
+1351
+01:12:40,056 --> 01:12:45,559
+right. It is a pretty           
+powerful little object. So      
+
+1352
+01:12:45,628 --> 01:12:48,563
+coming up now is gonna be this  
+demo, but again we have to get  
+
+1353
+01:12:48,631 --> 01:12:50,598
+out of here because of          
+this mid-term coming.           
+
+1354
+01:12:50,666 --> 01:12:53,701
+So we'll be doing that, on      
+Monday, your homework five is   
+
+1355
+01:12:53,769 --> 01:12:56,637
+out, it's posted already. It's  
+essentially to do your own      
+
+1356
+01:12:56,706 --> 01:12:58,672
+collection view and             
+table view, all right?          
+
+1357
+01:12:58,741 --> 01:13:00,641
+With some drag and              
+drop, of course, and            
+
+1358
+01:13:00,710 --> 01:13:03,444
+with a little UI text field as  
+well. If you wanna wait until   
+
+1359
+01:13:03,512 --> 01:13:05,712
+I do the demo on Monday to      
+do the text field part,         
+
+1360
+01:13:05,781 --> 01:13:08,649
+it's a very minor part of the   
+assignment, you could do that.  
+
+1361
+01:13:08,718 --> 01:13:10,451
+You could just do the rest of   
+the assignment. I know you all  
+
+1362
+01:13:10,520 --> 01:13:12,687
+like to get started on your     
+assignments early. But if you   
+
+1363
+01:13:12,755 --> 01:13:14,689
+do your whole assignment        
+before Monday, except for       
+
+1364
+01:13:14,757 --> 01:13:16,990
+that, that's fine. And then     
+on Tuesday you could work on    
+
+1365
+01:13:17,059 --> 01:13:20,027
+the text field, it's not        
+a huge part of the assignment.  
+
+1366
+01:13:20,096 --> 01:13:22,529
+Again, no more Friday           
+sections. And then next week,   
+
+1367
+01:13:22,598 --> 01:13:24,766
+I'll be talking about the       
+final project requirements,     
+
+1368
+01:13:24,834 --> 01:13:26,900
+and we'll also be talking       
+about persistence.              
+
+1369
+01:13:26,969 --> 01:13:28,970
+We have this nice               
+emoji art thing, but            
+
+1370
+01:13:29,038 --> 01:13:31,472
+as soon as I quit my app and    
+start it again,                 
+
+1371
+01:13:31,540 --> 01:13:34,641
+I lost all my work. So we're    
+gonna fix that next week and    
+
+1372
+01:13:34,710 --> 01:13:38,112
+learn how to make things        
+persist, between launching of   
+
+1373
+01:13:38,180 --> 01:13:40,381
+the app. And that's             
+a fairly small topic, so        
+
+1374
+01:13:40,450 --> 01:13:42,816
+we'll actually be doing some    
+other stuff as well next week.  
+
+1375
+01:13:42,885 --> 01:13:44,418
+And then your                   
+final assignment,               
+
+1376
+01:13:44,486 --> 01:13:47,288
+assignment number six will      
+probably go out next Wednesday  
+
+1377
+01:13:47,357 --> 01:13:49,290
+and be due the next Wednesday.  
+And then no more                
+
+1378
+01:13:49,358 --> 01:13:51,291
+assignments the rest of the     
+quarter because you'll have     
+
+1379
+01:13:51,360 --> 01:13:53,560
+your final project. So your     
+final project is a three week   
+
+1380
+01:13:53,629 --> 01:13:56,830
+long thing, so you won't have   
+any homework during the time    
+
+1381
+01:13:56,899 --> 01:14:00,901
+you're working on your final    
+project. All right? That's it.  
+
+1382
+01:14:00,970 --> 01:14:03,737
+I will see you next Monday.     
+For                             
+
+1383
+01:14:03,806 --> 01:14:13,213
+more, please visit              
+us at stanford.edu.             
+

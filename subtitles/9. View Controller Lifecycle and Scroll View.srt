@@ -1,0 +1,5707 @@
+1
+00:00:00,401 --> 00:00:04,937
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:05,005 --> 00:00:08,940
+Stanford University. >> Okay, well,
+斯坦福大学 >> 好
+
+3
+00:00:09,009 --> 00:00:12,444
+welcome to Lecture 9 of Stanford CS193P, fall of 2017.
+欢迎来到斯坦福 2017 年秋季学期 CS193P 的第九节课
+
+4
+00:00:12,512 --> 00:00:15,080
+So we have two major topics today.
+
+5
+00:00:15,149 --> 00:00:18,249
+We're gonna talk about the view controller lifecycle,
+
+6
+00:00:18,318 --> 00:00:20,285
+which is when your MVC comes alive and
+
+7
+00:00:20,354 --> 00:00:23,655
+does all the things it's gonna do and then dies eventually.
+
+8
+00:00:23,724 --> 00:00:27,525
+And then we're also gonna talk about a UIView called scroll
+
+9
+00:00:27,594 --> 00:00:31,163
+view which allows you to look at large UIViews by panning
+
+10
+00:00:31,232 --> 00:00:34,899
+around on them, zooming in on them, etc., all right.
+
+11
+00:00:34,968 --> 00:00:35,500
+View controller lifecycle.
+
+12
+00:00:35,569 --> 00:00:38,604
+So the view controllers have a lifecycle.
+
+13
+00:00:38,672 --> 00:00:41,640
+It's essentially marked by a sequence of messages.
+
+14
+00:00:41,708 --> 00:00:44,543
+Methods that are invoked on the UIView Controller.
+
+15
+00:00:44,611 --> 00:00:48,246
+Why do we care about this at all? Because at the various
+
+16
+00:00:48,315 --> 00:00:50,849
+stages of the lifecycle of the view controller we might
+
+17
+00:00:50,918 --> 00:00:54,319
+wanna get involved, right, and do certain things. So
+
+18
+00:00:54,388 --> 00:00:57,488
+this lifecycle starts with the creation of your UIView
+
+19
+00:00:57,557 --> 00:01:00,993
+controller. For your view controllers that you write,
+
+20
+00:01:01,061 --> 00:01:03,161
+this is almost always coming out of a storyboard,
+
+21
+00:01:03,230 --> 00:01:05,731
+right? You drag something into storyboard, you put your views
+
+22
+00:01:05,799 --> 00:01:08,433
+in there. That's how you know how to create an MVC.
+
+23
+00:01:08,502 --> 00:01:11,203
+So your lifecycle is gonna be when your app runs and
+
+24
+00:01:11,271 --> 00:01:13,805
+you've segued to something or it's your first view
+
+25
+00:01:13,873 --> 00:01:17,876
+controller in your storyboard or what whatever. Now iOS
+
+26
+00:01:17,945 --> 00:01:19,911
+also has some API which we haven't learned about yet
+
+27
+00:01:19,980 --> 00:01:23,781
+that can hand you a view controller, that you can
+
+28
+00:01:23,850 --> 00:01:27,686
+then segue to or whatever. For example, there's a view
+
+29
+00:01:27,754 --> 00:01:30,588
+controller that lets you take a picture with the camera.
+
+30
+00:01:30,657 --> 00:01:33,424
+So, it can come from code as well, it's not only out of
+
+31
+00:01:33,493 --> 00:01:35,827
+the storyboard. But once it's created,
+
+32
+00:01:35,896 --> 00:01:38,396
+what happens to it? And you've already actually learned a lot
+
+33
+00:01:38,465 --> 00:01:40,598
+about the lifecycle of a view controller.
+
+34
+00:01:40,667 --> 00:01:41,866
+Of course, the first thing
+
+35
+00:01:41,935 --> 00:01:44,903
+happens after it's created is that it gets prepared to be
+
+36
+00:01:44,972 --> 00:01:48,840
+segued to, right? So if it's being put on screen because of
+
+37
+00:01:48,909 --> 00:01:51,109
+segue, the preparation part happens.
+
+38
+00:01:51,178 --> 00:01:54,846
+Then after that importantly, the outlets get set, or
+
+39
+00:01:54,914 --> 00:01:58,383
+your UI buttons and whatever those connections get made.
+
+40
+00:01:58,452 --> 00:02:00,752
+Then your view controller appears and
+
+41
+00:02:00,821 --> 00:02:04,922
+possibly disappears on screen, right? Imagine a split view in
+
+42
+00:02:04,991 --> 00:02:08,493
+portrait mode, the master disappears. And then you can
+
+43
+00:02:08,562 --> 00:02:10,929
+slide it out and then slide it away so it's appearing and
+
+44
+00:02:10,997 --> 00:02:14,700
+disappearing, for example. Also, along the way, as all of
+
+45
+00:02:14,768 --> 00:02:17,435
+this is happening you might have geometry changes.
+
+46
+00:02:17,504 --> 00:02:19,537
+Most notably, you rotate your device, and
+
+47
+00:02:19,606 --> 00:02:22,340
+you go from having this tall, thin rectangle to a shorter,
+
+48
+00:02:22,409 --> 00:02:25,777
+wider rectangle. So geometry changes can happen.
+
+49
+00:02:25,845 --> 00:02:27,846
+They can happen for other reasons, as well.
+
+50
+00:02:27,915 --> 00:02:30,148
+Again, in a split view, you know, your master,
+
+51
+00:02:30,217 --> 00:02:32,751
+sometimes it's in the little tall thing on the left.
+
+52
+00:02:32,819 --> 00:02:34,786
+Sometimes there's a shorter thing on the left and
+
+53
+00:02:34,855 --> 00:02:35,954
+the one thing on the right,
+
+54
+00:02:36,023 --> 00:02:37,556
+it sometimes fills the whole screen.
+
+55
+00:02:37,625 --> 00:02:38,790
+Or, when it's in landscape,
+
+56
+00:02:38,858 --> 00:02:39,958
+it fills just a part of the screen.
+
+57
+00:02:40,027 --> 00:02:42,728
+So the geometry is changing,
+
+58
+00:02:42,796 --> 00:02:44,963
+depending on the situation of your view controller.
+
+59
+00:02:45,032 --> 00:02:47,465
+And then lastly, and by far least importantly,
+
+60
+00:02:47,534 --> 00:02:49,067
+in a low-memory situations,
+
+61
+00:02:49,136 --> 00:02:51,669
+you might have your view controller asked to free up
+
+62
+00:02:51,738 --> 00:02:54,238
+some memory, we'll talk about that in a second.
+
+63
+00:02:54,307 --> 00:02:57,075
+All right, so let's talk about all the methods that get sent
+
+64
+00:02:57,144 --> 00:02:59,644
+to your view controller when all these things happen.
+
+65
+00:02:59,713 --> 00:03:02,414
+Now, you already know the first one, viewDidLoad, I
+
+66
+00:03:02,483 --> 00:03:06,918
+mentioned it in your homework. It's a really powerful place
+
+67
+00:03:06,987 --> 00:03:10,555
+to do initialization, because you're already prepared and
+
+68
+00:03:10,624 --> 00:03:14,226
+all your outlets are set, so now you really can go to town.
+
+69
+00:03:14,295 --> 00:03:16,528
+So it's great for that and we usually put most
+
+70
+00:03:16,596 --> 00:03:19,097
+of our initialization in viewDidLoad with one huge
+
+71
+00:03:19,166 --> 00:03:24,302
+exception. And it's in red so don't miss it geometry.
+
+72
+00:03:24,371 --> 00:03:28,606
+When viewDidLoad runs, your bounds have not been set yet,
+
+73
+00:03:28,675 --> 00:03:32,510
+so do not put things in here that have to do with the size
+
+74
+00:03:32,579 --> 00:03:35,880
+you are on screen. Because you have not been fitted to
+
+75
+00:03:35,949 --> 00:03:39,751
+whatever device you're on, okay, it's very important.
+
+76
+00:03:39,820 --> 00:03:42,453
+Very common mistake to put stuff in here and then you
+
+77
+00:03:42,522 --> 00:03:45,023
+just wonder why, when you run it on a different device, your
+
+78
+00:03:45,091 --> 00:03:47,893
+code doesn't work anymore. So do not put geometry.
+
+79
+00:03:47,961 --> 00:03:49,661
+I'm gonna show you where to put your geometry
+
+80
+00:03:49,730 --> 00:03:52,664
+changes in a moment here. So that's viewDidLoad,
+
+81
+00:03:52,732 --> 00:03:57,769
+a great one. The next one is viewWillAppear.
+
+82
+00:03:57,837 --> 00:04:00,739
+Now by the way, notice in all of these I'm calling super
+
+83
+00:04:00,808 --> 00:04:03,775
+viewWillAppear or super viewDidLoad in all of them,
+
+84
+00:04:03,844 --> 00:04:06,344
+you always do that, do not forget to do that.
+
+85
+00:04:06,413 --> 00:04:09,247
+In fact in a demo the other day, I noticed I forgot to do
+
+86
+00:04:09,316 --> 00:04:11,616
+it and so we'll fix that in today's demo.
+
+87
+00:04:11,685 --> 00:04:13,485
+But, and I noticed in your homework,
+
+88
+00:04:13,554 --> 00:04:16,087
+many of you did not call super viewDidLoad. Now of course,
+
+89
+00:04:16,156 --> 00:04:17,689
+we didn't talk about view control lifecycle so
+
+90
+00:04:17,758 --> 00:04:18,890
+I don't blame you for that.
+
+91
+00:04:18,959 --> 00:04:21,425
+But from now on, don't forget to do super,
+
+92
+00:04:21,494 --> 00:04:24,863
+give your super class a chance to find out it's appearing or
+
+93
+00:04:24,931 --> 00:04:28,333
+that it got loaded or whatever. So viewWillAppear,
+
+94
+00:04:28,401 --> 00:04:30,135
+what do you do in viewWillAppear?
+
+95
+00:04:30,204 --> 00:04:32,537
+viewWillAppear is exactly what it sounds like,
+
+96
+00:04:32,606 --> 00:04:35,707
+your view controller's view is about to appear on screen.
+
+97
+00:04:35,776 --> 00:04:38,743
+So this is where you can catch up with stuff that might've
+
+98
+00:04:38,812 --> 00:04:42,980
+gone on in the world while you were not on screen. Or
+
+99
+00:04:43,049 --> 00:04:44,983
+if this is the first time your coming on screen,
+
+100
+00:04:45,052 --> 00:04:47,084
+catch up with the state of the world. So
+
+101
+00:04:47,153 --> 00:04:49,988
+this is really a place to kind of load up your view with all
+
+102
+00:04:50,057 --> 00:04:52,123
+the information from your model, especially if your
+
+103
+00:04:52,191 --> 00:04:54,626
+model can change like let's say your model is a network
+
+104
+00:04:54,694 --> 00:04:57,628
+database. Other people are editing it, so it can change.
+
+105
+00:04:57,697 --> 00:05:00,465
+So here's where you wanna get up to date, because when your
+
+106
+00:05:00,534 --> 00:05:02,501
+view is not on screen, you don't want your view
+
+107
+00:05:02,569 --> 00:05:05,804
+controller to be doing much work. It just wants to kinda
+
+108
+00:05:05,872 --> 00:05:08,005
+sit there quietly, and then when it's time to come back,
+
+109
+00:05:08,074 --> 00:05:10,809
+then it does its little setup in here.
+
+110
+00:05:10,878 --> 00:05:12,811
+One thing to notice about viewWillAppear of course,
+
+111
+00:05:12,880 --> 00:05:14,011
+it can be called repeatedly,
+
+112
+00:05:14,080 --> 00:05:15,880
+because your view controller can go away and come back,
+
+113
+00:05:15,949 --> 00:05:18,716
+and go away and come back. But viewDidLoad is only ever
+
+114
+00:05:18,785 --> 00:05:22,187
+called once in the lifetime of your view controller. It's
+
+115
+00:05:22,255 --> 00:05:24,790
+just called once after you're prepared and your outlets
+
+116
+00:05:24,858 --> 00:05:26,858
+are setup, it gets called once and that's it. But
+
+117
+00:05:26,926 --> 00:05:29,427
+viewWillAppear obviously can be called every time you're
+
+118
+00:05:29,496 --> 00:05:34,232
+gonna come back on screen. Now there's also a viewDidAppear.
+
+119
+00:05:34,301 --> 00:05:37,002
+This is called to you after you have come on screen.
+
+120
+00:05:37,070 --> 00:05:39,137
+Now, what would you wanna do here?
+
+121
+00:05:39,205 --> 00:05:41,205
+It's a little late to do things like update
+
+122
+00:05:41,274 --> 00:05:43,975
+your view from your model here because these things are on
+
+123
+00:05:44,044 --> 00:05:46,577
+screen. You don't want things to come on screen wrong and
+
+124
+00:05:46,646 --> 00:05:49,414
+then view did appear and now you've clean them up. But
+
+125
+00:05:49,483 --> 00:05:52,050
+this is a great place to do things like start an animation
+
+126
+00:05:52,119 --> 00:05:54,085
+cuz you can't do that in viewWillAppear.
+
+127
+00:05:54,153 --> 00:05:55,086
+You're not on screen,
+
+128
+00:05:55,154 --> 00:05:58,623
+yeah, right. Start a timer that does something on screen.
+
+129
+00:05:58,692 --> 00:06:02,494
+Start observing something in the world like a GPS locations
+
+130
+00:06:02,563 --> 00:06:06,531
+or maybe the gyro position of your phone. Okay, those
+
+131
+00:06:06,599 --> 00:06:10,368
+are all things you can do once you're on screen. Okay, so
+
+132
+00:06:10,437 --> 00:06:12,770
+that's what viewDidAppear is really good for.
+
+133
+00:06:12,839 --> 00:06:15,640
+One other thing that you can do viewDidAppear is maybe
+
+134
+00:06:15,709 --> 00:06:19,744
+kick off a very expensive thing. Something you
+
+135
+00:06:19,813 --> 00:06:22,079
+don't want to kick off in viewDidLoad because,
+
+136
+00:06:22,148 --> 00:06:24,782
+when viewDidLoad happens, your view controller may not
+
+137
+00:06:24,851 --> 00:06:27,519
+actually appear on screen. Okay, there's no guarantee
+
+138
+00:06:27,588 --> 00:06:30,021
+that anyone's ever gonna actually put you on screen.
+
+139
+00:06:30,089 --> 00:06:32,824
+So viewDidLoad is not a great, even veiwWillAppear,
+
+140
+00:06:32,893 --> 00:06:35,493
+surprisingly, might get called on you, and then,
+
+141
+00:06:35,562 --> 00:06:38,763
+you don't actually appear on screen. So viewDidAppear,
+
+142
+00:06:38,832 --> 00:06:41,466
+you know you're on screen. So it's worth it to do something
+
+143
+00:06:41,534 --> 00:06:44,336
+expensive. Now what would be something expensive?
+
+144
+00:06:44,404 --> 00:06:47,539
+Let's say you wanna fetch a huge image off the network,
+
+145
+00:06:47,607 --> 00:06:49,407
+okay, almost anytime you're gonna do something on
+
+146
+00:06:49,476 --> 00:06:52,377
+the network, it's pretty expensive. Because on a phone,
+
+147
+00:06:52,446 --> 00:06:54,913
+maybe you only have a cellular connection, it's a bad
+
+148
+00:06:54,982 --> 00:06:57,515
+connection, you're out in a country road somewhere,
+
+149
+00:06:57,584 --> 00:06:59,917
+it's barely getting any. So it could be really quite
+
+150
+00:06:59,986 --> 00:07:02,921
+expensive. For the same reason, these expensive
+
+151
+00:07:02,989 --> 00:07:06,491
+things, we almost always do them in the background. And
+
+152
+00:07:06,560 --> 00:07:08,292
+on Wednesday, I'm gonna talk all about how to put things in
+
+153
+00:07:08,361 --> 00:07:12,664
+the background. That's because it is absolutely primary goal,
+
+154
+00:07:12,732 --> 00:07:15,300
+primary thing you must do with any
+
+155
+00:07:15,368 --> 00:07:20,438
+iOS app is you never block the user interface experience.
+
+156
+00:07:20,507 --> 00:07:23,308
+Users always have to be able to touch on things,
+
+157
+00:07:23,377 --> 00:07:26,944
+swipe things around. If they swipe or touch and
+
+158
+00:07:27,013 --> 00:07:30,348
+your app is frozen, they will not use your app, believe me.
+
+159
+00:07:30,417 --> 00:07:32,983
+Okay, so that is of primary importance. And the way we do
+
+160
+00:07:33,052 --> 00:07:35,653
+that is by putting things that would block, like waiting for
+
+161
+00:07:35,722 --> 00:07:38,723
+something on the network, off the main queue, we call it,
+
+162
+00:07:38,792 --> 00:07:41,459
+off the main thread into these background processes.
+
+163
+00:07:41,528 --> 00:07:43,294
+So we'll talk all about that on Wednesday, but
+
+164
+00:07:43,362 --> 00:07:47,298
+viewDidAppear is a great place to kick those things off.
+
+165
+00:07:47,366 --> 00:07:50,334
+Because you don't wanna waste their cellular data usage
+
+166
+00:07:50,403 --> 00:07:53,137
+fetching an image if you're not actually gonna appear.
+
+167
+00:07:53,206 --> 00:07:55,673
+Now what this means though is since you're kicking this off
+
+168
+00:07:55,742 --> 00:07:58,943
+in the background, when you've already appeared on screen,
+
+169
+00:07:59,012 --> 00:08:03,614
+you have to design your UIs So that they always work even if
+
+170
+00:08:03,683 --> 00:08:07,652
+the expensive thing has not come back yet. Do you see why
+
+171
+00:08:07,720 --> 00:08:10,488
+that is? That expensive thing might take ten minutes or
+
+172
+00:08:10,557 --> 00:08:13,524
+might never come back because of bad network, for example.
+
+173
+00:08:13,593 --> 00:08:16,627
+So you have to put place holders or spinning wheels or
+
+174
+00:08:16,696 --> 00:08:18,362
+loading, dot, dot, dot or
+
+175
+00:08:18,431 --> 00:08:21,999
+some animation to shows the user, yeah, I'm fetching your
+
+176
+00:08:22,068 --> 00:08:25,403
+thing. I'm working on it. But your UI still has to be fully
+
+177
+00:08:25,472 --> 00:08:27,938
+responsive. If they're in a navigation control,
+
+178
+00:08:28,007 --> 00:08:31,309
+they have to be able to hit back and give up. Okay, or
+
+179
+00:08:31,378 --> 00:08:34,545
+they have to hit a tab at the bottom and go to a different
+
+180
+00:08:34,614 --> 00:08:37,849
+tab or whatever they wanna do. So designing UIs,
+
+181
+00:08:37,918 --> 00:08:40,518
+they're like that, take a little bit of adjustment.
+
+182
+00:08:40,587 --> 00:08:43,154
+So far, you haven't had to do that probably. So
+
+183
+00:08:43,223 --> 00:08:44,822
+you're mostly thinking linearly.
+
+184
+00:08:44,891 --> 00:08:47,958
+Okay, I am going to put this image on screen, so
+
+185
+00:08:48,027 --> 00:08:50,161
+I will go get the image. Then I will put it on screen.
+
+186
+00:08:50,229 --> 00:08:51,929
+Well, you can't think like that. You have to think,
+
+187
+00:08:51,998 --> 00:08:54,932
+I wanna put this on screen, so I will put an image displaying
+
+188
+00:08:55,001 --> 00:08:58,503
+thing on screen that is not loaded, with a little spinner.
+
+189
+00:08:58,571 --> 00:09:00,772
+And then, later, and the user can do whatever they want.
+
+190
+00:09:00,841 --> 00:09:02,707
+And then later when the picture arrives,
+
+191
+00:09:02,776 --> 00:09:06,411
+now I will update my UI to show that image. Okay, so
+
+192
+00:09:06,479 --> 00:09:08,947
+it's a little bit kind of thinking with that
+
+193
+00:09:09,016 --> 00:09:11,849
+other dimension, that dimension of time.
+
+194
+00:09:11,918 --> 00:09:16,053
+Okay, all right, so there's also view will disappear.
+
+195
+00:09:16,122 --> 00:09:18,523
+You get this right before you go away.
+
+196
+00:09:18,592 --> 00:09:21,893
+This is a great place to undo what you did
+
+197
+00:09:21,961 --> 00:09:25,329
+when view did appear. So if you started a timer or
+
+198
+00:09:25,398 --> 00:09:28,833
+start some animation or started watching GPS, or
+
+199
+00:09:28,902 --> 00:09:33,037
+something like that, this is a good place to stop doing that.
+
+200
+00:09:33,105 --> 00:09:36,875
+Because you now know that you're going to disappear. And
+
+201
+00:09:36,943 --> 00:09:39,143
+then when you reappear, you'll turn it back on and
+
+202
+00:09:39,212 --> 00:09:42,346
+view did appear. So they kinda work together, these two. And
+
+203
+00:09:42,415 --> 00:09:45,083
+then there's viewDidDisappear. Okay, this one gets sent to
+
+204
+00:09:45,152 --> 00:09:47,318
+you after you've completely disappeared.
+
+205
+00:09:47,387 --> 00:09:49,153
+Usually, we don't do much here.
+
+206
+00:09:49,222 --> 00:09:51,890
+But you could imagine maybe cleaning up your MVC here,
+
+207
+00:09:51,958 --> 00:09:55,960
+possibly saving some state or something. But this one is
+
+208
+00:09:56,029 --> 00:10:01,065
+rarely used. All right, I said that in viewDidLoad,
+
+209
+00:10:01,134 --> 00:10:04,202
+you cannot do geometry. So where do you do geometry?
+
+210
+00:10:04,271 --> 00:10:07,438
+Well, you might think, I can do it in viewWillAppear.
+
+211
+00:10:07,507 --> 00:10:10,908
+Cuz I'm just about to appear, and so my geometry will
+
+212
+00:10:10,977 --> 00:10:14,179
+be right, no. You would think that, but that would be wrong.
+
+213
+00:10:14,247 --> 00:10:16,147
+You obviously can't do it in view did appear,
+
+214
+00:10:16,216 --> 00:10:17,449
+because now you're already on screen.
+
+215
+00:10:17,517 --> 00:10:20,218
+It's too late, okay, to do anything about geometry.
+
+216
+00:10:20,287 --> 00:10:22,687
+So the place you do geometry is in these two methods,
+
+217
+00:10:22,756 --> 00:10:26,190
+viewWillLayoutSubviews() and viewDidLayoutSubviews().
+
+218
+00:10:26,259 --> 00:10:30,428
+These two methods are sent to your controller when its view,
+
+219
+00:10:30,497 --> 00:10:33,631
+the self.view, the top level view of the controller,
+
+220
+00:10:33,700 --> 00:10:37,702
+that bar, view. When that view, just before and
+
+221
+00:10:37,771 --> 00:10:42,273
+just after, that view is sent, layoutSubviews.
+
+222
+00:10:42,341 --> 00:10:46,144
+So why would that top level view be sent layoutSubviews?
+
+223
+00:10:46,213 --> 00:10:49,280
+Same reason any other view. Maybe subviews came and
+
+224
+00:10:49,349 --> 00:10:51,448
+went out of it. That's a common one.
+
+225
+00:10:51,517 --> 00:10:55,587
+Or its bounds changed. So this is why this is a good place to
+
+226
+00:10:55,655 --> 00:11:00,357
+put geometry changes. Because here, this is always gonna
+
+227
+00:11:00,426 --> 00:11:04,428
+happen when the bounds of your top level view change.
+
+228
+00:11:04,497 --> 00:11:07,698
+Now usually, you don't need to implement these methods, why?
+
+229
+00:11:07,767 --> 00:11:10,301
+Because you use an auto layout, right? All that Ctrl
+
+230
+00:11:10,370 --> 00:11:12,837
++ dragging, pinning things to the edges, keeping things
+
+231
+00:11:12,906 --> 00:11:16,540
+in the center, fixing aspect ratios, all that business,
+
+232
+00:11:16,609 --> 00:11:19,944
+you're doing that. And that is automatically being evoked in
+
+233
+00:11:20,013 --> 00:11:22,713
+the layoutSubviews of your top level view. So
+
+234
+00:11:22,782 --> 00:11:25,349
+you don't actually need to do anything in your controller.
+
+235
+00:11:25,418 --> 00:11:28,586
+Okay, but if you do feel like you need to do something to
+
+236
+00:11:28,655 --> 00:11:32,123
+your controller, this is definitely the place to do it.
+
+237
+00:11:32,192 --> 00:11:35,092
+Now one thing about these two methods you have to be aware
+
+238
+00:11:35,161 --> 00:11:37,729
+of, they could be called quite often. And
+
+239
+00:11:37,797 --> 00:11:40,265
+at times you might be surprised like, whoa,
+
+240
+00:11:40,333 --> 00:11:42,801
+nothing changed. The bounds didn't change, nothing
+
+241
+00:11:42,869 --> 00:11:45,169
+changed with the subviews, why did this get called?
+
+242
+00:11:45,238 --> 00:11:48,572
+Well, the system is allowed to layout the subviews, ensure
+
+243
+00:11:48,641 --> 00:11:51,976
+the layout of the subviews of any view at any time. Maybe it
+
+244
+00:11:52,045 --> 00:11:54,645
+wants to do an animation and it's laying out the beginning
+
+245
+00:11:54,714 --> 00:11:56,981
+and end stage that it's going to do a flip between or
+
+246
+00:11:57,049 --> 00:11:59,683
+something. And the bounds have not changed but it wants
+
+247
+00:11:59,752 --> 00:12:01,586
+to make sure the views are laid out. Or
+
+248
+00:12:01,655 --> 00:12:04,121
+it's laying them out in the destination, the end of
+
+249
+00:12:04,190 --> 00:12:07,391
+the animation etc. So it doesn't really matter why,
+
+250
+00:12:07,460 --> 00:12:10,094
+but the system is allowed to call it anytime it wants.
+
+251
+00:12:10,163 --> 00:12:12,497
+And so since it can call layoutSubviews anytime,
+
+252
+00:12:12,565 --> 00:12:14,232
+these could also be called anytime.
+
+253
+00:12:14,300 --> 00:12:16,834
+So you wanna make sure this, if you do something as
+
+254
+00:12:16,902 --> 00:12:19,703
+a reaction to your bounce changing, you wanna make sure
+
+255
+00:12:19,772 --> 00:12:22,306
+these methods properly and efficiently work even
+
+256
+00:12:22,375 --> 00:12:25,409
+if they're repeatedly called. They might be called twice in
+
+257
+00:12:25,478 --> 00:12:27,678
+a row with the exact same bounds, for example.
+
+258
+00:12:27,747 --> 00:12:30,280
+So you wouldn't wanna, if you had to do something very
+
+259
+00:12:30,349 --> 00:12:31,682
+complicated and expensive,
+
+260
+00:12:31,751 --> 00:12:36,153
+you certainly wouldn't do it twice in a row. Okay, so
+
+261
+00:12:36,222 --> 00:12:39,424
+that's geometry. Now there's a special case of your geometry
+
+262
+00:12:39,492 --> 00:12:41,459
+changing, which is autorotation. So
+
+263
+00:12:41,528 --> 00:12:44,095
+this is you turn your device from landscape to portrait or
+
+264
+00:12:44,164 --> 00:12:47,565
+back and forth. And when this happens, of course, you get
+
+265
+00:12:47,634 --> 00:12:50,167
+that layoutSubviews thing, because your view's bounds
+
+266
+00:12:50,236 --> 00:12:53,037
+change until you get viewWill/DidLayoutSubviews.
+
+267
+00:12:53,105 --> 00:12:56,774
+But you also have this animation that's free
+
+268
+00:12:56,842 --> 00:13:01,312
+going on. So iOS automatically animates the moving of all
+
+269
+00:13:01,381 --> 00:13:04,849
+your subviews from the portrait layoutSubviews
+
+270
+00:13:04,918 --> 00:13:07,752
+to the landscape layoutSubviews positions.
+
+271
+00:13:07,820 --> 00:13:08,886
+It does that for you.
+
+272
+00:13:08,955 --> 00:13:12,223
+Now that's great, that saves you a lot of work. But if for
+
+273
+00:13:12,292 --> 00:13:15,493
+some reason you wanna participate in that animation.
+
+274
+00:13:15,562 --> 00:13:18,228
+Now why would that be? I don't know if you, have you
+
+275
+00:13:18,297 --> 00:13:21,132
+guys ever looked at the calculator app on the iPhone?
+
+276
+00:13:21,201 --> 00:13:23,501
+When it's in portrait, the buttons are really big and
+
+277
+00:13:23,570 --> 00:13:26,304
+there's not very many calculation buttons like
+
+278
+00:13:26,372 --> 00:13:29,774
+times, plus, minus, equals. That's about it, right? But
+
+279
+00:13:29,843 --> 00:13:32,476
+when you switch to landscape now the buttons get small and
+
+280
+00:13:32,545 --> 00:13:33,511
+there is a whole bunch.
+
+281
+00:13:33,579 --> 00:13:36,814
+Square root, algorithms, all kinds of things.
+
+282
+00:13:36,883 --> 00:13:39,250
+Okay, well, when this rotating happens,
+
+283
+00:13:39,319 --> 00:13:42,353
+the calculator app wants to get involved, cuz it wants to
+
+284
+00:13:42,421 --> 00:13:45,622
+animate those extra buttons appearing on screen, maybe.
+
+285
+00:13:45,691 --> 00:13:48,492
+Okay, and also the layout changes from being kinda big
+
+286
+00:13:48,561 --> 00:13:51,562
+buttons in the middle to those buttons being on the side and
+
+287
+00:13:51,630 --> 00:13:53,063
+new buttons appearing.
+
+288
+00:13:53,132 --> 00:13:55,599
+So that's where you might wanna participate. So
+
+289
+00:13:55,668 --> 00:13:59,070
+how do you use this method? Well, view will transition to
+
+290
+00:13:59,138 --> 00:14:01,739
+size with coordinator to do that. Well, the coordinator
+
+291
+00:14:01,808 --> 00:14:04,241
+that's passed you is the animation coordinator.
+
+292
+00:14:04,310 --> 00:14:08,513
+It has a method in it called animate alongside transition.
+
+293
+00:14:08,581 --> 00:14:11,615
+And in there, you can provide an animation block,
+
+294
+00:14:11,684 --> 00:14:14,952
+a closure and do your animation. And that animation
+
+295
+00:14:15,021 --> 00:14:18,489
+will be performed alongside the animation that the system
+
+296
+00:14:18,558 --> 00:14:21,525
+does when it rotates. Okay, and I'm not gonna talk anymore
+
+297
+00:14:21,594 --> 00:14:23,928
+about it than that. It's just so you know it's there.
+
+298
+00:14:23,997 --> 00:14:26,697
+90% of the time, you don't need to do that. Now,
+
+299
+00:14:26,766 --> 00:14:29,032
+in your current assignment, assignment three, or
+
+300
+00:14:29,101 --> 00:14:32,503
+assignment four, you probably, if you're far along on it, or
+
+301
+00:14:32,572 --> 00:14:34,605
+if you're not, you'll notice eventually,
+
+302
+00:14:34,674 --> 00:14:37,541
+that you've got animation, like cards being dealt out.
+
+303
+00:14:37,610 --> 00:14:39,877
+Well, what happens if you start dealing out a card,
+
+304
+00:14:39,945 --> 00:14:41,378
+it starts flying across the screen,
+
+305
+00:14:41,447 --> 00:14:46,483
+and then you rotate. Rotate your device. Well, what's
+
+306
+00:14:46,552 --> 00:14:50,254
+gonna happen is this is going to try and do some animation.
+
+307
+00:14:50,323 --> 00:14:53,857
+Now, I specifically put in the assignment, don't worry about
+
+308
+00:14:53,926 --> 00:14:58,062
+that. You don't have to worry about that case this week. But
+
+309
+00:14:58,130 --> 00:15:00,798
+you might ask, what do I do there?
+
+310
+00:15:00,867 --> 00:15:04,068
+Well, you have to understand that that might happen and
+
+311
+00:15:04,137 --> 00:15:07,738
+deal with it. Because when you're throwing a card out
+
+312
+00:15:07,806 --> 00:15:11,809
+across the screen there, and this thing starts to animate
+
+313
+00:15:11,878 --> 00:15:14,645
+that same properties of that same view,
+
+314
+00:15:14,714 --> 00:15:18,749
+it's going to put it possibly in the wrong place.
+
+315
+00:15:18,818 --> 00:15:20,518
+Cuz it's gonna move it to a new place.
+
+316
+00:15:20,586 --> 00:15:24,121
+It probably does animation begin from current state. And
+
+317
+00:15:24,190 --> 00:15:28,693
+so you could end up with views totally in the wrong place. So
+
+318
+00:15:28,762 --> 00:15:31,829
+you need to be able to setup your animations so
+
+319
+00:15:31,897 --> 00:15:35,532
+that if they get taken over by someone else, all right,
+
+320
+00:15:35,601 --> 00:15:40,337
+that they end up in the right place at the end. Okay, and so
+
+321
+00:15:40,406 --> 00:15:42,406
+that can require a little bit of tuning, like I said,
+
+322
+00:15:42,475 --> 00:15:44,809
+this animation tuning business.
+
+323
+00:15:44,878 --> 00:15:47,411
+That might require some of that. But not required for
+
+324
+00:15:47,480 --> 00:15:50,648
+assignment four. It's a little bit of an advanced animation,
+
+325
+00:15:50,717 --> 00:15:53,785
+so you have to deal with that. All right, this last one and
+
+326
+00:15:53,853 --> 00:15:55,719
+definitely the least is low memory.
+
+327
+00:15:55,788 --> 00:16:00,424
+This would only be, you would have only any interest in this
+
+328
+00:16:00,493 --> 00:16:05,663
+if your app had large memory items like videos. Images,
+
+329
+00:16:05,732 --> 00:16:09,767
+huge sound files. Very high resolution big sound files for
+
+330
+00:16:09,835 --> 00:16:13,871
+example. And you know it is possible that an iOS device
+
+331
+00:16:13,940 --> 00:16:16,507
+that had many apps that were doing a lot of big photo
+
+332
+00:16:16,576 --> 00:16:19,343
+manipulation or something. That it could possibly
+
+333
+00:16:19,412 --> 00:16:22,280
+run low on memory. Most new ones have so
+
+334
+00:16:22,349 --> 00:16:24,815
+much memory this doesn't ever happen. But
+
+335
+00:16:24,884 --> 00:16:27,417
+maybe if you had an app that had a memory leak that was
+
+336
+00:16:27,486 --> 00:16:32,256
+leaking big images in memory then it could happen. But
+
+337
+00:16:32,325 --> 00:16:34,458
+anyway, you'll be sent this when that happens.
+
+338
+00:16:34,527 --> 00:16:37,161
+And all this is asking your view controller here is
+
+339
+00:16:37,230 --> 00:16:40,931
+please release anything from the heap that you can recreate
+
+340
+00:16:41,000 --> 00:16:45,370
+fairly easily later, or when you need it. And so
+
+341
+00:16:45,438 --> 00:16:48,172
+it's kind of a memory cleanup kind of thing.
+
+342
+00:16:48,241 --> 00:16:51,441
+One thing I will say is if your app is leaking
+
+343
+00:16:51,510 --> 00:16:53,944
+in the heap and you are getting larger and larger, and
+
+344
+00:16:54,013 --> 00:16:56,780
+it sends this to you, and you have bad code and
+
+345
+00:16:56,849 --> 00:16:59,483
+you don't know how to clean it up and you continue to leak,
+
+346
+00:16:59,552 --> 00:17:04,422
+iOS can kill you. Okay, so, if you are a big memory hog and
+
+347
+00:17:04,490 --> 00:17:09,327
+you keep leaking, you can be killed. So, just. It's kind
+
+348
+00:17:09,395 --> 00:17:12,163
+of the dangers of being a bad programmer I guess.
+
+349
+00:17:12,231 --> 00:17:16,833
+I can get killed. Almost never happens though. All right.
+
+350
+00:17:16,902 --> 00:17:20,204
+The last thing is actually back to the beginning ,which
+
+351
+00:17:20,273 --> 00:17:23,174
+is waking up from a story board. This is not strictly
+
+352
+00:17:23,242 --> 00:17:25,743
+part of the view controller life cycle. But I put it in
+
+353
+00:17:25,811 --> 00:17:28,546
+here because any object that comes out of a story board,
+
+354
+00:17:28,614 --> 00:17:31,482
+all your UI views, and your view controller,
+
+355
+00:17:31,551 --> 00:17:36,353
+get sent awakeFromNib. This is sent very early,
+
+356
+00:17:36,422 --> 00:17:39,356
+right after initialization, before preparation,
+
+357
+00:17:39,425 --> 00:17:43,928
+before your outlets are set. I tend to stay away from trying
+
+358
+00:17:43,996 --> 00:17:46,430
+to use this unless I really do need something set early.
+
+359
+00:17:46,499 --> 00:17:50,100
+Now we used this in the demo the other day cuz I wanted my
+
+360
+00:17:50,169 --> 00:17:52,903
+master of my split view to be the delegate of the split view
+
+361
+00:17:52,972 --> 00:17:55,539
+really early before the split view started collapsing things
+
+362
+00:17:55,608 --> 00:17:56,573
+on top of other things.
+
+363
+00:17:56,642 --> 00:18:00,644
+I wanted to get myself in there as the delegate.
+
+364
+00:18:00,713 --> 00:18:02,813
+But normally you don't put things in awake from NIB.
+
+365
+00:18:02,882 --> 00:18:06,383
+And I would say try to put it one of the other ones first,
+
+366
+00:18:06,452 --> 00:18:09,720
+and if you really need it this early, then, you can go and
+
+367
+00:18:09,789 --> 00:18:12,489
+do it in a way from nib. Of course, this is only gonna
+
+368
+00:18:12,558 --> 00:18:14,725
+work for MVCs that come out of storyboards, but again,
+
+369
+00:18:14,793 --> 00:18:17,894
+that's almost always yours. Your ones always come out of
+
+370
+00:18:17,963 --> 00:18:19,396
+storyboards. It's only the system ones,
+
+371
+00:18:19,465 --> 00:18:24,068
+like the camera one, that you get Get from code,, so
+
+372
+00:18:24,137 --> 00:18:25,836
+here is a summary of View Controller lifecycle,
+
+373
+00:18:25,905 --> 00:18:28,039
+you're instantiated, usually from a storyboard,
+
+374
+00:18:28,107 --> 00:18:30,040
+but sometimes you can ask IOS for
+
+375
+00:18:30,109 --> 00:18:32,176
+a View Controller. Then you get awake from Nib,
+
+376
+00:18:32,245 --> 00:18:34,278
+if you're coming out of a storyboard.
+
+377
+00:18:34,346 --> 00:18:37,181
+Then Segue preparation happens, in case some other
+
+378
+00:18:37,250 --> 00:18:41,485
+MVC prepares you, note that your outlets are not set yet.
+
+379
+00:18:41,554 --> 00:18:45,722
+Then your outlets get set. Get wired up by iOS. Then,
+
+380
+00:18:45,791 --> 00:18:49,793
+viewDidLoad gets called, all right? Then you appear and
+
+381
+00:18:49,862 --> 00:18:52,296
+disappear off screen, and you get those viewWill and
+
+382
+00:18:52,365 --> 00:18:55,132
+did disappear, appear and disappear, back and forth.
+
+383
+00:18:55,201 --> 00:18:58,369
+At any point along here, your geometry might change,
+
+384
+00:18:58,438 --> 00:19:01,705
+causing vewWillLayoutSubviews and viewDidLayoutSubviews to
+
+385
+00:19:01,774 --> 00:19:04,641
+get called. Probably with auto layout happening in between
+
+386
+00:19:04,710 --> 00:19:07,611
+those two calls because LayoutSubViews will cause auto
+
+387
+00:19:07,680 --> 00:19:10,881
+layout to happened and if at any time you start
+
+388
+00:19:10,950 --> 00:19:13,317
+using a lot of memory or even just the whole device.
+
+389
+00:19:13,386 --> 00:19:16,153
+Use a lot of memory you might get didReceiveMemoryWarning
+
+390
+00:19:16,221 --> 00:19:18,789
+which you can hopefully clean up something to but
+
+391
+00:19:18,858 --> 00:19:20,658
+often you can't because you don't have anything big.
+
+392
+00:19:22,028 --> 00:19:24,094
+All right, so that is the View Controller Lifecycle.
+
+393
+00:19:24,163 --> 00:19:26,731
+Now I have a little demo here, I'm not gonna spend too much
+
+394
+00:19:26,799 --> 00:19:31,135
+time on this demo because we got scrollView to demo here,
+
+395
+00:19:31,204 --> 00:19:34,071
+but, what I'm gonna do is show you a little piece of code,
+
+396
+00:19:34,140 --> 00:19:37,875
+that you can drop into your app.
+
+397
+00:19:37,944 --> 00:19:39,610
+It's a sub class of UI view controller,
+
+398
+00:19:39,678 --> 00:19:42,179
+and you can just change all of your view controllers to
+
+399
+00:19:42,248 --> 00:19:44,915
+inherit from this instead of UI view controller, and
+
+400
+00:19:44,983 --> 00:19:47,885
+it will essentially just put a print statement of all of
+
+401
+00:19:47,954 --> 00:19:49,553
+the view controller life cycle methods.
+
+402
+00:19:49,621 --> 00:19:50,788
+So you can look in your console and
+
+403
+00:19:50,856 --> 00:19:53,323
+see what's happening in the view controller life cycle.
+
+404
+00:19:53,392 --> 00:19:56,126
+I;m gonna do it a little bit today just to show you kind of
+
+405
+00:19:56,195 --> 00:19:57,929
+a couple of interesting things about that.
+
+406
+00:19:57,997 --> 00:20:02,332
+So I'm gonna do this to concentration, okay,
+
+407
+00:20:02,401 --> 00:20:04,101
+here's our concentration, by the way,
+
+408
+00:20:04,169 --> 00:20:08,572
+this is where we left off last time. Here's awakeFromNib,
+
+409
+00:20:08,641 --> 00:20:10,908
+oops, super.awakeFromNib.
+
+410
+00:20:10,977 --> 00:20:13,443
+AwakeFromNib you also wanna call super even though, again,
+
+411
+00:20:13,512 --> 00:20:15,912
+it's not strictly if you control the life cycle method.
+
+412
+00:20:15,981 --> 00:20:19,483
+You still wanna give you super class the chance to do it. So
+
+413
+00:20:19,551 --> 00:20:23,254
+how does this code that I wrote work? Okay,
+
+414
+00:20:23,322 --> 00:20:28,091
+here it is right here. Where is it? Somewhere over here.
+
+415
+00:20:28,160 --> 00:20:29,160
+I'll get these things out of the way.
+
+416
+00:20:29,229 --> 00:20:30,727
+There it is! Okay, here it is right here.
+
+417
+00:20:30,796 --> 00:20:32,930
+Let's drag it in and take a look at it.
+
+418
+00:20:32,999 --> 00:20:38,068
+I'm going to copy it in, so
+
+419
+00:20:38,137 --> 00:20:40,470
+what this thing look like is exactly what you would think.
+
+420
+00:20:40,539 --> 00:20:43,507
+It's a subclass of UI view controller. And
+
+421
+00:20:43,576 --> 00:20:47,945
+it just has prints for all you did load view load appear did
+
+422
+00:20:48,014 --> 00:20:51,581
+receive that morning layout subviews will transition even.
+
+423
+00:20:51,650 --> 00:20:54,785
+It just prints them out on the screen when it happens.
+
+424
+00:20:54,853 --> 00:20:57,454
+It also has kind of a cool little var, this thing,
+
+425
+00:20:57,523 --> 00:21:01,125
+vclLoggingName. When it logs it on the console it will
+
+426
+00:21:01,194 --> 00:21:04,828
+use this string to identify your viewController. Or
+
+427
+00:21:04,897 --> 00:21:07,998
+if you don't subclass this it will just use the name
+
+428
+00:21:08,067 --> 00:21:10,067
+of the class.
+
+429
+00:21:10,135 --> 00:21:11,868
+which is the name of the struct or
+
+430
+00:21:11,937 --> 00:21:16,073
+class you are in. String describing type of self.
+
+431
+00:21:16,142 --> 00:21:18,141
+That's how you do that. So,
+
+432
+00:21:18,210 --> 00:21:21,545
+I'm going to make my two view controllers in concentration,
+
+433
+00:21:21,614 --> 00:21:24,515
+right? I've got the theme one and the game one.
+
+434
+00:21:24,584 --> 00:21:27,150
+So here's the game one. Instead of having it inherit
+
+435
+00:21:27,219 --> 00:21:30,487
+from UI view controller, I'm going to have it inherit from
+
+436
+00:21:30,556 --> 00:21:34,491
+VCL logging view controller. So now it inherits ability to
+
+437
+00:21:34,560 --> 00:21:39,696
+print out all of those view controller life cycle methods.
+
+438
+00:21:39,765 --> 00:21:41,164
+And I'm going to override this,
+
+439
+00:21:41,233 --> 00:21:42,933
+what did I call it, VCL logging name.
+
+440
+00:21:43,002 --> 00:21:47,204
+And I am going to return Game, just because it will make our
+
+441
+00:21:47,273 --> 00:21:49,206
+console output a little clearer,
+
+442
+00:21:49,274 --> 00:21:52,843
+which view controllers are which. When it's logged
+
+443
+00:21:52,911 --> 00:21:55,312
+in. So this is gonna be called game instead of calling it
+
+444
+00:21:55,381 --> 00:21:57,315
+ConcentrationViewController, which is kinda long and
+
+445
+00:21:57,383 --> 00:22:00,283
+very similar to ConcentrationThemeChooser or
+
+446
+00:22:00,352 --> 00:22:02,787
+whatever it is, view controller. And I'm gonna do
+
+447
+00:22:02,855 --> 00:22:04,722
+the same thing with my themed view controller here,
+
+448
+00:22:04,790 --> 00:22:08,825
+I'm gonna have it inherit from VCLLoginViewController and
+
+449
+00:22:08,894 --> 00:22:14,365
+I'm gonna change its name You see a log in name to be
+
+450
+00:22:14,433 --> 00:22:19,736
+TeamChooser. So, that's only you need to do,
+
+451
+00:22:19,805 --> 00:22:23,173
+in fact you don't even need to do this part if you just make
+
+452
+00:22:23,242 --> 00:22:25,976
+your, your controller in here from this cell log in detail,
+
+453
+00:22:26,045 --> 00:22:30,013
+it will log. So let's going to run, let's run this on iPad,
+
+454
+00:22:30,082 --> 00:22:33,583
+see what happens. Let's go bring our console up here so
+
+455
+00:22:33,652 --> 00:22:38,021
+we can see what's going on, all right?
+
+456
+00:22:38,090 --> 00:22:43,026
+So here is our concentration game, showing up in landscape.
+
+457
+00:22:43,095 --> 00:22:45,729
+And you can see right away look at this init from
+
+458
+00:22:45,798 --> 00:22:48,999
+coder, this init from coder is when something comes out of
+
+459
+00:22:49,068 --> 00:22:51,268
+a storyboard. So both of these are initialized.
+
+460
+00:22:51,337 --> 00:22:53,704
+Both of them awake from Nib, you see?
+
+461
+00:22:53,773 --> 00:22:56,173
+Both of them have their outlets and everything set.
+
+462
+00:22:56,241 --> 00:22:59,343
+And then viewDidLoad happens on both of them.
+
+463
+00:22:59,412 --> 00:23:02,078
+They both are told that they will appear.
+
+464
+00:23:02,147 --> 00:23:04,915
+They get their sub views laid out a few times. Look at this,
+
+465
+00:23:04,983 --> 00:23:08,852
+viewDidLayoutSubviews. This one gets laid out twice
+
+466
+00:23:08,921 --> 00:23:10,988
+even though their bounds have not changed.
+
+467
+00:23:11,057 --> 00:23:13,423
+Then the theme chooser gets a viewDidAppear and
+
+468
+00:23:13,492 --> 00:23:17,060
+the game gets a viewDidAppear and they appear on screen Now
+
+469
+00:23:17,129 --> 00:23:21,465
+what happens if I rotate this to portrait. Now when I go to
+
+470
+00:23:21,533 --> 00:23:25,469
+portrait, I get theme chooser, the master will disappear,
+
+471
+00:23:25,537 --> 00:23:28,105
+because it disappeared, right? It's no longer here,
+
+472
+00:23:28,174 --> 00:23:31,208
+it no longer showing. And I also get this whole transition
+
+473
+00:23:31,277 --> 00:23:34,244
+to with coordinator, because it was a rotation,
+
+474
+00:23:34,312 --> 00:23:36,813
+so we have an opportunity to participate in the animation
+
+475
+00:23:36,882 --> 00:23:40,984
+if we want. The game, of course, got a new size.
+
+476
+00:23:41,053 --> 00:23:46,290
+See, it's 768 by 1024, so we got LayoutSubviews sent to it.
+
+477
+00:23:46,358 --> 00:23:50,894
+And then the ThemeChooser also got its size laid out, for
+
+478
+00:23:50,963 --> 00:23:54,431
+some reason. And then it disappeared. Now,
+
+479
+00:23:54,500 --> 00:23:57,568
+if I drag it out, let's see what happens.
+
+480
+00:23:57,636 --> 00:24:01,371
+Now I get the subviews layed out and view will appear and
+
+481
+00:24:01,440 --> 00:24:03,873
+view did appear for the theme chooser.
+
+482
+00:24:03,942 --> 00:24:06,043
+You see what's going on here? So as this is happening,
+
+483
+00:24:06,112 --> 00:24:08,812
+it's telling us exactly what's going on. Now I'm gonna show
+
+484
+00:24:08,881 --> 00:24:12,583
+you one other thing about this which is kind of interesting.
+
+485
+00:24:12,651 --> 00:24:17,287
+Let's go to our Concentration theme choose.
+
+486
+00:24:17,356 --> 00:24:19,423
+We were already there, theme chooser view controller.
+
+487
+00:24:19,491 --> 00:24:22,292
+I'm gonna make it, we put a lot of code in here so
+
+488
+00:24:22,361 --> 00:24:25,863
+that it wouldn't segue if it could. So I'm gonna make it so
+
+489
+00:24:25,931 --> 00:24:28,632
+it always segue just by commenting this out.
+
+490
+00:24:28,701 --> 00:24:31,201
+So by doing that, I've made is so that every time
+
+491
+00:24:31,270 --> 00:24:34,805
+we choose a game theme, it always segues. And
+
+492
+00:24:34,874 --> 00:24:37,374
+I do that because I wanna show you, let's even go over and
+
+493
+00:24:37,443 --> 00:24:41,010
+do this on iPhone just to see what's going on there.
+
+494
+00:24:41,079 --> 00:24:44,415
+I'll show what happens in the view controller lifecycle when
+
+495
+00:24:44,483 --> 00:24:48,351
+you are segueing, cuz it's important to understand that.
+
+496
+00:24:48,420 --> 00:24:51,722
+Okay, so lets bring this up, and then,
+
+497
+00:24:51,791 --> 00:24:56,693
+sorry. See this happen here from the start? Okay, so
+
+498
+00:24:56,762 --> 00:25:01,731
+this is an interesting, a very interesting start right here
+
+499
+00:25:01,800 --> 00:25:05,235
+because we see that we created them, we wait for
+
+500
+00:25:05,304 --> 00:25:09,239
+a viewDidLoad them, we got the game view well up here,
+
+501
+00:25:09,308 --> 00:25:12,509
+but it never did appear, did it, right? Because
+
+502
+00:25:12,578 --> 00:25:15,111
+we did that thing where we stop the collapse, remember
+
+503
+00:25:15,180 --> 00:25:17,247
+the stopping the collapse and the swiving controller,
+
+504
+00:25:17,316 --> 00:25:19,516
+it never appears. So it got view will up here but
+
+505
+00:25:19,584 --> 00:25:22,252
+never viewDidAppear cuz it didn't actually appear.
+
+506
+00:25:22,321 --> 00:25:25,055
+Just another reason we wanna wait 'till viewDidAppear,
+
+507
+00:25:25,124 --> 00:25:27,224
+sometimes to kick off something expensive,
+
+508
+00:25:27,293 --> 00:25:29,626
+all right? And when they both got laid out, and
+
+509
+00:25:29,695 --> 00:25:33,563
+the chooser did appear. Now when I click on one,
+
+510
+00:25:33,632 --> 00:25:38,402
+here it creates a second, a new, game MVC,
+
+511
+00:25:38,470 --> 00:25:41,872
+you see that? It's new, this 2 means it's a new instance.
+
+512
+00:25:41,940 --> 00:25:44,074
+So this is the instance number of it. And notice,
+
+513
+00:25:44,143 --> 00:25:45,909
+look what happened to the first one,
+
+514
+00:25:45,977 --> 00:25:48,445
+the one that never appeared, it left the heap. And
+
+515
+00:25:48,514 --> 00:25:49,946
+that's what happens when you segue.
+
+516
+00:25:50,015 --> 00:25:52,549
+You get a new one and the old one leaves the heap. So
+
+517
+00:25:52,618 --> 00:25:56,119
+the new one gets viewDidLoad, viewWillAppear, viewDidAppear.
+
+518
+00:25:56,188 --> 00:26:00,190
+If I go back, I get some viewDidAppear and
+
+519
+00:26:00,258 --> 00:26:01,591
+disappear cuz this one appeared and
+
+520
+00:26:01,660 --> 00:26:03,960
+the other one disappeared. And if I segue again,
+
+521
+00:26:04,029 --> 00:26:09,065
+now I get a third MVC, and the second one leaves the heap.
+
+522
+00:26:09,134 --> 00:26:11,568
+So this is what I was saying about, when you do segues,
+
+523
+00:26:11,637 --> 00:26:13,036
+a new one is always created, and
+
+524
+00:26:13,105 --> 00:26:15,772
+the old one gets thrown out of the navigation controller and
+
+525
+00:26:15,841 --> 00:26:21,077
+leaves the heap. Everybody got that? Okay, that's
+
+526
+00:26:21,146 --> 00:26:24,013
+all I wanted to show you. This is more just code that you can
+
+527
+00:26:24,082 --> 00:26:26,817
+use to kind of figure out what's going on in your own
+
+528
+00:26:26,885 --> 00:26:31,655
+app, if things are not working the way you expect. Okay,
+
+529
+00:26:31,723 --> 00:26:36,459
+let's head back over here, continue our slides and
+
+530
+00:26:36,528 --> 00:26:41,397
+talk about ScrollView. Okay, so ScrollView,
+
+531
+00:26:41,466 --> 00:26:44,134
+you know what a ScrollView is, right? You have a little area
+
+532
+00:26:44,202 --> 00:26:46,103
+on screen, and you want to look at something big,
+
+533
+00:26:46,171 --> 00:26:48,605
+so you gotta ScrollView. You can scroll around with your
+
+534
+00:26:48,674 --> 00:26:51,074
+finger and pinch in and out to zoom in on it.
+
+535
+00:26:51,143 --> 00:26:54,077
+I just wanted to make sure you understand the ScrollView is
+
+536
+00:26:54,146 --> 00:26:57,213
+a very powerful UIView. Okay, and it works
+
+537
+00:26:57,282 --> 00:27:00,651
+really like a UIView in pretty much all circumstances.
+
+538
+00:27:00,720 --> 00:27:02,619
+Here's my favorite little demo, a little,
+
+539
+00:27:02,688 --> 00:27:04,921
+what do you call it recording this show in this class.
+
+540
+00:27:04,990 --> 00:27:08,358
+Because this I believe is an iPhone one that you're seeing
+
+541
+00:27:08,427 --> 00:27:09,093
+up here, but
+
+542
+00:27:09,161 --> 00:27:12,095
+even back from the iPhone one ScrollView did this.
+
+543
+00:27:12,164 --> 00:27:15,065
+Now watch what happens here when I start this thing going.
+
+544
+00:27:15,134 --> 00:27:18,601
+You can see that I've got a ScrollView, a horizontal one,
+
+545
+00:27:18,670 --> 00:27:20,436
+that I can scroll between, and
+
+546
+00:27:20,505 --> 00:27:23,507
+inside it are vertical ones. So it is perfectly fine to
+
+547
+00:27:23,576 --> 00:27:25,341
+have ScrollViews inside ScrollViews.
+
+548
+00:27:25,410 --> 00:27:27,878
+Here's another one, okay, where we're scrolling
+
+549
+00:27:27,946 --> 00:27:30,747
+horizontally between these stock quote views or whatever.
+
+550
+00:27:30,816 --> 00:27:35,652
+And then we get there, we can scroll up and down. Okay, so
+
+551
+00:27:35,721 --> 00:27:38,321
+ScrollView knows how to live within itself and
+
+552
+00:27:38,390 --> 00:27:41,291
+knows how to live in virtually every environment,
+
+553
+00:27:41,359 --> 00:27:44,594
+ScrollView is really amazing little class. So
+
+554
+00:27:44,663 --> 00:27:46,263
+let's talk about how ScrollView works,
+
+555
+00:27:46,332 --> 00:27:49,299
+it's actually very simple to use as well.
+
+556
+00:27:49,368 --> 00:27:52,803
+You already know how to add subviews to a regular UIView,
+
+557
+00:27:52,872 --> 00:27:56,439
+so I have regular UIView here. I just create a view,
+
+558
+00:27:56,508 --> 00:28:01,444
+set its frame, and add it as a subview, it appears, right.
+
+559
+00:28:01,513 --> 00:28:05,214
+Surely the same three, you are intimately familiar with doing
+
+560
+00:28:05,283 --> 00:28:08,651
+this. So how does it differ if it's a ScrollView? Okay, well
+
+561
+00:28:08,720 --> 00:28:13,156
+in the ScrollView, there's one kind of huge difference,
+
+562
+00:28:13,225 --> 00:28:16,994
+which is that we create what's called a contentSize.
+
+563
+00:28:17,062 --> 00:28:20,063
+When we specify this contentSize, we're specifying
+
+564
+00:28:20,131 --> 00:28:23,166
+the size of the area that the ScrollView is gonna scroll
+
+565
+00:28:23,235 --> 00:28:27,370
+around. Okay, so this is the big thing that the ScrollView,
+
+566
+00:28:27,439 --> 00:28:30,040
+which is little, is going to look around in. And
+
+567
+00:28:30,108 --> 00:28:33,009
+it is only a size, it's origin is always 00, this little
+
+568
+00:28:33,078 --> 00:28:36,480
+content area right here, so we always just specify the size.
+
+569
+00:28:36,548 --> 00:28:38,982
+So this var, contentSize, that you see right there
+
+570
+00:28:39,051 --> 00:28:41,852
+in ScrollView is crucial. It's the most important var
+
+571
+00:28:41,920 --> 00:28:45,222
+maybe on any class, anywhere. It's the thing
+
+572
+00:28:45,291 --> 00:28:47,724
+that tells the ScrollView how big the space is. But
+
+573
+00:28:47,793 --> 00:28:52,162
+after that, adding subviews looks just like another view.
+
+574
+00:28:52,231 --> 00:28:55,232
+Now I can create a frame, add a subview to the ScrollView,
+
+575
+00:28:55,300 --> 00:28:58,301
+and instead of putting it in the black square over
+
+576
+00:28:58,370 --> 00:29:01,871
+there on the left, it puts it in that content area instead.
+
+577
+00:29:01,940 --> 00:29:04,641
+Same frame, but it puts it, you know,
+
+578
+00:29:04,710 --> 00:29:07,210
+still uses the frame to place it. But it's doing it in
+
+579
+00:29:07,279 --> 00:29:10,781
+the content area. And I can put other things in there,
+
+580
+00:29:10,849 --> 00:29:12,782
+you know, multiple subviews as many as I want, so
+
+581
+00:29:12,851 --> 00:29:16,586
+here's two of them. And now the ScrollView, what it does,
+
+582
+00:29:16,655 --> 00:29:20,223
+it just lets you have a little window that is scrolling
+
+583
+00:29:20,292 --> 00:29:24,160
+around as the user pans around here, and of course they can
+
+584
+00:29:24,229 --> 00:29:28,097
+zoom as well. Now you can reposition the subviews in
+
+585
+00:29:28,166 --> 00:29:30,633
+that content area just like you can in a regular
+
+586
+00:29:30,702 --> 00:29:31,935
+view subview, right?
+
+587
+00:29:32,003 --> 00:29:34,905
+So I just new frame, set that thing to have a new frame,
+
+588
+00:29:34,973 --> 00:29:37,407
+it repositions. I set the logo to have a different frame,
+
+589
+00:29:37,476 --> 00:29:40,610
+it repositions. Now I have all this white space on the edges,
+
+590
+00:29:40,679 --> 00:29:42,112
+I don't want it anymore, so
+
+591
+00:29:42,181 --> 00:29:46,983
+I can just reset my content size to fit the aerial frame,
+
+592
+00:29:47,052 --> 00:29:51,254
+right? Now when I scroll around, I'm just looking in
+
+593
+00:29:51,322 --> 00:29:56,793
+this new content area. Got it? So that's it, so just that
+
+594
+00:29:56,861 --> 00:30:01,565
+content size is the the key. Now, because of this magic,
+
+595
+00:30:01,634 --> 00:30:03,433
+there's a couple other interesting things about
+
+596
+00:30:03,502 --> 00:30:07,003
+Scroll View like it has a var called content offset.
+
+597
+00:30:07,072 --> 00:30:10,006
+Content offset is just the x and y position
+
+598
+00:30:10,075 --> 00:30:13,376
+of the upper-left corner of the, what's the ScrollView
+
+599
+00:30:13,445 --> 00:30:17,347
+is currently showing in that content areas coordinate
+
+600
+00:30:17,415 --> 00:30:20,817
+system. So it's just kind of exactly what it sounds like,
+
+601
+00:30:20,886 --> 00:30:24,587
+the offset of the content that is being shown right there.
+
+602
+00:30:24,656 --> 00:30:28,725
+And you also, might be zoomed though. And if you're zoomed,
+
+603
+00:30:28,794 --> 00:30:31,027
+you're probably much more interested in,
+
+604
+00:30:31,096 --> 00:30:34,097
+what is the rectangle in the content area coordinate system
+
+605
+00:30:34,166 --> 00:30:36,566
+that I'm looking at? Cuz maybe I'm zoomed
+
+606
+00:30:36,635 --> 00:30:39,669
+the way in on one of the windows there in the quad, and
+
+607
+00:30:39,738 --> 00:30:42,505
+I wanna know that window. Well that's gonna be a very small
+
+608
+00:30:42,574 --> 00:30:44,674
+rectangle, that window, cuz I'm zoomed way in on it.
+
+609
+00:30:44,743 --> 00:30:47,410
+And the way we do that is using the same methods that
+
+610
+00:30:47,479 --> 00:30:50,714
+you probably use or you might have used in your assignment.
+
+611
+00:30:50,783 --> 00:30:55,551
+Which is UIViews methods convert from and convert to
+
+612
+00:30:55,620 --> 00:30:59,322
+points and rectangles, those all work in UIScrollView.
+
+613
+00:30:59,390 --> 00:31:03,694
+So if you say convert from the ScrollView to this aerial
+
+614
+00:31:03,762 --> 00:31:07,196
+views, you will get the bounds of the ScrollView in
+
+615
+00:31:07,265 --> 00:31:08,965
+that view's coordinate system.
+
+616
+00:31:09,034 --> 00:31:12,201
+So that's how you can find out that rec in the aerial view's
+
+617
+00:31:12,270 --> 00:31:15,605
+coordinate system. Just normal convert, nothing special
+
+618
+00:31:15,674 --> 00:31:20,844
+there. Okay, so how do you create a ScrollView?
+
+619
+00:31:20,912 --> 00:31:24,781
+Well, you can drag one out, of course, out of the little
+
+620
+00:31:24,849 --> 00:31:28,185
+object palettes. You can also select a view in your
+
+621
+00:31:28,253 --> 00:31:31,788
+storyboard and go to the embed menu as simple as you say,
+
+622
+00:31:31,857 --> 00:31:34,491
+embed in navigation controller. And say,
+
+623
+00:31:34,559 --> 00:31:37,460
+embed in ScrollView and it will wrap a ScrollView around.
+
+624
+00:31:37,529 --> 00:31:40,263
+Unfortunately, it puts about a 20 pixel 20 point
+
+625
+00:31:40,332 --> 00:31:43,166
+border around it which I don't really like but it does.
+
+626
+00:31:43,235 --> 00:31:45,101
+I'll show you that in the demo today and
+
+627
+00:31:45,170 --> 00:31:48,038
+how we got rid of that. So you kinda do that either way or
+
+628
+00:31:48,106 --> 00:31:51,274
+you can obviously create them in code, right? It's just
+
+629
+00:31:51,342 --> 00:31:56,245
+a UIView so it has the init with frame initializer to do
+
+630
+00:31:56,314 --> 00:31:59,982
+that as well. So once you've created your ScrollView or
+
+631
+00:32:00,051 --> 00:32:02,819
+put it in your storyboard and created an outlet to it,
+
+632
+00:32:02,887 --> 00:32:06,056
+then you just say addSubview to add your subviews to it.
+
+633
+00:32:06,125 --> 00:32:09,793
+But this will do nothing, nothing will appear
+
+634
+00:32:09,861 --> 00:32:14,030
+screen until you set your contentSize. If you don't set
+
+635
+00:32:14,099 --> 00:32:15,631
+that contentSize, then the ScrollView
+
+636
+00:32:15,700 --> 00:32:19,602
+will be scrolling over a little zero width zero height
+
+637
+00:32:19,671 --> 00:32:22,872
+rectangle in the corner. And your, if you put a Subview in
+
+638
+00:32:22,941 --> 00:32:26,176
+there, it probably will spill over and show but there will
+
+639
+00:32:26,245 --> 00:32:29,980
+be no scrolling. So if you use a ScrollView, and your image
+
+640
+00:32:30,048 --> 00:32:33,116
+appears, or your views appear, but then you can't pan or
+
+641
+00:32:33,185 --> 00:32:35,985
+pinch, it's probably because your contentSize is zero.
+
+642
+00:32:36,054 --> 00:32:40,023
+The panning and pinching is only happening in the content
+
+643
+00:32:40,092 --> 00:32:44,260
+area, all right? You can scroll programmatically,
+
+644
+00:32:44,329 --> 00:32:46,329
+of course the user can scroll with their finger.
+
+645
+00:32:46,398 --> 00:32:49,732
+But you can do it in code by saying scrollRecToVisible,
+
+646
+00:32:49,801 --> 00:32:52,902
+you just specify a rectangle in the content area and
+
+647
+00:32:52,971 --> 00:32:56,306
+it will slide over to show that rectangle.
+
+648
+00:32:56,374 --> 00:32:58,241
+You can control a lot of other things that I don't
+
+649
+00:32:58,309 --> 00:32:59,643
+have time to cover in scroll view.
+
+650
+00:32:59,711 --> 00:33:02,913
+For example, when a scroll view first appears on screen,
+
+651
+00:33:02,982 --> 00:33:05,548
+it can flash its ScrollIndicators. Okay,
+
+652
+00:33:05,617 --> 00:33:08,084
+the two things that kinda show you where you scrolled
+
+653
+00:33:08,152 --> 00:33:11,888
+on the edges. They can flash that's the default in fact.
+
+654
+00:33:11,957 --> 00:33:14,190
+But there's this bar flash scrolling indication you can
+
+655
+00:33:14,259 --> 00:33:17,394
+turn it to false if you don't want it to do that etc. Also,
+
+656
+00:33:17,462 --> 00:33:21,898
+scroll view is super smart about safe areas.
+
+657
+00:33:21,967 --> 00:33:24,267
+Okay, remember we talked about safe areas like the place at
+
+658
+00:33:24,336 --> 00:33:27,471
+the top of the iPhone 10? Or you're in a navigation control
+
+659
+00:33:27,539 --> 00:33:29,372
+in the title, or a tab bar at the bottom, or
+
+660
+00:33:29,440 --> 00:33:32,241
+it's like not like safe to draw there? Well scroll view,
+
+661
+00:33:32,310 --> 00:33:35,345
+even if you make the scroll view underneath those safe
+
+662
+00:33:35,413 --> 00:33:38,581
+areas, it will let you scroll your content into the safe
+
+663
+00:33:38,650 --> 00:33:41,284
+areas. But if you scroll all the way down,
+
+664
+00:33:41,353 --> 00:33:44,387
+or all the way over, then it will make sure your content is
+
+665
+00:33:44,456 --> 00:33:48,158
+not obscured by the safe area. You'll see this in the demo.
+
+666
+00:33:48,227 --> 00:33:51,861
+So scroll view, really super smart about safe areas.
+
+667
+00:33:51,930 --> 00:33:54,330
+Because it is often the case, that when we have scroll view,
+
+668
+00:33:54,399 --> 00:33:57,500
+we might wanna go full screen to get as much of our image on
+
+669
+00:33:57,569 --> 00:34:00,003
+screen as we can. But, you know, if we got some pixels
+
+670
+00:34:00,072 --> 00:34:02,405
+in the upper left corner, we don't want them to be,
+
+671
+00:34:02,474 --> 00:34:05,241
+you know, underneath the little black bar at top
+
+672
+00:34:05,310 --> 00:34:08,511
+of the iPhone 10. So we want to be able to make sure we
+
+673
+00:34:08,580 --> 00:34:11,982
+scroll down to that far. Now what about zooming?
+
+674
+00:34:12,051 --> 00:34:13,616
+So far we've only talked about panning,
+
+675
+00:34:13,685 --> 00:34:14,884
+moving the scroll view around.
+
+676
+00:34:14,953 --> 00:34:17,754
+What if we want to zoom in on what we're looking at and
+
+677
+00:34:17,823 --> 00:34:21,724
+see it larger? Now, one thing when you zoom in by the way,
+
+678
+00:34:21,793 --> 00:34:25,328
+be careful. That's obviously gonna affect your contentSize.
+
+679
+00:34:25,397 --> 00:34:28,331
+If I zoom in to make what I'm looking at bigger,
+
+680
+00:34:28,400 --> 00:34:31,334
+the content area has to get bigger as well. So
+
+681
+00:34:31,403 --> 00:34:33,670
+sometimes that happens and then people are expecting
+
+682
+00:34:33,738 --> 00:34:36,405
+their content area to be the same old size and it's not.
+
+683
+00:34:36,474 --> 00:34:38,208
+Okay, now scroll view automatically sizes it for
+
+684
+00:34:38,277 --> 00:34:40,009
+you so you don't have to worry about it.
+
+685
+00:34:40,078 --> 00:34:42,211
+But, it's just if you ever look at your contentSize,
+
+686
+00:34:42,280 --> 00:34:45,181
+while you're zoomed in, it's going to be larger, or smaller
+
+687
+00:34:45,250 --> 00:34:48,718
+if you zoom out. And take note of the contentOffset,
+
+688
+00:34:48,787 --> 00:34:52,388
+obviously. All right, so how do you make zooming work?
+
+689
+00:34:52,457 --> 00:34:55,124
+Well, you have to do two things. And don't forget these
+
+690
+00:34:55,193 --> 00:34:57,727
+two things. It will not work without these two things.
+
+691
+00:34:57,796 --> 00:35:01,697
+The first one is to set the zoom scale min and max. Okay,
+
+692
+00:35:01,766 --> 00:35:04,367
+so this is just saying how much do you allow to zoom in
+
+693
+00:35:04,435 --> 00:35:07,536
+and how much do you allow to zoom out. By default, these
+
+694
+00:35:07,605 --> 00:35:12,141
+are both 1.0 which means you can't zoom in or zoom out.
+
+695
+00:35:12,210 --> 00:35:16,646
+It has to be the identity size right there. Now, zooming and
+
+696
+00:35:16,715 --> 00:35:20,149
+scrollView works by modifying the transform, right?
+
+697
+00:35:20,218 --> 00:35:21,551
+We know what the transform is right?
+
+698
+00:35:21,620 --> 00:35:23,520
+The thing you can rotate, scale or translate.
+
+699
+00:35:23,588 --> 00:35:27,324
+Well, it is using the scale part of a transform to scale
+
+700
+00:35:27,392 --> 00:35:31,394
+one of the subviews, we'll talk about which one that is,
+
+701
+00:35:31,462 --> 00:35:33,963
+up and down. Okay, that is how a scrollView works.
+
+702
+00:35:34,032 --> 00:35:36,499
+That is all it does by the way. Okay, when you
+
+703
+00:35:36,567 --> 00:35:39,168
+zoom in and out, it's not doing anything else except for
+
+704
+00:35:39,237 --> 00:35:42,205
+transforming the view that you specify. So
+
+705
+00:35:42,273 --> 00:35:45,174
+this tells it how much it can modify that transform. So
+
+706
+00:35:45,243 --> 00:35:48,511
+if it's 1.0, the transform is always the identity matrix and
+
+707
+00:35:48,580 --> 00:35:51,715
+so It's never gonna zoom in or out. So you have to set these,
+
+708
+00:35:51,783 --> 00:35:54,818
+at least one of these two, or you won't be able to zoom.
+
+709
+00:35:54,887 --> 00:35:57,753
+The second thing is to specify that view
+
+710
+00:35:57,822 --> 00:36:01,123
+that gets transformed. Because remember that the scroll view,
+
+711
+00:36:01,192 --> 00:36:03,459
+that content area is allowed to have multiple subviews.
+
+712
+00:36:03,528 --> 00:36:07,663
+Like we had the logo, we had the aerial view. Okay, so
+
+713
+00:36:07,732 --> 00:36:11,734
+which, when I pinch, which of those gets zoomed.
+
+714
+00:36:11,803 --> 00:36:14,738
+So, you have to actually implement a delegate method
+
+715
+00:36:14,806 --> 00:36:15,605
+in scroll view.
+
+716
+00:36:15,673 --> 00:36:17,640
+Yes, that's right, if you want to zoom on a scroll view,
+
+717
+00:36:17,709 --> 00:36:19,708
+you have to implement this delegate method. And
+
+718
+00:36:19,777 --> 00:36:22,311
+that delegate method is called viewForZooming in scrollView,
+
+719
+00:36:22,380 --> 00:36:25,948
+and it just returns which of the subviews to zoom. Now,
+
+720
+00:36:26,017 --> 00:36:28,984
+to be honest, normally, If we had multiple subviews,
+
+721
+00:36:29,053 --> 00:36:31,855
+we'd put them inside of a view, a top level view, and
+
+722
+00:36:31,924 --> 00:36:34,090
+that's the view where we would zoom on.
+
+723
+00:36:34,159 --> 00:36:36,459
+And of course when we transform that view,
+
+724
+00:36:36,528 --> 00:36:38,794
+all the subviews will get zoomed as well.
+
+725
+00:36:38,863 --> 00:36:42,399
+We wouldn't usually have two different views that
+
+726
+00:36:42,467 --> 00:36:45,267
+are subviews in the content area of the scroll view and
+
+727
+00:36:45,336 --> 00:36:49,806
+they're not sub views of some common view. But it's possible
+
+728
+00:36:49,874 --> 00:36:54,644
+to do, but we don't usually do. Okay, you can also zoom
+
+729
+00:36:54,713 --> 00:36:56,913
+programatically. In addition to pinching to zoom,
+
+730
+00:36:56,981 --> 00:36:59,716
+you can set the zoom scale and also zoom to a rect.
+
+731
+00:36:59,784 --> 00:37:02,352
+And here's what that looks like. So here I, my zoom scale
+
+732
+00:37:02,420 --> 00:37:05,989
+is set to 1.2. That's 20% larger than the identity
+
+733
+00:37:06,057 --> 00:37:08,958
+matrix. Here I've gone back to identity matrix. See how
+
+734
+00:37:09,027 --> 00:37:11,561
+that zoomed out a little? Now we'll go back to 1.2.
+
+735
+00:37:11,629 --> 00:37:15,265
+See, it's 20% larger, right? Even this would not work by
+
+736
+00:37:15,333 --> 00:37:18,000
+the way if I don't set my minimum and maximum zoom scale
+
+737
+00:37:18,069 --> 00:37:21,704
+to allow this. Now the rect is even cooler, so if I had this
+
+738
+00:37:21,773 --> 00:37:24,374
+yellow rectangle and I said zoom to rect it will zoom
+
+739
+00:37:24,442 --> 00:37:28,110
+the whole thing up so that the rect just barely fits. Or
+
+740
+00:37:28,179 --> 00:37:31,481
+if I had a rect that was much bigger, then it would zoom it
+
+741
+00:37:31,549 --> 00:37:36,018
+down to fit, so zoom to rect is a cool way to zoom in and
+
+742
+00:37:36,087 --> 00:37:41,524
+out. All right, so ScrollView has a lot of delegate methods,
+
+743
+00:37:41,592 --> 00:37:45,128
+like 12 or 15, somewhere in there. I'm not gonna talk to
+
+744
+00:37:45,196 --> 00:37:47,264
+you about all of them. You already met one of them.
+
+745
+00:37:47,332 --> 00:37:49,299
+That's view for zooming and ScrollView, but
+
+746
+00:37:49,367 --> 00:37:52,235
+here's another one, just give you an example. This one's
+
+747
+00:37:52,304 --> 00:37:56,939
+called ScrollViewDidEndZooming with view atScale. And
+
+748
+00:37:57,008 --> 00:38:00,009
+this gets sent to you when the user pinches and
+
+749
+00:38:00,078 --> 00:38:03,846
+then lifts the fingers up. Now remember, as they're pinching,
+
+750
+00:38:03,915 --> 00:38:06,816
+all that's being changed is the transform of the view for
+
+751
+00:38:06,885 --> 00:38:08,017
+zooming, that's it,
+
+752
+00:38:08,086 --> 00:38:10,319
+nothing else is happening in there. And
+
+753
+00:38:10,388 --> 00:38:14,090
+when you let go, what if your view, if you are capable of
+
+754
+00:38:14,159 --> 00:38:15,124
+drawing your view,
+
+755
+00:38:15,193 --> 00:38:18,294
+much higher resolution when it is zoomed in. For example,
+
+756
+00:38:18,363 --> 00:38:21,998
+let's say your view draws an arc with core graphics. Draws
+
+757
+00:38:22,066 --> 00:38:24,701
+an arc, you know an arc is just a bunch of little pixels,
+
+758
+00:38:24,770 --> 00:38:27,270
+right, coming around here. If you zoom way in,
+
+759
+00:38:27,339 --> 00:38:30,339
+it's gonna look like little blocks. Kind of jaggedy,
+
+760
+00:38:30,408 --> 00:38:34,410
+right? Well, here when you get this DidEndZooming atScale,
+
+761
+00:38:34,478 --> 00:38:39,115
+you could set your transform back to the identity matrix.
+
+762
+00:38:39,184 --> 00:38:43,085
+And draw your, draw a rect bigger. So
+
+763
+00:38:43,154 --> 00:38:45,855
+that you're using that arc and now you get a nice smooth arc.
+
+764
+00:38:45,924 --> 00:38:48,090
+You see how this would work?
+
+765
+00:38:48,159 --> 00:38:52,228
+So this is a good way to draw with higher resolution after
+
+766
+00:38:52,297 --> 00:38:55,064
+you pinch in. You're still going to be doing transform
+
+767
+00:38:55,133 --> 00:38:57,733
+while it's pinching, which is good. High performance, and
+
+768
+00:38:57,802 --> 00:39:00,537
+all that, but then when you let go, it redraws,
+
+769
+00:39:00,605 --> 00:39:05,374
+kinda sharp. Okay so, I'm gonna do a demo here of
+
+770
+00:39:05,443 --> 00:39:08,777
+ScrollView. Hopefully I should have time to do,
+
+771
+00:39:08,846 --> 00:39:12,414
+show you all these stuff that I just talked about. And
+
+772
+00:39:12,483 --> 00:39:15,785
+then on Wednesday, we will learn about multithreading,
+
+773
+00:39:15,854 --> 00:39:17,553
+okay, putting things in the background. And
+
+774
+00:39:17,622 --> 00:39:20,222
+we'll update the app that I'm writing today to
+
+775
+00:39:20,291 --> 00:39:21,524
+do its image loading and
+
+776
+00:39:21,592 --> 00:39:23,159
+all that stuff in the background.
+
+777
+00:39:23,228 --> 00:39:26,228
+Now I'm going to do that
+
+778
+00:39:26,297 --> 00:39:28,464
+kind of background stuff by doing it over the network.
+
+779
+00:39:28,532 --> 00:39:30,433
+Which I was going to show you a little bit of today but
+
+780
+00:39:30,502 --> 00:39:34,470
+my network doesn't work on my new laptop. So,
+
+781
+00:39:34,539 --> 00:39:38,374
+I'll just be using local image file today, which is fine, but
+
+782
+00:39:38,443 --> 00:39:41,510
+on Wednesday, I'll get my laptop working. And we'll be
+
+783
+00:39:41,579 --> 00:39:44,046
+able to do networking, because when we load images over
+
+784
+00:39:44,115 --> 00:39:46,782
+network, they're slow. And you can see it's called Cassini,
+
+785
+00:39:46,851 --> 00:39:49,519
+that's because the images we're gonna load up are from
+
+786
+00:39:49,587 --> 00:39:50,586
+the Cassini probe that
+
+787
+00:39:50,655 --> 00:39:53,522
+was sent out to Saturn and they're big. Big and very,
+
+788
+00:39:53,591 --> 00:39:56,192
+very high resolution. And then even on Stanford's fast
+
+789
+00:39:56,261 --> 00:39:58,594
+network, they take a few seconds to load.
+
+790
+00:39:58,663 --> 00:40:02,832
+And that, we can't have our UI blocked by that. Wednesday,
+
+791
+00:40:02,901 --> 00:40:04,967
+I'll also talk about text field, and
+
+792
+00:40:05,036 --> 00:40:07,670
+maybe I'll fit in one other little UI element,
+
+793
+00:40:07,738 --> 00:40:11,641
+time permitting. We do have a Friday section this week,
+
+794
+00:40:11,709 --> 00:40:14,410
+it's on this app called Instruments, which is used
+
+795
+00:40:14,479 --> 00:40:17,680
+to analyze the performance of your apps. So don't miss that.
+
+796
+00:40:17,749 --> 00:40:20,682
+And then next week we'll dive into probably table view and
+
+797
+00:40:20,751 --> 00:40:22,084
+collection view, drag and
+
+798
+00:40:22,153 --> 00:40:25,187
+drop kind of more powerful, more sophisticated things that
+
+799
+00:40:25,256 --> 00:40:27,156
+I haven't been able to teach you yet,
+
+800
+00:40:27,225 --> 00:40:30,025
+because you really needed to understand delegation and
+
+801
+00:40:30,094 --> 00:40:34,697
+things like that before we dive into those. All right,
+
+802
+00:40:34,766 --> 00:40:40,803
+let's do Cassini here. Oops, I quit,
+
+803
+00:40:40,872 --> 00:40:45,675
+I didn't wanna quit it. Okay, I'll start it back. So
+
+804
+00:40:45,744 --> 00:40:49,579
+we're gonna create a new project here for Cassini and
+
+805
+00:40:49,647 --> 00:40:54,317
+it's gonna be single view app. I'm gonna call it Cassini.
+
+806
+00:40:54,385 --> 00:40:57,787
+Not gonna do anything special here. We're not gonna do,
+
+807
+00:40:57,856 --> 00:41:00,256
+you've all learned about source code control now, but
+
+808
+00:41:00,325 --> 00:41:01,758
+we're not gonna do that here.
+
+809
+00:41:04,262 --> 00:41:05,294
+Okay, here's our Cassini.
+
+810
+00:41:05,363 --> 00:41:08,431
+I'm gonna do what I usually do here, but take the assets and
+
+811
+00:41:08,500 --> 00:41:10,499
+the app delegate and the launch screen, and
+
+812
+00:41:10,568 --> 00:41:15,237
+kinda move them out of the way into supporting files so
+
+813
+00:41:15,306 --> 00:41:20,242
+we don't get confused by seeing them repeatedly. And
+
+814
+00:41:20,311 --> 00:41:22,412
+I'm also gonna do something interesting here as well.
+
+815
+00:41:22,480 --> 00:41:25,281
+We get, when we create that single view app,
+
+816
+00:41:25,350 --> 00:41:28,217
+we get this little view controller for free and
+
+817
+00:41:28,286 --> 00:41:31,654
+this is its controlling view. And a lot of times, or
+
+818
+00:41:31,722 --> 00:41:34,223
+only thing we've done so far, is rename this to be
+
+819
+00:41:34,292 --> 00:41:36,191
+a concentration view controller, or
+
+820
+00:41:36,260 --> 00:41:39,062
+you probably had set view controller in yours as well.
+
+821
+00:41:39,130 --> 00:41:41,431
+But there's another way to do this as well,
+
+822
+00:41:41,499 --> 00:41:43,733
+which is I can just take this and delete it.
+
+823
+00:41:43,801 --> 00:41:45,968
+So now I have a completely empty storyboard.
+
+824
+00:41:46,037 --> 00:41:48,471
+There's nothing in here. I can delete this, too.
+
+825
+00:41:48,540 --> 00:41:50,440
+Let's just delete that, get that out of here,
+
+826
+00:41:50,508 --> 00:41:53,743
+move it to the trash. So now my app is completely empty.
+
+827
+00:41:53,811 --> 00:41:56,779
+The only thing I have is this supporting files here, but
+
+828
+00:41:56,848 --> 00:41:59,615
+there's basically nothing. So, there's nothing going on here.
+
+829
+00:41:59,684 --> 00:42:00,950
+So, that's perfectly allowed.
+
+830
+00:42:01,018 --> 00:42:03,719
+Now if we do that, how do I build it back up?
+
+831
+00:42:03,788 --> 00:42:07,256
+Well, I'm going to build an app here, Cassini. Initially,
+
+832
+00:42:07,325 --> 00:42:09,892
+it's not going to have nothing to do anything with Cassini,
+
+833
+00:42:09,960 --> 00:42:12,428
+it's just going to have an image in a scroll view.
+
+834
+00:42:12,497 --> 00:42:16,231
+That's going to allow you to choose an image and
+
+835
+00:42:16,300 --> 00:42:19,535
+put it in a scroll view. So I wanna create my own view
+
+836
+00:42:19,604 --> 00:42:22,505
+controller that shows an image and I'm going to create a new
+
+837
+00:42:22,573 --> 00:42:25,474
+view controller to do that called image view controller.
+
+838
+00:42:25,543 --> 00:42:27,576
+So I'm going to go here. Yes, it's a view controller.
+
+839
+00:42:27,645 --> 00:42:29,345
+I'm going to call it image view controller,
+
+840
+00:42:29,414 --> 00:42:30,379
+cuz that's what it does,
+
+841
+00:42:30,448 --> 00:42:32,048
+it shows an image. I'm gonna create it,
+
+842
+00:42:32,116 --> 00:42:35,718
+I'm gonna make sure I put it in the right place here. And
+
+843
+00:42:35,787 --> 00:42:36,852
+here's our image view controller.
+
+844
+00:42:36,921 --> 00:42:39,422
+I'm going to delete all of the code out of it, just so
+
+845
+00:42:39,491 --> 00:42:42,257
+it's clear what code I'm adding. I'm gonna go back to
+
+846
+00:42:42,326 --> 00:42:45,294
+my storyboard, which is completely empty, and drag out
+
+847
+00:42:45,363 --> 00:42:48,764
+a new view controller, and go to the identity inspector over
+
+848
+00:42:48,833 --> 00:42:52,668
+here, and change it to be an image view controller.
+
+849
+00:42:52,737 --> 00:42:57,173
+Now, I haven't done one thing that's very important that is
+
+850
+00:42:57,242 --> 00:42:59,676
+causing this warning. You see this warning up here?
+
+851
+00:42:59,744 --> 00:43:02,345
+It says image view controller is unreachable.
+
+852
+00:43:02,413 --> 00:43:05,381
+That's because there's no arrow, you see? Remember
+
+853
+00:43:05,450 --> 00:43:08,351
+the arrow that I moved over in split view controller demo?
+
+854
+00:43:08,419 --> 00:43:10,753
+There's no arrow. So how do I put the arrow?
+
+855
+00:43:10,822 --> 00:43:13,823
+There's no arrow. How do I get it? Well, you can do this by
+
+856
+00:43:13,891 --> 00:43:17,059
+inspecting a view controller in the normal inspector, and
+
+857
+00:43:17,128 --> 00:43:18,127
+look at this button right here,
+
+858
+00:43:18,195 --> 00:43:21,864
+is initial view controller, boom. Okay, now it'll
+
+859
+00:43:21,933 --> 00:43:26,135
+come in and this will be our view controller. Okay, so
+
+860
+00:43:26,204 --> 00:43:29,805
+let's start here by just not having a scroll view and
+
+861
+00:43:29,874 --> 00:43:31,073
+just having an image view.
+
+862
+00:43:31,142 --> 00:43:34,877
+I'm just gonna take an image view out of here.
+
+863
+00:43:34,945 --> 00:43:37,579
+Here's one, we put in image. Here's an image view.
+
+864
+00:43:37,648 --> 00:43:40,583
+So image view, like I said, is kind like UI label, except for
+
+865
+00:43:40,652 --> 00:43:43,019
+it's for images. And I'm gonna put it in here,
+
+866
+00:43:43,087 --> 00:43:47,590
+and go edge to edge, right there. Let's actually see what
+
+867
+00:43:47,659 --> 00:43:51,794
+this looks like on an iPhone 10, because of course we have
+
+868
+00:43:51,863 --> 00:43:56,265
+safe area issues there. Zoom in a little. So I'm gonna move
+
+869
+00:43:56,334 --> 00:44:01,437
+the size of this actually so that it covers the safe areas.
+
+870
+00:44:01,505 --> 00:44:04,107
+See how that's in the safe areas right there?
+
+871
+00:44:04,175 --> 00:44:06,942
+Now, what I wanna do, and let's go ahead and
+
+872
+00:44:07,011 --> 00:44:12,114
+while we're here let's go get our view controller and
+
+873
+00:44:12,183 --> 00:44:14,350
+create an outlet to this image view,
+
+874
+00:44:14,419 --> 00:44:15,451
+cuz we're going to want to talk to this.
+
+875
+00:44:15,520 --> 00:44:17,687
+So I'm just going to control drag into my class.
+
+876
+00:44:17,755 --> 00:44:22,324
+I'm going to call this image view. So I'm not lit there.
+
+877
+00:44:22,393 --> 00:44:26,929
+Now, I want this big image view right here to go all
+
+878
+00:44:26,997 --> 00:44:30,633
+the way to the edges. I don't really want it to respect
+
+879
+00:44:30,702 --> 00:44:34,403
+the safe area for now. We're going to have scroll view and
+
+880
+00:44:34,472 --> 00:44:36,039
+it will help us with that later.
+
+881
+00:44:36,107 --> 00:44:38,374
+But I want it all the way out. It looks cool.
+
+882
+00:44:38,442 --> 00:44:41,410
+I don't mind if a little bit is covered by this and
+
+883
+00:44:41,478 --> 00:44:43,479
+a little bit is covered by that. It's fine by me,
+
+884
+00:44:43,547 --> 00:44:47,550
+I think it's my image will look cooler to do that.
+
+885
+00:44:47,618 --> 00:44:52,821
+Now how do I control drag to the edges here? Okay,
+
+886
+00:44:52,890 --> 00:44:56,058
+I can't get to any of the edges, right?
+
+887
+00:44:56,127 --> 00:44:59,061
+Because it's right on the edges, so I can't pick it.
+
+888
+00:44:59,130 --> 00:45:01,898
+Well, we're gonna use, again, I'm trying to show you auto
+
+889
+00:45:01,966 --> 00:45:05,234
+layout a little bit at a time, one drip at a time.
+
+890
+00:45:05,303 --> 00:45:07,670
+So we're gonna start using these little things in
+
+891
+00:45:07,738 --> 00:45:11,173
+the corner here. You see in the lower right-hand corner?
+
+892
+00:45:11,242 --> 00:45:12,842
+We already know about this one right here,
+
+893
+00:45:12,911 --> 00:45:15,177
+embed in stack view. We're not going to use that. And
+
+894
+00:45:15,246 --> 00:45:16,378
+we actually have seen this one,
+
+895
+00:45:16,447 --> 00:45:19,649
+I think, which just let's you clear all your constraints, or
+
+896
+00:45:19,717 --> 00:45:22,818
+reset to the blue line suggested constraints, etc.
+
+897
+00:45:22,887 --> 00:45:24,953
+But we're actually going to use a different one,
+
+898
+00:45:25,022 --> 00:45:28,390
+which this one right here. It just says add new constraints.
+
+899
+00:45:28,459 --> 00:45:31,994
+Look what happens if I select the image view and click this.
+
+900
+00:45:32,063 --> 00:45:34,663
+It offers to let me set some of its constraints.
+
+901
+00:45:34,732 --> 00:45:37,432
+Now, some of these like width and height and aspect ratio,
+
+902
+00:45:37,501 --> 00:45:41,003
+we know we can get by control dragging to itself. But
+
+903
+00:45:41,072 --> 00:45:43,873
+look at these ones up here. This is essentially pin,
+
+904
+00:45:43,942 --> 00:45:47,576
+pin to the edges. So this is, these little I beams,
+
+905
+00:45:47,645 --> 00:45:50,646
+if you turn them on, will add constraints.
+
+906
+00:45:50,715 --> 00:45:54,183
+You see, add four constraints. Add three constraints. It'll
+
+907
+00:45:54,252 --> 00:45:58,120
+add constraints that pin them to what's called the nearest
+
+908
+00:45:58,189 --> 00:46:01,090
+neighbor. You see the nearest neighbor? So it's gonna look
+
+909
+00:46:01,158 --> 00:46:04,226
+at that edge, and say what's the nearest neighbor there?
+
+910
+00:46:04,295 --> 00:46:07,463
+Maybe it's the other edge of a nearby view, maybe it's
+
+911
+00:46:07,531 --> 00:46:11,833
+the edge of your superview, maybe it's the safe area. So
+
+912
+00:46:11,902 --> 00:46:14,303
+let's see what happens when we add these four constraints to
+
+913
+00:46:14,372 --> 00:46:16,939
+our image view. We'll find out what the four nearest
+
+914
+00:46:17,007 --> 00:46:20,843
+neighbors were to its four edges. So here we go. Add four
+
+915
+00:46:20,912 --> 00:46:24,247
+constraints. Now I'm going to bring up the inspector,
+
+916
+00:46:24,315 --> 00:46:27,316
+go to the size inspector to look at my constraints.
+
+917
+00:46:27,384 --> 00:46:28,918
+Remember, that's how you look at the constraints on
+
+918
+00:46:28,986 --> 00:46:30,819
+a view when you select a view and
+
+919
+00:46:30,888 --> 00:46:33,655
+go to the size inspector up here. You get to see it.
+
+920
+00:46:33,724 --> 00:46:35,958
+And look, the bottom and top,
+
+921
+00:46:36,027 --> 00:46:39,895
+it's thought the nearest neighbor was super view,
+
+922
+00:46:39,964 --> 00:46:42,465
+self.view. My view controller's top level view,
+
+923
+00:46:42,533 --> 00:46:46,001
+right? But look, on the sides it thought it was the safe
+
+924
+00:46:46,070 --> 00:46:49,472
+area. That's because the safe area here, on this iPhone 10,
+
+925
+00:46:49,540 --> 00:46:52,441
+goes across here. It doesn't include that thing, so
+
+926
+00:46:52,510 --> 00:46:56,478
+it goes across here down this edge. And then across here,
+
+927
+00:46:56,547 --> 00:46:58,280
+not including that little thing right there and
+
+928
+00:46:58,349 --> 00:47:01,283
+back up this edge. That's the safe area. Well, obviously,
+
+929
+00:47:01,352 --> 00:47:04,653
+the two sides are just as close to the safe area
+
+930
+00:47:04,722 --> 00:47:07,056
+as they are to the edges of the superview.
+
+931
+00:47:07,124 --> 00:47:11,126
+And always, interface builder will prefer the safe area
+
+932
+00:47:11,195 --> 00:47:15,530
+over the superview's edges, if they're the same. But
+
+933
+00:47:15,599 --> 00:47:18,967
+up here, this is nowhere near the safe area this is right on
+
+934
+00:47:19,036 --> 00:47:21,370
+the superview's edge, but it's nowhere near the safe area. So
+
+935
+00:47:21,438 --> 00:47:26,075
+that's why it shows superview. See why it did that? Okay,
+
+936
+00:47:26,143 --> 00:47:28,511
+now, I don't want the safe area though here.
+
+937
+00:47:28,579 --> 00:47:32,647
+I always want this at the edges. So how do I fix this to
+
+938
+00:47:32,716 --> 00:47:35,884
+not be doing safe area? I want that to say superview.
+
+939
+00:47:35,953 --> 00:47:39,021
+So how do I do that? Well, I need to edit this constraint.
+
+940
+00:47:39,090 --> 00:47:42,591
+But no, how do I pick that constraint? I can't even,
+
+941
+00:47:42,659 --> 00:47:45,628
+I can't see it, where is it? Well, I'm gonna introduce to
+
+942
+00:47:45,696 --> 00:47:50,098
+you the way we almost always actually access constraints,
+
+943
+00:47:50,167 --> 00:47:53,535
+which is with the document outline. Okay, remember this
+
+944
+00:47:53,604 --> 00:47:57,974
+little button over here, and I said in previous lectures and
+
+945
+00:47:58,042 --> 00:48:01,477
+demos, hey, don't worry about this for now?
+
+946
+00:48:01,546 --> 00:48:04,746
+Well, we're gonna start worrying about this cuz this
+
+947
+00:48:04,815 --> 00:48:08,717
+is showing the everything that's over here in my view.
+
+948
+00:48:08,786 --> 00:48:13,555
+In outline form, including the constraints.
+
+949
+00:48:13,624 --> 00:48:17,125
+See those constraints right there, they look familiar? And
+
+950
+00:48:17,194 --> 00:48:19,394
+these are the constraints between this
+
+951
+00:48:19,463 --> 00:48:23,031
+view and its superview. So
+
+952
+00:48:23,100 --> 00:48:25,067
+here's the two that are hooked to the Safe Area.
+
+953
+00:48:25,135 --> 00:48:29,105
+Here's the two that are hooked directly to the superview.
+
+954
+00:48:29,173 --> 00:48:32,407
+So let's click on one, and go to the normal inspector or
+
+955
+00:48:32,476 --> 00:48:36,579
+the size inspector, either one for constraints, and we can
+
+956
+00:48:36,647 --> 00:48:39,681
+edit this stuff. And we've already seen in previous demos
+
+957
+00:48:39,750 --> 00:48:43,552
+how we edit the constant here, or the multiplier or whatever.
+
+958
+00:48:43,620 --> 00:48:46,655
+Now we're gonna see how we edit the actual connectivity.
+
+959
+00:48:46,724 --> 00:48:51,594
+So this constraint is from the images, image view's leading
+
+960
+00:48:51,662 --> 00:48:56,632
+edge setting that equal to the Safe Area's leading edge.
+
+961
+00:48:56,701 --> 00:48:58,400
+Well, I just want this to be the same, but
+
+962
+00:48:58,469 --> 00:49:00,269
+I don't want to be the Safe Area's leading edge,
+
+963
+00:49:00,337 --> 00:49:03,939
+I want it to be the Superviews. So you can change
+
+964
+00:49:04,008 --> 00:49:07,042
+from Safe Area to Superview just by editing the constraint
+
+965
+00:49:07,111 --> 00:49:09,745
+and changing the item that is sent, connected to.
+
+966
+00:49:09,813 --> 00:49:13,482
+Same thing here, I'm gonna change the Safe Area Trailing
+
+967
+00:49:13,550 --> 00:49:17,386
+to be the Superview Trailing. Now, if I select this and
+
+968
+00:49:17,454 --> 00:49:20,156
+look in the size inspector, you see that all of my
+
+969
+00:49:20,224 --> 00:49:23,592
+constraints are to the Superview. So now my view's
+
+970
+00:49:23,660 --> 00:49:27,095
+gonna fill my entire space, forgetting about any space.
+
+971
+00:49:27,164 --> 00:49:29,965
+I don't care if I have title bar for navigation control, or
+
+972
+00:49:30,034 --> 00:49:33,602
+tab bars. It's all gonna be filling the entire screen
+
+973
+00:49:33,671 --> 00:49:36,438
+behind those things. Or if things, this is like
+
+974
+00:49:36,507 --> 00:49:39,341
+a physical thing, this is not gonna be able to draw there.
+
+975
+00:49:39,410 --> 00:49:42,411
+But that's kinda what I want in this case. Well we're gonna
+
+976
+00:49:42,480 --> 00:49:44,846
+see more from this document outlined in a moment here. But
+
+977
+00:49:44,915 --> 00:49:49,084
+this is a great way to access everything in your view.
+
+978
+00:49:49,153 --> 00:49:53,622
+It's very easy to get at stuff. All right, so let's go
+
+979
+00:49:53,691 --> 00:49:57,292
+back to our code over here. And we want to write some
+
+980
+00:49:57,361 --> 00:50:00,428
+code that makes this view controller do what it does.
+
+981
+00:50:00,497 --> 00:50:03,765
+Well, this is a controller of an MVC.
+
+982
+00:50:03,834 --> 00:50:07,068
+What is the model of this MVC?
+
+983
+00:50:07,137 --> 00:50:10,139
+Well I'm gonna make the model of this be an imageURL.
+
+984
+00:50:10,208 --> 00:50:14,243
+It's gonna be of type, this class in iOS, called URL.
+
+985
+00:50:14,312 --> 00:50:17,813
+A URL just represents a URL. It could be a local file URL,
+
+986
+00:50:17,882 --> 00:50:22,951
+or it could be an Internet URL. And this is my model.
+
+987
+00:50:23,020 --> 00:50:25,654
+And so it's my job to take that model,
+
+988
+00:50:25,723 --> 00:50:29,224
+turn it into an image and present it in my view,
+
+989
+00:50:29,293 --> 00:50:32,127
+which my view right now is just this ImageView
+
+990
+00:50:32,196 --> 00:50:36,231
+right here. So I'm going to do that right away by saying,
+
+991
+00:50:36,300 --> 00:50:39,268
+that if someone sets my model right here, I'm gonna set my
+
+992
+00:50:39,337 --> 00:50:43,305
+ImageView's Image to nil. Okay, because I'm changing
+
+993
+00:50:43,374 --> 00:50:47,108
+it to a new thing. And then I'm gonna go fetch that image.
+
+994
+00:50:47,177 --> 00:50:50,145
+Now the reason I'm making this another little function here,
+
+995
+00:50:50,214 --> 00:50:55,016
+some private func fetch image, is because this thing
+
+996
+00:50:55,085 --> 00:50:57,686
+might be over the network. And eventually on Wednesday,
+
+997
+00:50:57,755 --> 00:51:00,555
+we're gonna make fetch image work in a background task,
+
+998
+00:51:00,624 --> 00:51:03,392
+obviously, because you could get blocked by the network. So
+
+999
+00:51:03,461 --> 00:51:05,093
+I'm kinda thinking ahead a little bit and
+
+1000
+00:51:05,162 --> 00:51:07,763
+putting this in a separate function as opposed to just
+
+1001
+00:51:07,832 --> 00:51:11,600
+dropping it right in here. So someone set a new image URL.
+
+1002
+00:51:11,668 --> 00:51:15,004
+We clear out whatever image we have, if any.
+
+1003
+00:51:15,072 --> 00:51:17,406
+Image is just a bar in our imageView that says the image.
+
+1004
+00:51:17,475 --> 00:51:21,109
+And then we're gonna go fetch a new image over here.
+
+1005
+00:51:21,178 --> 00:51:24,746
+Now one thing, since we just learned about View controller
+
+1006
+00:51:24,815 --> 00:51:28,116
+life cycle. I told you that you don't really wanna do
+
+1007
+00:51:28,185 --> 00:51:32,488
+something like this fetch image unless you have to. So
+
+1008
+00:51:32,557 --> 00:51:33,422
+I'm gonna do something here,
+
+1009
+00:51:33,491 --> 00:51:36,458
+which is I'm only gonna fetch this image if someone
+
+1010
+00:51:36,526 --> 00:51:41,297
+sets my model and I'm on screen. If someone sets my
+
+1011
+00:51:41,365 --> 00:51:44,066
+model and I'm off screen, I am not gonna go fetch
+
+1012
+00:51:44,135 --> 00:51:47,602
+that image yet. I'm gonna wait until I know I'm on screen.
+
+1013
+00:51:47,671 --> 00:51:51,039
+Now how can you tell if you're on screen? How do you know if
+
+1014
+00:51:51,108 --> 00:51:53,508
+your MVC's on screen? Well here is a cool way to do it.
+
+1015
+00:51:53,577 --> 00:51:57,579
+I'm just gonna check to see if my view has a window
+
+1016
+00:51:57,647 --> 00:52:01,182
+that's not nil. So we didn't really talk about window and
+
+1017
+00:52:01,251 --> 00:52:03,319
+i kinda told you to ignore it at the beginning of class, and
+
+1018
+00:52:03,387 --> 00:52:04,553
+you mostly can,
+
+1019
+00:52:04,622 --> 00:52:07,789
+except for that a view, if it's onscreen,
+
+1020
+00:52:07,858 --> 00:52:10,492
+we'll have a window bar, which is the window that it's in,
+
+1021
+00:52:10,561 --> 00:52:14,129
+which is usually just this one window. So this is a kind of
+
+1022
+00:52:14,197 --> 00:52:17,332
+a cool, simple little way to check am I onscreen, and if
+
+1023
+00:52:17,401 --> 00:52:19,935
+I am onscreen, then I'm gonna go ahead and fetch this image.
+
+1024
+00:52:20,003 --> 00:52:23,572
+But what if I'm not onscreen? Eventually I need to fetch
+
+1025
+00:52:23,640 --> 00:52:27,943
+the image. So when is a good time to do that? Anyone have
+
+1026
+00:52:28,012 --> 00:52:31,146
+an idea on that? Yeah, view did appear. Exactly,
+
+1027
+00:52:31,215 --> 00:52:35,550
+let's do it, viewDidAppear. Okay, super.viewDidAppear.
+
+1028
+00:52:35,619 --> 00:52:40,922
+At this point, I know that I'm on screen, so now
+
+1029
+00:52:40,991 --> 00:52:44,727
+inside of my viewDidAppear, I can just check to see if my
+
+1030
+00:52:44,795 --> 00:52:49,764
+image views image. Oops, image is still nil,
+
+1031
+00:52:49,833 --> 00:52:54,837
+then let's fetch it. See how I use the view
+
+1032
+00:52:54,905 --> 00:52:58,207
+controller lifecycle there to keep myself from doing any
+
+1033
+00:52:58,275 --> 00:53:02,811
+unnecessary work? Now, of course, if my fetchImage truly
+
+1034
+00:53:02,879 --> 00:53:05,547
+does work in the background, I have more work to do here,
+
+1035
+00:53:05,616 --> 00:53:08,150
+which is I've gotta give some indication to the user
+
+1036
+00:53:08,218 --> 00:53:11,220
+I'm working on it. Okay, cuz otherwise they're gonna say,
+
+1037
+00:53:11,288 --> 00:53:13,422
+where's my image. Went to this view control,
+
+1038
+00:53:13,491 --> 00:53:15,924
+I don't see any image up here. So I have to give some
+
+1039
+00:53:15,993 --> 00:53:18,627
+feedback. But since right now it's gonna block
+
+1040
+00:53:18,695 --> 00:53:21,196
+the user interface, until it gets the image cuz we're not
+
+1041
+00:53:21,265 --> 00:53:23,532
+doing the multithreading,
+
+1042
+00:53:23,600 --> 00:53:25,834
+we'll just leave it like it is. But we're gonna see it,
+
+1043
+00:53:25,903 --> 00:53:29,405
+when we do it we're gonna put something in there to do that.
+
+1044
+00:53:29,473 --> 00:53:32,073
+All right, so fetchImage, how do we implement fetchImage
+
+1045
+00:53:32,142 --> 00:53:34,409
+right here? Well, this is actually pretty easy.
+
+1046
+00:53:34,478 --> 00:53:37,412
+We're just gonna see if our URL, our model here,
+
+1047
+00:53:37,481 --> 00:53:41,483
+is non nil, cuz if it's nil, we don't have to do anything.
+
+1048
+00:53:41,552 --> 00:53:44,252
+Because whenever someone sets a new image, we set it to nil
+
+1049
+00:53:44,321 --> 00:53:46,788
+and whether we fetch it here or here, if there's no,
+
+1050
+00:53:46,857 --> 00:53:49,658
+if that image URL is nil, we just, we leave it blank.
+
+1051
+00:53:49,727 --> 00:53:53,561
+Nothing in our image view. But if I have it, then I need to
+
+1052
+00:53:53,630 --> 00:53:58,600
+go out in the Internet and get the data at that URL and
+
+1053
+00:53:58,669 --> 00:54:02,237
+turn it into an image. So how do we go out on the Internet,
+
+1054
+00:54:02,305 --> 00:54:06,041
+and get data from URL? We do that with the data objects.
+
+1055
+00:54:06,110 --> 00:54:07,976
+Remember the data object I talked about,
+
+1056
+00:54:08,045 --> 00:54:10,178
+it's just as bag of bits thing.
+
+1057
+00:54:10,247 --> 00:54:13,348
+Well, it has an initial, an initializer, which is
+
+1058
+00:54:13,417 --> 00:54:16,985
+give me a URL, and I'll go get the bag of bits from that URL.
+
+1059
+00:54:17,054 --> 00:54:19,621
+So we can set a little local variable,
+
+1060
+00:54:19,690 --> 00:54:24,459
+which I'm gonna call my URL contents, equal to data.
+
+1061
+00:54:24,528 --> 00:54:28,363
+Now, let's look at the various initializers for a data, and
+
+1062
+00:54:28,432 --> 00:54:30,933
+it has a lot of them because it's a bag of bits.
+
+1063
+00:54:31,001 --> 00:54:33,435
+So we can convert to a lot of different data types,
+
+1064
+00:54:33,504 --> 00:54:37,072
+right, bags of bytes and all kinds of things here. But
+
+1065
+00:54:37,140 --> 00:54:41,209
+one of them has, is this one right here, content of URL.
+
+1066
+00:54:41,278 --> 00:54:46,048
+What's that word after contentsOf : URL? Throws.
+
+1067
+00:54:48,051 --> 00:54:51,153
+So why can this throw? Well, it's going
+
+1068
+00:54:51,221 --> 00:54:54,356
+out on the network maybe, lots of reasons it can throw.
+
+1069
+00:54:54,425 --> 00:54:59,194
+Network connection is bad, the server rejected the request.
+
+1070
+00:54:59,263 --> 00:55:03,531
+There's probably 20 different things it could throw here.
+
+1071
+00:55:03,600 --> 00:55:07,102
+Now it turns out we don't care about any of them. If we did,
+
+1072
+00:55:07,170 --> 00:55:09,805
+let's go ahead and put contentsOf: URL in here. And
+
+1073
+00:55:09,874 --> 00:55:14,309
+the URL is url. If we did, since this throws,
+
+1074
+00:55:14,377 --> 00:55:17,045
+what do we have to say in front of it? Try, yeah,
+
+1075
+00:55:17,114 --> 00:55:19,280
+we have to try it because it might fail.
+
+1076
+00:55:19,349 --> 00:55:25,921
+And we could wrap a little do catch let error here and
+
+1077
+00:55:25,990 --> 00:55:29,992
+do this thing, catch the error and then process the error.
+
+1078
+00:55:30,060 --> 00:55:32,894
+It was a server time out, network unavailable all these
+
+1079
+00:55:32,963 --> 00:55:35,029
+things. But we don't really care about any of that stuff.
+
+1080
+00:55:35,098 --> 00:55:37,699
+We're just a lowly image view controller, we just wanna put
+
+1081
+00:55:37,767 --> 00:55:41,069
+our image up or not. So we don't care about the error, so
+
+1082
+00:55:41,137 --> 00:55:45,507
+we're not gonna do it with a do try, do catch thing here.
+
+1083
+00:55:45,575 --> 00:55:47,876
+Instead, we're gonna use this ver, okay, right now,
+
+1084
+00:55:47,945 --> 00:55:51,713
+this urlContents right here would be a type data.
+
+1085
+00:55:51,781 --> 00:55:54,482
+But I'm gonna change this to try?,
+
+1086
+00:55:54,551 --> 00:55:58,253
+which says try this thing and if it fails, just return nil.
+
+1087
+00:55:58,322 --> 00:56:03,124
+So that makes this now we have type Data?, right? Optional
+
+1088
+00:56:03,193 --> 00:56:07,528
+data, because the try might fail. So I've got this content
+
+1089
+00:56:07,597 --> 00:56:11,299
+right here. Now I'm just gonna say if I can let my image data
+
+1090
+00:56:11,368 --> 00:56:15,270
+that I got from that URL equal the urlContents.
+
+1091
+00:56:15,338 --> 00:56:18,406
+Then I can create my image from that data. So that image
+
+1092
+00:56:18,475 --> 00:56:21,243
+data is probably JPEG data or something like that. So
+
+1093
+00:56:21,311 --> 00:56:26,381
+I'm gonna say here that my image views image equals
+
+1094
+00:56:26,450 --> 00:56:31,219
+UIImage. Now UIImage, we've seen UIImage named, right?
+
+1095
+00:56:31,288 --> 00:56:32,287
+That's the one we've used.
+
+1096
+00:56:32,356 --> 00:56:36,325
+There's another UIImage one called UIImage with data. And
+
+1097
+00:56:36,393 --> 00:56:39,060
+you give it Image data which is data object.
+
+1098
+00:56:39,129 --> 00:56:41,163
+And it will look in there, that bag of bits, and
+
+1099
+00:56:41,231 --> 00:56:43,632
+see if it recognizes anything that looks like an image,
+
+1100
+00:56:43,700 --> 00:56:46,401
+like a JPEG file or something like that. So
+
+1101
+00:56:46,470 --> 00:56:50,205
+that's kinda cool, all right? So that's it.
+
+1102
+00:56:50,274 --> 00:56:52,874
+That's all we need to do to show an image here. I'm gonna
+
+1103
+00:56:52,943 --> 00:56:56,177
+do one other thing just for demo purposes here, which is,
+
+1104
+00:56:56,246 --> 00:57:00,982
+in my viewed load, I'll just do super here. I'm gonna say,
+
+1105
+00:57:01,051 --> 00:57:05,687
+if by the time I load my image URL is nil,
+
+1106
+00:57:05,756 --> 00:57:08,723
+then let's load up kind of a sample image, and
+
+1107
+00:57:08,792 --> 00:57:11,660
+I have a sample image here in a file, a URL for
+
+1108
+00:57:11,729 --> 00:57:16,798
+sample image. Let's go here, I'm gonna drag this in,
+
+1109
+00:57:16,867 --> 00:57:22,637
+demo URLs right here. Again, let me show you this demo URL,
+
+1110
+00:57:22,706 --> 00:57:26,408
+what this looks like. So the demo URL's that I have,
+
+1111
+00:57:26,477 --> 00:57:30,178
+I have this Stanford one right here. Which is a big picture
+
+1112
+00:57:30,247 --> 00:57:33,381
+of the oval, and then I have these NASA ones right here for
+
+1113
+00:57:33,450 --> 00:57:36,751
+Wednesday's demo. Now again, I don't have any network,
+
+1114
+00:57:36,820 --> 00:57:38,853
+so I can't actually do this one over the network, so
+
+1115
+00:57:38,922 --> 00:57:43,224
+I'm gonna do a local one. Using this bundle main.url.
+
+1116
+00:57:43,293 --> 00:57:45,861
+So this gives me a local one. So I have a local version of
+
+1117
+00:57:45,929 --> 00:57:49,431
+the oval here. I'll just drag it in, copy that in.
+
+1118
+00:57:49,500 --> 00:57:53,034
+I can show you what this looks like over here, right.
+
+1119
+00:57:53,103 --> 00:57:56,437
+So it's just a big thing of the oval there,
+
+1120
+00:57:56,506 --> 00:57:59,741
+very high resolution. Notice I click this button
+
+1121
+00:57:59,809 --> 00:58:02,477
+over here target membership to make sure that this oval
+
+1122
+00:58:02,545 --> 00:58:05,914
+when I install my app on the device gets included.
+
+1123
+00:58:05,983 --> 00:58:08,349
+Because I'm looking at locally, but
+
+1124
+00:58:08,418 --> 00:58:11,219
+I'm just gonna get a URL to it. It just happens to be
+
+1125
+00:58:11,288 --> 00:58:13,488
+a URL to a local file as opposed to URL for network,
+
+1126
+00:58:13,557 --> 00:58:16,524
+which doesn't matter cuz we're not doing multi-threading yet,
+
+1127
+00:58:16,593 --> 00:58:18,493
+so it's perfectly fine. Okay, so
+
+1128
+00:58:18,562 --> 00:58:23,632
+that here I'm just gonna set my model equal to my
+
+1129
+00:58:23,700 --> 00:58:28,369
+DemoURLs.Stanford. So that's just that URL for the local
+
+1130
+00:58:28,438 --> 00:58:32,140
+guy. All right, so let's run to see what this does for
+
+1131
+00:58:32,209 --> 00:58:38,113
+us. Actually I'm gonna, we're gonna re-run this and
+
+1132
+00:58:38,181 --> 00:58:41,049
+do it with iPhone 10. But here it is. Now it
+
+1133
+00:58:41,117 --> 00:58:45,153
+showed the image but that really long image got smashed.
+
+1134
+00:58:45,222 --> 00:58:48,156
+And if I go this way, it's doing a good job of sticking
+
+1135
+00:58:48,224 --> 00:58:52,160
+to the edges. But of course, it's kind of smashed as this
+
+1136
+00:58:52,229 --> 00:58:54,696
+is not Stanford in all its glory here.
+
+1137
+00:58:54,765 --> 00:58:58,166
+So we need to fix that, and how do we fix that? Of course,
+
+1138
+00:58:58,234 --> 00:59:01,136
+with ScrollView, right? If we put a ScrollView in there,
+
+1139
+00:59:01,205 --> 00:59:03,572
+it can be its normal size and we can scroll around on it.
+
+1140
+00:59:03,640 --> 00:59:06,074
+Zoom in and out and look at it. So that's perfect
+
+1141
+00:59:06,142 --> 00:59:09,244
+opportunity here, to fix our little app with ScrollView.
+
+1142
+00:59:09,313 --> 00:59:13,281
+Now, I'm gonna show you both ways to do ScrollView.
+
+1143
+00:59:13,350 --> 00:59:16,851
+Scroll view done from a storyboard and ScrollView done
+
+1144
+00:59:16,920 --> 00:59:19,888
+in code. So that you both see how to do it in storyboard,
+
+1145
+00:59:19,956 --> 00:59:22,457
+because it can be a little bit tricky there, and so
+
+1146
+00:59:22,526 --> 00:59:25,226
+you can see what's going on with the contents size and
+
+1147
+00:59:25,295 --> 00:59:28,963
+all that stuff in the code. All right, so let's go to our
+
+1148
+00:59:29,032 --> 00:59:32,434
+storyboard right here. And here is our ImageView.
+
+1149
+00:59:32,503 --> 00:59:36,004
+Now I am going to add this ScrollView. Again, I could
+
+1150
+00:59:36,073 --> 00:59:38,974
+go over here, and if you go down here and search for
+
+1151
+00:59:39,042 --> 00:59:42,243
+ScrollView you'll see you can drag out a scroll view and
+
+1152
+00:59:42,312 --> 00:59:44,345
+then just drag sub-views into it.
+
+1153
+00:59:44,414 --> 00:59:48,183
+By the way, when you are interacting with the sub-views
+
+1154
+00:59:48,251 --> 00:59:52,186
+of ScrollView and Interface Builder, it's talking about
+
+1155
+00:59:52,255 --> 00:59:55,791
+the content area. So the Interface Builder doesn't even
+
+1156
+00:59:55,859 --> 00:59:58,359
+know anything about ScrollView sub-views except for
+
+1157
+00:59:58,428 --> 01:00:00,528
+that they're in the content area. So
+
+1158
+01:00:00,597 --> 01:00:02,997
+for example we're gonna create some constraints here
+
+1159
+01:00:03,066 --> 01:00:04,966
+between the image view and the ScrollView.
+
+1160
+01:00:05,035 --> 01:00:07,502
+That's gonna be constraints between the image view and
+
+1161
+01:00:07,570 --> 01:00:10,839
+the content area, that big white area of the ScrollView.
+
+1162
+01:00:10,908 --> 01:00:13,708
+So that's important to understand when you're working
+
+1163
+01:00:13,777 --> 01:00:16,211
+in Interface Builder. But I'm not gonna do it by dragging
+
+1164
+01:00:16,280 --> 01:00:18,613
+it out down here. Instead, I'm gonna use that embed thing,
+
+1165
+01:00:18,682 --> 01:00:20,482
+right? So I have my Image View selected here.
+
+1166
+01:00:20,550 --> 01:00:24,852
+I'm gonna go Embed In, Scroll View, and it does it.
+
+1167
+01:00:24,921 --> 01:00:29,891
+Now like I said, it puts this little 20-pixel border around
+
+1168
+01:00:29,960 --> 01:00:34,328
+it, which I don't really want, so I'm going to resize
+
+1169
+01:00:34,397 --> 01:00:38,900
+this to be perfectly hooked up to my edges right here.
+
+1170
+01:00:38,969 --> 01:00:42,203
+Notice that now the ImageView still got the 20 pixels, so
+
+1171
+01:00:42,272 --> 01:00:44,973
+I'm gonna move it. So I've kind of put these two things
+
+1172
+01:00:45,042 --> 01:00:48,910
+where I want. Now, it really doesn't matter actually where
+
+1173
+01:00:48,979 --> 01:00:52,347
+I put the image view in terms of it's size and angle.
+
+1174
+01:00:52,415 --> 01:00:55,483
+What's important here is that that ImageView be tied to
+
+1175
+01:00:55,551 --> 01:00:59,420
+the edges of the content area. And why is that important?
+
+1176
+01:00:59,489 --> 01:01:02,957
+Not, so that the ImageView is the right size, but so that
+
+1177
+01:01:03,026 --> 01:01:06,694
+the content area is the right size. If I tie the ImageView's
+
+1178
+01:01:06,763 --> 01:01:10,398
+edges to the content area, and the ImageView changes size,
+
+1179
+01:01:10,467 --> 01:01:14,269
+the content area will change size. And I have to have that
+
+1180
+01:01:14,338 --> 01:01:17,372
+content area always matching the size of the ImageView if I
+
+1181
+01:01:17,441 --> 01:01:21,276
+wanna be able to scroll over the entire image, right?
+
+1182
+01:01:21,345 --> 01:01:24,446
+So, when you do this in Interface Builder as opposed
+
+1183
+01:01:24,514 --> 01:01:27,482
+to in code, you do this with constraint by hooking
+
+1184
+01:01:27,551 --> 01:01:30,918
+the ImageView to be tied to the ScrollView. Which in fact,
+
+1185
+01:01:30,987 --> 01:01:33,654
+it already is, because when I did embed in ScrollView,
+
+1186
+01:01:33,723 --> 01:01:36,524
+the ImageView was already tied to its super view, so it kept
+
+1187
+01:01:36,592 --> 01:01:39,294
+it it's just that it got these little extra 20 points in
+
+1188
+01:01:39,363 --> 01:01:43,497
+there which I don't like. Now the thing here is this
+
+1189
+01:01:43,566 --> 01:01:47,668
+ScrollView itself is not tied to its edges. I resized it but
+
+1190
+01:01:47,737 --> 01:01:51,306
+it's there's no constraint. So I'm gonna tie it to the edges
+
+1191
+01:01:51,375 --> 01:01:54,376
+in the same way that I did the other one.
+
+1192
+01:01:54,444 --> 01:01:58,212
+How do I choose the ScrollView though? When I click here,
+
+1193
+01:01:58,281 --> 01:02:01,382
+dang it, I keep getting the ImageView. Can anyone think of
+
+1194
+01:02:01,451 --> 01:02:06,187
+a way we could choose this? >> [INAUDIBLE]
+
+1195
+01:02:06,256 --> 01:02:07,155
+>> The document outline,
+
+1196
+01:02:07,224 --> 01:02:10,424
+absolutely. Let's go over here to Document Outline, right?
+
+1197
+01:02:10,493 --> 01:02:11,893
+And here's the ScrollView right here,
+
+1198
+01:02:11,961 --> 01:02:14,962
+I just selected it. So it's really easy in the document
+
+1199
+01:02:15,031 --> 01:02:17,865
+outline to pick what you actually want. So
+
+1200
+01:02:17,934 --> 01:02:20,936
+I can pick my ScrollView here, and once I have my ScrollView
+
+1201
+01:02:21,004 --> 01:02:22,637
+here, I can pick, go down here to
+
+1202
+01:02:22,706 --> 01:02:24,406
+this thing we had with the edges and
+
+1203
+01:02:24,474 --> 01:02:27,208
+just hook it to edges up to its nearest neighbors. Same
+
+1204
+01:02:27,276 --> 01:02:29,977
+exact thing we did with the ImageView, it does it here.
+
+1205
+01:02:30,046 --> 01:02:32,413
+It had the same problem where it put the trailing and
+
+1206
+01:02:32,482 --> 01:02:34,082
+leading to the safe area.
+
+1207
+01:02:34,151 --> 01:02:36,217
+Now in the document outline when you're looking for
+
+1208
+01:02:36,286 --> 01:02:39,120
+constraints, be careful about the indentation.
+
+1209
+01:02:39,189 --> 01:02:42,790
+These constraints go to the ImageView.
+
+1210
+01:02:42,859 --> 01:02:45,527
+These constraints go to the ScrollView.
+
+1211
+01:02:45,596 --> 01:02:48,363
+You see, how the indentation matters there? So
+
+1212
+01:02:48,432 --> 01:02:51,366
+here I'm gonna change the safe area of this to be SuperView
+
+1213
+01:02:51,434 --> 01:02:55,870
+also. SuperView. Okay, we got that.
+
+1214
+01:02:55,938 --> 01:02:59,674
+And then the last thing I wanna do here is fix all this
+
+1215
+01:02:59,743 --> 01:03:01,459
+all these 20 points thing that it gave me when I embedded,
+
+1216
+01:03:01,460 --> 01:03:03,176
+20 points,
+
+1217
+01:03:03,246 --> 01:03:06,447
+cuz I don't want that. I can edit that right in here,
+
+1218
+01:03:06,516 --> 01:03:09,584
+right in my size inspector here. So I'm just gonna say,
+
+1219
+01:03:09,653 --> 01:03:13,154
+edit, make that zero. Edit this, make that zero.
+
+1220
+01:03:13,222 --> 01:03:17,525
+Edit this, make that zero. Edit this and make that zero.
+
+1221
+01:03:17,594 --> 01:03:20,562
+So now I've got good-looking constraints right here.
+
+1222
+01:03:20,630 --> 01:03:22,930
+See, the ScrollView is hooked up to its SuperView.
+
+1223
+01:03:22,999 --> 01:03:26,333
+You can see that the ImageView is hooked up to its SuperView,
+
+1224
+01:03:26,402 --> 01:03:27,869
+which in Interface Builder
+
+1225
+01:03:27,938 --> 01:03:30,271
+means the content area of the ScrollView.
+
+1226
+01:03:30,340 --> 01:03:34,242
+I can't emphasize that enough. When you have this view,
+
+1227
+01:03:34,310 --> 01:03:36,878
+let's say sub-view, see how the ImageView is a sub-view
+
+1228
+01:03:36,947 --> 01:03:39,380
+of the ScrollView is indented right there? That means that
+
+1229
+01:03:39,449 --> 01:03:41,449
+the ImageView, when the ScrollView is your SuperView,
+
+1230
+01:03:41,518 --> 01:03:45,453
+you're talking about the content area. Now, why is this
+
+1231
+01:03:45,522 --> 01:03:49,157
+still red? Okay, it seems to me like I've specified all my
+
+1232
+01:03:49,225 --> 01:03:52,059
+constraints between these views. Why is this red?
+
+1233
+01:03:52,128 --> 01:03:54,128
+Well let's go look up here and see what it says.
+
+1234
+01:03:54,197 --> 01:03:57,598
+It says scrollable content size is ambiguous for
+
+1235
+01:03:57,667 --> 01:04:00,801
+ScrollView. So it's talking about that content area,
+
+1236
+01:04:00,870 --> 01:04:04,171
+it's saying how big is that thing? Well the answer is,
+
+1237
+01:04:04,240 --> 01:04:05,539
+it's as big as the image view,
+
+1238
+01:04:05,608 --> 01:04:08,576
+because the edges of those two things are tied together. But
+
+1239
+01:04:08,645 --> 01:04:11,313
+Interface Builder does not know how big the image view
+
+1240
+01:04:11,381 --> 01:04:15,182
+is. Why? Because it has no image. Okay, this
+
+1241
+01:04:15,251 --> 01:04:18,086
+image view is empty, it has no image so Interface Builder is
+
+1242
+01:04:18,154 --> 01:04:19,887
+like I don't know how big that thing is, so
+
+1243
+01:04:19,956 --> 01:04:22,056
+I don't know how big the scrollable content area is for
+
+1244
+01:04:22,125 --> 01:04:25,493
+the scroll view. Now, this is an unsolvable problem,
+
+1245
+01:04:25,561 --> 01:04:28,396
+because we don't set the image until our code runs.
+
+1246
+01:04:28,465 --> 01:04:30,064
+So how do we deal with this in Interface Builder?
+
+1247
+01:04:30,133 --> 01:04:33,001
+Well, Interface Builder has a really cool little feature,
+
+1248
+01:04:33,069 --> 01:04:35,336
+if you inspect the image view right here and
+
+1249
+01:04:35,404 --> 01:04:39,407
+go down to the bottom, you see this thing intrinsic size?
+
+1250
+01:04:39,476 --> 01:04:42,210
+The intrinsic size of something is the size that it
+
+1251
+01:04:42,279 --> 01:04:45,046
+wants to be to fit its content. So for a label,
+
+1252
+01:04:45,115 --> 01:04:47,849
+an intrinsic size of a label is however small it can be and
+
+1253
+01:04:47,917 --> 01:04:49,050
+still fit all of the text in there.
+
+1254
+01:04:49,119 --> 01:04:50,919
+For an image view of the intrinsic size,
+
+1255
+01:04:50,988 --> 01:04:53,955
+how it can be with the natural aspect ratio and
+
+1256
+01:04:54,024 --> 01:04:57,791
+size of the image, so that's its intrinsic size. Well
+
+1257
+01:04:57,860 --> 01:05:01,229
+its intrinsic size, it's right now set to be the default, but
+
+1258
+01:05:01,297 --> 01:05:04,132
+you can actually set it to be a placeholder.
+
+1259
+01:05:04,201 --> 01:05:07,601
+This placeholder, which I'm gonna set, is just any random
+
+1260
+01:05:07,670 --> 01:05:11,706
+size you want, and it'll only use this in Interface Builder.
+
+1261
+01:05:11,774 --> 01:05:14,909
+It's just holding this place in Interface Builder, right?
+
+1262
+01:05:14,978 --> 01:05:17,811
+In code we're going to set it. So look, that got rid of
+
+1263
+01:05:17,880 --> 01:05:21,849
+my red complaint. Because now the imageView has a size, and
+
+1264
+01:05:21,918 --> 01:05:24,618
+so the content area's gonna be 8375 by 812, but
+
+1265
+01:05:24,687 --> 01:05:26,287
+only in Interface Builder.
+
+1266
+01:05:26,356 --> 01:05:27,155
+Once it runs,
+
+1267
+01:05:27,224 --> 01:05:29,190
+it's going to be whatever the size the imageView is,
+
+1268
+01:05:29,258 --> 01:05:31,026
+which is gonna depend on what image we set.
+
+1269
+01:05:32,862 --> 01:05:36,898
+Everybody got all that? So this is kind of the,
+
+1270
+01:05:38,101 --> 01:05:39,067
+you can see what I was saying about it.
+
+1271
+01:05:39,136 --> 01:05:40,902
+It's a little bit tricky with the scroll view.
+
+1272
+01:05:40,971 --> 01:05:43,437
+It takes a little bit getting used to understand that when
+
+1273
+01:05:43,506 --> 01:05:45,874
+you are setting constraints between the image view and
+
+1274
+01:05:45,942 --> 01:05:46,640
+the scroll view,
+
+1275
+01:05:46,709 --> 01:05:48,509
+you're talking about the content area.
+
+1276
+01:05:48,578 --> 01:05:50,645
+And that's controlling the size of the content area.
+
+1277
+01:05:50,714 --> 01:05:51,813
+So let's run, that's all we have to do,
+
+1278
+01:05:51,881 --> 01:05:54,082
+we don't have to do anything in the code here cuz we set
+
+1279
+01:05:54,150 --> 01:05:55,416
+all these constraints. So let's go ahead and
+
+1280
+01:05:55,484 --> 01:06:00,688
+run this thing, I keep forgetting
+
+1281
+01:06:00,757 --> 01:06:03,291
+to do this on iPhone 10 which is a little more interesting.
+
+1282
+01:06:03,360 --> 01:06:07,261
+In fact, let's do it on iPhone 10 and stop here. iPhone 10,
+
+1283
+01:06:07,330 --> 01:06:10,665
+iPhone 10's a little more interesting, because it has
+
+1284
+01:06:10,734 --> 01:06:14,201
+that safe area built into it whereas the other one doesn't.
+
+1285
+01:06:14,270 --> 01:06:15,870
+Okay, so look. Here's our image.
+
+1286
+01:06:15,939 --> 01:06:18,873
+You see how this blue sky of our image is
+
+1287
+01:06:18,941 --> 01:06:22,810
+up here where the time is and all that? And if I scroll,
+
+1288
+01:06:22,879 --> 01:06:25,747
+woo hoo, it's showing, okay,
+
+1289
+01:06:25,815 --> 01:06:30,218
+our tree up here. That's cool. You can scroll all around.
+
+1290
+01:06:30,286 --> 01:06:34,055
+Notice that if I scroll down it'll reveal the safe area,
+
+1291
+01:06:34,124 --> 01:06:36,424
+right? It'll make this be lower than the safe area.
+
+1292
+01:06:36,492 --> 01:06:38,526
+So that's the scrollView being smart about the safe area.
+
+1293
+01:06:38,594 --> 01:06:41,062
+Even though we tied it to its super views edges it still
+
+1294
+01:06:41,130 --> 01:06:44,065
+knows there's a safe area. And it goes all the way down,
+
+1295
+01:06:44,133 --> 01:06:47,268
+and the same will be true down at the other side. So here
+
+1296
+01:06:47,337 --> 01:06:49,670
+we're scrolling through. We can go landscape for example,
+
+1297
+01:06:49,739 --> 01:06:52,540
+and just scroll around. Find the stuff we want,
+
+1298
+01:06:52,609 --> 01:06:55,409
+there's the dish right there. And so that's it.
+
+1299
+01:06:55,478 --> 01:06:59,547
+That's all that's required for scrollView. Works super easy.
+
+1300
+01:06:59,616 --> 01:07:02,851
+Now what about doing this in code? So in code, in some ways
+
+1301
+01:07:02,919 --> 01:07:05,753
+it's almost a little easier than doing it. Because
+
+1302
+01:07:05,822 --> 01:07:08,022
+you don't have the 20 pixel thing and all that stuff.
+
+1303
+01:07:08,091 --> 01:07:10,325
+So I'm gonna do the exact same thing here in, in code.
+
+1304
+01:07:10,393 --> 01:07:12,860
+So I'm gonna take my imageView and delete it.
+
+1305
+01:07:12,929 --> 01:07:14,362
+So I just deleted my imageView.
+
+1306
+01:07:14,431 --> 01:07:17,432
+I'm gonna leave my scrollView in there, though. Because I
+
+1307
+01:07:17,500 --> 01:07:19,801
+need to talk to the scroll view to set its content size,
+
+1308
+01:07:19,869 --> 01:07:23,137
+so I'm gonna leave that in there. Let's go over here and
+
+1309
+01:07:23,205 --> 01:07:26,173
+get our code up at the same time.
+
+1310
+01:07:26,242 --> 01:07:30,611
+I'm going to create an outlet to this scrollView right here,
+
+1311
+01:07:30,680 --> 01:07:35,216
+so that I can again talk to it. I don't need my image view
+
+1312
+01:07:35,284 --> 01:07:37,318
+outlet anymore, because I'm going to create it in code.
+
+1313
+01:07:37,387 --> 01:07:38,552
+In fact, let's just create it right here.
+
+1314
+01:07:38,621 --> 01:07:42,323
+I'm going to save my ImageView = a new ImageView,
+
+1315
+01:07:42,392 --> 01:07:43,590
+I'm just gonna create the ImageView.
+
+1316
+01:07:43,659 --> 01:07:46,327
+It's sub zero size, but that's okay. Whenever I set an image,
+
+1317
+01:07:46,395 --> 01:07:49,897
+I'll resize it. And then let's Control+Drag to hook
+
+1318
+01:07:49,966 --> 01:07:53,901
+up to our scrollView. Call this scrollView. Now we have
+
+1319
+01:07:53,970 --> 01:07:57,571
+a connection to both. Here we just want the imageView
+
+1320
+01:07:57,640 --> 01:08:00,574
+to be in the content area of the scrollView. So as soon as
+
+1321
+01:08:00,643 --> 01:08:04,546
+the scrollView gets hooked up by Interface Builder I'm going
+
+1322
+01:08:04,614 --> 01:08:07,681
+to ask the scrollView to add the scrollView to add
+
+1323
+01:08:07,750 --> 01:08:12,953
+as a subview by imageView. So it added it. That's nice.
+
+1324
+01:08:13,022 --> 01:08:16,124
+Again the content area is size zero and so is my imageView at
+
+1325
+01:08:16,192 --> 01:08:19,026
+this point, so it's going to be completely blank.
+
+1326
+01:08:19,095 --> 01:08:21,729
+Any time I set image like I do it here and
+
+1327
+01:08:21,798 --> 01:08:24,265
+actually I do it up here as well.
+
+1328
+01:08:24,333 --> 01:08:29,837
+I need to tell the imageView to size itself to fit.
+
+1329
+01:08:29,905 --> 01:08:33,474
+So size to fit means make yourself your intrinsic size,
+
+1330
+01:08:33,543 --> 01:08:36,611
+right? The size that will fit this image the best and
+
+1331
+01:08:36,679 --> 01:08:39,814
+now the UIimage use frame has been set, but
+
+1332
+01:08:39,883 --> 01:08:43,384
+if I don't do this, scrollView.contentSize =.
+
+1333
+01:08:44,787 --> 01:08:47,655
+Equals the imageView.frame.size.
+
+1334
+01:08:47,723 --> 01:08:51,059
+If I don't do that then it's not going to scroll at all.
+
+1335
+01:08:51,127 --> 01:08:54,862
+You see why? Okay, otherwise the content are would be 00
+
+1336
+01:08:54,931 --> 01:08:58,132
+size. I got this big image and I'm trying to scroll and
+
+1337
+01:08:58,201 --> 01:09:00,734
+this 00 size rect does nothing.
+
+1338
+01:09:00,803 --> 01:09:03,771
+Okay, now I actually have to do this same thing up here
+
+1339
+01:09:03,840 --> 01:09:06,173
+when I set the image up here back to nil.
+
+1340
+01:09:06,242 --> 01:09:09,043
+I want to resize my content size back down to zero.
+
+1341
+01:09:09,111 --> 01:09:10,912
+Now normally I would say, copy and
+
+1342
+01:09:10,981 --> 01:09:14,448
+pasting code like that that's bad. Don't do it.
+
+1343
+01:09:14,517 --> 01:09:17,652
+But this is a demo. I don't have time to fix it.
+
+1344
+01:09:17,720 --> 01:09:19,420
+But actually I'm going to take the time to fix it,
+
+1345
+01:09:19,488 --> 01:09:22,089
+because I'm going to fix it in a way which I think will
+
+1346
+01:09:22,158 --> 01:09:23,458
+be kind of interesting.
+
+1347
+01:09:23,526 --> 01:09:26,460
+Which is I'm going to make a var, actually a private var,
+
+1348
+01:09:26,529 --> 01:09:29,163
+called image which is going to be a type UIImage, and
+
+1349
+01:09:29,231 --> 01:09:31,065
+every, it's going to be computed,
+
+1350
+01:09:31,133 --> 01:09:33,501
+every time I want to set my image or get my image,
+
+1351
+01:09:33,570 --> 01:09:37,104
+I'm just going to get it from imageView. So I'm gonna say
+
+1352
+01:09:37,173 --> 01:09:41,875
+get, return the imageView's image, and set, it's
+
+1353
+01:09:41,944 --> 01:09:46,980
+going to set the imageView's image to the new value. So
+
+1354
+01:09:47,049 --> 01:09:50,384
+this is just a normal computed property right here. But
+
+1355
+01:09:50,453 --> 01:09:55,389
+the cool thing is now, I can put this in here. So
+
+1356
+01:09:55,458 --> 01:09:57,591
+that every time I set my image,
+
+1357
+01:09:57,660 --> 01:10:00,861
+I resize my imageView and my scrollView. And so
+
+1358
+01:10:00,930 --> 01:10:06,033
+up here I can just say, image = nil, and down here,
+
+1359
+01:10:06,102 --> 01:10:10,438
+I can just say, image = the new image, and I don't have to
+
+1360
+01:10:10,507 --> 01:10:13,140
+have this code copied in two different places.
+
+1361
+01:10:13,209 --> 01:10:16,710
+So here's an example where you can use a computed Var,
+
+1362
+01:10:16,779 --> 01:10:18,779
+because conceptually this is my image,
+
+1363
+01:10:18,848 --> 01:10:20,481
+it happens to be stored in the imageView,
+
+1364
+01:10:20,550 --> 01:10:22,417
+I don't need to duplicate it from there,
+
+1365
+01:10:22,485 --> 01:10:24,651
+I'm just gonna return it, and set it in there. But
+
+1366
+01:10:24,720 --> 01:10:27,522
+I can also do my nice little setting on the side there.
+
+1367
+01:10:28,892 --> 01:10:31,993
+Okay, that's it. So it's easy in code as well.
+
+1368
+01:10:40,703 --> 01:10:41,836
+Okay this is a big file so
+
+1369
+01:10:41,904 --> 01:10:45,172
+even locally it takes awhile to load. But here it is. So
+
+1370
+01:10:45,241 --> 01:10:48,175
+we got the exact same thing we had before,
+
+1371
+01:10:48,244 --> 01:10:52,413
+we can still find the addition here, we can rotate. But
+
+1372
+01:10:52,482 --> 01:10:55,383
+it would be really cool if we could see the whole picture.
+
+1373
+01:10:55,452 --> 01:10:57,918
+It's a little annoying, we can see just
+
+1374
+01:10:57,987 --> 01:10:59,653
+two little parts of it. It's kind of cool, actually,
+
+1375
+01:10:59,722 --> 01:11:01,022
+to be able to look at parts of it. But
+
+1376
+01:11:01,090 --> 01:11:02,623
+we'd like to be able to zoom out and see the whole thing.
+
+1377
+01:11:02,691 --> 01:11:05,526
+So now we need zooming. So what are the two things
+
+1378
+01:11:05,595 --> 01:11:09,230
+we need to do zooming? Set the minimum, maximum's zoom scale.
+
+1379
+01:11:10,500 --> 01:11:12,866
+Provided delegate says which view to zoom.
+
+1380
+01:11:12,935 --> 01:11:15,603
+Now it's obvious which view we want the transform to work on
+
+1381
+01:11:15,672 --> 01:11:19,340
+here, it's our ImageView. So let's go do that, and I'm just
+
+1382
+01:11:19,408 --> 01:11:22,709
+going to do that, I'll set those things right here. Okay,
+
+1383
+01:11:22,778 --> 01:11:26,914
+here is where my scrollView is set by iOS so let's just have
+
+1384
+01:11:26,982 --> 01:11:31,419
+the scrollView's minimum zoom scale, we'll go 1/25,
+
+1385
+01:11:31,487 --> 01:11:35,389
+okay, 1/25. So we'll allow it to zoom out, so
+
+1386
+01:11:35,458 --> 01:11:38,826
+that the image is 1/25 its normal size.
+
+1387
+01:11:38,894 --> 01:11:43,197
+And then maybe for the maximum zoom scale, I'll say 1.0.
+
+1388
+01:11:43,266 --> 01:11:44,732
+Why would I say 1.0?
+
+1389
+01:11:44,800 --> 01:11:47,902
+Well, maybe because I don't want you to zoom in so that
+
+1390
+01:11:47,971 --> 01:11:51,539
+the bits look kinda, you know, pixellated, so I'm not gonna
+
+1391
+01:11:51,608 --> 01:11:55,976
+let you zoom in anymore than 1.0. So you can zoom into 1.0,
+
+1392
+01:11:56,045 --> 01:11:59,914
+but no closer, and we'll let you zoom all out to 1/25,
+
+1393
+01:11:59,983 --> 01:12:05,352
+so that's part one, part two is scrollView.delegate. Equals
+
+1394
+01:12:05,421 --> 01:12:09,657
+what? Self, yeah. I'm gonna be the scrollView's delegate.
+
+1395
+01:12:09,726 --> 01:12:11,893
+Now, this is going to generate an error right here,
+
+1396
+01:12:11,961 --> 01:12:16,430
+because self is not a UI scrollView delegate.
+
+1397
+01:12:16,499 --> 01:12:18,132
+That's easily fixed, we go up here and
+
+1398
+01:12:18,201 --> 01:12:21,401
+say yes, I am a UI scroll view delegate,
+
+1399
+01:12:21,470 --> 01:12:25,072
+thank you very much. And since all those methods are optional
+
+1400
+01:12:25,141 --> 01:12:29,543
+Objective-C methods, all my errors go away. However,
+
+1401
+01:12:29,612 --> 01:12:32,412
+scrolling not gonna work unless I implement that view
+
+1402
+01:12:32,481 --> 01:12:35,783
+for scrolling method. So let's do that. It's called view for
+
+1403
+01:12:35,851 --> 01:12:39,019
+scrolling there it is, viewForZoomingIn I mean, and
+
+1404
+01:12:39,088 --> 01:12:42,155
+we just need to return our image view, because that is
+
+1405
+01:12:42,224 --> 01:12:45,593
+the view, the sub view in the content area, that we want to
+
+1406
+01:12:45,661 --> 01:12:48,763
+be transformed when we pitch all right? So let's try it.
+
+1407
+01:12:58,274 --> 01:13:00,374
+Okay, here we go. We can still pan around.
+
+1408
+01:13:00,443 --> 01:13:02,910
+But now, we can zoom. Remember remember how to pinch?
+
+1409
+01:13:02,979 --> 01:13:06,180
+Hold down the option key right here. Got low battery.
+
+1410
+01:13:06,249 --> 01:13:09,817
+Hold down the option right here, and pinch. And
+
+1411
+01:13:09,886 --> 01:13:13,921
+we can zoom out here. Okay, all the way out to here.
+
+1412
+01:13:13,989 --> 01:13:20,827
+Maybe look better if we do this, there we go. Like that,
+
+1413
+01:13:20,896 --> 01:13:28,269
+okay, zoom in, real easy. So hopefully, that gives you
+
+1414
+01:13:28,337 --> 01:13:31,872
+the full tour of scrollView in terms of adding subviews,
+
+1415
+01:13:31,940 --> 01:13:36,744
+managing its content size, doing zooming, all this stuff,
+
+1416
+01:13:36,812 --> 01:13:39,713
+very straightforward, easy to use. Next time
+
+1417
+01:13:39,782 --> 01:13:43,584
+what we're gonna do is the images that we're gonna get
+
+1418
+01:13:43,653 --> 01:13:45,386
+are gonna be these huge images over the network.
+
+1419
+01:13:45,454 --> 01:13:48,923
+Hopefully, I can get my Mac to work on the network, and
+
+1420
+01:13:48,991 --> 01:13:51,992
+that's going to be slow. And we are not gonna want our UI
+
+1421
+01:13:52,061 --> 01:13:54,328
+to be blocked waiting for that to happen.
+
+1422
+01:13:54,397 --> 01:13:56,330
+We want it still to be highly interactive. And
+
+1423
+01:13:56,399 --> 01:13:58,865
+so to do that, we need to do multithreading. So that'll be
+
+1424
+01:13:58,934 --> 01:14:02,003
+our primary topic at the start of Wednesday's lecture.
+
+1425
+01:14:02,071 --> 01:14:05,372
+And I will see you all then. >> For
+
+1426
+01:14:05,441 --> 01:14:14,848
+more, please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu

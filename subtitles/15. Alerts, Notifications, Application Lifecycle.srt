@@ -1,0 +1,6377 @@
+1
+00:00:00,401 --> 00:00:04,636
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,704 --> 00:00:10,009
+Stanford University. >> Well,
+>> 斯坦福大学 >> 好
+
+3
+00:00:10,077 --> 00:00:13,745
+welcome to Stanford CS193P, fall of 2017 and
+欢迎来到斯坦福 CS193P 2017-18 年秋季学期
+
+4
+00:00:13,814 --> 00:00:18,016
+18's Lecture number 15. And today we have three topics for
+这是第十五节课。我们今天有三个内容要讲
+
+5
+00:00:18,084 --> 00:00:21,986
+you, one is Alerts and Action Sheets. So that's a way of
+
+6
+00:00:22,055 --> 00:00:25,290
+kind of notifying the user when an extraordinary event
+
+7
+00:00:25,358 --> 00:00:28,693
+happens, or to help your user make a branching decision
+
+8
+00:00:28,762 --> 00:00:32,364
+where to go now in the app, where it's kind of, you know,
+
+9
+00:00:32,433 --> 00:00:34,933
+two or three choices of where they can go.
+
+10
+00:00:35,001 --> 00:00:38,103
+The second thing we're gonna talk about is Notifications
+
+11
+00:00:38,172 --> 00:00:40,806
+and KVO, that's a way of communicating blind and
+
+12
+00:00:40,875 --> 00:00:43,408
+structured inside of our MVC and then finally,
+
+13
+00:00:43,477 --> 00:00:46,211
+I'm gonna talk about the Application Lifecycle.
+
+14
+00:00:46,280 --> 00:00:48,713
+We already talked about the view controller lifecycle,
+
+15
+00:00:48,782 --> 00:00:51,750
+now we're gonna talk about the lifetime of your application.
+
+16
+00:00:51,819 --> 00:00:53,384
+All right, so let's start with Alerts and
+
+17
+00:00:53,453 --> 00:00:56,421
+Action Sheets. These two things are very similar,
+
+18
+00:00:56,490 --> 00:00:59,357
+the API to use them is almost identical, so I always talk
+
+19
+00:00:59,426 --> 00:01:02,961
+about them together. They're a little bit different,
+
+20
+00:01:03,029 --> 00:01:05,831
+an alert, it pops up in the middle of the screen.
+
+21
+00:01:05,899 --> 00:01:08,667
+They're both modal, they kinda take over your screen but,
+
+22
+00:01:08,736 --> 00:01:10,001
+alert pops up in the middle.
+
+23
+00:01:10,070 --> 00:01:13,538
+Generally, whatever the alert is telling you or asking you,
+
+24
+00:01:13,607 --> 00:01:17,175
+you're only gonna have one or maybe two choices to respond.
+
+25
+00:01:17,244 --> 00:01:20,245
+It would be unusual to have an alert, even with three buttons
+
+26
+00:01:20,313 --> 00:01:23,548
+in it. It's usually for asynchronous things,
+
+27
+00:01:23,617 --> 00:01:26,718
+things like a network failure or something that happens out
+
+28
+00:01:26,787 --> 00:01:29,921
+of the ordinary. You don't wanna use an alert as just
+
+29
+00:01:29,990 --> 00:01:33,224
+a way to talk to your user and ask them a yes or no question,
+
+30
+00:01:33,293 --> 00:01:35,927
+things like that. Alerts are pretty disruptive to the user
+
+31
+00:01:35,995 --> 00:01:38,529
+interface experience because they lock out the entire app
+
+32
+00:01:38,598 --> 00:01:41,433
+and force you to deal with this thing.
+
+33
+00:01:41,501 --> 00:01:43,134
+So it's not a primary,
+
+34
+00:01:43,203 --> 00:01:45,103
+kind of user interface element,
+
+35
+00:01:45,171 --> 00:01:48,440
+it's more of an emergency situation, asynchronous,
+
+36
+00:01:48,509 --> 00:01:52,544
+unusual, that kind of thing. Now an action sheet is similar
+
+37
+00:01:52,613 --> 00:01:55,714
+in that it's modal, takes over the screen, but here you're
+
+38
+00:01:55,783 --> 00:01:59,084
+almost always gonna have more than two choices. This thing
+
+39
+00:01:59,152 --> 00:02:01,820
+slides up from the bottom, you're gonna usually have two,
+
+40
+00:02:01,889 --> 00:02:05,290
+three, four, five choices, even. And here what you're
+
+41
+00:02:05,359 --> 00:02:07,859
+doing is asking the user to make a branching decision.
+
+42
+00:02:07,928 --> 00:02:09,595
+Maybe they've asked to take a picture,
+
+43
+00:02:09,663 --> 00:02:11,729
+to get a picture in their app, and you wanna know,
+
+44
+00:02:11,798 --> 00:02:13,031
+do you want it from the camera or
+
+45
+00:02:13,100 --> 00:02:14,766
+do you want it from the photo library, or
+
+46
+00:02:14,835 --> 00:02:16,301
+do you want it from somewhere else?
+
+47
+00:02:16,369 --> 00:02:18,270
+So they're kind of branching right there and
+
+48
+00:02:18,338 --> 00:02:20,772
+you can't really help them until they make that decision
+
+49
+00:02:20,840 --> 00:02:23,441
+for you, so that's what an action sheet is for. It's not
+
+50
+00:02:23,510 --> 00:02:26,310
+like an alert in that it's for unusual circumstances,
+
+51
+00:02:26,379 --> 00:02:30,148
+it's kind of normal branching decisions that you would have
+
+52
+00:02:30,217 --> 00:02:32,450
+to make. So here's what these things look like,
+
+53
+00:02:32,519 --> 00:02:34,786
+an action sheet slides up from the bottom like that,
+
+54
+00:02:34,855 --> 00:02:37,322
+and it can have pretty much any number of buttons although
+
+55
+00:02:37,390 --> 00:02:40,291
+obviously, you wouldn't want it to fill the whole screen.
+
+56
+00:02:40,360 --> 00:02:42,193
+And then an alert, you've seen those,
+
+57
+00:02:42,262 --> 00:02:44,062
+they come up in the middle of the screen,
+
+58
+00:02:44,131 --> 00:02:47,499
+they might even have a little text field in them as well.
+
+59
+00:02:47,567 --> 00:02:50,068
+So, again, the API for them, i.e, using them,
+
+60
+00:02:50,137 --> 00:02:52,837
+the code you write is almost identical, so let's just
+
+61
+00:02:52,906 --> 00:02:55,807
+talk about one of them first which is actionSheet. Now,
+
+62
+00:02:55,875 --> 00:02:59,878
+the way both of them work, they're just UIViewController.
+
+63
+00:02:59,946 --> 00:03:01,112
+There nothing special about them,
+
+64
+00:03:01,181 --> 00:03:02,447
+they're just UIViewControllers.
+
+65
+00:03:02,516 --> 00:03:06,250
+You know, we learned about how to present a UIViewController
+
+66
+00:03:06,319 --> 00:03:10,655
+modally in the last lecture, when we put our emoji art
+
+67
+00:03:10,724 --> 00:03:12,890
+controller document up modally,
+
+68
+00:03:12,959 --> 00:03:16,027
+it took over the whole screen until we said done.
+
+69
+00:03:16,096 --> 00:03:17,429
+Same thing here with alerts and
+
+70
+00:03:17,498 --> 00:03:20,365
+action sheets. This UIAlertController is
+
+71
+00:03:20,433 --> 00:03:23,101
+a UIViewController and we're just gonna present it using
+
+72
+00:03:23,170 --> 00:03:26,003
+exactly the same method we did to present our document.
+
+73
+00:03:26,072 --> 00:03:28,807
+It's called present, but we're not gonna create it by getting
+
+74
+00:03:28,875 --> 00:03:31,276
+it out the storyboard like what we did with our document.
+
+75
+00:03:31,344 --> 00:03:33,945
+We're gonna create it with this initializer,
+
+76
+00:03:34,014 --> 00:03:37,582
+UIAlertController title message preferredStyle. And so
+
+77
+00:03:37,651 --> 00:03:40,118
+the title is just the title you can see on the left there,
+
+78
+00:03:40,187 --> 00:03:41,986
+the image where the title goes, right?
+
+79
+00:03:42,055 --> 00:03:45,290
+It's the little thing at the top Redeploy Cassini, and then
+
+80
+00:03:45,358 --> 00:03:48,393
+the message goes below that issue commands to Cassini's
+
+81
+00:03:48,462 --> 00:03:51,396
+guidance system. And then the preferredStyle is either
+
+82
+00:03:51,464 --> 00:03:54,766
+actionSheet or alert. So, this is what it looks like for
+
+83
+00:03:54,834 --> 00:03:58,503
+actionSheet. Now, you create your actionSheet and
+
+84
+00:03:58,572 --> 00:04:01,573
+then you want to add actions, these actions correspond to
+
+85
+00:04:01,641 --> 00:04:04,509
+the buttons. So, we have four actions right there in our
+
+86
+00:04:04,577 --> 00:04:07,745
+example in what we're gonna control Cassini here, and so
+
+87
+00:04:07,814 --> 00:04:10,648
+we're gonna have four times we're gonna call a addAction.
+
+88
+00:04:10,717 --> 00:04:14,519
+The argument to addAction, there's only one argument,
+
+89
+00:04:14,587 --> 00:04:18,390
+it's a UIAlertAction. Which is another object and
+
+90
+00:04:18,459 --> 00:04:20,992
+let's take a look at the initializer for
+
+91
+00:04:21,061 --> 00:04:23,728
+UIAlertAction. It takes a title, that's gonna be
+
+92
+00:04:23,797 --> 00:04:26,698
+the title that appears on the button, a style, we'll talk
+
+93
+00:04:26,767 --> 00:04:29,701
+about the styles in a moment here, and then a handler, and
+
+94
+00:04:29,770 --> 00:04:32,370
+a handler is just a closure you're gonna give it. It takes
+
+95
+00:04:32,439 --> 00:04:35,106
+the action as an argument so that it's in your right hand,
+
+96
+00:04:35,174 --> 00:04:37,809
+and you're gonna do whatever you do when that button gets
+
+97
+00:04:37,877 --> 00:04:39,777
+clicked. So, this alert in action,
+
+98
+00:04:39,846 --> 00:04:44,549
+sheets have a very simple API, you just put these buttons and
+
+99
+00:04:44,618 --> 00:04:47,585
+the code that goes with them on each one.
+
+100
+00:04:47,654 --> 00:04:51,590
+So this handler for, our first button there, Orbit Saturn,
+
+101
+00:04:51,658 --> 00:04:54,125
+was just kind of a normal button, so its style is
+
+102
+00:04:54,194 --> 00:04:58,230
+UIAlertActionStyle.default. And the handler in there,
+
+103
+00:04:58,298 --> 00:05:01,032
+I'm just going to go into orbit around Saturn. And
+
+104
+00:05:01,101 --> 00:05:03,969
+that's someone, presumably, pressed this button once,
+
+105
+00:05:04,038 --> 00:05:06,137
+and Cassini did that, it's finished now,
+
+106
+00:05:06,205 --> 00:05:08,974
+but it did that at one point. So this is just the normal
+
+107
+00:05:09,042 --> 00:05:12,143
+default, action here to orbit Saturn, right?
+
+108
+00:05:12,211 --> 00:05:15,279
+And I can add another action, maybe Explore Titan, now,
+
+109
+00:05:15,348 --> 00:05:17,582
+okay that's not Cassini's mission, but
+
+110
+00:05:17,651 --> 00:05:20,751
+maybe we could allow it if we let, make the person logins.
+
+111
+00:05:20,820 --> 00:05:24,222
+So in the handler there, I've asked them to log in to verify
+
+112
+00:05:24,290 --> 00:05:28,627
+they really want to divert Cassini to Titan, right?
+
+113
+00:05:28,695 --> 00:05:31,563
+How about the next one, which is the Closeup of the Sun?
+
+114
+00:05:31,632 --> 00:05:34,265
+Well if I really wanted to send, this Cassini off to
+
+115
+00:05:34,334 --> 00:05:37,068
+the Sun, that would almost certainly destroy Cassini.
+
+116
+00:05:37,137 --> 00:05:40,304
+And that's why it has a little different style there, which
+
+117
+00:05:40,373 --> 00:05:43,908
+is .destructive, you see where it says style .destructive? So
+
+118
+00:05:43,977 --> 00:05:48,313
+a .destructive item is gonna show up in red text right
+
+119
+00:05:48,382 --> 00:05:52,116
+there and it's any choice that is going to make us,
+
+120
+00:05:52,185 --> 00:05:57,288
+kind of significant unrecoverable action happen.
+
+121
+00:05:57,357 --> 00:05:58,573
+you're gonna delete something out of a database.
+
+122
+00:05:58,574 --> 00:05:59,790
+For example,
+
+123
+00:05:59,859 --> 00:06:02,961
+That might be a destructive action, obviously crashing
+
+124
+00:06:03,029 --> 00:06:06,497
+Cassini into the Sun, that would be a destructive action,
+
+125
+00:06:06,566 --> 00:06:09,301
+so that's what .destructive style is there. And
+
+126
+00:06:09,369 --> 00:06:11,636
+then, finally, we have this cancel action at the bottom,
+
+127
+00:06:11,705 --> 00:06:13,271
+you see it's kinda separated a little?
+
+128
+00:06:13,340 --> 00:06:14,572
+And its style is different,
+
+129
+00:06:14,641 --> 00:06:17,642
+.cancel, that's what it causes it to be separated. But a very
+
+130
+00:06:17,710 --> 00:06:20,778
+important other thing about .cancel is that on the iPad,
+
+131
+00:06:20,847 --> 00:06:23,849
+this thing is not gonna slide up from the bottom. It's gonna
+
+132
+00:06:23,917 --> 00:06:25,917
+appear in a popover, which we haven't talked about,
+
+133
+00:06:25,985 --> 00:06:27,652
+and we're gonna talk all about on Wednesday.
+
+134
+00:06:27,720 --> 00:06:31,022
+But a popover is also modal, kinda takes over the screen,
+
+135
+00:06:31,091 --> 00:06:33,825
+but it appears in a little window and, in there,
+
+136
+00:06:33,894 --> 00:06:35,726
+you can't have a cancel button,
+
+137
+00:06:35,795 --> 00:06:39,398
+cuz a popover is cancelled by touching somewhere else.
+
+138
+00:06:39,466 --> 00:06:40,932
+A popover comes up, if you wanna cancel it,
+
+139
+00:06:41,001 --> 00:06:42,834
+you touch somewhere else so you don't need a cancel,
+
+140
+00:06:42,903 --> 00:06:45,704
+you don't wanna cancel button. That's why it's important to
+
+141
+00:06:45,772 --> 00:06:48,406
+note which of your buttons are a cancel button, so
+
+142
+00:06:48,475 --> 00:06:50,375
+that when this appears in a popover,
+
+143
+00:06:50,443 --> 00:06:54,446
+the action sheet here won't include that cancel buttons.
+
+144
+00:06:54,514 --> 00:06:56,948
+All right, so we've added our four buttons,
+
+145
+00:06:57,017 --> 00:06:59,584
+now we want this thing to slide up to the bottom and
+
+146
+00:06:59,653 --> 00:07:02,154
+let the user choose and execute the appropriate
+
+147
+00:07:02,222 --> 00:07:04,589
+handler and we do that with that same method,
+
+148
+00:07:04,658 --> 00:07:07,625
+present. It's a ViewController method, present,
+
+149
+00:07:07,694 --> 00:07:10,595
+presumably the ViewController behind there, you can see that
+
+150
+00:07:10,664 --> 00:07:13,565
+it's got the picture of Cassini. That ViewController
+
+151
+00:07:13,634 --> 00:07:16,367
+is presenting this action sheet and it's, you know,
+
+152
+00:07:16,436 --> 00:07:19,870
+present the view controller, animated true, almost always,
+
+153
+00:07:19,939 --> 00:07:22,974
+and then completion handler if you want for which will
+
+154
+00:07:23,043 --> 00:07:26,277
+get called when the animation finishes. So that's it,
+
+155
+00:07:26,346 --> 00:07:27,712
+super easy to use an alert.
+
+156
+00:07:27,781 --> 00:07:31,349
+Now let's talk about, this is an action sheet, by the way.
+
+157
+00:07:31,417 --> 00:07:34,285
+So let's talk about what it looks like on iPad, though,
+
+158
+00:07:34,354 --> 00:07:37,522
+I said it was a popover, this is is what it would look like.
+
+159
+00:07:37,590 --> 00:07:40,091
+In this case, you see that little redeploy button?
+
+160
+00:07:40,160 --> 00:07:41,959
+And it's kinda small font, but
+
+161
+00:07:42,028 --> 00:07:44,762
+it says redeploy in the upper right of the iPad.
+
+162
+00:07:44,831 --> 00:07:48,633
+When I click that, this action sheet presented well,
+
+163
+00:07:48,701 --> 00:07:51,669
+first of all how do I get it to present like that?
+
+164
+00:07:51,738 --> 00:07:53,905
+And then second of all, how do I get it to point to
+
+165
+00:07:53,974 --> 00:07:56,808
+the little redeploy button. So I have to do both of those
+
+166
+00:07:56,877 --> 00:08:00,111
+things. The first thing I'm going to do is make it present
+
+167
+00:08:00,179 --> 00:08:03,114
+like a popover. And to do that, I set the alerts,
+
+168
+00:08:03,183 --> 00:08:05,616
+which is a view control remember, I set
+
+169
+00:08:05,685 --> 00:08:10,188
+it's modalPresentationStyle to be .popover. And that's gonna
+
+170
+00:08:10,256 --> 00:08:12,890
+make it to represent as a popover. But that's not
+
+171
+00:08:12,959 --> 00:08:15,593
+quite enough because I have to make a point at that little
+
+172
+00:08:15,662 --> 00:08:18,463
+redeploy bar button item. And the way I do that
+
+173
+00:08:18,532 --> 00:08:21,999
+is I get the alerts popover presentation controller,
+
+174
+00:08:22,068 --> 00:08:25,504
+which will be nil if you're not presenting it as popover.
+
+175
+00:08:25,572 --> 00:08:28,239
+And one of the vars in a popover presentation
+
+176
+00:08:28,307 --> 00:08:31,242
+controller is the barButton item that is presenting it.
+
+177
+00:08:31,311 --> 00:08:33,077
+You can also specify a rectangle,
+
+178
+00:08:33,146 --> 00:08:34,478
+an arbitrary rectangle and
+
+179
+00:08:34,547 --> 00:08:38,083
+the little triangle will point at that when it appears.
+
+180
+00:08:38,151 --> 00:08:41,085
+You can also specify which direction the little arrow is
+
+181
+00:08:41,154 --> 00:08:45,056
+allowed to point, left, right, up or down. And in that way
+
+182
+00:08:45,125 --> 00:08:48,693
+you can control the way that this popover presents.
+
+183
+00:08:48,761 --> 00:08:51,295
+Does this make sense? Now you're probably saying,
+
+184
+00:08:51,364 --> 00:08:56,267
+well I need to put if I'm on iPad then do this around this,
+
+185
+00:08:56,335 --> 00:08:58,169
+right? Because obviously on an iPhone I don't want
+
+186
+00:08:58,237 --> 00:09:01,038
+this thing to be a popover. But actually, you don't have
+
+187
+00:09:01,107 --> 00:09:04,509
+to do that, because this exact same code will still slide up
+
+188
+00:09:04,577 --> 00:09:07,712
+from the bottom on an iPhone. Now, why does that happen?
+
+189
+00:09:07,781 --> 00:09:10,614
+We've specifically asked for the popover presentation style
+
+190
+00:09:10,683 --> 00:09:13,518
+there and we specified the barButton item and all that.
+
+191
+00:09:13,587 --> 00:09:18,089
+Well, iOS automatically does what we called adapting
+
+192
+00:09:18,158 --> 00:09:21,359
+to the environment its in. Both the trait environment,
+
+193
+00:09:21,428 --> 00:09:23,360
+right, compact width and or not, and
+
+194
+00:09:23,429 --> 00:09:26,497
+all that stuff we talked about before, but also the platform
+
+195
+00:09:26,566 --> 00:09:29,567
+its on to some extent. And so here it notices,
+
+196
+00:09:29,636 --> 00:09:33,337
+well I'm on an iPhone, I don't do popovers. Actually,
+
+197
+00:09:33,406 --> 00:09:36,474
+you can do popovers on iPhone as we'll talk about, but
+
+198
+00:09:36,542 --> 00:09:39,244
+you have to do extraordinary things to do that. So
+
+199
+00:09:39,312 --> 00:09:40,912
+in the normal case of events it doesn't do popover,
+
+200
+00:09:40,981 --> 00:09:44,615
+so it comes over in it's normal way. So
+
+201
+00:09:44,684 --> 00:09:45,850
+if you're doing a popover, and
+
+202
+00:09:45,919 --> 00:09:48,286
+you have a universal app that runs on both iPad and iPhone,
+
+203
+00:09:48,354 --> 00:09:52,156
+you're gonna put this modal presentation stuff in there.
+
+204
+00:09:52,225 --> 00:09:58,262
+All right, so let's talk about alert.
+
+205
+00:09:58,331 --> 00:10:02,600
+Same exact constructor, you just say preferred style
+
+206
+00:10:02,669 --> 00:10:06,838
+alert, same exact adding actions. And
+
+207
+00:10:06,906 --> 00:10:08,539
+here I am adding my cancel button,
+
+208
+00:10:08,608 --> 00:10:11,943
+I'm marking it as .cancel plus importing in alert because it
+
+209
+00:10:12,012 --> 00:10:15,046
+doesn't hide the cancel button in any case cuz alerts look
+
+210
+00:10:15,114 --> 00:10:19,751
+exactly the same on both iPads and iPhones. And then I'm
+
+211
+00:10:19,819 --> 00:10:22,887
+gonna add another action here which is my login button.
+
+212
+00:10:22,956 --> 00:10:25,756
+Now, my login button is going to use that text field,
+
+213
+00:10:25,825 --> 00:10:28,492
+you see that text field? So how the heck did I get a text
+
+214
+00:10:28,561 --> 00:10:30,861
+field to appear in the middle of my alert?
+
+215
+00:10:30,930 --> 00:10:34,065
+Well, I just said alert.addTextField, and
+
+216
+00:10:34,134 --> 00:10:37,268
+the argument to that add text field is a closure
+
+217
+00:10:37,337 --> 00:10:38,937
+that passes the text field to you and
+
+218
+00:10:39,005 --> 00:10:42,440
+allows you to configure it. This is a password for
+
+219
+00:10:42,509 --> 00:10:44,809
+redeploying Cassini off to the Sun, or titan, or
+
+220
+00:10:44,878 --> 00:10:48,713
+something. So I want it to have secure text entry, so
+
+221
+00:10:48,781 --> 00:10:51,649
+I'm using the text field var, there is secure text entry
+
+222
+00:10:51,718 --> 00:10:54,718
+which is part of the text input traits protocol that
+
+223
+00:10:54,787 --> 00:10:58,188
+text field implements. And you could do this more than once,
+
+224
+00:10:58,257 --> 00:10:59,690
+you can have more than one text field.
+
+225
+00:10:59,759 --> 00:11:03,594
+I recommend against that, and I generally recommend against
+
+226
+00:11:03,663 --> 00:11:06,664
+using an alert as a login screen. Don't do that for
+
+227
+00:11:06,733 --> 00:11:07,398
+your final project.
+
+228
+00:11:07,467 --> 00:11:08,399
+If you have a login screen,
+
+229
+00:11:08,468 --> 00:11:12,169
+make it a normal part of your UI, don't have it be an alert.
+
+230
+00:11:12,238 --> 00:11:15,973
+But anyway, once you get this text field added with this and
+
+231
+00:11:16,042 --> 00:11:19,143
+configured, then how do you get the text out when someone
+
+232
+00:11:19,212 --> 00:11:22,213
+types the text. Well in your handler of the action for
+
+233
+00:11:22,281 --> 00:11:26,550
+login right there, I'm just gonna use the var that's in
+
+234
+00:11:26,619 --> 00:11:29,653
+alert called text field, it's an array of all the text
+
+235
+00:11:29,722 --> 00:11:32,189
+fields. I only have one so I'm going to get the first one and
+
+236
+00:11:32,258 --> 00:11:33,725
+then I'm going to get the text out of it.
+
+237
+00:11:35,361 --> 00:11:36,161
+Couldn't be simpler.
+
+238
+00:11:37,764 --> 00:11:41,766
+All right, I almost hesitate to show you the alert with
+
+239
+00:11:41,834 --> 00:11:43,968
+the text field in there because it makes you say,
+
+240
+00:11:44,036 --> 00:11:45,970
+that's a great way to get text from the user, but
+
+241
+00:11:46,039 --> 00:11:50,107
+again alerts are disruptive so don't use them for that.
+
+242
+00:11:50,176 --> 00:11:53,111
+All right, and I'm gonna present this in exact the same
+
+243
+00:11:53,179 --> 00:11:56,948
+way I presented the action sheet with the present method,
+
+244
+00:11:57,017 --> 00:11:59,817
+which presents. Just all present does is it presents
+
+245
+00:11:59,885 --> 00:12:03,021
+a view controller modaly? And of course this is a modal
+
+246
+00:12:03,089 --> 00:12:05,790
+because the whole screen is dimmed out, except for
+
+247
+00:12:05,859 --> 00:12:10,061
+this middle box. All right, and as I said,
+
+248
+00:12:10,130 --> 00:12:13,431
+on the iPad, alerts look exactly the same.
+
+249
+00:12:13,500 --> 00:12:18,402
+There's no difference. So that's alerts, so let's put
+
+250
+00:12:18,471 --> 00:12:21,305
+an alert in EmojiArt, just so we could see this in action.
+
+251
+00:12:21,374 --> 00:12:25,844
+And here's the alert I'm gonna put in. Right now, EmojiArt,
+
+252
+00:12:25,912 --> 00:12:29,214
+if you drag any image in to EmojiArt, it will work.
+
+253
+00:12:29,282 --> 00:12:31,148
+And that's because I have that image fetcher,
+
+254
+00:12:31,217 --> 00:12:31,950
+remember that and
+
+255
+00:12:32,018 --> 00:12:35,086
+the image fetcher allows you to specify a back-up image.
+
+256
+00:12:35,154 --> 00:12:38,556
+And so if I can't get the image from the URL
+
+257
+00:12:38,625 --> 00:12:39,924
+with the image fetcher, no problem,
+
+258
+00:12:39,993 --> 00:12:42,326
+I'll use the back-up image and create a one on disk and
+
+259
+00:12:42,395 --> 00:12:43,795
+use that as the URL.
+
+260
+00:12:43,863 --> 00:12:47,765
+Well that solution doesn't work too well in iCloud drive.
+
+261
+00:12:47,834 --> 00:12:50,969
+Because I create an EmojiArt document on my iPad,
+
+262
+00:12:51,037 --> 00:12:53,304
+I drag in something that I couldn't get it's URL so
+
+263
+00:12:53,372 --> 00:12:56,206
+I just put the image locally. I put it on iCloud Drive,
+
+264
+00:12:56,275 --> 00:12:59,243
+I go over to my iPhone, I look at it, I can't see it.
+
+265
+00:12:59,312 --> 00:13:02,413
+Because it's using the backup image which is on my iPad. So
+
+266
+00:13:02,482 --> 00:13:05,983
+I'm gonna fix my EmojiArt just to simply not accept
+
+267
+00:13:06,052 --> 00:13:09,086
+those things. So if you drag in something that I can't get
+
+268
+00:13:09,155 --> 00:13:10,555
+its image from the URL,
+
+269
+00:13:10,623 --> 00:13:13,257
+I'm just gonna reject it. Now I could just quietly
+
+270
+00:13:13,326 --> 00:13:16,594
+reject it. And the user would probably be like, what's going
+
+271
+00:13:16,663 --> 00:13:18,829
+on? I keep dragging this and it won't take it.
+
+272
+00:13:18,898 --> 00:13:20,431
+But it'd be much better if I put up an alert and
+
+273
+00:13:20,500 --> 00:13:23,668
+said, I couldn't get the image from that URL, sorry, okay so
+
+274
+00:13:23,736 --> 00:13:26,771
+that's what we're gonna do. However, once I got used to
+
+275
+00:13:26,840 --> 00:13:30,541
+that, then I probably don't want it coming up every time.
+
+276
+00:13:30,610 --> 00:13:33,611
+Because I do get the feedback when I drag in a bad image,
+
+277
+00:13:33,679 --> 00:13:35,079
+it just does nothing.
+
+278
+00:13:35,148 --> 00:13:37,381
+And eventually I'll learn, that one I can't drag in,
+
+279
+00:13:37,450 --> 00:13:39,250
+I'll have to pick something else. And so
+
+280
+00:13:39,318 --> 00:13:41,151
+I'm going to have my alert have two buttons.
+
+281
+00:13:41,220 --> 00:13:44,822
+One is keep warning me about this, and the other one is
+
+282
+00:13:44,890 --> 00:13:47,491
+stop warning me about this. Those are the only two
+
+283
+00:13:47,560 --> 00:13:50,227
+buttons on my alert. The alert is otherwise just going to say
+
+284
+00:13:50,296 --> 00:13:51,763
+I couldn't get the image from that URL.
+
+285
+00:13:51,831 --> 00:13:54,699
+So that's what we're going to build so let's go do that.
+
+286
+00:13:58,170 --> 00:14:00,738
+To our emojiArt, here we are. So here's emojiArt,
+
+287
+00:14:00,806 --> 00:14:03,441
+if you remember, we do all of our image dropping down at
+
+288
+00:14:03,509 --> 00:14:07,244
+the bottom here in our draft interaction delegates here.
+
+289
+00:14:07,313 --> 00:14:08,479
+Right here is the imageFetcher,
+
+290
+00:14:08,548 --> 00:14:12,383
+here's what we dropped when we get the URL, we fetch it with
+
+291
+00:14:12,452 --> 00:14:15,586
+the imageFetcher. But if we get an image, we use it as
+
+292
+00:14:15,654 --> 00:14:18,755
+a backup image. So we're not gonna do this anymore,
+
+293
+00:14:18,824 --> 00:14:22,393
+I'm gonna in fact, stop using the imageFetcher all together.
+
+294
+00:14:22,461 --> 00:14:25,329
+So I'm just gonna comment that imageFetcher out. Instead
+
+295
+00:14:25,398 --> 00:14:28,132
+what I'm gonna do is what you did probably in your homework,
+
+296
+00:14:28,201 --> 00:14:31,135
+hopefully. And what we did last week in, or
+
+297
+00:14:31,203 --> 00:14:33,170
+the week before, in the ImageViewController,
+
+298
+00:14:33,239 --> 00:14:35,740
+which I'm just gonna fetch this thing directly.
+
+299
+00:14:35,808 --> 00:14:37,608
+Now one thing I have to be careful about here is I don't
+
+300
+00:14:37,677 --> 00:14:42,312
+wanna block the main queue. And this closure, the one that
+
+301
+00:14:42,381 --> 00:14:46,751
+load objects, plural, that I do on a session. This one
+
+302
+00:14:46,820 --> 00:14:50,687
+is a convenience method, it calls on the main queue.
+
+303
+00:14:50,756 --> 00:14:53,357
+So this closure is on the main queue doing this. So I do not
+
+304
+00:14:53,426 --> 00:14:56,894
+want that, I want to dispatch off of the main queue. So I'm
+
+305
+00:14:56,962 --> 00:15:01,765
+gonna do DispatchQueue.global queue. I'm gonna get
+
+306
+00:15:01,834 --> 00:15:05,803
+do userInitiated, because the user did just drop this and
+
+307
+00:15:05,872 --> 00:15:08,439
+is presumably asking me to go do it right now.
+
+308
+00:15:08,507 --> 00:15:11,142
+And I'm going to asynchronously perform this
+
+309
+00:15:11,210 --> 00:15:15,846
+block. And what I'm gonna do in this block is go try and
+
+310
+00:15:15,915 --> 00:15:18,949
+fetch that image. So I'm gonna say, if I can let the image
+
+311
+00:15:19,018 --> 00:15:24,688
+data equal trying to ask the data to get the contents
+
+312
+00:15:24,757 --> 00:15:28,559
+of this URL, but I'm actually gonna use the image URL.
+
+313
+00:15:28,628 --> 00:15:32,263
+As you learn in your homework, sometimes you gotta massage
+
+314
+00:15:32,332 --> 00:15:35,733
+that URL a little bit to get the right thing out of there.
+
+315
+00:15:35,802 --> 00:15:39,737
+And then I'm going to let image = UIImage from that
+
+316
+00:15:39,805 --> 00:15:43,841
+data, if I can, imageData. And if I was successfully able
+
+317
+00:15:43,910 --> 00:15:44,676
+to do all of that,
+
+318
+00:15:44,744 --> 00:15:46,410
+and I'm doing this all in another thread, so
+
+319
+00:15:46,478 --> 00:15:50,915
+it's nice I'm not blocking the UI. Now I can use this URL
+
+320
+00:15:50,984 --> 00:15:52,483
+absolutely normally. Of course,
+
+321
+00:15:52,552 --> 00:15:56,888
+I wanna now dispatch back to the main queue. All right?
+
+322
+00:15:56,956 --> 00:16:01,059
+Cuz I'm gonna do UI thing, which is I'm gonna say,
+
+323
+00:16:01,127 --> 00:16:06,096
+self.emojiArtBackgroundImage = [url, image].
+
+324
+00:16:06,165 --> 00:16:11,069
+I'm also gonna do docself.documentChanged.
+
+325
+00:16:13,472 --> 00:16:17,107
+This is calling the method that used to be called save.
+
+326
+00:16:17,176 --> 00:16:19,676
+And then after the last lecture I told you I was going
+
+327
+00:16:19,745 --> 00:16:22,446
+to use delegation to automatically track changes.
+
+328
+00:16:22,515 --> 00:16:23,381
+Well this is one of the changes I
+
+329
+00:16:23,449 --> 00:16:25,182
+have to track. If you change the background image,
+
+330
+00:16:25,251 --> 00:16:27,050
+I have to let the document know that it has changed.
+
+331
+00:16:27,119 --> 00:16:29,520
+And we're going to look at document change in a little
+
+332
+00:16:29,589 --> 00:16:32,256
+bit later demo, today. It's exactly the same as save,
+
+333
+00:16:32,325 --> 00:16:34,157
+I just renamed it document change. But
+
+334
+00:16:34,226 --> 00:16:37,128
+we definitely want to do that in here. Now, here's the rub.
+
+335
+00:16:37,197 --> 00:16:40,797
+Here's the alert magic. If I couldn't do that,
+
+336
+00:16:40,866 --> 00:16:43,800
+if I was unable to get that image out of there. Now I
+
+337
+00:16:43,869 --> 00:16:47,638
+wanna put up an alert instead of using that backup image. So
+
+338
+00:16:47,707 --> 00:16:52,610
+I'm going to say here, self.presentBadURLWarning,
+
+339
+00:16:52,679 --> 00:16:56,647
+and I'm going to actually pass the url along.
+
+340
+00:16:56,716 --> 00:16:58,482
+Now why am I passing that url along?
+
+341
+00:16:58,550 --> 00:17:01,518
+I'm not gonna do this for time reasons, but you know what
+
+342
+00:17:01,587 --> 00:17:04,689
+would be a really cool thing is someone drags something in,
+
+343
+00:17:04,757 --> 00:17:07,258
+it puts up the alert. They're like, don't warn me again.
+
+344
+00:17:07,326 --> 00:17:10,661
+And they say stop. But then they drag another one in and
+
+345
+00:17:10,729 --> 00:17:13,864
+it doesn't work. Then they try a different one and
+
+346
+00:17:13,933 --> 00:17:18,035
+it doesn't work. And they're like, it's broken. They've
+
+347
+00:17:18,104 --> 00:17:20,838
+kind of forgotten that they said stop warning me that.
+
+348
+00:17:20,906 --> 00:17:22,940
+So somehow you might want that alert to come
+
+349
+00:17:23,009 --> 00:17:26,644
+back on. At some point, right? And what would be a cool way
+
+350
+00:17:26,713 --> 00:17:31,082
+to do that? How about if they drag the same url in twice.
+
+351
+00:17:31,150 --> 00:17:34,351
+Because that's them saying, drag it in. It didn't work.
+
+352
+00:17:34,420 --> 00:17:37,355
+Why didn't it work? Let me try again. Well if they're trying
+
+353
+00:17:37,423 --> 00:17:39,657
+again they probably forgot about that alert.
+
+354
+00:17:39,725 --> 00:17:41,692
+Maybe, maybe not, but it's likely.
+
+355
+00:17:41,761 --> 00:17:44,428
+So that's the kinda thing you can do in your UI that's
+
+356
+00:17:44,497 --> 00:17:47,130
+a little tricky, that allows them to turn things like that
+
+357
+00:17:47,199 --> 00:17:49,633
+back on without having to go to settings somewhere and
+
+358
+00:17:49,702 --> 00:17:51,568
+turn it on, which is really cumbersome.
+
+359
+00:17:51,637 --> 00:17:55,005
+It's just kind of using their natural things that they're
+
+360
+00:17:55,074 --> 00:17:58,208
+doing. In the UI, you can make decisions like this.
+
+361
+00:17:58,277 --> 00:17:59,243
+So I just kinda want to give you just kind of a classic
+
+362
+00:17:59,244 --> 00:18:00,210
+Does that make sense?
+
+363
+00:18:00,279 --> 00:18:02,880
+example of that. So that's why I might pass this URL on,
+
+364
+00:18:02,949 --> 00:18:05,716
+because I might want to check to see if it's the same URL.
+
+365
+00:18:05,785 --> 00:18:08,419
+Now I'm not gonna do that today, for time constraints.
+
+366
+00:18:08,488 --> 00:18:11,189
+But I just wanted to give you the idea you could do that.
+
+367
+00:18:11,257 --> 00:18:14,124
+All right, so let's do our private func here,
+
+368
+00:18:14,193 --> 00:18:16,360
+presentBadURLWarning for URL.
+
+369
+00:18:18,631 --> 00:18:19,864
+And what am I gonna do in here?
+
+370
+00:18:19,932 --> 00:18:22,232
+I'm gonna create that alert and present it.
+
+371
+00:18:22,301 --> 00:18:24,335
+That's why we're here, is to learn about alerts.
+
+372
+00:18:24,403 --> 00:18:27,504
+So creating alert is just creating that view controller.
+
+373
+00:18:27,573 --> 00:18:31,909
+So let alert = UIAlertController.
+
+374
+00:18:31,978 --> 00:18:34,778
+Why they didn't call it UIAlertViewController,
+
+375
+00:18:34,847 --> 00:18:38,616
+I do not know. They did not. So UIAlertController, and
+
+376
+00:18:38,685 --> 00:18:41,252
+the constructor for it here, we always want this one
+
+377
+00:18:41,320 --> 00:18:44,054
+down here. You can see this one's that NS coder stuff we
+
+378
+00:18:44,123 --> 00:18:47,290
+learned about before. This is is kind of an old style thing.
+
+379
+00:18:47,359 --> 00:18:51,161
+We always want this one right here, that gives us the title,
+
+380
+00:18:51,230 --> 00:18:53,697
+the message that's gonna go in there.
+
+381
+00:18:53,766 --> 00:18:57,468
+And the style, whether it's an action sheet or an alert. And
+
+382
+00:18:57,537 --> 00:18:59,536
+so our title here, what's happening?
+
+383
+00:18:59,605 --> 00:19:02,005
+Well, they dropped an image. We couldn't get the data.
+
+384
+00:19:02,074 --> 00:19:06,944
+So I'm gonna call this thing Image Transfer Failed, maybe.
+
+385
+00:19:07,013 --> 00:19:12,416
+It's actually very important to pick good phraseology here,
+
+386
+00:19:12,484 --> 00:19:14,619
+cuz you don't wanna freak your user out. My gosh,
+
+387
+00:19:14,687 --> 00:19:16,387
+what did I do or whatever? You wanna try and
+
+388
+00:19:16,455 --> 00:19:18,889
+give them something that gives them the authority,
+
+389
+00:19:18,958 --> 00:19:21,692
+kind of project some authority that this, don't worry,
+
+390
+00:19:21,760 --> 00:19:24,662
+this happened. I understand it and here's your options.
+
+391
+00:19:24,730 --> 00:19:26,497
+But not something that's so technical that they're like,
+
+392
+00:19:26,566 --> 00:19:30,067
+what? Like if we say something like couldn't load from URL.
+
+393
+00:19:30,136 --> 00:19:32,803
+Okay well users don't even know what URLs are. So
+
+394
+00:19:32,871 --> 00:19:34,338
+you wouldn't wanna put URL in here.
+
+395
+00:19:34,407 --> 00:19:35,906
+You see what I'm saying? So
+
+396
+00:19:35,974 --> 00:19:38,675
+image transfer, when they're dragging presumably they're
+
+397
+00:19:38,744 --> 00:19:42,079
+trying to transfer that image. You know, it's a good name.
+
+398
+00:19:42,148 --> 00:19:45,749
+Maybe we might even wanna say, image drop failed, possibly.
+
+399
+00:19:45,818 --> 00:19:47,818
+You know, this is the kind of thing you user test and
+
+400
+00:19:47,886 --> 00:19:49,653
+you try and get the right words. Of course,
+
+401
+00:19:49,722 --> 00:19:51,889
+the other thing here is we wanna localize this.
+
+402
+00:19:51,958 --> 00:19:54,792
+And I'm gonna talk, hopefully the week after Thanksgiving,
+
+403
+00:19:54,861 --> 00:19:57,461
+about how to localize your app for other languages. Because
+
+404
+00:19:57,530 --> 00:20:00,163
+we want our app to run in as many languages as possible, so
+
+405
+00:20:00,232 --> 00:20:02,866
+we have to make that string be able to be localizable.
+
+406
+00:20:02,935 --> 00:20:05,903
+And it's quite easy to do in iOS, but we'll learn about
+
+407
+00:20:05,971 --> 00:20:08,639
+that in a couple weeks. And now here's the message where
+
+408
+00:20:08,707 --> 00:20:10,540
+I'm gonna tell them more about what happened.
+
+409
+00:20:10,609 --> 00:20:15,078
+So here I'm kind of saying what happened here, which is
+
+410
+00:20:15,147 --> 00:20:20,350
+that I couldn't transfer the dropped image from its source.
+
+411
+00:20:20,419 --> 00:20:22,086
+Again, I'm not mentioning the term URL or
+
+412
+00:20:22,154 --> 00:20:25,356
+anything like that. I'm just doing that. And
+
+413
+00:20:25,425 --> 00:20:27,824
+of course this is an alert, not an action sheet, so
+
+414
+00:20:27,893 --> 00:20:30,995
+we'll say that. So this creates this view controller,
+
+415
+00:20:31,063 --> 00:20:35,499
+and then I'm just going to present I am a view controller
+
+416
+00:20:35,568 --> 00:20:39,870
+here, present. So I can call this method on myself,
+
+417
+00:20:39,939 --> 00:20:41,839
+it's a view controller method, present.
+
+418
+00:20:41,908 --> 00:20:45,075
+I'm gonna present the alert, animated true, and
+
+419
+00:20:45,144 --> 00:20:48,678
+I don't have any completion thing I wanna do so I'll just
+
+420
+00:20:48,747 --> 00:20:52,783
+leave that off. But of course I need to add my buttons here.
+
+421
+00:20:52,851 --> 00:20:53,784
+So what buttons are we gonna have?
+
+422
+00:20:53,853 --> 00:20:57,020
+Well, remember I'm gonna have keep warning me and stop
+
+423
+00:20:57,089 --> 00:21:00,257
+warning me. Okay so, let's do the keep warning one first.
+
+424
+00:21:00,326 --> 00:21:03,226
+So I'm just gonna say alert.addAction and
+
+425
+00:21:03,295 --> 00:21:06,897
+remember the action you can see takes us one argument,
+
+426
+00:21:06,966 --> 00:21:10,635
+which is a UIAlertAction. And that has only one initializer,
+
+427
+00:21:10,703 --> 00:21:13,370
+which is these one right here. So make it so
+
+428
+00:21:13,439 --> 00:21:18,509
+you can see even better here. All right,
+
+429
+00:21:18,578 --> 00:21:21,778
+so it wants the title. That's the title of the button. So
+
+430
+00:21:21,847 --> 00:21:25,649
+this is the one where I'm going to keep warning
+
+431
+00:21:25,718 --> 00:21:29,720
+the person. And the style for this is just default,
+
+432
+00:21:29,789 --> 00:21:32,890
+this is the normal default button. Keep Warning isn't
+
+433
+00:21:32,958 --> 00:21:34,891
+anything special, it's not gonna change anything, really.
+
+434
+00:21:34,960 --> 00:21:36,193
+We just keep on warning them.
+
+435
+00:21:36,262 --> 00:21:37,961
+And I actually don't need a handler here,
+
+436
+00:21:38,030 --> 00:21:39,296
+cuz I'm not gonna do anything,
+
+437
+00:21:39,364 --> 00:21:40,764
+if you keep saying Keep Warning me,
+
+438
+00:21:40,833 --> 00:21:42,132
+cuz that's what I do by default.
+
+439
+00:21:42,201 --> 00:21:47,438
+So I'm just gonna get rid of that, and that's my action. So
+
+440
+00:21:47,507 --> 00:21:50,941
+a lot of time cancel buttons and okay buttons,
+
+441
+00:21:51,009 --> 00:21:53,010
+they don't have any action, they don't do anything. And
+
+442
+00:21:53,078 --> 00:21:55,645
+that's, this is kind of like an okay button in a way. But
+
+443
+00:21:55,714 --> 00:22:01,519
+our other button alert add action, UIAlertAction.
+
+444
+00:22:01,587 --> 00:22:03,888
+This one does have a handler, and
+
+445
+00:22:03,956 --> 00:22:07,958
+let's talk about how we're going to implement this.
+
+446
+00:22:11,063 --> 00:22:14,231
+Let's see, now it's on one page there. So here this, this
+
+447
+00:22:14,300 --> 00:22:17,968
+string is Stop Warning. Now if I just have Stop Warning and
+
+448
+00:22:18,037 --> 00:22:21,038
+Keep Warning, that's really not enough information for
+
+449
+00:22:21,106 --> 00:22:22,272
+people to understand.
+
+450
+00:22:22,341 --> 00:22:25,409
+What do you mean Stop Warning? You know what I mean? So
+
+451
+00:22:25,478 --> 00:22:28,079
+I actually wanna add a little more to my message up here.
+
+452
+00:22:28,147 --> 00:22:32,916
+I'm gonna say something along the lines of,
+
+453
+00:22:32,985 --> 00:22:36,487
+show this warning in the future?
+
+454
+00:22:36,555 --> 00:22:40,024
+Now, Keep Warning and Stop Warning make a lot more sense.
+
+455
+00:22:41,227 --> 00:22:44,528
+However, you don't want this to be yes and
+
+456
+00:22:44,596 --> 00:22:47,698
+no. Having buttons in an alert, yes and no.
+
+457
+00:22:47,767 --> 00:22:50,567
+That forces the person to go carefully read and
+
+458
+00:22:50,636 --> 00:22:53,971
+parse the message you said. And they don't get any double
+
+459
+00:22:54,040 --> 00:22:56,473
+check that they read it right before they press yes or no.
+
+460
+00:22:56,542 --> 00:23:00,176
+So always try to pick things that are more descriptive than
+
+461
+00:23:00,245 --> 00:23:03,747
+yes or no, like keep this warning, stop this warning.
+
+462
+00:23:03,816 --> 00:23:05,215
+Okay you still have to be brief,
+
+463
+00:23:05,284 --> 00:23:07,751
+you don't want these buttons to have ten words on them.
+
+464
+00:23:07,820 --> 00:23:09,553
+So it's a compromise between brevity and
+
+465
+00:23:09,621 --> 00:23:11,054
+making sure the person understands.
+
+466
+00:23:11,123 --> 00:23:14,391
+Now I'm gonna call this destructive because it's going
+
+467
+00:23:14,459 --> 00:23:17,294
+to stop it doing something that it does pretty much
+
+468
+00:23:17,363 --> 00:23:19,963
+permanently unless I go add that feature where
+
+469
+00:23:20,032 --> 00:23:23,400
+I compare the URLs and turn it back on. So I'm gonna set this
+
+470
+00:23:23,469 --> 00:23:25,970
+to destructive. So it's gonna turn out red. It's gonna
+
+471
+00:23:26,038 --> 00:23:28,339
+make the user think a little bit before they press that,
+
+472
+00:23:28,407 --> 00:23:31,609
+which is exactly what I want. And how about our handler
+
+473
+00:23:31,677 --> 00:23:35,446
+here. So the handler passes this action back to us. And
+
+474
+00:23:35,514 --> 00:23:38,448
+we usually don't need that because
+
+475
+00:23:38,517 --> 00:23:42,018
+we can just capture it in using closure capture,
+
+476
+00:23:42,087 --> 00:23:47,224
+we capture this little action. Although, you know, since you
+
+477
+00:23:47,293 --> 00:23:49,893
+usually add it like this, you don't actually have a local
+
+478
+00:23:49,962 --> 00:23:52,328
+var to this action. So it's kinda nice that it passes it.
+
+479
+00:23:52,397 --> 00:23:55,166
+We don't need it in any case. All we need to do here is set
+
+480
+00:23:55,234 --> 00:23:57,801
+some var that says, suppress these warnings.
+
+481
+00:23:57,870 --> 00:24:03,173
+So I'm gonna say self. suppressBadURLWarnings = true,
+
+482
+00:24:03,242 --> 00:24:08,011
+so I need a var for this. So I'll put that up here,
+
+483
+00:24:08,080 --> 00:24:12,149
+private var, I think I copy and pasted it, yeah I did.
+
+484
+00:24:12,217 --> 00:24:14,118
+Equals, of course it's gonna start out false,
+
+485
+00:24:14,187 --> 00:24:15,385
+we're not gonna suppress it.
+
+486
+00:24:15,454 --> 00:24:22,226
+And all I'm gonna do is, not do this method if that's true,
+
+487
+00:24:22,294 --> 00:24:27,564
+so I'm gonna say if suppressBadURLWarnings,
+
+488
+00:24:27,633 --> 00:24:33,103
+not then do this. So
+
+489
+00:24:33,172 --> 00:24:36,239
+that's it, that's the entire implementation of this,
+
+490
+00:24:36,308 --> 00:24:42,946
+let's go see this working. Here's our app right here,
+
+491
+00:24:43,014 --> 00:24:46,717
+let's open up our Apple Bees document right here. Here it
+
+492
+00:24:46,785 --> 00:24:50,887
+is, and let's try dragging in an image, that works.
+
+493
+00:24:50,956 --> 00:24:53,423
+How about I think this one works, this one has an URL.
+
+494
+00:24:53,492 --> 00:24:56,860
+So we drag it in, it loads it up, excellent, it worked,
+
+495
+00:24:56,929 --> 00:24:59,863
+it's got a high resolution image, that's good.
+
+496
+00:24:59,932 --> 00:25:01,865
+How about let's drag in one that doesn't work,
+
+497
+00:25:01,934 --> 00:25:05,168
+how about this one? This one happens to not have a good
+
+498
+00:25:05,237 --> 00:25:08,071
+URL, all right, we got an alert here.
+
+499
+00:25:08,140 --> 00:25:11,074
+Couldn't transfer the dropped image from the source,
+
+500
+00:25:11,143 --> 00:25:14,044
+show this warning in the future, keep the warning, or
+
+501
+00:25:14,112 --> 00:25:17,581
+stop warning, so I will keep warning. That's good,
+
+502
+00:25:17,650 --> 00:25:21,251
+let's try another one, how about this one down here?
+
+503
+00:25:21,320 --> 00:25:24,355
+That's also no good, now I'm tired of this warning, so
+
+504
+00:25:24,423 --> 00:25:28,458
+I'm gonna say, stop warning me. Now let's try and
+
+505
+00:25:28,527 --> 00:25:32,162
+drag this bad one in again right here,
+
+506
+00:25:32,231 --> 00:25:36,333
+no warning. All right, so that's that,
+
+507
+00:25:36,401 --> 00:25:38,869
+let's get back to our slides, and
+
+508
+00:25:38,938 --> 00:25:42,072
+action sheet is exactly the same, right?
+
+509
+00:25:42,140 --> 00:25:45,843
+You're gonna do exactly the same thing over there.
+
+510
+00:25:45,911 --> 00:25:51,515
+All right, our next topic here is notifications and KVO.
+
+511
+00:25:51,583 --> 00:25:55,152
+So if you remember back to the MVC talk I did at the very
+
+512
+00:25:55,220 --> 00:25:58,055
+beginning, like, second lecture. I had this little
+
+513
+00:25:58,124 --> 00:26:00,657
+radio station, the little orange things right there.
+
+514
+00:26:00,726 --> 00:26:04,862
+I said, well, the model can't talk to its controller, so it
+
+515
+00:26:04,930 --> 00:26:07,531
+has to use other mechanisms. And why can't the model talk
+
+516
+00:26:07,600 --> 00:26:11,402
+to the controller? Because the model is UI independent and
+
+517
+00:26:11,470 --> 00:26:13,570
+the component is fundamentally UI dependent.
+
+518
+00:26:13,639 --> 00:26:16,005
+So there's no way for them to talk in that direction.
+
+519
+00:26:16,074 --> 00:26:18,541
+The controller can talk to the model, but not the other way,
+
+520
+00:26:18,610 --> 00:26:21,378
+so we have this blind and structured way of doing it.
+
+521
+00:26:21,447 --> 00:26:24,248
+By the way, a view might also want to use this
+
+522
+00:26:24,316 --> 00:26:26,850
+radio station to talk to its controller because the view
+
+523
+00:26:26,919 --> 00:26:28,618
+can't also talk to its controller for
+
+524
+00:26:28,687 --> 00:26:32,322
+a different reason. The view is generic, and the controller
+
+525
+00:26:32,391 --> 00:26:35,725
+is specific UI. So there's no way generic items like
+
+526
+00:26:35,794 --> 00:26:38,661
+buttons could know anything about a particular controller.
+
+527
+00:26:38,730 --> 00:26:41,631
+So for both reasons, the viewing model ca't talk to
+
+528
+00:26:41,700 --> 00:26:44,334
+the controller, controller talking to them is okay, but
+
+529
+00:26:44,403 --> 00:26:45,369
+ca't do the other way. So
+
+530
+00:26:45,437 --> 00:26:48,005
+they both could use this radio station model. And there's
+
+531
+00:26:48,073 --> 00:26:50,974
+really two ways to do radio stations, notifications and
+
+532
+00:26:51,043 --> 00:26:54,144
+KVO, KVO stands for key value observing.
+
+533
+00:26:54,212 --> 00:26:57,213
+So we're gonna talk about this radio station, by the way,
+
+534
+00:26:57,282 --> 00:26:59,983
+only I call it radio station, it's not called radio station
+
+535
+00:27:00,052 --> 00:27:02,586
+in the doc. But a radio station is a good analogy for
+
+536
+00:27:02,654 --> 00:27:05,789
+the kind of communication that's going on between these
+
+537
+00:27:05,858 --> 00:27:10,661
+things. All right, here's notifications, the first of
+
+538
+00:27:10,729 --> 00:27:13,931
+these. So a notification is essentially just
+
+539
+00:27:13,999 --> 00:27:17,667
+a way you're gonna register a closure to get called when
+
+540
+00:27:17,736 --> 00:27:22,072
+someone broadcasts on a named radio station. That's all it
+
+541
+00:27:22,140 --> 00:27:25,509
+is, very simple, you can see how it's immediately blind.
+
+542
+00:27:25,578 --> 00:27:27,377
+Nobody knows who's any classes,
+
+543
+00:27:27,446 --> 00:27:31,681
+all we're talking about here is this radio station. And
+
+544
+00:27:31,750 --> 00:27:32,449
+it's very flexible,
+
+545
+00:27:32,518 --> 00:27:35,318
+cuz you just plop a closure down there, and it just calls
+
+546
+00:27:35,387 --> 00:27:37,854
+it when someone broadcasts on that radio station. And
+
+547
+00:27:37,923 --> 00:27:41,659
+it's also possible to broadcast music on a radio
+
+548
+00:27:41,727 --> 00:27:44,461
+station. In other words, when you broadcast,
+
+549
+00:27:44,529 --> 00:27:47,630
+you can put information across the radio station as well,
+
+550
+00:27:47,699 --> 00:27:48,798
+which is kinda cool.
+
+551
+00:27:48,867 --> 00:27:51,901
+All right, so this is what the function to say I wanna
+
+552
+00:27:51,970 --> 00:27:54,471
+listen to a radio station looks like, this
+
+553
+00:27:54,540 --> 00:27:59,543
+code you see up right here. All of this stuff is done via
+
+554
+00:27:59,611 --> 00:28:03,447
+this thing right here, NotificationCenter.default.
+
+555
+00:28:03,516 --> 00:28:05,181
+You see that NotificationCenter.default,
+
+556
+00:28:05,250 --> 00:28:08,285
+and I'm using it down here. So NotificationCenter is a thing
+
+557
+00:28:08,354 --> 00:28:10,988
+that you use to both sign up to listen to a radio station,
+
+558
+00:28:11,057 --> 00:28:13,456
+and to broadcast on a radio station. And
+
+559
+00:28:13,525 --> 00:28:16,960
+we always just use this default shared instance of it,
+
+560
+00:28:17,028 --> 00:28:19,162
+kind of like user default, remember that one?
+
+561
+00:28:19,230 --> 00:28:22,565
+We had userdefault.standard, we just used the shared one,
+
+562
+00:28:22,634 --> 00:28:24,734
+same thing here. So
+
+563
+00:28:24,803 --> 00:28:28,138
+this method to say you wanna listen is called addObserver.
+
+564
+00:28:28,206 --> 00:28:31,608
+You're essentially going to observe this radio station,
+
+565
+00:28:31,677 --> 00:28:34,244
+to listen to see if anything is broadcast
+
+566
+00:28:34,312 --> 00:28:37,080
+there. And you see it has a return value there, which is
+
+567
+00:28:37,149 --> 00:28:40,851
+of type NSObjectProtocol, I'm gonna cover that in a second.
+
+568
+00:28:40,920 --> 00:28:43,653
+But first let's look at the arguments to this thing.
+
+569
+00:28:43,722 --> 00:28:46,656
+First of all, we have forName, you see this, right, forName,
+
+570
+00:28:46,725 --> 00:28:50,293
+Notification.Name, that's the name of the radio station. And
+
+571
+00:28:50,362 --> 00:28:52,629
+notice it's type is not string,
+
+572
+00:28:52,697 --> 00:28:56,733
+it's Notification.Name. And so if you, when you name it,
+
+573
+00:28:56,801 --> 00:28:59,402
+you will have to create your own Notification.Name if you
+
+574
+00:28:59,471 --> 00:29:02,105
+wanna broadcast on your own radio station. Which is fine,
+
+575
+00:29:02,174 --> 00:29:05,142
+you wanna give your radio station a unique name. But
+
+576
+00:29:05,210 --> 00:29:08,278
+if you wanna look and find the radio stations that exist
+
+577
+00:29:08,347 --> 00:29:12,315
+already in iOS, and there are dozens of them. iOS is very
+
+578
+00:29:12,384 --> 00:29:14,618
+good at broadcasting on a lot of radio stations.
+
+579
+00:29:14,687 --> 00:29:16,153
+You can just go look in the documentation for
+
+580
+00:29:16,221 --> 00:29:18,721
+Notification.Name, and you'll see them all listed there.
+
+581
+00:29:18,790 --> 00:29:22,358
+What they do, when they broadcast, that kind of stuff.
+
+582
+00:29:22,427 --> 00:29:24,661
+So that's why it's nice that they made it not a string,
+
+583
+00:29:24,729 --> 00:29:27,664
+but a type that you can go look up in the documentation.
+
+584
+00:29:27,733 --> 00:29:30,700
+All right, the next thing is this object Any?.
+
+585
+00:29:30,769 --> 00:29:33,570
+That is who's broadcasting on this radio station,
+
+586
+00:29:33,639 --> 00:29:35,739
+because unlike real radio stations,
+
+587
+00:29:35,808 --> 00:29:39,242
+multiple people can broadcast on the same frequency,
+
+588
+00:29:39,311 --> 00:29:42,178
+and that's perfectly allowed. And this just says who
+
+589
+00:29:42,247 --> 00:29:45,716
+is broadcasting at the, who did the broadcast that you're
+
+590
+00:29:45,784 --> 00:29:49,386
+receiving when your closure gets called here. And
+
+591
+00:29:49,454 --> 00:29:51,254
+then you see right there, we have the queue,
+
+592
+00:29:51,322 --> 00:29:54,391
+this OperationQueue. That's what queue do you want your
+
+593
+00:29:54,460 --> 00:29:58,462
+closure to be executed on. Now, this can be nil, but
+
+594
+00:29:58,530 --> 00:30:01,365
+you almost never want nil. What nil means is,
+
+595
+00:30:01,433 --> 00:30:07,804
+execute my closure on the same queue as the broadcaster.
+
+596
+00:30:07,873 --> 00:30:11,041
+You do not want that usually, unless you're the broadcaster,
+
+597
+00:30:11,109 --> 00:30:12,976
+if it's your own code, and you're doing the broadcasting,
+
+598
+00:30:13,045 --> 00:30:14,411
+maybe you want that. But
+
+599
+00:30:14,480 --> 00:30:15,979
+if you're listening to something from iOS, for
+
+600
+00:30:16,048 --> 00:30:18,548
+example, no, you probably want the main queue. Now,
+
+601
+00:30:18,616 --> 00:30:22,318
+notice that says operation queue, not dispatch queue, and
+
+602
+00:30:22,387 --> 00:30:24,521
+I actually mentioned this when I talked about dispatch queue.
+
+603
+00:30:24,590 --> 00:30:27,857
+That there's an object oriented API to doing all that
+
+604
+00:30:27,926 --> 00:30:31,061
+dispatch stuff, called Operation and OperationQueue.
+
+605
+00:30:31,129 --> 00:30:33,363
+Well, this is using that object-oriented API,
+
+606
+00:30:33,432 --> 00:30:34,431
+if you want the main queue,
+
+607
+00:30:34,500 --> 00:30:36,667
+which is what you want 99% of the time,
+
+608
+00:30:36,735 --> 00:30:39,336
+just say OperationQueue.main. The same way you say
+
+609
+00:30:39,404 --> 00:30:43,239
+DispatchQueue.main, you can say OperationQueue.main. And
+
+610
+00:30:43,308 --> 00:30:46,576
+then the last argument to this addObserver is the closure you
+
+611
+00:30:46,644 --> 00:30:49,046
+want to execute. And that closure only has one argument,
+
+612
+00:30:49,114 --> 00:30:52,548
+which is a notification. A notification is just a little
+
+613
+00:30:52,617 --> 00:30:55,786
+object that has, for example, the name of the radio station
+
+614
+00:30:55,854 --> 00:30:58,488
+and who the broadcaster is. But it also has a very
+
+615
+00:30:58,557 --> 00:31:01,224
+important piece of information called userInfo.
+
+616
+00:31:01,293 --> 00:31:05,162
+userInfo is the music that's being broadcast to you,
+
+617
+00:31:06,298 --> 00:31:07,163
+it's almost always,
+
+618
+00:31:07,232 --> 00:31:10,567
+it's a type any, but it's almost always a dictionary.
+
+619
+00:31:10,635 --> 00:31:13,136
+And when you look in the documentation notification
+
+620
+00:31:13,205 --> 00:31:14,871
+name to find all the radio stations.
+
+621
+00:31:14,940 --> 00:31:17,507
+They will say, when we broadcast,
+
+622
+00:31:17,576 --> 00:31:21,110
+we include the following keys in the dictionary, this
+
+623
+00:31:21,179 --> 00:31:25,815
+information. So that's a very important piece to understand,
+
+624
+00:31:25,884 --> 00:31:28,418
+is that your closure has this one argument, notification.
+
+625
+00:31:28,486 --> 00:31:31,287
+You look at the var userInfo in that notification to get
+
+626
+00:31:31,356 --> 00:31:34,858
+the music that's coming across the radio station right now,
+
+627
+00:31:34,926 --> 00:31:37,160
+all right? Now let's talk about that return value,
+
+628
+00:31:37,229 --> 00:31:38,761
+you see that observer up there?
+
+629
+00:31:38,830 --> 00:31:41,832
+Notice that really weird type, NSObjectProtocol,
+
+630
+00:31:41,900 --> 00:31:44,600
+what the heck is NSObjectProtocol?
+
+631
+00:31:44,669 --> 00:31:47,470
+NSObjectProtocol is a protocol that NSObject happens to
+
+632
+00:31:47,539 --> 00:31:51,074
+implement. It's a subset of the functionality of NSObject
+
+633
+00:31:51,143 --> 00:31:54,811
+that some objects implement that aren't subclasses of
+
+634
+00:31:54,880 --> 00:31:58,314
+NSObject. So that, you know, this kind, this well-known
+
+635
+00:31:58,383 --> 00:32:01,985
+set of things. However, that's completely irrelevant here.
+
+636
+00:32:02,054 --> 00:32:05,188
+Does not matter. That thing might as well be in any as far
+
+637
+00:32:05,257 --> 00:32:08,191
+as you're concerned. All this thing, this observer thing is
+
+638
+00:32:08,259 --> 00:32:12,395
+a cookie that just keeps track, that basically this
+
+639
+00:32:12,464 --> 00:32:15,431
+observation is this thing. So, it's just a cookie for
+
+640
+00:32:15,500 --> 00:32:18,668
+you to hold on to. You only do one thing with it,
+
+641
+00:32:18,737 --> 00:32:22,038
+which is stop observing. It's how you say
+
+642
+00:32:22,107 --> 00:32:25,242
+I don't wanna listen to that radio station anymore. And
+
+643
+00:32:25,310 --> 00:32:28,678
+you do that by asking the NotificationCenter.default to
+
+644
+00:32:28,747 --> 00:32:32,415
+remove observer, this cookie. And it will stop listening. So
+
+645
+00:32:32,484 --> 00:32:35,384
+we'll show you an example of that in a second.
+
+646
+00:32:35,453 --> 00:32:39,923
+Quickly on Notification.Name, all of the notification names,
+
+647
+00:32:39,992 --> 00:32:43,459
+they collect them as static lets, little static let
+
+648
+00:32:43,528 --> 00:32:48,131
+constant Notification.Names in the Notification.Name class.
+
+649
+00:32:48,200 --> 00:32:51,735
+By the way, you'll often see it called NSNotification.Name.
+
+650
+00:32:51,803 --> 00:32:52,802
+That's the same thing.
+
+651
+00:32:52,871 --> 00:32:55,771
+They're literally type aliased to each other. You know,
+
+652
+00:32:55,840 --> 00:32:57,941
+in the Swift world, we would call it Notification.Name,
+
+653
+00:32:58,009 --> 00:33:00,810
+and in the Objective-C world, NSNotification.Name.
+
+654
+00:33:00,879 --> 00:33:04,581
+Fine, they're the same exact thing. And again, if you wanna
+
+655
+00:33:04,650 --> 00:33:08,151
+create your own radio station, we actually, or I recommend
+
+656
+00:33:08,220 --> 00:33:11,254
+creating an extension to Notification.Name, and
+
+657
+00:33:11,323 --> 00:33:14,590
+adding your own static let which is your thing, equals,
+
+658
+00:33:14,659 --> 00:33:19,295
+Notification.Name, of some string, any string you want.
+
+659
+00:33:19,364 --> 00:33:21,898
+That way you'll be collected in exactly the same
+
+660
+00:33:21,967 --> 00:33:25,101
+kind of API realm as all of the other notification names.
+
+661
+00:33:25,170 --> 00:33:28,338
+And you'll see that when we do the demo. All right, so
+
+662
+00:33:28,407 --> 00:33:31,675
+here's an example of listening to the radio station.
+
+663
+00:33:31,743 --> 00:33:32,609
+What's a good example?
+
+664
+00:33:32,677 --> 00:33:34,410
+This is a great example. Remember,
+
+665
+00:33:34,479 --> 00:33:37,080
+the slider that said, set your font size, the accessibility
+
+666
+00:33:37,148 --> 00:33:40,283
+slider? You can make it bigger and smaller? Well, you can
+
+667
+00:33:40,352 --> 00:33:43,786
+find out, because there's a radio station broadcast
+
+668
+00:33:43,855 --> 00:33:47,257
+anytime that changes. So that's a great thing to know.
+
+669
+00:33:47,325 --> 00:33:50,260
+If you have something in your UI whose font is based on
+
+670
+00:33:50,329 --> 00:33:53,697
+that, for example, we talked about doing the cool thing of
+
+671
+00:33:53,765 --> 00:33:56,632
+having the collection view on the top of emoji art,
+
+672
+00:33:56,701 --> 00:34:00,704
+having its emoji get bigger or smaller, based on this slider.
+
+673
+00:34:00,772 --> 00:34:02,472
+Which would not be that hard to do. I'm not
+
+674
+00:34:02,540 --> 00:34:05,308
+gonna do it as a demo but you can do it as an exercise.
+
+675
+00:34:05,376 --> 00:34:09,079
+The main thing we would have to do is have our cell size
+
+676
+00:34:09,148 --> 00:34:13,950
+be, fixed to this font size by doing our
+
+677
+00:34:14,019 --> 00:34:16,886
+little font metric scaling. And we would also have to have
+
+678
+00:34:16,955 --> 00:34:20,123
+a layout constraint for the height of our collection view
+
+679
+00:34:20,191 --> 00:34:23,159
+that we wanna set in code to be the height of the cells.
+
+680
+00:34:23,227 --> 00:34:26,062
+Because remember that our cells can't be larger than our
+
+681
+00:34:26,131 --> 00:34:28,698
+collection view. So we'd have to make the collection view
+
+682
+00:34:28,766 --> 00:34:31,168
+bigger and the cells. But we could easily do that.
+
+683
+00:34:31,236 --> 00:34:33,102
+But if we did that, we would definitely want to be
+
+684
+00:34:33,171 --> 00:34:34,537
+listening to this radio station.
+
+685
+00:34:34,606 --> 00:34:36,772
+Because every time that font changed,
+
+686
+00:34:36,841 --> 00:34:40,143
+we'd have to re-layout our collection view, of course,
+
+687
+00:34:40,211 --> 00:34:42,278
+all right? So here's what it would look like.
+
+688
+00:34:42,347 --> 00:34:44,781
+We get the NotificationCenter.default.
+
+689
+00:34:44,849 --> 00:34:47,884
+We create this observer var which we set equal to doing
+
+690
+00:34:47,953 --> 00:34:51,121
+addObserver. The name of that radio station is
+
+691
+00:34:51,189 --> 00:34:55,758
+Notification.Name.UIContentSi- zeCategoryDidChange.
+
+692
+00:34:55,827 --> 00:34:57,861
+That's kind of a mouthful but that's what it is.
+
+693
+00:34:57,929 --> 00:35:01,197
+We're listening for that from UIApplication.shared.
+
+694
+00:35:01,266 --> 00:35:03,432
+That's the application object. I'm gonna talk about that at
+
+695
+00:35:03,501 --> 00:35:06,636
+the end of this lecture. You could also put nil there.
+
+696
+00:35:06,705 --> 00:35:09,305
+Cuz basically if anyone broadcasts that thing changed,
+
+697
+00:35:09,374 --> 00:35:12,408
+you're interested. So it would be fine to say nil here.
+
+698
+00:35:12,477 --> 00:35:14,977
+That means if anybody broadcasts it. And then of
+
+699
+00:35:15,046 --> 00:35:18,548
+course OperationQueue.main. I say or nil but really we would
+
+700
+00:35:18,617 --> 00:35:21,484
+want .main there. Cuz we're not actually sure what thread
+
+701
+00:35:21,553 --> 00:35:23,720
+this iOS would be broadcasting this on.
+
+702
+00:35:23,788 --> 00:35:26,323
+So we want to make sure we're on the main thread when we
+
+703
+00:35:26,391 --> 00:35:30,160
+do our stuff, and then our closure. Now inside our
+
+704
+00:35:30,229 --> 00:35:33,196
+closure we cause our collection view to redraw.
+
+705
+00:35:33,265 --> 00:35:36,766
+Whatever we do is fine. And also notice there,
+
+706
+00:35:36,834 --> 00:35:39,135
+there's something, some music broadcast on this station.
+
+707
+00:35:39,204 --> 00:35:43,439
+Which is, you can find out the content size category. And so
+
+708
+00:35:43,508 --> 00:35:45,775
+there's names for all those detentes,
+
+709
+00:35:45,844 --> 00:35:50,213
+in the slider there, like UIContentSizeCategorySmall,
+
+710
+00:35:50,281 --> 00:35:54,517
+UIContentSizeLarge, UIContentSizeCategoryAccessib-
+
+711
+00:35:54,585 --> 00:35:56,452
+ilityLarge, which is even larger.
+
+712
+00:35:56,521 --> 00:35:58,521
+And there's like very large, and extra large, I don't know.
+
+713
+00:35:58,590 --> 00:36:01,690
+There's all kinds of different spots in there that you could
+
+714
+00:36:01,759 --> 00:36:04,026
+look at if you wanted to. But you're probably not going to.
+
+715
+00:36:04,095 --> 00:36:06,596
+You're probably in that collection example just going
+
+716
+00:36:06,665 --> 00:36:08,731
+to resize your font based on the font metrics.
+
+717
+00:36:08,800 --> 00:36:11,434
+Remember how we do that scaled font thing off the UI Metrics.
+
+718
+00:36:11,502 --> 00:36:15,605
+You would just cause that to recalculate, all right? Now,
+
+719
+00:36:15,674 --> 00:36:19,375
+notice that I hold on to var observer right there. And then
+
+720
+00:36:19,444 --> 00:36:22,979
+I remove it when I'm done. So, it is a good question here.
+
+721
+00:36:23,048 --> 00:36:27,316
+When do I add and when do I remove observing. Well, almost
+
+722
+00:36:27,385 --> 00:36:29,886
+always you're doing this as part of something you're doing
+
+723
+00:36:29,954 --> 00:36:32,822
+in the ViewController. So a perfect time and
+
+724
+00:36:32,890 --> 00:36:36,392
+probably 90% of the time, when you get viewWillAppear or
+
+725
+00:36:36,461 --> 00:36:39,529
+viewDidAppear, you add observer. And
+
+726
+00:36:39,598 --> 00:36:42,398
+then on viewWillDisappear or viewDidDisappear,
+
+727
+00:36:42,467 --> 00:36:45,635
+you remove the observer. That makes sense?
+
+728
+00:36:45,704 --> 00:36:48,504
+Because you're only interested in really getting these size
+
+729
+00:36:48,573 --> 00:36:51,441
+changes while you're on-screen.
+
+730
+00:36:51,509 --> 00:36:52,675
+of course, the size might change while you're offscreen.
+
+731
+00:36:52,676 --> 00:36:53,842
+Now if you do that,
+
+732
+00:36:53,912 --> 00:36:55,311
+So when you get viewWillAppear,
+
+733
+00:36:55,380 --> 00:36:57,780
+you'll probably also wanna look at the size category,
+
+734
+00:36:57,849 --> 00:36:59,782
+which you can do. UIApplication has a var for
+
+735
+00:36:59,851 --> 00:37:02,418
+that. And adjust your collection view then
+
+736
+00:37:02,487 --> 00:37:05,221
+before you appear. But it's kinda a waste for you to
+
+737
+00:37:05,290 --> 00:37:08,091
+be listening to that thing all the time and changing things
+
+738
+00:37:08,159 --> 00:37:10,359
+when you're not even on screen. So viewWillAppear,
+
+739
+00:37:10,428 --> 00:37:13,429
+viewDidDisappear are great places to put add observer,
+
+740
+00:37:13,498 --> 00:37:16,765
+remove observer pairs. Always pair these things. Don't
+
+741
+00:37:16,834 --> 00:37:22,605
+forget to remove observer. How about broadcasting on your own
+
+742
+00:37:22,674 --> 00:37:25,508
+radio station. How do you do that? You do that with
+
+743
+00:37:25,577 --> 00:37:27,577
+the NotificationCenter.default as well.
+
+744
+00:37:27,646 --> 00:37:30,680
+The method there is called post. The first argument,
+
+745
+00:37:30,748 --> 00:37:32,715
+the name, is the name of the radio station.
+
+746
+00:37:32,784 --> 00:37:35,585
+You get to make that up. We've talked about how to do that.
+
+747
+00:37:35,654 --> 00:37:38,755
+object, that's you. That's who's sending it. Usually
+
+748
+00:37:38,823 --> 00:37:40,890
+that's self. You can make that any object that you want.
+
+749
+00:37:40,958 --> 00:37:43,393
+But, that is who the NotificationCenter will
+
+750
+00:37:43,461 --> 00:37:44,627
+report as the sender,
+
+751
+00:37:44,696 --> 00:37:48,197
+the broadcaster. And then userInfo, that's
+
+752
+00:37:48,266 --> 00:37:51,034
+your music. And that's, almost always, you're gonna want to
+
+753
+00:37:51,102 --> 00:37:53,502
+put that as a dictionary of AnyHashable thing
+
+754
+00:37:53,571 --> 00:37:56,639
+to an Anys. So it's very flexible, you can put anything
+
+755
+00:37:56,707 --> 00:38:00,510
+you want in there. Now, as soon as you call this method,
+
+756
+00:38:00,578 --> 00:38:04,648
+it will immediately call all the closures for
+
+757
+00:38:04,716 --> 00:38:07,683
+that have addObserver to your radio station,
+
+758
+00:38:07,752 --> 00:38:12,388
+with a following caveat. It's only gonna immediately
+
+759
+00:38:12,457 --> 00:38:15,357
+call them If they specified queue nil.
+
+760
+00:38:15,426 --> 00:38:17,960
+Cuz then it's gonna execute their closures on the same
+
+761
+00:38:18,029 --> 00:38:21,130
+queue as this. So then it executes right away.
+
+762
+00:38:21,198 --> 00:38:23,800
+If they specified a different queue like the main queue,
+
+763
+00:38:23,869 --> 00:38:27,069
+then this is going to post their closures to execute.
+
+764
+00:38:27,138 --> 00:38:29,405
+And it will execute as soon as that
+
+765
+00:38:29,474 --> 00:38:33,175
+queue gets around to their closure.
+
+766
+00:38:33,244 --> 00:38:37,079
+So that's notifications. All right, KVO. Now I'm gonna
+
+767
+00:38:37,148 --> 00:38:39,949
+spend two slides on this. But I wanna emphasize up front,
+
+768
+00:38:40,018 --> 00:38:43,452
+this is not a major important thing you're gonna do this.
+
+769
+00:38:43,521 --> 00:38:46,656
+Most quarters, I don't even talk about this. But
+
+770
+00:38:46,724 --> 00:38:49,024
+I kinda decided to throw it in this quarter just so
+
+771
+00:38:49,093 --> 00:38:51,928
+you can kinda know it exists out there.
+
+772
+00:38:51,997 --> 00:38:54,630
+It's not really a primary way of doing things.
+
+773
+00:38:54,699 --> 00:38:57,032
+Notification is much more of a primary way.
+
+774
+00:38:57,101 --> 00:39:00,136
+This much less primary. And it's because, it's because
+
+775
+00:39:00,205 --> 00:39:03,506
+it's kinda limited a little bit in its application.
+
+776
+00:39:03,575 --> 00:39:07,576
+So what is KVO? The basic idea here is, when it comes right
+
+777
+00:39:07,645 --> 00:39:12,048
+down to it, it's the idea of registering a closure that
+
+778
+00:39:12,116 --> 00:39:16,619
+gets executed when a property on a sub-class of NSObject
+
+779
+00:39:16,688 --> 00:39:19,822
+changes. That's pretty much what it is.
+
+780
+00:39:19,891 --> 00:39:23,826
+Now let's talk about some of the caveats I just put there.
+
+781
+00:39:23,895 --> 00:39:27,096
+To make KVO work, you can't just have any property and
+
+782
+00:39:27,164 --> 00:39:30,099
+you change it and someone can register a closure.
+
+783
+00:39:30,168 --> 00:39:32,369
+Think about the overhead of doing that.
+
+784
+00:39:32,437 --> 00:39:33,903
+You would not want that for every property.
+
+785
+00:39:33,972 --> 00:39:36,706
+A lot of properties are probably they act as inlined
+
+786
+00:39:36,774 --> 00:39:37,440
+by the compiler.
+
+787
+00:39:37,508 --> 00:39:40,309
+So there's no way you would be able to do that. So
+
+788
+00:39:40,378 --> 00:39:42,612
+there's a mechanism that's required to do this.
+
+789
+00:39:42,681 --> 00:39:45,414
+Now NSObject, remember what NSObject is, right?
+
+790
+00:39:45,483 --> 00:39:48,051
+It's the root of all iOS classes, right? So
+
+791
+00:39:48,119 --> 00:39:51,721
+UIViewController, UIView, they all inherit from NSObject.
+
+792
+00:39:51,790 --> 00:39:54,290
+So NSObject puts this mechanism
+
+793
+00:39:54,359 --> 00:39:57,193
+that makes it possibly to watch a property into it.
+
+794
+00:39:57,261 --> 00:40:00,930
+So that's why I say This is for subclasses of NSObject,
+
+795
+00:40:00,998 --> 00:40:03,666
+you could put this mechanism in your own object, however.
+
+796
+00:40:03,735 --> 00:40:06,402
+It's not that difficult, I'm not gonna cover it, but
+
+797
+00:40:06,471 --> 00:40:09,372
+people usually don't. They just use the mechanism of
+
+798
+00:40:09,441 --> 00:40:12,808
+using NSObject by having their thing, whatever it is,
+
+799
+00:40:12,877 --> 00:40:15,745
+their class, subclass from NSObject. So
+
+800
+00:40:15,814 --> 00:40:17,580
+that's the first thing to understand.
+
+801
+00:40:17,648 --> 00:40:19,716
+There's kind of some mechanism there that you would have
+
+802
+00:40:19,784 --> 00:40:21,851
+to implement if you didn't wanna subclass NSObject.
+
+803
+00:40:23,321 --> 00:40:26,255
+What is this thing good for, what's KVO good for? Well,
+
+804
+00:40:26,324 --> 00:40:28,724
+it's kind of good for some the same things as notification.
+
+805
+00:40:28,793 --> 00:40:31,427
+Blind structured communication between things,
+
+806
+00:40:31,496 --> 00:40:34,196
+especially between models and their controllers.
+
+807
+00:40:34,265 --> 00:40:36,365
+But also between a view and their controller, or
+
+808
+00:40:36,434 --> 00:40:38,534
+even between a view and itself, as you'll see in
+
+809
+00:40:38,603 --> 00:40:42,739
+the demo here. Not every property works with KVO,
+
+810
+00:40:42,808 --> 00:40:44,607
+as I said, that would be ridiculous. For
+
+811
+00:40:44,676 --> 00:40:46,008
+a property to work with it,
+
+812
+00:40:46,077 --> 00:40:48,077
+not only do you need the NSObject mechanism, but
+
+813
+00:40:48,146 --> 00:40:51,480
+the property has to be what's called key value coding
+
+814
+00:40:51,549 --> 00:40:53,516
+compliant. Now, what that means is,
+
+815
+00:40:53,585 --> 00:40:56,853
+that property can be set by sending set value for
+
+816
+00:40:56,921 --> 00:41:00,723
+key, where the key is the key path of that property, and
+
+817
+00:41:00,791 --> 00:41:02,892
+get value for key to get it. In other words,
+
+818
+00:41:02,960 --> 00:41:05,895
+there's these functions, set value for key and value for
+
+819
+00:41:05,963 --> 00:41:08,831
+key, that you can call to get the value of the property.
+
+820
+00:41:08,900 --> 00:41:11,367
+That has to be possible on the object,
+
+821
+00:41:11,436 --> 00:41:13,903
+that has to work if you want do it. And
+
+822
+00:41:13,972 --> 00:41:16,872
+that's called key value compoding, key value coding
+
+823
+00:41:16,941 --> 00:41:19,842
+compliant. So that property has to be that way, now,
+
+824
+00:41:19,910 --> 00:41:23,646
+you have to do some work to make that happen. Properties
+
+825
+00:41:23,714 --> 00:41:26,182
+don't just magically make that work, you usually have to
+
+826
+00:41:26,250 --> 00:41:28,717
+implement something like value for key and set value for
+
+827
+00:41:28,786 --> 00:41:31,887
+key to make that work. Now, there are a few properties
+
+828
+00:41:31,956 --> 00:41:36,559
+scattered throughout iOS that are key value observing,
+
+829
+00:41:36,628 --> 00:41:38,861
+that work with key value observing. Most notably,
+
+830
+00:41:38,930 --> 00:41:42,965
+in UI view, center and frame are key value observing.
+
+831
+00:41:43,033 --> 00:41:46,235
+So you can observe the center or frame, and/or frame of
+
+832
+00:41:46,304 --> 00:41:48,338
+a view, and you can find out when it moves, so
+
+833
+00:41:48,406 --> 00:41:52,007
+that's kinda cool. Also, most of the properties in
+
+834
+00:41:52,076 --> 00:41:55,077
+the CALayer underneath UIView, remember the place where we
+
+835
+00:41:55,146 --> 00:41:56,545
+put the border around the view,
+
+836
+00:41:56,614 --> 00:41:58,648
+back in assignment three or something like that?
+
+837
+00:41:58,716 --> 00:42:02,618
+That layer that's doing a lot of the drawing for UIView,
+
+838
+00:42:02,687 --> 00:42:06,722
+that layer is mostly key value observing compliant. So you
+
+839
+00:42:06,791 --> 00:42:09,392
+can observe things happening at that layer as well. And
+
+840
+00:42:09,461 --> 00:42:11,393
+they are scattering other places, for example,
+
+841
+00:42:11,462 --> 00:42:15,398
+core data. Remember core data, the object oriented database?
+
+842
+00:42:15,466 --> 00:42:17,933
+Key value observing can be really big there.
+
+843
+00:42:18,002 --> 00:42:21,304
+You could watch everything happening in your database
+
+844
+00:42:21,372 --> 00:42:25,307
+on a per-property basis by using key value observing. So
+
+845
+00:42:25,376 --> 00:42:29,078
+there are some frameworks that actually use KVO a lot. But
+
+846
+00:42:29,147 --> 00:42:32,014
+for the most part, we don't use it in the main
+
+847
+00:42:32,083 --> 00:42:34,684
+line that much. And of course, you could make your own
+
+848
+00:42:34,752 --> 00:42:36,886
+NSObject subclass that implements this stuff.
+
+849
+00:42:36,954 --> 00:42:39,354
+But that's way outside the scope of this class, and
+
+850
+00:42:39,423 --> 00:42:42,258
+again, template sizing is not, this is not that huge a deal.
+
+851
+00:42:42,326 --> 00:42:45,394
+All right, so how does that work, what is KVO look like?
+
+852
+00:42:45,463 --> 00:42:48,497
+There's this one very important method that NSObject
+
+853
+00:42:48,566 --> 00:42:51,134
+provides for you, called observe. So
+
+854
+00:42:51,202 --> 00:42:54,570
+observe takes a keyPath as an argument and a closure, and
+
+855
+00:42:54,639 --> 00:42:58,240
+it executes that closure whenever that keyPath changes.
+
+856
+00:42:58,309 --> 00:43:01,477
+Only works for keyPath that are key value compliant,
+
+857
+00:43:01,545 --> 00:43:05,214
+key value coding compliant. Notice that it returns
+
+858
+00:43:05,283 --> 00:43:07,683
+a little cookie, our observation,
+
+859
+00:43:07,752 --> 00:43:09,918
+you see that? It's a little different than a notification,
+
+860
+00:43:09,987 --> 00:43:13,956
+though, you never say, remove observer on that cookie.
+
+861
+00:43:14,025 --> 00:43:17,159
+Instead, when that cookie goes out of the heap,
+
+862
+00:43:17,228 --> 00:43:20,262
+it stops observing. So as long as you want this
+
+863
+00:43:20,331 --> 00:43:23,265
+observation closure to be observing that thing,
+
+864
+00:43:23,334 --> 00:43:25,935
+just keep that cookie in the heap. As soon as you let it go
+
+865
+00:43:26,003 --> 00:43:30,339
+out of the heap, it will stop observing. Now,
+
+866
+00:43:30,408 --> 00:43:32,574
+the arguments you see to your closure, of course,
+
+867
+00:43:32,643 --> 00:43:35,377
+you get the thing that's being observed, observed handed back
+
+868
+00:43:35,446 --> 00:43:37,313
+to you. You also get this thing change,
+
+869
+00:43:37,382 --> 00:43:41,617
+that change is of type NSKeyValueObservedChange. And
+
+870
+00:43:41,685 --> 00:43:44,954
+that's a little object that you can get the old value of
+
+871
+00:43:45,022 --> 00:43:47,089
+the thing, the new value of the thing that changed,
+
+872
+00:43:47,158 --> 00:43:49,691
+that kind of stuff. It just basically tells you about
+
+873
+00:43:49,760 --> 00:43:51,059
+the change that happened,
+
+874
+00:43:51,128 --> 00:43:53,328
+that caused your closure to get called.
+
+875
+00:43:53,397 --> 00:43:57,199
+This KeyPath argument is not a string, used to be in the old
+
+876
+00:43:57,268 --> 00:44:01,003
+days. Nowadays, it's actually a typed thing in Swift, and
+
+877
+00:44:01,071 --> 00:44:04,806
+it has special syntax, which is backslash, the type, dot,
+
+878
+00:44:04,875 --> 00:44:09,645
+the name of the property. Now, Swift will infer the type for
+
+879
+00:44:09,714 --> 00:44:13,749
+you, so we almost always say backslash dot the property. So
+
+880
+00:44:13,818 --> 00:44:15,918
+for example, if we want to observe the center or
+
+881
+00:44:15,987 --> 00:44:21,523
+frame of a view we would say observe \.frame.
+
+882
+00:44:21,592 --> 00:44:26,295
+and that will be observing the view's frame. All right,
+
+883
+00:44:26,364 --> 00:44:28,530
+so I have a demo of both of these things,
+
+884
+00:44:28,599 --> 00:44:31,934
+notifications and KVO, so let's take a look at these.
+
+885
+00:44:32,003 --> 00:44:35,571
+What I'm gonna do here is, remember after last lecture,
+
+886
+00:44:35,639 --> 00:44:39,342
+I said, we don't want to have a save button in EmojiArt.
+
+887
+00:44:39,411 --> 00:44:40,209
+We're gonna get rid of that,
+
+888
+00:44:40,278 --> 00:44:42,144
+there's no reason to have a save button. Really,
+
+889
+00:44:42,212 --> 00:44:45,080
+when we hit Save, we were just telling our UI document,
+
+890
+00:44:45,149 --> 00:44:48,951
+something changed, so you should autosave soon.
+
+891
+00:44:49,019 --> 00:44:51,854
+Really, what we want is to watch our EmojiArt view,
+
+892
+00:44:51,923 --> 00:44:54,490
+and whenever an emoji gets added or resized or
+
+893
+00:44:54,559 --> 00:44:57,126
+moved, we want to notify the controller.
+
+894
+00:44:57,195 --> 00:44:59,628
+So the controller can tell its document, something changed,
+
+895
+00:44:59,697 --> 00:45:01,530
+then we can just ditch the save button.
+
+896
+00:45:01,599 --> 00:45:03,232
+Well, after lecture last time,
+
+897
+00:45:03,301 --> 00:45:05,267
+I told you I was gonna do that, and I did.
+
+898
+00:45:05,336 --> 00:45:09,004
+So the stuff that's posted has this in there, and what I used
+
+899
+00:45:09,073 --> 00:45:12,208
+was delegation. And it did it specifically cuz I wanted you
+
+900
+00:45:12,277 --> 00:45:14,910
+to see what it looks like to make your own delegate.
+
+901
+00:45:14,979 --> 00:45:16,779
+You've been using scroll view's delegate,
+
+902
+00:45:16,847 --> 00:45:19,448
+table view's delegate, collective view's delegate.
+
+903
+00:45:19,517 --> 00:45:22,585
+I wanted you to see, wanted you to make your own delegate,
+
+904
+00:45:22,654 --> 00:45:25,354
+so I created an EmojiArtViewDelegate, and
+
+905
+00:45:25,423 --> 00:45:27,556
+I'll briefly show you what I did there.
+
+906
+00:45:27,625 --> 00:45:31,293
+And so that's great, but today, what I'm gonna do is
+
+907
+00:45:31,362 --> 00:45:34,663
+use notifications instead. Because you can image,
+
+908
+00:45:34,732 --> 00:45:36,332
+anything that's happening with a delegate,
+
+909
+00:45:36,401 --> 00:45:38,634
+that's blind structure communication. Well, we can do
+
+910
+00:45:38,702 --> 00:45:40,937
+that with a notification just by having a radio station,
+
+911
+00:45:41,005 --> 00:45:44,039
+which is the EmojiArt view something changed radio
+
+912
+00:45:44,108 --> 00:45:47,076
+station. And a controller will just tune in, and every time
+
+913
+00:45:47,145 --> 00:45:49,878
+it hears a broadcast on that, it'll tell its UI document,
+
+914
+00:45:49,947 --> 00:45:53,015
+something changed, that's what I heard on the radio station.
+
+915
+00:45:53,084 --> 00:45:55,751
+And so that's what we'll do there, and then KVO,
+
+916
+00:45:55,820 --> 00:45:57,552
+there's a great use of KVO here.
+
+917
+00:45:57,621 --> 00:46:00,456
+Which is, right now, I had to go down where my gestures are,
+
+918
+00:46:00,524 --> 00:46:03,125
+remember, I dragged in some gesture code. I had to go in
+
+919
+00:46:03,193 --> 00:46:05,894
+there, and for every time a gesture changed the position
+
+920
+00:46:05,963 --> 00:46:08,697
+of an emoji, I had to tell my delegate something changed,
+
+921
+00:46:08,766 --> 00:46:11,433
+tell me. So I had a lot of code in there for that, so
+
+922
+00:46:11,502 --> 00:46:13,569
+I'm just gonna rip all that code out.
+
+923
+00:46:13,638 --> 00:46:16,606
+And instead, I'm gonna observe the center of my emojis, and
+
+924
+00:46:16,674 --> 00:46:19,241
+when my emojis move, or even when they're resized,
+
+925
+00:46:19,309 --> 00:46:22,077
+because when they resize, they have to be repositioned,
+
+926
+00:46:22,146 --> 00:46:24,546
+right? Cuz they grow from the upper left corner,
+
+927
+00:46:24,615 --> 00:46:26,248
+so I have to keep repositioning, so
+
+928
+00:46:26,317 --> 00:46:28,251
+I'm setting the center again. So
+
+929
+00:46:28,319 --> 00:46:30,786
+I'm just gonna observe that, and when that happens,
+
+930
+00:46:30,855 --> 00:46:33,255
+then I'll broadcast on my radio station. So
+
+931
+00:46:33,324 --> 00:46:36,392
+that'll collect that code into one place, and keep it from
+
+932
+00:46:36,460 --> 00:46:40,729
+being spread out through all over my code in a messy way.
+
+933
+00:46:40,798 --> 00:46:43,832
+But before we do that stuff, I'm going to do a simple
+
+934
+00:46:43,901 --> 00:46:47,202
+notification thing, which is I'm just going to observe
+
+935
+00:46:47,271 --> 00:46:50,839
+the state of my UI document changing. You know how our UI
+
+936
+00:46:50,908 --> 00:46:53,976
+document goes through these document states, normal,
+
+937
+00:46:54,045 --> 00:46:57,580
+closed, progress available when it's, say, reading and
+
+938
+00:46:57,648 --> 00:47:00,749
+writing, saving, error, remember all those states?
+
+939
+00:47:00,818 --> 00:47:03,552
+Well, we're gonna watch that happen, just to kinda get
+
+940
+00:47:03,621 --> 00:47:07,690
+a warm up on notifications, to see what that looks like. So
+
+941
+00:47:07,759 --> 00:47:10,158
+let's do that one, I'm gonna go up here,
+
+942
+00:47:10,227 --> 00:47:13,729
+here's viewWillAppear, right here, and close. Right, so
+
+943
+00:47:13,798 --> 00:47:16,632
+here's our document opening and closing up here. So
+
+944
+00:47:16,700 --> 00:47:22,070
+all I'm gonna do here is, when my document first appears,
+
+945
+00:47:22,139 --> 00:47:26,342
+I'm going to start watching my document. And it broadcasts on
+
+946
+00:47:26,411 --> 00:47:29,779
+a radio station that tells me when its state changed.
+
+947
+00:47:29,847 --> 00:47:31,547
+So what does that look like, well,
+
+948
+00:47:31,616 --> 00:47:33,849
+again, i need to capture the return values.
+
+949
+00:47:33,918 --> 00:47:36,985
+So, i'm gonna call my documentObserver equals,
+
+950
+00:47:37,054 --> 00:47:39,856
+let's go ahead and make a var for that.
+
+951
+00:47:39,924 --> 00:47:43,659
+private var documentObserver, remember, it's
+
+952
+00:47:43,727 --> 00:47:47,863
+an NSObjectProtocol, optional. Again, this is the cookie,
+
+953
+00:47:47,932 --> 00:47:50,432
+we never send a message to this, ever. We don't
+
+954
+00:47:50,501 --> 00:47:54,369
+even not know what messages it responds to. So we're gonna,
+
+955
+00:47:54,438 --> 00:47:57,839
+create this document observer here, I'm gonna do
+
+956
+00:47:57,908 --> 00:48:01,743
+NotificationCenter.default That's how we do all of our
+
+957
+00:48:01,812 --> 00:48:06,382
+stuff. And do addObserver, so here's addObserver forName,
+
+958
+00:48:06,450 --> 00:48:08,817
+make this a little easier to read,
+
+959
+00:48:08,886 --> 00:48:14,123
+is what I want to do here. I wish they had
+
+960
+00:48:14,192 --> 00:48:17,726
+a little command key I could do that would do this for me.
+
+961
+00:48:17,795 --> 00:48:21,263
+All right, so we're gonna listen to the document state
+
+962
+00:48:21,332 --> 00:48:23,799
+radio station. So we, let's find the name of it.
+
+963
+00:48:23,867 --> 00:48:27,002
+I'm just gonna type, Notification.Name., and
+
+964
+00:48:27,071 --> 00:48:30,839
+you're gonna see how many radio stations there are in
+
+965
+00:48:30,908 --> 00:48:36,512
+iOS. A lot, okay? And you can go look at all these and
+
+966
+00:48:36,581 --> 00:48:39,115
+what they broadcast and what music they play and all these
+
+967
+00:48:39,183 --> 00:48:41,484
+things. We've already talked about some of these things,
+
+968
+00:48:41,552 --> 00:48:45,954
+for example, keyboard. Here's a keyboard hide, DidHide,
+
+969
+00:48:46,023 --> 00:48:50,793
+will show. And then of course the content category size did
+
+970
+00:48:50,862 --> 00:48:54,096
+change thing, right? There's that there.
+
+971
+00:48:54,165 --> 00:48:58,901
+So, the one we want is UIDocumentStateChanged,
+
+972
+00:48:58,970 --> 00:49:02,338
+you see the first one there? So UIDocumentStateChanged, so
+
+973
+00:49:02,407 --> 00:49:04,139
+that's the radio station we want to listen to.
+
+974
+00:49:04,208 --> 00:49:07,710
+We're only interested in broadcast from our document.
+
+975
+00:49:09,113 --> 00:49:11,247
+That's the sender. That's who we want to broadcast.
+
+976
+00:49:11,315 --> 00:49:16,218
+We of course want to be on the main queue here. And
+
+977
+00:49:16,286 --> 00:49:19,154
+here's the closure that's gonna be executed when someone
+
+978
+00:49:19,223 --> 00:49:21,690
+broadcasts on that. Here's our notification. Now
+
+979
+00:49:21,759 --> 00:49:24,259
+this notification I think it actually does have some music
+
+980
+00:49:24,328 --> 00:49:26,895
+on there, which is probably the document state. But
+
+981
+00:49:26,964 --> 00:49:29,031
+I don't even need it cuz I've got my document right here.
+
+982
+00:49:29,100 --> 00:49:32,534
+So I'll just grab its state. I'm just gonna say
+
+983
+00:49:32,603 --> 00:49:37,940
+print.documentState changed to. And
+
+984
+00:49:38,008 --> 00:49:45,414
+we'll say are self.documentState. I actually
+
+985
+00:49:45,482 --> 00:49:48,617
+added a little extension to documentState right there so
+
+986
+00:49:48,686 --> 00:49:51,553
+that it would print it out nicely .normal.close,
+
+987
+00:49:51,622 --> 00:49:54,222
+those kind of things. Now anytime you start listening
+
+988
+00:49:54,291 --> 00:49:56,826
+on a radio station, you immediately have to think when
+
+989
+00:49:56,894 --> 00:49:59,094
+am I going to stop listening on this radio station?
+
+990
+00:49:59,163 --> 00:50:02,297
+Well, here I'm starting even before my document opens, but
+
+991
+00:50:02,366 --> 00:50:05,800
+I'm waiting until view will appear. So I'm going to stop,
+
+992
+00:50:05,869 --> 00:50:07,903
+I could stop in view will disappear or
+
+993
+00:50:07,972 --> 00:50:08,770
+view did disappear, but
+
+994
+00:50:08,839 --> 00:50:10,672
+I'm actually going to stop when my document is fully
+
+995
+00:50:10,741 --> 00:50:12,374
+closed. Once it's fully closed,
+
+996
+00:50:12,443 --> 00:50:15,277
+I certainly don't want to be watching it anymore. So
+
+997
+00:50:15,346 --> 00:50:18,313
+let's go down here where we close. This is the close,
+
+998
+00:50:18,382 --> 00:50:20,949
+here is where we closing. Right now we don't use
+
+999
+00:50:21,018 --> 00:50:25,387
+the little success closure that happens when we close.
+
+1000
+00:50:25,455 --> 00:50:30,326
+But I'm going to star using it. Success in space,
+
+1001
+00:50:30,394 --> 00:50:35,397
+Return. And in here I'm going to remove observing
+
+1002
+00:50:35,466 --> 00:50:39,435
+this documentObserver. So I'm just going to say here,
+
+1003
+00:50:39,503 --> 00:50:44,406
+if I can let observer, server equal my documentObserver.
+
+1004
+00:50:44,475 --> 00:50:48,710
+Then I'm going to ask the NotificationCenter.default
+
+1005
+00:50:48,779 --> 00:50:51,213
+center to remove that observer.
+
+1006
+00:50:51,281 --> 00:50:57,085
+In other words, stop observing that. Everybody cool
+
+1007
+00:50:57,154 --> 00:51:00,755
+with that? Everyone understand what I'm saying here, about
+
+1008
+00:51:00,824 --> 00:51:05,393
+this is the completion closer from closing the document? So
+
+1009
+00:51:05,462 --> 00:51:07,897
+once it's closed, that way we'll be able to observe it
+
+1010
+00:51:07,965 --> 00:51:13,736
+closing. It will be nice. So let's go run this and
+
+1011
+00:51:13,804 --> 00:51:16,438
+watch our console, so I got my console going down here.
+
+1012
+00:51:16,507 --> 00:51:20,209
+Actually, this is my console over here. All right, so
+
+1013
+00:51:20,278 --> 00:51:26,581
+let's run. All right, so here's our app. So we
+
+1014
+00:51:26,650 --> 00:51:28,684
+haven't opened any documents. So we have nothing on here.
+
+1015
+00:51:28,752 --> 00:51:32,621
+I'm gonna go ahead and clear out my console.
+
+1016
+00:51:32,689 --> 00:51:34,022
+So we haven't opened any documents.
+
+1017
+00:51:34,091 --> 00:51:35,724
+So we haven't gotten any documents to exchange.
+
+1018
+00:51:35,792 --> 00:51:38,860
+So I'm gonna open our Apple Bees. Here is our Apple Bee.
+
+1019
+00:51:38,929 --> 00:51:42,230
+And look, documentState date changed to normal, right?
+
+1020
+00:51:42,299 --> 00:51:43,565
+Because we opened the document,
+
+1021
+00:51:43,634 --> 00:51:47,102
+now it's in normal. Now, how about putting something in
+
+1022
+00:51:47,171 --> 00:51:50,539
+here maybe an apple, something like that. Now it's, where,
+
+1023
+00:51:50,608 --> 00:51:53,809
+what's going to happen to the state right now? Okay well,
+
+1024
+00:51:53,878 --> 00:51:56,211
+eventually it's going to autosave. It does it about,
+
+1025
+00:51:56,280 --> 00:51:58,580
+I don't know, once a minute or something like that. But
+
+1026
+00:51:58,649 --> 00:52:01,082
+when it autosaves, we're going to notice because it's going
+
+1027
+00:52:01,151 --> 00:52:04,787
+to go to state progress available. There it is,
+
+1028
+00:52:04,855 --> 00:52:07,489
+progress available and then back to normal. Because
+
+1029
+00:52:07,557 --> 00:52:09,358
+the progress is available because it's saving and
+
+1030
+00:52:09,426 --> 00:52:12,327
+it can tell you the progress as it saves, and
+
+1031
+00:52:12,396 --> 00:52:16,031
+then goes back to normal. I'll show you another trick. Here,
+
+1032
+00:52:16,100 --> 00:52:20,869
+you can force an autosave, by the way, by threatening
+
+1033
+00:52:20,937 --> 00:52:24,707
+to switch to another app. Watch this, I'm going to drag
+
+1034
+00:52:24,775 --> 00:52:27,175
+up from the bottom like, I'm gonna switch to another app.
+
+1035
+00:52:27,244 --> 00:52:30,512
+This caused an autosave. Now, it didn't do it here because
+
+1036
+00:52:30,581 --> 00:52:32,514
+we haven't made any changes. But this is a great way
+
+1037
+00:52:32,583 --> 00:52:35,150
+to make sure that you're changing stuff works.
+
+1038
+00:52:35,218 --> 00:52:38,787
+So watch this, now I'm gonna add a something here.
+
+1039
+00:52:38,856 --> 00:52:42,257
+Now when I do this threat, whoop,
+
+1040
+00:52:42,326 --> 00:52:46,828
+it's saved. See what happened there? So when you threaten to
+
+1041
+00:52:46,897 --> 00:52:48,797
+switch to another app autosave will auto save.
+
+1042
+00:52:48,866 --> 00:52:51,033
+Cuz it's just afraid, my gosh, I might get killed or
+
+1043
+00:52:51,101 --> 00:52:53,101
+who knows what, I better save. So
+
+1044
+00:52:53,170 --> 00:52:56,605
+that's a nice trick to know when to do that. And
+
+1045
+00:52:56,673 --> 00:53:01,310
+if we close this then we get state changed to closed. So
+
+1046
+00:53:01,379 --> 00:53:03,012
+this is cool. We just listened to that radio station,
+
+1047
+00:53:03,080 --> 00:53:04,913
+we're just reporting what happened.
+
+1048
+00:53:04,982 --> 00:53:07,649
+All right, now let's go ahead and
+
+1049
+00:53:07,718 --> 00:53:10,952
+have our emoji artview be a broadcaster.
+
+1050
+00:53:11,021 --> 00:53:15,257
+We are listening to UIDocument which is the broadcaster here
+
+1051
+00:53:15,326 --> 00:53:17,993
+and we are the subscriber to the radio station.
+
+1052
+00:53:18,062 --> 00:53:19,728
+Now let's go the other way, let's have a broadcast.
+
+1053
+00:53:19,797 --> 00:53:22,698
+So I'm gonna go over to EmojiArt, and what I'm gonna
+
+1054
+00:53:22,766 --> 00:53:25,133
+do is every where I was doing my delegation,
+
+1055
+00:53:25,202 --> 00:53:28,570
+I'm going to use notification instead. So let's first review
+
+1056
+00:53:28,639 --> 00:53:32,274
+what I did after last lecture to implement delegation.
+
+1057
+00:53:32,343 --> 00:53:36,378
+All right, now, just like UIScrollView, UITableView,
+
+1058
+00:53:36,446 --> 00:53:39,848
+etc, I had to add a protocol for delegation.
+
+1059
+00:53:39,917 --> 00:53:41,683
+Now my delegation protocol it's called
+
+1060
+00:53:41,752 --> 00:53:45,487
+EmojiArtViewDelegate only has one function in it which is
+
+1061
+00:53:45,556 --> 00:53:48,256
+emojiArtViewChanged. Of course ScrollView has a whole bunch
+
+1062
+00:53:48,325 --> 00:53:51,326
+of them. DidScroll, view for zooming at, table views
+
+1063
+00:53:51,395 --> 00:53:54,897
+delegate has a lot of things. Height of row at, all these
+
+1064
+00:53:54,965 --> 00:53:58,199
+other things. We only have one, just this one. Now notice
+
+1065
+00:53:58,268 --> 00:54:02,370
+I made this restricted to only being implemented by classes.
+
+1066
+00:54:02,439 --> 00:54:06,374
+Why did I do that? Because the delegate method, or var,
+
+1067
+00:54:06,443 --> 00:54:11,013
+the delegate var in my view, I wanted it to be weak. And for
+
+1068
+00:54:11,081 --> 00:54:13,748
+it to be weak, it has to be able to be in the heap,
+
+1069
+00:54:13,817 --> 00:54:15,317
+and then get released and
+
+1070
+00:54:15,386 --> 00:54:18,720
+set to nil, when no one else is interested in it. Why did I
+
+1071
+00:54:18,789 --> 00:54:22,557
+make that weak? Well, imagine here that my controller sets
+
+1072
+00:54:22,626 --> 00:54:26,361
+itself as the delegate, which is likely. Very, very likely.
+
+1073
+00:54:26,430 --> 00:54:29,765
+If that happened, now we'd have a memory cycle
+
+1074
+00:54:29,834 --> 00:54:32,100
+because my view would be pointing to the controller.
+
+1075
+00:54:32,168 --> 00:54:34,702
+And of course, the controller points to all of its view.
+
+1076
+00:54:34,771 --> 00:54:36,204
+So now they are pointing to each other.
+
+1077
+00:54:36,273 --> 00:54:38,006
+They are going to keep each other in the heap.
+
+1078
+00:54:38,075 --> 00:54:40,208
+By making this delegate weak, it makes so
+
+1079
+00:54:40,277 --> 00:54:43,578
+that's no longer going to happen.
+
+1080
+00:54:43,647 --> 00:54:45,914
+So there's not a memory cycle because the view is not
+
+1081
+00:54:45,983 --> 00:54:48,817
+keeping the controller in memory cuz this is a weak
+
+1082
+00:54:48,886 --> 00:54:52,254
+pointer to it. So I added this var, this weak var, so
+
+1083
+00:54:52,323 --> 00:54:54,789
+now anybody who wants to know if I've changed can just set
+
+1084
+00:54:54,858 --> 00:54:56,958
+themselves as the delegate and of course the controller is
+
+1085
+00:54:57,027 --> 00:55:02,730
+going to do that. Then, every time I changed like right down
+
+1086
+00:55:02,799 --> 00:55:07,102
+here. I just sent this message to my delegate if I have one.
+
+1087
+00:55:07,171 --> 00:55:09,905
+My delegate could be nil, I don't have to have a delegate.
+
+1088
+00:55:09,973 --> 00:55:10,672
+And I just send it and
+
+1089
+00:55:10,741 --> 00:55:13,575
+of course I'm the sender, right? Delegate methods, we
+
+1090
+00:55:13,644 --> 00:55:16,444
+all will send ourselves along as the first argument. Do you
+
+1091
+00:55:16,513 --> 00:55:18,179
+know? You've noticed that I'm sure with ScrollView and
+
+1092
+00:55:18,248 --> 00:55:20,415
+TabelView and collection. They always send themselves,
+
+1093
+00:55:20,484 --> 00:55:24,319
+it's just convenience sake so that you have it right there.
+
+1094
+00:55:24,388 --> 00:55:26,788
+So I do that as well. Now this is not the only change,
+
+1095
+00:55:26,857 --> 00:55:29,390
+this is one I'm dropping. Of course, if I drop a new
+
+1096
+00:55:29,459 --> 00:55:32,694
+emoji in, that's a change, but I also had to go over here to
+
+1097
+00:55:32,763 --> 00:55:34,730
+gestures. And this is what I was talking about before,
+
+1098
+00:55:34,798 --> 00:55:35,731
+it's kind of annoying
+
+1099
+00:55:35,799 --> 00:55:39,033
+like when I select and move a view. I had to say, well,
+
+1100
+00:55:39,102 --> 00:55:42,137
+if this is the end of this gesture then send it.
+
+1101
+00:55:42,205 --> 00:55:45,274
+And also down here where I resized. I had to go and say,
+
+1102
+00:55:45,342 --> 00:55:47,009
+well, if it's the end of resizing, send it.
+
+1103
+00:55:47,077 --> 00:55:48,577
+Now I want to get rid of these and
+
+1104
+00:55:48,645 --> 00:55:51,179
+I'm going to be able to with KVO, but we'll leave them in
+
+1105
+00:55:51,248 --> 00:55:55,551
+there for now. So that's delegation. That's all that's
+
+1106
+00:55:55,619 --> 00:55:58,754
+necessary on this view side. Then on the controller side,
+
+1107
+00:55:58,822 --> 00:56:02,891
+what I did was when I created my emojiArtView down here,
+
+1108
+00:56:02,960 --> 00:56:05,627
+I set myself as its delegate.
+
+1109
+00:56:05,695 --> 00:56:07,729
+Well, if I'm gonna be its delegate,
+
+1110
+00:56:07,798 --> 00:56:11,166
+that means I have to implement the EmojiArtViewDelegate just
+
+1111
+00:56:11,235 --> 00:56:13,968
+like those implementing scrollviews delegate.
+
+1112
+00:56:14,037 --> 00:56:16,638
+And that means I have to actually implement that which
+
+1113
+00:56:16,707 --> 00:56:19,174
+is right here in my emojiArtViewDelegate methods
+
+1114
+00:56:19,243 --> 00:56:22,844
+implemented, and what did I do? I called documentChanged,
+
+1115
+00:56:22,912 --> 00:56:26,815
+and what is document changed? Here is document changed,
+
+1116
+00:56:26,884 --> 00:56:30,118
+it's the method formerly known as Save.
+
+1117
+00:56:30,187 --> 00:56:32,621
+Cuz I ditched my Save button when I did this and
+
+1118
+00:56:32,689 --> 00:56:35,324
+just called and Save. These contents up here is exactly
+
+1119
+00:56:35,392 --> 00:56:37,492
+the same as it used to be. Just update my documents
+
+1120
+00:56:37,561 --> 00:56:39,994
+model to be my model and then update the documents changed
+
+1121
+00:56:40,063 --> 00:56:43,298
+count. It's all I do here. So that's delegation,
+
+1122
+00:56:43,367 --> 00:56:45,467
+that's the entirety of it. You see how it all works?
+
+1123
+00:56:45,535 --> 00:56:47,769
+Quite simple, and we're not gonna,
+
+1124
+00:56:47,838 --> 00:56:50,706
+we're not use delegation anymore in this.
+
+1125
+00:56:50,774 --> 00:56:52,674
+We're gonna leave delegation in the view but
+
+1126
+00:56:52,743 --> 00:56:54,576
+we're not gonna use it in our controller.
+
+1127
+00:56:54,645 --> 00:56:55,844
+Instead, we're gonna use a radio station.
+
+1128
+00:56:55,912 --> 00:56:57,779
+So let's go back to our artview and
+
+1129
+00:56:57,848 --> 00:57:00,315
+broadcast on a radio station. And I'm just gonna do
+
+1130
+00:57:00,383 --> 00:57:02,250
+it everywhere where I was talking to my delegate.
+
+1131
+00:57:02,319 --> 00:57:04,652
+Instead, I'm gonna broadcast on a radio station.
+
+1132
+00:57:04,721 --> 00:57:08,223
+I'm just gonna say NotificationCenter.default.p-
+
+1133
+00:57:08,292 --> 00:57:10,358
+ost, that's how we broadcast.
+
+1134
+00:57:10,427 --> 00:57:14,395
+And I have to give it a name and who is broadcasting. Well,
+
+1135
+00:57:14,464 --> 00:57:17,232
+who is broadcasting is me, and what are we gonna do for
+
+1136
+00:57:17,300 --> 00:57:22,304
+a name? Well, as I suggested, I recommend going here and
+
+1137
+00:57:22,372 --> 00:57:26,641
+doing an extension to notification.name and
+
+1138
+00:57:26,710 --> 00:57:31,613
+add your own static let which I'll call EmojiArtView
+
+1139
+00:57:31,681 --> 00:57:35,617
+did change notification and set it equal to
+
+1140
+00:57:35,686 --> 00:57:40,856
+a notification.name with any string you want in here.
+
+1141
+00:57:40,924 --> 00:57:42,824
+I'll probably just use the same string here.
+
+1142
+00:57:42,893 --> 00:57:45,460
+It doesn't have to be the same string but I will, and
+
+1143
+00:57:45,529 --> 00:57:46,628
+this will now make it so
+
+1144
+00:57:46,697 --> 00:57:48,964
+you can do notification.name.emojiartvie-
+
+1145
+00:57:49,032 --> 00:57:51,967
+wdidchange. That's the name of our radio station.
+
+1146
+00:57:52,035 --> 00:57:55,003
+Remember radio stations are Notification.Names, so
+
+1147
+00:57:55,071 --> 00:57:59,107
+this is that. So now, I can go down here and
+
+1148
+00:57:59,176 --> 00:58:05,947
+say I want my name to be Notification.Name.EmojiArtVie-
+
+1149
+00:58:06,016 --> 00:58:12,253
+wDidChange. And by the way, of course, Swift can infer this.
+
+1150
+00:58:12,322 --> 00:58:15,056
+So we can just go like that, which is what we would do, and
+
+1151
+00:58:15,125 --> 00:58:17,459
+type all of that in Notification.Name stuff for
+
+1152
+00:58:17,527 --> 00:58:20,328
+no good reason. And this is it, so that's all we need to
+
+1153
+00:58:20,397 --> 00:58:22,864
+do is do this. Now of course, we need to do it here,
+
+1154
+00:58:22,933 --> 00:58:25,333
+but we have to go again over to gestures over here.
+
+1155
+00:58:25,402 --> 00:58:29,204
+And do it in the same place we do this delegate right here,,
+
+1156
+00:58:29,273 --> 00:58:31,406
+where's this other one up here?
+
+1157
+00:58:31,475 --> 00:58:33,341
+Okay so, again, that's kind of annoying,
+
+1158
+00:58:33,410 --> 00:58:35,844
+we'll fix that with KVO. But right now, we're broadcasting
+
+1159
+00:58:35,913 --> 00:58:37,846
+on this radio station every time something changes.
+
+1160
+00:58:37,915 --> 00:58:40,415
+We resize something, we drop something, and whatever.
+
+1161
+00:58:40,484 --> 00:58:42,583
+Now, back over here in our controller,
+
+1162
+00:58:42,652 --> 00:58:44,619
+I'm no longer going to be a delegate.
+
+1163
+00:58:44,687 --> 00:58:47,255
+So I'm gonna go down here and just get rid of all this.
+
+1164
+00:58:47,323 --> 00:58:50,492
+So I'm not longer gonna set myself as the delegate here.
+
+1165
+00:58:50,560 --> 00:58:54,496
+Get rid of this entirely, I'm no longer gonna implement
+
+1166
+00:58:54,565 --> 00:58:58,566
+the EmojiArtView delegate. I'm no longer going to say that
+
+1167
+00:58:58,635 --> 00:59:01,202
+I implement the EmojiartView delegate.
+
+1168
+00:59:01,271 --> 00:59:04,072
+So, now I've disconnected myself from my view.
+
+1169
+00:59:04,141 --> 00:59:06,942
+So instead, I'm gonna listen to that radio station, so
+
+1170
+00:59:07,010 --> 00:59:10,212
+where am I gonna do that? That one, let's start listening
+
+1171
+00:59:10,280 --> 00:59:13,548
+once the document's open. Until the document's open it's
+
+1172
+00:59:13,616 --> 00:59:16,651
+gonna be useless to listen to my emojiArtview. So again,
+
+1173
+00:59:16,720 --> 00:59:20,054
+I'm gonna need another little observer guy here.
+
+1174
+00:59:20,123 --> 00:59:23,491
+So I'm gonna call this one my emojiArtviewObserver cuz
+
+1175
+00:59:23,560 --> 00:59:27,062
+that's what its gonna be observing, the emojiArtview.
+
+1176
+00:59:27,131 --> 00:59:30,332
+I'm gonna say emojiArtViewObserver, go,
+
+1177
+00:59:30,401 --> 00:59:35,369
+'m inside a closure here, cuz this is the completion closure
+
+1178
+00:59:35,438 --> 00:59:40,943
+of opening. So I'm gonna say self.emojiArtViewObserver
+
+1179
+00:59:41,011 --> 00:59:45,280
+= NotificationCenter, that's how we listen.
+
+1180
+00:59:45,349 --> 00:59:50,218
+Default.addObserver, same way as we add observer for
+
+1181
+00:59:50,287 --> 00:59:55,157
+the UIDocumentState. Let's sort this out again,
+
+1182
+00:59:55,225 --> 00:59:59,761
+so we can see this all real clearly. All right, so
+
+1183
+00:59:59,830 --> 01:00:05,300
+the name is notification.Name.EmojiArtVie-
+
+1184
+01:00:05,369 --> 01:00:09,937
+wDidChange. And again, we don't need that just I was
+
+1185
+01:00:10,006 --> 01:00:13,107
+doing that so we would see it clearly. The object is my
+
+1186
+01:00:13,176 --> 01:00:17,612
+EmojiArtView, that's the only one I'm interested in hearing
+
+1187
+01:00:17,681 --> 01:00:20,815
+about emojiArt, you did change broadcast.
+
+1188
+01:00:20,884 --> 01:00:25,620
+The Queue, of course operation Queue.Mean because I'm just,
+
+1189
+01:00:25,688 --> 01:00:29,858
+although surprisingly this would not need to be on main.
+
+1190
+01:00:29,927 --> 01:00:32,627
+Because all I'm gonna do is tell my document,
+
+1191
+01:00:32,696 --> 01:00:35,797
+which is part of my model, extended part of my model.
+
+1192
+01:00:35,865 --> 01:00:39,167
+I'm just gonna tell that it changed. That's not anything
+
+1193
+01:00:39,235 --> 01:00:42,304
+UI, so I don't necessarily have to do that here. I could
+
+1194
+01:00:42,372 --> 01:00:45,473
+put nil here and be pretty safe no matter what thread I'm
+
+1195
+01:00:45,542 --> 01:00:48,776
+broadcasting on. Now I happen to know that my emojiArtView
+
+1196
+01:00:48,845 --> 01:00:51,913
+is broadcasting from the main thread, right? Because it did
+
+1197
+01:00:51,982 --> 01:00:54,115
+it when it dropped or when someone resized, clearly,
+
+1198
+01:00:54,184 --> 01:00:57,952
+I'm on the main queue there. So it wouldn't matter but,
+
+1199
+01:00:58,021 --> 01:01:00,155
+anyway. Okay so here we go,
+
+1200
+01:01:00,224 --> 01:01:03,124
+now we do get this notification. Turns out that
+
+1201
+01:01:03,193 --> 01:01:07,128
+our EmojiArtView does not play any music when it broadcasts.
+
+1202
+01:01:07,197 --> 01:01:10,031
+It could, it could maybe send you the label that it added or
+
+1203
+01:01:10,099 --> 01:01:12,567
+changed or something. But it doesn't, that's okay.
+
+1204
+01:01:12,636 --> 01:01:16,671
+We don't care, because all we wanna know is that something
+
+1205
+01:01:16,740 --> 01:01:20,575
+changed so we can say documentChanged, right? That's
+
+1206
+01:01:20,644 --> 01:01:24,446
+it, now, of course, we need to stop listening to this.
+
+1207
+01:01:24,515 --> 01:01:26,047
+When is a good time to do that?
+
+1208
+01:01:26,116 --> 01:01:28,516
+I'm gonna do that when you hit close.
+
+1209
+01:01:28,585 --> 01:01:31,152
+And I'm gonna do it whether or not you successfully closed
+
+1210
+01:01:31,221 --> 01:01:33,254
+because I'm gonna get dismissed. So
+
+1211
+01:01:33,323 --> 01:01:35,624
+I'm gonna most definitely stop listening here.
+
+1212
+01:01:35,692 --> 01:01:40,028
+And I'm just gonna say if I can let observer,
+
+1213
+01:01:40,096 --> 01:01:46,200
+observer = my emojiArt.View observer, art view observer.
+
+1214
+01:01:46,269 --> 01:01:50,439
+Then I'm gonna ask the notification center,
+
+1215
+01:01:50,507 --> 01:01:55,310
+the default one, to remove that observer. And
+
+1216
+01:01:55,379 --> 01:01:58,513
+that's it, so this is quite a bit simpler than delegation,
+
+1217
+01:01:58,581 --> 01:02:00,648
+on both sides. I's a little easier to do this.
+
+1218
+01:02:00,717 --> 01:02:02,050
+You don't have to implement that another method.
+
+1219
+01:02:02,118 --> 01:02:03,218
+You don't have to set yourself to delegate.
+
+1220
+01:02:03,287 --> 01:02:03,985
+You do't have to do that.
+
+1221
+01:02:04,054 --> 01:02:06,020
+You just start listening and stop listening and
+
+1222
+01:02:06,089 --> 01:02:09,023
+you're going to find out. So that's why we use notification
+
+1223
+01:02:09,092 --> 01:02:11,726
+a lot of times in place where other times we've used
+
+1224
+01:02:11,794 --> 01:02:14,662
+delegation and it's true in other classes, as well.
+
+1225
+01:02:14,731 --> 01:02:17,399
+All right, so let's go see if we broke anything. Cross our
+
+1226
+01:02:17,467 --> 01:02:20,167
+fingers that removing delegation entirely from our
+
+1227
+01:02:20,236 --> 01:02:23,371
+mode emoji.Art.ViewController did not break anything.
+
+1228
+01:02:23,440 --> 01:02:25,440
+And luckily, we have that other observing going on, so
+
+1229
+01:02:25,509 --> 01:02:27,709
+we'll be able to tell. So here's apple bee,
+
+1230
+01:02:27,777 --> 01:02:31,412
+let's bring up our Console there, change to normal,
+
+1231
+01:02:31,481 --> 01:02:34,582
+that's good. Now, hopefully when we drop something in,
+
+1232
+01:02:34,651 --> 01:02:37,251
+hopefully, that caused the radio station broadcast to
+
+1233
+01:02:37,320 --> 01:02:39,654
+happen so that we notice something is different.
+
+1234
+01:02:39,723 --> 01:02:43,058
+And hopefully, this is going to auto save in a moment,
+
+1235
+01:02:43,126 --> 01:02:45,727
+and we can force the issue by threatening to
+
+1236
+01:02:45,795 --> 01:02:49,831
+go somewhere else. Woo, it did it. So, it must have been
+
+1237
+01:02:49,900 --> 01:02:53,000
+that our radio station worked. And we noticed that change,
+
+1238
+01:02:53,069 --> 01:02:56,637
+otherwise we wouldn't have auto saved there. Okay
+
+1239
+01:02:56,706 --> 01:03:00,308
+the last thing we're gonna do is use KVO to rip out some of
+
+1240
+01:03:00,376 --> 01:03:04,111
+that code that's calling the delegate and posting down in
+
+1241
+01:03:04,180 --> 01:03:07,615
+my gesture view. Basically what I wanna do is go
+
+1242
+01:03:07,683 --> 01:03:12,053
+to my gestures right here, and I wanna remove this code.
+
+1243
+01:03:12,121 --> 01:03:14,822
+See, this is the code where I'm telling my delegate and
+
+1244
+01:03:14,891 --> 01:03:17,259
+posting on the radio station when, in this case,
+
+1245
+01:03:17,327 --> 01:03:19,760
+something moved. So I want that out of there,
+
+1246
+01:03:19,829 --> 01:03:23,198
+and then down here for resize, this is when we resize,
+
+1247
+01:03:23,266 --> 01:03:26,434
+I want this out of there. So I'm just gonna delete that.
+
+1248
+01:03:26,503 --> 01:03:31,139
+But I obviously, still need to tell people when I change.
+
+1249
+01:03:31,207 --> 01:03:34,809
+So I'm gonna go back to my ArtView here. And as soon as I
+
+1250
+01:03:34,877 --> 01:03:38,813
+add a label, I'm going to have that label be observed for
+
+1251
+01:03:38,882 --> 01:03:42,217
+its center changing. And if its center changes, I'm going
+
+1252
+01:03:42,285 --> 01:03:44,952
+to notify my delegate and broadcast on my radio station.
+
+1253
+01:03:45,021 --> 01:03:47,221
+'m basically gonna do this right here.
+
+1254
+01:03:47,290 --> 01:03:50,325
+So how do we do that? The trickiest thing about, this,
+
+1255
+01:03:50,394 --> 01:03:54,562
+it's actually quite easy. We're just gonna to label
+
+1256
+01:03:54,631 --> 01:03:58,466
+observe, and
+
+1257
+01:03:58,534 --> 01:04:03,738
+what property observing /. Center.
+
+1258
+01:04:05,609 --> 01:04:08,309
+And when we observe, we get a closure. The closure's gonna
+
+1259
+01:04:08,378 --> 01:04:13,247
+pass the label back to us, and that little changed object,
+
+1260
+01:04:13,316 --> 01:04:15,917
+right there. And we can do whatever we want in here.
+
+1261
+01:04:15,986 --> 01:04:18,619
+And what do we want to do? We want to do this.
+
+1262
+01:04:18,688 --> 01:04:23,358
+Tell our delegate and tell the radio station something
+
+1263
+01:04:23,427 --> 01:04:27,528
+changed. But remember observed returns a cookie. And
+
+1264
+01:04:27,597 --> 01:04:30,698
+we have to keep that cookie in the heap as long as we want
+
+1265
+01:04:30,767 --> 01:04:33,534
+this to happen. So I'm gonna do that by having a little
+
+1266
+01:04:33,603 --> 01:04:38,306
+private var which I'm gonna call my labelObservations.
+
+1267
+01:04:38,375 --> 01:04:43,711
+Which is gonna be a dictionary with UIViews as the keys and
+
+1268
+01:04:43,780 --> 01:04:49,851
+these NSKeyValueObservations as the values. Now putting
+
+1269
+01:04:49,920 --> 01:04:53,221
+things in this dictionary is gonna keep things in the heap.
+
+1270
+01:04:53,290 --> 01:04:56,291
+But only as long as this EmojiArtView is in the heap.
+
+1271
+01:04:56,359 --> 01:04:58,259
+As soon as this EmojiArtView leaves the heap
+
+1272
+01:04:58,328 --> 01:05:00,328
+this will leave the heap and all the observations
+
+1273
+01:05:00,397 --> 01:05:03,197
+will leave the heap, woo-hoo. So that's what's great about
+
+1274
+01:05:03,266 --> 01:05:05,099
+this, not having to do that remote observe,
+
+1275
+01:05:05,168 --> 01:05:07,969
+remove observer thing like you do with notifications. Because
+
+1276
+01:05:08,038 --> 01:05:10,437
+when things leave the heap naturally the observations
+
+1277
+01:05:10,506 --> 01:05:15,176
+naturally stop. However, what if we don't leave the heap and
+
+1278
+01:05:15,245 --> 01:05:18,312
+we remove that subview. We don't have any,
+
+1279
+01:05:18,381 --> 01:05:21,415
+actually have any UI to remove our emojis.
+
+1280
+01:05:21,484 --> 01:05:23,451
+They once they're in there, they're there forever. But
+
+1281
+01:05:23,519 --> 01:05:26,120
+we could imagine putting some sort of gesture that would
+
+1282
+01:05:26,189 --> 01:05:29,157
+remove them, so we wanna anticipate that day and
+
+1283
+01:05:29,226 --> 01:05:32,193
+I wanna make sure we remove it. So, first of all let's put
+
+1284
+01:05:32,262 --> 01:05:35,529
+the observation, KeyValueObservations in here.
+
+1285
+01:05:35,598 --> 01:05:40,301
+I'm gonna say labelObservations
+
+1286
+01:05:40,369 --> 01:05:45,240
+sub the label = this observation.
+
+1287
+01:05:45,308 --> 01:05:50,145
+So this the labelObservation for this label, right. Now I
+
+1288
+01:05:50,213 --> 01:05:54,549
+have to whenever this view gets removed from super view,
+
+1289
+01:05:54,618 --> 01:05:58,152
+I have to let this observation leave the heap.
+
+1290
+01:05:58,221 --> 01:06:00,221
+In other words, I will have to remove it from here.
+
+1291
+01:06:00,290 --> 01:06:02,657
+Everyone understand that? So how do I do that?
+
+1292
+01:06:02,726 --> 01:06:06,494
+Well, luckily, there is a nice method in view called
+
+1293
+01:06:06,563 --> 01:06:10,865
+willRemoveSubview. And of course,
+
+1294
+01:06:10,933 --> 01:06:14,135
+we're gonna call super.willRemoveSubview. And
+
+1295
+01:06:14,204 --> 01:06:17,338
+this gets called anytime a view gets removed from me,
+
+1296
+01:06:17,407 --> 01:06:20,774
+which is perfect. All I'm gonna say here is I'm just
+
+1297
+01:06:20,843 --> 01:06:25,212
+gonna check to make sure that this view that's being removed
+
+1298
+01:06:25,281 --> 01:06:29,150
+is actually in the labelObservation tier. So I'm
+
+1299
+01:06:29,219 --> 01:06:35,990
+gonna say if LabelObservations subview does not equal nil,
+
+1300
+01:06:36,058 --> 01:06:41,062
+in other words it will have an observation for it.
+
+1301
+01:06:41,131 --> 01:06:43,998
+Then I'm gonna set the labelObservation for
+
+1302
+01:06:44,067 --> 01:06:47,635
+that subview to nil. Boom, it just left the heap.
+
+1303
+01:06:47,703 --> 01:06:51,105
+As soon as I clear that thing out of this it went away.
+
+1304
+01:06:51,174 --> 01:06:53,508
+It stops observing which is exactly what I want,
+
+1305
+01:06:53,577 --> 01:06:54,776
+everyone got that?
+
+1306
+01:06:54,845 --> 01:06:56,877
+So that's all we need to do to do this.
+
+1307
+01:06:56,946 --> 01:07:02,483
+Let's make sure we didn't break anything here. Okay so
+
+1308
+01:07:02,552 --> 01:07:05,319
+we got our Apple Bees right here. Let's change something.
+
+1309
+01:07:05,388 --> 01:07:07,855
+Okay let's take this eight ball and move it over here.
+
+1310
+01:07:07,924 --> 01:07:10,091
+And then let's try and threaten,
+
+1311
+01:07:10,160 --> 01:07:14,061
+oops let's get our console up here. [INAUDIBLE] here,
+
+1312
+01:07:14,130 --> 01:07:19,233
+okay let's threaten to go somewhere else.
+
+1313
+01:07:19,302 --> 01:07:24,505
+Woo-hoo, it auto saved! It worked again. All right,
+
+1314
+01:07:24,574 --> 01:07:29,477
+sound good? Back to our slides.
+
+1315
+01:07:29,545 --> 01:07:34,482
+Good timing here. Now you remember
+
+1316
+01:07:34,551 --> 01:07:37,185
+we talked about the view controller lifecycle right?
+
+1317
+01:07:37,254 --> 01:07:39,453
+View will appear, view did appear, all these things.
+
+1318
+01:07:39,522 --> 01:07:42,323
+Well the same kind of thing happens with your application
+
+1319
+01:07:42,392 --> 01:07:44,425
+and it kind of goes through this chart up here.
+
+1320
+01:07:44,494 --> 01:07:47,061
+So, I'm going to talk about how it transitions through
+
+1321
+01:07:47,129 --> 01:07:48,296
+all these stages, but
+
+1322
+01:07:48,365 --> 01:07:51,065
+first I'm going to talk about the stages. So first of all
+
+1323
+01:07:51,134 --> 01:07:55,569
+there is Foreground Inactive and that is where your code is
+
+1324
+01:07:55,638 --> 01:07:59,073
+running, but you're not getting any UI events. So you
+
+1325
+01:07:59,142 --> 01:08:01,943
+can't do anything. So you can only do kind of preparation
+
+1326
+01:08:02,011 --> 01:08:05,880
+work in this space. Then there's Foreground Active.
+
+1327
+01:08:05,949 --> 01:08:07,848
+This is the normal state you're used to.
+
+1328
+01:08:07,917 --> 01:08:10,484
+Getting UI events, view controllers coming on screen,
+
+1329
+01:08:10,553 --> 01:08:11,886
+segueing, you're doing all your stuff.
+
+1330
+01:08:11,954 --> 01:08:14,288
+This is the normal running state of your app.
+
+1331
+01:08:14,357 --> 01:08:18,292
+Then there's Background. In the background your code is
+
+1332
+01:08:18,361 --> 01:08:21,061
+running, you are not getting any UI events,
+
+1333
+01:08:21,130 --> 01:08:22,863
+you never live here for long,
+
+1334
+01:08:22,932 --> 01:08:27,035
+maybe 30 seconds. So this is transitory state, so anything
+
+1335
+01:08:27,103 --> 01:08:30,338
+you do in the background state you gotta do it fast. And
+
+1336
+01:08:30,406 --> 01:08:33,974
+then you go into this state Suspended. Here your code is
+
+1337
+01:08:34,043 --> 01:08:36,911
+not running. It's important to understand no code in your
+
+1338
+01:08:36,980 --> 01:08:41,516
+app anywhere runs. Your app is not getting any CPU cycles.
+
+1339
+01:08:41,584 --> 01:08:43,685
+Now what's important about this state is that
+
+1340
+01:08:43,753 --> 01:08:49,323
+you could be killed at anytime in this state. All right,
+
+1341
+01:08:49,392 --> 01:08:52,060
+so let's talk about how we transition here. One
+
+1342
+01:08:52,128 --> 01:08:55,029
+transition is launching your app. So when you launch your
+
+1343
+01:08:55,098 --> 01:08:57,665
+app, you go from not running where your binary is not even
+
+1344
+01:08:57,734 --> 01:09:01,602
+executing, to briefly, the foreground inactive state,
+
+1345
+01:09:01,670 --> 01:09:04,171
+and the foreground active state. So you do pass through
+
+1346
+01:09:04,240 --> 01:09:06,741
+that foreground inactive state briefly on your way to running
+
+1347
+01:09:06,809 --> 01:09:09,410
+when you launch. Now, another important one is when you
+
+1348
+01:09:09,479 --> 01:09:11,279
+switch to another application, right?
+
+1349
+01:09:11,347 --> 01:09:13,380
+So you're the active app, someone's using you, and
+
+1350
+01:09:13,449 --> 01:09:15,616
+then they switch to another app.
+
+1351
+01:09:15,685 --> 01:09:19,287
+And when that happens, you go up to Foreground Inactive for
+
+1352
+01:09:19,355 --> 01:09:22,857
+just a moment, and then all the way down to Background,
+
+1353
+01:09:22,926 --> 01:09:25,960
+you sit in the Background for maybe 30 seconds, and
+
+1354
+01:09:26,029 --> 01:09:28,329
+then you move to Suspended. And
+
+1355
+01:09:28,398 --> 01:09:30,698
+now from Suspended either you get reactivated,
+
+1356
+01:09:30,767 --> 01:09:35,870
+if they come back to you, or you get killed at some point.
+
+1357
+01:09:35,938 --> 01:09:38,539
+Those are transitories. When you get killed,
+
+1358
+01:09:38,608 --> 01:09:41,275
+you go directly from Suspended to Not running.
+
+1359
+01:09:41,344 --> 01:09:43,811
+You don't pass through some state where you get to run any
+
+1360
+01:09:43,879 --> 01:09:47,515
+code. Let's talk about
+
+1361
+01:09:47,583 --> 01:09:50,952
+how you get notified for all of these transitions.
+
+1362
+01:09:51,020 --> 01:09:54,388
+What happens and what you're supposed to do. Now,
+
+1363
+01:09:54,457 --> 01:09:55,590
+all of these things I'm going to tell you,
+
+1364
+01:09:55,658 --> 01:09:59,160
+by the way, not really that important. Because a lot of
+
+1365
+01:09:59,229 --> 01:10:02,930
+things are taken care of for you. For example, UIDocument,
+
+1366
+01:10:02,999 --> 01:10:05,466
+you notice how when we threaten to go to another app,
+
+1367
+01:10:05,535 --> 01:10:09,303
+it autosaved. It knows about these transitions. It's doing
+
+1368
+01:10:09,372 --> 01:10:10,905
+that for you, so you don't even need to do anything.
+
+1369
+01:10:10,973 --> 01:10:13,273
+And that's true of a lot of things in iOS. So
+
+1370
+01:10:13,342 --> 01:10:14,876
+I'm gonna show you all of these things.
+
+1371
+01:10:14,944 --> 01:10:16,277
+And the way you do it, but most of the time,
+
+1372
+01:10:16,346 --> 01:10:18,646
+you don't even need to do anything. You just need to
+
+1373
+01:10:18,715 --> 01:10:20,581
+know that these transitions are happening.
+
+1374
+01:10:20,650 --> 01:10:23,217
+All right, so the first transition is from Not running
+
+1375
+01:10:23,286 --> 01:10:26,287
+into this Inactive state, this Foreground Inactive.
+
+1376
+01:10:26,355 --> 01:10:29,791
+This is kinda like preparing your app. When this happens,
+
+1377
+01:10:29,859 --> 01:10:31,592
+like all the things that happen here that I'm gonna
+
+1378
+01:10:31,660 --> 01:10:34,996
+talk about, a method in your AppDelegate.swift, you know
+
+1379
+01:10:35,064 --> 01:10:38,365
+that stepchild that we keep foisting off into supporting
+
+1380
+01:10:38,434 --> 01:10:42,270
+files. Actually we did look at it last time. Remember it had
+
+1381
+01:10:42,338 --> 01:10:46,507
+the thing where you're opening the URL? Remember we
+
+1382
+01:10:46,576 --> 01:10:48,943
+had that little code in there that we were talking about,
+
+1383
+01:10:49,012 --> 01:10:51,512
+that UI document browser view controller, handles opening
+
+1384
+01:10:51,581 --> 01:10:54,015
+the URL for us? So we have looked in there. But
+
+1385
+01:10:54,083 --> 01:10:55,182
+there's a lot of methods in there.
+
+1386
+01:10:55,251 --> 01:10:58,619
+And that's what all of these transitions have is they call
+
+1387
+01:10:58,687 --> 01:11:00,554
+methods in there. And you'll see there's stubs in there.
+
+1388
+01:11:00,623 --> 01:11:04,192
+If you go look at it there's stubs in there, that have
+
+1389
+01:11:04,260 --> 01:11:06,126
+commented out stuff that kinda tell you about them.
+
+1390
+01:11:06,195 --> 01:11:08,696
+So this is all pretty well documented in there.
+
+1391
+01:11:08,765 --> 01:11:11,299
+By the way, all of these transitions also
+
+1392
+01:11:11,367 --> 01:11:14,101
+are broadcast on radio stations. So
+
+1393
+01:11:14,170 --> 01:11:16,103
+you can just sign up and put a closure and
+
+1394
+01:11:16,172 --> 01:11:17,471
+want this transition to happen,
+
+1395
+01:11:17,540 --> 01:11:20,641
+a closure could be executed, all right? So that's important
+
+1396
+01:11:20,710 --> 01:11:23,244
+to know as well. Not so useful for the very first one which
+
+1397
+01:11:23,312 --> 01:11:25,979
+is application will finish launching with options.
+
+1398
+01:11:26,048 --> 01:11:28,683
+And application did finish launching with application,
+
+1399
+01:11:28,751 --> 01:11:31,251
+cuz that's one of the first time you actually write your
+
+1400
+01:11:31,320 --> 01:11:36,224
+own code. And notice that that thing has a little dictionary
+
+1401
+01:11:36,292 --> 01:11:39,260
+passed in, right? Application will and did finish
+
+1402
+01:11:39,328 --> 01:11:41,962
+launching with options. That dictionary tells you
+
+1403
+01:11:42,031 --> 01:11:45,566
+why you were launched. Now, why would you be launched?
+
+1404
+01:11:45,634 --> 01:11:47,901
+Well, of course the user might have touched on your icon.
+
+1405
+01:11:47,970 --> 01:11:50,604
+That's most of the time. But you can also get launched
+
+1406
+01:11:50,673 --> 01:11:52,806
+because someone wants you to open a document.
+
+1407
+01:11:52,875 --> 01:11:53,941
+We're EmojiArt, and
+
+1408
+01:11:54,010 --> 01:11:55,743
+someone wants us to open an EmojiArt document and
+
+1409
+01:11:55,811 --> 01:11:58,746
+we're not running, we could get launched to do that. You
+
+1410
+01:11:58,815 --> 01:12:02,483
+can also set up things where you get launched when the user
+
+1411
+01:12:02,551 --> 01:12:05,986
+walks by a dry cleaner. You can actually register
+
+1412
+01:12:06,055 --> 01:12:10,691
+a Place in the world and walk by, boom, you'll get launched.
+
+1413
+01:12:10,759 --> 01:12:13,894
+You can also have this activity continuation thing,
+
+1414
+01:12:13,963 --> 01:12:16,631
+where you're working in emoji art on your iPad,
+
+1415
+01:12:16,700 --> 01:12:18,932
+and then you switch over to your iPhone.
+
+1416
+01:12:19,001 --> 01:12:20,802
+And then in the corner there's a little icon you press.
+
+1417
+01:12:20,870 --> 01:12:22,303
+Now you're right back in emoji art where you were.
+
+1418
+01:12:22,371 --> 01:12:25,973
+Well that might have to launch you. You might get
+
+1419
+01:12:26,042 --> 01:12:29,543
+a push notification. You're using Cloud Kit, something in
+
+1420
+01:12:29,612 --> 01:12:32,179
+your database changed, you get woken up to say, hey, look,
+
+1421
+01:12:32,248 --> 01:12:34,615
+you got a push notification for you. So
+
+1422
+01:12:34,683 --> 01:12:37,685
+there's a lot of reasons you get woken up, and launched,
+
+1423
+01:12:37,754 --> 01:12:40,520
+and that dictionary will contain all the information
+
+1424
+01:12:40,589 --> 01:12:44,525
+you need to know about why. It used to be that an application
+
+1425
+01:12:44,594 --> 01:12:47,695
+will and did finish launching. We built our UI.
+
+1426
+01:12:47,764 --> 01:12:50,831
+We created a split view. We created a navigation control.
+
+1427
+01:12:50,900 --> 01:12:53,534
+We put a view controller. We never do that anymore.
+
+1428
+01:12:53,603 --> 01:12:55,569
+I only mention this because, your final project,
+
+1429
+01:12:55,638 --> 01:12:58,038
+you're gonna go out and Google things and look Internet. And
+
+1430
+01:12:58,107 --> 01:13:01,108
+you're gonna see people say, go create a split view in your
+
+1431
+01:13:01,177 --> 01:13:03,911
+ApplicationDidFinishLaunching with options. No,
+
+1432
+01:13:03,979 --> 01:13:06,347
+we don't do that. Storyboards, that's how we do it.
+
+1433
+01:13:06,416 --> 01:13:09,250
+Those answers were pre storyboard. Or
+
+1434
+01:13:09,318 --> 01:13:13,054
+someone who never got the storyboard story. We build our
+
+1435
+01:13:13,122 --> 01:13:16,790
+UI in storyboards, not in these method, in this method.
+
+1436
+01:13:16,859 --> 01:13:20,761
+All right, the next transition is actually coming to
+
+1437
+01:13:20,830 --> 01:13:22,830
+that inactive state from the other side.
+
+1438
+01:13:22,899 --> 01:13:24,398
+You were the active app, and
+
+1439
+01:13:24,467 --> 01:13:26,200
+not you're not gonna be the active app.
+
+1440
+01:13:26,268 --> 01:13:28,202
+Probably because the user clicked on another app.
+
+1441
+01:13:28,271 --> 01:13:30,737
+This one is ApplicationWillResignActive,
+
+1442
+01:13:30,806 --> 01:13:32,873
+because that's what's happening.
+
+1443
+01:13:32,942 --> 01:13:36,744
+Here you wanna think of this as a the pause button.
+
+1444
+01:13:36,812 --> 01:13:39,346
+You wanna pause whatever is happening in your app right
+
+1445
+01:13:39,415 --> 01:13:42,349
+here. So let's say I use the example of an Asteroids game.
+
+1446
+01:13:42,418 --> 01:13:45,419
+Your shooting Asteroids. You want the whole Asteroid field
+
+1447
+01:13:45,487 --> 01:13:50,291
+to pause when you get this. And then the next one
+
+1448
+01:13:50,359 --> 01:13:54,829
+here is a inactive to active, that, unpause.
+
+1449
+01:13:56,699 --> 01:13:58,865
+So this is ApplicationDidBecomeActive. So
+
+1450
+01:13:58,934 --> 01:14:02,069
+you kinda wanna have a pause, unpause thing here. Now,
+
+1451
+01:14:02,138 --> 01:14:04,338
+with a lot of apps, it doesn't make sense. You never pause or
+
+1452
+01:14:04,407 --> 01:14:07,341
+unpause. They're not that kinda app. They, they just
+
+1453
+01:14:07,410 --> 01:14:08,876
+are what they are, so you don't have to do anything.
+
+1454
+01:14:08,945 --> 01:14:11,779
+But if you have an app where things would make sense
+
+1455
+01:14:11,848 --> 01:14:14,515
+to pause, this is where you pause and unpause in these two
+
+1456
+01:14:14,584 --> 01:14:19,486
+things. Now, this one, right here, is, someone
+
+1457
+01:14:19,555 --> 01:14:22,323
+clicked on another app, you've gone through active, inactive,
+
+1458
+01:14:22,391 --> 01:14:24,558
+now you're going around to this background state.
+
+1459
+01:14:24,627 --> 01:14:26,593
+This is ApplicationDidEnterBackground.
+
+1460
+01:14:26,662 --> 01:14:30,330
+It's time right here to batten down the hatches.
+
+1461
+01:14:30,399 --> 01:14:33,934
+Close your files, get yourself in a situation where you could
+
+1462
+01:14:34,003 --> 01:14:36,637
+be killed. You've got about 30 seconds here to prepare to be
+
+1463
+01:14:36,706 --> 01:14:38,538
+killed. You might not be killed,
+
+1464
+01:14:38,607 --> 01:14:42,143
+but you might be. So you wanna not have any files open,
+
+1465
+01:14:42,211 --> 01:14:44,411
+that are gonna get corrupted if they get closed, or
+
+1466
+01:14:44,480 --> 01:14:49,049
+an unsaved data in your app, close things up here. and
+
+1467
+01:14:49,118 --> 01:14:51,752
+you get 30 seconds to do it. You can ask for an extension,
+
+1468
+01:14:51,820 --> 01:14:54,054
+short extensions of time, but if you ask too much,
+
+1469
+01:14:54,123 --> 01:14:56,457
+the system will stop granting you those exceptions,
+
+1470
+01:14:56,526 --> 01:14:57,324
+extensions.
+
+1471
+01:14:57,392 --> 01:15:00,027
+So pretty much think about, you've got 30 seconds or so
+
+1472
+01:15:00,096 --> 01:15:06,099
+to get your hatches battened here. The next one here is
+
+1473
+01:15:06,168 --> 01:15:07,801
+applicationwillEnterForegro- und.
+
+1474
+01:15:07,870 --> 01:15:09,737
+So here, you went down the background view,
+
+1475
+01:15:09,806 --> 01:15:12,740
+you battened down the hatches, and you got activated again.
+
+1476
+01:15:12,809 --> 01:15:15,576
+You didn't get killed. Here you wanna un-batten down
+
+1477
+01:15:15,645 --> 01:15:19,013
+the hatches. Open back up the things that you had closed.
+
+1478
+01:15:19,081 --> 01:15:20,681
+Now, a lot of times you don't need to do anything here,
+
+1479
+01:15:20,750 --> 01:15:23,517
+because you're opening up things that you closed
+
+1480
+01:15:23,586 --> 01:15:26,153
+in the battening down the hatches, on demand anyway.
+
+1481
+01:15:26,221 --> 01:15:27,622
+If you tried to access a file and
+
+1482
+01:15:27,690 --> 01:15:30,057
+it's not open, well, you'll just open it then. So,
+
+1483
+01:15:30,125 --> 01:15:31,792
+oftentimes you don't have to do anything here, and
+
+1484
+01:15:31,861 --> 01:15:35,162
+I kinda recommend writing your code in that way. So that you
+
+1485
+01:15:35,230 --> 01:15:39,400
+don't really ever have to un-batten down the hatches. So
+
+1486
+01:15:39,468 --> 01:15:41,235
+that's, all the things that happen.
+
+1487
+01:15:41,303 --> 01:15:43,904
+And of all those things you get radio station, all those
+
+1488
+01:15:43,973 --> 01:15:47,274
+things that have methods in the app delegates you can do.
+
+1489
+01:15:47,343 --> 01:15:50,144
+But the AppDelegate does some other things as well in there.
+
+1490
+01:15:50,213 --> 01:15:53,748
+For example, the opening URL thing we saw last time,
+
+1491
+01:15:53,816 --> 01:15:56,517
+it also can do background fetching.
+
+1492
+01:15:56,585 --> 01:15:57,417
+Which is kind of cool.
+
+1493
+01:15:57,486 --> 01:15:58,886
+Let's say you have a Twitter client, or
+
+1494
+01:15:58,954 --> 01:16:01,789
+something like that, and when someone launches your app,
+
+1495
+01:16:01,857 --> 01:16:03,791
+you wanna show them the latest Tweets. Well,
+
+1496
+01:16:03,860 --> 01:16:07,061
+you can actually say to your app to fetch the latest Tweets
+
+1497
+01:16:07,129 --> 01:16:09,429
+in the background, even when your app is not running. And
+
+1498
+01:16:09,498 --> 01:16:11,999
+what'll happen is, it'll get launched, but it won't come on
+
+1499
+01:16:12,067 --> 01:16:14,101
+screen, and you'll be in that background state for
+
+1500
+01:16:14,170 --> 01:16:15,335
+a little, little bit of time,
+
+1501
+01:16:15,404 --> 01:16:17,805
+where you're allowed to make a couple of network requests for
+
+1502
+01:16:17,874 --> 01:16:20,808
+your 30 seconds or whatever. And then you go back to sleep.
+
+1503
+01:16:20,877 --> 01:16:23,477
+So, you can do that with AppDelegate. It also manages
+
+1504
+01:16:23,545 --> 01:16:26,280
+data protection. I don't know if you know this but,
+
+1505
+01:16:26,349 --> 01:16:29,382
+when your device is locked in the lock screen, apps cannot
+
+1506
+01:16:29,451 --> 01:16:33,020
+see the data. It's encrypted. It is fully encrypted, so you,
+
+1507
+01:16:33,089 --> 01:16:35,422
+the apps couldn't do anything if they wanted to.
+
+1508
+01:16:35,490 --> 01:16:38,525
+So, the AppDelegate will tell you what's going on about
+
+1509
+01:16:38,594 --> 01:16:42,496
+when you can access the files, things like that. There's also
+
+1510
+01:16:42,565 --> 01:16:46,100
+a UIApplication, which the AppDelegate is delegate of.
+
+1511
+01:16:46,168 --> 01:16:48,035
+We never subclassed UIApplication,
+
+1512
+01:16:48,103 --> 01:16:51,338
+we use the AppDelegate to configure it's functionality.
+
+1513
+01:16:51,407 --> 01:16:53,774
+However, UIApplication does have a few interesting things.
+
+1514
+01:16:53,843 --> 01:16:58,479
+Like, it has a method so you can open a URL in another app.
+
+1515
+01:16:58,548 --> 01:17:01,948
+So, your image gallery, and maybe you asked to open
+
+1516
+01:17:02,017 --> 01:17:05,119
+an emoji art document. You can ask using that open URL.
+
+1517
+01:17:05,187 --> 01:17:07,621
+Here's where you register for push notifications.
+
+1518
+01:17:07,690 --> 01:17:09,489
+So, this is something you have to do if you want that
+
+1519
+01:17:09,558 --> 01:17:11,625
+Cloud Kit thing to notify you. You have to register for
+
+1520
+01:17:11,694 --> 01:17:14,595
+push notifications there. You can set the fetch interval for
+
+1521
+01:17:14,664 --> 01:17:16,630
+that background fetching I talked about.
+
+1522
+01:17:16,699 --> 01:17:18,899
+Here's where you ask for more time, if you're in
+
+1523
+01:17:18,968 --> 01:17:20,968
+the background mode, and you need a little bit
+
+1524
+01:17:21,037 --> 01:17:24,271
+more time to finish up. That's happening in UI application.
+
+1525
+01:17:24,340 --> 01:17:27,974
+The little spinner in the top left of your device that says
+
+1526
+01:17:28,043 --> 01:17:31,812
+there's network activity, that's controlled with this
+
+1527
+01:17:31,881 --> 01:17:33,947
+bool. Unfortunately it's a bool.
+
+1528
+01:17:34,016 --> 01:17:36,417
+So if you have multiple threads acting as a network,
+
+1529
+01:17:36,485 --> 01:17:38,886
+they gotta share this bool, it's kind of annoying,
+
+1530
+01:17:38,954 --> 01:17:41,521
+but. And you can also find out about things,
+
+1531
+01:17:41,590 --> 01:17:44,291
+like how much time do I have left to run in the background?
+
+1532
+01:17:44,360 --> 01:17:46,994
+What is that preferred content size category, you know,
+
+1533
+01:17:47,062 --> 01:17:49,496
+the slider for the font size? What state am I in?
+
+1534
+01:17:49,565 --> 01:17:50,564
+Am I in the foreground,
+
+1535
+01:17:50,633 --> 01:17:51,899
+the background, where am I?
+
+1536
+01:17:51,968 --> 01:17:55,602
+You can find all those things out with UIApplication. All
+
+1537
+01:17:55,671 --> 01:17:58,606
+right, quickly Info.plist, we already saw Info.plist in your
+
+1538
+01:17:58,674 --> 01:18:01,976
+homework. You used it to add that app transport security,
+
+1539
+01:18:02,044 --> 01:18:06,446
+right? You can actually edit this directly in XML,
+
+1540
+01:18:06,515 --> 01:18:09,150
+you just right click on it and switch to sources XML,
+
+1541
+01:18:09,218 --> 01:18:12,485
+you can do that.
+
+1542
+01:18:12,554 --> 01:18:15,122
+will get a snippet of XML from somebody that does something,
+
+1543
+01:18:15,190 --> 01:18:17,624
+enables something in plist, and you're gonna paste it in
+
+1544
+01:18:17,693 --> 01:18:20,727
+here. But usually we don't even edit the plist thing
+
+1545
+01:18:20,796 --> 01:18:23,630
+directly like we do with App Transport Security.
+
+1546
+01:18:23,699 --> 01:18:25,399
+We edit it in the project settings,
+
+1547
+01:18:25,468 --> 01:18:27,634
+like we did with the document types, right?
+
+1548
+01:18:27,703 --> 01:18:29,936
+The document types we had for Emoji Art View, and for
+
+1549
+01:18:30,005 --> 01:18:33,941
+your image gallery. We edited that all in project settings.
+
+1550
+01:18:34,010 --> 01:18:37,912
+And the project settings is mostly editing the Info.plist
+
+1551
+01:18:37,980 --> 01:18:40,881
+indirectly. And finally, we have the capabilities.
+
+1552
+01:18:40,950 --> 01:18:42,516
+We talked about this with Cloud Kit.
+
+1553
+01:18:42,585 --> 01:18:45,219
+There are certain things, that to use them you
+
+1554
+01:18:45,288 --> 01:18:48,889
+have to turn them on. This capabilities tab inside of
+
+1555
+01:18:48,958 --> 01:18:51,725
+your project settings like this.
+
+1556
+01:18:51,794 --> 01:18:55,462
+Some of these things require servers, like Apple Pay,
+
+1557
+01:18:55,531 --> 01:18:59,934
+and iCloud, and Game Center. Some don't, like Maps, and
+
+1558
+01:19:00,002 --> 01:19:04,071
+Inner App Audio, Home Kit, none of those do.
+
+1559
+01:19:04,140 --> 01:19:07,074
+The things that require a server, you can only turn
+
+1560
+01:19:07,143 --> 01:19:10,544
+these on if you are a member of an Apple developer program.
+
+1561
+01:19:10,612 --> 01:19:13,613
+That costs $99 a year. And you can kinda see why that is,
+
+1562
+01:19:13,682 --> 01:19:16,383
+because to access these server technologies, they're kinda
+
+1563
+01:19:16,452 --> 01:19:18,718
+needs to be stuff in that server that knows about you,
+
+1564
+01:19:18,787 --> 01:19:20,387
+and this providing stuff. Well,
+
+1565
+01:19:20,456 --> 01:19:23,723
+somebody's got, they gotta know who you are for real.
+
+1566
+01:19:23,792 --> 01:19:26,193
+You can't just be some random Apple ID out there.
+
+1567
+01:19:26,262 --> 01:19:27,794
+You wanna be registered in the program.
+
+1568
+01:19:27,863 --> 01:19:31,999
+And the $99 seems to me to be mostly an administrative fee.
+
+1569
+01:19:32,068 --> 01:19:34,769
+That's not very much money for the amount of functionality
+
+1570
+01:19:34,837 --> 01:19:36,570
+that you're getting with all these servers,
+
+1571
+01:19:36,639 --> 01:19:39,139
+push notifications, all these things. It's all covered in
+
+1572
+01:19:39,208 --> 01:19:43,476
+one $99 per year fee. I don't have time to cover all these,
+
+1573
+01:19:43,545 --> 01:19:45,612
+but this is a great place to go look for interesting,
+
+1574
+01:19:45,681 --> 01:19:48,749
+not covered in lecture things to do. Go look through this
+
+1575
+01:19:48,818 --> 01:19:51,018
+list and see if you can find something fun to do in there.
+
+1576
+01:19:51,087 --> 01:19:54,288
+All right, that is it. On Wednesday,
+
+1577
+01:19:54,356 --> 01:19:57,191
+we're gonna talk about super important topic, and I, this
+
+1578
+01:19:57,259 --> 01:19:59,960
+is the last topic I cover, really, before you launch into
+
+1579
+01:20:00,029 --> 01:20:02,730
+your final projects this week, which is segues.
+
+1580
+01:20:02,798 --> 01:20:05,833
+We know about show segues, and show detail segues, right?
+
+1581
+01:20:05,901 --> 01:20:08,068
+The navigation controller and the split view controller.
+
+1582
+01:20:08,136 --> 01:20:09,937
+And we know about modal segues too, a little bit.
+
+1583
+01:20:10,005 --> 01:20:12,439
+We put put up our emoji art document modally. But
+
+1584
+01:20:12,508 --> 01:20:15,342
+we're gonna learn pop over segue's, more than just for
+
+1585
+01:20:15,411 --> 01:20:17,877
+alerts, but pop over segue's in general. Also,
+
+1586
+01:20:17,946 --> 01:20:20,714
+unwinding segue's, and embed segue's, two kind of under
+
+1587
+01:20:20,783 --> 01:20:23,517
+appreciated segue's that you can do that are kind of cool.
+
+1588
+01:20:23,585 --> 01:20:26,053
+We're gonna learn all about that, and I'll be demoing it
+
+1589
+01:20:26,122 --> 01:20:29,356
+all on Wednesday as well. Next week is Thanksgiving.
+
+1590
+01:20:29,425 --> 01:20:32,292
+So, you get a week off. That will be great, and
+
+1591
+01:20:32,361 --> 01:20:35,462
+then we'll back at it the week after. All right,
+
+1592
+01:20:35,530 --> 01:20:38,198
+see you on Wednesday. >> For
+星期三见
+
+1593
+01:20:38,267 --> 01:20:47,674
+more, please visit us at stanford.edu.
+>> 更多课程详见 stanford.edu

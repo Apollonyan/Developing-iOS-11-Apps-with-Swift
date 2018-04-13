@@ -2081,7 +2081,7 @@ Now an iPad is huge so maybe I wanna zoom down a little bit
 417
 00:20:14,080 --> 00:20:18,315
 to see it better. I can also look at it in landscape mode.
-让它看起来更好。我还可以在横屏模式下查看	
+让它看起来更好。我还可以在横屏模式下查看
 
 418
 00:20:18,384 --> 00:20:20,918
@@ -2756,7 +2756,7 @@ there's this emoji and symbols. I don't know how, how
 552
 00:26:39,865 --> 00:26:42,566
 many of you know that. But if you go to emoji and symbols,
-你们有多少人知道这个。但是如果你点击 emoji and symbols 
+你们有多少人知道这个。但是如果你点击 emoji and symbols
 
 553
 00:26:42,635 --> 00:26:45,068
@@ -7760,7 +7760,7 @@ all right? So here this is still working cardNumber 0, 1,
 1553
 01:18:13,622 --> 01:18:16,323
 if I click on this bad button it just says chosen card was
-如果我点击这个坏的按钮，它就会写着 
+如果我点击这个坏的按钮，它就会写着
 
 1554
 01:18:16,392 --> 01:18:17,825
