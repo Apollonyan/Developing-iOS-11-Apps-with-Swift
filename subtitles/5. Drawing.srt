@@ -1991,1288 +1991,1607 @@ subviews, which is, as you can see, an array of UIView. Okay,
 399
 00:20:22,521 --> 00:20:27,524
 so it's very simple to manage this. There is also a UI
-那么做到这一点是非常简单的。
+那么做到这一点是非常简单的。还有一个 UIWindow 类
 
 400
 00:20:27,593 --> 00:20:31,362
 window which is like way up at the top, but we never pay any
+它是在最顶层的，但在 iOS 中
 
 401
 00:20:31,430 --> 00:20:34,998
 attention to that in iOS. It's not like the Mac where you
+我们不需要关注它。我们不会像在 Mac 中
 
 402
 00:20:35,067 --> 00:20:37,701
 have lots of windows on a big desktop. The UIWindow,
+会在桌面上有许多窗口，对于那个 UIWindow
 
 403
 00:20:37,769 --> 00:20:40,637
 the only time you probably ever care about that maybe if
+我们只需要在，比如说如果你想使
 
 404
 00:20:40,706 --> 00:20:43,340
 you had an app that like projected part of itself out
+你的程序能将自己弹到
 
 405
 00:20:43,409 --> 00:20:47,278
 onto external screen or something. But forget that. So
+一个外部窗口的时候才需要关系它。现在不用理会它
 
 406
 00:20:47,346 --> 00:20:50,147
 in this class we won't even mention UIWindow.
+我们在这节课中甚至不会提到 UIwindow
 
 407
 00:20:50,216 --> 00:20:51,982
 It's probably subclass UIView anyway,
+只需要知道它继承了 UIView
 
 408
 00:20:52,050 --> 00:20:55,886
 but we don't really talk about it. Now this hierarchy of
+但我们不会讲到它。这个视图中装有视图的
 
 409
 00:20:55,955 --> 00:20:59,723
 views inside views, you build in Xcode in interface builder.
+层级结构是需要你们在 Xcode 中的 interface builder 构建的，
 
 410
 00:20:59,792 --> 00:21:02,392
 Right, you saw how we built in Concentration,
+你们已经在 Concentration 的例子中见过了
 
 411
 00:21:02,461 --> 00:21:05,762
 we drag things out, we clicked the embed stack view button,
+我们将控件拖出来，点击 Embed in Stack 按钮
 
 412
 00:21:05,831 --> 00:21:08,632
 that kind of staff. So that's how we build this hierarchy,
+类似这样的，这就我们构建这个层级结构的方法
 
 413
 00:21:08,701 --> 00:21:11,802
 put views inside views 99% of the time.
+我们 99% 的时候都是将视图装在视图中的
 
 414
 00:21:11,871 --> 00:21:14,404
 But it can be done in code as well. And in your assignment
+但这实际上也可以使用代码来完成。并且在你们的第三次作业中
 
 415
 00:21:14,473 --> 00:21:16,907
 3, I am gonna ask you to do both. Build view hierarchy in
+我会让你们两种都做到，既要用 interface builder 来构建
 
 416
 00:21:16,975 --> 00:21:19,543
 an interface builder like you did in concentration. But
+这个层级结构，就像你们在 Concentration 中做得一样
 
 417
 00:21:19,612 --> 00:21:21,812
 then also do some in code, as well. And
+接着也要在代码中构建一些层级结构
 
 418
 00:21:21,881 --> 00:21:25,416
 the way you do that is by just saying addSubview to a view,
+要用代码做到这一点只用写 addSubview() 到一个视图中
 
 419
 00:21:25,484 --> 00:21:29,486
 and it will add that view as one of the subviews.
+这样它就会将那个参数中的视图加到当前视图的子视图中
 
 420
 00:21:29,555 --> 00:21:33,557
 The only tricky thing here is when you wanna pull it out for
+而有些复杂的是，如果你想将一个视图取出来
 
 421
 00:21:33,625 --> 00:21:34,875
 If you wanna pull a view out of the view hierarchy,
+如果你出于某种原因想将一个视图从
 
 422
 00:21:34,876 --> 00:21:36,126
 some reason.
+这个结构层次取出
 
 423
 00:21:36,195 --> 00:21:38,629
 you send that message to the view itself.
+你要像那个视图传递一个信息
 
 424
 00:21:38,698 --> 00:21:41,298
 Okay, you send it to the view, you want to remove and
+你告诉它你想要移除
 
 425
 00:21:41,366 --> 00:21:44,067
 you say remove yourself from superview, with this remove
+你告诉它你想将它从它的父视图移出
 
 426
 00:21:44,136 --> 00:21:46,536
 from superview. So it's a little different there.
+用这个 removeFromSuperView() 函数，这里有一些不同
 
 427
 00:21:46,605 --> 00:21:49,806
 You send add to the enclosing view but you send
+你对要装视图的视图传递 addSubview() 函数
 
 428
 00:21:49,875 --> 00:21:54,411
 remove to the actual view itself. Now where does this
+而 removeFromSuperView() 是传递给要取出的那个视图的，那么这个
 
 429
 00:21:54,480 --> 00:21:57,447
 view hierarchy starts. What's the top containing view?
+视图层次结构是从哪开始的？最顶层的视图是什么
 
 430
 00:21:57,516 --> 00:22:01,284
 Well of course that's like the black view in concentration,
+那么在 Concentration 中那当然是那个黑色的视图
 
 431
 00:22:01,353 --> 00:22:05,422
 right, that very top view. And there is a very important var,
+对吧，它是最顶层的视图，而在 UIViewController 中有一个
 
 432
 00:22:05,490 --> 00:22:10,161
 in UIView controller, called view.
+非常重要的变量，叫做 view
 
 433
 00:22:10,229 --> 00:22:12,796
 And that view points to that black one at the top.
+那个 view 是指向最顶层的那个黑色的视图的
 
 434
 00:22:12,864 --> 00:22:14,364
 And it's automatically wired up for
+这是在 interface builder 中自动
 
 435
 00:22:14,433 --> 00:22:18,002
 you in interface builder, so you can always start there and
+帮你建立好的连接，因此你总是可以从那里开始
 
 436
 00:22:18,070 --> 00:22:19,870
 kinda of work your way down through the hierarchy,
+并且遍历你的视图层次结构
 
 437
 00:22:19,939 --> 00:22:22,740
 looking at the sub-views and going on down. So
+看看它的子视图并接着往下找
 
 438
 00:22:22,808 --> 00:22:25,809
-var view which is a UIView, in UIView controller,
+var view which is a UIView, in UIViewController,
+那么 view 这个变量，它是 UIView，存在 UIViewController中
 
 439
 00:22:25,878 --> 00:22:29,779
 very important var to know if you want to access your view
+如果你想要直接访问你的视图层次结构，这是一个非常重要的
 
 440
 00:22:29,848 --> 00:22:32,816
 hierarchy directly. Now of course, you can also access
+变量。那么你当然也可以
 
 441
 00:22:32,885 --> 00:22:36,920
 your view hierarchy at any point with an outlet. Right,
+在任何地方使用出口（Outlet) 来访问你的视图层次结构
 
 442
 00:22:36,989 --> 00:22:39,523
 if you create an outlet like to a stack view,
+如果你创建了一个 StackView 的 outlet
 
 443
 00:22:39,591 --> 00:22:41,291
 now you can look right at the stack view, and
+那么你就可以直接访问这个 StackView
 
 444
 00:22:41,360 --> 00:22:43,594
 then start looking at its subviews if you want,
+并且，如果你想的话，开始去找它的子视图
 
 445
 00:22:43,663 --> 00:22:46,430
 you don't have to start at the top and start looking down.
+你不用从最顶层开始并往下找
 
 446
 00:22:46,498 --> 00:22:48,932
 You can use an outlet, just go to any view you want
+你可以使用 outlet，用它在任意时间
 
 447
 00:22:49,001 --> 00:22:53,337
 at any time. All right, let's talk a little bit about
+访问任何你想访问的视图。现在我们来讲讲
 
 448
 00:22:53,406 --> 00:22:56,874
 initializing a view, right? Getting initialized. Normally,
+初始化视图，视图的初始化。一般来讲
 
 449
 00:22:56,942 --> 00:23:00,310
 as usual, we try to avoid doing init as much as we can,
+我们会尽可能地避免使用 init()
 
 450
 00:23:00,379 --> 00:23:04,548
 with all those other ways we know. If you have to do a view
+用我们知道的其他方法。但如果你一定要做视图的初始化
 
 451
 00:23:04,616 --> 00:23:07,384
 initializer cuz you just, a var that you just no way you
+如果不做的话你就不知道该
 
 452
 00:23:07,452 --> 00:23:10,253
 can initialize it using all the other ways we know. Then
+如何用其他我们知道的方法来初始化它
 
 453
 00:23:10,322 --> 00:23:13,424
 you have to understand that view has two initializers,
+那么你必须要知道视图有两个初始化函数
 
 454
 00:23:13,492 --> 00:23:16,927
 init with frame and init with coder. Init with frame is
+init(frame :CGRect) 和 init(coder :NSCoder)
 
 455
 00:23:16,995 --> 00:23:19,930
 the initializer you usd to create a view in code.
+init(frame :CGRect) 是可以在代码中创建视图的方法
 
 456
 00:23:19,998 --> 00:23:23,200
 Init with coder is the initializer that's used when
+init(coder :NSCoder) 是在你用
 
 457
 00:23:23,269 --> 00:23:26,070
 you build your view in an interface builder and
+interface builder 创建视图后
 
 458
 00:23:26,138 --> 00:23:29,473
 it gets free stride and then your app runs. When it runs,
+当你的程序开始运行的时候
 
 459
 00:23:29,542 --> 00:23:32,943
 it gets initialized with init with coder. The coder,
+那个视图就被 init(coder :NSCoder) 初始化了
 
 460
 00:23:33,012 --> 00:23:36,246
 NSCoder is a protocol that handles this mechanism of
+NSCoder 是一个协议可以让你在
 
 461
 00:23:36,315 --> 00:23:38,849
 freeze drying with interface builder and
+interface builder 中先做定住的(freezed)视图
 
 462
 00:23:38,918 --> 00:23:42,186
 then re, resurrecting it when your app runs. So
+并当你程序运行的时候初始化
 
 463
 00:23:42,254 --> 00:23:44,020
 you have to implement of both of these. And
+因此这两个函数你都要实现
 
 464
 00:23:44,089 --> 00:23:45,288
 the reason you have to implement both
+而你要实现这两个的原因
 
 465
 00:23:45,357 --> 00:23:47,791
 of these is cuz init with frame is a designated
+是 init(frame :CGRect) 是一个指定的
 
 466
 00:23:47,859 --> 00:23:51,561
 initializer, okay. And so if you ever created a view from
+初始化函数。只要你通过代码创建视图
 
 467
 00:23:51,630 --> 00:23:55,198
 code, you need, if you want your code to execute, it's
+如果你想让你的代码执行
 
 468
 00:23:55,267 --> 00:23:59,336
 gonna have to do it. And then init with coder is a required
+你必须要这么做。而 init(coder :NSCoder)
 
 469
 00:23:59,404 --> 00:24:02,339
 initializer because it's part of a protocol that UIView
+是一个被需求的(required) 初始化函数，因为它是 UIView 所实现的
 
 470
 00:24:02,408 --> 00:24:05,676
 implements, this NSCoder protocol you see. Remember,
+协议的一部分，就是 NSCoder 这个协议
 
 471
 00:24:05,744 --> 00:24:08,278
-if you employ a protocol and it has an init in it,
+if you implement a protocol and it has an init in it,
+还记得如果你要实现一个协议，而那个协议中有初始化函数
 
 472
 00:24:08,347 --> 00:24:11,715
 it's required, okay. So you'd have to implement them both.
+它是被需求的。所以你必须要将它们两个都实现
 
 473
 00:24:11,784 --> 00:24:13,950
 Now you can have some other function like set up or
+而你可以有一些别的函数比如说 setup()
 
 474
 00:24:14,019 --> 00:24:17,053
 whatever and call that setup from them both. Although,
+或其他什么的，然后从那两个初始化函数中调用 setup()
 
 475
 00:24:17,122 --> 00:24:20,490
 sometimes it's not that simple because if you're using
+但有的时候不会这么简单，因为如果你要用
 
 476
 00:24:20,559 --> 00:24:23,027
 this mechanism to initialize your own vars, you're supposed
+这个机制来初始化你自己的变量的话
 
 477
 00:24:23,095 --> 00:24:26,263
 to initialize your own vars before you call super.init.
+你应该要先初始化你的变量再调用 super.init()
 
 478
 00:24:26,332 --> 00:24:29,833
 Okay, so you are gonna have to initialize those vars inside
+所以你就要在这些初始化函数中初始化
 
 479
 00:24:29,902 --> 00:24:32,402
 these inits. Maybe you might have slightly duplicated
+你自己的变量。也许在这里你会有一些
 
 480
 00:24:32,471 --> 00:24:34,304
 code there, doing that. But hopefully,
+代码来做到这一点。最好的情况
 
 481
 00:24:34,372 --> 00:24:39,409
 you can avoid this init in UIView entirely. Okay, another
+是你可以完全避开这些在 UIView 中的初始化函数
 
 482
 00:24:39,478 --> 00:24:42,946
 alternative to initializing the UIView is awakeFromNib().
+另一个初始化 UIView 的方法是用 awakeFromNib()
 
 483
 00:24:43,015 --> 00:24:45,682
 Now awakeFromNib() is actually a function,
+awakeFromNib() 实际上是一个函数
 
 484
 00:24:45,751 --> 00:24:48,652
 that is sent to every single object that comes out of
+它被传给所有在 interface builder 文件中
 
 485
 00:24:48,721 --> 00:24:50,988
 an interbase face builder file.
+的对象
 
 486
 00:24:51,057 --> 00:24:53,223
 Every UI button, every UIView controller,
+所有的 UIButton，所有 UIViewController
 
 487
 00:24:53,292 --> 00:24:56,526
 everything that comes out of there, when it gets unfreezed,
+所有在那个文件里的对象，当它们被解除限制(unfreezed)的时候
 
 488
 00:24:56,595 --> 00:24:59,162
 it gets sent awakeFromNib(). Now the only thing about
+它们就被传递了 awakeFromNib() 那么有一点是
 
 489
 00:24:59,231 --> 00:25:01,965
 putting initialization there is, it will only work for
+当在这里进行初始化的时候，它只对
 
 490
 00:25:02,034 --> 00:25:04,768
 views that come out of an interface builder file.
+interface builder 中的视图有效
 
 491
 00:25:04,837 --> 00:25:07,704
 If you create a view with init when framed from code,
+如果你用 init(frame :GCRect) 在代码中创建了一个视图
 
 492
 00:25:07,773 --> 00:25:10,974
 if you created one, this won't get called. Okay,
+如果你这样创建了一个视图，这个函数是不会被调用的
 
 493
 00:25:11,042 --> 00:25:15,178
 this only happens when you get unfreeze write interface.
+这个只有在 interface builder 中的对象被解除限制的时候才会被调用
 
 494
 00:25:15,247 --> 00:25:19,649
 NIB is kind of really old name for interface builder files,
+NIB 是一个 interface builder files 的奇怪的简称
 
 495
 00:25:19,718 --> 00:25:24,087
 the IB and NIB meant interface builder. Okay, so
+IB 和 NIB 代表着 interface builder
 
 496
 00:25:24,156 --> 00:25:25,955
 that's it for initialization of views. All right,
+视图的初始化就讲完了
 
 497
 00:25:26,024 --> 00:25:28,591
 now let's talk about how we draw. We have this UIView.
+那么现在我们来看看我们如何画图，我们有 UIView
 
 498
 00:25:28,660 --> 00:25:30,260
 Why do we want it? Well, we wanna draw.
+我们为什么需要它呢？因为我们想画图
 
 499
 00:25:30,328 --> 00:25:32,963
 How do we draw? Before I can tell you how to draw,
+我们如何画图？在我将如何画图之前
 
 500
 00:25:33,032 --> 00:25:34,631
 we've got to talk about some types,
+我们要讲一些类型
 
 501
 00:25:34,699 --> 00:25:38,468
 four very important types. Okay, they all start with CG,
+四个非常重要的类型，它们都以 CG 开头
 
 502
 00:25:38,537 --> 00:25:42,906
 like this one, CGFloat. CG stands for Core Graphics.
+比如说这个 CGFloat，CG 是指核心图形(Core Graphics)
 
 503
 00:25:42,974 --> 00:25:46,710
 Core Graphics is the underlying drawing system for
+核心图形是底层的画图系统
 
 504
 00:25:46,779 --> 00:25:49,680
 normal 2D drawing in iOS. There are other
+用来在 iOS 中进行二维的画图
 
 505
 00:25:49,748 --> 00:25:54,151
 drawing systems for doing 3D and other things. Not gonna
+还有其他的画图系统负责做三维画图和其他什么的
 
 506
 00:25:54,219 --> 00:25:55,986
 talk about those cuz we only have so much to talk about.
+我不会讲它们，因为我们已经有很多要讲的了
 
 507
 00:25:56,054 --> 00:25:59,056
 We're just gonna talk about the base 2D drawing system,
+我们只会讲在二维平面上画图
 
 508
 00:25:59,124 --> 00:26:03,127
 and it's called core graphics. So core graphics has these
+而这叫做核心图形，核心图形
 
 509
 00:26:03,195 --> 00:26:06,029
 four types, they're just critical to be in the say
+有四种类型，它们在画图中
 
 510
 00:26:06,098 --> 00:26:09,800
 anything about drawing, one is CGFloat. So all drawing is
+有非常重要的作用。其中一个是 CGFloat，所有的画图
 
 511
 00:26:09,868 --> 00:26:13,970
 in an accordance system that's floating point numbers. So
+都是在以浮点数为坐标的坐标系上完成的
 
 512
 00:26:14,039 --> 00:26:16,139
 you're drawing in a floating point coordinate system,
+你是在浮点数的坐标系上进行画图的
 
 513
 00:26:16,208 --> 00:26:17,841
 not integers, they're floating points.
+不是整数，是浮点数
 
 514
 00:26:17,910 --> 00:26:20,443
 When you say where you wanna draw, your every point you're
+当你在表达你想在哪里画图的时候，你用的
 
 515
 00:26:20,512 --> 00:26:22,479
 just dealing with floating point numbers. And for
+所有点的坐标都是浮点数类型的
 
 516
 00:26:22,548 --> 00:26:24,648
 those floating point numbers have to be CGFloat.
+而那些浮点数必须要是 CGFloat
 
 517
 00:26:24,716 --> 00:26:29,018
 They cannot be doubles or regular float, they have to be
+它们不能是 Double 或者普通的浮点类型
 
 518
 00:26:29,087 --> 00:26:32,889
 CGFloats. Luckily, there's an initializer for CGFloat.
+它们必须是 CGFloat，幸运的是，CGFloat 中有构造函数
 
 519
 00:26:32,958 --> 00:26:37,127
 We'll let you create a CGFloat from a double, but
+它可以让你以 Double 类型创建一个 CGFloat 类型
 
 520
 00:26:37,196 --> 00:26:41,698
 CGFloat is the fundamental, kind of coordinate value,
+但 CGFloat 是最基础的，像坐标值一样的
 
 521
 00:26:41,766 --> 00:26:45,268
 a floating point co-ordinate value. All drawing, all your
+一个浮点类型的坐标值。所有的画图
 
 522
 00:26:45,337 --> 00:26:50,107
 code that's drawing is gonna have CGFloats. Now, of course,
+所有关于画图的代码必须要用 CGFloat
 
 523
 00:26:50,175 --> 00:26:53,276
 there is CGPoint, which is just a struct with two things
+当然我们也有 CGPoint，它是一个结构体
 
 524
 00:26:53,345 --> 00:26:57,314
 in it, x and y, which are both CGFloats. And there's CGSize,
+包含两个对象，x 和 y，它们都是 CGFloat。我们还有 CGSize
 
 525
 00:26:57,383 --> 00:27:00,650
 which is a struct that has two things in it, two CGFloats,
+它是一个一个结构体包含两个 CGFloat
 
 526
 00:27:00,719 --> 00:27:04,688
 width and height. Okay, so you got float, CGFloat the base
+width(宽) 和 height(高)，那么现在你有 CGFloat
 
 527
 00:27:04,756 --> 00:27:07,490
 thing, then you got point and size. And of course,
+它是最基本的，你有 点(CGPoint) 和 大小(CGSize)
 
 528
 00:27:07,559 --> 00:27:11,962
 you can combine point and size into very important CGRect.
+当然你可以将点和大小合并到一个非常重要的类型： CGRect
 
 529
 00:27:12,031 --> 00:27:16,166
 Now CGRect is just finds a rectangle obviously,
+CGRect 显然是一个矩形
 
 530
 00:27:16,235 --> 00:27:18,936
 including your views entire bounds, that rectangle or
+它可以是你整个视图的边界的那个矩形
 
 531
 00:27:19,004 --> 00:27:21,338
-any rectangle you wanna draw inside your quadrant system
+any rectangle you wanna draw inside your coordinate system
+或者其它任何你想在你的坐标系中画的矩形
 
 532
 00:27:21,407 --> 00:27:25,008
 you're gonna use this. And it has a number of initializers
+你都要用到它。它有不少的初始化函数
 
 533
 00:27:25,077 --> 00:27:27,043
 including initializing by origin and size.
+包括以 origin(原点) 和 size(大小) 来初始化
 
 534
 00:27:27,112 --> 00:27:29,346
 Also intializer that takes xy width, height, etc.
+或者是以 x y 坐标和宽与高来初始化之类的
 
 535
 00:27:29,415 --> 00:27:32,749
 And it also has a whole slew of other vars and
+它也有非常多的其他的变量
 
 536
 00:27:32,818 --> 00:27:37,353
 functions for manipulating rects, like vars like minX,
+和函数，用来控制一个矩形，比如说叫做 minX 的变量
 
 537
 00:27:37,422 --> 00:27:41,992
 which gives you the minimum x value of your rectangle.
+它会给你在这个矩形中最小的 x 的坐标值
 
 538
 00:27:42,061 --> 00:27:44,828
 Or, intersects that takes another rect and
+或者 intersects 函数，它接收另一个矩形做参数
 
 539
 00:27:44,897 --> 00:27:48,131
 returns a bool whether the two rectangles intersect.
+并返回一个布尔值，表示这两个矩形是否相交
 
 540
 00:27:48,200 --> 00:27:51,268
 There's also intersect which returns a new rect
+还有 intersect 函数，它会返回一个新的矩形
 
 541
 00:27:51,336 --> 00:27:55,005
 which is the intersection of two overlapping rectangles.
+这个矩形是两个矩形的相交部分
 
 542
 00:27:55,074 --> 00:27:57,608
 It also has contains CGPoint, which will tell you whether
+它也有 contains(CGPoint) 它会告诉你
 
 543
 00:27:57,676 --> 00:28:00,343
 there's a point, that is point is inside CGRect. So
+这个矩形中是否有某个点
 
 544
 00:28:00,412 --> 00:28:03,280
 there's tons, this probably two or three dozens methods so
+它有许多这样的东西，这大概有 12 - 36 这样的函数
 
 545
 00:28:03,349 --> 00:28:05,716
 definitely check out the documentation CGRect,
+你们一定要看看 CGRect 的文档
 
 546
 00:28:05,784 --> 00:28:08,451
 because it'll make your code a lot cleaner. And actually,
+这样会让你们的代码更加地简洁
 
 547
 00:28:08,520 --> 00:28:10,353
 you're gonna see in the demo that I do on Wednesday.
+那么你们也可以在我周三要做的示例中看到
 
 548
 00:28:10,422 --> 00:28:13,290
 I actually even extend CGRect to add five or six more
+我要扩展 CGRect 来加上 5、6 个新的
 
 549
 00:28:13,358 --> 00:28:16,627
 a little convenience functions because CGRect turned out
+便于使用的小函数，因为 CGRect 是你代码中
 
 550
 00:28:16,695 --> 00:28:20,263
 to be so important in all the code that you write.
+非常重要的一个类型
 
 551
 00:28:20,332 --> 00:28:23,901
 When you're doing drawing. So now you know those four types,
+当你在画图时。现在你们认识了这四个类型
 
 552
 00:28:23,969 --> 00:28:26,636
 let's talk about the coordinate system we're gonna
+让我们来讲讲我们要在其中画图的
 
 553
 00:28:26,705 --> 00:28:30,306
 be drawing in here. The most important thing to know
+坐标系。
 
 554
 00:28:30,375 --> 00:28:34,444
 besides the fact that it's floating point precision to
+除了我们的点的精度是浮点型
 
 555
 00:28:34,513 --> 00:28:38,415
 draw is that the origin is in the upper left, not lower
+另一件很重要的事是我们坐标的原点是在左上角的
 
 556
 00:28:38,484 --> 00:28:41,184
 Left. The lower left would be Cartesian coordinates,
+而不是左下角，原点在左下角的坐标系是笛卡尔坐标系
 
 557
 00:28:41,253 --> 00:28:43,653
 you know, like you have in Math class. Lower left alk,
+就像你们数学课中的坐标系一样，Mac 上的
 
 558
 00:28:43,722 --> 00:28:46,589
 also happens to be the coordinate system on the Mac,
+坐标系的原点也是在左下角的
 
 559
 00:28:46,658 --> 00:28:49,159
 okay. But in iOS, it's in the upper left,
+但在 iOS 中，原点是在左上角的
 
 560
 00:28:49,228 --> 00:28:53,363
 and that means that increasing values of y go down towards
+这就意味着当你增加 y 的值的时候
 
 561
 00:28:53,432 --> 00:28:57,033
 the bottom of the screen. So for example, I got this point
+你的点是在像屏幕的下方移动的。比如说
 
 562
 00:28:57,102 --> 00:29:00,971
 over here on the side there. See it up there, 500, 35.
+我在这里有一个点，看到这，它的坐标是 500，35
 
 563
 00:29:01,039 --> 00:29:05,409
 It's 500 over and 35 down, right, way over and way down.
+它是在原点右边 500 个单位长度，原点下方 35 个单位长度，一个坐标表示右方，一个表示下方
 
 564
 00:29:05,477 --> 00:29:08,979
 So that's x of 500, and it actually really would be 500.0
+因此它的 x 值是 500，呃它实际上是 500.0
 
 565
 00:29:09,047 --> 00:29:13,917
 and 35.0 cuz they're floating point values, right? Okay,
+和 35.0，因为它们是浮点数，对吧
 
 566
 00:29:13,986 --> 00:29:18,455
 the unit in this coordinate system are called points.
+这个坐标系中的单元叫做点(point)
 
 567
 00:29:18,523 --> 00:29:21,724
 Points are not the same as pixels.
+点和像素 (pixel) 是不同的
 
 568
 00:29:21,793 --> 00:29:25,261
 Pixels are the little dots that the screen is made of.
+像素是组成屏幕的小点
 
 569
 00:29:25,330 --> 00:29:29,666
 Some screens have a lot of little pixels, very,
+一些屏幕有许多的小像素
 
 570
 00:29:29,735 --> 00:29:33,169
 very high resolution, what we call Retina Displays.
+有着非常非常高的分辨率，我们叫它们 Retina 显示屏
 
 571
 00:29:33,238 --> 00:29:36,272
 You've probably heard that phrase. Lots of pixels per
+你们应该听说过这个短语。许多像素
 
 572
 00:29:36,341 --> 00:29:40,209
 point. Why is that good? Well, because remember you can draw
+组成一个点，为什么这样很棒？ 因为还记得你们可以在
 
 573
 00:29:40,278 --> 00:29:44,614
 on floating point boundaries, so you can draw at 27.3, 27.6,
+浮点值的点的边界上画图，那么你就可以在 27.3 27.6
 
 574
 00:29:44,683 --> 00:29:48,552
 28, right? You could be drawing in between points. And
+28 这些点画点，你也可以在点之间画图
 
 575
 00:29:48,620 --> 00:29:50,520
 you get these very smooth curves or
+这样你就能在 Retina 显示屏上得到一条非常光滑的曲线
 
 576
 00:29:50,589 --> 00:29:54,090
 whatever on a Retina Display. On a lower res display,
+或者其他什么。而在低分辨率的时候
 
 577
 00:29:54,159 --> 00:29:57,027
 maybe there's only one pixel per every point, and so
+可能是一个像素对应着一个点
 
 578
 00:29:57,095 --> 00:30:01,131
 it's kind of more jaggy when you draw. But you don't draw
+这样的话你画的图就不会那么平整光滑，但这里我们画的边界
 
 579
 00:30:01,199 --> 00:30:03,366
 on pixel boundaries, you draw on point boundaries.
+不是像素，而是由点构成的边界
 
 580
 00:30:03,435 --> 00:30:06,136
 That way, even if you had a lot of pixels per point,
+这样的话，景观你可能在一个点中有许多像素
 
 581
 00:30:06,205 --> 00:30:09,006
 it looks the same size basically as on a lower
+它们在更低分辨率的屏幕上看起来也差不多
 
 582
 00:30:09,074 --> 00:30:12,875
 resolution device. Okay, it's not as smooth as on a high
+是一样大小的，不会像在高分辨率的屏幕上那么
 
 583
 00:30:12,944 --> 00:30:16,412
 resolution device but it's the same size cuz it's zoom point.
+平滑，但它的大小会是相同的，因为它是放大的点
 
 584
 00:30:16,481 --> 00:30:19,716
 You can find out how many pixels per point your device
+你可以用 UIView 中的 contentScaleFactor
 
 585
 00:30:19,784 --> 00:30:23,053
 has by using UIView content scale.factor who turns
+来确定你的屏幕上一个点是由多少个像素构成的
 
 586
 00:30:23,122 --> 00:30:26,589
 a float, it's currently gonna either be one, two, or
+它的返回类型是 CGFloat，这个值可能会是 1、2 或者 3
 
 587
 00:30:26,658 --> 00:30:29,493
 three. And it's gonna tell you how many pixels are are there
+它表示这一个点是由多少个像素构成的
 
 588
 00:30:29,561 --> 00:30:34,097
 per point. All right,
+好了
 
 589
 00:30:34,165 --> 00:30:38,434
 the most important rectangle in all of UIView is bounds,
+在所有 UIView 中最重要的矩形是 bounds
 
 590
 00:30:38,503 --> 00:30:41,871
 it's var on UIView to CGRect. It tells you the bounds,
+它是一个在 UIView 中的 CGRect，它告诉你
 
 591
 00:30:41,940 --> 00:30:44,941
 the coordinates of your drawing system, the origin and
+你画图的坐标系的边界是什么，它告诉你画图区域的原点
 
 592
 00:30:45,010 --> 00:30:48,612
 the width and height in your own drawing coordinate system.
+画图区域的宽和高是什么
 
 593
 00:30:48,681 --> 00:30:50,447
 And one thing you have to understand is,
+你们必须要理解的一点是
 
 594
 00:30:50,515 --> 00:30:53,883
 different views have different coordinate systems.
+不同的视图是有不同的坐标系的
 
 595
 00:30:53,952 --> 00:30:56,619
 Okay, they each have their own coordinate system,
+它们都有各自的坐标系
 
 596
 00:30:56,688 --> 00:30:59,789
 this bounds is in yours. So when you're drawing,
+而这个 bounds 是在你的坐标系中的，所以当你画图的时候
 
 597
 00:30:59,858 --> 00:31:03,226
 you always use bounds. Now there are a couple of other
+你一定要用 bounds。还有其他一些东西
 
 598
 00:31:03,294 --> 00:31:08,064
 things like frame. Var frame, sounds a lot like bounds.
+像 frame，frame 这个变量，听起来很像 bounds
 
 599
 00:31:08,133 --> 00:31:12,902
 Frame has nothing to do with your drawing. Nothing,
+frame 和你的画图一点关系都没有
 
 600
 00:31:12,971 --> 00:31:15,472
 it's a Rect, but has nothing to do with your drawing.
+它是一个矩形，但和你画图一点关系都没有
 
 601
 00:31:15,540 --> 00:31:19,643
 The frame is where you are in your superview.
+frame 表示的是这个视图在它的父视图的位置
 
 602
 00:31:19,711 --> 00:31:21,811
 So frame this not even in your coordinates system,
+因此 frame 甚至不在你的坐标系中
 
 603
 00:31:21,880 --> 00:31:23,814
 in it's your superview's coordinate system.
+它是在这个视图的父视图的坐标系中的
 
 604
 00:31:23,883 --> 00:31:26,650
 Says, where you are? Similar with center.
+它表示你在哪里， center 也是类似的
 
 605
 00:31:26,718 --> 00:31:30,253
 Center is not the center of your drawing area, it's
+center 并不是代表你画图区域的中心
 
 606
 00:31:30,321 --> 00:31:34,357
 the center of view in your superview. So frame in center
+它表示的是你的父视图的中心，因此 frame 和 center
 
 607
 00:31:34,426 --> 00:31:39,362
 are, where you are? Bounds is the place you're drawing.
+表示的是你在哪里，bounds 表示的是你画图的区域
 
 608
 00:31:39,431 --> 00:31:42,332
 Don't get these things confused. I have a slide down
+别把这些东西弄混了，这里有一页简单讲解
 
 609
 00:31:42,401 --> 00:31:44,400
 here, go through it quick, we never use frame or
+的幻灯片。我们不会用 frame
 
 610
 00:31:44,469 --> 00:31:46,836
 center to draw because it has nothing to do with drawing,
+或 center 来画图，因为它们和画图没有任何关系
 
 611
 00:31:46,905 --> 00:31:48,171
 it has to do with positioning.
+它们和处理视图的位置有关系
 
 612
 00:31:48,240 --> 00:31:50,773
 And you might think that the frame and the bounds
+你可能会认为 frame 和 bounds 所表示的区域
 
 613
 00:31:50,842 --> 00:31:54,711
 are gonna be the same size, but views can be rotated. And
+会用同样的面积，但视图是可以被旋转的
 
 614
 00:31:54,779 --> 00:31:57,747
 if you imagine rotating your view, the bounds get rotated
+而想象当你旋转你的视图的时候，bounds 会被跟着
 
 615
 00:31:57,815 --> 00:32:01,651
 with, okay, so they stay the same size, but the frame now
+以前转，所以它的面积会保持不变
 
 616
 00:32:01,719 --> 00:32:05,922
 has to get bigger. To totally enclose this because it's
+但现在 frame 要变得更大，才能完全将这个视图装进去
 
 617
 00:32:05,991 --> 00:32:09,960
 a diamond shaped, right, View B is a diamond shape. Okay, so
+因为这个视图现在是菱形了，B 视图是一个菱形
 
 618
 00:32:10,028 --> 00:32:12,829
 the frames' sized-out width and height are not the same
+因此 frame 的大小与宽和高并不
 
 619
 00:32:12,897 --> 00:32:15,531
 necessarily as the bounds' sized width and height.
+一定是和 bounds 的宽和高是相等的
 
 620
 00:32:15,600 --> 00:32:17,433
 Don't ever think of them as the same.
+别去想它们是一样的
 
 621
 00:32:17,502 --> 00:32:20,369
 If you ever use your frame to draw in this class,
+在这节课中如果你用 frame 去画图
 
 622
 00:32:20,438 --> 00:32:22,639
 you'll get dinged, that is just wrong.
+你会被扣分，因为那是错的
 
 623
 00:32:25,677 --> 00:32:27,376
 All right, so now we know the bounds of where we
+好的，现在我们知道了用来在其中画图的 bounds
 
 624
 00:32:27,445 --> 00:32:29,412
 are drawing. We know we have this coordinate system in
+我们知道我们有这个坐标系
 
 625
 00:32:29,481 --> 00:32:32,582
 the upper left. How do we create one of these views?
+它以左上角为原点，那么我们如何创建这些视图呢
 
 626
 00:32:32,651 --> 00:32:33,850
 Okay, we wanna create one. Well,
+我们想要创建一个视图
 
 627
 00:32:33,919 --> 00:32:36,987
 I told you that you mostly do it in Interface Builder, but
+我告诉过你们我们多数会在 Interface Builder 中做
 
 628
 00:32:37,055 --> 00:32:39,890
 if I have a custom view. Let's say I have a custom view,
+但如果我有一个自定义的视图，比如说我有一个自定的视图用来
 
 629
 00:32:39,958 --> 00:32:42,024
 draw something special to just me.
+画一些只对我来说有意义的东西
 
 630
 00:32:42,093 --> 00:32:45,295
 How do I drag that out into Interface Builder? Right,
+我该怎么将它从 Interface Builder 的控件中拉出来？
 
 631
 00:32:45,363 --> 00:32:48,031
 Interface Builder's got that nice list in the lower right
+Interface Builder 在右下角有
 
 632
 00:32:48,099 --> 00:32:51,534
 corner of UIButton, UILabel, all those cool things.
+一个可用的控件的列表，比如说 UIButton，UILabel 还有其它的
 
 633
 00:32:51,603 --> 00:32:54,403
 My view's not gonna be there, right?
+我的视图不在那其中，对吧
 
 634
 00:32:54,472 --> 00:32:57,774
 So how do I make one? Well, it turns out you drag out
+那么我如何做一个呢？其实你可以将一个
 
 635
 00:32:57,842 --> 00:33:01,078
 a generic one. Currently, as of this my speaking,
+普通的视图拉出来，在我这里看就是
 
 636
 00:33:01,146 --> 00:33:04,213
 it's the second from the bottom in that long list.
+那个长长的列表中的倒数第二个
 
 637
 00:33:04,282 --> 00:33:06,983
 It's called UIView down there. You drag a generic one out and
+它叫做 UIVIew，你将一个普通的视图拉出来
 
 638
 00:33:07,052 --> 00:33:09,319
 then you're going to inspect it, but you're gonna use
+接着你要去检查(inspect)它，但你要用到一个
 
 639
 00:33:09,387 --> 00:33:11,654
 a little different inspector in the upper right than you
+有些不同的检查器(inspector)，它在右上角
 
 640
 00:33:11,723 --> 00:33:13,857
 usually do. It's not the Attributes Inspector,
+它不是 Attributes Inspector（属性检查器）
 
 641
 00:33:13,925 --> 00:33:16,225
 it's the Identity Inspector. I think it's the tab,
+而是 Identity Inspector(身份检查器)，它应该就是在
 
 642
 00:33:16,294 --> 00:33:18,828
 just one to the left of the Attributes Inspector. And
+Attributes Inspector 左边的标签页
 
 643
 00:33:18,897 --> 00:33:20,697
 in there, the top thing is going
+在哪里，最上面的
 
 644
 00:33:20,765 --> 00:33:23,532
 to be the class of the thing you're inspecting and
+会是你要检查的那个类
 
 645
 00:33:23,601 --> 00:33:26,202
 it's gonna be UIView when you first drag it out. And you're
+当你视图拖出来的时候，它应该是 UIView，而你要做的
 
 646
 00:33:26,271 --> 00:33:29,906
 just going to change the pull down there to pick your class.
+就是将它改成那个下拉界面中你的类
 
 647
 00:33:29,975 --> 00:33:32,575
 So now you have a view there, but it's of your class.
+那么你在这里就有一个视图了，而它是由你类创建的
 
 648
 00:33:32,644 --> 00:33:37,247
 That's how you're gonna create one of your custom views. Now,
+这就是你创建一个自己的自定义视图的方法
 
 649
 00:33:37,316 --> 00:33:39,516
 the other way you can create views is in code.
+另一种创建视图的方法是用代码
 
 650
 00:33:39,584 --> 00:33:42,051
 And again, I'm gonna ask you to do this both ways in your
+还有，我会要求你们在你们的第三次作业中
 
 651
 00:33:42,120 --> 00:33:45,622
 assignment three. And you do that just by calling the frame
+将这两种方法都用到。而你只需要调用 UIView(frame: myFrame)
 
 652
 00:33:45,691 --> 00:33:49,826
 UIView with frame initializer that we talked about before.
+这个我们讲过的以 frame 初始化视图的初始化函数
 
 653
 00:33:49,895 --> 00:33:52,762
 You can also set UIView open parenthesis, close
+你也可以调用 UIView()
 
 654
 00:33:52,831 --> 00:33:56,533
 parenthesis, then your frame will be 0000, upper left,
+那么你的 frame 就会是 0 0 0 0，在
 
 655
 00:33:56,601 --> 00:33:59,769
 no size. And you can then just set that frame var,
+左上角，没有大小。而你接着就可以将这个
 
 656
 00:33:59,837 --> 00:34:02,706
 that I talked about a couple slides ago, to position and
+我在前几张幻灯片中讲过的 frame 变量设置到合适的位置
 
 657
 00:34:02,775 --> 00:34:06,075
 size, this view in the super view. Okay,
+并设置合适的大小，来确定这个视图在它父视图中的位置
 
 658
 00:34:06,144 --> 00:34:07,744
 just always remember the frame, though,
+一定要记得 frame
 
 659
 00:34:07,813 --> 00:34:09,078
 is in the super view's coordinate system,
+是在父视图的坐标系中的
 
 660
 00:34:09,147 --> 00:34:10,713
 it's saying where you are.
+它表示的是你在哪
 
 661
 00:34:10,782 --> 00:34:11,747
 Nothing to do with your drawing,
+与你画图无关
 
 662
 00:34:11,816 --> 00:34:15,251
 just where you are. Okay, so here's an example.
+只是表示你在哪。好的，这里有一个例子
 
 663
 00:34:15,320 --> 00:34:18,722
-I'm gonna create a UILabel encode. Okay, UILabel, you
+I'm gonna create a UILabel in code. Okay, UILabel, you
+我会在代码中床架一个 UILabel，你们知道
 
 664
 00:34:18,790 --> 00:34:21,191
 know what that is, right? It shows text, that's the thing
+UILabel 是什么，对吧。它能展示文字
 
 665
 00:34:21,259 --> 00:34:24,026
 that said flipped colon 0, that was a UILabel. Of course,
+我们做的 flipped : 0 就是一个 UILabel
 
 666
 00:34:24,095 --> 00:34:26,062
 UILabel inherits from UIView.
+当然，UILabel 继承自 UIView
 
 667
 00:34:26,130 --> 00:34:29,032
 It's a rectangular area on screen. All rectangular areas
+它是屏幕上的一个矩形区域，屏幕上的所有矩形区域
 
 668
 00:34:29,101 --> 00:34:33,002
 on screen are UIViews. So, I'm gonna create a rectangle to
+都是 UIView，因此我会创建一个矩形
 
 669
 00:34:33,071 --> 00:34:35,539
 say where it's gonna be. This rectangle is gonna be in
+它表示着我的视图会在哪里。这个矩形会在
 
 670
 00:34:35,607 --> 00:34:37,640
 the super view's coordinate system. In this case,
+父视图的坐标系里，在这个例子中
 
 671
 00:34:37,709 --> 00:34:39,475
 I'm gonna put the label at the very top level.
+我会将我的 UILabel 放在最顶层
 
 672
 00:34:39,544 --> 00:34:42,912
 In other words, the black view of Concentration, I'm putting
+也就是我们 Concentration 中的那个黑色的视图
 
 673
 00:34:42,981 --> 00:34:46,049
 it right over that level. So this 20 across and 20 down and
+我会将它放在那个视图中，那么这个 x:20, y:20
 
 674
 00:34:46,118 --> 00:34:49,686
 a width of 100 and height of 50, that's in the black views,
+widt:100, height:50 这个矩形是在黑色的视图中的
 
 675
 00:34:49,754 --> 00:34:53,122
 the top level views coordinate system. And then I created
+在最顶层的视图的坐标系中。接着我用 frame
 
 676
 00:34:53,191 --> 00:34:57,426
 a UILabel using that frame. I set the label's text to hello.
+创建了一个 UILabel，我将 label 中的文字设置为 hello
 
 677
 00:34:57,495 --> 00:35:00,163
 Nothing's happening on screen right there, yeah.
+到这里在屏幕上还没有任何事情发生
 
 678
 00:35:00,231 --> 00:35:03,032
 Now, I need to add it as a subview of that black view, so
+现在我需要将它以子视图的形式加入到黑色的视图中
 
 679
 00:35:03,101 --> 00:35:05,835
 I'm gonna assume this code is in a view controller and
+那么假设这段代码是在一个 view controller 中的
 
 680
 00:35:05,904 --> 00:35:08,104
 I'm gonna use that very special var view.
+那么我就会使用那个特殊的变量 view
 
 681
 00:35:08,173 --> 00:35:12,708
 And say, view, add subview this label. Now that
+接着我只用写 view.addSubview(label)
 
 682
 00:35:12,777 --> 00:35:15,778
 UI label gets added as a subview of the top level view,
+那么这个 UILabel 就被当做子视图加入到 Concentration 中最顶层的
 
 683
 00:35:15,847 --> 00:35:17,146
 the black view in concentration,
+那个黑色的视图中了
 
 684
 00:35:17,215 --> 00:35:19,582
 it's white here, and it gets put at 20, 20,
+在这里是白色的视图。它被放置在了最顶层的坐标系中
 
 685
 00:35:19,650 --> 00:35:24,988
-150 in that top level views coordinate system. Remember,
+100 50 in that top level views coordinate system. Remember,
+的 (20,20) (100,50) 这个位置
 
 686
 00:35:25,056 --> 00:35:28,591
 upper left is 00. So, that means down from the upper left
+记得，左上角是(0,0)，这意味着它是在左上角的下方的
 
 687
 00:35:28,659 --> 00:35:32,695
 corner. Everybody got that? So that's how you add view,
+所有人都懂了吗？这就是你如何添加视图的方法
 
 688
 00:35:32,764 --> 00:35:35,965
 it's very easy just add subview. That's how you put
+添加子视图是非常简单，这就是你将
 
 689
 00:35:36,033 --> 00:35:39,735
-view on screen on code. All right, so when would I wanna
+view on screen from code. All right, so when would I wanna
+代码中的视图放到屏幕上的方法。好的，我应该什么时候
 
 690
 00:35:39,804 --> 00:35:42,605
 create my own UIView subclass versus just using UIButton or
+创建自己的 UIView 子类而什么时候直接用 UIButton
 
 691
 00:35:42,674 --> 00:35:44,841
 UILabel? Those are UIView subclasses.
+或 UILabel？它们也是 UIView 的子类
 
 692
 00:35:44,909 --> 00:35:47,477
 Well, if I obviously want to do custom drawing or
+如果我想要自定义地画图
 
 693
 00:35:47,545 --> 00:35:49,913
 if I want to handle some custom touch events,
+或者想要处理一些自定义的点击事件(touch event)
 
 694
 00:35:49,982 --> 00:35:51,714
 pinches or something like that.
+缩放或者其他的
 
 695
 00:35:51,783 --> 00:35:55,085
 I'll talk about handling touch events on Wednesday, but
+我会在周三讲处理点击事件
 
 696
 00:35:55,153 --> 00:35:58,321
 today we're gonna focus on drawing. So we're going to do
+今天我们重点在画图，我们今天完全都是画图
 
 697
 00:35:58,390 --> 00:36:02,859
 all drawing today. So to draw, it could not be easier,
+要画图是再简单不过的了
 
 698
 00:36:02,927 --> 00:36:07,397
 there's only one way to draw, okay, in all of iOS. Which
+在所有的 iOS 中，只有一种画图的方式
 
 699
 00:36:07,466 --> 00:36:12,235
 is you override this function in UIView and implement it.
+就是重写(override)并实现 UIView 中的这个函数(draw)
 
 700
 00:36:12,304 --> 00:36:15,872
 That is the only way to draw. You can't call any functions
+这是画图的唯一方式，你不能在这个函数外调用任何
 
 701
 00:36:15,941 --> 00:36:18,240
 that draw or anything outside of this method,
+画某些东西的函数
 
 702
 00:36:18,309 --> 00:36:21,477
 it's the only way to draw. So that makes really simple,
+它是画图的唯一方法，这就十分简单
 
 703
 00:36:21,546 --> 00:36:23,246
 you don't have to worry about any other mechanism cuz this
+你不用考虑其他任何的机制
 
 704
 00:36:23,315 --> 00:36:26,516
 is the only one there is. And so inside this draw method,
+因为这就是唯一的方法，而在这个 draw 函数中
 
 705
 00:36:26,585 --> 00:36:28,884
 you're going to draw in your bounds,
+你要在你的 bounds 中画图
 
 706
 00:36:28,953 --> 00:36:31,721
 whatever custom drawing you do. Okay,
+不论你要画什么
 
 707
 00:36:31,790 --> 00:36:36,359
 never call this method ever. This method,
+永远不要调用这个函数
 
 708
 00:36:36,428 --> 00:36:38,762
 you override and implement your drawing,
+你重写并实现的这个画图的函数
 
 709
 00:36:38,830 --> 00:36:42,432
 you never call it. If you want your view to be redrawn,
+你绝对不要去调用它，如果你因为某些事件发生
 
 710
 00:36:42,500 --> 00:36:45,167
 because something about you has changed, you call one of
+而想要重画你的视图，你要
 
 711
 00:36:45,236 --> 00:36:48,237
 these two methods on yourself, setNeedsDisplay or
+自己调用这两个函数之一，setNeedsDisplay()
 
 712
 00:36:48,306 --> 00:36:50,974
 setNeedsDisplay with rect. Okay, and
+或者 setNeedsDisplay(_ rect: CGRect)
 
 713
 00:36:51,042 --> 00:36:54,143
 that tells the system, hey, my view needs to be redrawn,
+这告诉操作系统，我的视图需要被重画
 
 714
 00:36:54,212 --> 00:36:58,014
 please, redraw it. So, only the system, only iOS
+请重画它。只有系统，只有 iOS
 
 715
 00:36:58,082 --> 00:37:01,083
 calls your draw and you can make it call it, or tell it
+才可以调用你的 draw 函数，而你可以让系统去调用它
 
 716
 00:37:01,152 --> 00:37:04,954
 you want it to call it anyway, by calling setNeedsDisplay.
+或者告诉系统你逍遥调用它，通过调用 setNeedsDisplay
 
 717
 00:37:05,023 --> 00:37:08,023
 Now notice this rect, see the draw rect. What is that
+注意到这个 rect，看这个 draw(rect)
 
 718
 00:37:08,092 --> 00:37:11,794
 rect argument, both up on draw and down in set needs display.
+这个 rect 参数，既在 draw 中也在 setNeedsDisplay 中出现
 
 719
 00:37:11,863 --> 00:37:15,898
 That is purely an optimization rectangle, okay. That's if,
-
+它只是一个
 720
 00:37:15,967 --> 00:37:18,501
 for example, you had another view on top of view and
