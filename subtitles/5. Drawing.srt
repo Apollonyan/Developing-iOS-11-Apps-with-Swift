@@ -5647,282 +5647,352 @@ we like the fonts big. Then we can hold it all closer and
 1130
 00:58:16,259 --> 00:58:18,993
 see our fonts. Well, the way we do that is we go into our
-来看字了。
+来看字了。我们做到这一点的方式是
+
 1131
 00:58:19,062 --> 00:58:22,297
 settings on our phone, and one of the settings under general
+去我们手机的设置里，在通用标签下面
 
 1132
 00:58:22,365 --> 00:58:25,433
 there is accessibility, and we can say larger text, and
+有一个辅助功能，在那里我们可以设置更大的字体
 
 1133
 00:58:25,502 --> 00:58:27,102
 we move the little slider, and
+我们划一划滑块
 
 1134
 00:58:27,170 --> 00:58:29,705
 now all the fonts get bigger in all the apps, but
+就能让所有 app 中的所有字体变大
 
 1135
 00:58:29,773 --> 00:58:32,074
 only the apps that play this game right, and
+但也仅限于能正确处理更大字体的 app
 
 1136
 00:58:32,142 --> 00:58:35,143
 use preferred fonts. So you wanna be one of those apps,
+它们要用首选字体，那么你就要
 
 1137
 00:58:35,212 --> 00:58:37,846
 otherwise, you're gonna lose the older folk from
+让你的 app 也能做到这一点。否则你就会
 
 1138
 00:58:37,915 --> 00:58:39,314
 your demographic,
+丢失你的老年用户群体
 
 1139
 00:58:39,382 --> 00:58:43,084
 of your people buying your app. So it's important to make
+它们就不会买你的 app 了。所以要确保
 
 1140
 00:58:43,153 --> 00:58:46,054
 sure that your UI also works when fonts get bigger and
+当字体变大变小的时候，你的 UI 能够正常工作
 
 1141
 00:58:46,122 --> 00:58:50,592
 smaller, and the number one way to do that, auto layout.
+做到这一点的最好的方式是用 auto layout(自动布局)
 
 1142
 00:58:50,661 --> 00:58:52,494
 You know that auto layout where you put constraints,
+我们之前使用约束(constrain)的时候就用到了 auto layout
 
 1143
 00:58:52,563 --> 00:58:55,697
 pin things to the edges. You wanna use good auto layout so
+我们那时将控件控制在边上。你要正确地使用 auto layout
 
 1144
 00:58:55,766 --> 00:58:58,800
 as fonts get bigger, and the text field gets bigger, other
+这样当字体变大的时候，它所在的文字空间也变大了
 
 1145
 00:58:58,869 --> 00:59:01,836
 things push out of the way and it uses the screen real estate
+其他的东西就被往旁边推了，并且有效地
 
 1146
 00:59:01,905 --> 00:59:03,805
 properly. So you've only seen a little bit of auto layout.
+使用屏幕上的空间。你们还没有见过很多 auto layout 的例子
 
 1147
 00:59:03,874 --> 00:59:06,608
 I'm gonna show you more auto layout at start of Wednesday's
+在周三的课程的开始，我会向你们展示更多的
 
 1148
 00:59:06,676 --> 00:59:07,942
 lecture. You're gonna see more and
+auto layout 的例子。之后
 
 1149
 00:59:08,011 --> 00:59:09,444
 more as the quarter goes by, but
+你们会见得越来越多
 
 1150
 00:59:09,512 --> 00:59:13,047
 that's a good way to make it work. Now what if you
+这是让字体大小正确工作的很好的方式，如果
 
 1151
 00:59:13,116 --> 00:59:17,418
 either wanna use some other font, some special font that's
+你既想要用一些其他类型的字体，其他特殊的字体
 
 1152
 00:59:17,487 --> 00:59:22,057
 something that's maybe part of your marketing or whatever, or
+比如说是你的用于宣传的字体或者其他什么
 
 1153
 00:59:22,126 --> 00:59:25,293
 you want it to be bigger, or smaller I guess,
+而你想让它特定的首选字体的
 
 1154
 00:59:25,362 --> 00:59:29,064
 than the standard size font that comes with a certain
+标准大小更大或者更小
 
 1155
 00:59:29,133 --> 00:59:32,467
 prefered font. Okay, well, UIFont does have a way to
+UIFont 的确有一种
 
 1156
 00:59:32,536 --> 00:59:35,837
 create a font by name like if you want Helvetica 36 point,
+用名字来创建字体的方式。比如说你想要大小是 36，字体是 Helvetica
 
 1157
 00:59:35,906 --> 00:59:39,841
 you can say UIFont(name: "Helvetica", size: 36.0), and
+你只用写 UIFont(name: "Helvetica", size: 36.0)
 
 1158
 00:59:39,909 --> 00:59:42,711
 there's also a class called UIFontDescriptor.
+还有一个类叫做 UIFontDescriptor
 
 1159
 00:59:42,780 --> 00:59:44,579
 Has a lot of cool ways where you can take a font and
+它有很多类似于接受一个字体
 
 1160
 00:59:44,648 --> 00:59:46,380
 say give me the Bold version of this,
+并返回这个字体的粗体
 
 1161
 00:59:46,449 --> 00:59:49,084
 give me the Italic version, okay all of that stuff. So
+或者斜体的函数。类似的那些函数
 
 1162
 00:59:49,152 --> 00:59:51,787
 you can get your font this way. But if you do your fonts
+所以你可以以这样的方式获得你的字体。但如果你是
 
 1163
 00:59:51,855 --> 00:59:55,190
 this way, you still want, when I go into my setting and
+这样取得的字体，当我进入我的设置
 
 1164
 00:59:55,259 --> 00:59:58,427
 make my font bigger, you want your font to get bigger, and
+并让我的字体变大时，你也想让这些字体变大
 
 1165
 00:59:58,495 --> 01:00:02,330
 look what font size this is, 36. It's fixed.
+来看看这个字体的大小是多少？36，这是固定的
 
 1166
 01:00:02,399 --> 01:00:04,899
 So I need to somehow scale this font up
+所以当用户将它们的字体调大的时候
 
 1167
 01:00:04,968 --> 01:00:08,069
 if the user has put their slider to bigger, and
+我要想办法把这个字体变大
 
 1168
 01:00:08,137 --> 01:00:11,540
 the way you do that is with UIFontMetrics. So you create
+做到这一点的方法使用 UIFontMetrics
 
 1169
 01:00:11,608 --> 01:00:15,710
 a UIFontMetrics object for the text style body, footnote,
+你要为你的文字的字体创建一个
 
 1170
 01:00:15,779 --> 01:00:19,080
 caption, whatever, and then it has very cool method called
+UIFontMetrics 对象，而它有一个叫做 scaledFont
 
 1171
 01:00:19,149 --> 01:00:22,283
 scaledFont, and you give it a font, like Helvetica 36,
+的很酷的函数你给它传递一个字体，比如说 36 大小的 Helvetica
 
 1172
 01:00:22,352 --> 01:00:27,121
 and it will give you back a new font, Helvetica 42, maybe.
+而它会返回给你一个新的字体，可能是 42 大小的 Helvetica
 
 1173
 01:00:27,190 --> 01:00:31,492
 It's scaled based on what the user said. Okay, don't skip
+它以用户设定的字体大小为基准缩放字体
 
 1174
 01:00:31,561 --> 01:00:34,528
 this step, otherwise, if you use a custom font,
+不要跳过这一步，否则当你在用自定义字体的时候
 
 1175
 01:00:34,597 --> 01:00:38,333
 when people move that slider, your app's not gonna work, and
+当用户调整字体大小，你的 app 就不能正常运作了
 
 1176
 01:00:38,402 --> 01:00:40,935
 people are gonna be like, I hate that app.
+人们就会讨厌你的 app
 
 1177
 01:00:41,004 --> 01:00:45,373
 I can't see any of the text and it's too small.
+因为它们看不清这些小的字
 
 1178
 01:00:45,442 --> 01:00:48,776
 There are also system fonts. We use those so far in our
+还有一类字体是系统字体，我们在我们的
 
 1179
 01:00:48,845 --> 01:00:51,780
 concentration demo. That's only for things like button
+Concentration 示例中用过它们了。它们只是用于
 
 1180
 01:00:51,848 --> 01:00:54,616
 titles, and stuff like that, that's not for user content,
+类似按钮上的文字或者其它类似的东西的。它们不是用于
 
 1181
 01:00:54,685 --> 01:00:57,118
 stuff that the user has generated, or requested, or
+展示给用户或者用户生成的内容的
 
 1182
 01:00:57,187 --> 01:00:59,454
 something like that. Thos are preferred fonts.
+那些是首选字体
 
 1183
 01:00:59,523 --> 01:01:03,491
 System fonts are just like buttons, things like that.
+系统字体只是用于按钮之类的东西
 
 1184
 01:01:03,560 --> 01:01:05,826
 What about images? We know how to draw lines and arcs.
+那么我们该如何画图片呢？我们已经知道如何画直线和弧
 
 1185
 01:01:05,895 --> 01:01:06,928
 We know how to draw text.
+知道该如何画文字
 
 1186
 01:01:06,997 --> 01:01:11,032
 What about drawing images? Just like UILabel for text,
+那么如何画图片呢，就像 UILabel 是用来装文字的
 
 1187
 01:01:11,101 --> 01:01:13,868
 there's another one called UIImageView,
+我们有 UIImageView
 
 1188
 01:01:13,937 --> 01:01:17,839
 which lets you add an image as a subview. So you could use
+它可以让你将一个图片添加为它的子视图
 
 1189
 01:01:17,907 --> 01:01:20,474
 that to draw an image in your view if you want it,
+所以如果你需要的话，你可以用它来画图片
 
 1190
 01:01:20,543 --> 01:01:23,711
 just do it as a subview. But if you wanna draw an image
+只需要将图片添加进子视图。但如果你想在你的
 
 1191
 01:01:23,780 --> 01:01:26,481
 in your drawRect, you can do that too.
+draw(rect) 画
 
 1192
 01:01:26,549 --> 01:01:29,784
 You need a UIImage object. A UIImage represents an image,
+你需要一个 UIImage 对象，一个 UIImage 代表着一张图片
 
 1193
 01:01:29,852 --> 01:01:33,287
 jpg, gif, whatever kind of image, it represents an image.
+代表着 jpg，git 之类任意类型的图片
 
 1194
 01:01:33,356 --> 01:01:36,457
 Now, how do you get an image? There's a bunch of ways to do
+那么你如何获取一张图片呢？我们有很多方式来做
 
 1195
 01:01:36,526 --> 01:01:40,562
 it. One way is to drag the jpg file, or whatever, into that
+其中一种就是将一张图片文件
 
 1196
 01:01:40,630 --> 01:01:44,132
 Assets.xcassets file. Remember when we're doing our demo,
+拖进那个 Assets.xcassets 文件中，还记得我们做我们的示例程序
 
 1197
 01:01:44,201 --> 01:01:46,300
 and I put some things off in supporting files?
+的时候，我将一些文件拖进那个 supporting files 文件夹吗
 
 1198
 01:01:46,369 --> 01:01:48,937
 One of the things I threw in there was the place where
+我拖进去的其中一文件
 
 1199
 01:01:49,006 --> 01:01:51,539
 the app icon was. Well, you can drag other images in
+就是装有程序图标的文件，你也可以将其他图片拖进那里
 
 1200
 01:01:51,607 --> 01:01:54,308
