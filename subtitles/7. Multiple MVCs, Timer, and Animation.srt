@@ -16,86 +16,107 @@ welcome to Lecture number 7, Stanford CS193P, Fall 2017. So
 4
 00:00:14,080 --> 00:00:19,351
 our primary topic today is combining MVCs to make bigger,
+今天，我们的主要任务显然就是将多个 MVC 组合成组件更多，
 
 5
 00:00:19,420 --> 00:00:22,153
 more powerful applications, obviously. And
+功能更强大的应用程序。
 
 6
 00:00:22,222 --> 00:00:24,890
 then I'm gonna do a big demo that shows you how to do that.
+同时，我也将示范编写一个更大的样例程序来向你们展示该如何完成这项工作。
 
 7
 00:00:24,959 --> 00:00:27,559
 We're gonna do it with Concentration, we're gonna add
+本次的示范将以 Concentration 这个 app 为基础，我们将来要向其添加
 
 8
 00:00:27,627 --> 00:00:30,929
 an MVC into that app. Then I'll come back to the slides,
+一个 MVC。然后我会回到幻灯片上，
 
 9
 00:00:30,998 --> 00:00:33,865
 and talk I'll about timer and choose classes, some of you
+（这里疑似all about）我会讲授有关计时器和选择类的相关内容，
 
 10
 00:00:33,934 --> 00:00:37,169
 used in the extra credit of the homework assignments. And
+这部分内容你们可能会在作业的选做部分需要用到。
 
 11
 00:00:37,237 --> 00:00:39,004
 then I'm gonna dive into the next topic and try and
+然后的时间我会尽可能深入讲解下一个主题，也就是动画部分，
 
 12
 00:00:39,073 --> 00:00:41,373
 get as far as I can which is animation.
+能讲多少讲多少。
 
 13
 00:00:41,442 --> 00:00:43,275
 Which will be our topic on Wednesday and
+这也将是我们在周三的课程上的主要内容，
 
 14
 00:00:43,343 --> 00:00:45,376
 I'll get to much more detail, do a big demo.
+并且我会更深入地讲解更多细节性内容，做一个更大的示范程序。
 
 15
 00:00:45,445 --> 00:00:47,512
 But I wanna kinda get in as far as I can today just so
+我今天会尽可能地讲解理论部分的内容，
 
 16
 00:00:47,581 --> 00:00:50,916
 we have more time for a demo on Wednesday.
+这样我们周三上课时就会有足够的时间进行操作示范。
 
 17
 00:00:50,984 --> 00:00:54,486
 Alright so combining MVCs, remember this slide from when
+回到整合 MVC 上来，还记得我们讲解 MVC 时使用的这张幻灯片吗？
 
 18
 00:00:54,555 --> 00:00:58,190
 I talked about MVC. This is the MVCs working together, and
+这就是多个 MVCs 协同工作的示意图，
 
 19
 00:00:58,259 --> 00:01:01,193
 we saw that when we have MVCs working together,
+我们可以看到，当多个 MVCs 协同工作时，
 
 20
 00:01:01,261 --> 00:01:04,862
 these other MVCs. Let me get my thing under control here,
+其他的 MVC……（此处幻灯片动画出错）让我把它修好……
 
 21
 00:01:04,931 --> 00:01:08,967
 well, can't do it. Okay, these other MVCs down in the corner,
+好吧，它彻底坏掉了。其他的角落里的 MVCs
 
 22
 00:01:09,036 --> 00:01:12,170
 they serve as part of the view of another MVC. That's
+他们通过控制其他 MVC 中的一个 view，来为整个 app 服务。
 
 23
 00:01:12,239 --> 00:01:16,608
 the way MVC's relate. An MVC is a view, part of a view
+这就是 MVC 之间相互联系的方法。一个 MVC 就是一个 view，同时也是其他类中的 view 的一部分。
 
 24
 00:01:16,677 --> 00:01:19,811
 of another class. And that has some ramifications for MVC,
+
 
 25
 00:01:19,880 --> 00:01:22,781
@@ -1141,65 +1162,81 @@ which is often nice to have a title of your master of
 00:14:10,183 --> 00:14:13,517
 your split view. Now you can- One thing to notice about this
 
+
 286
 00:14:13,586 --> 00:14:16,420
 of course, is that now the master of your split view is
+现在你的 Split View 的主视图控制器不再是 Calculator 了，
 
 287
 00:14:16,489 --> 00:14:19,757
 no longer the calculator, it's a navigationController.
+而是一个 navigationController。
 
 288
 00:14:19,826 --> 00:14:21,492
 So if you actually wanted to get out the calculator,
+如果你确实想要获取到 calculator，
 
 289
 00:14:21,561 --> 00:14:23,394
 you would have to get the master and
+你必须先获取到主视图控制器，
 
 290
 00:14:23,463 --> 00:14:27,465
 then look at the master's rootViewController to find
+然后找到它的 rootViewController，
 
 291
 00:14:27,533 --> 00:14:29,901
 the calculator there.
+你要找的 calculator 在那里。
 
 292
 00:14:29,969 --> 00:14:32,469
 By the way, you can also put the detail, wrap it in
+另外，你也可以把你的细节视图控制器放在一个 navigationController 中
 
 293
 00:14:32,538 --> 00:14:34,839
 a navigationController. The only reason you would ever
+你想做这件事，唯一的原因就是
 
 294
 00:14:34,908 --> 00:14:37,908
 want to do that is to give it a title bar, cuz you don't,
+想给它一个标题栏。
 
 295
 00:14:37,977 --> 00:14:40,445
 you always navigate from the master, that's why it's called
+你总是从主视图控制器导入的，这也是他被称为“主”的原因。
 
 296
 00:14:40,513 --> 00:14:43,313
 the master. So you can do it, but again if you do that,
+所以你可以这么做，不过再一次，如果你这么做的话
 
 297
 00:14:43,382 --> 00:14:45,716
 make sure when you look at the detail, if you find that
+确保当你关注 detail 的时候，
 
 298
 00:14:45,784 --> 00:14:48,652
 it's a navigationController, you need to look inside and
+如果你发现他是一个 navigationController，你就需要向里看，
 
 299
 00:14:48,721 --> 00:14:51,488
 see the thing that's inside of it, the rootViewController.
+找到它内部的视图控制器，rootViewController。
 
 300
 00:14:51,557 --> 00:14:53,223
 Or you can also use visibleViewController
+或者你也可以用 visibleViewController
 
 301
 00:14:53,292 --> 00:14:54,392
