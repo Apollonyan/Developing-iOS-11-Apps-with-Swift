@@ -5997,86 +5997,107 @@ the app icon was. Well, you can drag other images in
 1200
 01:01:51,607 --> 01:01:54,308
 there, and along the left hand side will be all the names
+此时左手边将会出现它们的名字，
 
 1201
 01:01:54,377 --> 01:01:57,012
 of them, and then you can call this method right here,
+然后你就可以在这里调用方法，
 
 1202
 01:01:57,080 --> 01:01:59,881
 UIImage named whatever, and it'll go look in that assets
+UIImage(named: String)，这个方法会去查看assets里面的东西，
 
 1203
 01:01:59,950 --> 01:02:01,950
 thing, and find an image with that name.
+并且根据名字找到图片，
 
 1204
 01:02:02,019 --> 01:02:04,386
 Now, this is a failable initializer.
+这可能是一个无效的初始化方式，
 
 1205
 01:02:04,454 --> 01:02:08,089
 It can return nil, and that's because it might not find
+这个方法可能返回nil，那是因为它可能在assets里没有找到
 
 1206
 01:02:08,157 --> 01:02:11,927
 that particular image in there. So you have to say
+那个特殊的图片。因此你会说
 
 1207
 01:02:11,995 --> 01:02:15,497
 usually if let to do that. How else can you get an image?
+如果我们都这样做。我们是如何获取到图片的呢？
 
 1208
 01:02:15,565 --> 01:02:16,965
 Well, you can get one from the file system.
+你可以通过文件系统来得到一张图片。
 
 1209
 01:02:17,034 --> 01:02:18,633
 You've got a jpg in the file system.
+你已经在文件系统里得到了一个张图片。
 
 1210
 01:02:18,701 --> 01:02:20,568
 I hadn't told you how to access the file system, so
+我并没有告诉你如何访问文件系统，因此
 
 1211
 01:02:20,637 --> 01:02:22,670
 you're not gonna be doing that. I'll show you later.
+你不能通过文件系统来访问。之后我会展示给你看。
 
 1212
 01:02:22,739 --> 01:02:25,306
 You can also get it if you have a bag of bits that you
+你也可以通过互联网的bits包得到图片。
 
 1213
 01:02:25,375 --> 01:02:28,409
 got over the Internet. The data that has a bags of bits
+这里有一个jpg数据类型的bit包。
 
 1214
 01:02:28,478 --> 01:02:31,312
 with jpg data in there. UIImage knows how to look in
+UIImage知道如何查看这个bits包
 
 1215
 01:02:31,381 --> 01:02:33,648
 that bag of bits and figure out if it's an image.
+并且能够看出是否是一张图片。
 
 1216
 01:02:33,717 --> 01:02:36,585
 You can even use this global function,
+你甚至也可以使用这个全局函数，
 
 1217
 01:02:36,653 --> 01:02:40,121
 UIGraphicsBeginImageContext, and then draw arcs and
+UIGraphicsBeginImageContext，然后画圆弧跟线条，
 
 1218
 01:02:40,190 --> 01:02:42,791
 lines, and it'll capture it as an image. So
+方法将以图片的形式捕获它。因此
 
 1219
 01:02:42,859 --> 01:02:46,127
 you can even draw a custom image if you want. So anyway,
+如果你想的话你可以自定义一个图片画出来。无论如何，
 
 1220
 01:02:46,196 --> 01:02:47,161
 you do one of these things, and
+
 
 1221
 01:02:47,230 --> 01:02:49,897
