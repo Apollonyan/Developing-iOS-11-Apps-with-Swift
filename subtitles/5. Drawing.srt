@@ -6277,254 +6277,318 @@ So, the three different categories of contentModes.
 1256
 01:04:38,074 --> 01:04:41,776
 One is, keep my bits, okay, don't redraw me, but just move
+其中一个，保持我的元素不变，不需要进行重画，仅仅移动
 
 1257
 01:04:41,845 --> 01:04:46,281
 my bits, unscaled, to a new position, upper left, top,
+元素，不伸缩，移动到一个新的位置，左上角，顶部，
 
 1258
 01:04:46,350 --> 01:04:48,616
 lower right, keep it in the center, whatever.
+右下角，使元素保持到中间，在任何时候。
 
 1259
 01:04:48,684 --> 01:04:51,486
 This one not almost never get used. Then they're scaling
+这种方式几乎不被使用到。scaleToFill默认对
 
 1260
 01:04:51,555 --> 01:04:54,589
 the bits which is scaleToFill as the default where it just
+元素进行缩放通过压缩元素
 
 1261
 01:04:54,658 --> 01:04:57,958
 scrunches the bits to fit in the new space. It doesn't even
+来适应新的空间。甚至
 
 1262
 01:04:58,027 --> 01:05:01,395
 respect the aspect ratio. But you could set the contentMode
+不保持纵横比。你也可以设置一种contentMode
 
 1263
 01:05:01,464 --> 01:05:04,532
 to scores the bit but keep the aspect ratio the same size so
+尽量显示更多的元素但是要保持横纵比
 
 1264
 01:05:04,600 --> 01:05:07,635
 that a face doesn't go from, you know, an over as way to
+因此可能部分地方不能够展示，你知道的，就像越过一条很长的路
 
 1265
 01:05:07,704 --> 01:05:11,906
 a tall over or whatever. But the one you guys probably
+或者什么。但是你们中的一些人
 
 1266
 01:05:11,975 --> 01:05:15,643
 are gonna want most of the time is ContentMode redraw.
+大部分时间想要的ContentMode是redraw。
 
 1267
 01:05:15,712 --> 01:05:18,613
 And what that means is, when my bounds change,
+它的意思是，当我的bounds发生改变，
 
 1268
 01:05:18,682 --> 01:05:22,183
 call my draw Rect and let me draw myself again, and
+调用我的drawRect方法并且让我自己画自己一遍，
 
 1269
 01:05:22,252 --> 01:05:24,552
 that's probably what you want.
+这个可能是你需要的。
 
 1270
 01:05:24,620 --> 01:05:26,754
 Could you draw rect knows what your bounds are and
+draw rect方法知道bounds是什么
 
 1271
 01:05:26,823 --> 01:05:29,023
 when it gets called, it can draw something appropriate for
+当它被调用的时候，它可以在bound范围内画出
 
 1272
 01:05:29,092 --> 01:05:32,293
 the bounds you read. So like in your homework, for example,
+适合你阅读的的东西。就像你的家庭作业一样，例如，
 
 1273
 01:05:32,361 --> 01:05:34,895
 well maybe your homework is not a great example because
+也许你的家庭作业并不是一个很好的例子，
 
 1274
 01:05:34,964 --> 01:05:37,231
 probably, the big views that are changing bound
+大的视图改变了bound
 
 1275
 01:05:37,300 --> 01:05:39,800
 it's your subviews that you are gonna want to lay out,
+你想要重新排版的子视图也发生了改变，
 
 1276
 01:05:39,869 --> 01:05:42,270
 which I will talk about again. But if you did have a thing
+我将会再讲一遍。但是如果你做了一些事情
 
 1277
 01:05:42,339 --> 01:05:43,905
 where you are drawing something in a view,
+比如你在视图上画了一些东西，
 
 1278
 01:05:43,973 --> 01:05:46,374
 like maybe we are doing our cards and concentration. And
+就像是我们已经完成的cards和concentration。
 
 1279
 01:05:46,442 --> 01:05:48,910
 we always want them, to be a certain aspect ratio,
+我们总是想让它们这样，保持横纵比，
 
 1280
 01:05:48,978 --> 01:05:52,781
 whatever, we could redraw, in our draw Rect or whatever,
+无论如何，我们能够重画，在draw Rect方法中或者任何地方，
 
 1281
 01:05:52,849 --> 01:05:54,783
 it's probably not a great example.
+这可能不是一个好的例子。
 
 1282
 01:05:54,851 --> 01:05:56,651
 In fact, let's go on to the next example which is,
+事实上，让我们继续下一个例子，
 
 1283
 01:05:56,720 --> 01:05:58,319
 what happens if I have subviews and
+如果子视图与bounds都改变会
 
 1284
 01:05:58,388 --> 01:06:00,955
 my bounds change? Cuz this is gonna happen in your homework.
+发生什么呢？因为这些将要在你的家庭作业中发生。
 
 1285
 01:06:01,024 --> 01:06:03,024
 You're gonna have some views, you're just gonna have
+你将会有一些视图，你仅仅有
 
 1286
 01:06:03,093 --> 01:06:06,460
 a subview which is a lot of cards, your set cards. Because
+一个有很多卡片的子视图，你把卡片放到上面。
 
 1287
 01:06:06,529 --> 01:06:09,130
 in assignment three, now there's no limit on the number
+在作业三中，
 
 1288
 01:06:09,199 --> 01:06:11,432
 of cards that can appear on screen, right?
+屏幕上出现多少卡片是没有限制的，对吗？
 
 1289
 01:06:11,501 --> 01:06:14,635
 In assignment two, we limited to like 24 cards as the most.
+在作业二中，我们限制了最多24张卡片。
 
 1290
 01:06:14,704 --> 01:06:17,271
 Now no limit, so you're always adding more cards. So,
+现在没有限制，因此你总是可以添加更多的卡片。因此，
 
 1291
 01:06:17,340 --> 01:06:20,241
 you're gonna have to use, put them as subviews of some view.
+你必须使用，让一些视图变成子视图。
 
 1292
 01:06:20,310 --> 01:06:22,744
 You can't stack view anymore, in other words.
+换句话说，你不能再继续叠加视图了。
 
 1293
 01:06:22,813 --> 01:06:24,345
 So what happens when your bounds change there?
+当你的bounds发生改的的时候发生了什么？
 
 1294
 01:06:24,414 --> 01:06:25,980
 Well, when your bounds change,
+当你的bounds改变时，
 
 1295
 01:06:26,048 --> 01:06:28,682
 you're gonna get sent this message layoutSubviews.
+你会收到layoutSubviews这个消息。
 
 1296
 01:06:28,751 --> 01:06:32,486
 And that's an opportunity for you to go reset the frames by
+这对你来说是一个可以重置frames的机会
 
 1297
 01:06:32,555 --> 01:06:36,390
 just changing the frame var on all of your subviews, okay.
+通过改变所有子视图上的frame变量，好的。
 
 1298
 01:06:36,459 --> 01:06:38,225
 So, you're all, if you have subviews,
+所有都是，如果你有很多子视图，
 
 1299
 01:06:38,294 --> 01:06:40,561
 you're almost always gonna implement this method.
+几乎所有的子视图都要实现这个方法。
 
 1300
 01:06:40,630 --> 01:06:43,931
 And don't forget to call super to do it. Now, what's the one
+并且不要忘记调用它的父类方法。现在，万一
 
 1301
 01:06:44,000 --> 01:06:46,067
 time when you're not gonna implement this method?
+你并没有实现这个方法呢？
 
 1302
 01:06:46,135 --> 01:06:49,137
 Is if you have subviews and you have autolayout on those
+如果你有很多子视图并且
 
 1303
 01:06:49,205 --> 01:06:52,974
 subviews, okay. If you have autolayout on your subviews,
+子视图上使用了autolayout。如果你的子视图上使用了autolayout，
 
 1304
 01:06:53,042 --> 01:06:55,676
 then the Autolayout constrains will determine where
+Autolayout上的限制条件将会决定
 
 1305
 01:06:55,745 --> 01:06:59,013
 the new frames are, okay. So this would only be for
+新的frames是什么样的。也有可能只有
 
 1306
 01:06:59,082 --> 01:07:01,483
 views where you're not using autolayout.
+视图并没有使用autolayout。
 
 1307
 01:07:03,186 --> 01:07:05,386
 that might be true of your assignment three,
+那就可能像你的作业三一样，
 
 1308
 01:07:05,454 --> 01:07:08,322
 whatever view contains your card, probably not gonna use
+无论什么视图拥有你的卡片，很可能没有使用
 
 1309
 01:07:08,391 --> 01:07:11,025
 autolayout. It will be almost impossible to write
+autolayout。几乎不可能写出
 
 1310
 01:07:11,094 --> 01:07:12,726
 constraints that would work for
+限制来实现
 
 1311
 01:07:12,795 --> 01:07:15,964
 laying out an arbitrary number of cards in arbitrary bounds,
+任意大小任意数量的卡片实现自动布局。
 
 1312
 01:07:16,032 --> 01:07:19,433
 okay. You're probably gonna wanna do that in code. Okay,
+你可能想在代码中做到这一点。
+
 
 1313
 01:07:19,502 --> 01:07:21,268
 so when your bounds change, you've got two different
+当你的bounds改变时，你需要考虑
 
 1314
 01:07:21,337 --> 01:07:23,504
 things to think about. If you have any subviews,
+两个不同的事情。如果你有一些子视图，
 
 1315
 01:07:23,572 --> 01:07:26,540
 layout subviews or autolayout. And if you draw something,
+调用layoutSubviews或者使用autolayout。如果你画了一些东西，
 
 1316
 01:07:26,609 --> 01:07:28,342
 then you've gotta think about your content mode on whether
+你必须考虑你的内容是否
 
 1317
 01:07:28,411 --> 01:07:33,081
 you wanna be asked to redraw. Okay, so that's it for
+想要被重新绘制。好的，这就是今天要展示的
 
 1318
 01:07:33,149 --> 01:07:36,184
 the slides today, I'm gonna into demo here.
+幻灯片。我将会在这里展示一个示例。
 
 1319
 01:07:36,252 --> 01:07:39,320
