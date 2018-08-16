@@ -6097,11 +6097,12 @@ you can even draw a custom image if you want. So anyway,
 1220
 01:02:46,196 --> 01:02:47,161
 you do one of these things, and
-
+你做了这些事情中的一个，
 
 1221
 01:02:47,230 --> 01:02:49,897
 now you have a UIImage in your hand that represents the image
+现在你手上就有了一个UIImage
 
 1222
 01:02:49,966 --> 01:02:51,967
