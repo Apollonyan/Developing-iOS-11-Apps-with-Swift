@@ -6102,143 +6102,177 @@ you do one of these things, and
 1221
 01:02:47,230 --> 01:02:49,897
 now you have a UIImage in your hand that represents the image
-现在你手上就有了一个UIImage
+现在你手上就有了一个UIImage它代表了
 
 1222
 01:02:49,966 --> 01:02:51,967
 you wanna draw. How do you draw it?
+你想要画的那张图片。你怎样把它画出来呢？
 
 1223
 01:02:52,035 --> 01:02:55,069
 Exactly the same as NS attributed string, you just
+确切的说就像是NS attributed string，你仅仅
 
 1224
 01:02:55,138 --> 01:02:58,839
 use draw(at), which will draw the image with its upper-left
+使用draw(at)方法就可以，这个方法会从坐标系的左上角开始
 
 1225
 01:02:58,908 --> 01:03:02,510
 corner at that point, but you also can do draw(in rect, and
+画图，但是你也可以使用draw(in rect）方法，
 
 1226
 01:03:02,579 --> 01:03:05,146
 it'll scale the image to fit in that rect.
+它将会在那个矩形的范围内进行缩放，
 
 1227
 01:03:05,215 --> 01:03:08,049
 So that's a cool way to scale your image up and down, and
+所以这是一个很好的用来放大或者缩小图像的方法，
 
 1228
 01:03:08,118 --> 01:03:10,585
 you can do drawAsPattern which will tally your image
+你可以用drawAsPattern方法来重复你的图片，
 
 1229
 01:03:10,653 --> 01:03:14,089
 repeatedly, repeat you image to fill the rectangle.
+重复你的图片来填充矩形。
 
 1230
 01:03:15,892 --> 01:03:19,227
 Super easy to draw images as well.
+画一张图是如此的简单。
 
 1231
 01:03:19,295 --> 01:03:21,796
 All right, let's talk about your bounds changing.
+好的，让我们来谈论一下bounds的改变，
 
 1232
 01:03:21,865 --> 01:03:25,767
 I've got my draw rect. It draw beautifully, but now my bounds
+我已经得到了画图的矩形范围，它可以画出漂亮的图片，但是现在我的bounds发生了
 
 1233
 01:03:25,836 --> 01:03:30,571
 changed, and when will this happen? Well, number one way,
+改变，接下来会发生什么呢？其中的一种方式，
 
 1234
 01:03:30,640 --> 01:03:33,808
 your device got rotated. They were looking at you in
+你的设备被旋转了。
 
 1235
 01:03:33,877 --> 01:03:37,345
 portrait, they rotate you. Now you also went from this tall,
+你旋转了设备。现在从一个高的，
 
 1236
 01:03:37,414 --> 01:03:40,915
 thin view, now you're this wide, very short view, okay,
+瘦的视图，变现变成了宽的，矮的视图。
 
 1237
 01:03:40,984 --> 01:03:43,051
 your bounds have completely changed.
+你的bounds完全地改变了。
 
 1238
 01:03:43,120 --> 01:03:47,088
 You went from a width of maybe 200 to a width of maybe 700,
+你从大约200宽度变成了700宽度，
 
 1239
 01:03:47,156 --> 01:03:50,925
 and from a height of maybe 3 or 400 to a height of 150 or
+从300或者400高度变成了150或者200高度，
 
 1240
 01:03:50,994 --> 01:03:53,327
 200, so that's a major change.
+这是一个多么大的变化。
 
 1241
 01:03:53,396 --> 01:03:56,263
 You're gonna have to really redraw all of your stuff,
+你得重新画你所有的东西，
 
 1242
 01:03:56,332 --> 01:04:00,401
 usually. Unfortunately, that's not the default. In iOS,
+通常来说是这样。不幸的是，并没有这样的默认方法。在iOS中，
 
 1243
 01:04:00,470 --> 01:04:03,705
 when you're bounds change like that, it does not redraw you,
+当你的bounds像刚才那样发生改变时，它并没有进行重画，
 
 1244
 01:04:03,773 --> 01:04:08,843
 believe or not. It takes all your bits And squishes them.
+信不信由你。它把你所有的视图都压在一起，
 
 1245
 01:04:08,912 --> 01:04:11,312
 So looks absolutely terrible most of the time.
+因此视图在大多数时候看起来非常糟糕。
 
 1246
 01:04:11,381 --> 01:04:13,781
 To smashes a bit, squishes them down,
+把视图压扁，
 
 1247
 01:04:13,850 --> 01:04:17,351
 stretches them out to fit your new bounds.
+拉伸他们来适应新的bounds。
 
 1248
 01:04:17,420 --> 01:04:20,588
 Which you almost never want that. So how is that control?
+你几乎不想要这么做。那么如何控制呢？
 
 1249
 01:04:20,657 --> 01:04:23,825
 That's control with a var in UIView called contentMode.
+在UIView中的一个名叫contentMode的变量来控制它，
 
 1250
 01:04:23,893 --> 01:04:25,493
 Okay, and the contentMode's just basically saying,
+contentMode的基本意思是，
 
 1251
 01:04:25,562 --> 01:04:27,362
 what kind of content do I have? Do I have the kind of
+我需要的是哪一种content?哪一种content
 
 1252
 01:04:27,430 --> 01:04:30,231
 content that can be squished and scrunched like that, and
+在被压扁或者拉伸的情况下，
 
 1253
 01:04:30,300 --> 01:04:32,367
 still look good? Or do I have the kind of content where I
+仍然看起来效果不错？或者是说
 
 1254
 01:04:32,435 --> 01:04:34,502
 have to be redrawn when my balance changes?
+当我的平衡被打破时使用哪一种content进行重画？
 
 1255
 01:04:34,571 --> 01:04:38,005
 So, the three different categories of contentModes.
+因此，contentMode有三种不同的分类。
 
 1256
 01:04:38,074 --> 01:04:41,776
