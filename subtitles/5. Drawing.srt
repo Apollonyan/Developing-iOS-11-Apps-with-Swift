@@ -6412,12 +6412,12 @@ In fact, let's go on to the next example which is,
 1283
 01:05:56,720 --> 01:05:58,319
 what happens if I have subviews and
-如果子视图与bounds都改变会
+如果我有子视图并且
 
 1284
 01:05:58,388 --> 01:06:00,955
 my bounds change? Cuz this is gonna happen in your homework.
-发生什么呢？因为这些将要在你的家庭作业中发生。
+我的bounds发生了改变之后会发生什么呢？因为这些将要在你的家庭作业中发生。
 
 1285
 01:06:01,024 --> 01:06:03,024
@@ -6593,238 +6593,297 @@ the slides today, I'm gonna into demo here.
 1319
 01:07:36,252 --> 01:07:39,320
 The demo I'm gonna do is a playing card. So this is gonna
+我接下来展示的示例是个卡牌游戏。因此将要
 
 1320
 01:07:39,389 --> 01:07:41,655
 be a new app, and it's just gonna draw a playing card,
+创建一个新的app，我们将要画一个卡牌，
 
 1321
 01:07:41,724 --> 01:07:44,158
 you know, like jack of clubs, six of hearts, whatever,
+你知道的，像是梅花J，红心6，或者什么的，
 
 1322
 01:07:44,226 --> 01:07:46,928
 it's gonna draw that card. We're gonna draw that custom,
+卡片上将要画上这些。我们将自己规定怎么画，
 
 1323
 01:07:46,996 --> 01:07:49,864
 by ourselves. And today, all I am gonna do in the demo is
+通过我们自己。今天，我将要在示例中展示的是
 
 1324
 01:07:49,932 --> 01:07:53,067
 the model of that MVC that draws the playing card, which
+卡牌游戏项目中MVC部分中的模型，它是
 
 1325
 01:07:53,136 --> 01:07:55,936
 is gonna be a playing card and a deck of playing cards.
+卡牌游戏中的扑克牌。
 
 1326
 01:07:56,005 --> 01:07:58,673
 And the reason I'm gonna do that is I wanna show you enum.
+我想这么做的原因是我想要给你们展示一下枚举。
 
 1327
 01:07:58,741 --> 01:08:01,709
 You haven't grab a chance to see me demo enum. So
+在之前的示例中你没有机会看到枚举。因此
 
 1328
 01:08:01,777 --> 01:08:05,413
 we're gonna use enums in our implementation of our model.
+我们将要在我们的模型中使用枚举。
 
 1329
 01:08:05,482 --> 01:08:08,316
 On Wednesday, I'll continue with the drawing part of this
+星期三的时候，我将继续这个示例中的绘画部分
 
 1330
 01:08:08,385 --> 01:08:10,451
 demo or I'm gonna draw this playing card.
+或者我将继续画扑克牌。
 
 1331
 01:08:10,520 --> 01:08:12,619
 And then I'll do some slides on multitouch and
+我将会做一些关于多点触控的幻灯片
 
 1332
 01:08:12,688 --> 01:08:15,589
 then we'll add some multitouch to the playing cards, swiping
+之后再扑克牌上添加多点触控的功能，
 
 1333
 01:08:15,658 --> 01:08:18,259
 to go to the next card, we'll do tapping the flip the card
+可以滑到另一张卡，也可以点击将卡片反面，
 
 1334
 01:08:18,328 --> 01:08:21,162
 over, that kind of stuff. Okay, your assignment two
+还有各种各样的功能。好的，你的作业二
 
 1335
 01:08:21,231 --> 01:08:22,930
 of course is due on Wednesday as you know.
+需要在周三完成。
 
 1336
 01:08:22,999 --> 01:08:25,533
 Assignment three will be assigned on Wednesday.
+作业三也需要周三晚成。
 
 1337
 01:08:25,601 --> 01:08:29,002
 It's just to make your set game custom cards, okay,
+它仅仅是让你自定义设置几个扑克牌，
 
 1338
 01:08:29,071 --> 01:08:30,204
 drawn with a custom view,
+用一个自定义视图来画。
 
 1339
 01:08:30,272 --> 01:08:33,140
 that's what assignment three is basically about. We don't
+这是作业三的基本内容。
 
 1340
 01:08:33,209 --> 01:08:35,576
 have a Friday section again this week, unfortunately,
+这周五我们没有课程，
 
 1341
 01:08:35,645 --> 01:08:37,244
 due to some scheduling conflicts, but
+因为其他课程冲突，
 
 1342
 01:08:37,313 --> 01:08:39,847
 next Friday we will and it'll be on source code management.
+周五我们将要学习代码管理。
 
 1343
 01:08:39,916 --> 01:08:44,886
 Okay, let's go create a new app here.
+好，让我们来创建一个新的app，
 
 1344
 01:08:46,689 --> 01:08:49,623
 Okay, so I'm just gonna go over here, use this same
+好的，幻灯片先到这里，使用相同的
 
 1345
 01:08:49,692 --> 01:08:52,894
 splash screen but I gonna say create a new Xcode project,
+屏幕但是展示的是我将要创建一个新的Xcode项目，
 
 1346
 01:08:52,963 --> 01:08:55,930
 this has nothing to do with concentration here.
+在concentration这个项目中已经没有需要做的了。
 
 1347
 01:08:55,998 --> 01:08:57,631
 As always with the single view app,
+更往常一样选择single view app，
 
 1348
 01:08:57,700 --> 01:08:59,934
 I'm gonna call this app PlayingCard.
+这个app被命名为PlayingCard。
 
 1349
 01:09:00,003 --> 01:09:01,369
 That's what it does to show it's a PlayingCard.
+这么做是想让人明白这是个卡牌游戏。
 
 1350
 01:09:01,438 --> 01:09:04,571
 We're not doing any database, we're not doing testing yet.
+我们不需要对数据库进行操作，我们也不需要测试。
 
 1351
 01:09:04,640 --> 01:09:07,175
 We're gonna put in the same place I put concentration,
+我们把它放到与concentration项目同级目录下。
 
 1352
 01:09:07,244 --> 01:09:09,143
 we're not doing source code control yet,
+我们也不需要源码控制，
 
 1353
 01:09:09,212 --> 01:09:11,011
 although like I'm saying next Friday,
+我下星期五会讲，
 
 1354
 01:09:11,080 --> 01:09:14,381
 we'll learn about that. Here's my project,
+我们将在那时进行学习。这就是我的项目，
 
 1355
 01:09:14,450 --> 01:09:16,784
 now this time I'm gonna keep my xcassets,
+现在我打开了xcassets，
 
 1356
 01:09:16,853 --> 01:09:19,887
 right, here's my xcassets where my AppIcon is here.
+这是我的xcassets用来放置APP的图标。
 
 1357
 01:09:19,956 --> 01:09:22,090
 I'm gonna keep that because I'm gonna use some images for
+我会一直打开它因为我要放置扑克牌的
 
 1358
 01:09:22,158 --> 01:09:25,259
 the face cards. So you can see how to draw images there.
+封面在里面。因此你可以在这里看到如何画一张图。
 
 1359
 01:09:25,328 --> 01:09:27,428
 But I'm not gonna use my launch screen or
+我们不使用启动屏幕或者app delegate
 
 1360
 01:09:27,496 --> 01:09:29,930
 my app delegate here. So I'm just gonna put them again in
+app delegate。因此我将再次将他们放到
 
 1361
 01:09:29,999 --> 01:09:33,401
 supporting files. I just like to get them out of the way so
+supporting files里面。我只想让他们离开我的视线
 
 1362
 01:09:33,470 --> 01:09:36,971
 they don't really kind of demand my attention.
+这样我就不会注意到他们了。
 
 1363
 01:09:37,040 --> 01:09:42,543
 Now, before I even go here and build my UI for
+现在，在为我的扑克牌游戏建立UI之前，
 
 1364
 01:09:42,611 --> 01:09:45,779
 my playing card thing, we're gonna go do our model first.
+我们要先建立模型。
 
 1365
 01:09:45,848 --> 01:09:47,181
 So we're not gonna do any UI to start,
+我们不会从UI开始做任何工作，
 
 1366
 01:09:47,250 --> 01:09:49,783
 we're gonna do model first. So how do we create model files?
+我们从模型开始。我们怎么创建一个模型文件呢？
 
 1367
 01:09:49,852 --> 01:09:53,154
 Remember, File > New > File, and we pick this one right
+记住，File > New > File，我们点击这个文件，
 
 1368
 01:09:53,223 --> 01:09:56,123
 here, Swift File which is a non-UI, right, a UI
+Swift File不会包含任何的UI，UI是一个
 
 1369
 01:09:56,192 --> 01:09:59,527
 independent thing. And when we do that, we ask for the name,
+独立的事情。当我们做这些的时候，我们需要一个文件名，
 
 1370
 01:09:59,596 --> 01:10:02,996
 so let's first start by doing a playing card. Okay, now on
+让我们从做一个扑克牌开始。现在
 
 1371
 01:10:03,065 --> 01:10:05,266
 my model, it's just gonna be a deck of playing cards.
+这是我的模型，它将会变成一副扑克牌。
 
 1372
 01:10:05,335 --> 01:10:08,035
 So these are gonna be UI independent representations
+这就是一副UI界面无关
 
 1373
 01:10:08,104 --> 01:10:10,338
 of playing cards, a deck of that. So
+的扑克牌。
 
 1374
 01:10:10,406 --> 01:10:12,240
 we'll start with the playing cards itself and
+我们将会从扑克牌本身开始
 
 1375
 01:10:12,308 --> 01:10:14,575
 then we'll do the deck. So here it is right here,
+来造一副扑克牌。这里是正确的，
 
 1376
 01:10:14,644 --> 01:10:17,144
 import Foundation, I'm just gonna have it via struct,
+导入Foundation，创建一个结构体，
 
 1377
 01:10:17,213 --> 01:10:20,214
 there's really no reason for it to be a reference type. And
+
 
 1378
 01:10:20,283 --> 01:10:22,149
