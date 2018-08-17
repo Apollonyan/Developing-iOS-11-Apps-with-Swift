@@ -6883,327 +6883,408 @@ import Foundation, I'm just gonna have it via struct,
 1377
 01:10:17,213 --> 01:10:20,214
 there's really no reason for it to be a reference type. And
-
+在这里没有理由使用关联值类型。
 
 1378
 01:10:20,283 --> 01:10:22,149
 it's going to be a playing card. Now,
+我们开始制作扑克牌。现在，
 
 1379
 01:10:22,218 --> 01:10:26,119
 a playing card is made of what? Well, it's got a suit,
+扑克牌是什么制作的的呢？它有花色，
 
 1380
 01:10:26,188 --> 01:10:30,290
 which I'm gonna have some type for that, and it's got a rank.
+我要在这里定义花色类型，还有牌面大小。
 
 1381
 01:10:30,359 --> 01:10:35,063
 Right, that's all there is in a playing card, suit and rank.
+这就是扑克牌中的所有东西了，花色和拍卖你大小。
 
 1382
 01:10:35,131 --> 01:10:37,765
 So how are we gonna represent suit and rank?
+我们怎样代表花色和牌面大小呢？
 
 1383
 01:10:37,833 --> 01:10:39,967
 Well, of course, because I wanted to show you enum,
+当然，因为我想给你们展示枚举，
 
 1384
 01:10:40,036 --> 01:10:43,537
 l'm gonna do it with an enum. So, let's create an enum for
+所以我将用枚举来实现。因此，让我们通过枚举来创建
 
 1385
 01:10:43,606 --> 01:10:47,408
 the Suit. And then we're also gonna create another enum for
+花色。我们也会用枚举来创建
 
 1386
 01:10:47,477 --> 01:10:51,412
 the Rank. Now let's talk about how we would do this.
+牌面大小。现在我们讨论一下应该怎么做。
 
 1387
 01:10:51,480 --> 01:10:54,815
 Now, Suit is probably the world's simplest enum, right?
+现在，花色可能是世界上最简单的枚举，不是吗？
 
 1388
 01:10:54,884 --> 01:10:58,853
 It's the case, it could be spades, or it's hearts, or
+就是这样，它有黑桃，红心，
 
 1389
 01:10:58,922 --> 01:11:03,590
 it's diamonds, or it's clubs, that's it.
+方片，梅花，这些东西。
 
 1390
 01:11:03,659 --> 01:11:06,427
 This is probably enough right here. That's really all
+这里的这些可能够了。这些
 
 1391
 01:11:06,496 --> 01:11:09,496
 we need to do for an enum. I'm gonna take this opportunity
+就是我们枚举索要列出来的。我将要趁这个机会
 
 1392
 01:11:09,565 --> 01:11:11,398
 to teach you a little bit about enum that
+告诉你一些关于枚举的东西
 
 1393
 01:11:11,467 --> 01:11:13,234
 I didn't mention even in the slides.
+之前在幻灯片里没有提及到的。
 
 1394
 01:11:13,303 --> 01:11:17,071
 But it was in your homework reading, so hopefully you got
+但是这些在你的阅读作业中有，所以希望你
 
 1395
 01:11:17,139 --> 01:11:20,508
 this which is raw values. What are raw values in an enum?
+已经了解了原始值的知识。原始值的枚举是什么呢？
 
 1396
 01:11:20,576 --> 01:11:25,046
 Well, it turns out that you can associate a fixed
+它的意思是你可以关联一个
 
 1397
 01:11:25,115 --> 01:11:30,117
 constant raw value for every one of your cases.
+固定的常量值为每一个case。
 
 1398
 01:11:30,186 --> 01:11:32,653
 Okay, now, Swift will even do some of this automatically.
+现在，Swift会自动做一些东西。
 
 1399
 01:11:32,722 --> 01:11:36,256
 For example, if I make my raw value type which I specify by
+例如，如果我按刚才所说的方式指定我的原始值类型，
 
 1400
 01:11:36,325 --> 01:11:40,294
 just saying, colon type, after enum, by making being int then
+冒号，枚举后面，让它变成int类型之后
 
 1401
 01:11:40,363 --> 01:11:43,831
 it will automatically make this one's raw value be 0.
+它将会自动让第一个值为0。
 
 1402
 01:11:43,899 --> 01:11:47,168
 And it's gonna make this one's raw value be 1, etc.
+接下来下个默认值就是1,等等。
 
 1403
 01:11:47,237 --> 01:11:50,838
 Okay, 1, 2, 3, 4, 5. So, it just goes in order,
+1，2，3，4，5。它只是按顺序排列，
 
 1404
 01:11:50,907 --> 01:11:54,375
 the lexical order which appears in the file. You can
+按照在文件中出现的词序。你可以
 
 1405
 01:11:54,443 --> 01:11:57,411
 also make your raw value be a string, for example.
+让默认值是字符串类型，例如，
 
 1406
 01:11:57,480 --> 01:12:00,447
 And if I do that, Swift will automatically make this one be
+如果我这么做，Swift将会自动让它变成
 
 1407
 01:12:00,516 --> 01:12:03,684
 spades, this one will be hearts, this will be diamonds.
+"spades",另一个是"hearts",这个是"diamonds"。
 
 1408
 01:12:03,753 --> 01:12:06,753
 Another words, it makes the raw value be A string version
+换句话说，它们把每一个case的值变为字符串的版本。
 
 1409
 01:12:06,822 --> 01:12:10,090
 of the case. Now, why would you ever want raw values?
+现在，为什么你想要默认值呢？
 
 1410
 01:12:10,159 --> 01:12:13,461
 Well, to be honest, I think a lot of the raw values support
+说实话，我认为大量的默认值是
 
 1411
 01:12:13,530 --> 01:12:16,730
 backwards compatibility because in Objective-C enums
+为了向下兼容Objective-C的枚举的
 
 1412
 01:12:16,799 --> 01:12:19,600
 were essentially ints, right? Zero, one, two, three, four,
+基础的整数类型，对吗？0，1，2，3，4，
 
 1413
 01:12:19,669 --> 01:12:22,636
 five. So raw values it's like raw value int. But
+5.因此默认值大部分是整数类型。但是
 
 1414
 01:12:22,705 --> 01:12:25,740
 you could imagine, it might be interesting if there is some
+你可以想象，这可能是有趣的如果一些
 
 1415
 01:12:25,808 --> 01:12:28,776
 piece of data that it makes sense to associate with all
+数据与所有的case进行关联。
 
 1416
 01:12:28,845 --> 01:12:32,279
 the cases. And again it has to be fixed, and constant, and
+它可能是固定的，一个常量，独一无二的。
 
 1417
 01:12:32,348 --> 01:12:35,249
 unique. For all the cases but still you could imagine that.
+所有的case你都可以进行想象。
 
 1418
 01:12:35,317 --> 01:12:42,089
 For example, I kinda saw that maybe this suit raw,
+例如，我能看到花色的值，
 
 1419
 01:12:42,158 --> 01:12:45,660
 this might be a good one. If I made the raw value be string,
+这是一个比较好的方式。如果我把默认值类型设置为字符串类型，
 
 1420
 01:12:45,728 --> 01:12:48,262
 maybe having the Unicode character that represents
+也许有代表花色的Unicode字符。
 
 1421
 01:12:48,331 --> 01:12:51,699
 the suit. Kind of be associated with every case,
+任何与它关联的case，
 
 1422
 01:12:51,767 --> 01:12:54,602
 might be valuable. Now, how can you use raw value?
+值都是有意义的。现在，我们怎么使用默认值呢？
 
 1423
 01:12:54,671 --> 01:12:57,971
 Two ways, one, you can create a suit by providing the raw
+两种方式，第一个，你可以通过默认值创建一个花色。
 
 1424
 01:12:58,040 --> 01:13:01,308
 value. And it looks just like an initializer on suits,
+看起来就像是初始化一样，
 
 1425
 01:13:01,377 --> 01:13:04,678
 suit open parenthesis raw value, that's how you do it.
+大括号里面是默认值，你就这么做。
 
 1426
 01:13:04,747 --> 01:13:07,381
 And you give it like a heart symbol there, and it will give
+你在这里给它一个红心的符号，他就给你返回一个红心。
 
 1427
 01:13:07,450 --> 01:13:09,983
 it back. Now that's a failable initializer cuz you might give
+现在，这是一个失败的初始化因为你可能给了一个未知
 
 1428
 01:13:10,052 --> 01:13:14,254
 it a string like x, that's not one of these four strings. And
+的字符串，他不是这四个字符串中的一个。
 
 1429
 01:13:14,323 --> 01:13:15,990
 you can go the other way as well.
+你也可以用另一种方法。
+
 
 1430
 01:13:16,059 --> 01:13:18,992
 You can, if you have a suit, like suit.spades, you can say,
+你可以，如果你有一个花色，像是suit.spades，你可以说，
 
 1431
 01:13:19,061 --> 01:13:20,461
 what is the raw value? And
+默认值是什么？之后
 
 1432
 01:13:20,530 --> 01:13:23,530
 you can get this string so that might be useful too.
+你可以通过suit.spades得到字符串的值。
 
 1433
 01:13:23,599 --> 01:13:26,067
 We don't really care about that in this demo but
+我们实际不关心它在示例中是什么样的
 
 1434
 01:13:26,135 --> 01:13:28,936
 I just wanted to show you about this raw value business.
+我仅仅是想要给你展示下默认值。
 
 1435
 01:13:29,005 --> 01:13:31,639
 All right, let's go down to Rank. Now, honestly,
+让我们看看下面的牌面大小。现在，说实话，
 
 1436
 01:13:31,707 --> 01:13:34,876
 if I were doing Rank, it would look like this, case ace,
+如果我来做，他将会看起来是这样，case ace,
 
 1437
 01:13:34,944 --> 01:13:39,447
 case two, case three, all the way up to case jack,
+case two, case three,一直到J，
 
 1438
 01:13:39,516 --> 01:13:43,350
 case queen, case king. This is what now,
+Q，K。现在就是这样，
 
 1439
 01:13:43,419 --> 01:13:45,753
 all the ones in between. That's what I would do.
+还有中间的所有数。这就是我要做的。
 
 1440
 01:13:45,821 --> 01:13:47,655
 But I'm not gonna do it this way cuz I wanna
+但是我并不想要这样做因为我想要
 
 1441
 01:13:47,724 --> 01:13:51,392
 show you associated data. This is mostly for demo purposes,
+向你们展示关联值。这主要是出于演示目的，
 
 1442
 01:13:51,461 --> 01:13:53,494
 I would probably just do it as these 13 things.
+我可能会表示13个数。
 
 1443
 01:13:53,562 --> 01:13:56,764
 That was probably the best representation for a rank. But
+这可能是对牌面大小最好的表示。但是
 
 1444
 01:13:56,833 --> 01:13:59,700
 instead, I'm gonna do it with associated data and so
+相反的，我将要用关联值来展示
 
 1445
 01:13:59,769 --> 01:14:01,936
 I'm gonna have case ace, then I'm also
+case ace，然后我会有
 
 1446
 01:14:02,005 --> 01:14:04,438
 gonna have a case face, which is a face card.
+case face，扑克牌是一个人头牌。
 
 1447
 01:14:04,507 --> 01:14:06,974
 And it's gonna have an associated value,
+它有一个关联值，
 
 1448
 01:14:07,043 --> 01:14:10,778
 which is a string, which is either J, Q, or K. So there's
+它是字符串类型，可能是J,Q,K中的一个。这
 
 1449
 01:14:10,846 --> 01:14:13,881
 gonna be a face card that's either jack, queen or king.
+将会变成一个有J,Q和K的人头牌。
 
 1450
 01:14:13,950 --> 01:14:15,349
 Terrible representation,
+多么糟糕的表示，
 
 1451
 01:14:15,418 --> 01:14:18,151
 at the very least this should be another enum,
+这至少又是另一个枚举，
 
 1452
 01:14:18,220 --> 01:14:20,754
 not a string which can be anything. It's kinda silly,
+并不是字符串可以表示任何东西。它看起来有点愚蠢，
 
 1453
 01:14:20,823 --> 01:14:24,525
 but anyway. And then I'm also gonna have case numeric, okay,
+无论如何。我将要有一个case numeric，好的，
 
 1454
 01:14:24,594 --> 01:14:28,162
 for 2, 3, 4, 5, 6, 7, 8, 9, 10. And it's gonna have,
+有2, 3, 4, 5, 6, 7, 8, 9, 10。它们将都会有，
 
 1455
 01:14:28,230 --> 01:14:30,931
 of course, associated data int. Now, I could put in
+当然，关联值是整数类型。现在，
 
 1456
 01:14:30,999 --> 01:14:34,868
 here like pips count, a pip by the way is one of these,
+这里是点数，顺便说一下点数就是这几个中的一个，
 
 1457
 01:14:34,937 --> 01:14:38,238
 a pip on a card is just one of these things. So a numeric
+扑克牌的点数就是这几个。
 
 1458
 01:14:38,307 --> 01:14:42,576
