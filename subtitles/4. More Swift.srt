@@ -5062,7 +5062,7 @@ but in that case you could. Okay, so
 1013
 00:52:53,771 --> 00:52:58,274
 that's string. I guess we'll go like this. So, to
-这就是字符串，就讲到这里。
+这就是字符串，就讲到这里
 
 1014
 00:52:58,342 --> 00:53:02,611
@@ -6484,7 +6484,7 @@ what's going on here. For example, Swift knows that this
 1349
 01:10:44,207 --> 01:10:47,775
 operation thing returns a double. It knows that, so
-operation 返回一个 Double 型，它知道的。
+operation 返回一个 Double 型，它知道的
 
 1350
 01:10:47,843 --> 01:10:50,645
@@ -7089,7 +7089,7 @@ an array. So that array actually has pointers to this
 1470
 01:17:08,925 --> 01:17:13,327
 closure. Now this is a little mind bending. I don't expect
-这里有一点绕弯子。
+这里有一点绕弯子
 
 1471
 01:17:13,395 --> 01:17:16,330
@@ -7989,7 +7989,7 @@ I will be doing views, gestures, multi-touch,
 1650
 01:27:19,735 --> 01:27:24,270
 multiple MVCs, all that. >> For more,
-多 MVC 那些。
+多 MVC 那些
 
 1651
 01:27:24,339 --> 01:27:26,907

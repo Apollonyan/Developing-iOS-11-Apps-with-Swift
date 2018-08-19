@@ -21,7 +21,7 @@ fall of 2017 and 18 academic year.
 5
 00:00:16,516 --> 00:00:19,885
 Today mostly, we're gonna talk about some Swift stuff.
-今天，大部分时间我们将要讨论一些 Swift 的事项
+今天，大部分时间我们将要讨论 Swift
 
 6
 00:00:19,953 --> 00:00:23,321
@@ -31,12 +31,12 @@ Now, you've hopefully done your homework for the reading,
 7
 00:00:23,390 --> 00:00:25,891
 so some of the stuff will be kinda summary, but
-它们当中的一部分内容将会是总结
+所以这节课的一部分将会是总结那些内容
 
 8
 00:00:25,959 --> 00:00:28,560
 some of this is really not covered in the reading.
-而一部分语法并没有在阅读材料中涵盖
+而这节课其他的并没有在阅读材料中涵盖
 
 9
 00:00:28,629 --> 00:00:32,197
@@ -51,12 +51,12 @@ that reading is really great but it is great concise.
 11
 00:00:36,270 --> 00:00:37,201
 I know you probably feel like well,
-我知道你可能会觉得 
+我知道你可能会觉得
 
 12
 00:00:37,270 --> 00:00:39,171
 that was a lot of reading for something that's concise, but
-这里有太多的一些很简明的阅读内容
+要说它简明的话，内容是不是太多了
 
 13
 00:00:39,240 --> 00:00:41,473
@@ -71,7 +71,7 @@ cover some of the other stuff. But before I do all that,
 15
 00:00:43,977 --> 00:00:46,912
 I'm gonna do a little, what I call a teaser demo of
-我要做些小事情，我管它叫做 auto-layout 的预告示例  
+我要做些小事情，我管它叫做 auto-layout 的预告示例
 
 16
 00:00:46,981 --> 00:00:50,115
@@ -305,7 +305,7 @@ line that appears as you move things around as part of this.
 
 62
 00:03:09,556 --> 00:03:12,256
-So I'm gonna change my background from 
+So I'm gonna change my background from
 我要将我的背景
 
 63
@@ -451,7 +451,7 @@ what it does is it will take other views, like let's
 91
 00:04:32,839 --> 00:04:36,508
 say these four buttons and it will stack them together.
-四个按钮，然后把它们堆叠在一起 
+四个按钮，然后把它们堆叠在一起
 
 92
 00:04:36,577 --> 00:04:39,244
@@ -636,7 +636,7 @@ UI designers across all these apps. Also I wanna make sure
 128
 00:06:21,814 --> 00:06:26,317
 that these four buttons get equal amount of space. Okay,
-这四个按钮有着相同的间距。
+这四个按钮有着相同的间距
 
 129
 00:06:26,386 --> 00:06:29,421
@@ -901,7 +901,7 @@ views and the UI like pinning them to each other and
 181
 00:08:52,832 --> 00:08:56,200
 stuff is with control drag. Exact same way that we made
-是通过按住 Control 键拖拽。和我们将 UI 
+是通过按住 Control 键拖拽。和我们将 UI
 
 182
 00:08:56,269 --> 00:08:58,202
@@ -926,7 +926,7 @@ box here to the top. Okay, so I'm just dragging up towards
 186
 00:09:09,115 --> 00:09:11,750
 the top, and when I let go it's going to say, okay,
-当我松开鼠标的时候，它会问，
+当我松开鼠标的时候，它会问
 
 187
 00:09:11,818 --> 00:09:14,619
@@ -1236,7 +1236,7 @@ we want this thing to be above flips. So,
 248
 00:12:23,943 --> 00:12:26,310
 let's work on flips first, let's just get it, so
-让我们先对 Flips 展开工作 
+让我们先对 Flips 展开工作
 
 249
 00:12:26,379 --> 00:12:28,947
@@ -1351,7 +1351,7 @@ And to do that, again, I Control+drag from flips right
 271
 00:13:27,807 --> 00:13:30,808
 here, to the thing I wanted to be in the center of,
-我想要它位于其中心的东西，
+我想要它位于其中心的东西
 
 272
 00:13:30,876 --> 00:13:33,144
@@ -1496,7 +1496,7 @@ that encloses it. It could be anything as long as it's
 300
 00:14:51,457 --> 00:14:54,058
 pinned to the bottom and in the center. And we can
-钉在底部和中央。
+钉在底部和中央
 
 301
 00:14:54,126 --> 00:14:56,160
@@ -1541,7 +1541,7 @@ Because it's size is not constrained.
 309
 00:15:15,147 --> 00:15:17,482
 It's not pinned to anything, only its location. So,
-并没有钉到任何东西上，只有它的位置是。
+并没有钉到任何东西上，只有它的位置是
 
 310
 00:15:17,550 --> 00:15:20,818
@@ -1686,7 +1686,7 @@ builder. Right, remember this button down here that showed
 338
 00:16:46,538 --> 00:16:49,373
 us all these phones? We can say, okay, what's this thing
-所有的手机么？我们可以说，它在 
+所有的手机么？我们可以说，它在
 
 339
 00:16:49,442 --> 00:16:52,810
@@ -1886,7 +1886,7 @@ Properties like flip count and tons of methods all the ones
 378
 00:18:49,862 --> 00:18:53,397
 in concentration in card and view controller. You learned
-Concentration Card ViewController 里所有的方法。
+Concentration Card ViewController 里所有的方法
 
 379
 00:18:53,466 --> 00:18:56,367
@@ -1955,11 +1955,11 @@ remember that? You learned about initializers,
 
 392
 00:19:28,334 --> 00:19:31,001
-we had initializers both for Card 
+we had initializers both for Card
 对于 Card 和
 
 393
-00:19:32,069 --> 00:19: 32,469
+00:19:32,069 --> 00:19:32,469
 and for Concentration
 Concentration来说
 
@@ -1967,7 +1967,7 @@ Concentration来说
 00:19:32,470 --> 00:19:33,870
 they each did different things to get
 我们都实现了构造器，它们每个都做了不同的事情来
-    
+
 395
 00:19:33,940 --> 00:19:36,741
 themselves an initializer. We didn't do initializer for
@@ -2146,7 +2146,7 @@ things I'm gonna talk about here are just a little quick
 430
 00:21:13,873 --> 00:21:17,741
 minor things, asides. I mentioned doing a for
-小事。我提到过用浮点数 
+小事。我提到过用浮点数
 
 431
 00:21:17,810 --> 00:21:22,279
@@ -2216,7 +2216,7 @@ thing, and a by tells you what it strides by. Stride is
 444
 00:22:04,656 --> 00:22:08,492
 function that creates a countable range. Countable
-是一个创建 CountableRange 的函数。
+是一个创建 CountableRange 的函数
 
 445
 00:22:08,561 --> 00:22:11,461
@@ -2256,7 +2256,7 @@ through 15.25, not to 15.25.
 452
 00:22:28,414 --> 00:22:31,581
 It creates one that goes over floats and knows to step by
-它创建了一个知道以 0.3 为幅度跨越的浮点数区间，
+它创建了一个知道以 0.3 为幅度跨越的浮点数区间
 
 453
 00:22:31,650 --> 00:22:34,951
@@ -2301,7 +2301,7 @@ little data structure. And all that tuple is, essentially,,
 461
 00:22:55,641 --> 00:22:59,943
 like a mini struct that has no methods or vars or anything.
-就像一个迷你的没有方法，变量的结构体	
+就像一个迷你的没有方法，变量的结构体
 
 462
 00:23:00,012 --> 00:23:04,114
@@ -2522,7 +2522,7 @@ anything associated with it. It's also very good for
 505
 00:25:11,042 --> 00:25:14,945
 returning multiple values from a function. A function of
-它也是非常好的。
+它也是非常好的
 
 506
 00:25:15,014 --> 00:25:17,781
@@ -2677,7 +2677,7 @@ But it is possible to declare foo like this,
 536
 00:26:48,474 --> 00:26:53,410
 foo Double open curly brace, get with the curly brace, set,
-for: Double { get {} 
+for: Double { get {}
 
 537
 00:26:53,478 --> 00:26:55,445
@@ -2797,7 +2797,7 @@ information in two different vars. Because they can get
 560
 00:28:09,955 --> 00:28:11,755
 out of sync, all kinds of problems happens, so
-无法同步，还有各种各样的问题发生，
+无法同步，还有各种各样的问题发生
 
 561
 00:28:11,824 --> 00:28:14,257
@@ -2812,7 +2812,7 @@ from the other one. Here's an incredibly good example
 563
 00:28:17,829 --> 00:28:21,765
 indexOfOneAndOnlyFaceUpCard in concentration.
-Concentration 中的 indexOfOneAndOnlyFaceUpCard 
+Concentration 中的 indexOfOneAndOnlyFaceUpCard
 
 564
 00:28:21,833 --> 00:28:26,736
@@ -2919,7 +2919,7 @@ should've in the first place, all right?
 So let's go back here to Xcode,
 我们回到 Xcode
 
-585  
+585
 00:29:30,769 --> 00:29:33,971
 here we go bring our code back up, get rid of that.
 把我们的代码拿回来，摆脱掉它
@@ -3166,7 +3166,7 @@ see if I can find one that's gonna be the one I found.
 
 634
 00:32:05,691 --> 00:32:07,490
-So I'm gonna use a for loop here 
+So I'm gonna use a for loop here
 所以我要使用一个 for 循环
 
 635
@@ -3237,7 +3237,7 @@ FaceUpCards then obviously the index of the one and
 648
 00:32:49,968 --> 00:32:53,270
 only FaceUpCard is nil, there's no such thing. And
-是 nil，这里没有这样的东西。
+是 nil，这里没有这样的东西
 
 649
 00:32:53,339 --> 00:32:55,371
@@ -3332,7 +3332,7 @@ for most cards. But in case the index here,
 667
 00:33:50,395 --> 00:33:54,264
 this index equals the new value of this, then I'm gonna
-它等于 newValue，
+它等于 newValue
 
 668
 00:33:54,332 --> 00:33:59,369
@@ -3643,7 +3643,7 @@ another data structure. But if you were doing a lot of work
 729
 00:36:56,481 --> 00:36:58,114
 then you probably want to do set and
-那么你可能想要做 set 和 get 
+那么你可能想要做 set 和 get
 
 730
 00:36:58,182 --> 00:37:01,651
@@ -3654,7 +3654,7 @@ get to make it clear. But otherwise if it is
 731
 00:37:01,720 --> 00:37:06,322
 a var if it seems like a var make it a var. Good question.
-如果它看起来是一个变量就让它成为一个变量。非常好的问题。
+如果它看起来是一个变量就让它成为一个变量。非常好的问题
 
 732
 00:37:06,391 --> 00:37:09,892
@@ -5263,7 +5263,7 @@ then just put the thing you want in there.
 
 1053
 00:53:46,623 --> 00:53:51,560
-Now, it has one very some serious restriction which is 
+Now, it has one very some serious restriction which is
 但是有一个限制是
 
 1054
@@ -5579,7 +5579,7 @@ I put this var arc4random. I have to say what type it is,
 1116
 00:57:24,374 --> 00:57:27,175
 it's also gonna be an int. It could could be a string or
-它也是 Int 类型的。扩展里的变量也可以是 String 
+它也是 Int 类型的。扩展里的变量也可以是 String
 
 1117
 00:57:27,244 --> 00:57:29,411
