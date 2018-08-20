@@ -7284,359 +7284,446 @@ here like pips count, a pip by the way is one of these,
 1457
 01:14:34,937 --> 01:14:38,238
 a pip on a card is just one of these things. So a numeric
-扑克牌的点数就是这几个。
+扑克牌的点数就是这几个。一个带数字的卡片有
 
 1458
 01:14:38,307 --> 01:14:42,576
 card has 2 pips on it, 2 has 2 pips, 3 has 3 pips and so on.
+两个点在上面，2有2个点，3有三个点，等等。
 
 1459
 01:14:42,645 --> 01:14:45,479
 So I could put pipsCount here as documentation. But you know
+所以我把 pipsCount 放在这里。 但是你知道吗，
 
 1460
 01:14:45,547 --> 01:14:48,115
 what, you actually don't wanna do that if it's completely
+你其实不想这样做如果你
 
 1461
 01:14:48,183 --> 01:14:51,752
 obvious what this would be. And if I had a numeric rank,
+完全明白这是什么。如果numeric在rank中，
 
 1462
 01:14:51,820 --> 01:14:54,521
 it's completely obvious that this is the number, so I do
+它显然是一个数字，所以我不需要这样做。
 
 1463
 01:14:54,590 --> 01:14:57,624
 not need that. Now, it's not very obvious what this is but
+现在它是不明显的
 
 1464
 01:14:57,693 --> 01:15:00,193
 as I already told you, this is a bad representation anyway.
+但是我已经告诉你了，这是一个很糟糕的表示方式。
 
 1465
 01:15:00,262 --> 01:15:01,562
 But I just wanna show you what it looks like to
+但是我想向你展示
 
 1466
 01:15:01,631 --> 01:15:04,164
 get the associated data out of here and use it, etc.
+获取关联值的方法跟使用它的方法，等等。
 
 1467
 01:15:04,233 --> 01:15:07,667
 For example, rank is an enum, it can have funcs,
+例如，rank 是一个枚举，它可以有函数，
 
 1468
 01:15:07,736 --> 01:15:11,872
 I could have funcs and vars on here. So I'm gonna have a var
+我可以在这创建函数跟变量。我将要
 
 1469
 01:15:11,940 --> 01:15:16,210
 called order which is an int, which is gonna return the,
+创建一个名为 order 的整数类型的变量，它是一个返回，
 
 1470
 01:15:16,278 --> 01:15:19,780
 which position the rank is in the order. So
+它在 order 中返回牌的位置。因此
 
 1471
 01:15:19,848 --> 01:15:24,518
 I'm gonna switch on myself and if I am an ace, I'm gonna
+我创建一个 switch 并有了一个 ace ，我返回
 
 1472
 01:15:24,587 --> 01:15:27,655
 return 1 cuz that's the first, that's card number 1,
+1因为它是第一个，它的卡片数字是1，
 
 1473
 01:15:27,723 --> 01:15:32,960
 right? If I am a numeric, then I'm going to get my
+对吗？如果我有数字类型卡片，返回
 
 1474
 01:15:33,028 --> 01:15:37,831
 number of pips. And I'm gonna return the number of pips.
+点数。我会返回上面的点数。
 
 1475
 01:15:37,900 --> 01:15:40,467
 Cuz if I'm an numeric card, then however many pips I have,
+如果我是带数字的扑克，我有很多的点数，
 
 1476
 01:15:40,536 --> 01:15:43,904
 that's my number. And then for face,
+点数就是数字。对于人头牌，
 
 1477
 01:15:43,973 --> 01:15:47,775
 I'm gonna say case .face, and I'm gonna, whoops,
+我要说下 case .face ，我将要，
 
 1478
 01:15:47,843 --> 01:15:53,113
 get the kind, Q or J, or K. Now, I'v got the kind,
+得到，Q后者J，或者K。现在，我已经得到了，
 
 1479
 01:15:53,182 --> 01:15:57,952
 I guess I could say, I'm gonna go to the next line and
+我想我可以这么说。我将会到下一行并且说，
 
 1480
 01:15:58,021 --> 01:16:02,556
 say, if the kind equals J, then return 11. And
+如果是J类型，就返回11。
 
 1481
 01:16:02,624 --> 01:16:06,359
 then I guess I could go else if the kind. Okay, but I'm,
+我感觉我可以继续其他的类型。但是，
 
 1482
 01:16:06,428 --> 01:16:09,362
 this is getting terrible. This is gonna be ugly, awful code.
+这看起来是糟糕的。它是丑陋的，可怕的代码。
 
 1483
 01:16:09,431 --> 01:16:12,332
 But turns out there's a lot better way to do all this
+事实证明这里有个更好的方法来做这些事情
 
 1484
 01:16:12,401 --> 01:16:16,770
 which is to go here and say. If it's face where I get
+我们在这里将说一下这个方法。如果我得到了
 
 1485
 01:16:16,839 --> 01:16:23,677
 the kind where kind equals J, then return 11.
+人头牌J，接着返回11。
 
 1486
 01:16:23,745 --> 01:16:26,613
 So this stuff with switch is actually a pattern matching
+所以switch是一个模式匹配
 
 1487
 01:16:26,682 --> 01:16:29,416
 language, which you can go and learn about.
+语言，你可以去了解一下。
 
 1488
 01:16:29,485 --> 01:16:32,219
 But one of the things it's able to do is where.
+但是一些事情也可以用where来做。
 
 1489
 01:16:32,288 --> 01:16:35,055
 Where it can kind of narrow this down a little bit.
+Where可以把它缩小一点。
 
 1490
 01:16:35,124 --> 01:16:39,794
 So now I could do that for all three here, the Q and
+现在我可以用这个方式用到这三行，Q和
 
 1491
 01:16:39,862 --> 01:16:43,264
 the king, and return. That's why you can see
+K，返回。这就是原因
 
 1492
 01:16:43,332 --> 01:16:45,900
 why I use this terrible string representations, so
+为什么我用这么糟糕的代码，因为
 
 1493
 01:16:45,968 --> 01:16:48,969
 I can show you where. Now, notice when I do this,
+我想给你们展示下where。现在，注意我这里的做法，
 
 1494
 01:16:49,038 --> 01:16:52,105
 I still get this complaint, switch must be exhaustive.
+我看到了一个错误，switch 必须是详细的。
 
 1495
 01:16:52,174 --> 01:16:54,341
 And it's like, what? Look I do ace, I do numeric,
+什么？我有 ace ，有 numeric ,
 
 1496
 01:16:54,410 --> 01:16:56,643
 I do face, how come it's not exhaustive?
+我有 face ，我为什么不详细？
 
 1497
 01:16:56,712 --> 01:16:58,545
 Well, because where makes it so
+因为
 
 1498
 01:16:58,614 --> 01:17:02,649
 these are not counting every possible combination of where.
+这里没有考虑到所有的组合。
 
 1499
 01:17:02,718 --> 01:17:05,719
 It could be, the kind could be something else. So, of course,
+它可能，还有其他的情况。当然，
 
 1500
 01:17:05,788 --> 01:17:08,121
 I have to add here a default break, or
+我需要添加一个默认的情况，
 
 1501
 01:17:08,190 --> 01:17:10,624
 actually I have to return something, so I'll return 0.
+而且必须有一个返回值，因此我返回0。
 
 1502
 01:17:10,693 --> 01:17:13,994
 This is also bad design. This probably wants to return nil,
+这里照样是一个糟糕的设计。这里可能想要返回 nil ，
 
 1503
 01:17:14,063 --> 01:17:16,697
 and this wants to be an optional. That would be better
+可能想要成为一个可选的。那样可能是一个好的设计， 
 
 1504
 01:17:16,766 --> 01:17:19,233
 design, I'm not gonna do it that way. But just so
+我不会用哪种方法。但是仅仅
 
 1505
 01:17:19,302 --> 01:17:23,170
 you know, that's bad. I could also have static vars here,
+让你知道，这个是糟糕的。我可以在这里设置一个静态变量，
 
 1506
 01:17:23,239 --> 01:17:26,740
 maybe I have a static var, which is all the ranks which
+或许我有一个静态变量，它储存了所有的牌面大小
 
 1507
 01:17:26,809 --> 01:17:30,510
 returns an array of every single possible rank.
+为每一个牌面返回一个数组。
 
 1508
 01:17:30,579 --> 01:17:33,047
 And I'm gonna have to kind of build that up cuz I have all
+我必须建立起来因为我有一些
 
 1509
 01:17:33,115 --> 01:17:35,883
 these weird data structure here. So I'll create something
+奇怪的数据结构。我将要创建
 
 1510
 01:17:35,952 --> 01:17:40,955
 called allRanks which could be a type array of ranks. And
+被叫做 allRanks 的东西它是所有的牌面大小的数组。
 
 1511
 01:17:41,023 --> 01:17:44,825
 let's start it out with and ace, notice here by the way
+让我们从 ace 开始，注意这顺便说一下
 
 1512
 01:17:44,893 --> 01:17:49,629
 that I have to type this side here. It can't really
+我必须把类型放这边。它不能
 
 1513
 01:17:49,698 --> 01:17:52,633
 deduce this. If I took this away right here, let's get
+推断出类型。如果我把它放到右边，让我们把这些
 
 1514
 01:17:52,701 --> 01:17:55,869
 these other warnings off here, I'll return them allRanks.
+警告去掉，我返回 allRanks。
 
 1515
 01:17:55,938 --> 01:17:59,039
 If I took this typing right here, this static typing away,
+如果我把类型放到右边，它就是一个静态类型，
 
 1516
 01:17:59,108 --> 01:18:01,975
 I'm gonna get an error that it can't infer this type.
+我们会得到的错误是不能推断出它的类型。
 
 1517
 01:18:02,044 --> 01:18:05,012
 And that's because there might be another enum that has
+那是因为这里可能是其他的枚举拥有
 
 1518
 01:18:05,081 --> 01:18:07,381
 a case of .ace. So how does it know the,
+的 .ace 。因此它知道吗，
 
 1519
 01:18:07,450 --> 01:18:10,584
 which array of enums this is? That's why it's saying type
+这是哪一个枚举的数组？这就是为什么它说
 
 1520
 01:18:10,653 --> 01:18:13,187
 expression is ambiguous without more context. So
+没有更多的上下文表达式类型是模棱两可的。
 
 1521
 01:18:13,255 --> 01:18:15,055
 I can add more context by putting that type.
+我可以把类型放到这添加更多的上下文。
 
 1522
 01:18:15,124 --> 01:18:19,160
 I could also say rank.ace, that would add more context.
+我可以说 rank.ace ，它将添加更多上下文。
 
 1523
 01:18:19,228 --> 01:18:22,730
 And now it knows it's an array of ranks. So
+现在他知道了是牌面大小的数组。
 
 1524
 01:18:22,798 --> 01:18:27,234
 now let's also do for pips in 2...10, remember dot, dot,
+让我们用 for 循环，记住点，点，
 
 1525
 01:18:27,303 --> 01:18:31,105
 dot without the less than means including the 10. And
+点没有小于号意思是包括10。
 
 1526
 01:18:31,173 --> 01:18:35,976
 now I can say, allRanks.append, Rank.numeric
+现在我可以说，allRanks.append, Rank.numeric(pips)。
 
 1527
 01:18:36,045 --> 01:18:40,748
 with that pips. So now I've added all my numeric ones, and
+我现在已经添加了所有的数字牌面，
 
 1528
 01:18:40,817 --> 01:18:43,784
 then maybe for the thing, face card ones I'll
+下一步的事，人头牌
 
 1529
 01:18:43,853 --> 01:18:47,822
 just say allRanks plus equals an array that has rank.face,
+allRanks+=[Rank.face("J")]。
 
 1530
 01:18:47,890 --> 01:18:53,627
 where the kind is a J. And then I'll just copy and
+接下来复制
 
 1531
 01:18:53,696 --> 01:18:58,999
 paste, copy, oops, paste, copy, paste and
+粘贴，逗号，粘贴复制，粘贴
 
 1532
 01:18:59,068 --> 01:19:03,536
 we'll do the Q and the king. By the way, if I do this,
+来添加QK。顺便说一下，如果我这么做，
 
 1533
 01:19:03,605 --> 01:19:06,440
 I only really need to put this Rank dot on the first one and
+我必须将 Rank. 放到第一个位置并且
 
 1534
 01:19:06,509 --> 01:19:10,478
 it can infer the rest of them.
+剩下的可以推断出来。
 
 1535
 01:19:12,047 --> 01:19:16,049
 Dots though means dots. So I don't need rank dot, because
+点的意思是点。我不需要 rank. ，因为
 
 1536
 01:19:16,118 --> 01:19:18,852
 it figured out pretty quick this is an array of ranks.
+它很快发现这是一个牌面大小数组。
 
 1537
 01:19:18,920 --> 01:19:23,590
 These are all ranks, so it works. I could do the same all
+这是所有的牌面大小，它可以了。我将会做以相同的事情
 
 1538
 01:19:23,659 --> 01:19:26,693
 thing up here by the way, too. I could have a static var all.
+创建一个 all在这。创建一个静态变量 all 。
 
 1539
 01:19:26,762 --> 01:19:29,163
 I make it static because I'm getting all of them here.
+我让它为静态的原因是我想要得到所有的。
 
 1540
 01:19:29,232 --> 01:19:30,764
 I'm not talking about a specific one so
+我不会讨论某一个具体的花色
 
 1541
 01:19:30,832 --> 01:19:32,900
 I want them all. So this would be,
+因此我想要的是全部。这将会，
 
 1542
 01:19:32,969 --> 01:19:37,037
 we'll do the same thing here. A rank of suit.spades,
+我们这这里做相同的事情。suit.spades ，
 
 1543
 01:19:37,106 --> 01:19:42,042
 .hearts, .diamonds, and .clubs,
-
+.hearts， .diamonds， and .clubs，
 1544
 01:19:42,110 --> 01:19:46,646
 oops, hello .clubs. So this is kind of nice to have
+这就是静态变量的好处
 
 1545
 01:19:46,715 --> 01:19:49,416
 this static bar which gives me all the suits, all the ranks.
+它可以给我所有的花色，所有的牌面大小。
 
 1546
 01:19:49,484 --> 01:19:52,586
