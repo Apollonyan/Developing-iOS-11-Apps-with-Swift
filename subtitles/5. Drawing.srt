@@ -7728,90 +7728,112 @@ this static bar which gives me all the suits, all the ranks.
 1546
 01:19:49,484 --> 01:19:52,586
 That's gonna make it a lot easier actually to create our
+用这种方法非常简单来创建
 
 1547
 01:19:52,655 --> 01:19:55,989
 playing card deck so let's do that. So we've got this nice
+一副扑克牌因此让我们这么做。我们已经得到一个好的
 
 1548
 01:19:56,058 --> 01:19:58,492
 representation, not so nice, but somewhat nice,
+表示方式，不是非常好，但是部分挺好的，
 
 1549
 01:19:58,561 --> 01:20:01,361
 representation of a playing card. Let's go ahead and
+在 playing card 游戏中。让我们继续
 
 1550
 01:20:01,430 --> 01:20:06,099
 make a deck, so I'm gonna make a New File. A new thing
+做下去，我创建一个新的文件。
 
 1551
 01:20:06,168 --> 01:20:10,737
 here it's gonna be a PlayingCardDeck.
+名字是 PlayingCardDeck 。
 
 1552
 01:20:10,806 --> 01:20:15,075
 Here it is, struct also no reason for not to be
+在这里，结构体来表示
 
 1553
 01:20:15,143 --> 01:20:19,713
 PlayingCardDeck. And, what do I wanna playing card deck.
+PlayingCardDeck 。创建扑克牌还有什么呢。
 
 1554
 01:20:19,782 --> 01:20:21,982
 Well, of course I'm gonna need a var which is
+当然我需要一个 cards 
 
 1555
 01:20:22,051 --> 01:20:24,818
 the cards in the deck. Right, so
+的变量在 deck 中。
 
 1556
 01:20:24,887 --> 01:20:28,322
 I'm just gonna make that V an array of playing card,
+我让它为 cards = [PlayingCard]() ，
 
 1557
 01:20:29,791 --> 01:20:35,062
 probably want this to be private set. Okay,
+或许设置它为 private(set) 。好，
 
 1558
 01:20:35,130 --> 01:20:37,931
 where I control the cards because it's gonna be start up
+这里我这样控制的原因是一副牌是
 
 1559
 01:20:38,000 --> 01:20:41,168
 being a full deck. And then I probably want some function,
+游戏的开始。我需要一个函数，
 
 1560
 01:20:41,237 --> 01:20:45,271
 like draw which grabs a PlayingCard out of there. So
+就像 draw 它返回一个 PlayingCard 。
 
 1561
 01:20:45,340 --> 01:20:48,341
 that's how you take a playing card out of the deck. So
+怎么返回一个 PlayingCard 呢。
 
 1562
 01:20:48,410 --> 01:20:51,712
 how would I implement drawing the card out of there? Well,
+我们如何实现 draw 这个方法呢？
 
 1563
 01:20:51,781 --> 01:20:54,548
 I'm just gonna say, let's see what I remember,
+我刚才说了，让我看看，
 
 1564
 01:20:54,616 --> 01:20:58,252
 I think I used something from Concentration to do this.
+我可以用 Concentration 中的一些东西。
 
 1565
 01:20:58,321 --> 01:21:00,420
 Check I did. Yeah, I did. Okay, so here,
+我检查下，我找到了，好，就是这，
 
 1566
 01:21:00,489 --> 01:21:04,024
 I'm just gonna see if I have any cards.
+如果我有一些扑克。
 
 1567
 01:21:04,093 --> 01:21:09,029
 Then I'm going to return cards.remove at: hover many
+我返回 cards.remove(at:cards.count.arc4random) 。
 
 1568
 01:21:09,097 --> 01:21:13,667
@@ -7820,414 +7842,516 @@ cards I have .count.arc4random. So,
 1569
 01:21:13,736 --> 01:21:18,939
 I need to go over to Concentration.
+我需要到 Concentration 。
 
 1570
 01:21:19,007 --> 01:21:21,342
 Here's concentration down at the bottom here.
+滑到 concentration 底部。
 
 1571
 01:21:21,410 --> 01:21:23,944
 We have arc4random. So I'm just gonna grab that out
+我有一个 arc4random 。我在这里抓住
 
 1572
 01:21:24,013 --> 01:21:28,648
 of here. Put that in here, so I can use arc4random there,
+它。把它放到这，我现在可以使用了。
 
 1573
 01:21:28,717 --> 01:21:33,286
 if I don't have any cards left then I'm gonna return nil, so
+如果 cards 没有内容返回 nil ，
 
 1574
 01:21:33,355 --> 01:21:36,056
 I better make this draw our return an optional playing
+我最好让这个 draw 的返回值时可选的。
 
 1575
 01:21:36,124 --> 01:21:39,426
 card. Okay, so that way people can't add more
+好，用这种方法人们就不能添加卡片
 
 1576
 01:21:39,495 --> 01:21:41,795
 cards to my deck I just start out with a full deck.
+到我的牌组中我仅仅是从我的牌组开始。
 
 1577
 01:21:41,864 --> 01:21:44,031
 Okay, I get start out with a full deck so
+我是从一副牌组开始的因此
 
 1578
 01:21:44,099 --> 01:21:47,200
 I better have an init that does that, init is really easy
+我最好用一个初始化方法来实现，初始化方法非常简单
 
 1579
 01:21:47,269 --> 01:21:50,604
 to write given our nice plain card structure, sorry,
+就可以写到 card 结构体重，对不起，
 
 1580
 01:21:50,673 --> 01:21:54,041
 this warning here, cannot use mutating member on immutable
+这有个警告，不能使用可修改的成员在不可修改的方法中，
 
 1581
 01:21:54,110 --> 01:21:57,377
 thing, everybody knows why that is. This is a struct,
+每个人知道这是什么意思。这是个结构体，
 
 1582
 01:21:57,446 --> 01:22:00,780
 it's a value type, this mutated by removing a card,
+一个值类型，删除方法导致了修改，
 
 1583
 01:22:00,849 --> 01:22:03,817
 so we have to say this is a mutating mark,
+我们加个可以修改的标记，
 
 1584
 01:22:03,886 --> 01:22:07,187
 another good example doing that. All right, so
+之前有过这样的例子。好的，
 
 1585
 01:22:07,256 --> 01:22:10,991
 here I'm just gonna go through all my suits for
+我将要遍历 suit ，suit for Suit.all ，
 
 1586
 01:22:11,059 --> 01:22:15,462
 suit in Suit.all, and for rank in Rank.all, okay,
+rank for Rank.all ，好，
 
 1587
 01:22:15,531 --> 01:22:19,833
 then now all these alls that we did, but of course look
+这就是我们将要做的所有东西，但是看看
 
 1588
 01:22:19,902 --> 01:22:24,505
 where I put suit, if you look at PlayingCard over here, I
+suit 的位置，在 PlayingCard 的这里，把 suit 放到了
 
 1589
 01:22:24,573 --> 01:22:28,508
 put suit inside Playingcards. See I declared it inside,
+Playingcards 里面。可以看到我在里面声明，
 
 1590
 01:22:28,577 --> 01:22:32,379
 so Swift allows you to nest types, put types in other
+Swift 允许嵌套类型，把类型放到
 
 1591
 01:22:32,447 --> 01:22:35,048
 side. Which makes perfect sense here, because Suit
+一边。它在这里很有意义，因为 Suit
 
 1592
 01:22:35,117 --> 01:22:37,884
 only makes sense in the context of the PlayingCards,
+只有在 PlayingCards 的环境中才有意义，
 
 1593
 01:22:37,953 --> 01:22:41,187
 it just makes perfect sense. But it does change the name of
+它非常有意义。但是也改变了
 
 1594
 01:22:41,256 --> 01:22:44,324
 the Suit, it's no longer called suit,
+Suit 的命名，不再为 suit ，
 
 1595
 01:22:44,393 --> 01:22:49,563
 it's called PlayingCard.Suit. Playing Card.Suit and
+是 PlayingCard.Suit 。PlayingCard.Suit 喝 
 
 1596
 01:22:49,631 --> 01:22:55,668
 this is PlayingCard.Rank, PlayingCard.Rank.
+PlayingCard.Rank ，PlayingCard.Rank 。
 
 1597
 01:22:55,737 --> 01:22:57,838
 So nesting just changes the names of things and
+嵌套仅仅改变了名字并且
 
 1598
 01:22:57,907 --> 01:22:59,572
 the accessibility can do private and
+访问也可以是 private 而且
 
 1599
 01:22:59,641 --> 01:23:02,742
 stuff like that you might not be able to see it. So now that
+你可能无法看见他。
 
 1600
 01:23:02,811 --> 01:23:07,214
 I have that I can just have my cards append a playing card,
+cards.append(PlayingCard)，
 
 1601
 01:23:07,283 --> 01:23:10,617
 now PlayingCard since it is a struct is going to get this
+PlayingCard 它是个结构体它会自动获取
 
 1602
 01:23:10,686 --> 01:23:13,820
 automatic initializer, you see it right there, so
+初始化方法，你可以看见，
 
 1603
 01:23:13,889 --> 01:23:16,823
 I'll double click on this to get that. And
+我双击来得到它。
 
 1604
 01:23:16,892 --> 01:23:20,460
 the Suit is just gonna be the Suit that I'm for in-ing and
+Suit 是循环中的suit 并且
 
 1605
 01:23:20,529 --> 01:23:22,196
 the rank is the rank I'm for in-ing.
+rank 是循环中的 rank 。
 
 1606
 01:23:22,264 --> 01:23:25,732
 So now you can also see the nice context here and
+现在你可以看到一个不错的上下文和
 
 1607
 01:23:25,800 --> 01:23:27,167
 the nice syntax of for
+不错的语法
 
 1608
 01:23:27,235 --> 01:23:30,904
 in when this is an array. These are arrays.
+在数组循环中。这就是数组。
 
 1609
 01:23:30,973 --> 01:23:33,206
 We're just going through each element of the array, right.
+它将会遍历数组中的每一个元素。
 
 1610
 01:23:33,275 --> 01:23:35,041
 Remember that these are arrays right here? See,
+在这里记住这个数组了吗？看，
 
 1611
 01:23:35,110 --> 01:23:39,646
 this is an array for Suits. This is an array that we made
+这是一个 Suits 数组。这是我们创建的
 
 1612
 01:23:39,715 --> 01:23:44,218
 for Ranks. All right. So that's it. Now, last thing I'm
+Ranks 数组。现在，最后我要做的是
 
 1613
 01:23:44,286 --> 01:23:46,953
 gonna do here is just print out some cards in my deck to
+打印一些扑克牌信息
 
 1614
 01:23:47,022 --> 01:23:50,057
 make sure it's working. Kind of a cool place to put testing
+来确定代码可以使用。有一个很酷的地方放测试
 
 1615
 01:23:50,125 --> 01:23:52,759
 code is back in your View Controller. Okay, if you look
+代码那就是 View Controller 。好，你看到
 
 1616
 01:23:52,827 --> 01:23:54,828
 at your View Controller you got this two frame methods.
+你的 View Controller 有两个视图的方法。
 
 1617
 01:23:54,897 --> 01:23:55,662
 I'm gonna get rid of that one.
+我去掉其中一个。
 
 1618
 01:23:55,730 --> 01:23:58,031
 But I'm gonna keep this one which was mentioned in your
+我们保留在家庭作业中提到的这一个。
 
 1619
 01:23:58,100 --> 01:24:01,468
 homework. This is, viewDidLoad is a great place to like
-
+这是，viewDidLoad 是一个好地方来
 1620
 01:24:01,537 --> 01:24:02,869
 initialize your View Controller. And
+初始化你的 View Controller 。
 
 1621
 01:24:02,938 --> 01:24:05,906
 also just put like debugging code, checking things out,
+也可以放一些调试代码，检测代码，
 
 1622
 01:24:05,974 --> 01:24:08,341
 things like that. So, here I could do for example,
+就像这个一样，这里我展示一个示例，
 
 1623
 01:24:08,410 --> 01:24:10,810
 let's just print out 10 random cards. I'm gonna say for
+让我们打印随机的10张扑克。这里用
 
 1624
 01:24:10,879 --> 01:24:13,313
 under bar, cuz I really didn't care about the index,
+下划线，因为我不关系它的索引值，
 
 1625
 01:24:13,381 --> 01:24:19,152
 in 1...10 cuz I want 10 cards. I'm just going to let card
+用1...10因为我想要10张扑克。我想要
 
 1626
 01:24:19,221 --> 01:24:23,290
 equal a playing card deck, so I need a playing card deck,
+card = playing card ，因此我需要一个 playing card ，
 
 1627
 01:24:23,359 --> 01:24:27,861
 var deck = PlayingCardDeck. So I'm just
+var deck = PlayingCardDeck 。所以
 
 1628
 01:24:27,930 --> 01:24:33,233
 gonna let the card = deck.draw.
+ let the card = deck.draw 。
 
 1629
 01:24:34,703 --> 01:24:38,271
 Now, this is going to be an optional playing card right
+现在，playing card 是可选的
 
 1630
 01:24:38,340 --> 01:24:40,840
 here, right? Optional playing card because the deck might be
+对吗？可选的 playing card 是因为 一副扑克牌可能是空的，
 
 1631
 01:24:40,909 --> 01:24:43,643
 empty, so let's go and say if let, although I probably could
+让我们改成 let ，尽管如此我可能
 
 1632
 01:24:43,712 --> 01:24:45,912
 put exclamation point cuz I'm only grabbing 10 cards.
+直接放一个感叹号因为我们就只有10张牌。
 
 1633
 01:24:45,981 --> 01:24:48,982
 I know there's 52 cards in a deck, but we'll do if. And
+我知道一副牌有52张，但是我还是要这么做。
 
 1634
 01:24:49,051 --> 01:24:52,219
 now I'm just gonna print this card out. And
+我仅仅是打印这些扑克牌。
 
 1635
 01:24:52,287 --> 01:24:56,089
 I can print a card by using this backslash parenthesis.
+我可以通过反斜杠括号来打印扑克牌。
 
 1636
 01:24:56,158 --> 01:25:00,093
 Swift knows how to print out things that have,
+Swift 知道如何打印，
 
 1637
 01:25:00,162 --> 01:25:02,128
 we'll see what it tries to print out when we,
+我们将要看到运行的时候代码尝试打印什么，
 
 1638
 01:25:02,197 --> 01:25:05,666
 when we do this here. So let's try that and see what happens.
+我们这样做。让我们看看会发生什么，
 
 1639
 01:25:05,734 --> 01:25:08,301
 So I have no UI's, so this could be a blank UI but
+我没有 UI ，它可能是空白的但是
 
 1640
 01:25:08,370 --> 01:25:11,371
 it's gonna print this stuff out on my console so I really
+它将会在控制台上打印东西因此
 
 1641
 01:25:11,440 --> 01:25:16,276
 only need to just look at my console here, Right, so
+我只需要看着控制台。
 
 1642
 01:25:16,344 --> 01:25:20,580
 there's my thing here, so here it is printing it out,and
+这就是我的东西，这就是打印的东西，
 
 1643
 01:25:20,649 --> 01:25:25,452
 it prints out 10 random cards, kind, ugly looking right here,
+它随机打印了10张扑克，这看起来有点丑，
 
 1644
 01:25:25,521 --> 01:25:29,223
 it prints out all the vars and etc. One thing that's really
+它打印了各种变量信息等等。有一件事情很酷
 
 1645
 01:25:29,291 --> 01:25:32,358
 cool that I don't have time to show unfortunately,
+但是不幸的是我们没有时间展示，
 
 1646
 01:25:32,427 --> 01:25:35,662
 cuz we've already gone over but I'll just mention it,
+因为我们将要结束这堂课了但是我会提到它，
 
 1647
 01:25:35,731 --> 01:25:38,632
 is that you can make it so that something prints out
+你可以让让它打印的好看一点
 
 1648
 01:25:38,700 --> 01:25:41,401
 really nice when it's got that parenthesis,
+当有括号，
 
 1649
 01:25:41,469 --> 01:25:44,937
 backslash parenthesis, by making it implement the custom
+反斜杠括号的时候，实现一个字符串
 
 1650
 01:25:45,006 --> 01:25:48,741
 string convertible protocol. So if we made playing card
+转换协议。如果我们让 playing card 实现
 
 1651
 01:25:48,810 --> 01:25:51,478
 implement custom string protocol,
+自定义协议，
 
 1652
 01:25:51,547 --> 01:25:54,848
 the only thing that's in that if we do fix it,
+还有件事就是要修复它，
 
 1653
 01:25:54,916 --> 01:25:58,585
 we'll see what it is, is this var description and
+我们看看这是什么，是变量的描述
 
 1654
 01:25:58,654 --> 01:26:02,489
 you can return, like here I could return for example
+和你能够返回的东西，我可以返回一个花色与
 
 1655
 01:26:02,558 --> 01:26:06,559
 a combination of the Rank and the Suit, and then I can go
+牌面大小结合的值，我也可以
 
 1656
 01:26:06,628 --> 01:26:11,231
 make custom string convertible for Rank and Suit down here.
+自定义花色跟牌面大小转换的字符串。
 
 1657
 01:26:12,734 --> 01:26:18,104
 Comma CustomStringConvertible. Implement the description in
+在这里实现。实现 description 在这里。
 
 1658
 01:26:18,173 --> 01:26:23,309
 there as well. Okay, which I'm trying to do, so
+好，这就是我要做的，
 
 1659
 01:26:23,378 --> 01:26:27,447
 we will go here, we will put description, we will go here,
+我们到这里，放置 description ，到那里，
 
 1660
 01:26:27,515 --> 01:26:31,518
 we will put the description, and we would implement these
+放置 description ，我们将实现这两个
 
 1661
 01:26:31,586 --> 01:26:35,989
 two vars, and then when we print out, it would print this
+变量，然后我们打印他，它将打印一个拼接的
 
 1662
 01:26:36,057 --> 01:26:39,392
 nice string with two nice strings with that.
+好看的字符串。
 
 1663
 01:26:39,461 --> 01:26:42,128
 Now, we wouldn't get all that really verbose printing out.
+现在，我们不会得到冗余的打印。
 
 1664
 01:26:42,197 --> 01:26:45,398
 So CustomStringConvertible is a nice protocol to implement
+CustomStringConvertible 是一个不错的协议来实现
 
 1665
 01:26:45,467 --> 01:26:49,902
 if you want things to print nice in the console. Okay, so
+你想要控制台打印的一些好的东西。好的，
 
 1666
 01:26:49,971 --> 01:26:52,105
 that's it. I will see you on Wednesday.
+这就是。我们将周三见。
 
 1667
 01:26:52,173 --> 01:26:56,009
 We will dive into doing the M or the V and C part,
+我将做M或者V还有C部分，
 
 1668
 01:26:56,078 --> 01:26:57,311
 which is to draw a playing card.
+来画扑克牌。
 
 1669
 01:26:57,379 --> 01:26:58,678
 And we'll learn all of that custom views and
+我们将学更多的自定义视图，
 
 1670
 01:26:58,747 --> 01:27:01,881
 all that, I know there is more to touch after that.
+之后还有 touch 的内容。
 
 1671
 01:27:01,950 --> 01:27:03,616
 See you then. >> For
+下次再见
 
 1672
 01:27:03,685 --> 01:27:13,092
