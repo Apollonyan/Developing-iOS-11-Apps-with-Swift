@@ -71,11 +71,11 @@ cover some of the other stuff. But before I do all that,
 15
 00:00:43,977 --> 00:00:46,912
 I'm gonna do a little, what I call a teaser demo of
-我要做些小事情，我管它叫做 auto-layout 的预告示例
+我要做个简单的，我管它叫做 Auto Layout 的预告示例
 
 16
 00:00:46,981 --> 00:00:50,115
-auto-layout where I'm gonna show you how we can make
+Auto Layout where I'm gonna show you how we can make
 在这里我将展示，在翻牌游戏中
 
 17
@@ -95,8 +95,8 @@ whatever. I call it a teaser because I don't intend to
 
 20
 00:01:01,295 --> 00:01:04,295
-teach you auto layout which is the feature that allows
-教你 auto layout 的内容，是它的特性才让我们
+teach you Auto Layout which is the feature that allows
+教你 Auto Layout 的内容，虽然正是它才让我们
 
 21
 00:01:04,364 --> 00:01:06,765
@@ -106,17 +106,17 @@ us to do that. It's just to show you what's possible.
 22
 00:01:06,833 --> 00:01:09,034
 We'll actually have a whole lecture on auto
-事实上我们会在三周后有完整的关于 auto layout
+事实上我们会在三周后有完整的关于 Auto Layout
 
 23
 00:01:09,103 --> 00:01:13,204
 layout in about three weeks I think. But then,
-的一堂课。那时候
+的一堂课。除此之外
 
 24
 00:01:13,273 --> 00:01:15,907
 after I do that little demo, I'll be back. I'm first gonna
-在我做完那个小示例程序之后，我就会回来。我会
+在做完那个小示例程序之后，我就会回归主题。我会
 
 25
 00:01:15,976 --> 00:01:18,577
@@ -131,7 +131,7 @@ learned by what we did last week and I'm literally just
 27
 00:01:21,582 --> 00:01:24,482
 gonna read it off a list with quick examples. And you can
-通过一个个快速的例子念一条条的内容
+照着列表过一遍，每条都有个简单的例子
 
 28
 00:01:24,551 --> 00:01:26,818
@@ -160,8 +160,8 @@ of various Swift things. So let's start with this demo I
 
 33
 00:01:38,232 --> 00:01:41,232
-was talking about, this auto-layout demo.
-auto-layout 示例程序开始吧
+was talking about, this Auto Layout demo.
+Auto Layout 示例程序开始吧
 
 34
 00:01:41,301 --> 00:01:45,770
@@ -1550,8 +1550,8 @@ its size will get as big, or small it needs to to contain
 
 311
 00:15:20,887 --> 00:15:23,521
-its stuff. And now, we see we have no auto layout issues.
-来变大或变小。现在我们就没有了 auto-layout 的问题
+its stuff. And now, we see we have no Auto Layout issues.
+来变大或变小。现在我们就没有了 Auto Layout 的问题
 
 312
 00:15:23,590 --> 00:15:27,591
