@@ -7714,6 +7714,7 @@ we'll do the same thing here. A rank of suit.spades,
 01:19:37,106 --> 01:19:42,042
 .hearts, .diamonds, and .clubs,
 .hearts，.diamonds，和 .clubs，
+
 1544
 01:19:42,110 --> 01:19:46,646
 oops, hello .clubs. So this is kind of nice to have
@@ -8092,6 +8093,7 @@ But I'm gonna keep this one which was mentioned in your
 01:23:58,100 --> 01:24:01,468
 homework. This is, viewDidLoad is a great place to like
 这是，viewDidLoad 是一个好地方来
+
 1620
 01:24:01,537 --> 01:24:02,869
 initialize your View Controller. And
