@@ -3846,7 +3846,7 @@ I'm gonna say with emoji, emoji of type string. So
 770
 00:37:25,843 --> 00:37:30,413
 this is in external name with emoji internal name emoji. And
-实参标签为 withEmoji，形参名称为 emoji，类型是 String 字符串
+外部参数名为 withEmoji，内部参数名称为 emoji，类型是 String 字符串
 
 771
 00:37:30,481 --> 00:37:35,985
@@ -3861,7 +3861,7 @@ Now, these might seem really strange to you as names of
 773
 00:37:40,058 --> 00:37:42,158
 parameters, both internal and external.
-参数名，实参标签和形参名称同时出现
+参数名，内部和外部名称同时出现
 
 774
 00:37:42,227 --> 00:37:44,927
