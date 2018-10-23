@@ -1,28 +1,21 @@
 # Developing iOS 11 Apps with Swift 字幕简体中文翻译项目
 
-如果您想支持我们，请点击项目右上角的 <a class="github-button" href="https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift" data-icon="octicon-star" data-show-count="true" aria-label="Star ApolloZhu/Developing-iOS-11-Apps-with-Swift on GitHub">Star</a> 按钮来 Star 本项目。其他如分享等方式请查看 [常见问题与解答](./SUPPORT.md) 中的“支持我们”章节。
+如果您想支持我们，请点击项目右上角的 <a class="github-button" href="https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift" data-icon="octicon-star" data-show-count="true" aria-label="Star ApolloZhu/Developing-iOS-11-Apps-with-Swift on GitHub">Star</a> 按钮来 Star 本项目。
 
 如果您感兴趣，有能力，我们欢迎您参与翻译/校对本项目。详情见 [任务相关说明](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/blob/master/CONTRIBUTING.md)。
 
-----
+- 翻译进度： ![5集](http://progressed.io/bar/5?scale=20&suffix=%E9%9B%86)
+- 校对进度： ![2集](http://progressed.io/bar/3?scale=20&suffix=%E9%9B%86)
+- 课程录像： [bilibili](https://www.bilibili.com/video/av16339375/)。字幕会在每集 **校对后** 以 Close Caption 上传
+- 从 iTunes U 提取： [下载列表](./tools/update/download.md)（因 iTunes 机制变更，暂时不能访问）
 
-### 版权说明
+其它问题请参见本文档剩下的部分或 [常见问题与解答](./SUPPORT.md)。
 
-<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png" /></a>
-
-本项目（包括字幕，代码等），以及原斯坦福课程均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh">知识共享 署名-非商业性使用-相同方式共享 3.0 美国 许可协议</a> 进行许可。
-
-----
-
-翻译进度: ![3集](http://progressed.io/bar/3?scale=20&suffix=%E9%9B%86)。关于如何获得更新，请查看 [常见问题与解答](./SUPPORT.md) 中的字幕更新章节。其他文档等可以查看[下载列表](./tools/update/download.md)（从 iTunes U 提取）
-
-课程录像会作为合集同步上传 [bilibili](https://www.bilibili.com/video/av16339375/)；字幕会在每集校对后作为弹幕上传。
+#### 字幕下载
 
 [`subtitles`](./subtitles) 文件夹中是中英字幕（不一定都翻译了），[`en/subtitles`](./en/subtitles) 文件夹中是纯英文字幕。您可以通过 [下载整个项目](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/archive/master.zip) 来获取这些字幕。
 
 字幕的格式是 `.srt`，所以您可能需要用带外挂字幕功能的视频播放器，比如 [VLC](http://www.videolan.org/vlc/index.zh.html) 或 [IINA](https://lhc70000.github.io/iina/zh-cn/) 等才可使用。其他字幕使用问题的解答请查看 [常见问题与解答](./SUPPORT.md) 的字幕使用章节。
-
-如果您有任何建议或意见，或是在观看视频时发现了翻译有误的地方，请通过 [常见问题与解答](./SUPPORT.md) 中提供的联系方式反馈。
 
 #### 课程相关资源
 
@@ -41,6 +34,14 @@
 - 提取字幕：[CCExtractor](https://www.ccextractor.org/)
 - 字幕重排：[X140Yu/Developing_iOS_8_Apps_With_Swift/tools/trim.rb](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift/blob/master/tools/trim.rb)
 - 字幕上传：[Srt2BilibiliKit](https://github.com/ApolloZhu/Srt2BilibiliKit)
+
+### 版权说明
+
+<a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-sa/3.0/us/88x31.png" /></a>
+
+本项目（包括字幕，代码等），以及原 Stanford（斯坦福）课程均采用 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/3.0/us/deed.zh">知识共享 署名-非商业性使用-相同方式共享 3.0 美国 许可协议</a> 进行许可。
+
+----
 
 <details>
 <summary></summary>
