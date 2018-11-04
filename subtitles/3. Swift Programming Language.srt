@@ -166,22 +166,22 @@ Auto Layout 示例程序开始吧
 34
 00:01:41,301 --> 00:01:45,770
 What we're gonna do here, and I apologize for any technical
-至于我们现在要做的，我对于我们现在存在的任何技术问题
+我提前为我们将要做的过程中会出现的任何技术
 
 35
 00:01:45,839 --> 00:01:48,873
 problems we have here because, actually, my computer died,
-向你们道歉，因为实际上我的电脑死机了
+问题向你们道歉。因为实际上我的电脑死机了
 
 36
 00:01:48,942 --> 00:01:51,008
 and I had to put it. This is all brand new computer, so
-我不得不用这台全新的电脑，所以
+所以我不得不用这台全新的电脑
 
 37
 00:01:51,077 --> 00:01:54,512
 I hope everything's installed properly. But here's the code,
-我希望一切都正常安装好了。这是我们的代码
+我希望一切都安装好了。但这是我们的代码
 
 38
 00:01:54,581 --> 00:01:58,016
@@ -191,62 +191,62 @@ I think, that we had at the end of the last lecture.
 39
 00:01:58,085 --> 00:02:01,986
 And the UI looks pretty good. We laid it out.
-UI 看起来很不错。我们把它布局起来
+我们布局的 UI 看起来很不错
 
 40
 00:02:02,055 --> 00:02:04,156
 But I just did this by dragging these things and
-我仅仅是通过拖拽这些东西
+仅仅是通过拖拽这些东西并
 
 41
 00:02:04,224 --> 00:02:06,624
 using the little dash blue lines to put them
-利用这些蓝色的虚线把它们放到了正确的
+利用蓝色的虚线把它们放到了位
 
 42
 00:02:06,693 --> 00:02:11,763
 in position. And when we run this thing, it looks okay but
-位置。当我们运行它的时候，它看起来很不错
+当我们运行它的时候看起来很不错
 
 43
 00:02:11,832 --> 00:02:13,464
 only on an iPhone X and
-不过只是在 iPhone X 上
+不过只是在 iPhone X
 
 44
 00:02:13,533 --> 00:02:16,534
 only in portrait mode like this. If I were to for
-并且只是在 纵向模式下像这样子。如果我打算
+像这样竖屏的时候。但比如我
 
 45
 00:02:16,603 --> 00:02:20,772
 example, rotate this iPhone to the side which I can do
-举个例子，沿着侧边旋转这台 iPhone ，我可以这样子在模拟器上
+沿着侧边旋转这台 iPhone，我可以通过
 
 46
 00:02:20,841 --> 00:02:23,742
 in a simulator by going, Hardware, rotate left or
-操作，通过去到-硬件，旋转向左或
+Simulator 菜单栏里的 Hardware > Rotate Left 或
 
 47
 00:02:23,811 --> 00:02:28,579
 right, you can see that my UI looks like this. My buttons
-向右，你可以看到我的 UI 界面看起来是这样子。我的按钮
+Right。你可以看到我的 UI 看起来是这样子。我的按钮
 
 48
 00:02:28,648 --> 00:02:31,983
 are kind of all jammed in the corner here. I've lost flips,
-都拥挤在了这个角落里。我已经丢失了一些卡片
+都挤在了这个角落里。我丢失了一些卡片
 
 49
 00:02:32,052 --> 00:02:34,285
 it's down here somewhere. I can't even see it.
-它们在下面某个地方。我甚至都看不见它了
+它们在下面某个地方，甚至都看不见了
 
 50
 00:02:34,354 --> 00:02:37,756
 Still works, but it's kind of off in the middle of nowhere.
-仍然可以工作，但是它远离了我们的界面
+仍然可以工作，但都偏到不知道什么鬼地方去了
 
 51
 00:02:37,824 --> 00:02:40,826
@@ -256,17 +256,17 @@ What we really want is for this UI to spread itself
 52
 00:02:40,894 --> 00:02:44,762
 out and fill the whole space that's involved. By the way,
-填满它被包含的整个空间。顺便说一下
+填满整个可用的空间。顺便说一下
 
 53
 00:02:44,831 --> 00:02:47,766
 you can also rotate your device with Command and
-你可以用 Command 键 和 方向键
+你可以用 Command 键和方向键来旋转设备
 
 54
 00:02:47,835 --> 00:02:51,102
 the arrows. Kind of a cool way to flip back and
-来旋转设备。这是用来翻转设备的比较酷的方式
+这是用来旋转设备的比较酷的方式
 
 55
 00:02:51,171 --> 00:02:54,305
@@ -276,12 +276,12 @@ forth. All right, so how are we gonna do that?
 56
 00:02:54,374 --> 00:02:57,209
 How are we gonna make our UI expand? Let's go ahead and
-我们该如何让我们的 UI 展开？让我们向前进行
+我们该如何让我们的 UI 展开？让我们
 
 57
 00:02:57,277 --> 00:02:59,444
 open up here, give ourselves some more space.
-打开这个，给我们更多的空间
+清理下工作环境，给自己更多的空间
 
 58
 00:02:59,513 --> 00:03:00,846
@@ -296,12 +296,12 @@ you can see. Another thing I'm gonna do is we're gonna be
 60
 00:03:04,018 --> 00:03:06,150
 using these blue lines, the dashed blue
-利用这些蓝色的线，这些当你移动组件的时候出现的这些
+利用这些蓝色的线，这些当你移动组件的时候
 
 61
 00:03:06,219 --> 00:03:09,488
 line that appears as you move things around as part of this.
-虚线作为我们方案的一部分
+出现的虚线作为解决方案的一部分
 
 62
 00:03:09,556 --> 00:03:12,256
@@ -321,17 +321,17 @@ that we can see that those blue lines and
 65
 00:03:18,364 --> 00:03:20,331
 stuff a little bit better. So I'm just gonna go to white.
-和组件。所以我仅需要设置成白色
+和组件。所以我设置成白色
 
 66
 00:03:20,400 --> 00:03:22,400
 When we come to run, I'll turn it back to black.
-当我们运行的时候，它会从黑色变到白色
+当我们运行的时候，我会改回黑色
 
 67
 00:03:22,469 --> 00:03:27,104
 So this is purely for dealing development issues here. So
-这完全是为了处理开发事项而做的
+这完全是为了方便开发而做的
 
 68
 00:03:27,173 --> 00:03:31,009
@@ -346,7 +346,7 @@ One is, I need to kinda take all those buttons and
 70
 00:03:35,315 --> 00:03:37,249
 make them stick to the edges, right?
-让它们粘在屏幕的边缘，对么？
+让它们粘在屏幕的边缘，对吧？
 
 71
 00:03:37,318 --> 00:03:38,483
@@ -361,47 +361,47 @@ the edges get longer and skinnier, they stick.
 73
 00:03:42,355 --> 00:03:45,390
 Right now, everything's stuck to the upper left corner.
-现在，所有东西都黏在了左上角
+现在，所有东西都堆在了左上角
 
 74
 00:03:45,458 --> 00:03:47,258
 The upper left corner, you're gonna find out next week,
-左上角，你会在下周发现
+你会在下周发现左上角
 
 75
 00:03:47,327 --> 00:03:50,829
 is the origin of drawing. In IOS where everything is kinda
-它正是绘图的原点。在 iOS 里，任何东西都
+是绘图的原点。在 iOS 里任何东西
 
 76
 00:03:50,897 --> 00:03:52,998
 stuck up to the upper left and then just, so
-粘在左上角，所以
+都会堆到左上角，所以
 
 77
 00:03:53,066 --> 00:03:55,600
 when we rotate it all, it just goes off the bottom,
-当我们将屏幕整个旋转的时候，它就会赶走那些按钮
+当我们旋转整个屏幕的时候，界面会延伸到下方
 
 78
 00:03:55,668 --> 00:03:58,536
 we can't see it. So that's really what we need to do, but
-我们没法看到它。所以那的确是我们需要做的事情
+导致我们没法看到它。所以那是我们需要做的事情
 
 79
 00:03:58,605 --> 00:03:59,904
 to stick them to the edges,
-将按钮粘连到边缘
+但要将按钮粘连到边缘
 
 80
 00:03:59,973 --> 00:04:02,807
 we also kind of need to group them together. Because when
-我们也需要把它们组在一起。因为当
+我们先需要把它们组合在一起。因为当
 
 81
 00:04:02,876 --> 00:04:05,544
 the edges pull this group of 12 buttons apart,
-边缘把这12个一组的按钮拉开的时候
+边缘把这 12 个一组的按钮拉开的时候
 
 82
 00:04:05,613 --> 00:04:07,812
@@ -411,12 +411,12 @@ they all need to kinda share that space.
 83
 00:04:07,881 --> 00:04:09,581
 So there's two things we have to do.
-所以这里一共有两件事情我们必须要做
+所以这就是我们必须要做的两件事情
 
 84
 00:04:09,650 --> 00:04:12,584
 One is group them together, one is pin them to the edges.
-一件是把他们组在一起，一件是把它们钉在边缘上
+一是把他们组合在一起，一是把它们钉在边缘上
 
 85
 00:04:12,653 --> 00:04:17,756
@@ -426,27 +426,27 @@ So we're gonna do that with two different features in IOS.
 86
 00:04:17,824 --> 00:04:19,257
 One, the grouping things together,
-第一件，把按钮组合在一起
+其一，把按钮组合在一起
 
 87
 00:04:19,326 --> 00:04:22,227
 we're gonna do with stack view. Okay, so UI stack view
-我们要用 stack view 来做。UIStackView 是
+我们要用 stack view（栈）来做。UIStackView 是
 
 88
 00:04:22,296 --> 00:04:26,231
 is just another class in IOS like UI Button is a class and
-iOS 中另一个类，就像 UIButton 是一个类，UILabel 实际上是
+iOS 中另一个类，就像 UIButton 是一个类
 
 89
 00:04:26,300 --> 00:04:29,734
 UI label is just another view in fact. And
-另一个视图
+UILabel 实际上也是个视图一样
 
 90
 00:04:29,803 --> 00:04:32,770
 what it does is it will take other views, like let's
-它所做的就是它将选择其他的视图，像这
+它所做的就是将其他的视图，像这
 
 91
 00:04:32,839 --> 00:04:36,508
@@ -456,27 +456,27 @@ say these four buttons and it will stack them together.
 92
 00:04:36,577 --> 00:04:39,244
 Now, it only knows how to stack horizontally or
-现在，它只知道如何横向的或竖向地堆叠
+它只知道如何横向或竖向地堆叠
 
 93
 00:04:39,313 --> 00:04:42,981
 vertically. It can't stack 12 of these things in two
-它无法像这样子在两个房间，将这12个按钮堆叠起来
+它不能直接将这 12 个按钮进行
 
 94
 00:04:43,050 --> 00:04:45,950
 dimensions like this. So I'm gonna have to make three
-所以我不得不创建三个
+二维的排列，所以我不得不创建三个
 
 95
 00:04:46,019 --> 00:04:50,155
 horizontal stacks out of this group, out of this group, and
-横向的栈，这些一组，这些一组，这些一组
+横向的栈，这些一组，这些一组
 
 96
 00:04:50,223 --> 00:04:53,024
 out of this group. But then I'll take those three stacks
-之后我再讲这三个栈
+这些一组。之后我再将这三个栈
 
 97
 00:04:53,092 --> 00:04:55,794
@@ -486,22 +486,22 @@ and stack them vertically. Cuz it's perfectly fine to put
 98
 00:04:55,863 --> 00:04:59,230
 stacks inside stacks, all right? And once I do that,
-是完全可行的，好么？一旦我这么做了
+是完全可行的。一旦我这么做了
 
 99
 00:04:59,299 --> 00:05:02,667
 I'll have all 12 of these kinda stocked together. And
-我将把全部的12个按钮都堆叠在了一起
+我将把全部的 12 个按钮都堆叠在了一起
 
 100
 00:05:02,736 --> 00:05:05,803
 then I can pin it to the edges and they'll stretch out. So
-那时我将能够把它钉在边缘，伸展开来
+再钉到边缘，这些按钮就会自己分散开
 
 101
 00:05:05,872 --> 00:05:07,405
 how do we make this stack use?
-我们该如何创建这个栈呢？
+我们该如何创建 stack view 呢？
 
 102
 00:05:07,473 --> 00:05:10,074
@@ -511,7 +511,7 @@ Super simple, you just select it here. Let me zoom in so
 103
 00:05:10,143 --> 00:05:12,977
 we can really see what's going on here. We only need the top
-我们能够看到现在进行的东西。我们暂时仅需要
+方便看到正在发生什么。我们暂时仅需要
 
 104
 00:05:13,046 --> 00:05:15,347
@@ -526,82 +526,82 @@ I'm going down to this button right here.
 106
 00:05:17,284 --> 00:05:19,751
 You see this button, embed in stack?
-你看到这个按钮了么，写着 embed in stack（嵌入栈中）？
+你看到这个写着 Embed In Stack 的按钮了么？
 
 107
 00:05:19,820 --> 00:05:22,020
 Well, that's what it does. It embeds in stack.
-好的，那就是它所做的事情。它把东西嵌入栈中
+没错，那就是它所做的事情：把东西嵌入栈中
 
 108
 00:05:22,089 --> 00:05:24,188
 And it embedded it. Now, couple of things.
-它把这四个按钮嵌进去了。现在，有几件事情
+它把这四个按钮嵌进去了，但有几个问题
 
 109
 00:05:24,257 --> 00:05:27,392
 One is, it made the buttons as small as it could when you put
-一件是，当你把它放到栈中的时候，它令按钮变得足够的小
+一是 stack view 会让你放进去的按钮尽量地小
 
 110
 00:05:27,460 --> 00:05:30,028
 in the stack. It has 50 point font, remember, for
-记得么，那些 emoji 有50像素点大
+记得么按钮里那些 emoji 的字号是 50 点
 
 111
 00:05:30,097 --> 00:05:32,730
 those emojis. So that's just as small as they'll go.
-所以它会把它们变得足够的小
+所以这就是能放下这些表情符号的最小尺寸
 
 112
 00:05:32,799 --> 00:05:36,434
 It also has no spacing between. But I can put spacing
-其次它们之间也没有空间，但是我可以在它们之间
+其次它们之间也没有空隙，但是我可以
 
 113
 00:05:36,503 --> 00:05:40,638
 in-between by just selecting it. It was left selected after
-放置空间，通过选中它。在我把它们堆到一起之后它们就是选中的
+选中它并在给它加上。它现在是保持了我堆到一起后的
 
 114
 00:05:40,707 --> 00:05:43,809
 I stacked. And going over here to the inspector because this
-去到这里检查器，因为这个
+选中状态。去到这里检查器，因为这个
 
 115
 00:05:43,877 --> 00:05:47,145
 stack view, just like a button, can be inspected,
-栈视图，就像一个按钮一样，是可以被检查的
+UIStackView 就像按钮一样是可以被检查的
 
 116
 00:05:47,213 --> 00:05:49,881
 right? And you can see it made it horizontal,
-好么？你可以看到它把它横向堆叠
+你可以看到它自动是 Horizontal，横向堆叠
 
 117
 00:05:49,950 --> 00:05:52,617
 it kinda noticed my buttons were mostly horizontal. So
-它大概注意到我的按钮大致是以横向分布的，所以它
+它注意到我的按钮大致是以横向分布的，所以
 
 118
 00:05:52,686 --> 00:05:57,522
 it picked horizontal. And so here's how I set the spacing.
-选择了横向模式。所以这里是我该如何设置空间的地方
+选择了 Horizontal。然后这是我设置间隙的地方
 
 119
 00:05:57,590 --> 00:06:00,492
 I go down here. I'm gonna use a standard spacing.
-点击向下的按钮，我会使用一个标准间距
+我在下面选择标准间距，Use Standard Value
 
 120
 00:06:00,560 --> 00:06:03,027
 There's a lot of places when you're doing UI design where
-当你进行 UI 设计的时候，有很多地方你可以选择一种
+当你进行 UI 设计的时候，有很多地方
 
 121
 00:06:03,096 --> 00:06:05,463
 you can pick an UI standard value and
-UI 标准值
+你可以选择 UI 标准值
 
 122
 00:06:05,532 --> 00:06:07,498
