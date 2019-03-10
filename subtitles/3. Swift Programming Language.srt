@@ -998,7 +998,7 @@ whatever, then the safety area would be inside those. So,
 we wouldn't overlap our titles and stuff. It's really cool.
 所以我们不会和标题或其他东西重叠。这是非常棒的
 
-201 
+201
 00:09:54,394 --> 00:10:00,264
 So, I'm gonna put this top space little pin, so
 这样我们就把它固定到了屏幕顶部
