@@ -616,7 +616,7 @@ This is a standard spacing between buttons.
 124
 00:06:09,235 --> 00:06:11,336
 And you wanna use that pretty much as much as possible.
-你会想着尽可能多的使用这个功能
+你应该尽可能多的使用这个功能
 
 125
 00:06:11,404 --> 00:06:14,005
@@ -625,13 +625,13 @@ That way, your UI will be spaced like other UI and
 
 126
 00:06:14,074 --> 00:06:17,609
-you will feel like rolling on the same page as
-当 UI 设计师翻阅所有那些应用的时候，你会感到像
+you will feel like we are all on the same page as
+这样你就会发现，我们和其他程序的 UI 设计师
 
 127
 00:06:17,678 --> 00:06:21,746
 UI designers across all these apps. Also I wanna make sure
-在一张页面上滚动。我还想确定
+达成了一种共识。我还想确保
 
 128
 00:06:21,814 --> 00:06:26,317
@@ -641,7 +641,7 @@ that these four buttons get equal amount of space. Okay,
 129
 00:06:26,386 --> 00:06:29,421
 whatever space I am given here gets equally distributed and
-无论这里给了多大的间距都能够均匀分布
+无论这里给了多大的空间都能够均匀分布
 
 130
 00:06:29,489 --> 00:06:31,322
@@ -651,7 +651,7 @@ I do that with this distribution thing here,
 131
 00:06:31,391 --> 00:06:36,228
 I say fill equally. Alignment just means I fill the whole
-我选择 均匀填满。Alignment 意味着填满整个
+我选择均匀填满。Alignment Fill 意味着填满整个
 
 132
 00:06:36,296 --> 00:06:38,563
@@ -666,7 +666,7 @@ kinda pushed up to the top of the stack but
 134
 00:06:40,500 --> 00:06:42,801
 I'm gonna have it fill the whole space. So that's it.
-但是我要把它填满整个空间。所以这就是它了
+但是我要把它填满整个空间。就这么简单
 
 135
 00:06:42,869 --> 00:06:45,503
@@ -676,17 +676,17 @@ So I'm just gonna do the same thing with these two rows.
 136
 00:06:45,572 --> 00:06:48,373
 So this one go down here, embed in stack,
-这一行下到这里，嵌入栈中
+选中这一行，点击下面的嵌入栈中
 
 137
 00:06:48,441 --> 00:06:52,210
 this group right here embed in stack. Oops,
-这里这一组嵌入栈中。噢
+这里这一组也嵌入栈中。不好
 
 138
 00:06:52,279 --> 00:06:56,080
 I did it twice there. Now I'm gonna select both of these.
-这里我做了两次。现在我要选中这两个
+我不小心点了两下。现在我同时选中这两个
 
 139
 00:06:56,149 --> 00:07:00,851
@@ -701,7 +701,7 @@ now I've got three horizontal stacks. I'm gonna stack these
 141
 00:07:04,824 --> 00:07:06,991
 together, I'm gonna select them. By the way,
-在一起，我要选中它们。顺便说
+在一起，所以先选中它们。顺便说
 
 142
 00:07:07,060 --> 00:07:09,694
@@ -711,17 +711,17 @@ dragging to select is really an awesome way to select.
 143
 00:07:09,763 --> 00:07:12,163
 I highly recommend you do that rather than trying to click on
-我高度推荐你们这样做而不是尝试点击
+我非常推荐你们这样做，而不是尝试点选
 
 144
 00:07:12,231 --> 00:07:15,433
 things. Because by the way, let's say I try to click on
-东西。因为通过这样做，比如说我尝试点击这里
+因为比如说，我尝试点击这里
 
 145
 00:07:15,502 --> 00:07:19,370
 here to select this row. Oops, I selected the button inside.
-来选择这一行。噢，我选中了里面的按钮
+来选择这一行。啊哦，我选中了里面的按钮
 
 146
 00:07:19,439 --> 00:07:21,940
@@ -746,7 +746,7 @@ Anyway, so I'm gonna select all three of these with drag.
 150
 00:07:32,719 --> 00:07:35,086
 And I'm gonna go embed in stack. You put them in
-然后去到 嵌入栈中。你把它们
+然后嵌入栈中。你把它们
 
 151
 00:07:35,155 --> 00:07:37,622
@@ -771,7 +771,7 @@ it'll pick the one that it thinks is the most likely.
 155
 00:07:43,530 --> 00:07:44,863
 You can always change it by going here and
-你可以一直通过去到这里来改变它
+你可以通过 Axis 这里来改变它
 
 156
 00:07:44,931 --> 00:07:47,932
@@ -791,32 +791,32 @@ we also want standard spacing. So
 159
 00:07:53,340 --> 00:07:56,607
 it's great. We got our buttons in this nice grid.
-这太棒了。我们让按钮放置到了这个很好的栅格中
+这太棒了。我们把按钮放置到了这个很好的栅格中
 
 160
 00:07:56,676 --> 00:08:02,046
 They're all Perfectly laid out in this rectangle. Now,
-它们都完美的布局在了这个矩形中。现在
+它们都完美地布局在了这个矩形中。现在
 
 161
 00:08:02,115 --> 00:08:05,483
 we want to pin this rectangle to the edges. Okay, so
-我们想要把这个矩形钉在边缘。好的
+我们想要把这个矩形固定到边缘上
 
 162
 00:08:05,552 --> 00:08:08,820
 that when the device rotates, or if the device was bigger,
-因此当设备旋转的时候，或者如果设备更大的时候
+那样当设备旋转的时候，或者如果设备更大的时候
 
 163
 00:08:08,888 --> 00:08:10,388
 like if it was an iPhone 8 Plus, or
-比如它是一台 iPhone 8 plus 或者
+比如它是一台 iPhone 8 Plus 或者
 
 164
 00:08:10,457 --> 00:08:12,223
 something like that and it was wider, so
-更宽的东西
+更宽的设备
 
 165
 00:08:12,292 --> 00:08:15,026
@@ -831,17 +831,17 @@ that is first I'm going to use those dash blue lines.
 167
 00:08:17,598 --> 00:08:21,065
 I picked up this thing. Again, picking it up,
-我捡起这个东西，再一次，捡起这个东西
+我拖拽这个东西。再一次，要拖拽这个整体
 
 168
 00:08:21,134 --> 00:08:23,601
 you wanna select it first, then pick it up.
-你会先选中它，然后捡起来
+你需要先选中它，然后再拖拽
 
 169
 00:08:23,669 --> 00:08:26,538
 If you don't select it first and try to pick it up, oops,
-如果你不先选中它，尝试去捡起来的话，噢
+如果你不先选中它，尝试去拖拽的话，阿哦
 
 170
 00:08:26,606 --> 00:08:28,706
@@ -871,12 +871,12 @@ the upper left hand corner.
 175
 00:08:36,216 --> 00:08:39,484
 You see that? That's pretty much where the blue line,
-你看到了它了么？那就是蓝线所在的地方
+你看到了它了么？那蓝线所在的地方
 
 176
 00:08:39,552 --> 00:08:41,953
 that would be the standard spacing from the edges.
-和边缘有着标准的间距
+就是和边缘有着标准的间距的地方
 
 177
 00:08:42,022 --> 00:08:43,387
@@ -891,7 +891,7 @@ This is a standard place to put this. Now,
 179
 00:08:45,926 --> 00:08:49,227
 I need to pin it and the way we make relationships between
-我需要把它钉在这里，我们把视图和 UI 关联起来
+我需要把它固定在这里，我们把视图和 UI 关联起来
 
 180
 00:08:49,296 --> 00:08:52,764
