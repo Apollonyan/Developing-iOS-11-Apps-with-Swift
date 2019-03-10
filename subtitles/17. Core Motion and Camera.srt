@@ -1,0 +1,5845 @@
+1
+00:00:00,401 --> 00:00:04,603
+本字幕由志愿者义务贡献，采用许可协议
+知识共享 署名-非商业性使用-相同方式共享 3.0 美国
+
+2
+00:00:04,671 --> 00:00:07,906
+Stanford University. >> Well,
+>> 斯坦福大学 >> 好
+
+3
+00:00:07,975 --> 00:00:12,477
+welcome to lecture number 17 of Stanford CS193P,
+欢迎来到斯坦福 CS193P 第十七节课
+
+4
+00:00:12,546 --> 00:00:16,815
+this is a fall of 2017. Today we're gonna talk about some
+现在是 2017 年秋季学期。今天我们要讲一些
+
+5
+00:00:16,883 --> 00:00:20,085
+hardware specific APIs, specifically Core Motion,
+
+6
+00:00:20,153 --> 00:00:23,555
+which is the position of the device in space, basically,
+
+7
+00:00:23,623 --> 00:00:26,391
+as it moves around. And then the camera, so
+
+8
+00:00:26,460 --> 00:00:31,496
+we can capture images with the camera. Now Core Motion
+
+9
+00:00:31,565 --> 00:00:34,233
+is really a whole set of APIs that go together.
+
+10
+00:00:34,301 --> 00:00:37,569
+The primary inputs to Core Motion are the accelerometer,
+
+11
+00:00:37,638 --> 00:00:40,505
+almost all devices have an accelerometer. The gyro,
+
+12
+00:00:40,574 --> 00:00:44,142
+most newer devices have a gyro. And the magnetometer,
+
+13
+00:00:44,210 --> 00:00:47,846
+kind of similar to the gyro, newer devices have all that.
+
+14
+00:00:47,915 --> 00:00:50,515
+And you're gonna see a part of the API we're really gonna
+
+15
+00:00:50,584 --> 00:00:53,017
+wanna check and make sure that the device we're on has
+
+16
+00:00:53,086 --> 00:00:56,988
+the hardware we want before we do it. Now the primary API to
+
+17
+00:00:57,057 --> 00:00:59,992
+get at all this is this class called CMMotionManager.
+
+18
+00:01:00,060 --> 00:01:01,460
+There's some other classes we're gonna talk about,
+
+19
+00:01:01,528 --> 00:01:04,796
+but this is the primary one. Now, you can create multiple
+
+20
+00:01:04,865 --> 00:01:07,131
+instances of this thing, but in a sense,
+
+21
+00:01:07,200 --> 00:01:09,834
+there's only set of hardware. So usually in your app,
+
+22
+00:01:09,903 --> 00:01:13,805
+you're gonna have one shared CMMotionManager to
+
+23
+00:01:13,874 --> 00:01:16,574
+collect all the information from these devices.
+
+24
+00:01:16,643 --> 00:01:19,511
+Now, the way the API works, basically, is first you're
+
+25
+00:01:19,580 --> 00:01:21,680
+gonna check to see what hardware is available,
+
+26
+00:01:21,749 --> 00:01:23,515
+all right, that's a very important check.
+
+27
+00:01:23,584 --> 00:01:26,618
+Then you can either start sampling, okay, just
+
+28
+00:01:26,687 --> 00:01:29,754
+asking the CMMotionManager what's the current state of
+
+29
+00:01:29,823 --> 00:01:31,857
+the accelerometer? What's the current state of gyro?
+
+30
+00:01:31,925 --> 00:01:34,593
+What's the current state of magnetometer? Or
+
+31
+00:01:34,661 --> 00:01:38,863
+you can register a closure, and a certain refresh rate,
+
+32
+00:01:38,932 --> 00:01:41,566
+and it will execute your closure at that refresh rate,
+
+33
+00:01:41,635 --> 00:01:44,703
+as best it can anyway, and tell you what the state is.
+
+34
+00:01:44,772 --> 00:01:47,505
+So it's kind of like you can either pull the data out
+
+35
+00:01:47,574 --> 00:01:50,341
+of it, or it can push the data to you. Really either
+
+36
+00:01:50,410 --> 00:01:52,977
+model, and it kinda depends on how your app works as to which
+
+37
+00:01:53,046 --> 00:01:55,980
+of those is appropriate. So I'm gonna talk about the API's
+
+38
+00:01:56,049 --> 00:01:58,350
+for both of those things. So let's do number one here,
+
+39
+00:01:58,419 --> 00:02:00,218
+which checking the availability of the sensors.
+
+40
+00:02:00,287 --> 00:02:02,720
+Really, where you're simply are just gonna get
+
+41
+00:02:02,789 --> 00:02:05,824
+your CMMotionManager and then you gonna ask questions like,
+
+42
+00:02:05,893 --> 00:02:08,360
+accelerometer available, is gyro available,
+
+43
+00:02:08,428 --> 00:02:11,095
+magnetometer available? And this is gonna return yes or
+
+44
+00:02:11,164 --> 00:02:12,931
+no whether these things are available.
+
+45
+00:02:13,000 --> 00:02:16,001
+Notice that there's something there called device motion,
+
+46
+00:02:16,070 --> 00:02:18,570
+you see accelerometer, gyro, magnetometer, and
+
+47
+00:02:18,638 --> 00:02:21,272
+deviceMotion. So we're gonna talk all about deviceMotion.
+
+48
+00:02:21,341 --> 00:02:25,009
+It's essentially a combination of all the other devices, and
+
+49
+00:02:25,078 --> 00:02:27,912
+it allows us to get much more accurate readings,
+
+50
+00:02:27,981 --> 00:02:31,716
+more interesting readings, by combining the accelerometer,
+
+51
+00:02:31,785 --> 00:02:35,253
+gyro, and magnetometer. So the way where you're going to pull
+
+52
+00:02:35,322 --> 00:02:38,256
+the information, okay, not gonna register a closure but
+
+53
+00:02:38,325 --> 00:02:40,425
+you're just gonna ask for as you need it.
+
+54
+00:02:40,494 --> 00:02:43,594
+You do that by calling start accelerometer updates, or
+
+55
+00:02:43,663 --> 00:02:46,832
+start gyro updates and that's gonna tell the hardware,
+
+56
+00:02:46,900 --> 00:02:49,567
+tell iOS, hey, l wanna get this information.
+
+57
+00:02:49,636 --> 00:02:52,804
+So, if that particular piece of hardware has to be powered
+
+58
+00:02:52,873 --> 00:02:55,773
+up or something like that, then iOS is gonna do that so
+
+59
+00:02:55,842 --> 00:02:58,076
+that you can start asking the value of it.
+
+60
+00:02:58,145 --> 00:03:02,380
+So that's all you have to do to start pulling the data.
+
+61
+00:03:02,449 --> 00:03:05,250
+You can also find out if the hardware is on and
+
+62
+00:03:05,318 --> 00:03:07,919
+collecting data with accelerometer active or
+
+63
+00:03:07,988 --> 00:03:12,290
+gyro active VAR in the CMMotionManager.
+
+64
+00:03:12,358 --> 00:03:14,860
+Now a really important thing to do when you're accessing
+
+65
+00:03:14,928 --> 00:03:18,530
+this data from these hardware devices is to turn it off,
+
+66
+00:03:18,599 --> 00:03:20,898
+okay? The reason you wanna turn it off is,
+
+67
+00:03:20,967 --> 00:03:22,567
+it requires battery, okay?
+
+68
+00:03:22,636 --> 00:03:26,104
+Who knows how much, it depends on the piece of hardware, to
+
+69
+00:03:26,173 --> 00:03:28,473
+do this, and you don't wanna waste the user's battery.
+
+70
+00:03:28,542 --> 00:03:31,109
+All right, so we definitely wanna turn if off anytime
+
+71
+00:03:31,178 --> 00:03:33,244
+we're not using it. Not like just when our app quits or
+
+72
+00:03:33,313 --> 00:03:35,813
+something, but actually any time we are not actually gonna
+
+73
+00:03:35,882 --> 00:03:38,383
+use the information, let's turn that thing off, right,
+
+74
+00:03:38,451 --> 00:03:41,052
+save some battery. All right, so now let's talk a little
+
+75
+00:03:41,121 --> 00:03:43,621
+bit about that pull interface where you're just gonna
+
+76
+00:03:43,690 --> 00:03:46,091
+ask for the current state of this thing all the time.
+
+77
+00:03:46,160 --> 00:03:47,893
+And the API is very similar for
+
+78
+00:03:47,962 --> 00:03:50,729
+all the devices, gyro, accelerometer, and
+
+79
+00:03:50,797 --> 00:03:55,333
+magnetometer, and for this combined device motion thing.
+
+80
+00:03:55,401 --> 00:03:56,334
+So, here's what it looks like for
+
+81
+00:03:56,402 --> 00:03:58,971
+accelerometer, it's just a VAR in CMMotionManager called
+
+82
+00:03:59,039 --> 00:04:01,272
+accelerometer data. Gives you back a struct,
+
+83
+00:04:01,341 --> 00:04:02,974
+it looks like this, x, y, and
+
+84
+00:04:03,043 --> 00:04:07,779
+z. That is the acceleration of the device in x, y, and z.
+
+85
+00:04:07,848 --> 00:04:11,382
+So x is the axis that goes across the device, okay, so
+
+86
+00:04:11,451 --> 00:04:15,019
+if you're looking at the device and the home button at
+
+87
+00:04:15,088 --> 00:04:18,556
+the bottom and you're looking at it. Then across is x,
+
+88
+00:04:18,625 --> 00:04:21,492
+y is up and down through the home button essentially,
+
+89
+00:04:21,561 --> 00:04:22,995
+or you have an iPhone 10,
+
+90
+00:04:23,063 --> 00:04:25,863
+through where the home button used to be. And
+
+91
+00:04:25,932 --> 00:04:28,666
+then z is down through back of the device device.
+
+92
+00:04:28,735 --> 00:04:31,636
+Okay, so if you had a device sitting on a table flat,
+
+93
+00:04:31,705 --> 00:04:34,672
+then z would be 1.0 here, because this is in g, and
+
+94
+00:04:34,741 --> 00:04:38,142
+the only acceleration that the device would be experiencing
+
+95
+00:04:38,211 --> 00:04:40,678
+is the acceleration due to gravity, okay?
+
+96
+00:04:40,747 --> 00:04:42,347
+Don't forget about that acceleration,
+
+97
+00:04:42,416 --> 00:04:44,849
+right, 9.8 meters per second squared towards the center of
+
+98
+00:04:44,918 --> 00:04:47,052
+the earth, that's always happening. So
+
+99
+00:04:47,120 --> 00:04:49,754
+if you then pick the device up and kinda set it down so
+
+100
+00:04:49,823 --> 00:04:52,323
+that the home button is on the bottom, right, then your
+
+101
+00:04:52,392 --> 00:04:56,494
+y would be experiencing 1 g, and z and x would be 0,
+
+102
+00:04:56,563 --> 00:04:58,229
+okay, cuz nothing would be moving it. Now,
+
+103
+00:04:58,298 --> 00:05:00,999
+if you took the device and you shake it all around like this,
+
+104
+00:05:01,068 --> 00:05:03,502
+then x, y, and z are gonna be all kinds of random numbers.
+
+105
+00:05:03,570 --> 00:05:06,171
+Could be much greater than 1 if you really jerk it,
+
+106
+00:05:06,240 --> 00:05:09,274
+much faster acceleration and the acceleration due to
+
+107
+00:05:09,342 --> 00:05:11,176
+gravity, you could get all kinds of numbers.
+
+108
+00:05:11,244 --> 00:05:13,945
+All right, so this'll give me the raw acceleration
+
+109
+00:05:14,014 --> 00:05:16,014
+of the device in space, including gravity.
+
+110
+00:05:17,284 --> 00:05:20,418
+All right, the gyro, so the gyro, we're
+
+111
+00:05:20,487 --> 00:05:23,221
+almost never gonna ask for the gyro information directly like
+
+112
+00:05:23,290 --> 00:05:25,891
+this as you're gonna see in a motion. But if you did, it's
+
+113
+00:05:25,959 --> 00:05:28,559
+essentially gonna tell you the rotation rate around those
+
+114
+00:05:28,628 --> 00:05:32,430
+three axes I talk about in radians per second. Okay, so
+
+115
+00:05:32,499 --> 00:05:35,834
+it's basically how fast it's rotating in these devices.
+
+116
+00:05:35,902 --> 00:05:38,937
+Now the problem is, is the gyro on its own can get
+
+117
+00:05:39,006 --> 00:05:42,374
+bias introduced to it. It can kind of drift a little bit,
+
+118
+00:05:42,443 --> 00:05:45,243
+so the gyro works a lot better in concert with
+
+119
+00:05:45,311 --> 00:05:47,946
+the accelerometer, as you'll see in a moment,
+
+120
+00:05:48,015 --> 00:05:50,582
+and similarly with magnetometer. Yeah, you can
+
+121
+00:05:50,651 --> 00:05:54,252
+find out the magnetic field around you but, you'd like to
+
+122
+00:05:54,321 --> 00:05:56,988
+know what, how much of that is earth's magnetic field,
+
+123
+00:05:57,057 --> 00:05:59,524
+so you can find out where the north is, versus how much is
+
+124
+00:05:59,593 --> 00:06:02,393
+just local interference from devices. And so,
+
+125
+00:06:02,462 --> 00:06:05,330
+we don't usually access the magnetometer directly either.
+
+126
+00:06:05,399 --> 00:06:09,333
+Instead, in both cases, we access this pseudo device
+
+127
+00:06:09,402 --> 00:06:12,804
+called deviceMotion. Okay, and so, it's similar to the other
+
+128
+00:06:12,873 --> 00:06:15,173
+ones, it has var, this one's called deviceMotion, and
+
+129
+00:06:15,242 --> 00:06:18,176
+it gives you back this deviceMotion struct. Now,
+
+130
+00:06:18,245 --> 00:06:19,877
+the deviceMotion struct is giving you
+
+131
+00:06:19,946 --> 00:06:21,145
+a lot of the same information that you're
+
+132
+00:06:21,214 --> 00:06:23,214
+getting from these other devices, but
+
+133
+00:06:23,283 --> 00:06:26,885
+it's combining the devices to give you better information.
+
+134
+00:06:26,953 --> 00:06:29,354
+For example, let's look at acceleration. So,
+
+135
+00:06:29,422 --> 00:06:31,222
+when you have a device and you're looking at
+
+136
+00:06:31,290 --> 00:06:34,192
+the accelerometer, you don't really know how much of that
+
+137
+00:06:34,261 --> 00:06:36,194
+is due to the acceleration due to gravity, and
+
+138
+00:06:36,262 --> 00:06:38,963
+how much is because the user is moving the device around.
+
+139
+00:06:39,032 --> 00:06:42,700
+Right, well, but if you have the gyro, now you do know
+
+140
+00:06:42,769 --> 00:06:45,837
+how much the user is moving the device around, okay.
+
+141
+00:06:45,906 --> 00:06:48,306
+So, if you combine the two, you can factor
+
+142
+00:06:48,375 --> 00:06:50,108
+out the acceleration that's due to gravity and
+
+143
+00:06:50,177 --> 00:06:53,678
+the acceleration that's the actual user moving the device.
+
+144
+00:06:53,747 --> 00:06:56,314
+So in CMMotion, you have the gravity which
+
+145
+00:06:56,383 --> 00:06:59,251
+is a CM acceleration, and you also have user acceleration,
+
+146
+00:06:59,319 --> 00:07:01,319
+and they're separated out. Okay, so
+
+147
+00:07:01,388 --> 00:07:03,955
+you see how it's used the gyro to give you more information
+
+148
+00:07:04,024 --> 00:07:07,425
+about acceleration, and similarly for the gyro, okay?
+
+149
+00:07:07,494 --> 00:07:10,594
+If you have this gyro, you can remove the bias that happens
+
+150
+00:07:10,663 --> 00:07:13,298
+with the gyro because you have the accelerometer information
+
+151
+00:07:13,367 --> 00:07:16,034
+that tells you where this thing is being
+
+152
+00:07:16,103 --> 00:07:19,971
+moved around as it's being rotated. So, there you can
+
+153
+00:07:20,039 --> 00:07:22,807
+get rotation rate in the same way as you got before, but
+
+154
+00:07:22,876 --> 00:07:25,276
+you can also get much more interesting in things like
+
+155
+00:07:25,345 --> 00:07:27,912
+roll, pitch, and yaw, okay? So if you know anything about
+
+156
+00:07:27,981 --> 00:07:31,315
+flying, if you have an airplane that's flying along,
+
+157
+00:07:31,384 --> 00:07:35,586
+the roll is when the airplane tilts it's wings side to side,
+
+158
+00:07:35,655 --> 00:07:38,289
+right, that's the roll. Pitch is when the pitches is nose
+
+159
+00:07:38,357 --> 00:07:41,292
+up or down, right, that's the pitch. And the yaw is when
+
+160
+00:07:41,361 --> 00:07:44,929
+it kinda turns into the wind in the same plane parallel
+
+161
+00:07:44,998 --> 00:07:48,466
+to the ground, right. So you can get that same roll, pitch,
+
+162
+00:07:48,535 --> 00:07:52,036
+and yaw in your device, which is really kind of a cool way
+
+163
+00:07:52,105 --> 00:07:53,938
+to think about your devices,
+
+164
+00:07:54,007 --> 00:07:57,876
+what your device is doing. You can also get heading, okay,
+
+165
+00:07:57,944 --> 00:08:00,712
+now it needs the magnetometer for that, obviously,
+
+166
+00:08:00,781 --> 00:08:02,780
+to do the heading. And this is gonna give you the heading.
+
+167
+00:08:02,849 --> 00:08:04,548
+And heading is sometimes interesting to
+
+168
+00:08:04,617 --> 00:08:09,220
+have if you have, for example, an, augmented reality app, or
+
+169
+00:08:09,289 --> 00:08:12,223
+something like that, where you wanna know the gyro position
+
+170
+00:08:12,291 --> 00:08:13,591
+as you're moving this thing around.
+
+171
+00:08:13,660 --> 00:08:15,126
+But you also know where you are in the world.
+
+172
+00:08:15,194 --> 00:08:18,730
+Are you facing north? Where are you facing?
+
+173
+00:08:18,799 --> 00:08:20,431
+So, we can give you that information, as well.
+
+174
+00:08:20,500 --> 00:08:24,235
+So, CMDeviceMotion is probably the primary way we get
+
+175
+00:08:24,303 --> 00:08:27,472
+information out of core motion, when we want gyro,
+
+176
+00:08:27,541 --> 00:08:29,374
+accelerometer, magnetometer,
+
+177
+00:08:29,442 --> 00:08:32,743
+because it combines them very intelligently.
+
+178
+00:08:32,812 --> 00:08:35,813
+Okay, now when you're getting device motion you can actually
+
+179
+00:08:35,882 --> 00:08:40,251
+control, which of the devices, accelerometer, gyro and
+
+180
+00:08:40,320 --> 00:08:43,154
+magnetometer are used, specifically the magnetometer,
+
+181
+00:08:43,222 --> 00:08:46,157
+okay? There's a couple of reference frames and reference
+
+182
+00:08:46,226 --> 00:08:49,627
+frame is just an argument when you start getting the updates,
+
+183
+00:08:49,695 --> 00:08:53,030
+from the device motion. So, there's two reference frames
+
+184
+00:08:53,099 --> 00:08:56,467
+called xArbitraryZVertical and xArbitraryCorrected ZVertical
+
+185
+00:08:56,536 --> 00:08:58,770
+which either don't use the magnetometer, or
+
+186
+00:08:58,839 --> 00:09:01,339
+can work without the, magnetometer,
+
+187
+00:09:01,408 --> 00:09:04,108
+I believe they can do. And so, they're not,
+
+188
+00:09:04,177 --> 00:09:06,744
+they're really not used for a reference frame when,
+
+189
+00:09:06,813 --> 00:09:09,413
+when you wanna know where your device is in the world,
+
+190
+00:09:09,482 --> 00:09:13,852
+okay? So, there's two other ones. xMagnetic/TrueNorth and
+
+191
+00:09:13,920 --> 00:09:17,622
+xMagneticTrue NorthZVertical. And
+
+192
+00:09:17,691 --> 00:09:20,124
+those use the magnetometer. Now, those actually will
+
+193
+00:09:20,193 --> 00:09:22,560
+require the magnetometer to be calibrated,
+
+194
+00:09:22,629 --> 00:09:25,329
+and, and ready to use, so, you know, you don't wanna
+
+195
+00:09:25,398 --> 00:09:28,032
+use these reference frames lightly, but if you need to
+
+196
+00:09:28,101 --> 00:09:30,902
+know where you are then you need this. Obviously, for
+
+197
+00:09:30,970 --> 00:09:33,371
+true north it not only needs to know all the information
+
+198
+00:09:33,440 --> 00:09:35,940
+that we talked about so far, but it also needs to know your
+
+199
+00:09:36,009 --> 00:09:37,775
+location, where you are on the planet.
+
+200
+00:09:37,844 --> 00:09:40,077
+So, it can tell the difference between magnetic north,
+
+201
+00:09:40,146 --> 00:09:42,647
+which is the only thing it can measure, and true north, okay?
+
+202
+00:09:42,715 --> 00:09:46,184
+And that just depends where you are on Earth. Now,
+
+203
+00:09:46,252 --> 00:09:48,686
+if you want the heading VAR that I talked about on
+
+204
+00:09:48,754 --> 00:09:51,556
+the last device motion you'll need to have the reference
+
+205
+00:09:51,624 --> 00:09:56,260
+either be magnetic, or true north. All right? Now,
+
+206
+00:09:56,329 --> 00:09:58,963
+always check to make sure that whatever reference frame you
+
+207
+00:09:59,031 --> 00:10:01,265
+want to use, especially if it's going to be the magnetic,
+
+208
+00:10:01,334 --> 00:10:03,802
+or true north ones is available. And you can do that
+
+209
+00:10:03,870 --> 00:10:07,605
+with the availableAttitude ReferenceFrames, function and
+
+210
+00:10:07,674 --> 00:10:11,542
+it'll return one of these frames above, and you can
+
+211
+00:10:11,611 --> 00:10:13,344
+kinda, it's a bit masked and you can look in there and
+
+212
+00:10:13,413 --> 00:10:16,881
+see if yours is available. All right, so
+
+213
+00:10:16,949 --> 00:10:19,584
+we talked about how to just grab the information whether
+
+214
+00:10:19,653 --> 00:10:20,618
+it's accelerometer data, or
+
+215
+00:10:20,686 --> 00:10:23,588
+this device motion data, grab it from CM motion manager.
+
+216
+00:10:23,656 --> 00:10:25,690
+And how about the thing of registering a closure.
+
+217
+00:10:25,759 --> 00:10:28,859
+So, that API looks like this. For accelerometer,
+
+218
+00:10:28,928 --> 00:10:30,161
+for example you're gonna say,
+
+219
+00:10:30,229 --> 00:10:31,796
+startAccelerometer UpdatesToQueue,
+
+220
+00:10:31,865 --> 00:10:34,065
+that's the queue that your closure is gonna be executed
+
+221
+00:10:34,134 --> 00:10:36,200
+on. That's almost always gonna be the main queue, so you're
+
+222
+00:10:36,269 --> 00:10:39,603
+gonna say .main there usually. With a handler, and a handler
+
+223
+00:10:39,672 --> 00:10:41,572
+is just a look closure. It takes two arguments,
+
+224
+00:10:41,641 --> 00:10:44,509
+one is the accelerometer data that it's giving you in its
+
+225
+00:10:44,578 --> 00:10:46,877
+updates, and the other one is a possible error.
+
+226
+00:10:46,946 --> 00:10:49,647
+And one of these is always nill, okay? Either it,
+
+227
+00:10:49,716 --> 00:10:53,250
+it got the data, or it didn't. It's as simple as that, okay?
+
+228
+00:10:53,319 --> 00:10:55,119
+So, you're just gonna get called this closure is gonna
+
+229
+00:10:55,188 --> 00:10:59,757
+get called repeatedly with the state of the accelerometer.
+
+230
+00:10:59,825 --> 00:11:03,194
+Similar for the gyro, similar for the magnetometer, and
+
+231
+00:11:03,263 --> 00:11:05,897
+similar for device motion, okay? Notice, that device
+
+232
+00:11:05,966 --> 00:11:07,832
+motion also has this extra argument at the beginning,
+
+233
+00:11:07,900 --> 00:11:11,469
+which is that reference frame I talked about, okay? Now,
+
+234
+00:11:11,538 --> 00:11:14,138
+what about the errors that can come back here, okay?
+
+235
+00:11:14,207 --> 00:11:16,707
+Well, a lot depends on what your asking for, especially in
+
+236
+00:11:16,776 --> 00:11:20,078
+device motion world. If you're asking for something like true
+
+237
+00:11:20,146 --> 00:11:22,580
+north reference frame, you're trying to get the heading,
+
+238
+00:11:22,648 --> 00:11:25,049
+you might get the error True North Not Available. Maybe,
+
+239
+00:11:25,118 --> 00:11:27,251
+because it doesn't know where you are on the Earth, okay?
+
+240
+00:11:27,320 --> 00:11:30,922
+Because it can't see any cell sites, or Wi-Fi, uh,GPS, or
+
+241
+00:11:30,990 --> 00:11:32,323
+anything like that, so
+
+242
+00:11:32,392 --> 00:11:36,460
+it doesn't where you are. Also you can get NotAuthorized and
+
+243
+00:11:36,529 --> 00:11:38,463
+NotAvailable, and we're gonna talk about that in a second.
+
+244
+00:11:38,531 --> 00:11:41,432
+Where, the user might have said, I don't want this app to
+
+245
+00:11:41,501 --> 00:11:43,534
+be able to get this information from me, okay?
+
+246
+00:11:43,603 --> 00:11:46,103
+That's from a privacy standpoint. Okay, so
+
+247
+00:11:46,172 --> 00:11:47,572
+you want to look in the documentation and
+
+248
+00:11:47,641 --> 00:11:49,240
+see what the errors you can get are and handle them.
+
+249
+00:11:49,309 --> 00:11:52,410
+I, core motion same thing with the core location and
+
+250
+00:11:52,479 --> 00:11:53,511
+the map kit it's a place where
+
+251
+00:11:53,580 --> 00:11:54,712
+you really want to handle the errors.
+
+252
+00:11:54,781 --> 00:11:56,680
+You don't want to blindly ignore errors,
+
+253
+00:11:56,749 --> 00:11:58,415
+because these errors do come up. Okay?
+
+254
+00:11:58,484 --> 00:12:02,687
+We're talking about physical devices here. Real world,
+
+255
+00:12:02,755 --> 00:12:07,391
+it's variable, okay? So, how often does your closure get
+
+256
+00:12:07,460 --> 00:12:10,127
+called? Well, you get to determine that by setting one
+
+257
+00:12:10,196 --> 00:12:12,430
+of these vars, the accelerometer UpdateInterval,
+
+258
+00:12:12,499 --> 00:12:14,399
+or the deviceMotion UpdateInterval.
+
+259
+00:12:14,467 --> 00:12:17,435
+This is a TimeInterval, so that's number of seconds. And
+
+260
+00:12:17,503 --> 00:12:20,338
+usually you're gonna set it to maybe a 10th of a second,
+
+261
+00:12:20,407 --> 00:12:24,241
+or 30th of a second. Maybe you could do 60th of a session,
+
+262
+00:12:24,310 --> 00:12:26,444
+but you're really pushing it by then.
+
+263
+00:12:26,513 --> 00:12:28,546
+And remember, that it's gonna be calling your closure, so
+
+264
+00:12:28,615 --> 00:12:30,181
+unless your closure's really lightweight,
+
+265
+00:12:30,250 --> 00:12:32,117
+you don't wanna call it too much. So,
+
+266
+00:12:32,185 --> 00:12:34,018
+how do you decide what to set this to? Well,
+
+267
+00:12:34,086 --> 00:12:36,988
+it totally depends on what's happening in your app, okay?
+
+268
+00:12:37,056 --> 00:12:38,722
+You're gonna see the demo I'm gonna do day,
+
+269
+00:12:38,791 --> 00:12:40,525
+today I'm gonna use the accelerometer.
+
+270
+00:12:40,593 --> 00:12:43,827
+Eh, it's not that important to see really quick changes
+
+271
+00:12:43,896 --> 00:12:47,165
+in the accelerometer, so I'm gonna go fairly low rate.
+
+272
+00:12:47,234 --> 00:12:49,967
+But I might have something that's very detailed
+
+273
+00:12:50,036 --> 00:12:51,669
+thing where I'm looking at accelerometer, and
+
+274
+00:12:51,738 --> 00:12:53,103
+I wanna know exactly what's happening and
+
+275
+00:12:53,172 --> 00:12:53,837
+the users using it,
+
+276
+00:12:53,906 --> 00:12:55,906
+moving it tiny little amounts. Then I might want to be
+
+277
+00:12:55,975 --> 00:13:00,545
+updating very quickly, okay? So there is a limit of course.
+
+278
+00:13:00,613 --> 00:13:02,346
+The hardware can only deliver certain limit,
+
+279
+00:13:02,415 --> 00:13:05,282
+I'm not sure what those limits are. Probably around a 60th of
+
+280
+00:13:05,351 --> 00:13:08,820
+a second kind of thing but that's something you have to
+
+281
+00:13:08,888 --> 00:13:12,323
+tune to make your app work well. It is okay, by the way,
+
+282
+00:13:12,392 --> 00:13:15,126
+to register multiple closures, okay, inside your app.
+
+283
+00:13:15,194 --> 00:13:16,927
+Have two different things, although they're all going to
+
+284
+00:13:16,996 --> 00:13:19,363
+want to be updating at the same rate, okay?
+
+285
+00:13:19,432 --> 00:13:21,833
+And if they're all registered with the same motion manager,
+
+286
+00:13:21,901 --> 00:13:23,401
+they will all be updating at the same rate.
+
+287
+00:13:23,469 --> 00:13:26,370
+Okay, it's not really recommended to have two core
+
+288
+00:13:26,439 --> 00:13:28,406
+motion managers with different rates and
+
+289
+00:13:28,475 --> 00:13:31,008
+different closures. Cuz you could get a performance issue
+
+290
+00:13:31,077 --> 00:13:33,677
+there when it's trying to service both of those rates
+
+291
+00:13:33,746 --> 00:13:35,946
+and it's having to call them a lot, so be careful with that.
+
+292
+00:13:36,015 --> 00:13:40,484
+All right, so we understand then
+
+293
+00:13:40,553 --> 00:13:44,021
+how to get the accelerometer data, the instantaneous value
+
+294
+00:13:44,090 --> 00:13:46,790
+of the accelerometer. But really accelerometer data
+
+295
+00:13:46,859 --> 00:13:50,661
+sometimes make a lot more sense over time, okay? Like,
+
+296
+00:13:50,729 --> 00:13:53,164
+what's the average amount of movement in the last minute?
+
+297
+00:13:53,233 --> 00:13:53,865
+Or something like that.
+
+298
+00:13:53,933 --> 00:13:55,967
+Maybe you're trying to see what the user is up to.
+
+299
+00:13:56,036 --> 00:13:59,170
+What they're doing. Kinda how they're moving around,
+
+300
+00:13:59,238 --> 00:14:00,838
+or they're walking around or what,
+
+301
+00:14:00,907 --> 00:14:03,040
+they're doing. So, this is another class is slow motion
+
+302
+00:14:03,109 --> 00:14:06,844
+called CMSensorRecorder. And it can record at 50 hertz.
+
+303
+00:14:06,913 --> 00:14:09,313
+What's going on now. Only newer devices.
+
+304
+00:14:09,382 --> 00:14:11,549
+I think iPhone 7 and later can do this.
+
+305
+00:14:11,617 --> 00:14:13,984
+So, you definitely want to say is accelerometer recording
+
+306
+00:14:14,053 --> 00:14:16,020
+available? This is also something on the Apple Watch,
+
+307
+00:14:16,088 --> 00:14:19,189
+which is very useful for that. Then once you do it,
+
+308
+00:14:19,258 --> 00:14:22,693
+you just say to the CMSensorRecorder.
+
+309
+00:14:22,762 --> 00:14:24,795
+Record accelerometer for some duration,
+
+310
+00:14:24,864 --> 00:14:26,564
+and it will start recording it, okay, and
+
+311
+00:14:26,633 --> 00:14:27,765
+you can say whatever the duration is.
+
+312
+00:14:27,833 --> 00:14:30,935
+Now, I recommend keeping that duration as short as makes
+
+313
+00:14:31,003 --> 00:14:34,072
+sense for your app, okay, [LAUGH] whatever is going on.
+
+314
+00:14:34,140 --> 00:14:37,408
+It's expensive to turn that accelerometer on and record.
+
+315
+00:14:37,477 --> 00:14:39,276
+However, this is really in a way,
+
+316
+00:14:39,345 --> 00:14:42,613
+less expensive than doing some other things, because this,
+
+317
+00:14:42,681 --> 00:14:45,716
+most iOS devices, in fact, probably all of them that can
+
+318
+00:14:45,785 --> 00:14:48,719
+implement this, they know how to go to sleep, right?
+
+319
+00:14:48,788 --> 00:14:50,521
+The screen turns black, they're asleep,
+
+320
+00:14:50,590 --> 00:14:52,322
+the processor's not really running.
+
+321
+00:14:52,391 --> 00:14:56,293
+But that thing is still collecting accelerometer data.
+
+322
+00:14:56,362 --> 00:14:59,396
+So, they've separated out the accelerometer hardware into
+
+323
+00:14:59,465 --> 00:15:01,598
+a separate little chip that knows how to collect data, and
+
+324
+00:15:01,667 --> 00:15:04,768
+then report it back when the system wakes back up. So,
+
+325
+00:15:04,837 --> 00:15:07,571
+it is possible if you want to go for a run, and
+
+326
+00:15:07,640 --> 00:15:11,342
+your app wants to measure the person's acce- acceleration in
+
+327
+00:15:11,411 --> 00:15:13,277
+three dimensions while they are running, or
+
+328
+00:15:13,346 --> 00:15:15,413
+they put it on their arm, or in their pocket, or whatever.
+
+329
+00:15:15,481 --> 00:15:18,016
+And it goes to sleep, because it's not running your app.
+
+330
+00:15:18,084 --> 00:15:20,251
+They run for one hour and when they come back, and
+
+331
+00:15:20,320 --> 00:15:22,653
+then the data can all be there without the app having
+
+332
+00:15:22,722 --> 00:15:25,355
+to constantly run and ask for it, okay. There is a lot of
+
+333
+00:15:25,424 --> 00:15:28,425
+fitness API that I'm not talking about here [LAUGH] in
+
+334
+00:15:28,494 --> 00:15:31,595
+core motion that in that is same vein where you gonna ask
+
+335
+00:15:31,664 --> 00:15:35,232
+the system please record this things for me. And then,
+
+336
+00:15:35,301 --> 00:15:38,969
+if you get them later, you ask for them later. For example,
+
+337
+00:15:39,038 --> 00:15:40,972
+this quarter I didn't get to talk about core location.
+
+338
+00:15:41,040 --> 00:15:43,741
+Okay, core location is something I highly recommend
+
+339
+00:15:43,810 --> 00:15:46,377
+you look into, possibly for your final project. And
+
+340
+00:15:46,446 --> 00:15:48,646
+it core location can record your GPS,
+
+341
+00:15:48,715 --> 00:15:51,582
+or otherwise location, and it can do it in a way that
+
+342
+00:15:51,650 --> 00:15:53,384
+doesn't cause the phone to have to be awake all of
+
+343
+00:15:53,453 --> 00:15:57,321
+the time. All right, so once you start a recording,
+
+344
+00:15:57,390 --> 00:15:59,524
+then you can go back and get the recorded data.
+
+345
+00:15:59,592 --> 00:16:02,459
+It only keeps a recorded data I think for three days, so
+
+346
+00:16:02,528 --> 00:16:04,362
+you wanna be asking for it in a time,
+
+347
+00:16:04,430 --> 00:16:06,731
+reasonably timely manner but you can ask for
+
+348
+00:16:06,799 --> 00:16:09,266
+the accelerometer data during a certain time.
+
+349
+00:16:09,335 --> 00:16:12,836
+And it's gonna come back as the CMSensorDataList which
+
+350
+00:16:12,905 --> 00:16:16,673
+you just basically for in to get CM recorded accelerometer,
+
+351
+00:16:16,742 --> 00:16:20,244
+this would just could be that XYZ of all that stuff you can
+
+352
+00:16:20,313 --> 00:16:23,747
+look through there. And usually you gonna take that
+
+353
+00:16:23,816 --> 00:16:27,317
+list and average it or something like that to trying
+
+354
+00:16:27,386 --> 00:16:30,855
+to figure what's going on. Now if what you're doing is
+
+355
+00:16:30,924 --> 00:16:33,891
+looking at accelerometer data because you want to try
+
+356
+00:16:33,960 --> 00:16:36,894
+to figure out if these are running or staying still or
+
+357
+00:16:36,962 --> 00:16:38,729
+walking. Or are they in their car?
+
+358
+00:16:38,798 --> 00:16:41,899
+Then you don't wanna use that, you wanna use this API, okay?
+
+359
+00:16:41,968 --> 00:16:45,603
+There's an API called Activity Monitoring that will use
+
+360
+00:16:45,671 --> 00:16:49,574
+a different object, here, it's not the CM Motion Manager,
+
+361
+00:16:49,642 --> 00:16:53,744
+it's CMMotionActivityManager, and it's very similar API.
+
+362
+00:16:53,813 --> 00:16:56,413
+You stay startActivityUpdates and you have a closure.
+
+363
+00:16:56,482 --> 00:16:59,083
+And it will call that periodically, telling you what
+
+364
+00:16:59,152 --> 00:17:01,185
+the user's doing. Are they standing still?
+
+365
+00:17:01,254 --> 00:17:03,921
+Are they walking, running, are they in their car, cycling?
+
+366
+00:17:03,989 --> 00:17:06,724
+This is a really powerful API, it's using a lot of input
+
+367
+00:17:06,792 --> 00:17:08,926
+to try and figure out what's going on here.
+
+368
+00:17:08,995 --> 00:17:11,595
+It's been very finely tuned, especially for
+
+369
+00:17:11,664 --> 00:17:15,266
+driving because of this new Do Not Disturb feature in IOS 11.
+
+370
+00:17:15,335 --> 00:17:17,235
+So this is how you would want to try and
+
+371
+00:17:17,303 --> 00:17:19,603
+figure out what the user is doing rather than
+
+372
+00:17:19,672 --> 00:17:22,072
+trying to look at their accelerometer data and
+
+373
+00:17:22,141 --> 00:17:24,775
+figure it out, okay? This data is stored, I think for
+
+374
+00:17:24,844 --> 00:17:27,378
+a little longer, maybe like seven days, I am not sure.
+
+375
+00:17:27,446 --> 00:17:31,415
+But you can go back and look at this data with a from and
+
+376
+00:17:31,484 --> 00:17:36,186
+to, and again it's gonna call you with the information, and
+
+377
+00:17:36,255 --> 00:17:39,589
+you can get all that. Now in addition to that, you can also
+
+378
+00:17:39,658 --> 00:17:42,993
+get pedometer information. So steps, user is walking around,
+
+379
+00:17:43,062 --> 00:17:45,963
+what are they doing. Similar API, Start update,
+
+380
+00:17:46,032 --> 00:17:48,832
+you get a closure, it calls you back. Pedometer
+
+381
+00:17:48,901 --> 00:17:51,736
+information really only makes sense overtime, right?
+
+382
+00:17:51,804 --> 00:17:53,604
+You're not gonna ask like how many steps are you seeing
+
+383
+00:17:53,672 --> 00:17:55,506
+right now? Okay, you are in the middle of a step.
+
+384
+00:17:55,575 --> 00:17:57,507
+No, it's like how many did you take in the last hour,
+
+385
+00:17:57,576 --> 00:17:59,977
+have you taken the last minute or whatever? So when you call
+
+386
+00:18:00,046 --> 00:18:02,513
+this you get back a struct that has a start date and
+
+387
+00:18:02,581 --> 00:18:05,349
+an end date of the recording that it made and it'll tell
+
+388
+00:18:05,418 --> 00:18:08,519
+you how many steps were taken, how far they walked. How many
+
+389
+00:18:08,588 --> 00:18:11,588
+floors they went up and down, stuff like that, okay?
+
+390
+00:18:11,657 --> 00:18:13,891
+So pedometer, if you're doing some kind of fitness app or
+
+391
+00:18:13,960 --> 00:18:15,960
+something like that, a pedometer is a cool thing for
+
+392
+00:18:16,028 --> 00:18:19,162
+that. You can also find out Altimeter, okay? Now this is
+
+393
+00:18:19,231 --> 00:18:22,166
+relative Altimeter, it can't tell you exactly what your
+
+394
+00:18:22,235 --> 00:18:24,802
+altitude is, because really it's just measuring
+
+395
+00:18:24,870 --> 00:18:27,972
+the barometric pressure around you. But as you go up and
+
+396
+00:18:28,040 --> 00:18:31,675
+down, of course that pressure is going to change and so
+
+397
+00:18:31,744 --> 00:18:35,312
+it can give you a relative altitude change. Okay, now,
+
+398
+00:18:35,381 --> 00:18:37,881
+let me talk a little bit about authorization for
+
+399
+00:18:37,950 --> 00:18:40,751
+all this stuff. Some of the information here that we
+
+400
+00:18:40,820 --> 00:18:43,554
+talking about is considered private to the user.
+
+401
+00:18:43,623 --> 00:18:46,624
+Like their steps information and what they are doing,
+
+402
+00:18:46,693 --> 00:18:50,061
+standing still, driving, that's private information.
+
+403
+00:18:50,129 --> 00:18:52,996
+So if you wanna get that information the system is
+
+404
+00:18:53,065 --> 00:18:56,400
+going to ask the user is it okay to share this information
+
+405
+00:18:56,468 --> 00:18:59,970
+with this app? And they're gonna say yes or no. So you if
+
+406
+00:19:00,039 --> 00:19:03,074
+you are gonna use this private information you need to check
+
+407
+00:19:03,142 --> 00:19:05,709
+the AuthorizationStatus before you go and try and
+
+408
+00:19:05,778 --> 00:19:08,579
+access this data. Otherwise it's just gonna fail and
+
+409
+00:19:08,648 --> 00:19:11,282
+give you an error that explains it, but this way you
+
+410
+00:19:11,350 --> 00:19:13,984
+can avoid even wasting your time calling that. And
+
+411
+00:19:14,053 --> 00:19:16,720
+here's the authorization statuses you can get.
+
+412
+00:19:16,789 --> 00:19:19,657
+You can have notDetermined, the user hasn't been asked
+
+413
+00:19:19,725 --> 00:19:22,926
+yet, okay? So we don't know what it is. Restricted means
+
+414
+00:19:22,995 --> 00:19:26,530
+the user can't be asked, okay, about this.
+
+415
+00:19:26,598 --> 00:19:29,533
+Maybe because they've just turned off fitness tracking in
+
+416
+00:19:29,602 --> 00:19:32,502
+their phone in their Privacy Settings so they're not gonna
+
+417
+00:19:32,571 --> 00:19:34,872
+have you ask because this user just told me no.
+
+418
+00:19:34,941 --> 00:19:37,541
+No apps can do any of this fitness data.
+
+419
+00:19:37,609 --> 00:19:40,110
+Or it's either Denied or Authorized if they've been
+
+420
+00:19:40,179 --> 00:19:42,813
+asked okay what their answer is. And of course they can go
+
+421
+00:19:42,882 --> 00:19:45,149
+back and change this in their settings, right?
+
+422
+00:19:45,218 --> 00:19:47,451
+So if you have an app and it depends on this,
+
+423
+00:19:47,520 --> 00:19:50,287
+and you can check this, it says Denied, you can put up
+
+424
+00:19:50,355 --> 00:19:53,256
+an alert that says, you denied me the access to do this,
+
+425
+00:19:53,325 --> 00:19:56,927
+so I can't do this feature. If you wanna re-enable it,
+
+426
+00:19:56,996 --> 00:20:00,630
+go to Settings and do it, all right? Okay, so the demo
+
+427
+00:20:00,699 --> 00:20:03,601
+I'm gonna do is a super little simple one. I'm not even gonna
+
+428
+00:20:03,669 --> 00:20:05,902
+use device motion, I'm just gonna use the accelerometer.
+
+429
+00:20:05,971 --> 00:20:08,039
+We're gonna take our Playing Card app,
+
+430
+00:20:08,107 --> 00:20:10,441
+if you remember that app from many weeks ago.
+
+431
+00:20:10,509 --> 00:20:12,042
+And remember it has the cards flying around?
+
+432
+00:20:12,111 --> 00:20:16,012
+Here, let's actually go and run it, here it is,
+
+433
+00:20:16,081 --> 00:20:19,883
+I'm gonna run it on my iPad over here. So here it is,
+
+434
+00:20:19,952 --> 00:20:23,520
+remember this app right here? I got the cards here and
+
+435
+00:20:23,589 --> 00:20:28,058
+I got my iPad here, tapping on it. I've got match in the very
+
+436
+00:20:28,127 --> 00:20:31,461
+first cards. So what we're gonna do is make it so
+
+437
+00:20:31,530 --> 00:20:36,000
+that these cards are affected by gravity, real gravity okay?
+
+438
+00:20:36,068 --> 00:20:37,167
+We're gonna make it so
+
+439
+00:20:37,236 --> 00:20:40,338
+that the cards go towards the center of the earth basically.
+
+440
+00:20:40,406 --> 00:20:42,239
+And we're gonna do that with the accelerometer and
+
+441
+00:20:42,308 --> 00:20:43,841
+measure the acceleration due to gravity.
+
+442
+00:20:43,910 --> 00:20:46,343
+Now, again, I'm not gonna use device motion so
+
+443
+00:20:46,412 --> 00:20:47,945
+if I shake my, my iPad around,
+
+444
+00:20:48,014 --> 00:20:50,347
+it's, they're gonna start flying around.
+
+445
+00:20:50,416 --> 00:20:53,784
+And not too fast, because it's just acceleration. It's not
+
+446
+00:20:53,852 --> 00:20:56,920
+actual motion. But so, we're not gonna worry about that,
+
+447
+00:20:56,989 --> 00:20:59,156
+okay? If I didn't want that, which I probably wouldn't,
+
+448
+00:20:59,225 --> 00:21:00,757
+then we'd use devi-, device motion. But
+
+449
+00:21:00,826 --> 00:21:03,394
+we're trying to save time, cuz we got a lot to demo today.
+
+450
+00:21:03,463 --> 00:21:07,564
+So we're just gonna use accelerometer. So let's jump
+
+451
+00:21:07,633 --> 00:21:11,868
+back here into Playing Card, you all remember it here.
+
+452
+00:21:11,937 --> 00:21:14,138
+We got this pile of Playing Card here.
+
+453
+00:21:14,207 --> 00:21:15,839
+So how are we gonna do this?
+
+454
+00:21:15,908 --> 00:21:18,209
+How are we gonna be make our cards be affected by gravity?
+
+455
+00:21:18,277 --> 00:21:20,577
+Well, it turns out that there's a behavior.
+
+456
+00:21:20,646 --> 00:21:23,614
+One of the animation behaviors is gravity behavior and
+
+457
+00:21:23,683 --> 00:21:26,550
+you can specify the magnitude and the direction that
+
+458
+00:21:26,619 --> 00:21:30,087
+the gravity is coming from, okay? And so what I'm gonna do
+
+459
+00:21:30,156 --> 00:21:33,524
+is as my device tilts around, I'm gonna change where
+
+460
+00:21:33,592 --> 00:21:36,626
+gravity is so that it goes towards of the center of
+
+461
+00:21:36,695 --> 00:21:39,296
+the Earth. And that's really easy to do in Playing Card
+
+462
+00:21:39,364 --> 00:21:41,532
+because we already have this card behavior, right?
+
+463
+00:21:41,600 --> 00:21:44,568
+Remember this sub class of UIDynamicBehavior
+
+464
+00:21:44,637 --> 00:21:48,138
+that handles our collisions like do we allow rotation,
+
+465
+00:21:48,207 --> 00:21:51,908
+when we push an item, etc., and we just added those things
+
+466
+00:21:51,977 --> 00:21:54,811
+as our child behavior. So I'm gonna do exact same thing for
+
+467
+00:21:54,880 --> 00:21:58,883
+gravity. So I'm gonna create a new behavior, gonna call it my
+
+468
+00:21:58,951 --> 00:22:03,187
+gravityBehavior, it's gonna be a UIGravityBehavior. And
+
+469
+00:22:03,255 --> 00:22:06,089
+I'm actually gonna initialize it in exactly the same way
+
+470
+00:22:06,158 --> 00:22:08,959
+that I did these other ones up here we just use a closure,
+
+471
+00:22:09,028 --> 00:22:12,730
+right? I'm gonna execute a closure to initialize them.
+
+472
+00:22:12,798 --> 00:22:17,668
+So here I'm gonna let behavior equal a UIGravityBehavior.
+
+473
+00:22:17,737 --> 00:22:22,139
+Now the only initialization I'm gonna do at the start here
+
+474
+00:22:22,207 --> 00:22:26,076
+is to set the magnitude of the gravity to 0, okay?
+
+475
+00:22:26,145 --> 00:22:28,545
+Now you can even control what the magnitude of the gravity,
+
+476
+00:22:28,614 --> 00:22:29,647
+and remember this is not,
+
+477
+00:22:29,715 --> 00:22:32,282
+we're not talking about real gravity here. We're talking
+
+478
+00:22:32,351 --> 00:22:35,252
+about the gravity that affects the animation of these items,
+
+479
+00:22:35,321 --> 00:22:37,421
+right? So you can set that to anything you want, okay?
+
+480
+00:22:37,489 --> 00:22:39,990
+Whatever gravity you want. So I'm gonna set it to 0, and
+
+481
+00:22:40,059 --> 00:22:42,026
+the reason for that is remember I said that we don't
+
+482
+00:22:42,094 --> 00:22:44,361
+want to turn the accelerometer on until we're on screen.
+
+483
+00:22:44,430 --> 00:22:46,296
+And as soon as we go off screen we're going to turn it
+
+484
+00:22:46,365 --> 00:22:48,265
+off, cuz we don't want the accelerometer on. So
+
+485
+00:22:48,334 --> 00:22:51,868
+until I turn the accelerometer on, I want no gravity to be
+
+486
+00:22:51,937 --> 00:22:55,639
+affecting my cards. So they'll just do what they normally do
+
+487
+00:22:55,708 --> 00:22:58,943
+until I turn, until I hook it up to the accelerometer.
+
+488
+00:22:59,011 --> 00:23:02,313
+All right? So there's our behavior. Now, anytime we have
+
+489
+00:23:02,381 --> 00:23:05,949
+a child behavior like this, we're gonna wanna make sure
+
+490
+00:23:06,018 --> 00:23:09,419
+that new items that we add to it are added so that gravity
+
+491
+00:23:09,488 --> 00:23:12,923
+effects them. And of course if when we remove an item,
+
+492
+00:23:12,992 --> 00:23:20,363
+we want the gravity to stop affecting them. Oops!
+
+493
+00:23:20,432 --> 00:23:25,235
+And we always need to add any of these behaviors as a child
+
+494
+00:23:25,304 --> 00:23:31,342
+behavior like this. Okay, so now, our cardBehavior,
+
+495
+00:23:31,410 --> 00:23:37,748
+up here, That we defined up here. Now, in addition
+
+496
+00:23:37,816 --> 00:23:40,751
+to doing collisions and having this other item behavior,
+
+497
+00:23:40,820 --> 00:23:43,420
+and being able to be pushed and all that, it's also
+
+498
+00:23:43,489 --> 00:23:46,357
+affected by gravity which starts out zero. Okay, so
+
+499
+00:23:46,425 --> 00:23:50,594
+now that we can do that, let's go back to our controller,
+
+500
+00:23:50,663 --> 00:23:53,263
+this is our viewController where we make all the cards
+
+501
+00:23:53,331 --> 00:23:55,899
+and all that stuff. And it knows about the card behavior.
+
+502
+00:23:55,968 --> 00:24:00,537
+And I'm going to turn on the accelerometer when we appear,
+
+503
+00:24:00,606 --> 00:24:03,040
+and I'm gonna turn it off when we disappear. And
+
+504
+00:24:03,108 --> 00:24:06,409
+when I turn it on, all I'm gonna do is register a closure
+
+505
+00:24:06,478 --> 00:24:08,946
+that takes the accelerometer's data and
+
+506
+00:24:09,015 --> 00:24:11,982
+puts it into that cardBehavior's data, right?
+
+507
+00:24:12,050 --> 00:24:18,354
+So let's do that. I'm just gonna first do viewDidAppear,
+
+508
+00:24:18,423 --> 00:24:22,326
+okay? super.viewDidAppear,
+
+509
+00:24:22,395 --> 00:24:26,196
+animated, all right? And so, in viewDidAppear,
+
+510
+00:24:26,265 --> 00:24:29,366
+the very first thing I'm gonna do is figure out how to get
+
+511
+00:24:29,435 --> 00:24:33,904
+my, motion manager going on here. And the way that I'm
+
+512
+00:24:33,973 --> 00:24:38,142
+going to do that, is by creating a shared one,
+
+513
+00:24:38,210 --> 00:24:40,744
+because really I can only have one, as we talked about,
+
+514
+00:24:40,813 --> 00:24:44,014
+motion manager per app. It only makes sense to do one.
+
+515
+00:24:44,083 --> 00:24:46,550
+So I'm gonna do that actually in another file and
+
+516
+00:24:46,619 --> 00:24:49,420
+I want to show you a little bit how what kind of what the,
+
+517
+00:24:49,488 --> 00:24:52,088
+conventions we might use are to create something on
+
+518
+00:24:52,157 --> 00:24:55,559
+the file. Now, what I'm gonna create here is an extension to
+
+519
+00:24:55,628 --> 00:24:57,794
+CMMotionManager to add a static var,
+
+520
+00:24:57,863 --> 00:24:59,597
+which is the shared one, okay?
+
+521
+00:24:59,665 --> 00:25:02,532
+And so that's what help people get it. So usually,
+
+522
+00:25:02,601 --> 00:25:06,236
+we call files that have an extension like that.
+
+523
+00:25:06,304 --> 00:25:09,005
+The same, the name of the class that we're extending and
+
+524
+00:25:09,074 --> 00:25:09,873
+then plus sign, and
+
+525
+00:25:09,942 --> 00:25:13,043
+then the description of what's in there. In this case, it's
+
+526
+00:25:13,112 --> 00:25:16,212
+gonna be shared. A shared one, so I'm gonna call it shared.
+
+527
+00:25:16,281 --> 00:25:19,116
+So it's called CMMotionManager+shared.
+
+528
+00:25:19,184 --> 00:25:21,919
+It doesn't wanna the import Foundation instead it
+
+529
+00:25:21,987 --> 00:25:23,920
+wants to import CoreMotion, okay?
+
+530
+00:25:23,989 --> 00:25:27,290
+Anytime you do anything with CoreMotion you need to import
+
+531
+00:25:27,359 --> 00:25:30,928
+CoreMotion. So I'm just gonna have an extension
+
+532
+00:25:30,996 --> 00:25:35,532
+to CMMotionManager and it's just gonna be a static var.
+
+533
+00:25:35,601 --> 00:25:39,202
+So a class var, right, called shared which is,
+
+534
+00:25:39,271 --> 00:25:43,207
+is an instance of CMMotionManager. So now,
+
+535
+00:25:43,275 --> 00:25:46,310
+anyone who wants to use a MotionManager can use this one
+
+536
+00:25:46,379 --> 00:25:48,078
+right here and they'll all be sharing the same.
+
+537
+00:25:48,147 --> 00:25:49,946
+Now, of course, our simple app,
+
+538
+00:25:50,015 --> 00:25:51,148
+we're only using it in one place, but
+
+539
+00:25:51,217 --> 00:25:54,518
+I just wanna to show you, this is how you could do shared,
+
+540
+00:25:54,586 --> 00:25:57,654
+data if you wanted to in your app.
+
+541
+00:25:57,723 --> 00:26:01,558
+All right, so viewDidAppear is happening here, we wanna turn
+
+542
+00:26:01,626 --> 00:26:04,894
+on the accelerometer. First thing we always do is what?
+
+543
+00:26:04,963 --> 00:26:06,329
+Check to make sure we can do it.
+
+544
+00:26:06,398 --> 00:26:10,300
+Okay, so let's do that and say if the CMMotionManager, and
+
+545
+00:26:10,369 --> 00:26:13,170
+now, I'm not getting escape completion,
+
+546
+00:26:13,238 --> 00:26:16,539
+that's because I need to import CoreMotion in here
+
+547
+00:26:16,608 --> 00:26:19,709
+as well. If I'm gonna use CoreMotion I need to do it.
+
+548
+00:26:19,778 --> 00:26:21,544
+And now, it's figuring it out for me.
+
+549
+00:26:21,613 --> 00:26:24,714
+And I'm gonna do shared and I'm gonna
+
+550
+00:26:24,783 --> 00:26:28,185
+call the method there to check if to see if my accelerometer
+
+551
+00:26:28,253 --> 00:26:33,023
+is available called isAccelerometer Available. And
+
+552
+00:26:33,092 --> 00:26:35,826
+if it is available here, then the first thing I'm gonna do
+
+553
+00:26:35,895 --> 00:26:38,728
+is take, tell my cardBehavior to have it's gravityBehavior
+
+554
+00:26:38,797 --> 00:26:40,497
+turn it it magnitude back to 1.0.
+
+555
+00:26:40,566 --> 00:26:45,902
+So we're gonna turn on the gravity in our cardBehavior.
+
+556
+00:26:45,971 --> 00:26:48,105
+Then we wanna register a closure with
+
+557
+00:26:48,173 --> 00:26:52,075
+the MotionManager to call us with accelerometer updates.
+
+558
+00:26:52,144 --> 00:26:55,479
+And we do that by saying CMMotionManager.shared
+
+559
+00:26:55,547 --> 00:26:59,115
+.startAccelerometerUpdates. And you can see here the one
+
+560
+00:26:59,184 --> 00:27:01,952
+where you pull and here is the one where we get the closure.
+
+561
+00:27:02,021 --> 00:27:03,587
+So we want the one with the closure here.
+
+562
+00:27:03,656 --> 00:27:06,022
+We're gonna do it on the main queue, okay?
+
+563
+00:27:06,091 --> 00:27:09,025
+And the handler, we'll just double-click. And you can see
+
+564
+00:27:09,094 --> 00:27:11,962
+that handler has the argument here which is the data.
+
+565
+00:27:12,030 --> 00:27:16,700
+That's the AccelerometerData and it has a possible error,
+
+566
+00:27:16,769 --> 00:27:20,604
+which could be null, to use the closing trailer,
+
+567
+00:27:20,672 --> 00:27:24,742
+the trailing closure syntax here. Make that work.
+
+568
+00:27:24,810 --> 00:27:26,943
+So this is all we need to do to get these updates.
+
+569
+00:27:27,012 --> 00:27:30,013
+Now, how often are we gonna get these updates?
+
+570
+00:27:30,081 --> 00:27:34,651
+Well, we get to say. We get to say CMMotionManager
+
+571
+00:27:34,720 --> 00:27:38,188
+.accelerometer, accelerometer UpdateInterval,
+
+572
+00:27:38,257 --> 00:27:43,260
+meterUpdateInterval. What is it called? I can't type here,
+
+573
+00:27:43,329 --> 00:27:48,031
+called acc, let's just go updateinterval. No? Sorry,
+
+574
+00:27:48,100 --> 00:27:52,769
+.shared.accelerometer UpdateInterval.
+
+575
+00:27:52,838 --> 00:27:55,405
+And, okay, think about what's happening with these cards,
+
+576
+00:27:55,474 --> 00:27:58,475
+right? They're being pulled by gravity going on. They don't
+
+577
+00:27:58,544 --> 00:28:01,077
+need to know instantly what the gravity is. In fact,
+
+578
+00:28:01,146 --> 00:28:03,780
+probably once every half second would be enough, but
+
+579
+00:28:03,849 --> 00:28:06,983
+to be sure, I'll go maybe once every tenth of a second, okay?
+
+580
+00:28:07,052 --> 00:28:09,619
+It doesn't, I don't really do much in the closure, so
+
+581
+00:28:09,688 --> 00:28:12,422
+it's really not a performance hit to change that too much.
+
+582
+00:28:12,491 --> 00:28:14,891
+So we'll go about every tenth, we could go fifth, and
+
+583
+00:28:14,960 --> 00:28:17,460
+we could kinda tune this, we might find that once a second
+
+584
+00:28:17,529 --> 00:28:19,195
+is enough to get the behavior we want.
+
+585
+00:28:19,264 --> 00:28:21,598
+In which case, we should use once per second, so
+
+586
+00:28:21,667 --> 00:28:24,834
+this is something we have to tune. All right, now, we wanna
+
+587
+00:28:24,903 --> 00:28:27,971
+get AccelerometerData, where is it? It's in here,
+
+588
+00:28:28,040 --> 00:28:31,140
+this is that struck that has the acceleration x, y, and z.
+
+589
+00:28:31,209 --> 00:28:33,777
+So I'm gonna say if I can let x, which is gonna be my
+
+590
+00:28:33,845 --> 00:28:37,046
+acceleration in x, equal that data? If we have it,
+
+591
+00:28:37,115 --> 00:28:39,315
+if it wasn't an error, acceleration.x.
+
+592
+00:28:39,384 --> 00:28:41,852
+And I'm gonna let y = the data?.acceleration.y.
+
+593
+00:28:41,920 --> 00:28:44,988
+So if I'm able to get the information, if I can't,
+
+594
+00:28:45,057 --> 00:28:48,124
+I'll just ignore this, I'm gonna ignore errors.
+
+595
+00:28:48,193 --> 00:28:50,593
+I should handle them if I need to here, but
+
+596
+00:28:50,662 --> 00:28:55,532
+I'm gonna ignore errors. So if that comes through, now,
+
+597
+00:28:55,600 --> 00:28:59,302
+I need to set the gravity vector, okay, the direction of
+
+598
+00:28:59,371 --> 00:29:02,272
+gravity, in my CardBehavior's GravityBehavior. Okay, now,
+
+599
+00:29:02,341 --> 00:29:05,876
+this is an interesting thing here to wanna do,
+
+600
+00:29:05,945 --> 00:29:10,313
+because the AccelerometerData is in with respect to
+
+601
+00:29:10,382 --> 00:29:15,385
+the device, okay? If I hold this device up right here,
+
+602
+00:29:15,454 --> 00:29:17,954
+okay? Here's the home button, down.
+
+603
+00:29:18,023 --> 00:29:21,324
+That means in the y direction this is gravity 1.0, okay? And
+
+604
+00:29:21,393 --> 00:29:24,894
+this will be if it is going up it will be negative gravity
+
+605
+00:29:24,963 --> 00:29:28,832
+right here. And this is the x direction and this is the z
+
+606
+00:29:28,901 --> 00:29:34,204
+direction back behind, okay? So that's different then
+
+607
+00:29:34,272 --> 00:29:38,275
+possibly, my reference frame of my animation because for
+
+608
+00:29:38,343 --> 00:29:40,977
+example, I might be rotated, okay?
+
+609
+00:29:41,046 --> 00:29:44,681
+So if I'm rotated, maybe my app does autorotation, and so
+
+610
+00:29:44,750 --> 00:29:48,785
+up is actually the x location. Do you see what I'm saying?
+
+611
+00:29:48,853 --> 00:29:53,256
+So the hardware and the view are not quiet the same. Now,
+
+612
+00:29:53,324 --> 00:29:55,758
+before we try and deal with that,
+
+613
+00:29:55,827 --> 00:29:59,663
+let's just try saying that the CardBehaviors's,
+
+614
+00:29:59,731 --> 00:30:04,601
+GravityBehavior's direction, gravityDirection is called,
+
+615
+00:30:04,670 --> 00:30:08,605
+which is a CGVector, which just means x and y extent,
+
+616
+00:30:08,674 --> 00:30:13,543
+right? We'll just try setting it to the x and
+
+617
+00:30:13,612 --> 00:30:17,580
+y of the accelerometer. Let's just see what happens when we
+
+618
+00:30:17,649 --> 00:30:21,384
+do that, okay? Because that kinda should work. Let's,
+
+619
+00:30:21,453 --> 00:30:26,656
+let's run and see what happens here, though. All right,
+
+620
+00:30:26,725 --> 00:30:28,791
+so, so you can see what's going
+
+621
+00:30:28,860 --> 00:30:32,061
+on here on this screen, okay? I'll have to tell you what I'm
+
+622
+00:30:32,130 --> 00:30:35,765
+doing. So here, I'm holding my device now straight up, okay?
+
+623
+00:30:35,834 --> 00:30:37,200
+And you can actually see, look.
+
+624
+00:30:37,268 --> 00:30:40,403
+All my cards are actually going up. If I turn it upside
+
+625
+00:30:40,472 --> 00:30:43,840
+down, now, they'll fall down. Back to the right side,
+
+626
+00:30:43,909 --> 00:30:47,310
+woo hoo, they all go back up. So gravity is working,
+
+627
+00:30:47,379 --> 00:30:49,813
+but it's kind of anti-grav, okay? It's working
+
+628
+00:30:49,882 --> 00:30:52,449
+opposite direction. Now, can anyone think why it's going in
+
+629
+00:30:52,517 --> 00:30:57,187
+the opposite direction and why? Okay, where is our origin
+
+630
+00:30:57,255 --> 00:31:01,491
+in, in our drawing thing? It's in the upper left, right?
+
+631
+00:31:01,560 --> 00:31:06,129
+So if we have gravity which is down, where is down in
+
+632
+00:31:06,198 --> 00:31:11,034
+a coordinate system where the upper left is 0, 0? It's up,
+
+633
+00:31:11,103 --> 00:31:14,237
+right? So up towards zero, zero. So that's the problem.
+
+634
+00:31:14,305 --> 00:31:18,175
+So we need to, to kind of reverse y because the device's
+
+635
+00:31:18,243 --> 00:31:21,411
+gravity down is different than our coordinate system. And
+
+636
+00:31:21,480 --> 00:31:24,081
+actually, it could work, it works. Right now I have my
+
+637
+00:31:24,149 --> 00:31:27,350
+orientation locked so as I rotate my device
+
+638
+00:31:27,419 --> 00:31:31,020
+it's not autorotating. But if I auto rotate it, then my view
+
+639
+00:31:31,089 --> 00:31:34,357
+would constantly be changing. So how are we gonna fix that?
+
+640
+00:31:34,426 --> 00:31:38,027
+Let's go back to our code over here. And what we're gonna do
+
+641
+00:31:38,096 --> 00:31:41,698
+is change this x and y from hardware coordinate system to
+
+642
+00:31:41,766 --> 00:31:45,201
+our view coordinate system and we're gonna do this,
+
+643
+00:31:45,270 --> 00:31:49,606
+I'm gonna have a little thing to type it fast here. We're
+
+644
+00:31:49,674 --> 00:31:51,874
+gonna do this depending on the orientation of the device.
+
+645
+00:31:51,943 --> 00:31:54,411
+So I'm switching on the device's orientation. So
+
+646
+00:31:54,479 --> 00:31:57,080
+remember we used UIDevice to see if it was an iPad. Well,
+
+647
+00:31:57,149 --> 00:32:00,116
+we can also use UIDevice to find out what the orientation
+
+648
+00:32:00,185 --> 00:32:02,685
+is, either portrait, portrait upside down,
+
+649
+00:32:02,754 --> 00:32:05,922
+that means portrait with the home button up on the top,
+
+650
+00:32:05,991 --> 00:32:08,692
+or landscape left or right. Landscape left is the home
+
+651
+00:32:08,760 --> 00:32:12,262
+button on the left, landscape mode. And of course,
+
+652
+00:32:12,331 --> 00:32:16,432
+these need to be VAR's and by the way, yes, you can say if
+
+653
+00:32:16,501 --> 00:32:20,102
+VAR x and have this be a VAR, that is legal. Probably,
+
+654
+00:32:20,171 --> 00:32:22,705
+maybe didn't get that when you read your homework part of it
+
+655
+00:32:22,774 --> 00:32:26,342
+early in the quarter, but you can. So,uh, if I'm in portrait
+
+656
+00:32:26,411 --> 00:32:29,178
+mode, then we've already seen that Y needs to be -1,
+
+657
+00:32:29,247 --> 00:32:32,849
+right? Because up is down and down is up. If we're in
+
+658
+00:32:32,918 --> 00:32:35,485
+portraitUpsideDown, they actually match up.
+
+659
+00:32:35,554 --> 00:32:36,820
+Okay, in portraitUpsideDown,
+
+660
+00:32:36,889 --> 00:32:38,188
+the home button is at the top and so
+
+661
+00:32:38,256 --> 00:32:40,590
+is our coordinate system. So we're all in good shape. And
+
+662
+00:32:40,659 --> 00:32:42,626
+landscapeLeft and right, actually x and
+
+663
+00:32:42,694 --> 00:32:45,061
+y have been swapped. Okay, cuz in landscape,
+
+664
+00:32:45,130 --> 00:32:49,899
+it's the x part of the device that is now the vertical, so
+
+665
+00:32:49,968 --> 00:32:51,834
+we'll have to swap them. And in landscapeLeft,
+
+666
+00:32:51,903 --> 00:32:54,470
+we swapped them and it's upside down as well. So
+
+667
+00:32:54,539 --> 00:32:59,809
+let's go see this in action. And we're currently locked to
+
+668
+00:32:59,878 --> 00:33:02,646
+portrait. Okay, first of all, now I have my device on me,
+
+669
+00:33:02,715 --> 00:33:06,149
+this up here. So now my device is flat,
+
+670
+00:33:06,218 --> 00:33:09,085
+okay, so acceleration is in the z direction, so x and
+
+671
+00:33:09,154 --> 00:33:12,321
+y are 0. So you can see it's just doing it's normal,
+
+672
+00:33:12,390 --> 00:33:15,124
+floating around business. Now what I'm gonna do
+
+673
+00:33:15,193 --> 00:33:18,561
+is I'm gonna tilt it up so the home button is down. And
+
+674
+00:33:18,630 --> 00:33:21,865
+sure enough, gravity pulls them all down to the bottom.
+
+675
+00:33:21,934 --> 00:33:24,233
+Now I'm gonna turn it upside down, okay?
+
+676
+00:33:24,302 --> 00:33:26,569
+Now gravity is pulling it all to the other side.
+
+677
+00:33:26,638 --> 00:33:29,272
+If you're watching on the screen, if you can't really,
+
+678
+00:33:29,341 --> 00:33:31,774
+understand what I'm doing, maybe. But now let's go to
+
+679
+00:33:31,843 --> 00:33:37,313
+landscape right, right? And over to landscape left, okay?
+
+680
+00:33:37,382 --> 00:33:39,249
+So it's working, gravity is pulling on these and
+
+681
+00:33:39,318 --> 00:33:40,884
+they're still bouncing off each other and
+
+682
+00:33:40,952 --> 00:33:44,153
+have those forces as well. But they're doing that.
+
+683
+00:33:44,222 --> 00:33:47,424
+Now I'm gonna unlock my, rotation here,
+
+684
+00:33:47,492 --> 00:33:51,595
+I'm gonna go swipe, turn this lock off and go back. Now
+
+685
+00:33:51,663 --> 00:33:55,832
+it's gonna auto rotate. Okay, so here we're in portrait
+
+686
+00:33:55,900 --> 00:33:58,835
+mode and these all go to the bottom and now if I go flat,
+
+687
+00:33:58,903 --> 00:34:02,805
+for example, in all my. So let's actually go here and get
+
+688
+00:34:02,874 --> 00:34:06,042
+these things loading a little bit. And if I go to landscape,
+
+689
+00:34:06,111 --> 00:34:09,145
+you can see that they stay at the bottom, okay.
+
+690
+00:34:09,214 --> 00:34:10,680
+So they're staying down at the bottom,
+
+691
+00:34:10,749 --> 00:34:13,350
+no matter which way I go. So even though my coordinate
+
+692
+00:34:13,418 --> 00:34:16,019
+system is changing here because I'm auto-rotating,
+
+693
+00:34:16,087 --> 00:34:19,756
+it's always knowing which way is down. Okay,
+
+694
+00:34:19,824 --> 00:34:24,294
+makes sense? All right, go back go back to blocked here.
+
+695
+00:34:28,733 --> 00:34:31,435
+Here we go, so now we can see it going in other directions.
+
+696
+00:34:35,006 --> 00:34:39,876
+All right, now, one other thing we have to do here
+
+697
+00:34:39,944 --> 00:34:45,081
+back in our code is turn off accelerometer updates,
+
+698
+00:34:45,150 --> 00:34:48,251
+okay? Cuz we always want, every time we turn it on,
+
+699
+00:34:48,319 --> 00:34:50,454
+think of somewhere where it makes sense to turn it off.
+
+700
+00:34:50,522 --> 00:34:52,456
+In our case, it's really easy where that is.
+
+701
+00:34:52,524 --> 00:34:55,525
+That's going to be in viewWillDisappear. So
+
+702
+00:34:55,593 --> 00:35:00,396
+let's go to viewWillDisappear. Super, whoops,
+
+703
+00:35:00,465 --> 00:35:04,968
+super.viewWillDisappear.
+
+704
+00:35:05,037 --> 00:35:06,536
+And here, we're gonna do two things,
+
+705
+00:35:06,604 --> 00:35:10,173
+I'm going to tell my card behaviors gravity behavior to
+
+706
+00:35:10,242 --> 00:35:15,512
+set it's magnitude to 0, okay? So stop doing gravity,
+
+707
+00:35:15,581 --> 00:35:18,848
+and I'm also going to tell my CMMotionManager,
+
+708
+00:35:18,917 --> 00:35:23,687
+the shared one, to stop accelerometer updates. Okay,
+
+709
+00:35:23,755 --> 00:35:26,656
+so you see how I've paired starting it with stopping it.
+
+710
+00:35:26,725 --> 00:35:31,461
+Always start and stop. Okay, that is it.
+
+711
+00:35:31,530 --> 00:35:37,434
+Let's go back to our slides here, And
+
+712
+00:35:37,502 --> 00:35:40,470
+talk about our next topic which is the camera and
+
+713
+00:35:40,539 --> 00:35:43,306
+the photo library actually as well.
+
+714
+00:35:43,375 --> 00:35:47,943
+And this API for doing this is actually very simple.
+
+715
+00:35:48,012 --> 00:35:51,314
+Its just a modal view control that you get from iOS and you
+
+716
+00:35:51,383 --> 00:35:55,518
+present it modaly that's as simple as that. The usage here
+
+717
+00:35:55,587 --> 00:35:58,954
+is that you're gonna create it, kinda configure it, set it
+
+718
+00:35:59,023 --> 00:36:01,257
+to delegate because it won't work without the delegate,
+
+719
+00:36:01,326 --> 00:36:04,494
+that's how it tells you what the photo it took was. And
+
+720
+00:36:04,563 --> 00:36:07,130
+then you present it and then listen to the delegate methods
+
+721
+00:36:07,199 --> 00:36:08,097
+that get's sent to you.
+
+722
+00:36:08,166 --> 00:36:10,767
+So, it's actually very simple, to use the camera.
+
+723
+00:36:10,835 --> 00:36:13,236
+What the user can do, by the way,
+
+724
+00:36:13,304 --> 00:36:17,239
+with the camera depends on the platform, all right.
+
+725
+00:36:17,308 --> 00:36:20,309
+Newer devices have really awesome cameras, both front
+
+726
+00:36:20,378 --> 00:36:23,613
+and back, for example, with flash and all these things but
+
+727
+00:36:23,682 --> 00:36:26,549
+older devices don't. So just like we did when we did
+
+728
+00:36:26,617 --> 00:36:30,486
+Core Motion, we're gonna wanna ask what's available? Now,
+
+729
+00:36:30,555 --> 00:36:33,289
+what's interesting is with the same view controller,
+
+730
+00:36:33,358 --> 00:36:35,391
+you can ask for a picture from the camera but
+
+731
+00:36:35,460 --> 00:36:38,361
+you can also ask for a picture from the user's photo library
+
+732
+00:36:38,430 --> 00:36:40,163
+or from their camera roll, right.
+
+733
+00:36:40,231 --> 00:36:43,533
+The camera roll is where kinda of recently taken photos,
+
+734
+00:36:43,602 --> 00:36:47,103
+get dropped in. So the same view control can kind of
+
+735
+00:36:47,171 --> 00:36:49,539
+do those different things but they are different.
+
+736
+00:36:49,608 --> 00:36:52,208
+Okay, the UIs of them are, are quite different actually and
+
+737
+00:36:52,277 --> 00:36:55,912
+we'll talk about that in a second. So
+
+738
+00:36:55,980 --> 00:37:00,984
+not every particular, camera can do every type of media.
+
+739
+00:37:01,053 --> 00:37:04,053
+So, not every camera for example can do video.
+
+740
+00:37:04,122 --> 00:37:07,457
+Not every camera can do live photo. Everyone know live
+
+741
+00:37:07,525 --> 00:37:10,760
+photo is? That's like where you take a burst of images,
+
+742
+00:37:10,829 --> 00:37:14,097
+around the time you, you say picture. So you kinda have to
+
+743
+00:37:14,165 --> 00:37:17,667
+ask, is this media type available for this source,
+
+744
+00:37:17,736 --> 00:37:20,670
+usually the camera. Okay, and you do that here.
+
+745
+00:37:20,739 --> 00:37:24,407
+Now these media types are really unfortunately
+
+746
+00:37:24,475 --> 00:37:28,778
+this weird type here kUTType something which is not even
+
+747
+00:37:28,847 --> 00:37:31,848
+a string. It's a cfstring it turns out and
+
+748
+00:37:31,916 --> 00:37:35,852
+that does not automatically bridge like a nsstring does.
+
+749
+00:37:35,921 --> 00:37:39,088
+And they're defined in MobileCoreServices which means
+
+750
+00:37:39,156 --> 00:37:42,658
+to use camera you have to import MobileCoreServices. And
+
+751
+00:37:42,727 --> 00:37:46,729
+you have to use these and cast them to a string, okay? So,
+
+752
+00:37:46,798 --> 00:37:49,065
+sorry about that. I didn't write this API,
+
+753
+00:37:49,134 --> 00:37:52,402
+so we'll see, hope they fix that in the future,
+
+754
+00:37:52,471 --> 00:37:54,937
+but it's a little annoying.
+
+755
+00:37:55,006 --> 00:37:57,973
+You can also find out things about, particular camera
+
+756
+00:37:58,042 --> 00:38:00,310
+devices like, do they have flash and things like that,
+
+757
+00:38:00,379 --> 00:38:02,678
+that's all part of the UIImagePickerController.
+
+758
+00:38:02,747 --> 00:38:04,814
+Notice that all these methods are static funks.
+
+759
+00:38:04,883 --> 00:38:08,451
+You don't even have to create a UIImagePickerController to
+
+760
+00:38:08,520 --> 00:38:10,954
+do it, you can just ask the UIImagePickerClass
+
+761
+00:38:11,022 --> 00:38:14,690
+about these things. So here's kinda collecting all that
+
+762
+00:38:14,759 --> 00:38:18,561
+into some code that would put up a picker to capture video.
+
+763
+00:38:18,630 --> 00:38:21,364
+All right, so the first thing we're gonna do there is create
+
+764
+00:38:21,432 --> 00:38:23,766
+an ImagePickerController called picker, okay.
+
+765
+00:38:23,835 --> 00:38:27,403
+Then I'm gonna set the type that I want to be movie.
+
+766
+00:38:27,472 --> 00:38:30,673
+I'm gonna create a little local variable media type
+
+767
+00:38:30,742 --> 00:38:33,610
+movie which is that weird kuTTypeMovie thing as
+
+768
+00:38:33,678 --> 00:38:34,744
+a string, okay.
+
+769
+00:38:34,812 --> 00:38:37,613
+Now I'm gonna set myself to be the picker delegate.
+
+770
+00:38:37,682 --> 00:38:41,184
+If I don't do that, I'll never find out what photo was taken.
+
+771
+00:38:41,253 --> 00:38:43,586
+So I have to do that, it's an absolute requirement.
+
+772
+00:38:43,655 --> 00:38:45,654
+Then I'm gonna ask you why ImagePickerController,
+
+773
+00:38:45,723 --> 00:38:49,526
+by the way I say UIIPC because it just won't fit on the slide
+
+774
+00:38:49,594 --> 00:38:52,928
+someplace. So imagine that says UIImagePickerController.
+
+775
+00:38:52,997 --> 00:38:55,064
+That is source type available, camera.
+
+776
+00:38:55,133 --> 00:38:57,600
+So I'm gonna see is there a camera available on this
+
+777
+00:38:57,669 --> 00:39:00,803
+device, which for most things there is a camera.
+
+778
+00:39:00,872 --> 00:39:03,139
+The simulator however, will not have a camera so
+
+779
+00:39:03,208 --> 00:39:06,108
+this is a good way to test this line of code.
+
+780
+00:39:06,177 --> 00:39:08,744
+Then I'm gonna set, if it does have a camera, I'm gonna set
+
+781
+00:39:08,813 --> 00:39:11,080
+the source type of the picker to be the camera. Okay,
+
+782
+00:39:11,149 --> 00:39:13,415
+don't forget to set the source type where you wanna do it.
+
+783
+00:39:13,484 --> 00:39:16,286
+Now, this source type is where you would say photo library if
+
+784
+00:39:16,354 --> 00:39:18,788
+you wanted to let the user choose a photo from the photo
+
+785
+00:39:18,856 --> 00:39:23,292
+library instead, okay, or the camera roll. So
+
+786
+00:39:23,361 --> 00:39:27,530
+then we're gonna say, tell me the available media types for
+
+787
+00:39:27,599 --> 00:39:31,067
+that source, camera or whatever source type that I'm
+
+788
+00:39:31,136 --> 00:39:34,070
+using. And I'm gonna look in the array that comes back and
+
+789
+00:39:34,138 --> 00:39:38,307
+see if movies, kUTType movie, is in there. And if it is,
+
+790
+00:39:38,376 --> 00:39:42,811
+I'm ready to go. I'm gonna set my media types to be movie and
+
+791
+00:39:42,880 --> 00:39:44,179
+then we're gonna put the picker up. So
+
+792
+00:39:44,248 --> 00:39:48,284
+this is how you put a picker on the screen. All right?
+
+793
+00:39:48,353 --> 00:39:51,721
+Now when I, I told you earlier that you can configure this
+
+794
+00:39:51,789 --> 00:39:55,457
+picker, okay, to, when you're putting it on screen.
+
+795
+00:39:55,526 --> 00:39:56,559
+What are some of the things you can do?
+
+796
+00:39:56,628 --> 00:39:59,295
+Well, you can just say that it allows editing.
+
+797
+00:39:59,364 --> 00:40:01,930
+So, in that sense the user can take a photo and
+
+798
+00:40:01,999 --> 00:40:03,766
+then even before it comes back to you,
+
+799
+00:40:03,835 --> 00:40:07,337
+they can zoom in on it a little, move around. Video,
+
+800
+00:40:07,405 --> 00:40:10,372
+they can even edit the video before it returns to you. So
+
+801
+00:40:10,441 --> 00:40:13,743
+you're basically has in place editing right in the UI,
+
+802
+00:40:13,812 --> 00:40:17,446
+the UIImagePickerController, puts up, which is kinda cool.
+
+803
+00:40:17,515 --> 00:40:20,482
+You can, if you're doing video, you can limit the video
+
+804
+00:40:20,551 --> 00:40:23,219
+capture to a certain number of minutes or to a certain
+
+805
+00:40:23,288 --> 00:40:28,358
+quality using these VARs right here. To present the picker,
+
+806
+00:40:28,426 --> 00:40:31,027
+all you do is use the same present modally that we did to
+
+807
+00:40:31,095 --> 00:40:34,163
+do a UI alert controller, or the same thing we did to put
+
+808
+00:40:34,231 --> 00:40:37,600
+our document up in Emoji art. And here's where you want
+
+809
+00:40:37,669 --> 00:40:40,402
+to think a little bit about the platform you're on.
+
+810
+00:40:40,471 --> 00:40:44,506
+Because an iPad, if you're gonna put the camera up, it
+
+811
+00:40:44,575 --> 00:40:48,311
+needs to be full screen modal. You cannot put it in a popover
+
+812
+00:40:48,379 --> 00:40:51,447
+if it's the camera, okay? Don't put it in a form sheet,
+
+813
+00:40:51,516 --> 00:40:53,850
+don't put it in a page sheet, full screen modal, okay?
+
+814
+00:40:53,919 --> 00:40:56,418
+That's actually on both iPad and iPhone.
+
+815
+00:40:56,487 --> 00:41:00,022
+On the iPad for the photo library, or the photos app,
+
+816
+00:41:00,091 --> 00:41:04,661
+you want to put in a popover, okay? And then on the iPhone,
+
+817
+00:41:04,729 --> 00:41:06,695
+it's gonna be full screen always on the iPhone, okay? So
+
+818
+00:41:06,764 --> 00:41:10,166
+just clear about, I just want to take a moment to make sure
+
+819
+00:41:10,235 --> 00:41:13,803
+that sinks in. On iPad, full screen for the camera, popover
+
+820
+00:41:13,872 --> 00:41:16,739
+for the photo library, okay? So if you had an app where you
+
+821
+00:41:16,808 --> 00:41:19,241
+could pick your image either from a camera or from a photo
+
+822
+00:41:19,310 --> 00:41:21,544
+library on the iPad, you'd have to have two buttons.
+
+823
+00:41:21,612 --> 00:41:23,046
+One that brought up the camera and
+
+824
+00:41:23,114 --> 00:41:27,216
+one that brings up the photo library in a popover. Okay,
+
+825
+00:41:27,285 --> 00:41:29,786
+once the thing has been presented and
+
+826
+00:41:29,854 --> 00:41:33,389
+the user picks and possibly edits their photo then
+
+827
+00:41:33,458 --> 00:41:35,725
+the delegate method will be called,
+
+828
+00:41:35,793 --> 00:41:39,762
+saying that it did finish picking media with info, okay?
+
+829
+00:41:39,831 --> 00:41:42,732
+And this info is a dictionary, and inside that dictionary is
+
+830
+00:41:42,801 --> 00:41:44,967
+all the information about what was picked. Okay, and
+
+831
+00:41:45,036 --> 00:41:48,204
+we're gonna talk about what all that is on the next slide
+
+832
+00:41:48,273 --> 00:41:50,539
+but this is how you get the information. Now,
+
+833
+00:41:50,608 --> 00:41:51,807
+once you've got all the information,
+
+834
+00:41:51,876 --> 00:41:55,277
+you're going to dismiss your view controller, okay?
+
+835
+00:41:55,346 --> 00:41:56,845
+This is actually old slide here,
+
+836
+00:41:56,914 --> 00:41:59,582
+that's just called dismiss not dismiss view controller
+
+837
+00:41:59,651 --> 00:42:02,985
+animated [LAUGH] right there. And so similarly,
+
+838
+00:42:03,054 --> 00:42:04,854
+if the user went to take a picture and
+
+839
+00:42:04,922 --> 00:42:07,757
+said cancel, then you're gonna get the dele method,
+
+840
+00:42:07,825 --> 00:42:10,826
+delegate method, imagePicture ControllerDidCancel.
+
+841
+00:42:10,895 --> 00:42:13,429
+And you're gonna do picker.presentingView
+
+842
+00:42:13,498 --> 00:42:16,098
+Controller?.dismiss, okay? So let's look
+
+843
+00:42:16,167 --> 00:42:19,068
+at that dictionary, that info dictionary that comes along
+
+844
+00:42:19,137 --> 00:42:21,337
+with didFinishPicking MediaWithInfo and
+
+845
+00:42:21,406 --> 00:42:24,106
+see what we can get from this UI image picker UI that lets
+
+846
+00:42:24,175 --> 00:42:26,776
+the user take a picture with the camera or do the photo
+
+847
+00:42:26,845 --> 00:42:30,113
+library. So you're gonna find, there's one thing that
+
+848
+00:42:30,181 --> 00:42:33,315
+tells you what was chosen, image or a movie.
+
+849
+00:42:33,384 --> 00:42:35,984
+Then if it's an image, you're gonna have both the original
+
+850
+00:42:36,053 --> 00:42:38,654
+image that was taken and also the edited image if they
+
+851
+00:42:38,723 --> 00:42:42,591
+edited it. And those are just UI images, all right,
+
+852
+00:42:42,660 --> 00:42:45,528
+then there's Image URL, that's the URL for the image.
+
+853
+00:42:45,596 --> 00:42:47,363
+By the way, that is in a temporary location,
+
+854
+00:42:47,432 --> 00:42:50,365
+make sure you move it to somewhere, you know, in your
+
+855
+00:42:50,434 --> 00:42:54,103
+sandbox that's more permanent if you want to keep it.
+
+856
+00:42:54,172 --> 00:42:57,072
+CropRect will tell you what rectangle the user cropped it
+
+857
+00:42:57,141 --> 00:42:59,542
+to, if you allow editing, they can crop it
+
+858
+00:42:59,611 --> 00:43:02,211
+to a certain rectangle, you can find that out. You can get
+
+859
+00:43:02,280 --> 00:43:05,080
+some metadata about the media that was chosen,
+
+860
+00:43:05,149 --> 00:43:07,183
+maybe the GPS location that you're at,
+
+861
+00:43:07,252 --> 00:43:11,287
+if the user allows that to be captured, things like that.
+
+862
+00:43:11,356 --> 00:43:14,123
+If it was a live photo that they took, then you get
+
+863
+00:43:14,192 --> 00:43:17,460
+a PHLivePhoto object in there. I'm not gonna talk about
+
+864
+00:43:17,528 --> 00:43:21,497
+the photo library framework which is PH stuff but
+
+865
+00:43:21,566 --> 00:43:24,734
+you can get that. Also PHAsset which is just a struct
+
+866
+00:43:24,802 --> 00:43:27,270
+that kind of describes the photo, but it doesn't actually
+
+867
+00:43:27,339 --> 00:43:29,705
+have the image. You can then use it with
+
+868
+00:43:29,774 --> 00:43:31,374
+the photo library to get the image data.
+
+869
+00:43:31,443 --> 00:43:34,509
+And if you have video, then you get a MediaURL,
+
+870
+00:43:34,578 --> 00:43:37,446
+which is just a URL to a file in your sandbox that contains
+
+871
+00:43:37,515 --> 00:43:40,583
+the video that was captured, all right? So
+
+872
+00:43:40,652 --> 00:43:44,220
+that's what you get back from the UIImagePickerController.
+
+873
+00:43:45,690 --> 00:43:47,122
+Now when you get this image back,
+
+874
+00:43:47,191 --> 00:43:48,490
+if you get an image not a video, if you get an image,
+
+875
+00:43:48,559 --> 00:43:51,928
+you might want to save it to the camera roll. Okay, now it
+
+876
+00:43:51,996 --> 00:43:53,896
+totally depends on why you're asking them for an image.
+
+877
+00:43:53,965 --> 00:43:57,132
+If it's purely for your app's purposes, maybe not but
+
+878
+00:43:57,201 --> 00:44:00,336
+if it's something where it's, you're like a camera app of
+
+879
+00:44:00,404 --> 00:44:03,539
+some sort. And you want, it's a photo that they might be
+
+880
+00:44:03,608 --> 00:44:06,442
+interested in using in other circumstances then you can
+
+881
+00:44:06,510 --> 00:44:08,978
+save it using this write image write to save photo,
+
+882
+00:44:09,047 --> 00:44:10,979
+so unfortunately, this is asynchronous.
+
+883
+00:44:11,048 --> 00:44:13,616
+Unfortunately, it doesn't use a closure API, instead,
+
+884
+00:44:13,684 --> 00:44:15,618
+it has a kind of target and selector, right?
+
+885
+00:44:15,687 --> 00:44:17,686
+So the callback is a target and a selector but
+
+886
+00:44:17,755 --> 00:44:20,289
+it's essentially, you can kind of imagine what this would be
+
+887
+00:44:20,358 --> 00:44:22,992
+like if it had a nice closure that called you back.
+
+888
+00:44:23,060 --> 00:44:24,076
+asynchronous is the image might be quite large. In fact,
+
+889
+00:44:24,077 --> 00:44:25,093
+And the reason it's
+
+890
+00:44:25,162 --> 00:44:27,930
+some of the cameras have very good cameras that are very
+
+891
+00:44:27,999 --> 00:44:31,166
+large, intra, you, you know, megabyte sized, images.
+
+892
+00:44:31,235 --> 00:44:32,568
+And then you talk about a live photo,
+
+893
+00:44:32,637 --> 00:44:37,540
+you're talking about really large images. Now, when you're
+
+894
+00:44:37,608 --> 00:44:40,976
+talking about saving photos, if you're really an app that
+
+895
+00:44:41,045 --> 00:44:43,879
+deals with photos. Maybe you manipulate them and
+
+896
+00:44:43,948 --> 00:44:47,149
+you have filters and things like that, really you're,
+
+897
+00:44:47,217 --> 00:44:50,386
+this is only just the lightest weight API for doing image
+
+898
+00:44:50,455 --> 00:44:54,357
+picking by the user. There's a whole other framework called
+
+899
+00:44:54,425 --> 00:44:57,059
+PHPhotoLibrary which basically is an API for
+
+900
+00:44:57,128 --> 00:44:59,962
+accessing the photos app, the photos that are in
+
+901
+00:45:00,031 --> 00:45:02,698
+the photos app on your phone. Super powerful,
+
+902
+00:45:02,767 --> 00:45:06,268
+very highly efficient API, you definitely wanna check that
+
+903
+00:45:06,337 --> 00:45:10,106
+out if you're doing, really doing photo stuff.
+
+904
+00:45:10,174 --> 00:45:12,942
+You could of course save the image to your sandbox,
+
+905
+00:45:13,011 --> 00:45:15,544
+if you're just using the image in your own app.
+
+906
+00:45:15,613 --> 00:45:19,448
+Okay, that's perfectly legal as well. In addition to
+
+907
+00:45:19,516 --> 00:45:22,651
+PhPhotoLibrary as a place to do really cool media stuff,
+
+908
+00:45:22,720 --> 00:45:25,754
+there's also AVCaptureDevice. That's a whole API for
+
+909
+00:45:25,823 --> 00:45:28,724
+doing much more sophisticated image capture, image capture,
+
+910
+00:45:28,793 --> 00:45:31,327
+right? That you're gonna see when we do the demo,
+
+911
+00:45:31,396 --> 00:45:34,664
+the ImagePickerController has a very simple kind of camera
+
+912
+00:45:34,732 --> 00:45:37,566
+to it. So AV capture device let's you control a lot more
+
+913
+00:45:37,635 --> 00:45:41,704
+of the aspects of the photo being taken. Now,
+
+914
+00:45:41,773 --> 00:45:43,572
+what else can you do with the ImagePickerView?
+
+915
+00:45:43,640 --> 00:45:47,176
+It allows you to actually provide your own UI, even for
+
+916
+00:45:47,244 --> 00:45:48,810
+the button that says Take a Photo.
+
+917
+00:45:48,879 --> 00:45:52,214
+Okay, so you get this default UI that is very simple,
+
+918
+00:45:52,283 --> 00:45:55,017
+it lets you take a photo and cancel and all that.
+
+919
+00:45:55,086 --> 00:45:57,620
+But you can actually put your own view on there, and
+
+920
+00:45:57,688 --> 00:46:00,556
+your view can even replace the existing camera controls.
+
+921
+00:46:00,625 --> 00:46:03,625
+If you say, Show Camera Controls is false,
+
+922
+00:46:03,694 --> 00:46:08,998
+then yours will be the only UI that lays on top. The kind
+
+923
+00:46:09,066 --> 00:46:12,468
+of, what do you call it? The coordinate system that your
+
+924
+00:46:12,536 --> 00:46:17,206
+frame of your view is gonna be in is the UIScreen.main's
+
+925
+00:46:17,275 --> 00:46:20,242
+bounds, okay? So we haven't really talked about UIScreen,
+
+926
+00:46:20,311 --> 00:46:23,745
+it's just an object, it happens to have, a static
+
+927
+00:46:23,814 --> 00:46:26,148
+VAR called main. And you can get the bounds of that and
+
+928
+00:46:26,217 --> 00:46:28,917
+that'll tell you the bounds of the camera, so that you know
+
+929
+00:46:28,986 --> 00:46:34,890
+where to put your UI on top of that. You can also zoom or
+
+930
+00:46:34,959 --> 00:46:37,793
+translate the image that you£re capturing, okay, but
+
+931
+00:46:37,862 --> 00:46:40,863
+with an app line transform. So maybe you wanna scale it up so
+
+932
+00:46:40,931 --> 00:46:43,399
+that it is zoomed in or something like that,
+
+933
+00:46:43,467 --> 00:46:46,736
+you can do that. Once you get the image back from
+
+934
+00:46:46,804 --> 00:46:49,939
+the PickerController, you might want to process it, and
+
+935
+00:46:50,007 --> 00:46:52,207
+there's quite a lot of [LAUGH] API in iOS for
+
+936
+00:46:52,276 --> 00:46:55,411
+processing images. Most of it is in a framework called
+
+937
+00:46:55,480 --> 00:46:58,914
+Core Image, which I strongly recommend you take a look at.
+
+938
+00:46:58,983 --> 00:47:02,718
+It has literally a couple of hundred different filters for
+
+939
+00:47:02,787 --> 00:47:05,488
+doing blur, changing the colors,
+
+940
+00:47:05,556 --> 00:47:09,191
+you know, doing sepia tones, smoothing edges.
+
+941
+00:47:09,260 --> 00:47:11,860
+Just about everything you could possibly imagine doing
+
+942
+00:47:11,929 --> 00:47:14,329
+to manipulate your image,
+
+943
+00:47:14,398 --> 00:47:16,832
+this Core Image will do. There's also as part of
+
+944
+00:47:16,901 --> 00:47:20,068
+the whole machine learning stuff that came out in iOS,
+
+945
+00:47:20,137 --> 00:47:24,072
+is that, I think it's iOS 11 or iOS 10, I guess iOS 11.
+
+946
+00:47:24,141 --> 00:47:26,041
+There's a whole framework called the Vision Framework,
+
+947
+00:47:26,110 --> 00:47:28,744
+and Vision can look at an image and recognize things
+
+948
+00:47:28,813 --> 00:47:32,314
+like faces, bar codes, things like that. You can even,
+
+949
+00:47:32,383 --> 00:47:35,451
+with machine learning, teach it to recognize, you know, is
+
+950
+00:47:35,520 --> 00:47:39,822
+that a hat, okay? So [LAUGH] you can even do that as well.
+
+951
+00:47:39,890 --> 00:47:41,924
+So if you're doing sophisticated image stuff,
+
+952
+00:47:41,993 --> 00:47:44,793
+again, I don't have time to cover any of this but
+
+953
+00:47:44,862 --> 00:47:49,064
+just know that it's there. All right, so that's it for
+
+954
+00:47:49,133 --> 00:47:51,734
+today except for the demo. I'm going to do a demo and
+
+955
+00:47:51,803 --> 00:47:53,402
+what we're going to do is we're going to make it so
+
+956
+00:47:53,470 --> 00:47:56,305
+that an emoji art, we can set our background image
+
+957
+00:47:56,374 --> 00:47:58,974
+with the camera. It's obvious thing to want to do instead
+
+958
+00:47:59,043 --> 00:48:02,545
+of having to drag and drop from another app, and
+
+959
+00:48:02,613 --> 00:48:05,047
+our next lecture is our last lecture, okay?
+
+960
+00:48:05,116 --> 00:48:08,784
+It's on accessibility. And, of course, one week from today,
+
+961
+00:48:08,853 --> 00:48:10,519
+you're going to have your final presentations.
+
+962
+00:48:10,587 --> 00:48:14,990
+Be ready to go on that. We're about halfway through your
+
+963
+00:48:15,059 --> 00:48:19,628
+final projects. Hopefully you're halfway done? I hope,
+
+964
+00:48:19,697 --> 00:48:23,799
+anyway. So, that's about it. So let's dive right into
+
+965
+00:48:23,867 --> 00:48:28,336
+the demo, unless there's any questions about that? Okay,
+
+966
+00:48:28,405 --> 00:48:33,942
+let's get rid of that and lets get rid of playing card here.
+
+967
+00:48:34,011 --> 00:48:36,879
+And here we are with emoji art. All right, so hopefully
+
+968
+00:48:36,948 --> 00:48:39,248
+all of you remember emoji art from the last lecture,
+
+969
+00:48:39,317 --> 00:48:41,050
+the last lecture was a quite a while ago,
+
+970
+00:48:41,118 --> 00:48:43,185
+from Thanksgiving, but here we are.
+
+971
+00:48:43,254 --> 00:48:45,587
+Remember last time we did all these various segues and
+
+972
+00:48:45,656 --> 00:48:48,523
+stuff. But, what I'm gonna do, in terms of UI for
+
+973
+00:48:48,592 --> 00:48:51,961
+this camera thing is, I'm just gonna add a button right here,
+
+974
+00:48:52,029 --> 00:48:55,130
+okay, which is going to bring up the camera.
+
+975
+00:48:55,199 --> 00:48:57,733
+And then, when you take a picture, it's gonna use that
+
+976
+00:48:57,802 --> 00:48:59,668
+picture as the background, couldn't be simpler.
+
+977
+00:48:59,737 --> 00:49:03,939
+So, let's go add that button, and go down here, and say, bar
+
+978
+00:49:04,007 --> 00:49:08,677
+button item, of course. Drag it out here. I believe yes,
+
+979
+00:49:08,746 --> 00:49:13,182
+there is a system one here for a camera. There it is,
+
+980
+00:49:13,251 --> 00:49:16,052
+looks just like a camera. Now, I'm going to connect this up
+
+981
+00:49:16,120 --> 00:49:19,888
+to my code both with an action and with an outlet.
+
+982
+00:49:19,957 --> 00:49:21,957
+And the reason I'm going to do that,
+
+983
+00:49:22,026 --> 00:49:24,259
+is I'm going to check to see if my device has a camera, and
+
+984
+00:49:24,328 --> 00:49:27,629
+if it doesn't, I'm going to disable this button. Okay? And
+
+985
+00:49:27,698 --> 00:49:29,731
+I told you, you always have to check for the device,
+
+986
+00:49:29,800 --> 00:49:33,636
+and that's how I'm going to check. So let's do that,
+
+987
+00:49:33,704 --> 00:49:36,638
+let's go over here. Nice and wide,
+
+988
+00:49:36,707 --> 00:49:41,510
+let's put all our camera stuff at the top. Mark
+
+989
+00:49:41,579 --> 00:49:45,647
+camera. Alright, so let's go over here,
+
+990
+00:49:45,716 --> 00:49:50,285
+I'm just going to control drag. Do the outlet first.
+
+991
+00:49:50,354 --> 00:49:55,457
+We'll call this my camera button. And then,
+
+992
+00:49:55,526 --> 00:50:01,630
+let's do our action. And of course, it's
+
+993
+00:50:01,699 --> 00:50:04,233
+gonna be BarButtonItem type. And we're gonna call this,
+
+994
+00:50:04,302 --> 00:50:07,669
+how about we'll call this take background photo, cuz that's
+
+995
+00:50:07,738 --> 00:50:10,839
+what this button does it takes the photo and this is going to
+
+996
+00:50:10,908 --> 00:50:15,177
+be the background. All right, that's it for our UI,
+
+997
+00:50:15,246 --> 00:50:18,146
+we don't have to do anything more there, so let's implement
+
+998
+00:50:18,215 --> 00:50:21,083
+this stuff, let's start right off with the camera button.
+
+999
+00:50:21,152 --> 00:50:24,553
+I'm going to write when its set, I'm going to enable it or
+
+1000
+00:50:24,622 --> 00:50:26,755
+disable it depending on whether I have a camera.
+
+1001
+00:50:26,824 --> 00:50:31,927
+So I'm just gonna say that my camera Button.isEnabled
+
+1002
+00:50:31,995 --> 00:50:35,431
+equals my UIImagePickerController
+
+1003
+00:50:35,499 --> 00:50:40,369
+.isSourceTypeAvailable.camera okay? Here is why I
+
+1004
+00:50:40,437 --> 00:50:44,806
+told you gotta test it I'm testing it right here okay? So
+
+1005
+00:50:44,875 --> 00:50:48,877
+these are not gonna be able to get into this code down here
+
+1006
+00:50:48,945 --> 00:50:52,681
+if we don't have a camera. All right, take a photo really
+
+1007
+00:50:52,750 --> 00:50:57,085
+easy, we just create a picker UImagePickerController.
+
+1008
+00:50:57,154 --> 00:51:01,623
+We're gonna configure it to have the right sourceType.
+
+1009
+00:51:01,692 --> 00:51:04,693
+We want the camera. Now again, we could do photo library and
+
+1010
+00:51:04,761 --> 00:51:06,762
+stuff here, if we did Photo Library though,
+
+1011
+00:51:06,831 --> 00:51:09,064
+that little camera button would be bring up or
+
+1012
+00:51:09,133 --> 00:51:11,700
+pop over. Okay, but here we're gonna do camera, so it's gonna
+
+1013
+00:51:11,769 --> 00:51:15,504
+be full screen presentation. We want an image here, so
+
+1014
+00:51:15,573 --> 00:51:19,708
+I'm gonna say the mediaTypes equals an array that has
+
+1015
+00:51:19,776 --> 00:51:25,814
+kUTTypeImage, okay. And this is not turning purple
+
+1016
+00:51:25,882 --> 00:51:28,150
+because it's not recognized cuz I have to go up here and
+
+1017
+00:51:28,218 --> 00:51:31,553
+say import MobileCoreServices, only just to get that one
+
+1018
+00:51:31,622 --> 00:51:33,889
+symbol. That's the only reason I had to do that. And
+
+1019
+00:51:33,957 --> 00:51:36,191
+now it's complaining that it's a CFString. So
+
+1020
+00:51:36,260 --> 00:51:41,230
+I'm gonna say as string, okay? So that's the types I want.
+
+1021
+00:51:41,299 --> 00:51:42,731
+I just want images, I don't want video.
+
+1022
+00:51:42,800 --> 00:51:47,335
+Just want images in this case. And sure, we'll allow editing,
+
+1023
+00:51:47,404 --> 00:51:51,240
+allows editing, true, why not? Most importantly,
+
+1024
+00:51:51,309 --> 00:51:53,108
+we gotta set the delegate to ourself or
+
+1025
+00:51:53,177 --> 00:51:56,078
+we'll never find out about anything the camera did and
+
+1026
+00:51:56,147 --> 00:52:00,615
+then we can just present this picker animated true of
+
+1027
+00:52:00,684 --> 00:52:04,386
+course. Now we are getting an error here of course because
+
+1028
+00:52:04,454 --> 00:52:07,856
+we are say delegating=self but we don't say that we
+
+1029
+00:52:07,925 --> 00:52:10,826
+are a UIImagePicker ControllerDelegate.
+
+1030
+00:52:10,895 --> 00:52:13,795
+And you'd think that would be enough to,
+
+1031
+00:52:13,864 --> 00:52:17,532
+when we compile get rid of the error but it says cannot
+
+1032
+00:52:17,601 --> 00:52:21,536
+assign value to UIImagePicker ControllerDelegate and
+
+1033
+00:52:21,605 --> 00:52:25,040
+UINavigation ControllerDelegate what?
+
+1034
+00:52:25,108 --> 00:52:26,242
+Why is it saying that?
+
+1035
+00:52:26,310 --> 00:52:29,111
+Well unfortunately the UIPickerController I believe
+
+1036
+00:52:29,179 --> 00:52:31,980
+it's a subclass of UINavigationController so
+
+1037
+00:52:32,049 --> 00:52:35,016
+you have to, be its delegate as well.
+
+1038
+00:52:35,085 --> 00:52:36,785
+So we just have to say UINavigate, and
+
+1039
+00:52:36,853 --> 00:52:39,321
+this is the case by the way where the fix it down here,
+
+1040
+00:52:39,389 --> 00:52:43,358
+you do not want this fix it, this fix it is to cast self,
+
+1041
+00:52:43,427 --> 00:52:45,527
+to be these things, which it£s not. So
+
+1042
+00:52:45,595 --> 00:52:48,129
+be carefull of fix its, it£s always the right thing. So
+
+1043
+00:52:48,198 --> 00:52:51,400
+here I£m gonna be UINavigation ControllerDelegate as well.
+
+1044
+00:52:51,469 --> 00:52:54,169
+Luckily, neither of these have any required methods,
+
+1045
+00:52:54,238 --> 00:52:56,004
+although, in UIImagePickerController,
+
+1046
+00:52:56,073 --> 00:52:57,139
+they should be required.
+
+1047
+00:52:57,207 --> 00:53:00,876
+Because, you can£t really do anything without them. And
+
+1048
+00:53:00,944 --> 00:53:02,678
+let's jump right to those delegate methods.
+
+1049
+00:53:02,746 --> 00:53:05,480
+There's only two of them. So image picker. There's this
+
+1050
+00:53:05,549 --> 00:53:09,985
+one, which is cancel. And then there's this one, other one,
+
+1051
+00:53:10,053 --> 00:53:13,055
+imagePickerController. Which is the didFinish
+
+1052
+00:53:13,123 --> 00:53:16,959
+PickingMediaWithInfo. And in both of them, I'm gonna say
+
+1053
+00:53:17,028 --> 00:53:22,197
+the picker.presenting ViewController dismiss,
+
+1054
+00:53:22,266 --> 00:53:26,968
+okay anyone it's time to go animated true. Now,
+
+1055
+00:53:27,037 --> 00:53:32,874
+who is the pickers presenting the view controller? It's us.
+
+1056
+00:53:32,943 --> 00:53:36,144
+Cuz we're presenting it. So, I could actually just get rid
+
+1057
+00:53:36,213 --> 00:53:39,181
+of this right? This would actually be okay.
+
+1058
+00:53:39,249 --> 00:53:42,117
+But I kinda like to do this explicitly. Just,
+
+1059
+00:53:42,185 --> 00:53:45,553
+I don't know, for some reason it just, you know, because
+
+1060
+00:53:45,622 --> 00:53:47,923
+that dismiss has that weird thing where it'll look and
+
+1061
+00:53:47,992 --> 00:53:51,125
+see if you're presented by, a person and... I like to have
+
+1062
+00:53:51,194 --> 00:53:53,695
+it explicit to be the pickers presenting the viewController.
+
+1063
+00:53:53,763 --> 00:53:56,932
+What if I put up another view controller that presented
+
+1064
+00:53:57,000 --> 00:53:59,435
+the pet camera and then it was unwinding back to here or
+
+1065
+00:53:59,503 --> 00:54:02,104
+something like that. I don't know, so. I like to do that,
+
+1066
+00:54:02,173 --> 00:54:06,474
+and I wanna do this in both places, both when,
+
+1067
+00:54:06,543 --> 00:54:07,976
+if it's canceled or
+
+1068
+00:54:08,045 --> 00:54:11,347
+whether it successfully picks some media here.
+
+1069
+00:54:12,749 --> 00:54:16,852
+All right, so now we have this ImagePickerController and
+
+1070
+00:54:16,921 --> 00:54:21,657
+it successfully picks some, some image or whatever that we
+
+1071
+00:54:21,725 --> 00:54:23,792
+want to use. How do we get that image out of there?
+
+1072
+00:54:23,861 --> 00:54:25,995
+Well it comes out of this dictionary right here.
+
+1073
+00:54:26,063 --> 00:54:27,629
+So we're going to look in that dictionary and
+
+1074
+00:54:27,697 --> 00:54:30,899
+say if I can let the image equal that info dictionary and
+
+1075
+00:54:30,968 --> 00:54:34,837
+I'm going to look at the key UIImagePickerController.
+
+1076
+00:54:36,040 --> 00:54:40,142
+Edited image. Okay? I allow editing, so
+
+1077
+00:54:40,210 --> 00:54:42,944
+I'm going to do this. Now, notice that the type in
+
+1078
+00:54:43,013 --> 00:54:45,647
+the dictionary is any because that might be UI image,
+
+1079
+00:54:45,716 --> 00:54:49,184
+it might be URL, okay? It could be a PH live photo, so
+
+1080
+00:54:49,253 --> 00:54:53,721
+it's any- so we are required here to say as a UIImage.
+
+1081
+00:54:53,790 --> 00:54:56,792
+Okay. So this gets the image. Now, I'm going to do two other
+
+1082
+00:54:56,860 --> 00:54:59,994
+small things here. One is, I'm gonna actually say if this
+
+1083
+00:55:00,063 --> 00:55:03,665
+is nill, because maybe I went back and changed this to false
+
+1084
+00:55:03,734 --> 00:55:08,369
+in the future, then I'm going to also back up by grabbing
+
+1085
+00:55:08,438 --> 00:55:14,843
+the UIImagePicker OriginalImage,
+
+1086
+00:55:14,911 --> 00:55:18,846
+okay? So basically I'm just, if I ever change this,
+
+1087
+00:55:18,915 --> 00:55:21,650
+I want the rest of the code to still work. So I'm just kinda,
+
+1088
+00:55:21,718 --> 00:55:24,386
+if this is nil then I'm gonna grab this one
+
+1089
+00:55:24,454 --> 00:55:27,689
+instead. The other thing I wanna do here is shrinks this
+
+1090
+00:55:27,758 --> 00:55:30,725
+image down a little bit. Because, some of these cameras
+
+1091
+00:55:30,794 --> 00:55:34,429
+are huge. I£m, this image would be four megabytes in
+
+1092
+00:55:34,498 --> 00:55:37,799
+size. And in emoji art, you know, usually they don£t
+
+1093
+00:55:37,868 --> 00:55:40,702
+want the emojis to be these tiny little dots in a gigantic
+
+1094
+00:55:40,771 --> 00:55:44,072
+image, right? So meaning the emoji only has so
+
+1095
+00:55:44,141 --> 00:55:47,042
+much resolution. So I'm gonna shrink this down.
+
+1096
+00:55:47,111 --> 00:55:50,078
+And I'm gonna do that with a little function that I have in
+
+1097
+00:55:50,147 --> 00:55:54,182
+my utilities called scaled by.
+
+1098
+00:55:54,251 --> 00:55:57,619
+And scaled by is the world's cheapest little image scaler.
+
+1099
+00:55:57,687 --> 00:56:00,922
+It actually scales it, not even by the area of the image,
+
+1100
+00:56:00,991 --> 00:56:03,325
+but it scales the edges by that much
+
+1101
+00:56:03,393 --> 00:56:04,826
+which is kinda freaky way to do it.
+
+1102
+00:56:04,895 --> 00:56:07,462
+But it's simple code and you can go look at it,
+
+1103
+00:56:07,531 --> 00:56:12,367
+it's in the utilities .swift that I provide with EmojiArt.
+
+1104
+00:56:12,435 --> 00:56:14,603
+Okay, so now I've got the image I want, hopefully,
+
+1105
+00:56:14,672 --> 00:56:17,439
+right? if let, so hopefully, I got the image.
+
+1106
+00:56:17,508 --> 00:56:21,609
+Now I need to set this as my EmojiArt's background, right?
+
+1107
+00:56:21,678 --> 00:56:24,346
+Well, because we wrote our code so nicely,
+
+1108
+00:56:24,415 --> 00:56:27,348
+we can just say, emojiArtBackgroundImage =.
+
+1109
+00:56:27,417 --> 00:56:29,150
+Now I wanna say image, but
+
+1110
+00:56:29,219 --> 00:56:33,055
+do you remember what this argument is? It's a tuple,
+
+1111
+00:56:33,123 --> 00:56:37,659
+remember that, we changed [LAUGH] that to a tuple?
+
+1112
+00:56:37,727 --> 00:56:40,962
+What am I gonna put as the URL here? Because I got
+
+1113
+00:56:41,031 --> 00:56:44,332
+that image directly from the camera and I don't have a URL.
+
+1114
+00:56:44,401 --> 00:56:47,468
+So I'm gonna have to, for now anyway, and if I have time,
+
+1115
+00:56:47,537 --> 00:56:50,405
+I'll show you a better way I'm gonna have to create a URL for
+
+1116
+00:56:50,474 --> 00:56:51,339
+this thing, okay?
+
+1117
+00:56:51,408 --> 00:56:54,976
+And I'm gonna create a URL in my sandbox, okay, that stores
+
+1118
+00:56:55,045 --> 00:56:57,278
+this image. I actually have a little utility function
+
+1119
+00:56:57,347 --> 00:57:00,348
+to do that as well. You can go look at that in the code. So
+
+1120
+00:57:00,417 --> 00:57:03,218
+I'm gonna say so I'm gonna create that.
+
+1121
+00:57:03,286 --> 00:57:05,254
+Also, and the other thing we wanna do, by the way,
+
+1122
+00:57:05,322 --> 00:57:07,489
+is note that our document has changed here, right?
+
+1123
+00:57:07,558 --> 00:57:10,291
+If we set our background image, then our document
+
+1124
+00:57:10,360 --> 00:57:14,029
+has definitely changed. So I'm going to create this little
+
+1125
+00:57:14,097 --> 00:57:18,800
+URL, let url =, take my image, and I, the function I have
+
+1126
+00:57:18,869 --> 00:57:23,171
+is called storeLocallyAsJPEG with a name.
+
+1127
+00:57:23,240 --> 00:57:26,041
+So that's what this does. It store, takes a UIImage,
+
+1128
+00:57:26,109 --> 00:57:29,010
+all right, this is a UIImage extension method, and
+
+1129
+00:57:29,079 --> 00:57:31,613
+it stores it as a name. Now, I need a unique name for
+
+1130
+00:57:31,682 --> 00:57:34,950
+this thing. A really great unique name is the current
+
+1131
+00:57:35,019 --> 00:57:37,919
+date as seconds since January 1st, 1970, okay?
+
+1132
+00:57:37,987 --> 00:57:40,956
+Turns out the easy way to get that,
+
+1133
+00:57:41,025 --> 00:57:46,528
+which is Date.timeInterval SinceReferenceDate, okay?
+
+1134
+00:57:46,597 --> 00:57:49,497
+Of course, this is going to be seconds so that's a double.
+
+1135
+00:57:49,566 --> 00:57:53,635
+So I'm going to turn it into a string by just stringifying it
+
+1136
+00:57:53,704 --> 00:57:57,506
+here. And now I have a nice unique name for
+
+1137
+00:57:57,575 --> 00:58:01,843
+this JPEG. Now, I hate this because I just took
+
+1138
+00:58:01,911 --> 00:58:04,946
+a picture with the camera and I'm having to create this
+
+1139
+00:58:05,015 --> 00:58:06,848
+random file in my file system.
+
+1140
+00:58:06,916 --> 00:58:10,251
+When am I gonna clean this thing up? Okay, I'm gonna have
+
+1141
+00:58:10,320 --> 00:58:13,254
+to find out when my document was deleted somehow or and
+
+1142
+00:58:13,323 --> 00:58:16,191
+what about on iCloud? This is not gonna work on iCloud.
+
+1143
+00:58:16,259 --> 00:58:18,794
+If I open this on another device, it can't see my
+
+1144
+00:58:18,862 --> 00:58:21,863
+sandbox on this other device. So this is terrible, okay?
+
+1145
+00:58:21,931 --> 00:58:24,766
+Now, we're gonna be close on time here so I don't know if
+
+1146
+00:58:24,835 --> 00:58:27,301
+I'm gonna be able to show you how to fix this.
+
+1147
+00:58:27,370 --> 00:58:29,971
+But I don't like this, but we're gonna do this just so
+
+1148
+00:58:30,040 --> 00:58:31,806
+that we can see this all working so
+
+1149
+00:58:31,875 --> 00:58:34,342
+you can see the Camera API working, etc., okay?
+
+1150
+00:58:34,411 --> 00:58:35,177
+So let's do that.
+
+1151
+00:58:35,245 --> 00:58:39,281
+Let's take a look at this. Let's go to our iPad here. So
+
+1152
+00:58:39,349 --> 00:58:42,184
+here's EmojiArt, let's create a new document here.
+
+1153
+00:58:42,252 --> 00:58:45,019
+I just created, I pressed Create New Document. And
+
+1154
+00:58:45,088 --> 00:58:47,755
+you can see we got our camera up there in the upper right.
+
+1155
+00:58:47,824 --> 00:58:50,292
+And notice that it's also enabled, that's good.
+
+1156
+00:58:50,361 --> 00:58:52,194
+That means we have a camera on this device. So
+
+1157
+00:58:52,262 --> 00:58:55,497
+I'm gonna click that camera. Okay,
+
+1158
+00:58:55,565 --> 00:58:58,933
+it's gonna load up the camera, bring up this, here it is.
+
+1159
+00:58:59,002 --> 00:59:02,404
+We're gonna do a blast from the past right here and
+
+1160
+00:59:02,473 --> 00:59:06,274
+go picture our picture from our concentration.
+
+1161
+00:59:06,343 --> 00:59:08,076
+This is kind of nostalgia day here,
+
+1162
+00:59:08,144 --> 00:59:10,445
+kinda going back to playing card in this. So here,
+
+1163
+00:59:10,514 --> 00:59:13,148
+let's try and take a picture without that shadow in there.
+
+1164
+00:59:13,216 --> 00:59:15,183
+There we go. And here's what I was talking about,
+
+1165
+00:59:15,252 --> 00:59:17,085
+where I can zoom in on this, or
+
+1166
+00:59:17,154 --> 00:59:20,622
+change the cropping rectangle cuz we allow editing. So
+
+1167
+00:59:20,691 --> 00:59:22,056
+we'll do that. And I'm gonna hit Use Photo and
+
+1168
+00:59:22,125 --> 00:59:23,358
+we're gonna see if this is gonna work.
+
+1169
+00:59:23,427 --> 00:59:28,797
+And it doesn't work. Now, why this doesn't work?
+
+1170
+00:59:28,866 --> 00:59:30,865
+You're like, no, now I've gotta go debug this.
+
+1171
+00:59:30,934 --> 00:59:32,233
+This couldn't possibly not work.
+
+1172
+00:59:32,302 --> 00:59:34,403
+This is one of those cases where you look at our code.
+
+1173
+00:59:34,471 --> 00:59:37,105
+It's so simple here, it couldn't work well actually
+
+1174
+00:59:37,173 --> 00:59:39,841
+this doesn't work, believe it or not because of the view
+
+1175
+00:59:39,910 --> 00:59:43,978
+controller life cycle. When we press that camera button and
+
+1176
+00:59:44,047 --> 00:59:47,515
+bring up the camera it actually covers up
+
+1177
+00:59:47,584 --> 00:59:50,652
+our view controller entirely. And then when it goes away,
+
+1178
+00:59:50,720 --> 00:59:54,923
+"view will appear" gets called on our view controller. Do
+
+1179
+00:59:54,991 --> 00:59:57,559
+you see why? Because it just appeared. It was covered up
+
+1180
+00:59:57,627 --> 00:59:59,494
+and the camera went away and now it appeared.
+
+1181
+00:59:59,562 --> 01:00:01,663
+Well let's a look at our viewWillAppear down here.
+
+1182
+01:00:02,799 --> 01:00:05,400
+Here's our viewWillAppear. What do we do in
+
+1183
+01:00:05,468 --> 01:00:09,904
+viewWillAppear? We open our document, okay?
+
+1184
+01:00:09,973 --> 01:00:13,274
+And we open it no matter what. So if it's already open,
+
+1185
+01:00:13,343 --> 01:00:16,010
+we open it again. We go back to disk and get it again.
+
+1186
+01:00:16,079 --> 01:00:18,580
+That's what's happening here, it actually was working. It
+
+1187
+01:00:18,649 --> 01:00:21,115
+put that image in there, but then it reopened the document
+
+1188
+01:00:21,184 --> 01:00:24,385
+and went back to blank, cuz it was an untitled document. So
+
+1189
+01:00:24,454 --> 01:00:28,155
+this is a simple fix here. We're just gonna say,
+
+1190
+01:00:28,224 --> 01:00:33,662
+if our document state is not, Normal.
+
+1191
+01:00:33,731 --> 01:00:40,902
+Then, we'll open our document here. Okay?
+
+1192
+01:00:40,970 --> 01:00:43,705
+But that's kind of a tricky bug, when I went to prepare,
+
+1193
+01:00:43,773 --> 01:00:47,341
+add this before class. I was like why doesn't that work?
+
+1194
+01:00:47,410 --> 01:00:50,311
+And so this is a little bit of a tricky one there, but
+
+1195
+01:00:50,380 --> 01:00:52,046
+this will fix it. So let's go back up there and
+
+1196
+01:00:52,115 --> 01:00:56,017
+get this code on screen for our camera here and
+
+1197
+01:00:56,086 --> 01:01:00,889
+run again. To bring our untitled document up again,
+
+1198
+01:01:00,958 --> 01:01:05,560
+oops. That one screen so you can see it.
+
+1199
+01:01:05,629 --> 01:01:06,994
+All right, so gather untitled documents.
+
+1200
+01:01:07,063 --> 01:01:10,164
+So I'm gonna hit the camera button again. Go up here,
+
+1201
+01:01:10,233 --> 01:01:14,736
+let's take a photo and get in focus right there.
+
+1202
+01:01:16,306 --> 01:01:20,275
+Cute little guy there, okay? So this now I'm gonna say
+
+1203
+01:01:20,343 --> 01:01:23,245
+use photo and sure enough, here it is, okay?
+
+1204
+01:01:23,313 --> 01:01:27,448
+Here's our photo and we can add apples or whatever,
+
+1205
+01:01:27,517 --> 01:01:31,119
+maybe like a bee caught in the web up there, make sense. And
+
+1206
+01:01:31,187 --> 01:01:33,588
+we're done. Hopefully we'll get a thumbnail there.
+
+1207
+01:01:33,657 --> 01:01:39,293
+We even get a thumbnail, that's great. Okay. Now,
+
+1208
+01:01:39,362 --> 01:01:42,130
+let's talk a little bit about what I was talking about where
+
+1209
+01:01:42,199 --> 01:01:44,866
+this is bad because it creates
+
+1210
+01:01:46,469 --> 01:01:50,838
+a little local file for this. How are we gonna fix that?
+
+1211
+01:01:50,907 --> 01:01:53,074
+Well I'm gonna fix that at light speed here because we
+
+1212
+01:01:53,142 --> 01:01:54,676
+have ten minutes left.
+
+1213
+01:01:54,744 --> 01:01:57,045
+The way I'm gonna do it is I'm actually gonna store
+
+1214
+01:01:57,113 --> 01:02:01,115
+the camera's image in my emoji art document, okay.
+
+1215
+01:02:01,184 --> 01:02:03,484
+So I'm not gonna store it as a URL, a separate thing.
+
+1216
+01:02:03,553 --> 01:02:06,288
+I'm actually gonna store the data embedded in my document.
+
+1217
+01:02:07,724 --> 01:02:09,590
+Okay, that way it'll work in icloud and all the stuff and
+
+1218
+01:02:09,659 --> 01:02:11,726
+I won't have to create the URL it's going to be great.
+
+1219
+01:02:11,795 --> 01:02:14,929
+Now I'm not gonna do that for documents that do have a URL
+
+1220
+01:02:14,998 --> 01:02:16,898
+because I don't want my to duplicate that image,
+
+1221
+01:02:16,967 --> 01:02:18,766
+no need to do that we just go out on the internet and
+
+1222
+01:02:18,835 --> 01:02:21,936
+get it. But for cases where I don't have the URL I'm going
+
+1223
+01:02:22,005 --> 01:02:25,306
+to do that. So let's again at light speed I'm going to limit
+
+1224
+01:02:25,375 --> 01:02:28,909
+the explanation here because time constraint but I'll.
+
+1225
+01:02:28,978 --> 01:02:32,113
+I think you'll learn something from doing it, let's go do it.
+
+1226
+01:02:32,182 --> 01:02:35,049
+Now the first thing I need to do is go back to
+
+1227
+01:02:35,118 --> 01:02:39,186
+my EmojiArt model and make it capable of having the image,
+
+1228
+01:02:39,255 --> 01:02:41,823
+cuz right now it has to have a URL. So
+
+1229
+01:02:41,892 --> 01:02:44,225
+I'm gonna make having URL be optional and
+
+1230
+01:02:44,294 --> 01:02:47,094
+have a new one called ImageData which is just a data
+
+1231
+01:02:47,163 --> 01:02:49,864
+object. Notice this is not a UI image cuz this is
+
+1232
+01:02:49,933 --> 01:02:53,934
+not a UI thing because this is my model. And since I can now
+
+1233
+01:02:54,003 --> 01:02:58,373
+have either URL or image data I'm gonna go down to here and
+
+1234
+01:02:58,442 --> 01:03:00,241
+have a different initializer or
+
+1235
+01:03:00,310 --> 01:03:03,478
+another initializer actually that let's me initialize
+
+1236
+01:03:04,648 --> 01:03:09,918
+an image data based. Oops, not image data,
+
+1237
+01:03:09,986 --> 01:03:14,355
+data. This is imageData = imageData. Okay so
+
+1238
+01:03:14,424 --> 01:03:19,794
+now I can create my emoji art with either URL or image data.
+
+1239
+01:03:19,863 --> 01:03:23,231
+Now, what about Codeable, what about turning this to .json,
+
+1240
+01:03:23,300 --> 01:03:27,001
+is this all just going to work? Well yeah, no errors
+
+1241
+01:03:27,070 --> 01:03:30,037
+right? And in fact it is gonna work because Codeable knows
+
+1242
+01:03:30,106 --> 01:03:33,141
+how to deal with optionals, it knows how to write out datas,
+
+1243
+01:03:33,210 --> 01:03:36,210
+so this is all perfectly fine, it's all just gonna work. So
+
+1244
+01:03:36,279 --> 01:03:38,880
+that was easy, let's go back. To our emoji art view
+
+1245
+01:03:38,949 --> 01:03:41,249
+controller. Now what's the problem here? Well,
+
+1246
+01:03:41,318 --> 01:03:45,787
+the real problem over here is this method right down here.
+
+1247
+01:03:45,856 --> 01:03:49,390
+Okay, this is the core of the problem, right here [LAUGH]
+
+1248
+01:03:49,459 --> 01:03:52,026
+okay? This is our emojiArtBackgroundImage,
+
+1249
+01:03:52,095 --> 01:03:54,462
+which is that tuple. Remember the tuple we had?
+
+1250
+01:03:54,531 --> 01:03:56,897
+Okay, well, that tuple has a URL in the image.
+
+1251
+01:03:56,966 --> 01:04:01,335
+But now it might be image data in the image. Okay, so
+
+1252
+01:04:01,404 --> 01:04:04,205
+we have to fix this. This can no longer be this tuple.
+
+1253
+01:04:04,274 --> 01:04:07,976
+It has to be some other type that's either a URL or
+
+1254
+01:04:08,044 --> 01:04:10,578
+it's the image data. Now what kind of data structure we
+
+1255
+01:04:10,646 --> 01:04:14,015
+use when something is either one thing or another?
+
+1256
+01:04:14,084 --> 01:04:18,986
+What do we use? What? >> [INAUDIBLE]
+
+1257
+01:04:19,055 --> 01:04:20,288
+>> Any, we could use any, but
+
+1258
+01:04:20,356 --> 01:04:22,690
+that's not very Swifty. >> A enum?
+
+1259
+01:04:22,759 --> 01:04:24,525
+>> enum, absolutely.
+
+1260
+01:04:24,594 --> 01:04:25,693
+Let's use an enum here.
+
+1261
+01:04:25,762 --> 01:04:27,595
+I'm gonna say enum ImageSource,
+
+1262
+01:04:27,664 --> 01:04:28,696
+I'm gonna call it.
+
+1263
+01:04:28,765 --> 01:04:32,367
+And it's gonna have the remote case which has a URL and
+
+1264
+01:04:32,435 --> 01:04:38,172
+the UIImage. Okay, and it's going to have the local case
+
+1265
+01:04:38,241 --> 01:04:42,576
+where it's an image data and a UIImage. Now for convenience,
+
+1266
+01:04:42,645 --> 01:04:45,180
+I'm gonna create a var. Notice they both have UIImage.
+
+1267
+01:04:45,248 --> 01:04:47,081
+So I'm gonna create a var called image here,
+
+1268
+01:04:47,150 --> 01:04:48,549
+which returns to that UIImage.
+
+1269
+01:04:48,618 --> 01:04:52,419
+And I'm just gonna do that by switching on myself. And
+
+1270
+01:04:52,488 --> 01:04:56,724
+in the case of a remote, then I don't care what the URL is.
+
+1271
+01:04:56,793 --> 01:05:00,328
+But I'm gonna get the image back here and return it.
+
+1272
+01:05:00,397 --> 01:05:02,997
+Okay, and in the case of local, I don't care what
+
+1273
+01:05:03,066 --> 01:05:06,534
+the data is. I'm just gonna get the image and return that
+
+1274
+01:05:06,603 --> 01:05:09,537
+image, okay? So this is just a nice little convenience var,
+
+1275
+01:05:09,605 --> 01:05:12,006
+so I can get the image, no matter which one it is.
+
+1276
+01:05:12,075 --> 01:05:15,042
+All right, so now I'm gonna change this.
+
+1277
+01:05:15,111 --> 01:05:17,945
+I'm gonna change this tuple to be an ImageSource which
+
+1278
+01:05:18,014 --> 01:05:21,048
+has to be optional because we might have a blank document.
+
+1279
+01:05:21,117 --> 01:05:23,484
+It has no background. So we'll have to leave it optional. And
+
+1280
+01:05:23,553 --> 01:05:26,487
+I'm not gonna have it be a computed var anymore.
+
+1281
+01:05:26,556 --> 01:05:29,357
+I'm gonna have it be stored. And I'm gonna use didSet to do
+
+1282
+01:05:29,426 --> 01:05:32,861
+all this stuff down here. And I don't have to keep the URL
+
+1283
+01:05:32,929 --> 01:05:35,863
+separately anymore, cuz it's built into the ImageSource.
+
+1284
+01:05:35,932 --> 01:05:37,899
+And everywhere where I did newValue,
+
+1285
+01:05:37,968 --> 01:05:40,468
+well in the computed sense, is now this thing,
+
+1286
+01:05:40,536 --> 01:05:44,272
+okay? Which, is optional, so it might be optional there.
+
+1287
+01:05:44,341 --> 01:05:48,275
+So this is also optional. And, the image, which is this var
+
+1288
+01:05:48,344 --> 01:05:50,612
+I just created right there, is not optional, so
+
+1289
+01:05:50,680 --> 01:05:53,648
+we'll take that away. So this is great! I just fixed it!
+
+1290
+01:05:53,716 --> 01:05:55,950
+Okay, the moment you heard background image.
+
+1291
+01:05:56,019 --> 01:05:58,786
+Now of course we need to go all the places we set and
+
+1292
+01:05:58,854 --> 01:06:02,857
+get this, okay, to fix it to work. Well, let's start with
+
+1293
+01:06:02,926 --> 01:06:05,493
+our camera, where we set the camera. That's right up here.
+
+1294
+01:06:05,562 --> 01:06:08,963
+This is the code right here where we say url image. Well,
+
+1295
+01:06:09,032 --> 01:06:12,233
+I don't wanna do url anymore so I'm gonna get rid of that.
+
+1296
+01:06:12,302 --> 01:06:15,437
+So that clearly makes this be the local case where I'm gonna
+
+1297
+01:06:15,505 --> 01:06:18,539
+have imageData and the image that was passed in. So
+
+1298
+01:06:18,608 --> 01:06:21,276
+where do I get the imageData? Well, we know how to do that.
+
+1299
+01:06:21,344 --> 01:06:22,309
+I'm gonna say if
+
+1300
+01:06:22,378 --> 01:06:25,980
+I can let the imageData equal the UI JPEG thing, this thing
+
+1301
+01:06:26,049 --> 01:06:29,684
+right here, UIImageJPEG Representation, of the image,
+
+1302
+01:06:29,752 --> 01:06:32,686
+will have a lossless compression right there.
+
+1303
+01:06:32,755 --> 01:06:37,091
+And as long as we are able to do that, then we will do this.
+
+1304
+01:06:37,160 --> 01:06:40,561
+Otherwise, I probably have a to do here to go and
+
+1305
+01:06:40,630 --> 01:06:45,033
+put up an alert, alert user of bad camera input or something,
+
+1306
+01:06:45,101 --> 01:06:47,902
+okay? Cuz I wasn't able to turn the thing from the camera
+
+1307
+01:06:47,971 --> 01:06:49,337
+into a JPEG, for some reason.
+
+1308
+01:06:49,405 --> 01:06:50,638
+I don't know why that would ever happen but
+
+1309
+01:06:50,707 --> 01:06:52,806
+I should probably put up an alert here.
+
+1310
+01:06:52,875 --> 01:06:55,677
+Okay, so we fixed that one. Where else do we do this?
+
+1311
+01:06:55,746 --> 01:06:58,379
+Well, we do it when we drop, okay, right?
+
+1312
+01:06:58,448 --> 01:07:01,082
+When we drop an image in, drag and drop a background,
+
+1313
+01:07:01,151 --> 01:07:04,351
+of course we do it there. Now here, look at all this stuff
+
+1314
+01:07:04,420 --> 01:07:07,054
+we did last lecture to go put up an alert if the thing
+
+1315
+01:07:07,123 --> 01:07:09,657
+we dropped in we couldn't get the image. Actually, we
+
+1316
+01:07:09,726 --> 01:07:12,193
+don't have to do that anymore. Because now if someone drags
+
+1317
+01:07:12,262 --> 01:07:16,230
+in a bad URL we can use the image, use its image data. So
+
+1318
+01:07:16,299 --> 01:07:18,232
+I'm actually gonna get rid of all of
+
+1319
+01:07:18,301 --> 01:07:21,102
+this stuff that we did last time. What a waste of time
+
+1320
+01:07:21,171 --> 01:07:24,172
+last lecture was. And instead I'm gonna go back to exactly
+
+1321
+01:07:24,240 --> 01:07:27,441
+what we had before which is use the image fetcher. Okay,
+
+1322
+01:07:27,510 --> 01:07:31,279
+but what I'm gonna do here is well, first we gotta update
+
+1323
+01:07:31,347 --> 01:07:35,283
+this, right, to the background image in the ImageFetcher
+
+1324
+01:07:35,352 --> 01:07:39,987
+world. So this is remote with the URL and the image.
+
+1325
+01:07:40,056 --> 01:07:43,791
+However, what if we had to resort to our backup image?
+
+1326
+01:07:43,860 --> 01:07:46,894
+Because then it's not really remote. Now it's become local.
+
+1327
+01:07:46,963 --> 01:07:50,398
+So I'm going to say here if the image was
+
+1328
+01:07:50,467 --> 01:07:53,501
+the imageFetcher's backup image
+
+1329
+01:07:53,570 --> 01:07:57,839
+then I'm going to do one thing, else, oops.
+
+1330
+01:08:00,009 --> 01:08:03,845
+Else I'm gonna do another. So the else is to do the normal
+
+1331
+01:08:03,913 --> 01:08:06,681
+remote case cuz I didn't use the backup image. But
+
+1332
+01:08:06,749 --> 01:08:11,219
+if I do use the backup image here, this becomes local and
+
+1333
+01:08:11,288 --> 01:08:16,357
+we have to have the image data here, Data. So
+
+1334
+01:08:16,426 --> 01:08:19,327
+I need to get the image data here too. So I'm going to say
+
+1335
+01:08:19,395 --> 01:08:23,664
+if I can let imageData equal that UI JPEG thing. There it
+
+1336
+01:08:23,733 --> 01:08:27,869
+is. Image compression, lossless. Just go in here, and
+
+1337
+01:08:27,938 --> 01:08:31,239
+I'm gonna do this. What am I'm gonna do if not?
+
+1338
+01:08:31,308 --> 01:08:32,540
+If I wasn't doing, you want I'm gonna do?
+
+1339
+01:08:32,609 --> 01:08:35,210
+I'm going to present that warning thing.
+
+1340
+01:08:35,278 --> 01:08:38,779
+What was the name of that thing? Bad URL warning,
+
+1341
+01:08:38,848 --> 01:08:42,984
+bad URL? There it is, presentBadURLWarning for
+
+1342
+01:08:43,053 --> 01:08:45,419
+that URL. That same alert that we were doing before,
+
+1343
+01:08:45,488 --> 01:08:48,356
+I'm just gonna present that if I wasn't able to take
+
+1344
+01:08:48,424 --> 01:08:50,891
+the image that was dragged and get it to imageData.
+
+1345
+01:08:50,960 --> 01:08:53,027
+Again, I don't know why it would ever not be able to.
+
+1346
+01:08:53,095 --> 01:08:55,930
+But yeah, let's make our code. Okay, good, woohoo.
+
+1347
+01:08:55,998 --> 01:08:59,199
+Now every single place where we set the background image,
+
+1348
+01:08:59,268 --> 01:09:00,434
+both the camera and
+
+1349
+01:09:00,503 --> 01:09:04,238
+the other one is now setting it to this nice enum here.
+
+1350
+01:09:04,306 --> 01:09:07,108
+What about where we use it? Okay, well the primary place
+
+1351
+01:09:07,177 --> 01:09:09,744
+where we use it is right here where all this red is, which
+
+1352
+01:09:09,813 --> 01:09:13,881
+is our model, right? Because someone sets an emojiArt model
+
+1353
+01:09:13,949 --> 01:09:16,951
+and we have to obviously get the right data out of there
+
+1354
+01:09:17,020 --> 01:09:20,120
+somehow or they're asking for it. And we're gonna give it
+
+1355
+01:09:20,189 --> 01:09:22,623
+back to them depending on the two different cases. So
+
+1356
+01:09:22,692 --> 01:09:25,759
+let's do the get case first, it's quite simple. Where,
+
+1357
+01:09:25,828 --> 01:09:28,462
+instead of looking at the URL now I just need to look
+
+1358
+01:09:28,531 --> 01:09:31,766
+at this image source thing, emojiArtBackgroundImage.
+
+1359
+01:09:31,835 --> 01:09:34,302
+Get the image source. I still want to do this,
+
+1360
+01:09:34,370 --> 01:09:37,771
+which is to get all the emojis. But I'm only gonna
+
+1361
+01:09:37,840 --> 01:09:42,010
+call this URL one here if this imageSource is the remote ca-,
+
+1362
+01:09:42,078 --> 01:09:45,679
+case. So I'm gonna switch on this imageSource. And
+
+1363
+01:09:45,748 --> 01:09:50,184
+if it's the remote case, where I'm gonna grab the URL, and
+
+1364
+01:09:50,252 --> 01:09:54,188
+I don't care about the image in this case, then I'm gonna
+
+1365
+01:09:54,257 --> 01:10:00,761
+do this. All right, and what if it's the local case,
+
+1366
+01:10:00,830 --> 01:10:04,298
+okay, where we got this imageData? Well, then I'm just
+
+1367
+01:10:04,367 --> 01:10:08,669
+going to return an EmojiArt that takes imageData instead.
+
+1368
+01:10:08,738 --> 01:10:14,842
+[SOUND] All right, that's it. So that was easy.
+
+1369
+01:10:14,911 --> 01:10:18,212
+The get case of that was, was really easy to do and obvious,
+
+1370
+01:10:18,281 --> 01:10:20,781
+what we're doing there. What about the set case?
+
+1371
+01:10:20,850 --> 01:10:21,816
+Little more complicated.
+
+1372
+01:10:21,885 --> 01:10:24,351
+First of all, we don't do the tuple (nil, nil).
+
+1373
+01:10:24,420 --> 01:10:27,655
+We just say nil cuz it's an optional image source right
+
+1374
+01:10:27,723 --> 01:10:30,424
+there. Still wanna do this. Still wanna check and
+
+1375
+01:10:30,493 --> 01:10:33,294
+see if there's a URL and try to go fetch it if we can.
+
+1376
+01:10:33,362 --> 01:10:37,164
+And if we can successfully fetch it, then we do wanna do
+
+1377
+01:10:37,233 --> 01:10:41,368
+remote url kinda image just like we did before.
+
+1378
+01:10:41,437 --> 01:10:43,136
+Now, I'm gonna do the same thing here that I did
+
+1379
+01:10:43,205 --> 01:10:46,541
+with drop, which is I'm gonna use any image data I can find
+
+1380
+01:10:46,609 --> 01:10:49,076
+in the emoji art that you're setting on me and use it as
+
+1381
+01:10:49,144 --> 01:10:53,748
+the backup image. Okay, so let's take this down here and
+
+1382
+01:10:53,816 --> 01:11:01,021
+say, imageFetch.backup = the image that's in the EmojiArt
+
+1383
+01:11:01,090 --> 01:11:03,758
+that you're passing me, so I better create a var for that.
+
+1384
+01:11:03,826 --> 01:11:08,829
+So I'll get the imageData out of the newValue. And
+
+1385
+01:11:08,898 --> 01:11:12,900
+then I'll get the oops, I'll get the image by saying well,
+
+1386
+01:11:12,969 --> 01:11:15,670
+if the imageData is not nil then I'm gonna
+
+1387
+01:11:15,738 --> 01:11:21,341
+return a UIImage from that data. Otherwise,
+
+1388
+01:11:21,410 --> 01:11:24,244
+I'll just return nil. In other words, there is no image data
+
+1389
+01:11:24,313 --> 01:11:26,914
+in that EmojiArt so I can't use it as a backup. Okay,
+
+1390
+01:11:26,982 --> 01:11:29,016
+in that case I'm not going to be able to load this,
+
+1391
+01:11:29,085 --> 01:11:31,619
+which is fine. That's no different than it was before.
+
+1392
+01:11:31,688 --> 01:11:34,288
+All right, so there's our imageFetcher backup.
+
+1393
+01:11:34,357 --> 01:11:36,357
+So now we'll just say imageFetcher,
+
+1394
+01:11:36,426 --> 01:11:40,961
+fetch that URL. Now, when that comes back, okay?
+
+1395
+01:11:41,030 --> 01:11:43,631
+We have to use the same exact thing we did down with drop,
+
+1396
+01:11:43,699 --> 01:11:46,300
+is check and see if we used the backup image.
+
+1397
+01:11:46,369 --> 01:11:47,568
+Cuz if we used the backup image,
+
+1398
+01:11:47,637 --> 01:11:51,071
+we're in the local case. So again, I'm gonna say, if
+
+1399
+01:11:51,140 --> 01:11:56,010
+the image that we used equals our imagefetcher.backup, then,
+
+1400
+01:12:01,484 --> 01:12:06,220
+I'm gonna use the local case with imageData,
+
+1401
+01:12:06,289 --> 01:12:09,057
+right? This is the image data from up here
+
+1402
+01:12:10,526 --> 01:12:13,895
+which we know this is going to not be nil because we wouldn't
+
+1403
+01:12:13,963 --> 01:12:16,697
+have gotten this to be not nil if this weren't nil.
+
+1404
+01:12:16,766 --> 01:12:19,834
+So fine, now what if the thing has no URL, URL at all?
+
+1405
+01:12:19,903 --> 01:12:22,636
+What if we have an emoji art and it has no URL?
+
+1406
+01:12:22,705 --> 01:12:24,404
+It's just image data only, so
+
+1407
+01:12:24,473 --> 01:12:27,675
+we'd better handle that case as well. So here I'm gonna
+
+1408
+01:12:27,744 --> 01:12:30,978
+say, where's the other side of that if, here it is.
+
+1409
+01:12:31,047 --> 01:12:33,747
+I'm gonna say, else if the image does not equal nil,
+
+1410
+01:12:33,816 --> 01:12:37,951
+in other words it has no URL but it does have an image,
+
+1411
+01:12:38,020 --> 01:12:43,457
+them I'm just going to use the information here that we have.
+
+1412
+01:12:43,525 --> 01:12:46,660
+I don't think I have to say self there, otherwise image,
+
+1413
+01:12:46,729 --> 01:12:51,298
+else, where are we here? Else if,
+
+1414
+01:12:51,367 --> 01:12:54,635
+sorry, so here I can do this, set this
+
+1415
+01:12:54,704 --> 01:13:00,007
+emojiArtBackgroundImage stuff using the stuff we have
+
+1416
+01:13:00,076 --> 01:13:05,145
+directly from the emoji art image that came through.
+
+1417
+01:13:05,214 --> 01:13:09,883
+So we just here set our emojiArtBackgroundImage here
+
+1418
+01:13:09,952 --> 01:13:13,554
+to be the local case with the imageData and
+
+1419
+01:13:13,623 --> 01:13:18,125
+the image, all right? Unfortunately, I also need
+
+1420
+01:13:18,193 --> 01:13:21,729
+to do this right here, do I have time? No, I don't,
+
+1421
+01:13:21,798 --> 01:13:24,632
+this really [LAUGH] wants to be put in to another function,
+
+1422
+01:13:24,700 --> 01:13:27,468
+right? You never want to copy and paste code like that,
+
+1423
+01:13:27,537 --> 01:13:31,439
+but we have 30 seconds left so I'm going to leave that. So,
+
+1424
+01:13:31,507 --> 01:13:35,510
+hopefully I did all this and it's gonna work, let's try,
+
+1425
+01:13:35,578 --> 01:13:40,847
+it's the world's fastest demo here. Okay, so
+
+1426
+01:13:40,916 --> 01:13:43,151
+I'm gonna make a new document since the other document
+
+1427
+01:13:43,219 --> 01:13:45,853
+is with the old style. So, let's go ahead and
+
+1428
+01:13:45,922 --> 01:13:47,889
+use our camera, oops, sorry.
+
+1429
+01:13:52,595 --> 01:13:57,098
+Cancel, all right, so I'm gonna use the camera here,
+
+1430
+01:13:57,167 --> 01:14:00,635
+let's get our fun guy again here, oops.
+
+1431
+01:14:03,105 --> 01:14:07,240
+There we go, zoom in on him a bit, we'll use that photo.
+
+1432
+01:14:07,309 --> 01:14:10,611
+So we have this photo here, let's put, again, a bee up
+
+1433
+01:14:10,679 --> 01:14:15,082
+here flying near the web. So now when we close this here,
+
+1434
+01:14:15,151 --> 01:14:19,420
+hopefully we can see this on other devices, so
+
+1435
+01:14:19,489 --> 01:14:23,558
+lets go over and run this on the simulator.
+
+1436
+01:14:26,129 --> 01:14:28,929
+All right here we go, we're on our simulator right here, so
+
+1437
+01:14:28,998 --> 01:14:32,800
+totally different device than our iPad. In fact,
+
+1438
+01:14:32,868 --> 01:14:36,070
+I'm gonna get them both on screen at the same time here,
+
+1439
+01:14:36,139 --> 01:14:38,639
+let's make this a little bit smaller. So
+
+1440
+01:14:38,708 --> 01:14:41,575
+we've got these two different devices and we can see that
+
+1441
+01:14:41,644 --> 01:14:45,512
+we're on iCloud drive, that this document that we created
+
+1442
+01:14:45,581 --> 01:14:48,549
+right here has appeared. So let's open it up, and
+
+1443
+01:14:48,618 --> 01:14:50,785
+sure enough, we can see it with the background image,
+
+1444
+01:14:50,853 --> 01:14:53,620
+because it's not referencing it by the URL anymore.
+
+1445
+01:14:53,689 --> 01:14:57,557
+It actually brought the image that we dragged in, or in this
+
+1446
+01:14:57,626 --> 01:15:01,828
+case that we've selected with the camera, into our document.
+
+1447
+01:15:01,897 --> 01:15:04,899
+And we could,
+
+1448
+01:15:04,968 --> 01:15:07,067
+put a little apple on here.
+
+1449
+01:15:07,136 --> 01:15:10,003
+And that'll save it up to iCloud Drive, you can see
+
+1450
+01:15:10,072 --> 01:15:12,573
+right here that it's in the process of uploading it. Over
+
+1451
+01:15:12,641 --> 01:15:16,009
+here, in my device, you saw it just download there, so,
+
+1452
+01:15:16,078 --> 01:15:19,046
+if we below here, hopefully, well, there we go, we have our
+
+1453
+01:15:19,114 --> 01:15:22,382
+apple, okay? So that way we're able to share our document
+
+1454
+01:15:22,451 --> 01:15:25,352
+across iCloud Drive, even though the background image
+
+1455
+01:15:25,421 --> 01:15:28,089
+was something we captured with a camera on a specific device.
+
+1456
+01:15:29,125 --> 01:15:30,690
+All right, so that is it for
+
+1457
+01:15:30,759 --> 01:15:33,160
+today, and we'll see you next time for
+
+1458
+01:15:33,229 --> 01:15:36,797
+our very last lecture, which is gonna be on accessibility.
+
+1459
+01:15:38,234 --> 01:15:38,832
+>> For more,
+>> 更多课程
+
+1460
+01:15:38,901 --> 01:15:42,203
+please visit us at stanford.edu.
+详见 stanford.edu
