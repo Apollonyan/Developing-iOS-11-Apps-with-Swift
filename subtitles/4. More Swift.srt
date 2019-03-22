@@ -76,7 +76,7 @@ Protocols and closures.
 16
 00:00:45,979 --> 00:00:48,647
 Functions as types of general those two and in between, I'm
-以及简单地讲讲函数。期间
+以及简单地讲讲函数类型。期间
 
 17
 00:00:48,715 --> 00:00:52,384
@@ -86,12 +86,12 @@ gonna talk about string which is important in a way but
 18
 00:00:52,452 --> 00:00:55,553
 it's not like the monstrous important topics like
-但它不像超级重要的主题，协议和闭包
+但它不像超级重要的主题
 
 19
 00:00:55,622 --> 00:01:00,859
 prototypes and closures are. So start right into that demo
-那样重要。那么现在从我们已经做好的
+协议和闭包那样重要。那么从我已经做好的
 
 20
 00:01:00,928 --> 00:01:05,096
@@ -101,7 +101,7 @@ that I had. And I had remembered, we were talking at the time about
 21
 00:01:05,165 --> 00:01:09,400
 making things a struct and that it's a little different
-如何写一个结构体，结构体与类不一样
+转换为结构体，结构体与类不一样
 
 22
 00:01:09,469 --> 00:01:13,172
@@ -111,7 +111,7 @@ then a class because that copy on write. Swift needs to know
 23
 00:01:13,240 --> 00:01:15,674
 when a function might actually modify the thing so
-Swift 需要知道一个函数何时会改变变量的值
+Swift 需要知道一个函数是否会改变变量的值
 
 24
 00:01:15,743 --> 00:01:18,576
@@ -136,7 +136,7 @@ we made be a class. A class Concentration. And
 28
 00:01:30,491 --> 00:01:32,857
 this could have just as easily been a struct.
-并且我们可以很轻松地将它改为一个结构体
+我们可以很轻松地将它改为一个结构体
 
 29
 00:01:32,926 --> 00:01:35,326
@@ -176,7 +176,7 @@ Now we don't pass Concentration games around and
 36
 00:01:51,445 --> 00:01:55,113
 all that, it just kinda sits in our controller.
-它差不多就是一直待在我们的控制器中
+它就是一直待在我们的控制器中
 
 37
 00:01:55,182 --> 00:01:58,716
@@ -198,7 +198,6 @@ But when I change this from class to struct, notice here
 that I get an error. And let's scroll down and here they are,
 得到了一个错误。让我们翻下去，这些错误在这里
 
-
 41
 00:02:09,263 --> 00:02:11,363
 here's the error and this error is saying,
@@ -207,17 +206,17 @@ here's the error and this error is saying,
 42
 00:02:11,431 --> 00:02:15,533
 cannot assign to property, self is immutable. Why is this
-不能给属性赋值，self 是不可改变的。 为什么
+不能给属性赋值，self 是不可变的。为什么
 
 43
 00:02:15,602 --> 00:02:18,970
 saying self is immutable? I'm trying to change the card here
-它说 self 是不可改变的？我在尝试改变 card 的值
+它说 self 是不可变的？我在尝试改变 card 的值
 
 44
 00:02:19,039 --> 00:02:21,273
 to say that they've match, for example.
-来表示它们是一样的
+来表示它们是一对的
 
 45
 00:02:21,342 --> 00:02:24,442
@@ -227,22 +226,22 @@ self 之所以是不可改变的，是因为这个函数
 46
 00:02:24,511 --> 00:02:29,514
 is not marked mutable, and so it is assumed to not mutate,
-没有被标记为可改变的，所提它被默认为是不可改变的
+没有被标记为可变的，所以默认为是不会 mutate
 
 47
 00:02:29,583 --> 00:02:34,152
 not change this Concentration object. So
-不会改变这个 Concentration 对象
+不会改变这个 Concentration 实例
 
 48
 00:02:34,220 --> 00:02:37,722
 of course we need chooseCard to change the Concentration
-当然我们需要这个函数改变 Concentration 对象
+当然我们需要这个函数改变 Concentration 实例
 
 49
 00:02:37,791 --> 00:02:40,325
 object cuz it's the main thing. The change of the game,
-因为这就是这个函数的主要功能，改变游戏中的值
+因为这就是这个函数的主要功能，改变游戏中的状态
 
 50
 00:02:40,394 --> 00:02:43,795
@@ -257,7 +256,7 @@ marks, sorry, mutating, not mutable, you add that here and
 52
 00:02:48,001 --> 00:02:51,470
 that says that this is a mutating function,
-表示这是一个可变（mutating）函数
+表示这是一个可变函数
 
 53
 00:02:51,538 --> 00:02:54,372
@@ -267,7 +266,7 @@ all the errors go away, and we're all good to go.
 54
 00:02:54,441 --> 00:02:59,544
 Question? >> [INAUDIBLE]
-有问题吗? >>[学生提问]
+有问题吗? >> [学生提问]
 
 55
 00:02:59,613 --> 00:03:00,479
@@ -302,7 +301,7 @@ Swift 知道它不是可变的。所以对于变量，Swift 是知道的
 61
 00:03:16,096 --> 00:03:19,264
 if it's not a computed var, like look at this var,
-如果它不是一个演算型变量（computed var），像这个变量
+如果它不是一个计算变量，像这个变量
 
 62
 00:03:19,332 --> 00:03:22,701
@@ -322,22 +321,22 @@ anything that's a var it assumed it's writable. If it
 65
 00:03:29,709 --> 00:03:34,846
 were a let, a let, then it would think it's not writable.
-如果它是一个常量（let），它会被认为是不可改变的
+如果它是一个常量（let），它会被认为是不可变的
 
 66
 00:03:34,914 --> 00:03:39,450
 So that's how you do mutating, or mutable. If for vars is
-所以这就是你们如何处理可变类型，对于变量
+所以这就是你们如何处理可变行为，对于变量
 
 67
 00:03:39,519 --> 00:03:42,620
 whether they're vars or let, or for computer property,
-关注它是可变的（var）还是不可变的（let），对于演算属性
+关注它是可变的（var）还是不可变的（let），对于计算属性
 
 68
 00:03:42,689 --> 00:03:47,192
 whether it has both get and set.Everybody got all that? So
-关注它是否可以获取和赋值。大家都听懂了吗
+关注它是否同时有 get 和 set。大家都听懂了吗？
 
 69
 00:03:47,260 --> 00:03:49,060
@@ -347,7 +346,7 @@ it's only funcs that we have to put that on.
 70
 00:03:49,129 --> 00:03:52,297
 Yeah, question. >> [INAUDIBLE]
->> [学生提问]
+好，你有什么问题？>> [学生提问]
 
 71
 00:03:52,366 --> 00:03:52,931
@@ -362,7 +361,7 @@ why is this you need to a struct and not a class, why do
 73
 00:03:55,802 --> 00:03:58,002
 I need to struct? And that's very important to understand,
-我需要一个结构体，理解这个是很重要的
+我需要一个结构体？理解这个是很重要的
 
 74
 00:03:58,071 --> 00:04:02,974
@@ -392,27 +391,27 @@ a copy is made. Put in a var, a copy is made. Well,
 79
 00:04:14,554 --> 00:04:17,222
 soon, that would be incredibly inefficient if it actually
-那么，如果每次复制时，它的每一个位（bit）都被复制
+那么，如果每次都要实际复制的话
 
 80
 00:04:17,291 --> 00:04:21,159
 copy the bits of this entire thing every time. So instead,
-程序就会变得非常低效。 所以 Swift 不那样做
+程序就会变得非常低效，所以 Swift 不那样做
 
 81
 00:04:21,228 --> 00:04:24,028
 Swift is smart. It only actually copies the bits when
-Swift 很聪明。它只复制你设置为可变的
+Swift 很聪明，它实际复制只会
 
 82
 00:04:24,097 --> 00:04:27,799
 you mutate it. That's called copy-on-write semantics.
-那一部分，这就叫做写时复制（copy on write）
+在值被改变是才发生，这就是写时复制
 
 83
 00:04:27,867 --> 00:04:29,434
 This is why structs are different,
-这就是结构体不同的原因
+这就是结构体不同的地方
 
 84
 00:04:29,503 --> 00:04:31,903
@@ -452,7 +451,7 @@ it's because it's a value type that copy on writes stuff,
 91
 00:04:48,788 --> 00:04:51,523
 that's why we care that it's mutating.
-这就是我们关注它是可变的的原因
+这就是我们关注它是否可变的的原因
 
 92
 00:04:51,592 --> 00:04:56,828
@@ -477,12 +476,12 @@ inside of Swift. You already know a lot now about class,
 96
 00:05:09,375 --> 00:05:14,679
 struct and enum. And a protocol is something where
-而一个协议就是一个非常简单的
+而协议就是一个非常简单的概念
 
 97
 00:05:14,748 --> 00:05:18,382
 its a very simple concept. A protocol is basically just
-概念，它基本上就是一个
+协议基本上就是一个
 
 98
 00:05:18,451 --> 00:05:21,453
@@ -492,12 +491,12 @@ a list of methods and vars with no implementation. But
 99
 00:05:21,522 --> 00:05:23,722
 it's the use of having protocols. It's so
-但是协议的使用，它在 Swift 语言与运行时
+但是协议的使用
 
 100
 00:05:23,790 --> 00:05:27,025
 pervasively used throughout the Swift language and
-中被普遍的应用
+它在 Swift 语言普遍的应用
 
 101
 00:05:27,093 --> 00:05:30,529
@@ -522,7 +521,7 @@ What it looks like to type in a protocol and define one.
 105
 00:05:37,704 --> 00:05:40,005
 Then we'll start talking about the use of protocols.
-接下来我会讲如何协议的用法
+接下来我会讲协议的用法
 
 106
 00:05:40,073 --> 00:05:43,674
@@ -532,32 +531,32 @@ Where do we use them? Why are they so valuable? So
 107
 00:05:43,743 --> 00:05:47,178
 let's start with, what protocols are all about?
-那么我们现在开始将，协议到底是什么
+那么我们现在开始讲协议是什么
 
 108
 00:05:47,247 --> 00:05:51,616
 Protocols are essentially a way for
-协议本质是是就是让调用者用任何它想的
+协议本质就是
 
 109
 00:05:51,685 --> 00:05:55,219
 callers to call an API with anything they want.
-东西调用一个应用程序接口（API）的方法
+让使用者用任何它想的数据类型调用 API
 
 110
 00:05:55,288 --> 00:05:57,122
 Any struct, enum, class,
-任何结构体，枚举类型，类
+任何结构体、枚举类型、类
 
 111
 00:05:57,190 --> 00:06:00,391
 it can pass anything they want in. And at the same time
-它可以传递任何它想的的参数。并且同时
+它可以用任何数据类型，同时
 
 112
 00:06:00,460 --> 00:06:04,596
 the receiving method can specify what it really wants.
-接收这些参数的方法可以判别它到底是想要什么
+被调用的方法可以表明它具体想要什么
 
 113
 00:06:04,665 --> 00:06:08,132
@@ -927,7 +926,7 @@ notice I'm mentioning vars. The vars,
 186
 00:09:47,921 --> 00:09:51,289
 the storage of the vars, if they're not computed vars,
-如果他们不是演算变量的话
+如果他们不是计算变量的话
 
 187
 00:09:51,358 --> 00:09:54,592
