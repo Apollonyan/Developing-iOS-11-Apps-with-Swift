@@ -251,7 +251,7 @@ you might be surprised to find out that iOS is Unix.
 51
 00:02:25,779 --> 00:02:29,614
 It's a BSD variant of Unix. And so all of the stuff
-BSD 版本 的 Unix。所以所有的这些
+BSD 版本的 Unix。所以所有的这些
 
 52
 00:02:29,683 --> 00:02:34,453
@@ -405,8 +405,8 @@ the sliders, all those things are in. And
 
 82
 00:04:02,576 --> 00:04:05,943
-there's also, really powerful objects here, like the Map Kit
-这一层还有其他强大的对象，比如 Map Kit
+there's also, really powerful objects here, like the MapKit
+这一层还有其他强大的对象，比如 MapKit
 
 83
 00:04:06,012 --> 00:04:08,679
@@ -580,8 +580,8 @@ big one. That's where a lot of that core services stuff I was
 
 117
 00:05:41,708 --> 00:05:44,141
-talking about is. But there's the Map Kit, Core Motion,
-但同时还有 Map Kit、Core Motion
+talking about is. But there's the MapKit, Core Motion,
+但同时还有 MapKit、Core Motion
 
 118
 00:05:44,210 --> 00:05:46,478
@@ -1731,7 +1731,7 @@ simulators（模拟器）中运行。这些模拟器模拟各式的设备
 347
 00:16:47,473 --> 00:16:52,176
 various device like an iPad or iPhone 8+ or whatever. And
-像 iPad，iPhone 8 plus 以及其他设备
+像 iPad，iPhone 8 Plus 以及其他设备
 
 348
 00:16:52,245 --> 00:16:54,311
@@ -1766,7 +1766,7 @@ let's go ahead and run it. We haven't done anything, so
 354
 00:17:07,860 --> 00:17:09,660
 it's just a blank app and let's just run it for fun.
-所以它仅是一个空白的应用。让我们仅仅为了乐趣运行它
+所以它仅是一个空白的应用，但我们还是运行它看看
 
 355
 00:17:09,729 --> 00:17:12,496
@@ -1896,7 +1896,7 @@ actually we're only gonna look at two of them. For example,
 380
 00:18:21,367 --> 00:18:24,268
 this one, assets, right here, that's your images,
-这个, assets, 是你的图片
+这个 Assets 是你的图片
 
 381
 00:18:24,337 --> 00:18:27,037
@@ -1946,7 +1946,7 @@ they're supporting files. By the way, I would not
 390
 00:18:50,529 --> 00:18:53,330
 put your info.plist in your Supporting Files,
-把 info.plist 放到 Supporting Files 里
+把 Info.plist 放到 Supporting Files 里
 
 391
 00:18:53,399 --> 00:18:57,935
@@ -2116,12 +2116,12 @@ is to build UIs that look good even if they're in landscape
 424
 00:20:39,806 --> 00:20:44,108
 or portrait, iPad, iPhone 8, iPhone 8+, which is big,
-不管它是在横屏还是竖屏，iPad, iPhone 8 还是大一点的 iPhone 8 plus
+不管它是在横屏还是竖屏，iPad，iPhone 8，还是大一点的 iPhone 8 Plus
 
 425
 00:20:44,176 --> 00:20:47,411
 iPhone X, it doesn't matter. Okay that's our goal.
-iPhone X, 都没关系。那就是我们的目标
+iPhone X 都没关系。那就是我们的目标
 
 426
 00:20:47,479 --> 00:20:51,148
@@ -3536,7 +3536,7 @@ the other thing is it has two names. Okay.
 708
 00:34:21,860 --> 00:34:24,227
 The two names are the external name.
-其中一个就是之前提的实参标签
+其中一个就是之前说的实参标签
 
 709
 00:34:24,296 --> 00:34:27,196
