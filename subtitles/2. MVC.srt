@@ -2471,7 +2471,7 @@ here. And add an init to our Concentration class.
 495
 00:26:15,307 --> 00:26:18,374
 Init. Now again, we get to have any arguments we want.
-现在，我们需要得到我们想要的参数
+现在，我们可以有任何我们想要的参数
 
 496
 00:26:18,443 --> 00:26:20,944
@@ -2511,17 +2511,17 @@ put them in here. Let's try and create one card.
 503
 00:26:44,970 --> 00:26:48,538
 Let card =, maybe we'll get lucky and
-let card =, 大概我们比较幸运，我们可以直接
+let card =, 也许我们比较幸运
 
 504
 00:26:48,607 --> 00:26:51,675
 we can just say card. We got, that worked for
-写 Card。写好了，我们写好它让它为 Concentration
+可以写 Card()，直接后面加上括号
 
 505
 00:26:51,743 --> 00:26:56,212
 Concentration. Didn't work. Why didn't that work?
-工作。它并不成功。这是为什么？
+Concentration 可以，这里却并不行。为什么？
 
 506
 00:26:56,281 --> 00:27:00,083
@@ -2666,7 +2666,7 @@ got a couple of problems with that, we're trying to do that.
 534
 00:28:31,276 --> 00:28:34,177
 One is this certainly can't be right. Identifier equals
-其中这个问题一定是不对的。Identifier 等于
+其中，这肯定是个问题。Identifier 等于
 
 535
 00:28:34,246 --> 00:28:38,548
@@ -2676,17 +2676,17 @@ identifer? 那太奇怪了。有一件需要注意的事情是
 536
 00:28:38,617 --> 00:28:42,319
 that in both of my inits, I didn't do an external name and
-在我的两个 init 方法里，我并没有写参数标签和
+在我的两个 init 方法里，我并没有写实参标签和
 
 537
 00:28:42,387 --> 00:28:44,020
 an internal name. You notice that?
-参数名称。你们注意到了么？
+形参名称。你们注意到了么？
 
 538
 00:28:44,089 --> 00:28:46,389
 I only did one, which means both the external name and
-我只写了一个名字，它意味着参数标签和参数名称
+我只写了一个名字，它意味着实参标签和形参名称
 
 539
 00:28:46,458 --> 00:28:49,226
@@ -2696,7 +2696,7 @@ the internal name is the same. So one thing I could do to fix
 540
 00:28:49,295 --> 00:28:52,529
 that is make the internal name be different, like i.
-让参数名称不同，例如 i
+让形参名称不同，例如 i
 
 541
 00:28:52,598 --> 00:28:54,865
@@ -2706,7 +2706,7 @@ And then I could say identifier = i.
 542
 00:28:54,933 --> 00:28:57,534
 You see? This is the external name,
-懂了么？这是参数标签
+懂了么？这是实参标签
 
 543
 00:28:57,603 --> 00:29:00,103
@@ -2716,7 +2716,7 @@ I'm using it here when I call this init.
 544
 00:29:00,172 --> 00:29:03,407
 And this is the internal name, which I'm using inside here.
-这是参数名称，我在方法内部使用它
+这是形参名称，我在方法内部使用它
 
 545
 00:29:03,475 --> 00:29:06,543
@@ -2726,7 +2726,7 @@ And now it knows that this identifier means that one. But
 546
 00:29:06,612 --> 00:29:08,545
 you know what? This is kinda gross. First of all,
-但是你知道么 这是有点粗野的。首先
+但是你知道么 这挺令人厌恶的。首先
 
 547
 00:29:08,613 --> 00:29:12,916
@@ -2751,7 +2751,7 @@ identifier 在这里是一个足够好的名字。所以
 551
 00:29:21,026 --> 00:29:23,560
 I actually want it to be same internal name and
-我想要它同时是参数标签和参数名称
+我想要它同时是实参标签和形参名称
 
 552
 00:29:23,628 --> 00:29:28,431
@@ -2761,7 +2761,7 @@ external name. Now, inits are the one method that
 553
 00:29:28,500 --> 00:29:33,336
 usually has the same internal name and external name. Most
-拥有相同的参数标签和参数名称的方法
+拥有相同的实参标签和形参名称的方法
 
 554
 00:29:33,405 --> 00:29:36,873
@@ -2791,7 +2791,7 @@ This is the parameter. This is my identifier on myself.
 559
 00:29:51,289 --> 00:29:58,028
 Well, I can say, self. So, self., means my identifier.
-所以，我可以写，self. 所以 self. 意味着我的标识符
+所以，我可以写 self. 因为 self. 意味着我的标识符
 
 560
 00:29:58,096 --> 00:30:01,965
@@ -3392,7 +3392,7 @@ I send it to the type card.getUniqueIdentifier.
 679
 00:36:43,134 --> 00:36:46,802
 That's getting it from the card type. Now how am I gonna
-这就是它的语法。现在我改如何实现
+这就是它的语法。现在我该如何实现
 
 680
 00:36:46,871 --> 00:36:49,272
@@ -3537,12 +3537,12 @@ Back over here in our ViewController, touchCard,
 708
 00:38:22,934 --> 00:38:26,135
 it's external name was underbar. Which means don't
-它的参数标签就是一道下划线，这意味着当你调用它的时候
+它的实参标签就是一道下划线，这意味着当你调用它的时候
 
 709
 00:38:26,203 --> 00:38:28,738
 give an external name when you call this because remember
-并没有给它一个参数标签，因为
+并没有给它一个实参标签，因为
 
 710
 00:38:28,807 --> 00:38:30,873
@@ -3552,7 +3552,7 @@ touchCard 是有点像 Objective-C 一样的东西
 711
 00:38:30,942 --> 00:38:33,376
 This target action, and so it didn't have external name and
-这个目标操作，同样也没有参数标签
+这个目标操作，同样也没有实参标签
 
 712
 00:38:33,444 --> 00:38:34,310
@@ -3562,7 +3562,7 @@ so we just said, hey,
 713
 00:38:34,379 --> 00:38:37,179
 I don't want an external name. Similar kind of thing here in
-我们不想要一个参数标签。与它相似，在
+我们不想要一个实参标签。与它相似，在
 
 714
 00:38:37,248 --> 00:38:40,015
@@ -4727,7 +4727,7 @@ exactly the same as I did with array.
 946
 00:51:04,195 --> 00:51:05,694
 I'm just gonna do open parentheses,
-我就用做小括号
+我就用左小括号
 
 947
 00:51:05,763 --> 00:51:08,063
@@ -4782,7 +4782,7 @@ ints and gives you back strings, and this is gonna be
 957
 00:51:37,461 --> 00:51:40,796
 a string. If I alt-click, option-click on this,
-这会是个字符串。如果我按住 alt/option 点击它
+这会是个字符串。如果我按住 option 点击它
 
 958
 00:51:40,865 --> 00:51:44,299

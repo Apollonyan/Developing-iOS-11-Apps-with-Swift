@@ -7955,7 +7955,7 @@ now let's say just printing the cardNumber out right here,
 1592
 01:20:19,448 --> 01:20:23,217
 I'm going to call my flipCard. FlipCard with emoji and
-我将调用我的 flipCard 函数。参数标签是 withEmoji
+我将调用我的 flipCard 函数。实参标签是 withEmoji
 
 1593
 01:20:23,285 --> 01:20:27,921
