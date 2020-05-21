@@ -28,16 +28,16 @@
 1. 修改错别字，明显的笔误，大小写错误（包括原英文字幕中的错误）
 2. 如能找到对应的 Swift Evolution 编号，以类似（在 SE-0065 之前）……注明
 3. 如能确定特定的 Swift 语言版本，以类似（在 Swift 4 之前）……或（对于 Swift 3）……注明
-4. 如果完全错误，尝试以类似……（误：原因）或（注：补充）说明。如空间不够，可适当调整上下文。参考 iOS 10 第三课 [420](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift/blob/master/subtitles/3.%20More%20Swift%20and%20the%20Foundation%20Framework.srt#L2100) 和 [1304](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift/blob/master/subtitles/3.%20More%20Swift%20and%20the%20Foundation%20Framework.srt#L6521)
+4. 如果完全错误，尝试以类似……（误：原因）或（注：补充）说明。如空间不够，可适当调整上下文。参考 iOS 10 第三课 [420](https://github.com/Apollonyan/Developing-iOS-10-Apps-with-Swift/blob/master/subtitles/3.%20More%20Swift%20and%20the%20Foundation%20Framework.srt#L2100) 和 [1304](https://github.com/Apollonyan/Developing-iOS-10-Apps-with-Swift/blob/master/subtitles/3.%20More%20Swift%20and%20the%20Foundation%20Framework.srt#L6521)
 
 ## 翻译术语（Terminology）的要求
 
 #### 术语的基本处理
 
-1. 尽量和已翻译的内容保持一致，查阅 [统一翻译](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/issues/7)
+1. 尽量和已翻译的内容保持一致，查阅 [统一翻译](https://github.com/Apollonyan/Developing-iOS-11-Apps-with-Swift/issues/7)
 2. 参考 [术语的特殊处理](#术语的特殊处理)
 3. 参考 [Apple Developer 网页中文版](https://developer.apple.com/cn/)
-4. 参考历年来 [iOS 8](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift)，[iOS 9](https://github.com/SwiftGGTeam/Developing-iOS-9-Apps-with-Swift) 和 [iOS 10](https://github.com/ApolloZhu/Developing-iOS-10-Apps-with-Swift) 的翻译
+4. 参考历年来 [iOS 8](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift)，[iOS 9](https://github.com/SwiftGGTeam/Developing-iOS-9-Apps-with-Swift) 和 [iOS 10](https://github.com/Apollonyan/Developing-iOS-10-Apps-with-Swift) 的翻译
 5. 参考 [CocoaChina 代码库](http://code.cocoachina.com/) 对 UI 控件的翻译
 6. 查阅 [《The Swift Programming Language》中文版](http://gg.swiftguide.cn/) 及其 [术语表](https://github.com/SwiftGGTeam/the-swift-programming-language-in-chinese#%E6%9C%AF%E8%AF%AD%E8%A1%A8) 对 Swift 语言相关名词的翻译
 7. 参考该术语在其它编程语言中的翻译，可以使用 [微软官方术语搜索](https://www.microsoft.com/Language/zh-cn/Search.aspx) 等搜索引擎
