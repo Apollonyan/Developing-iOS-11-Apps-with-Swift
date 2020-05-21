@@ -4,7 +4,7 @@
 
 ## 联系我们
 
-推荐 [GitHub Issues](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/issues/new)，或者发电子邮件到 [public-apollonian@outlook.com](mailto:public-apollonian@outlook.com)。
+推荐 [GitHub Issues](https://github.com/Apollonyan/Developing-iOS-11-Apps-with-Swift/issues/new)，或者发电子邮件到 [public-apollonian@outlook.com](mailto:public-apollonian@outlook.com)。
 
 ## 字幕使用
 
@@ -24,7 +24,7 @@
 
 ### 如何关注更新？
 
-如果您想收到每集翻译完成的更新，请订阅 [RSS源](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/releases.atom)。如果您想要更密切地获得最新动态，您也可以 [关注（Watch）项目的更新](https://github.com/ApolloZhu/Developing-iOS-11-Apps-with-Swift/subscription)。
+如果您想收到每集翻译完成的更新，请订阅 [RSS源](https://github.com/Apollonyan/Developing-iOS-11-Apps-with-Swift/releases.atom)。如果您想要更密切地获得最新动态，您也可以 [关注（Watch）项目的更新](https://github.com/Apollonyan/Developing-iOS-11-Apps-with-Swift/subscription)。
 
 ## 支持我们
 
