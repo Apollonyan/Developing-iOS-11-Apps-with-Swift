@@ -39,7 +39,7 @@
 3. 参考 [Apple Developer 网页中文版](https://developer.apple.com/cn/)
 4. 参考历年来 [iOS 8](https://github.com/X140Yu/Developing_iOS_8_Apps_With_Swift)，[iOS 9](https://github.com/SwiftGGTeam/Developing-iOS-9-Apps-with-Swift) 和 [iOS 10](https://github.com/Apollonyan/Developing-iOS-10-Apps-with-Swift) 的翻译
 5. 参考 [CocoaChina 代码库](http://code.cocoachina.com/) 对 UI 控件的翻译
-6. 查阅 [《The Swift Programming Language》中文版](http://gg.swiftguide.cn/) 及其 [术语表](https://github.com/SwiftGGTeam/the-swift-programming-language-in-chinese#%E6%9C%AF%E8%AF%AD%E8%A1%A8) 对 Swift 语言相关名词的翻译
+6. 查阅 [《The Swift Programming Language》中文版](https://swiftgg.gitbook.io/swift/) 及其 [术语表](https://github.com/SwiftGGTeam/the-swift-programming-language-in-chinese#%E6%9C%AF%E8%AF%AD%E8%A1%A8) 对 Swift 语言相关名词的翻译
 7. 参考该术语在其它编程语言中的翻译，可以使用 [微软官方术语搜索](https://www.microsoft.com/Language/zh-cn/Search.aspx) 等搜索引擎
 8. 如果以上都没有找到合适的结果，你可以
 	1. 在得到任务分配的 issue 下讨论（Comment）
