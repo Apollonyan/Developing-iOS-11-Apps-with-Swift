@@ -2041,7 +2041,7 @@ but we don't really talk about it. Now this hierarchy of
 409
 00:20:55,955 --> 00:20:59,723
 views inside views, you build in Xcode in interface builder.
-层级结构是需要你们在 Xcode 中的 interface builder 构建的，
+层级结构是需要你们在 Xcode 中的 interface builder 构建的
 
 410
 00:20:59,792 --> 00:21:02,392
@@ -2761,7 +2761,7 @@ let's talk about the coordinate system we're gonna
 553
 00:28:26,705 --> 00:28:30,306
 be drawing in here. The most important thing to know
-坐标系。
+坐标系
 
 554
 00:28:30,375 --> 00:28:34,444
@@ -5422,7 +5422,7 @@ the string.index range. It can crunch on that and change it
 1085
 00:55:44,741 --> 00:55:48,109
 into an NSRange that will work in an NSAttributedString.
-将它转化可以用于 NSAttributedString 的 NSRange，
+将它转化可以用于 NSAttributedString 的 NSRange
 
 1086
 00:55:48,178 --> 00:55:49,778
@@ -5997,1474 +5997,1843 @@ the app icon was. Well, you can drag other images in
 1200
 01:01:51,607 --> 01:01:54,308
 there, and along the left hand side will be all the names
+此时左手边将会出现它们的名字
 
 1201
 01:01:54,377 --> 01:01:57,012
 of them, and then you can call this method right here,
+然后你就可以在这里调用方法
 
 1202
 01:01:57,080 --> 01:01:59,881
 UIImage named whatever, and it'll go look in that assets
+UIImage(named: String)，这个方法会去查看 assets 里面的东西
 
 1203
 01:01:59,950 --> 01:02:01,950
 thing, and find an image with that name.
+并且根据名字找到图片
 
 1204
 01:02:02,019 --> 01:02:04,386
 Now, this is a failable initializer.
+这可能是一个无效的初始化方式
 
 1205
 01:02:04,454 --> 01:02:08,089
 It can return nil, and that's because it might not find
+这个方法可能返回 nil，那是因为它可能在 assets 里没有找到
 
 1206
 01:02:08,157 --> 01:02:11,927
 that particular image in there. So you have to say
+那个特殊的图片。因此你会说
 
 1207
 01:02:11,995 --> 01:02:15,497
 usually if let to do that. How else can you get an image?
+如果我们都这样做。我们是如何获取到图片的呢？
 
 1208
 01:02:15,565 --> 01:02:16,965
 Well, you can get one from the file system.
+你可以通过文件系统来得到一张图片
 
 1209
 01:02:17,034 --> 01:02:18,633
 You've got a jpg in the file system.
+你已经在文件系统里得到了一个张图片
 
 1210
 01:02:18,701 --> 01:02:20,568
 I hadn't told you how to access the file system, so
+我并没有告诉你如何访问文件系统，因此
 
 1211
 01:02:20,637 --> 01:02:22,670
 you're not gonna be doing that. I'll show you later.
+你不能通过文件系统来访问。之后我会展示给你看
 
 1212
 01:02:22,739 --> 01:02:25,306
 You can also get it if you have a bag of bits that you
+你也可以通过互联网的 bits 包得到图片
 
 1213
 01:02:25,375 --> 01:02:28,409
 got over the Internet. The data that has a bags of bits
+这里有一个 jpg 数据类型的 bit 包
 
 1214
 01:02:28,478 --> 01:02:31,312
 with jpg data in there. UIImage knows how to look in
+UIImage 知道如何查看这个 bits 包
 
 1215
 01:02:31,381 --> 01:02:33,648
 that bag of bits and figure out if it's an image.
+并且能够看出是否是一张图片
 
 1216
 01:02:33,717 --> 01:02:36,585
 You can even use this global function,
+你甚至也可以使用这个全局函数
 
 1217
 01:02:36,653 --> 01:02:40,121
 UIGraphicsBeginImageContext, and then draw arcs and
+UIGraphicsBeginImageContext，然后画圆弧跟线条
 
 1218
 01:02:40,190 --> 01:02:42,791
 lines, and it'll capture it as an image. So
+方法将以图片的形式捕获它。因此
 
 1219
 01:02:42,859 --> 01:02:46,127
 you can even draw a custom image if you want. So anyway,
+如果你想的话你可以自定义一个图片画出来。无论如何
 
 1220
 01:02:46,196 --> 01:02:47,161
 you do one of these things, and
+你做了这些事情中的一个
 
 1221
 01:02:47,230 --> 01:02:49,897
 now you have a UIImage in your hand that represents the image
+现在你手上就有了一个 UIImage 它代表了
 
 1222
 01:02:49,966 --> 01:02:51,967
 you wanna draw. How do you draw it?
+你想要画的那张图片。你怎样把它画出来呢？
 
 1223
 01:02:52,035 --> 01:02:55,069
 Exactly the same as NS attributed string, you just
+确切的说就像是 NS attributed string，你仅仅
 
 1224
 01:02:55,138 --> 01:02:58,839
 use draw(at), which will draw the image with its upper-left
+使用 draw(at) 方法就可以，这个方法会从坐标系的左上角开始
 
 1225
 01:02:58,908 --> 01:03:02,510
 corner at that point, but you also can do draw(in rect, and
+画图，但是你也可以使用 draw(in rect) 方法
 
 1226
 01:03:02,579 --> 01:03:05,146
 it'll scale the image to fit in that rect.
+它将会在那个矩形的范围内进行缩放
 
 1227
 01:03:05,215 --> 01:03:08,049
 So that's a cool way to scale your image up and down, and
+所以这是一个很好的用来放大或者缩小图像的方法
 
 1228
 01:03:08,118 --> 01:03:10,585
 you can do drawAsPattern which will tally your image
+你可以用 drawAsPattern 方法来重复你的图片
 
 1229
 01:03:10,653 --> 01:03:14,089
 repeatedly, repeat you image to fill the rectangle.
+重复你的图片来填充矩形
 
 1230
 01:03:15,892 --> 01:03:19,227
 Super easy to draw images as well.
+画一张图是如此的简单
 
 1231
 01:03:19,295 --> 01:03:21,796
 All right, let's talk about your bounds changing.
+好的，让我们来谈论一下 bounds 的改变
 
 1232
 01:03:21,865 --> 01:03:25,767
 I've got my draw rect. It draw beautifully, but now my bounds
+我已经得到了画图的矩形范围，它可以画出漂亮的图片，但是现在我的 bounds 发生了
 
 1233
 01:03:25,836 --> 01:03:30,571
 changed, and when will this happen? Well, number one way,
+改变，接下来会发生什么呢？其中的一种方式
 
 1234
 01:03:30,640 --> 01:03:33,808
 your device got rotated. They were looking at you in
+你的设备被旋转了
 
 1235
 01:03:33,877 --> 01:03:37,345
 portrait, they rotate you. Now you also went from this tall,
+你旋转了设备。现在从一个高的
 
 1236
 01:03:37,414 --> 01:03:40,915
 thin view, now you're this wide, very short view, okay,
+瘦的视图，变现变成了宽的，矮的视图
 
 1237
 01:03:40,984 --> 01:03:43,051
 your bounds have completely changed.
+你的 bounds 完全地改变了
 
 1238
 01:03:43,120 --> 01:03:47,088
 You went from a width of maybe 200 to a width of maybe 700,
+你从大约 200 宽度变成了 700 宽度
 
 1239
 01:03:47,156 --> 01:03:50,925
 and from a height of maybe 3 or 400 to a height of 150 or
+从 300 或者 400 高度变成了 150 或者 200 高度
 
 1240
 01:03:50,994 --> 01:03:53,327
 200, so that's a major change.
+这是一个多么大的变化
 
 1241
 01:03:53,396 --> 01:03:56,263
 You're gonna have to really redraw all of your stuff,
+你得重新画你所有的东西
 
 1242
 01:03:56,332 --> 01:04:00,401
 usually. Unfortunately, that's not the default. In iOS,
+通常来说是这样。不幸的是，并没有这样的默认方法。在 iOS 中
 
 1243
 01:04:00,470 --> 01:04:03,705
 when you're bounds change like that, it does not redraw you,
+当你的 bounds 像刚才那样发生改变时，它并没有进行重画
 
 1244
 01:04:03,773 --> 01:04:08,843
 believe or not. It takes all your bits And squishes them.
+信不信由你。它把你所有的视图都压在一起
 
 1245
 01:04:08,912 --> 01:04:11,312
 So looks absolutely terrible most of the time.
+因此视图在大多数时候看起来非常糟糕
 
 1246
 01:04:11,381 --> 01:04:13,781
 To smashes a bit, squishes them down,
+把视图压扁
 
 1247
 01:04:13,850 --> 01:04:17,351
 stretches them out to fit your new bounds.
+拉伸他们来适应新的 bounds
 
 1248
 01:04:17,420 --> 01:04:20,588
 Which you almost never want that. So how is that control?
+你几乎不想要这么做。那么如何控制呢？
 
 1249
 01:04:20,657 --> 01:04:23,825
 That's control with a var in UIView called contentMode.
+在 UIView 中的一个名叫 contentMode 的变量来控制它
 
 1250
 01:04:23,893 --> 01:04:25,493
 Okay, and the contentMode's just basically saying,
+contentMode 的基本意思是
 
 1251
 01:04:25,562 --> 01:04:27,362
 what kind of content do I have? Do I have the kind of
+我需要的是哪一种 content?哪一种 content
 
 1252
 01:04:27,430 --> 01:04:30,231
 content that can be squished and scrunched like that, and
+在被压扁或者拉伸的情况下
 
 1253
 01:04:30,300 --> 01:04:32,367
 still look good? Or do I have the kind of content where I
+仍然看起来效果不错？或者是说
 
 1254
 01:04:32,435 --> 01:04:34,502
 have to be redrawn when my balance changes?
+当我的平衡被打破时使用哪一种 content 进行重画？
 
 1255
 01:04:34,571 --> 01:04:38,005
 So, the three different categories of contentModes.
+因此，contentMode 有三种不同的分类
 
 1256
 01:04:38,074 --> 01:04:41,776
 One is, keep my bits, okay, don't redraw me, but just move
+其中一个，保持我的元素不变，不需要进行重画，仅仅移动
 
 1257
 01:04:41,845 --> 01:04:46,281
 my bits, unscaled, to a new position, upper left, top,
+元素，不伸缩，移动到一个新的位置，左上角，顶部
 
 1258
 01:04:46,350 --> 01:04:48,616
 lower right, keep it in the center, whatever.
+右下角，使元素保持到中间，在任何时候
 
 1259
 01:04:48,684 --> 01:04:51,486
 This one not almost never get used. Then they're scaling
+这种方式几乎不被使用到。scaleToFill 默认对
 
 1260
 01:04:51,555 --> 01:04:54,589
 the bits which is scaleToFill as the default where it just
+元素进行缩放通过压缩元素
 
 1261
 01:04:54,658 --> 01:04:57,958
 scrunches the bits to fit in the new space. It doesn't even
+来适应新的空间。甚至
 
 1262
 01:04:58,027 --> 01:05:01,395
 respect the aspect ratio. But you could set the contentMode
+不保持纵横比。你也可以设置一种 contentMode
 
 1263
 01:05:01,464 --> 01:05:04,532
 to scores the bit but keep the aspect ratio the same size so
+尽量显示更多的元素但是要保持横纵比
 
 1264
 01:05:04,600 --> 01:05:07,635
 that a face doesn't go from, you know, an over as way to
+因此可能部分地方不能够展示，你知道的，就像越过一条很长的路
 
 1265
 01:05:07,704 --> 01:05:11,906
 a tall over or whatever. But the one you guys probably
+或者什么。但是你们中的一些人
 
 1266
 01:05:11,975 --> 01:05:15,643
 are gonna want most of the time is ContentMode redraw.
+大部分时间想要的 ContentMode 是 redraw
 
 1267
 01:05:15,712 --> 01:05:18,613
 And what that means is, when my bounds change,
+它的意思是，当我的 bounds 发生改变
 
 1268
 01:05:18,682 --> 01:05:22,183
 call my draw Rect and let me draw myself again, and
+调用我的 drawRect 方法并且让我自己画自己一遍
 
 1269
 01:05:22,252 --> 01:05:24,552
 that's probably what you want.
+这个可能是你需要的
 
 1270
 01:05:24,620 --> 01:05:26,754
 Could you draw rect knows what your bounds are and
+draw rect 方法知道 bounds 是什么
 
 1271
 01:05:26,823 --> 01:05:29,023
 when it gets called, it can draw something appropriate for
+当它被调用的时候，它可以在 bound 范围内画出
 
 1272
 01:05:29,092 --> 01:05:32,293
 the bounds you read. So like in your homework, for example,
+适合你阅读的的东西。就像你的家庭作业一样，例如
 
 1273
 01:05:32,361 --> 01:05:34,895
 well maybe your homework is not a great example because
+也许你的家庭作业并不是一个很好的例子
 
 1274
 01:05:34,964 --> 01:05:37,231
 probably, the big views that are changing bound
+大的视图改变了 bound
 
 1275
 01:05:37,300 --> 01:05:39,800
 it's your subviews that you are gonna want to lay out,
+你想要重新排版的子视图也发生了改变
 
 1276
 01:05:39,869 --> 01:05:42,270
 which I will talk about again. But if you did have a thing
+我将会再讲一遍。但是如果你做了一些事情
 
 1277
 01:05:42,339 --> 01:05:43,905
 where you are drawing something in a view,
+比如你在视图上画了一些东西
 
 1278
 01:05:43,973 --> 01:05:46,374
 like maybe we are doing our cards and concentration. And
+就像是我们已经完成的 cards 和 concentration
 
 1279
 01:05:46,442 --> 01:05:48,910
 we always want them, to be a certain aspect ratio,
+我们总是想让它们这样，保持横纵比
 
 1280
 01:05:48,978 --> 01:05:52,781
 whatever, we could redraw, in our draw Rect or whatever,
+无论如何，我们能够重画，在 draw Rect 方法中或者任何地方
 
 1281
 01:05:52,849 --> 01:05:54,783
 it's probably not a great example.
+这可能不是一个好的例子
 
 1282
 01:05:54,851 --> 01:05:56,651
 In fact, let's go on to the next example which is,
+事实上，让我们继续下一个例子
 
 1283
 01:05:56,720 --> 01:05:58,319
 what happens if I have subviews and
+如果我有子视图并且
 
 1284
 01:05:58,388 --> 01:06:00,955
 my bounds change? Cuz this is gonna happen in your homework.
+我的  bounds 发生了改变之后会发生什么呢？因为这些将要在你的家庭作业中发生
 
 1285
 01:06:01,024 --> 01:06:03,024
 You're gonna have some views, you're just gonna have
+你将会有一些视图，你仅仅有
 
 1286
 01:06:03,093 --> 01:06:06,460
 a subview which is a lot of cards, your set cards. Because
+一个有很多卡片的子视图，你把卡片放到上面
 
 1287
 01:06:06,529 --> 01:06:09,130
 in assignment three, now there's no limit on the number
+在作业三中
 
 1288
 01:06:09,199 --> 01:06:11,432
 of cards that can appear on screen, right?
+屏幕上出现多少卡片是没有限制的，对吗？
 
 1289
 01:06:11,501 --> 01:06:14,635
 In assignment two, we limited to like 24 cards as the most.
+在作业二中，我们限制了最多 24 张卡片
 
 1290
 01:06:14,704 --> 01:06:17,271
 Now no limit, so you're always adding more cards. So,
+现在没有限制，因此你总是可以添加更多的卡片。因此
 
 1291
 01:06:17,340 --> 01:06:20,241
 you're gonna have to use, put them as subviews of some view.
+你必须使用，让一些视图变成子视图
 
 1292
 01:06:20,310 --> 01:06:22,744
 You can't stack view anymore, in other words.
+换句话说，你不能再继续叠加视图了
 
 1293
 01:06:22,813 --> 01:06:24,345
 So what happens when your bounds change there?
+当你的 bounds 发生改的的时候发生了什么？
 
 1294
 01:06:24,414 --> 01:06:25,980
 Well, when your bounds change,
+当你的 bounds 改变时
 
 1295
 01:06:26,048 --> 01:06:28,682
 you're gonna get sent this message layoutSubviews.
+你会收到 layoutSubviews 这个消息
 
 1296
 01:06:28,751 --> 01:06:32,486
 And that's an opportunity for you to go reset the frames by
+这对你来说是一个可以重置 frames 的机会
 
 1297
 01:06:32,555 --> 01:06:36,390
 just changing the frame var on all of your subviews, okay.
+通过改变所有子视图上的 frame 变量，好的
 
 1298
 01:06:36,459 --> 01:06:38,225
 So, you're all, if you have subviews,
+所有都是，如果你有很多子视图
 
 1299
 01:06:38,294 --> 01:06:40,561
 you're almost always gonna implement this method.
+几乎所有的子视图都要实现这个方法
 
 1300
 01:06:40,630 --> 01:06:43,931
 And don't forget to call super to do it. Now, what's the one
+并且不要忘记调用它的父类方法。现在，万一
 
 1301
 01:06:44,000 --> 01:06:46,067
 time when you're not gonna implement this method?
+你并没有实现这个方法呢？
 
 1302
 01:06:46,135 --> 01:06:49,137
 Is if you have subviews and you have autolayout on those
+如果你有很多子视图并且
 
 1303
 01:06:49,205 --> 01:06:52,974
 subviews, okay. If you have autolayout on your subviews,
+子视图上使用了 autolayout。如果你的子视图上使用了autolayout
 
 1304
 01:06:53,042 --> 01:06:55,676
 then the Autolayout constrains will determine where
+Autolayout 上的限制条件将会决定
 
 1305
 01:06:55,745 --> 01:06:59,013
 the new frames are, okay. So this would only be for
+新的 frames 是什么样的。也有可能只有
 
 1306
 01:06:59,082 --> 01:07:01,483
 views where you're not using autolayout.
+视图并没有使用 autolayout
 
 1307
 01:07:03,186 --> 01:07:05,386
 that might be true of your assignment three,
+那就可能像你的作业三一样
 
 1308
 01:07:05,454 --> 01:07:08,322
 whatever view contains your card, probably not gonna use
+无论什么视图拥有你的卡片，很可能没有使用
 
 1309
 01:07:08,391 --> 01:07:11,025
 autolayout. It will be almost impossible to write
+autolayout。几乎不可能写出
 
 1310
 01:07:11,094 --> 01:07:12,726
 constraints that would work for
+限制来实现
 
 1311
 01:07:12,795 --> 01:07:15,964
 laying out an arbitrary number of cards in arbitrary bounds,
+任意大小任意数量的卡片实现自动布局
 
 1312
 01:07:16,032 --> 01:07:19,433
 okay. You're probably gonna wanna do that in code. Okay,
+你可能想在代码中做到这一点
 
 1313
 01:07:19,502 --> 01:07:21,268
 so when your bounds change, you've got two different
+当你的 bounds 改变时，你需要考虑
 
 1314
 01:07:21,337 --> 01:07:23,504
 things to think about. If you have any subviews,
+两个不同的事情。如果你有一些子视图
 
 1315
 01:07:23,572 --> 01:07:26,540
 layout subviews or autolayout. And if you draw something,
+调用 layoutSubviews 或者使用 autolayout。如果你画了一些东西
 
 1316
 01:07:26,609 --> 01:07:28,342
 then you've gotta think about your content mode on whether
+你必须考虑你的内容是否
 
 1317
 01:07:28,411 --> 01:07:33,081
 you wanna be asked to redraw. Okay, so that's it for
+想要被重新绘制。好的，这就是今天要展示的
 
 1318
 01:07:33,149 --> 01:07:36,184
 the slides today, I'm gonna into demo here.
+幻灯片。我将会在这里展示一个示例
 
 1319
 01:07:36,252 --> 01:07:39,320
 The demo I'm gonna do is a playing card. So this is gonna
+我接下来展示的示例是个卡牌游戏。因此将要
 
 1320
 01:07:39,389 --> 01:07:41,655
 be a new app, and it's just gonna draw a playing card,
+创建一个新的 app，我们将要画一个卡牌
 
 1321
 01:07:41,724 --> 01:07:44,158
 you know, like jack of clubs, six of hearts, whatever,
+你知道的，像是梅花 J，红心 6，或者什么的
 
 1322
 01:07:44,226 --> 01:07:46,928
 it's gonna draw that card. We're gonna draw that custom,
+卡片上将要画上这些。我们将自己规定怎么画
 
 1323
 01:07:46,996 --> 01:07:49,864
 by ourselves. And today, all I am gonna do in the demo is
+通过我们自己。今天，我将要在示例中展示的是
 
 1324
 01:07:49,932 --> 01:07:53,067
 the model of that MVC that draws the playing card, which
+卡牌游戏项目中 MVC 部分中的模型，它是
 
 1325
 01:07:53,136 --> 01:07:55,936
 is gonna be a playing card and a deck of playing cards.
+卡牌游戏中的扑克牌
 
 1326
 01:07:56,005 --> 01:07:58,673
 And the reason I'm gonna do that is I wanna show you enum.
+我想这么做的原因是我想要给你们展示一下枚举
 
 1327
 01:07:58,741 --> 01:08:01,709
 You haven't grab a chance to see me demo enum. So
+在之前的示例中你没有机会看到枚举。因此
 
 1328
 01:08:01,777 --> 01:08:05,413
 we're gonna use enums in our implementation of our model.
+我们将要在我们的模型中使用枚举
 
 1329
 01:08:05,482 --> 01:08:08,316
 On Wednesday, I'll continue with the drawing part of this
+星期三的时候，我将继续这个示例中的绘画部分
 
 1330
 01:08:08,385 --> 01:08:10,451
 demo or I'm gonna draw this playing card.
+或者我将继续画扑克牌
 
 1331
 01:08:10,520 --> 01:08:12,619
 And then I'll do some slides on multitouch and
+我将会做一些关于多点触控的幻灯片
 
 1332
 01:08:12,688 --> 01:08:15,589
 then we'll add some multitouch to the playing cards, swiping
+之后再扑克牌上添加多点触控的功能
 
 1333
 01:08:15,658 --> 01:08:18,259
 to go to the next card, we'll do tapping the flip the card
+可以滑到另一张卡，也可以点击将卡片反面
 
 1334
 01:08:18,328 --> 01:08:21,162
 over, that kind of stuff. Okay, your assignment two
+还有各种各样的功能。好的，你的作业二
 
 1335
 01:08:21,231 --> 01:08:22,930
 of course is due on Wednesday as you know.
+需要在周三完成
 
 1336
 01:08:22,999 --> 01:08:25,533
 Assignment three will be assigned on Wednesday.
+作业三也需要周三晚成
 
 1337
 01:08:25,601 --> 01:08:29,002
 It's just to make your set game custom cards, okay,
+它仅仅是让你自定义设置几个扑克牌
 
 1338
 01:08:29,071 --> 01:08:30,204
 drawn with a custom view,
+用一个自定义视图来画
 
 1339
 01:08:30,272 --> 01:08:33,140
 that's what assignment three is basically about. We don't
+这是作业三的基本内容
 
 1340
 01:08:33,209 --> 01:08:35,576
 have a Friday section again this week, unfortunately,
+这周五我们没有课程
 
 1341
 01:08:35,645 --> 01:08:37,244
 due to some scheduling conflicts, but
+因为其他课程冲突
 
 1342
 01:08:37,313 --> 01:08:39,847
 next Friday we will and it'll be on source code management.
+周五我们将要学习代码管理
 
 1343
 01:08:39,916 --> 01:08:44,886
 Okay, let's go create a new app here.
+好，让我们来创建一个新的 app
 
 1344
 01:08:46,689 --> 01:08:49,623
 Okay, so I'm just gonna go over here, use this same
+好的，幻灯片先到这里，使用相同的
 
 1345
 01:08:49,692 --> 01:08:52,894
 splash screen but I gonna say create a new Xcode project,
+屏幕但是展示的是我将要创建一个新的 Xcode 项目
 
 1346
 01:08:52,963 --> 01:08:55,930
 this has nothing to do with concentration here.
+在 concentration 这个项目中已经没有需要做的了
 
 1347
 01:08:55,998 --> 01:08:57,631
 As always with the single view app,
+更往常一样选择 single view app
 
 1348
 01:08:57,700 --> 01:08:59,934
 I'm gonna call this app PlayingCard.
+这个app被命名为 PlayingCard
 
 1349
 01:09:00,003 --> 01:09:01,369
 That's what it does to show it's a PlayingCard.
+这么做是想让人明白这是个卡牌游戏
 
 1350
 01:09:01,438 --> 01:09:04,571
 We're not doing any database, we're not doing testing yet.
+我们不需要对数据库进行操作，我们也不需要测试
 
 1351
 01:09:04,640 --> 01:09:07,175
 We're gonna put in the same place I put concentration,
+我们把它放到与 concentration 项目同级目录下
 
 1352
 01:09:07,244 --> 01:09:09,143
 we're not doing source code control yet,
+我们也不需要源码控制
 
 1353
 01:09:09,212 --> 01:09:11,011
 although like I'm saying next Friday,
+我下星期五会讲
 
 1354
 01:09:11,080 --> 01:09:14,381
 we'll learn about that. Here's my project,
+我们将在那时进行学习。这就是我的项目
 
 1355
 01:09:14,450 --> 01:09:16,784
 now this time I'm gonna keep my xcassets,
+现在我打开了 xcassets
 
 1356
 01:09:16,853 --> 01:09:19,887
 right, here's my xcassets where my AppIcon is here.
+这是我的 xcassets 用来放置APP的图标
 
 1357
 01:09:19,956 --> 01:09:22,090
 I'm gonna keep that because I'm gonna use some images for
+我会一直打开它因为我要放置扑克牌的
 
 1358
 01:09:22,158 --> 01:09:25,259
 the face cards. So you can see how to draw images there.
+封面在里面。因此你可以在这里看到如何画一张图
 
 1359
 01:09:25,328 --> 01:09:27,428
 But I'm not gonna use my launch screen or
+我们不使用启动屏幕或者 app delegate
 
 1360
 01:09:27,496 --> 01:09:29,930
 my app delegate here. So I'm just gonna put them again in
+app delegate。因此我将再次将他们放到
 
 1361
 01:09:29,999 --> 01:09:33,401
 supporting files. I just like to get them out of the way so
+supporting files 里面。我只想让他们离开我的视线
 
 1362
 01:09:33,470 --> 01:09:36,971
 they don't really kind of demand my attention.
+这样我就不会注意到他们了
 
 1363
 01:09:37,040 --> 01:09:42,543
 Now, before I even go here and build my UI for
+现在，在为我的扑克牌游戏建立 UI 之前
 
 1364
 01:09:42,611 --> 01:09:45,779
 my playing card thing, we're gonna go do our model first.
+我们要先建立模型
 
 1365
 01:09:45,848 --> 01:09:47,181
 So we're not gonna do any UI to start,
+我们不会从 UI 开始做任何工作
 
 1366
 01:09:47,250 --> 01:09:49,783
 we're gonna do model first. So how do we create model files?
+我们从模型开始。我们怎么创建一个模型文件呢？
 
 1367
 01:09:49,852 --> 01:09:53,154
 Remember, File > New > File, and we pick this one right
+记住，File > New > File，我们点击这个文件
 
 1368
 01:09:53,223 --> 01:09:56,123
 here, Swift File which is a non-UI, right, a UI
+Swift File 不会包含任何的UI，UI是一个
 
 1369
 01:09:56,192 --> 01:09:59,527
 independent thing. And when we do that, we ask for the name,
+独立的事情。当我们做这些的时候，我们需要一个文件名
 
 1370
 01:09:59,596 --> 01:10:02,996
 so let's first start by doing a playing card. Okay, now on
+让我们从做一个扑克牌开始。现在
 
 1371
 01:10:03,065 --> 01:10:05,266
 my model, it's just gonna be a deck of playing cards.
+这是我的模型，它将会变成一副扑克牌
 
 1372
 01:10:05,335 --> 01:10:08,035
 So these are gonna be UI independent representations
+这就是一副UI界面无关
 
 1373
 01:10:08,104 --> 01:10:10,338
 of playing cards, a deck of that. So
+的扑克牌
 
 1374
 01:10:10,406 --> 01:10:12,240
 we'll start with the playing cards itself and
+我们将会从扑克牌本身开始
 
 1375
 01:10:12,308 --> 01:10:14,575
 then we'll do the deck. So here it is right here,
+来造一副扑克牌。这里是正确的
 
 1376
 01:10:14,644 --> 01:10:17,144
 import Foundation, I'm just gonna have it via struct,
+导入 Foundation，创建一个结构体
 
 1377
 01:10:17,213 --> 01:10:20,214
 there's really no reason for it to be a reference type. And
+在这里没有理由使用关联值类型
 
 1378
 01:10:20,283 --> 01:10:22,149
 it's going to be a playing card. Now,
+我们开始制作扑克牌。现在
 
 1379
 01:10:22,218 --> 01:10:26,119
 a playing card is made of what? Well, it's got a suit,
+扑克牌是什么制作的的呢？它有花色
 
 1380
 01:10:26,188 --> 01:10:30,290
 which I'm gonna have some type for that, and it's got a rank.
+我要在这里定义花色类型，还有牌面大小
 
 1381
 01:10:30,359 --> 01:10:35,063
 Right, that's all there is in a playing card, suit and rank.
+这就是扑克牌中的所有东西了，花色和拍卖你大小
 
 1382
 01:10:35,131 --> 01:10:37,765
 So how are we gonna represent suit and rank?
+我们怎样代表花色和牌面大小呢？
 
 1383
 01:10:37,833 --> 01:10:39,967
 Well, of course, because I wanted to show you enum,
+当然，因为我想给你们展示枚举
 
 1384
 01:10:40,036 --> 01:10:43,537
 l'm gonna do it with an enum. So, let's create an enum for
+所以我将用枚举来实现。因此，让我们通过枚举来创建
 
 1385
 01:10:43,606 --> 01:10:47,408
 the Suit. And then we're also gonna create another enum for
+花色。我们也会用枚举来创建
 
 1386
 01:10:47,477 --> 01:10:51,412
 the Rank. Now let's talk about how we would do this.
+牌面大小。现在我们讨论一下应该怎么做
 
 1387
 01:10:51,480 --> 01:10:54,815
 Now, Suit is probably the world's simplest enum, right?
+现在，花色可能是世界上最简单的枚举，不是吗？
 
 1388
 01:10:54,884 --> 01:10:58,853
 It's the case, it could be spades, or it's hearts, or
+就是这样，它有黑桃，红心
 
 1389
 01:10:58,922 --> 01:11:03,590
 it's diamonds, or it's clubs, that's it.
+方片，梅花，这些东西
 
 1390
 01:11:03,659 --> 01:11:06,427
 This is probably enough right here. That's really all
+这里的这些可能够了。这些
 
 1391
 01:11:06,496 --> 01:11:09,496
 we need to do for an enum. I'm gonna take this opportunity
+就是我们枚举索要列出来的。我将要趁这个机会
 
 1392
 01:11:09,565 --> 01:11:11,398
 to teach you a little bit about enum that
+告诉你一些关于枚举的东西
 
 1393
 01:11:11,467 --> 01:11:13,234
 I didn't mention even in the slides.
+之前在幻灯片里没有提及到的
 
 1394
 01:11:13,303 --> 01:11:17,071
 But it was in your homework reading, so hopefully you got
+但是这些在你的阅读作业中有，所以希望你
 
 1395
 01:11:17,139 --> 01:11:20,508
 this which is raw values. What are raw values in an enum?
+已经了解了原始值的知识。原始值的枚举是什么呢？
 
 1396
 01:11:20,576 --> 01:11:25,046
 Well, it turns out that you can associate a fixed
+它的意思是你可以关联一个
 
 1397
 01:11:25,115 --> 01:11:30,117
 constant raw value for every one of your cases.
+固定的常量值为每一个 case
 
 1398
 01:11:30,186 --> 01:11:32,653
 Okay, now, Swift will even do some of this automatically.
+现在，Swift 会自动做一些东西
 
 1399
 01:11:32,722 --> 01:11:36,256
 For example, if I make my raw value type which I specify by
+例如，如果我按刚才所说的方式指定我的原始值类型
 
 1400
 01:11:36,325 --> 01:11:40,294
 just saying, colon type, after enum, by making being int then
+冒号，枚举后面，让它变成 int 类型之后
 
 1401
 01:11:40,363 --> 01:11:43,831
 it will automatically make this one's raw value be 0.
+它将会自动让第一个值为 0
 
 1402
 01:11:43,899 --> 01:11:47,168
 And it's gonna make this one's raw value be 1, etc.
+接下来下个默认值就是 1,等等
 
 1403
 01:11:47,237 --> 01:11:50,838
 Okay, 1, 2, 3, 4, 5. So, it just goes in order,
+1，2，3，4，5。它只是按顺序排列
 
 1404
 01:11:50,907 --> 01:11:54,375
 the lexical order which appears in the file. You can
+按照在文件中出现的词序。你可以
 
 1405
 01:11:54,443 --> 01:11:57,411
 also make your raw value be a string, for example.
+让默认值是字符串类型，例如
 
 1406
 01:11:57,480 --> 01:12:00,447
 And if I do that, Swift will automatically make this one be
+如果我这么做，Swift 将会自动让它变成
 
 1407
 01:12:00,516 --> 01:12:03,684
 spades, this one will be hearts, this will be diamonds.
+"spades",另一个是 "hearts",这个是 "diamonds"
 
 1408
 01:12:03,753 --> 01:12:06,753
 Another words, it makes the raw value be A string version
+换句话说，它们把每一个 case 的值变为字符串的版本
 
 1409
 01:12:06,822 --> 01:12:10,090
 of the case. Now, why would you ever want raw values?
+现在，为什么你想要默认值呢？
 
 1410
 01:12:10,159 --> 01:12:13,461
 Well, to be honest, I think a lot of the raw values support
+说实话，我认为大量的默认值是
 
 1411
 01:12:13,530 --> 01:12:16,730
 backwards compatibility because in Objective-C enums
+为了向下兼容 Objective-C 的枚举的
 
 1412
 01:12:16,799 --> 01:12:19,600
 were essentially ints, right? Zero, one, two, three, four,
+基础的整数类型，对吗？0，1，2，3，4
 
 1413
 01:12:19,669 --> 01:12:22,636
 five. So raw values it's like raw value int. But
+5。因此默认值大部分是整数类型。但是
 
 1414
 01:12:22,705 --> 01:12:25,740
 you could imagine, it might be interesting if there is some
+你可以想象，这可能是有趣的如果一些
 
 1415
 01:12:25,808 --> 01:12:28,776
 piece of data that it makes sense to associate with all
+数据与所有的 case 进行关联
 
 1416
 01:12:28,845 --> 01:12:32,279
 the cases. And again it has to be fixed, and constant, and
+它可能是固定的，一个常量，独一无二的
 
 1417
 01:12:32,348 --> 01:12:35,249
 unique. For all the cases but still you could imagine that.
+所有的 case 你都可以进行想象
 
 1418
 01:12:35,317 --> 01:12:42,089
 For example, I kinda saw that maybe this suit raw,
+例如，我能看到花色的值
 
 1419
 01:12:42,158 --> 01:12:45,660
 this might be a good one. If I made the raw value be string,
+这是一个比较好的方式。如果我把默认值类型设置为字符串类型
 
 1420
 01:12:45,728 --> 01:12:48,262
 maybe having the Unicode character that represents
+也许有代表花色的 Unicode 字符
 
 1421
 01:12:48,331 --> 01:12:51,699
 the suit. Kind of be associated with every case,
+任何与它关联的case
 
 1422
 01:12:51,767 --> 01:12:54,602
 might be valuable. Now, how can you use raw value?
+值都是有意义的。现在，我们怎么使用默认值呢？
 
 1423
 01:12:54,671 --> 01:12:57,971
 Two ways, one, you can create a suit by providing the raw
+两种方式，第一个，你可以通过默认值创建一个花色
 
 1424
 01:12:58,040 --> 01:13:01,308
 value. And it looks just like an initializer on suits,
+看起来就像是初始化一样
 
 1425
 01:13:01,377 --> 01:13:04,678
 suit open parenthesis raw value, that's how you do it.
+大括号里面是默认值，你就这么做
 
 1426
 01:13:04,747 --> 01:13:07,381
 And you give it like a heart symbol there, and it will give
+你在这里给它一个红心的符号，他就给你返回一个红心
 
 1427
 01:13:07,450 --> 01:13:09,983
 it back. Now that's a failable initializer cuz you might give
+现在，这是一个失败的初始化因为你可能给了一个未知
 
 1428
 01:13:10,052 --> 01:13:14,254
 it a string like x, that's not one of these four strings. And
+的字符串，他不是这四个字符串中的一个
 
 1429
 01:13:14,323 --> 01:13:15,990
 you can go the other way as well.
+你也可以用另一种方法
+
 
 1430
 01:13:16,059 --> 01:13:18,992
 You can, if you have a suit, like suit.spades, you can say,
+你可以，如果你有一个花色，像是 suit.spades，你可以说
 
 1431
 01:13:19,061 --> 01:13:20,461
 what is the raw value? And
+默认值是什么？之后
 
 1432
 01:13:20,530 --> 01:13:23,530
 you can get this string so that might be useful too.
+你可以通过 suit.spades 得到字符串的值
 
 1433
 01:13:23,599 --> 01:13:26,067
 We don't really care about that in this demo but
+我们实际不关心它在示例中是什么样的
 
 1434
 01:13:26,135 --> 01:13:28,936
 I just wanted to show you about this raw value business.
+我仅仅是想要给你展示下默认值
 
 1435
 01:13:29,005 --> 01:13:31,639
 All right, let's go down to Rank. Now, honestly,
+让我们看看下面的牌面大小。现在，说实话
 
 1436
 01:13:31,707 --> 01:13:34,876
 if I were doing Rank, it would look like this, case ace,
+如果我来做，他将会看起来是这样，case ace,
 
 1437
 01:13:34,944 --> 01:13:39,447
 case two, case three, all the way up to case jack,
+case two，case three，一直到 J
 
 1438
 01:13:39,516 --> 01:13:43,350
 case queen, case king. This is what now,
+Q，K。现在就是这样
 
 1439
 01:13:43,419 --> 01:13:45,753
 all the ones in between. That's what I would do.
+还有中间的所有数。这就是我要做的
 
 1440
 01:13:45,821 --> 01:13:47,655
 But I'm not gonna do it this way cuz I wanna
+但是我并不想要这样做因为我想要
 
 1441
 01:13:47,724 --> 01:13:51,392
 show you associated data. This is mostly for demo purposes,
+向你们展示关联值。这主要是出于演示目的
 
 1442
 01:13:51,461 --> 01:13:53,494
 I would probably just do it as these 13 things.
+我可能会表示13个数
 
 1443
 01:13:53,562 --> 01:13:56,764
 That was probably the best representation for a rank. But
+这可能是对牌面大小最好的表示。但是
 
 1444
 01:13:56,833 --> 01:13:59,700
 instead, I'm gonna do it with associated data and so
+相反的，我将要用关联值来展示
 
 1445
 01:13:59,769 --> 01:14:01,936
 I'm gonna have case ace, then I'm also
+case ace，然后我会有
 
 1446
 01:14:02,005 --> 01:14:04,438
 gonna have a case face, which is a face card.
+case face，扑克牌是一个人头牌
 
 1447
 01:14:04,507 --> 01:14:06,974
 And it's gonna have an associated value,
+它有一个关联值
 
 1448
 01:14:07,043 --> 01:14:10,778
 which is a string, which is either J, Q, or K. So there's
+它是字符串类型，可能是 J，Q，K中的一个。这
 
 1449
 01:14:10,846 --> 01:14:13,881
 gonna be a face card that's either jack, queen or king.
+将会变成一个有 J，Q 和 K 的人头牌
 
 1450
 01:14:13,950 --> 01:14:15,349
 Terrible representation,
+多么糟糕的表示
 
 1451
 01:14:15,418 --> 01:14:18,151
 at the very least this should be another enum,
+这至少又是另一个枚举
 
 1452
 01:14:18,220 --> 01:14:20,754
 not a string which can be anything. It's kinda silly,
+并不是字符串可以表示任何东西。它看起来有点愚蠢
 
 1453
 01:14:20,823 --> 01:14:24,525
 but anyway. And then I'm also gonna have case numeric, okay,
+无论如何。我将要有一个 case numeric，好的
 
 1454
 01:14:24,594 --> 01:14:28,162
 for 2, 3, 4, 5, 6, 7, 8, 9, 10. And it's gonna have,
+有2，3，4，5，6，7，8，9，10。它们将都会有
 
 1455
 01:14:28,230 --> 01:14:30,931
 of course, associated data int. Now, I could put in
+当然，关联值是整数类型。现在
 
 1456
 01:14:30,999 --> 01:14:34,868
 here like pips count, a pip by the way is one of these,
+这里是点数，顺便说一下点数就是这几个中的一个
 
 1457
 01:14:34,937 --> 01:14:38,238
 a pip on a card is just one of these things. So a numeric
+扑克牌的点数就是这几个。一个带数字的卡片有
 
 1458
 01:14:38,307 --> 01:14:42,576
 card has 2 pips on it, 2 has 2 pips, 3 has 3 pips and so on.
+两个点在上面，2 有 2 个点，3 有三个点，等等
 
 1459
 01:14:42,645 --> 01:14:45,479
 So I could put pipsCount here as documentation. But you know
+所以我把 pipsCount 放在这里。 但是你知道吗
 
 1460
 01:14:45,547 --> 01:14:48,115
 what, you actually don't wanna do that if it's completely
+你其实不想这样做如果你
 
 1461
 01:14:48,183 --> 01:14:51,752
 obvious what this would be. And if I had a numeric rank,
+完全明白这是什么。如果 numeric 在 rank 中
 
 1462
 01:14:51,820 --> 01:14:54,521
 it's completely obvious that this is the number, so I do
+它显然是一个数字，所以我不需要这样做
 
 1463
 01:14:54,590 --> 01:14:57,624
 not need that. Now, it's not very obvious what this is but
+现在它是不明显的
 
 1464
 01:14:57,693 --> 01:15:00,193
 as I already told you, this is a bad representation anyway.
+但是我已经告诉你了，这是一个很糟糕的表示方式
 
 1465
 01:15:00,262 --> 01:15:01,562
 But I just wanna show you what it looks like to
+但是我想向你展示
 
 1466
 01:15:01,631 --> 01:15:04,164
 get the associated data out of here and use it, etc.
+获取关联值的方法跟使用它的方法，等等
 
 1467
 01:15:04,233 --> 01:15:07,667
 For example, rank is an enum, it can have funcs,
+例如，rank 是一个枚举，它可以有函数
 
 1468
 01:15:07,736 --> 01:15:11,872
 I could have funcs and vars on here. So I'm gonna have a var
+我可以在这创建函数跟变量。我将要
 
 1469
 01:15:11,940 --> 01:15:16,210
 called order which is an int, which is gonna return the,
+创建一个名为 order 的整数类型的变量，它是一个返回
 
 1470
 01:15:16,278 --> 01:15:19,780
 which position the rank is in the order. So
+它在 order 中返回牌的位置。因此
 
 1471
 01:15:19,848 --> 01:15:24,518
 I'm gonna switch on myself and if I am an ace, I'm gonna
+我创建一个 switch 并有了一个 ace，我返回
 
 1472
 01:15:24,587 --> 01:15:27,655
 return 1 cuz that's the first, that's card number 1,
+1 因为它是第一个，它的卡片数字是 1
 
 1473
 01:15:27,723 --> 01:15:32,960
 right? If I am a numeric, then I'm going to get my
+对吗？如果我有数字类型卡片，返回
 
 1474
 01:15:33,028 --> 01:15:37,831
 number of pips. And I'm gonna return the number of pips.
+点数。我会返回上面的点数
 
 1475
 01:15:37,900 --> 01:15:40,467
 Cuz if I'm an numeric card, then however many pips I have,
+如果我是带数字的扑克，我有很多的点数
 
 1476
 01:15:40,536 --> 01:15:43,904
 that's my number. And then for face,
+点数就是数字。对于人头牌
 
 1477
 01:15:43,973 --> 01:15:47,775
 I'm gonna say case .face, and I'm gonna, whoops,
+我要说下 case .face，我将要
 
 1478
 01:15:47,843 --> 01:15:53,113
 get the kind, Q or J, or K. Now, I'v got the kind,
+得到，Q 后者 J，或者 K。现在，我已经得到了
 
 1479
 01:15:53,182 --> 01:15:57,952
 I guess I could say, I'm gonna go to the next line and
+我想我可以这么说。我将会到下一行并且说
 
 1480
 01:15:58,021 --> 01:16:02,556
 say, if the kind equals J, then return 11. And
+如果是J类型，就返回 11
 
 1481
 01:16:02,624 --> 01:16:06,359
 then I guess I could go else if the kind. Okay, but I'm,
+我感觉我可以继续其他的类型。但是
 
 1482
 01:16:06,428 --> 01:16:09,362
 this is getting terrible. This is gonna be ugly, awful code.
+这看起来是糟糕的。它是丑陋的，可怕的代码
 
 1483
 01:16:09,431 --> 01:16:12,332
 But turns out there's a lot better way to do all this
+事实证明这里有个更好的方法来做这些事情
 
 1484
 01:16:12,401 --> 01:16:16,770
 which is to go here and say. If it's face where I get
+我们在这里将说一下这个方法。如果我得到了
 
 1485
 01:16:16,839 --> 01:16:23,677
 the kind where kind equals J, then return 11.
+人头牌 J，接着返回 11
 
 1486
 01:16:23,745 --> 01:16:26,613
 So this stuff with switch is actually a pattern matching
+所以 switch 是一个模式匹配
 
 1487
 01:16:26,682 --> 01:16:29,416
 language, which you can go and learn about.
+语言，你可以去了解一下
 
 1488
 01:16:29,485 --> 01:16:32,219
 But one of the things it's able to do is where.
+但是一些事情也可以用 where 来做
 
 1489
 01:16:32,288 --> 01:16:35,055
 Where it can kind of narrow this down a little bit.
+Where 可以把它缩小一点
 
 1490
 01:16:35,124 --> 01:16:39,794
 So now I could do that for all three here, the Q and
+现在我可以用这个方式用到这三行，Q 和
 
 1491
 01:16:39,862 --> 01:16:43,264
 the king, and return. That's why you can see
+K，返回。这就是原因
 
 1492
 01:16:43,332 --> 01:16:45,900
 why I use this terrible string representations, so
+为什么我用这么糟糕的代码，因为
 
 1493
 01:16:45,968 --> 01:16:48,969
 I can show you where. Now, notice when I do this,
+我想给你们展示下 where。现在，注意我这里的做法
 
 1494
 01:16:49,038 --> 01:16:52,105
 I still get this complaint, switch must be exhaustive.
+我看到了一个错误，switch 必须是详细的
 
 1495
 01:16:52,174 --> 01:16:54,341
 And it's like, what? Look I do ace, I do numeric,
+什么？我有 ace，有 numeric,
 
 1496
 01:16:54,410 --> 01:16:56,643
 I do face, how come it's not exhaustive?
+我有 face，我为什么不详细？
 
 1497
 01:16:56,712 --> 01:16:58,545
 Well, because where makes it so
+因为
 
 1498
 01:16:58,614 --> 01:17:02,649
 these are not counting every possible combination of where.
+这里没有考虑到所有的组合
 
 1499
 01:17:02,718 --> 01:17:05,719
 It could be, the kind could be something else. So, of course,
+它可能，还有其他的情况。当然
 
 1500
 01:17:05,788 --> 01:17:08,121
 I have to add here a default break, or
+我需要添加一个默认的情况
 
 1501
 01:17:08,190 --> 01:17:10,624
 actually I have to return something, so I'll return 0.
+而且必须有一个返回值，因此我返回 0
 
 1502
 01:17:10,693 --> 01:17:13,994
 This is also bad design. This probably wants to return nil,
+这里照样是一个糟糕的设计。这里可能想要返回 nil
 
 1503
 01:17:14,063 --> 01:17:16,697
 and this wants to be an optional. That would be better
+可能想要成为一个可选的。那样可能是一个好的设计
 
 1504
 01:17:16,766 --> 01:17:19,233
 design, I'm not gonna do it that way. But just so
+我不会用哪种方法。但是仅仅
 
 1505
 01:17:19,302 --> 01:17:23,170
 you know, that's bad. I could also have static vars here,
+让你知道，这个是糟糕的。我可以在这里设置一个静态变量
 
 1506
 01:17:23,239 --> 01:17:26,740
 maybe I have a static var, which is all the ranks which
+或许我有一个静态变量，它储存了所有的牌面大小
 
 1507
 01:17:26,809 --> 01:17:30,510
 returns an array of every single possible rank.
+为每一个牌面返回一个数组
 
 1508
 01:17:30,579 --> 01:17:33,047
 And I'm gonna have to kind of build that up cuz I have all
+我必须建立起来因为我有一些
 
 1509
 01:17:33,115 --> 01:17:35,883
 these weird data structure here. So I'll create something
+奇怪的数据结构。我将要创建
 
 1510
 01:17:35,952 --> 01:17:40,955
 called allRanks which could be a type array of ranks. And
+被叫做 allRanks 的东西它是所有的牌面大小的数组
 
 1511
 01:17:41,023 --> 01:17:44,825
 let's start it out with and ace, notice here by the way
+让我们从 ace 开始，注意这顺便说一下
 
 1512
 01:17:44,893 --> 01:17:49,629
 that I have to type this side here. It can't really
+我必须把类型放这边。它不能
 
 1513
 01:17:49,698 --> 01:17:52,633
 deduce this. If I took this away right here, let's get
+推断出类型。如果我把它放到右边，让我们把这些
 
 1514
 01:17:52,701 --> 01:17:55,869
 these other warnings off here, I'll return them allRanks.
+警告去掉，我返回 allRanks
 
 1515
 01:17:55,938 --> 01:17:59,039
 If I took this typing right here, this static typing away,
+如果我把类型放到右边，它就是一个静态类型
 
 1516
 01:17:59,108 --> 01:18:01,975
 I'm gonna get an error that it can't infer this type.
+我们会得到的错误是不能推断出它的类型
 
 1517
 01:18:02,044 --> 01:18:05,012
 And that's because there might be another enum that has
+那是因为这里可能是其他的枚举拥有
 
 1518
 01:18:05,081 --> 01:18:07,381
 a case of .ace. So how does it know the,
+的 .ace。因此它知道吗
 
 1519
 01:18:07,450 --> 01:18:10,584
 which array of enums this is? That's why it's saying type
+这是哪一个枚举的数组？这就是为什么它说
 
 1520
 01:18:10,653 --> 01:18:13,187
 expression is ambiguous without more context. So
+没有更多的上下文表达式类型是模棱两可的
 
 1521
 01:18:13,255 --> 01:18:15,055
 I can add more context by putting that type.
+我可以把类型放到这添加更多的上下文
 
 1522
 01:18:15,124 --> 01:18:19,160
 I could also say rank.ace, that would add more context.
+我可以说 rank.ace，它将添加更多上下文
 
 1523
 01:18:19,228 --> 01:18:22,730
 And now it knows it's an array of ranks. So
+现在他知道了是牌面大小的数组
 
 1524
 01:18:22,798 --> 01:18:27,234
 now let's also do for pips in 2...10, remember dot, dot,
+让我们用 for 循环，记住点，点
 
 1525
 01:18:27,303 --> 01:18:31,105
 dot without the less than means including the 10. And
+点没有小于号意思是包括 10
 
 1526
 01:18:31,173 --> 01:18:35,976
 now I can say, allRanks.append, Rank.numeric
+现在我可以说，allRanks.append， Rank.numeric(pips)
 
 1527
 01:18:36,045 --> 01:18:40,748
 with that pips. So now I've added all my numeric ones, and
+我现在已经添加了所有的数字牌面
 
 1528
 01:18:40,817 --> 01:18:43,784
 then maybe for the thing, face card ones I'll
+下一步的事，人头牌
 
 1529
 01:18:43,853 --> 01:18:47,822
 just say allRanks plus equals an array that has rank.face,
+allRanks+=[Rank.face("J")]
 
 1530
 01:18:47,890 --> 01:18:53,627
 where the kind is a J. And then I'll just copy and
+接下来复制
 
 1531
 01:18:53,696 --> 01:18:58,999
 paste, copy, oops, paste, copy, paste and
+粘贴，逗号，粘贴复制，粘贴
 
 1532
 01:18:59,068 --> 01:19:03,536
 we'll do the Q and the king. By the way, if I do this,
+来添加 QK 。顺便说一下，如果我这么做
 
 1533
 01:19:03,605 --> 01:19:06,440
 I only really need to put this Rank dot on the first one and
+我必须将 Rank. 放到第一个位置并且
 
 1534
 01:19:06,509 --> 01:19:10,478
 it can infer the rest of them.
+剩下的可以推断出来
 
 1535
 01:19:12,047 --> 01:19:16,049
 Dots though means dots. So I don't need rank dot, because
+点的意思是点。我不需要 rank.，因为
 
 1536
 01:19:16,118 --> 01:19:18,852
 it figured out pretty quick this is an array of ranks.
+它很快发现这是一个牌面大小数组
 
 1537
 01:19:18,920 --> 01:19:23,590
 These are all ranks, so it works. I could do the same all
+这是所有的牌面大小，它可以了。我将会做以相同的事情
 
 1538
 01:19:23,659 --> 01:19:26,693
 thing up here by the way, too. I could have a static var all.
+创建一个 all 在这。创建一个静态变量 all
 
 1539
 01:19:26,762 --> 01:19:29,163
 I make it static because I'm getting all of them here.
+我让它为静态的原因是我想要得到所有的
 
 1540
 01:19:29,232 --> 01:19:30,764
 I'm not talking about a specific one so
+我不会讨论某一个具体的花色
 
 1541
 01:19:30,832 --> 01:19:32,900
 I want them all. So this would be,
+因此我想要的是全部。这将会
 
 1542
 01:19:32,969 --> 01:19:37,037
 we'll do the same thing here. A rank of suit.spades,
+我们这这里做相同的事情。suit.spades
 
 1543
 01:19:37,106 --> 01:19:42,042
 .hearts, .diamonds, and .clubs,
+.hearts，.diamonds，和 .clubs
 
 1544
 01:19:42,110 --> 01:19:46,646
 oops, hello .clubs. So this is kind of nice to have
+这就是静态变量的好处
 
 1545
 01:19:46,715 --> 01:19:49,416
 this static bar which gives me all the suits, all the ranks.
+它可以给我所有的花色，所有的牌面大小
 
 1546
 01:19:49,484 --> 01:19:52,586
 That's gonna make it a lot easier actually to create our
+用这种方法非常简单来创建
 
 1547
 01:19:52,655 --> 01:19:55,989
 playing card deck so let's do that. So we've got this nice
+一副扑克牌因此让我们这么做。我们已经得到一个好的
 
 1548
 01:19:56,058 --> 01:19:58,492
 representation, not so nice, but somewhat nice,
+表示方式，不是非常好，但是部分挺好的
 
 1549
 01:19:58,561 --> 01:20:01,361
 representation of a playing card. Let's go ahead and
+在 playing card 游戏中。让我们继续
 
 1550
 01:20:01,430 --> 01:20:06,099
 make a deck, so I'm gonna make a New File. A new thing
+做下去，我创建一个新的文件
 
 1551
 01:20:06,168 --> 01:20:10,737
 here it's gonna be a PlayingCardDeck.
+名字是 PlayingCardDeck
 
 1552
 01:20:10,806 --> 01:20:15,075
 Here it is, struct also no reason for not to be
+在这里，结构体来表示
 
 1553
 01:20:15,143 --> 01:20:19,713
 PlayingCardDeck. And, what do I wanna playing card deck.
+PlayingCardDeck。创建扑克牌还有什么呢
 
 1554
 01:20:19,782 --> 01:20:21,982
 Well, of course I'm gonna need a var which is
+当然我需要一个 cards
 
 1555
 01:20:22,051 --> 01:20:24,818
 the cards in the deck. Right, so
+的变量在 deck 中
 
 1556
 01:20:24,887 --> 01:20:28,322
 I'm just gonna make that V an array of playing card,
+我让它为 cards = [PlayingCard]()
 
 1557
 01:20:29,791 --> 01:20:35,062
 probably want this to be private set. Okay,
+或许设置它为 private(set)。好
 
 1558
 01:20:35,130 --> 01:20:37,931
 where I control the cards because it's gonna be start up
+这里我这样控制的原因是一副牌是
 
 1559
 01:20:38,000 --> 01:20:41,168
 being a full deck. And then I probably want some function,
+游戏的开始。我需要一个函数
 
 1560
 01:20:41,237 --> 01:20:45,271
 like draw which grabs a PlayingCard out of there. So
+就像 draw 它返回一个 PlayingCard
 
 1561
 01:20:45,340 --> 01:20:48,341
 that's how you take a playing card out of the deck. So
+怎么返回一个 PlayingCard 呢
 
 1562
 01:20:48,410 --> 01:20:51,712
 how would I implement drawing the card out of there? Well,
+我们如何实现 draw 这个方法呢？
 
 1563
 01:20:51,781 --> 01:20:54,548
 I'm just gonna say, let's see what I remember,
+我刚才说了，让我看看
 
 1564
 01:20:54,616 --> 01:20:58,252
 I think I used something from Concentration to do this.
+我可以用 Concentration 中的一些东西
 
 1565
 01:20:58,321 --> 01:21:00,420
 Check I did. Yeah, I did. Okay, so here,
+我检查下，我找到了，好，就是这
 
 1566
 01:21:00,489 --> 01:21:04,024
 I'm just gonna see if I have any cards.
+如果我有一些扑克
 
 1567
 01:21:04,093 --> 01:21:09,029
 Then I'm going to return cards.remove at: hover many
+我返回 cards.remove(at:cards.count.arc4random)
 
 1568
 01:21:09,097 --> 01:21:13,667
@@ -7473,414 +7842,517 @@ cards I have .count.arc4random. So,
 1569
 01:21:13,736 --> 01:21:18,939
 I need to go over to Concentration.
+我需要到 Concentration
 
 1570
 01:21:19,007 --> 01:21:21,342
 Here's concentration down at the bottom here.
+滑到 concentration 底部
 
 1571
 01:21:21,410 --> 01:21:23,944
 We have arc4random. So I'm just gonna grab that out
+我有一个 arc4random。我在这里抓住
 
 1572
 01:21:24,013 --> 01:21:28,648
 of here. Put that in here, so I can use arc4random there,
+它。把它放到这，我现在可以使用了
 
 1573
 01:21:28,717 --> 01:21:33,286
 if I don't have any cards left then I'm gonna return nil, so
+如果 cards 没有内容返回 nil
 
 1574
 01:21:33,355 --> 01:21:36,056
 I better make this draw our return an optional playing
+我最好让这个 draw 的返回值时可选的
 
 1575
 01:21:36,124 --> 01:21:39,426
 card. Okay, so that way people can't add more
+好，用这种方法人们就不能添加卡片
 
 1576
 01:21:39,495 --> 01:21:41,795
 cards to my deck I just start out with a full deck.
+到我的牌组中我仅仅是从我的牌组开始
 
 1577
 01:21:41,864 --> 01:21:44,031
 Okay, I get start out with a full deck so
+我是从一副牌组开始的因此
 
 1578
 01:21:44,099 --> 01:21:47,200
 I better have an init that does that, init is really easy
+我最好用一个初始化方法来实现，初始化方法非常简单
 
 1579
 01:21:47,269 --> 01:21:50,604
 to write given our nice plain card structure, sorry,
+就可以写到 card 结构体重，对不起
 
 1580
 01:21:50,673 --> 01:21:54,041
 this warning here, cannot use mutating member on immutable
+这有个警告，不能使用可修改的成员在不可修改的方法中
 
 1581
 01:21:54,110 --> 01:21:57,377
 thing, everybody knows why that is. This is a struct,
+每个人知道这是什么意思。这是个结构体
 
 1582
 01:21:57,446 --> 01:22:00,780
 it's a value type, this mutated by removing a card,
+一个值类型，删除方法导致了修改
 
 1583
 01:22:00,849 --> 01:22:03,817
 so we have to say this is a mutating mark,
+我们加个可以修改的标记
 
 1584
 01:22:03,886 --> 01:22:07,187
 another good example doing that. All right, so
+之前有过这样的例子。好的
 
 1585
 01:22:07,256 --> 01:22:10,991
 here I'm just gonna go through all my suits for
+我将要遍历 suit，suit for Suit.all
 
 1586
 01:22:11,059 --> 01:22:15,462
 suit in Suit.all, and for rank in Rank.all, okay,
+rank for Rank.all，好
 
 1587
 01:22:15,531 --> 01:22:19,833
 then now all these alls that we did, but of course look
+这就是我们将要做的所有东西，但是看看
 
 1588
 01:22:19,902 --> 01:22:24,505
 where I put suit, if you look at PlayingCard over here, I
+suit 的位置，在 PlayingCard 的这里，把 suit 放到了
 
 1589
 01:22:24,573 --> 01:22:28,508
 put suit inside Playingcards. See I declared it inside,
+Playingcards 里面。可以看到我在里面声明
 
 1590
 01:22:28,577 --> 01:22:32,379
 so Swift allows you to nest types, put types in other
+Swift 允许嵌套类型，把类型放到
 
 1591
 01:22:32,447 --> 01:22:35,048
 side. Which makes perfect sense here, because Suit
+一边。它在这里很有意义，因为 Suit
 
 1592
 01:22:35,117 --> 01:22:37,884
 only makes sense in the context of the PlayingCards,
+只有在 PlayingCards 的环境中才有意义
 
 1593
 01:22:37,953 --> 01:22:41,187
 it just makes perfect sense. But it does change the name of
+它非常有意义。但是也改变了
 
 1594
 01:22:41,256 --> 01:22:44,324
 the Suit, it's no longer called suit,
+Suit 的命名，不再为 suit
 
 1595
 01:22:44,393 --> 01:22:49,563
 it's called PlayingCard.Suit. Playing Card.Suit and
+是 PlayingCard.Suit。PlayingCard.Suit 喝
 
 1596
 01:22:49,631 --> 01:22:55,668
 this is PlayingCard.Rank, PlayingCard.Rank.
+PlayingCard.Rank，PlayingCard.Rank
 
 1597
 01:22:55,737 --> 01:22:57,838
 So nesting just changes the names of things and
+嵌套仅仅改变了名字并且
 
 1598
 01:22:57,907 --> 01:22:59,572
 the accessibility can do private and
+访问也可以是 private 而且
 
 1599
 01:22:59,641 --> 01:23:02,742
 stuff like that you might not be able to see it. So now that
+你可能无法看见他
 
 1600
 01:23:02,811 --> 01:23:07,214
 I have that I can just have my cards append a playing card,
+cards.append(PlayingCard)
 
 1601
 01:23:07,283 --> 01:23:10,617
 now PlayingCard since it is a struct is going to get this
+PlayingCard 它是个结构体它会自动获取
 
 1602
 01:23:10,686 --> 01:23:13,820
 automatic initializer, you see it right there, so
+初始化方法，你可以看见
 
 1603
 01:23:13,889 --> 01:23:16,823
 I'll double click on this to get that. And
+我双击来得到它
 
 1604
 01:23:16,892 --> 01:23:20,460
 the Suit is just gonna be the Suit that I'm for in-ing and
+Suit 是循环中的 suit 并且
 
 1605
 01:23:20,529 --> 01:23:22,196
 the rank is the rank I'm for in-ing.
+rank 是循环中的 rank
 
 1606
 01:23:22,264 --> 01:23:25,732
 So now you can also see the nice context here and
+现在你可以看到一个不错的上下文和
 
 1607
 01:23:25,800 --> 01:23:27,167
 the nice syntax of for
+不错的语法
 
 1608
 01:23:27,235 --> 01:23:30,904
 in when this is an array. These are arrays.
+在数组循环中。这就是数组
 
 1609
 01:23:30,973 --> 01:23:33,206
 We're just going through each element of the array, right.
+它将会遍历数组中的每一个元素
 
 1610
 01:23:33,275 --> 01:23:35,041
 Remember that these are arrays right here? See,
+在这里记住这个数组了吗？看
 
 1611
 01:23:35,110 --> 01:23:39,646
 this is an array for Suits. This is an array that we made
+这是一个 Suits 数组。这是我们创建的
 
 1612
 01:23:39,715 --> 01:23:44,218
 for Ranks. All right. So that's it. Now, last thing I'm
+Ranks 数组。现在，最后我要做的是
 
 1613
 01:23:44,286 --> 01:23:46,953
 gonna do here is just print out some cards in my deck to
+打印一些扑克牌信息
 
 1614
 01:23:47,022 --> 01:23:50,057
 make sure it's working. Kind of a cool place to put testing
+来确定代码可以使用。有一个很酷的地方放测试
 
 1615
 01:23:50,125 --> 01:23:52,759
 code is back in your View Controller. Okay, if you look
+代码那就是 View Controller。好，你看到
 
 1616
 01:23:52,827 --> 01:23:54,828
 at your View Controller you got this two frame methods.
+你的 View Controller 有两个视图的方法
 
 1617
 01:23:54,897 --> 01:23:55,662
 I'm gonna get rid of that one.
+我去掉其中一个
 
 1618
 01:23:55,730 --> 01:23:58,031
 But I'm gonna keep this one which was mentioned in your
+我们保留在家庭作业中提到的这一个
 
 1619
 01:23:58,100 --> 01:24:01,468
 homework. This is, viewDidLoad is a great place to like
+这是，viewDidLoad 是一个好地方来
 
 1620
 01:24:01,537 --> 01:24:02,869
 initialize your View Controller. And
+初始化你的 View Controller
 
 1621
 01:24:02,938 --> 01:24:05,906
 also just put like debugging code, checking things out,
+也可以放一些调试代码，检测代码
 
 1622
 01:24:05,974 --> 01:24:08,341
 things like that. So, here I could do for example,
+就像这个一样，这里我展示一个示例
 
 1623
 01:24:08,410 --> 01:24:10,810
 let's just print out 10 random cards. I'm gonna say for
+让我们打印随机的 10 张扑克。这里用
 
 1624
 01:24:10,879 --> 01:24:13,313
 under bar, cuz I really didn't care about the index,
+下划线，因为我不关系它的索引值
 
 1625
 01:24:13,381 --> 01:24:19,152
 in 1...10 cuz I want 10 cards. I'm just going to let card
+用 1...10 因为我想要 10 张扑克。我想要
 
 1626
 01:24:19,221 --> 01:24:23,290
 equal a playing card deck, so I need a playing card deck,
+card = playing card，因此我需要一个 playing card
 
 1627
 01:24:23,359 --> 01:24:27,861
 var deck = PlayingCardDeck. So I'm just
+var deck = PlayingCardDeck。所以
 
 1628
 01:24:27,930 --> 01:24:33,233
 gonna let the card = deck.draw.
+let the card = deck.draw
 
 1629
 01:24:34,703 --> 01:24:38,271
 Now, this is going to be an optional playing card right
+现在，playing card 是可选的
 
 1630
 01:24:38,340 --> 01:24:40,840
 here, right? Optional playing card because the deck might be
+对吗？可选的 playing card 是因为一副扑克牌可能是空的
 
 1631
 01:24:40,909 --> 01:24:43,643
 empty, so let's go and say if let, although I probably could
+让我们改成 let，尽管如此我可能
 
 1632
 01:24:43,712 --> 01:24:45,912
 put exclamation point cuz I'm only grabbing 10 cards.
+直接放一个感叹号因为我们就只有 10 张牌
 
 1633
 01:24:45,981 --> 01:24:48,982
 I know there's 52 cards in a deck, but we'll do if. And
+我知道一副牌有 52 张，但是我还是要这么做
 
 1634
 01:24:49,051 --> 01:24:52,219
 now I'm just gonna print this card out. And
+我仅仅是打印这些扑克牌
 
 1635
 01:24:52,287 --> 01:24:56,089
 I can print a card by using this backslash parenthesis.
+我可以通过反斜杠括号来打印扑克牌
 
 1636
 01:24:56,158 --> 01:25:00,093
 Swift knows how to print out things that have,
+Swift 知道如何打印
 
 1637
 01:25:00,162 --> 01:25:02,128
 we'll see what it tries to print out when we,
+我们将要看到运行的时候代码尝试打印什么
 
 1638
 01:25:02,197 --> 01:25:05,666
 when we do this here. So let's try that and see what happens.
+我们这样做。让我们看看会发生什么
 
 1639
 01:25:05,734 --> 01:25:08,301
 So I have no UI's, so this could be a blank UI but
+我没有 UI，它可能是空白的但是
 
 1640
 01:25:08,370 --> 01:25:11,371
 it's gonna print this stuff out on my console so I really
+它将会在控制台上打印东西因此
 
 1641
 01:25:11,440 --> 01:25:16,276
 only need to just look at my console here, Right, so
+我只需要看着控制台
 
 1642
 01:25:16,344 --> 01:25:20,580
 there's my thing here, so here it is printing it out,and
+这就是我的东西，这就是打印的东西
 
 1643
 01:25:20,649 --> 01:25:25,452
 it prints out 10 random cards, kind, ugly looking right here,
+它随机打印了 10 张扑克，这看起来有点丑
 
 1644
 01:25:25,521 --> 01:25:29,223
 it prints out all the vars and etc. One thing that's really
+它打印了各种变量信息等等。有一件事情很酷
 
 1645
 01:25:29,291 --> 01:25:32,358
 cool that I don't have time to show unfortunately,
+但是不幸的是我们没有时间展示
 
 1646
 01:25:32,427 --> 01:25:35,662
 cuz we've already gone over but I'll just mention it,
+因为我们将要结束这堂课了但是我会提到它
 
 1647
 01:25:35,731 --> 01:25:38,632
 is that you can make it so that something prints out
+你可以让让它打印的好看一点
 
 1648
 01:25:38,700 --> 01:25:41,401
 really nice when it's got that parenthesis,
+当有括号
 
 1649
 01:25:41,469 --> 01:25:44,937
 backslash parenthesis, by making it implement the custom
+反斜杠括号的时候，实现一个字符串
 
 1650
 01:25:45,006 --> 01:25:48,741
 string convertible protocol. So if we made playing card
+转换协议。如果我们让 playing card 实现
 
 1651
 01:25:48,810 --> 01:25:51,478
 implement custom string protocol,
+自定义协议
 
 1652
 01:25:51,547 --> 01:25:54,848
 the only thing that's in that if we do fix it,
+还有件事就是要修复它
 
 1653
 01:25:54,916 --> 01:25:58,585
 we'll see what it is, is this var description and
+我们看看这是什么，是变量的描述
 
 1654
 01:25:58,654 --> 01:26:02,489
 you can return, like here I could return for example
+和你能够返回的东西，我可以返回一个花色与
 
 1655
 01:26:02,558 --> 01:26:06,559
 a combination of the Rank and the Suit, and then I can go
+牌面大小结合的值，我也可以
 
 1656
 01:26:06,628 --> 01:26:11,231
 make custom string convertible for Rank and Suit down here.
+自定义花色跟牌面大小转换的字符串
 
 1657
 01:26:12,734 --> 01:26:18,104
 Comma CustomStringConvertible. Implement the description in
+在这里实现。实现 description 在这里
 
 1658
 01:26:18,173 --> 01:26:23,309
 there as well. Okay, which I'm trying to do, so
+好，这就是我要做的
 
 1659
 01:26:23,378 --> 01:26:27,447
 we will go here, we will put description, we will go here,
+我们到这里，放置 description，到那里
 
 1660
 01:26:27,515 --> 01:26:31,518
 we will put the description, and we would implement these
+放置 description，我们将实现这两个
 
 1661
 01:26:31,586 --> 01:26:35,989
 two vars, and then when we print out, it would print this
+变量，然后我们打印他，它将打印一个拼接的
 
 1662
 01:26:36,057 --> 01:26:39,392
 nice string with two nice strings with that.
+好看的字符串
 
 1663
 01:26:39,461 --> 01:26:42,128
 Now, we wouldn't get all that really verbose printing out.
+现在，我们不会得到冗余的打印
 
 1664
 01:26:42,197 --> 01:26:45,398
 So CustomStringConvertible is a nice protocol to implement
+CustomStringConvertible 是一个不错的协议来实现
 
 1665
 01:26:45,467 --> 01:26:49,902
 if you want things to print nice in the console. Okay, so
+你想要控制台打印的一些好的东西。好的
 
 1666
 01:26:49,971 --> 01:26:52,105
 that's it. I will see you on Wednesday.
+这就是。我们将周三见
 
 1667
 01:26:52,173 --> 01:26:56,009
 We will dive into doing the M or the V and C part,
+我将做 M 或者 V 还有 C  部分
 
 1668
 01:26:56,078 --> 01:26:57,311
 which is to draw a playing card.
+来画扑克牌
 
 1669
 01:26:57,379 --> 01:26:58,678
 And we'll learn all of that custom views and
+我们将学更多的自定义视图
 
 1670
 01:26:58,747 --> 01:27:01,881
 all that, I know there is more to touch after that.
+之后还有 touch 的内容
 
 1671
 01:27:01,950 --> 01:27:03,616
 See you then. >> For
+下次再见
 
 1672
 01:27:03,685 --> 01:27:13,092
